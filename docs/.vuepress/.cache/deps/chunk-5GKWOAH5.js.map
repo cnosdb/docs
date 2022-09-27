@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../node_modules/vuepress-theme-hope/src/client/components/MarkdownContent.ts"],
+  "sourcesContent": [null],
+  "mappings": ";;;;;;;;AAKA,IAAM,kBAA6D,CAAC,EAClE,OAAM,MACK,EAAE,wBAAS,EAAE,OAAO,CAAC,sBAAsB,EAAE,OAAM,CAAE,EAAC,CAAE;AAErE,gBAAgB,cAAc;AAE9B,gBAAgB,QAAQ;EACtB,QAAQ;;AAGV,IAAA,0BAAe;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../node_modules/vuepress-theme-hope/src/client/utils/getAncestorLinks.ts", "../../../../node_modules/vuepress-theme-hope/src/client/utils/resolveRepoType.ts"],
+  "sourcesContent": [null, null],
+  "mappings": ";;;;;;AAGO,IAAM,mBAAmB,CAC9B,OACA,gBACY;AACZ,QAAM,aAAa,MAAM,KAAK,QAAQ,aAAa,GAAG,EAAE,MAAM,GAAG;AACjE,QAAM,QAAkB,CAAA;AACxB,MAAI,OAAO,kBAAkB,WAAW;AAGxC,aAAW,QAAQ,CAAC,SAAS,UAAS;AACpC,QAAI,UAAU,WAAW,SAAS,GAAG;AACnC,cAAQ,GAAG;AACX,YAAM,KAAK,IAAI;eACN,YAAY,IAAI;AACzB,cAAQ;AACR,YAAM,KAAK,IAAI;;EAEnB,CAAC;AAED,SAAO;AACT;;;ACnBO,IAAM,kBAAkB,CAAC,SAC9B,CAAC,WAAW,IAAI,KAAK,cAAc,KAAK,IAAI,IACxC,WACA,iBAAiB,KAAK,IAAI,IAC1B,cACA,cAAc,KAAK,IAAI,IACvB,WACA,aAAa,KAAK,IAAI,IACtB,UACA;",
+  "names": []
+}
