@@ -7,22 +7,22 @@ export default defineUserConfig({
 
   dest: './dist',
 
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'Docs Demo',
-      description: 'A docs demo for vuepress-theme-hope',
+      title: 'Docs',
+      description: 'A docs for CsonDB',
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: '文档演示',
-      description: 'vuepress-theme-hope 的文档演示',
+      title: '文档',
+      description: 'CsonDB 的文档',
     },
   },
 
   theme,
-
-  shouldPrefetch: false,
 
   plugins: [
     searchPlugin({
