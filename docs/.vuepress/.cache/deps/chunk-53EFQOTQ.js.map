@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../node_modules/vuepress-theme-hope/src/client/components/icons/metaIcon.ts", "../../../../node_modules/vuepress-theme-hope/src/client/components/icons/notFoundIcon.ts"],
-  "sourcesContent": [null, null],
-  "mappings": ";;;;;;;;AAKO,IAAM,WAAgC,MAC3C,EAAE,IAAU,EAAE,MAAM,OAAM,GAAI,MAAM;EAClC,EAAE,QAAQ;IACR,GAAG;GACJ;EACD,EAAE,QAAQ;IACR,GAAG;GACJ;CACF;AAEH,SAAS,cAAc;;;ACZhB,IAAM,eAAoC,MAC/C,EAAE,OAAO;EACP,OAAO;EACP,OAAO;EACP,SAAS;EACT,WACE;CACH;",
-  "names": []
-}
