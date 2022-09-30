@@ -4,7 +4,7 @@ import { enSidebar, zhSidebar } from './sidebar/index.js';
 
 export default hopeTheme({
   author: {
-    name: 'CnosDb',
+    name: 'CnosDB',
     url: 'https://github.com/cnosdb/cnosdb',
   },
 
@@ -19,7 +19,10 @@ export default hopeTheme({
   pageInfo: ['Author', 'Original', 'Date', 'Category', 'Tag', 'ReadingTime'],
 
   locales: {
-    '/demo': {
+    /**
+     * Chinese locale config
+     */
+    '/': {
       // navbar
       navbar: enNavbar,
 
@@ -28,12 +31,8 @@ export default hopeTheme({
 
       footer: 'Default footer',
 
-      displayFooter: true
+      displayFooter: true,
     },
-
-    /**
-     * Chinese locale config
-     */
     '/zh/': {
       // navbar
       navbar: zhNavbar,
@@ -43,7 +42,7 @@ export default hopeTheme({
 
       footer: '默认页脚',
 
-      displayFooter: true
+      displayFooter: true,
     },
   },
 
@@ -96,6 +95,6 @@ export default hopeTheme({
       tabs: true,
       vpre: true,
       vuePlayground: true,
-    }
+    },
   },
 });

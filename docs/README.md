@@ -1,10 +1,9 @@
 ---
-home: true
 icon: home
-title: Project home
+title: CnosDB
 heroImage: /logo.png
-heroText: Project name
-tagline: You can place the description of the project here.
+heroText: CnosDB
+tagline: CnosDB
 actions:
   - text: How to Use 💡
     link: /demo/
@@ -18,26 +17,6 @@ features:
     icon: markdown
     details: Add align, sup/sub script, footnote, tasklist, tex, flowchart, diagram, mark and presentation support in markdown
     link: https://vuepress-theme-hope.github.io/v2/guide/markdown/
-
-  - title: Slide page
-    icon: slides
-    details: Adding slide pages to display things you like
-    link: https://vuepress-theme-hope.github.io/v2/guide/layout/slides.html
-
-  - title: Layout enhancement
-    icon: layout
-    details: Adding breadcrumb, footer, improved navbar, improved page nav and etc.
-    link: https://vuepress-theme-hope.github.io/v2/guide/layout/
-
-  - title: Pageviews and comments
-    icon: comment
-    details: Start pageview statistics and comment support with Waline
-    link: https://vuepress-theme-hope.github.io/v2/guide/feature/comment.html
-
-  - title: Article information
-    icon: info
-    details: Add author, writing date, reading time, word count and other information to your article
-    link: https://vuepress-theme-hope.github.io/v2/guide/feature/page-info.html
 
   - title: Blog support
     icon: blog
@@ -103,8 +82,3 @@ copyright: false
 footer: CnosDB © 2022
 ---
 
-This is an example of a project homepage. You can place your main content here.
-
-To use this layout, you need to set `home: true` in the page front matter.
-
-For related descriptions of configuration items, please see [Project HomePage Layout Config](https://vuepress-theme-hope.github.io/v2/guide/layout/home/).

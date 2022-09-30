@@ -5,6 +5,8 @@ import { searchPlugin } from '@vuepress/plugin-search';
 export default defineUserConfig({
   base: '/',
 
+  lang: 'zh-CN',
+
   dest: './dist',
 
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
