@@ -1,6 +1,7 @@
 ---
 title: 介绍
 icon: config
+order: 1
 ---
 
 CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序数据库。

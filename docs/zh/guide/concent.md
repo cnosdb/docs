@@ -1,6 +1,7 @@
 ---
 title: 概念
 icon: config
+order: 4
 ---
 
 ## 数据类型

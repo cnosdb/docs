@@ -1,6 +1,7 @@
 ---
-title: 配置
+title: 参数
 icon: config
+order: 5
 ---
 
 ## [storage]
