@@ -68,8 +68,8 @@ DROP TABLE [ IF EXISTS ] table_name
 
 
 
-# **DML (无)**
-
+# **DML**
+> CnosDB SQL 不支持DML。
 
 
 # **DQL**
@@ -104,10 +104,6 @@ CROSS JOIN
 
 -- grouping_element
 ()
-expression
-GROUPING SETS ( ( column [, ...] ) [, ...] )
-CUBE ( column [, ...] )
-ROLLUP ( column [, ...] )
 ```
 
 ## **WITH clause**
@@ -135,8 +131,14 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 ```sql
 expression [ [ AS ] column_alias ]
+```
+```sql
 row_expression.* [ AS ( column_alias [, ...] ) ]
+```
+```sql
 relation.*
+```
+```sql
 *
 ```
 
@@ -144,7 +146,7 @@ relation.*
 
 ## **GROUP BY clause**
 
-### **Complex grouping operations**
+### **复杂的分组操作**
 
 ### **GROUPING SETS**
 
@@ -160,6 +162,8 @@ SELECT * FROM shipping;
 --  California   |      94131 | Colorado          |           80302 |              5
 --  New York     |      10002 | New Jersey        |            8540 |              3
 -- (6 rows)
+```
+```sql
 -- 如下查询演示了GROUPING SETS的语义
 SELECT origin_state, origin_zip, destination_state, sum(package_weight)
 FROM shipping
@@ -180,6 +184,8 @@ GROUP BY GROUPING SETS (
 --   NULL         | NULL       | New Jersey        |    58
 --   NULL         | NULL       | Connecticut       |  1562
 --  (10 rows)
+```
+```sql
 -- 上述查询等价于
 SELECT origin_state, NULL, NULL, sum(package_weight)
 FROM shipping GROUP BY origin_state
@@ -223,7 +229,7 @@ FROM shipping
 GROUP BY GROUPING SETS ((origin_state, origin_zip), (origin_state), ());
 ```
 
-### **Combining multiple grouping expressions**
+### **组合多个分组表达式**
 
 ```sql
 -- grouping set、cube、rollup可以在同一个sql中出现多次
@@ -324,42 +330,42 @@ from aggregate_test_100
 
 ```sql
 { EXPLAIN | DESCRIBE } [ ANALYZE ] [ VERBOSE ] <statement>
-    ```
+```
 
 
 
-    # **DESCRIBE**
+# **DESCRIBE**
 
-    ```sql
-    DESCRIBE table_name
-    ```
+```sql
+DESCRIBE table_name
+```
 
 
 
-    # **SHOW**
+# **SHOW**
 
-    ## **SHOW VARIABLE**
+## **SHOW VARIABLE**
 
-    ```sql
-    -- only support show tables
-    -- SHOW TABLES is not supported unless information_schema is enabled
-    SHOW TABLES
-    ```
+```sql
+-- only support show tables
+-- SHOW TABLES is not supported unless information_schema is enabled
+SHOW TABLES
+```
 
-    ## **SHOW COLUMNS**
+## **SHOW COLUMNS**
 
-    ```sql
-    -- SHOW COLUMNS with WHERE or LIKE is not supported
-    -- SHOW COLUMNS is not supported unless information_schema is enabled
-    -- treat both FULL and EXTENDED as the same
-    SHOW [ EXTENDED ] [ FULL ]
-    { COLUMNS | FIELDS }
-    { FROM | IN }
-    table_name
-    ```
+```sql
+-- SHOW COLUMNS with WHERE or LIKE is not supported
+-- SHOW COLUMNS is not supported unless information_schema is enabled
+-- treat both FULL and EXTENDED as the same
+SHOW [ EXTENDED ] [ FULL ]
+{ COLUMNS | FIELDS }
+{ FROM | IN }
+table_name
+```
 
-    ## **SHOW CREATE TABLE**
+## **SHOW CREATE TABLE**
 
-    ```sql
-    SHOW CREATE TABLE table_name
-    ```
+```sql
+SHOW CREATE TABLE table_name
+```
