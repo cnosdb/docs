@@ -3,140 +3,129 @@ title: 编程接口
 icon: config
 ---
 
-::: details /ping
+## 接口列表
 
-**参数**
+::: details /api/v1/write
 
-- xxx: description
-- xxx: description
+**请求方法**
 
-**示例**
+- POST
+
+**请求头**
+
+Authorization: BASIC
+
+**请求参数**
+
+- db
+
+**请求示例**
+
 ```
+curl -i -u "username:password" -XPOST ""http://localhost:31007/api/v1/write?db=example -d 't1,foo=a,bar=b v=1 3'
 ```
 
+**请求成功**
 
-成功
+```shell
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
 ```
 
+**请求失败**
+> 请求失败将返回4xx或5xx。
 ```
-失败
+HTTP/1.1 500 Internal Server Error
+content-length: 0
+date: Sat, 08 Oct 2022 07:03:33 GMT
+... ...
 ```
-
-```
-
-
 :::
 
 
+::: details /api/v1/sql
 
+**请求方法**
 
-::: tip
-以下这些都不对，上面重新列举了API接口文档的编写规范
+- POST
+
+**请求头**
+
+- Authorization: BATIC
+
+- Accept: application/csv | application/json | application/nd-json
+
+- Accept-Encoding: identity | gzip | compress | deflate | br | *
+
+**请求参数**
+
+- db
+    根据当前请求上下文的默认数据库。
+- chunked
+    是否流式返回结果数据。默认为false。
+
+**请求示例**
+
+```curl
+curl -i -u "username:password" -H "Accept: application/json" -XPOST ""http://localhost:31007/api/v1/sql?db=example -d 'select * from t1'
+```
+
+**请求成功**
+```shell
+HTTP/1.1 200 OK
+content-type: application/json
+content-length: 139
+date: Sat, 08 Oct 2022 07:17:06 GMT
+... ...
+```
+
+**请求失败**
+> 请求失败将返回4xx或5xx。
+```shell
+HTTP/1.1 500 Internal Server Error
+content-type: application/json
+content-length: 139
+date: Sat, 08 Oct 2022 07:17:06 GMT
+... ...
+```
 :::
 
-## 路径
+::: details /api/v1/ping
 
-| 路径   | 描述 |
-| :-------------: |:-------------: |
-|/ping|获取CnosDB实例的运行状态与版本号|
-|/write|向预先存在的database中写入数据|
-|/query|查询数据、管理database|
+**请求方法**
 
-
-### /ping
-
-获取CnosDB实例的运行状态与版本号。
-
-#### 支持的请求类型
 - GET
 - HEAD
 
-#### 定义
-```shell
-http://localhost:31007/ping
+**请求示例**
+```
+curl -G 'http://localhost:31007/api/v1/ping'
 ```
 
-#### 示例
-
-```shell
-~ curl -sl -I http://localhost:31007/ping
-
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
-X-CnosDB-Build: OSS
-X-CnosDB-Version: v1.7.11
-X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
-Date: Tue, 05 Nov 2018 16:08:32 GMT
-```
-
-| 字段名   | 描述 |
-| :-------------: |:-------------: |
-|X-CnosDB-Build|OSS（open source）代表开源版，ENT（enterprise）代表商业版。|
-|X-CnosDB-Version|CnosDB版本号|
-
-
-### /query
-
-用于执行语句以查询数据、管理database。
-
-#### 支持的请求类型
-- GET：用于普通SELECT语句和SHOW语句
-- POST：CREATE语句、DELETE语句和DROP语句
-
-#### 定义
-```shell
-http://<host>:<port>/ping
-```
- | HTTP状态码   | Response Body | 描述 |
- | :-------------: |:-------------: |
- | 200 OK | JSON格式的结果集。|语句执行成功。 |
- | 400 Bad Request | JSON格式的语句报错信息。| 语句执行报错，比如语法错误、database和table不存在等。|
- | 401 Unautorized| 空。|身份认证失败。 |
-
-#### 示例
-
-```shell
-$ curl -G 'http://localhost:31007/query?db=mydb&pretty=true'  \
---data-urlencode 'q=SELECT * FROM "mytable"'
+请求成功
+```json
 {
-"results": [{
-"statement_id": 0,
-"series": [{
-"name": "mytable",
-"columns": ["time", "myfield", "mytag1", "mytag2"],
-"values": [
-["2017-03-01T00:16:18Z", 33.1, null, null],
-["2017-03-01T00:17:18Z", 12.4, "12", "14"]
-]
-}]
-}]
+"version":"0.1.0",
+"status":"healthy"
 }
 ```
+请求失败
+> 不反回任何结果
+:::
 
-### /write
-#### 支持的请求类型
-- POST
-#### 定义
-```
-http://<host>:<port>/write
-```
-| HTTP状态码   | Response Body | 描述 |
-| :-------------: |:-------------: |:-------------: |
-| 200 OK | 空。|数据写入成功 |
-| 400 Bad Request | JSON格式的报错信息。| 执行报错，比如语法错误、table不存在等。|
-| 401 Unautorized| 空。|身份认证失败。 |
-|404 Not Found|JSON格式的报错信息。|用户向不存在的database写入数据。|
-|413 Request Entity Too Large|JSON格式的报错信息。|Request Body太大。|
-|500 Internal Server Error||系统错误。|
-#### 示例
+## 状态码
 
-```
-$ curl -i -XPOST "http://localhost:31007/write?db=mydb&precision=s" \
---data-binary 'mymeas,mytag=1 myfield=90 1463683075'
-HTTP/1.1 204 No Content
-Content-Type: application/json
-Request-Id: [...]
-X-CnosDB-Version: 0.1.0
-Date: Wed, 08 Nov 2017 17:33:23 GMT
-```
+| 状态码               | 描述 |
+| ------------------- | ---- |
+| 200                 |  请求成功。   |
+| <span style="color: grey;">204</span> |  <span style="color: grey;">请求成功，异步操作调用成功，不反回请求结果。</span> |
+| 400                 |  请求失败，参数错误或缺失。   |
+| 401                 |  请求失败，用户名密码错误或用户不存在。    |
+| 404                 |  请求失败，错误的请求路径。    |
+| 405                 |  请求失败，请求的路径不支持对应的请求方式。    |
+| 413                 |  请求失败，消息体过大，超过限制。    |
+| 422                 |  请求失败，操作执行失败。    |
+| <span style="color: grey;">429</span>|  <span style="color: grey;">请求失败，数据库同一时间接受的请求太多，请稍后重试。</span>    |
+| 500                 |  请求失败，查询超时或外部环境引起的异常。    |
+| 503                 |  请求失败，服务不可用。    |
