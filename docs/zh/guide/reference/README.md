@@ -1,5 +1,5 @@
 ---
-title: 参数
+title: 参考
 icon: config
 order: 5
 index: false
