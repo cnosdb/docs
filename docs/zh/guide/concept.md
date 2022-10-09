@@ -44,6 +44,8 @@ tskv创建时spawn了一个线程compact-job，在此之前会创建compact-task
 
 ## 索引
 
-
+索引结构有两种设计，分别对应两种不同的用途，`SeriesKey与SeriesID`互查、`Tag`查询条件过滤。
+其中`SeriesKey`与`SeriesID`互查的结构为`HashID->List<(SeriesKey、 SeriesID)>`，这种结构可以使用`SeriesKey`查找`SeriesID`，即`Hash(SeriesKey)->HashID`，根据`HashID从HashList`中得到`List<SeriesKey、SeriesID>`，然后遍历`List`获取`SeriesID`。同时也可以反向查找，根据`SeriesID`查找`SeriesKey`，取`SeriesID`的高24位为`HashID`，后面的过程如同前者。
+使用`TagValue -> List<SeriesID>`实现对Tag的索引功能，根据`TagValue`获得`SeriesID`列表，进一步获取`FieldID`从TSM文件加载数据。多个查询条件中，还可能需要对多个`List<SeriesID>`进行并、交操作。
 
 ## 查询引擎
