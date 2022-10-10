@@ -11,10 +11,7 @@ CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章节介绍了如何使用以下其中之一安装和运行CnosDB
 
 - [Dokcer](guide/quick_start.md#Docker)
-- [Linux](guide/quick_start.md#Linux)
-- [Darwin](guide/quick_start.md#Darwin)
-- [Windows](guide/quick_start.md#Windows)
-- [源码](guide/quick_start.md#从源码开始)
+- [从源码开始](guide/quick_start.md#从源码开始)
 
 ## 基本操作
 
