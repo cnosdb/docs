@@ -289,9 +289,9 @@ export default hopeTheme({
 
   logo: '/logo.png',
 
-  repo: 'cnosdb/cnosdb',
+  repo: 'cnosdb/docs',
 
-  docsDir: 'demo/theme-docs/src',
+  docsDir: 'docs',
 
   pageInfo: ['Author', 'Original', 'Date', 'Category', 'Tag', 'ReadingTime'],
 
