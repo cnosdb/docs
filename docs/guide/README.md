@@ -1,6 +1,7 @@
 ---
 title: Guide
 icon: creative
+layout: CustomLayout
 ---
 
 ## Highlight Features
