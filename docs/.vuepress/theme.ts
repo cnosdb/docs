@@ -41,7 +41,7 @@ const footerHtml = `
                   height="152" />
               </noscript>
             </p>
-            <p><span style="color: #e8e9eb;">微信扫码，进群交流</span></p>
+            <p><span>微信扫码，进群交流</span></p>
           </div>
         </div>
       </div>
