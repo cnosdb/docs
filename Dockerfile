@@ -9,4 +9,4 @@ EXPOSE 8080
 
 VOLUME /docs/docs
 
-CMD npm run docs:dev
+CMD npm run docs:clean-dev
