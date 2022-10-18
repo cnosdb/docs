@@ -9,7 +9,23 @@ export default defineUserConfig({
 
   dest: './dist',
 
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  head: [
+    [
+      'script',
+      {},
+      `
+        (function() {
+          var logoEle = document.querySelector(".navbar-left a.brand");
+          logoEle.href = "https://www.cnosdb.com/cnosdb-v2/";
+          
+          logoEle.addEventListener('click', function() {
+            window.location.href = 'https://www.cnosdb.com/cnosdb-v2/'
+          })
+        })();
+      `,
+    ],
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+  ],
 
   locales: {
     '/': {

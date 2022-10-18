@@ -3,8 +3,18 @@
 .navbar .logo {
   margin-right: 1.8rem;
 }
-
+.navbar .site-name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.footer-wrapper {
+  display: block;
+  padding-left: calc(var(--sidebar-width) + 2rem);
+}
 .footer {
+  max-width: 900px;
+  padding: 2rem 2.5rem;
+  // margin: 0 auto;
   .site-footer-section {
     margin: 0 18px;
   }

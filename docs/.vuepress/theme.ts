@@ -1,6 +1,7 @@
 import { hopeTheme } from 'vuepress-theme-hope';
 import { enNavbar, zhNavbar } from './navbar/index.js';
 import { enSidebar, zhSidebar } from './sidebar/index.js';
+// import { } from 'vue'
 
 const footerHtml = `
   <style>
@@ -16,7 +17,7 @@ const footerHtml = `
     }
 
     .warpper ul a {
-      color: #000;
+      color: var(--text-color);
     }
 
   </style>
@@ -27,9 +28,7 @@ const footerHtml = `
         <div class="ast-header-html inner-link-style-">
           <div class="ast-builder-html-element">
             <p>
-
-              <img alt="" width="194" class="aligncenter  wp-image-759 ls-is-cached lazyloaded"
-                src="/cropped-cropped-CnosDB-1024x288.png" />
+            <a class="footer-logo" href="https://www.cnosdb.com/cnosdb-v2/"><img alt="" width="194" class="aligncenter  wp-image-759 ls-is-cached lazyloaded" src="/cropped-cropped-CnosDB-1024x288.png"></a>
             </p>
             <p><img alt="" width="152" height="152"
                 data-src="https://www.cnosdb.com/wp-content/uploads/2022/06/官网-300x300.png"
@@ -272,8 +271,9 @@ const footerHtml = `
       </div>
     </div>
     <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-    <script
-      type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+    <script type='text/javascript'>
+      (function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);
+    </script>
     <!--End mc_embed_signup-->
 
   </div>
