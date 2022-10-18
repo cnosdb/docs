@@ -85,42 +85,44 @@ $ cargo run -- run --cpu 4 --memory 64
 
 ### 创建数据库
 
-TODO
-
-```
-
+```sql
+CREATE DATABASE cnosdb;
 ```
 
 正确的执行，会返回以下内容：
-
 ```
 
+```
+### 创建表
+```sql
+CREATE TABLE foo (
+    f0 BIGINT,
+    f1 STRING,
+    TAGS(t0)
+);
 ```
 
 ### 写入您的第一条数据
-
-TODO
-
-```
-
+```sql
+INSERT INTO foo (TIME, t0, f0, f1) VALUES 
+                (1, 'Hello,', 1, 'CnosDB!');
 ```
 
 正确的执行，会返回以下内容：
-
 ```
-
+rows
+1
 ```
 
 ### 使用 SQL 查询数据
 
-TODO
-
 ```
-
+SELECT * FROM foo;
 ```
 
 正确的执行，会返回以下内容：
 
 ```
-
+f0,f1,t0,time
+1,CnosDB!,"Hello,",1970-01-01T00:00:00.000000001
 ```
