@@ -9,30 +9,34 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 
 # **DDL**
 
-## **CREATE DATABASE**
+## **创建数据库**
 
 ```sql
-CREATE DATABASE [ IF NOT EXISTS ] database_name
+CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options]
+
+db_options:
+    db_option ...
+
+db_option: {
+		TTL value
+	| SHARD value
+	| VNODE_DURATION value
+	| REPLICA value
+	| PRECISION {'ms' | 'us' | 'ns'}
+}
 ```
 
-## **CREATE SCHEMA**
-
+## **修改数据库参数**
 ```sql
-CREATE SCHEMA [ IF NOT EXISTS ] schema_name
+todo!()
 ```
 
-## **CREATE MEMORY TABLE**
-
-```sql
-CREATE [ OR REPLACE ] TABLE [ IF NOT EXISTS ] table_name
-AS
-{ SELECT | VALUES LIST }
-
-eg.
-CREATE TABLE valuetable AS VALUES(1,'HELLO'),(12,'DATAFUSION');
-
-CREATE TABLE memtable as select * from valuetable;
-```
+### 参数说明
+1. TTL： 表示数据文件保存的时间，默认为365天，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL 100m，当不带单位时，默认为天，如TTL 30
+2. SHARD：表示数据分片个数，默认为1
+3. VNODE_DURATION：表示数据在shard中的时间范围，同样适用带单位的数据表示，表示意义与TTL一致
+4. REPLICA： 表示数据在集群中的副本数，默认为1
+5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
 
 ## **CREATE EXTERNAL** **TABLE**
 
@@ -53,17 +57,36 @@ STORED AS { PARQUET | NDJSON | CSV | AVRO }
 LOCATION '/path/to/file'
 ```
 
-## **CREATE VIEW**
 
+## **创建表**
 ```sql
-CREATE [ OR REPLACE ] VIEW view_name AS { SELECT | VALUES LIST }
-```
+CREATE TABLE [IF NOT EXISTS] tb_name (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
 
-## **DROP TABLE**
+field_defination:
+field_name field_type [field_codec_type]
+```
+使用说明：
+1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
+2. 各列的名字需要互不相同
+3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
+4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法
+
+    * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
+    * DOUBLE：GORILLA，QUANTILE，NULL
+    * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
+    * BOOLEAN：BIPACK，NULL
+
+
+## **删除表**
 
 ```sql
 -- We don't support cascade and purge for now.
 DROP TABLE [ IF EXISTS ] table_name
+```
+
+## 删除数据库
+```sql
+DROP DATABASE [IF EXISTS] db_name
 ```
 
 
