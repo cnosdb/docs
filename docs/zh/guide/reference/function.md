@@ -153,18 +153,26 @@ icon: config
 
 ### **条件函数**
 ###### **Coalesce**
+    coalesce(expr[,...exp])
+**功能**：返回其第一个不为空的参数。只有当所有参数都为 null 时才返回 Null。当检索数据以进行显示时，它通常用于将默认值替换为空值。
 
-    返回其第一个不为空的参数。只有当所有参数都为 null 时才返回 Null。当检索数据以进行显示时，它通常用于将默认值替换为空值。
+**参数类型**：任意
+
+**返回类型**：第一个不为null的参数类型
 
 ###### **NullIf**
+    nullif(expr1, expr2) 
 
-    nullif(expr1, expr2) 如果 expr1 等于 expr2，则返回 NULL；否则返回 expr1。
+**功能**：如果 expr1 等于 expr2，则返回 NULL；否则返回 expr1。
+
+**参数类型**：expr1,expr2为数值类型，且为带列值的表达式
+
+**返回类型**：expr1的类型或NULL
 
 ### **字符串函数**
 
-###### **Array**
-
-    创建数组
+[//]: # (###### **Array**)
+[//]: # (    创建数组)
 
 ###### **Ascii**
 
@@ -255,9 +263,9 @@ icon: config
 
 **功能**：返回 str 中最左边的 len 个字符。
 
-**参数类型**：STRING
+**参数类型**：str为STRING类型，len为BIGINT类型
 
-**返回类型**：BIGINT
+**返回类型**：STRING
 
 ###### **Lpad**
 
@@ -381,9 +389,9 @@ icon: config
 
 **功能**：返回右侧填充了 pad 的 expr，填充后整个字符的长度为 len。
 
-**参数类型**：STRING
+**参数类型**：expr, pad 类型为 STRING， len类型为BIGINT
 
-**返回类型**：BIGINT
+**返回类型**：STRING
 
 ###### **digest**
 
@@ -431,32 +439,39 @@ icon: config
 **参数类型**：STRING
 
 ###### **SHA512**
+
     sha512(str)
 
-**功能**：  计算字符串的 sha512 散列值
+**功能**： 计算字符串的 sha512 散列值
 
 **返回类型**：STRING
 
 **参数类型**：STRING
 
 ###### **Split_Part**
-    split_part(str, delim, partNum) 
-**功能**：  将 str 围绕 delim 的次数拆分，返回第partNum部分。
+
+    split_part(str, delim, n) 
+
+**功能**： 将 str 按照 delim 做拆分，返回第n部分。
 
 **参数类型**：str，delim类型为STRING，partNum类型为BIGINT
 
 **返回类型**：STRING
 
 ###### **Starts_With**
+
     starts_with(expr, startExpr) 
-**功能**：  如果 expr 以 startExpr 开头，则返回 true。
+
+**功能**： 如果 expr 以 startExpr 开头，则返回 true。
 
 **参数类型**：STRING
 
 **返回类型**：BOOLEAN
 
 ###### **Strpos**
-    strpos(string, substring ) 
+
+    strpos(str, substr ) 
+
 **功能**：返回子字符串在指定字符串中的位置。
 
 **参数类型**：STRING
@@ -464,29 +479,63 @@ icon: config
 **返回类型**：BIGINT
 
 ###### **Substr**
+
     substr(expr, pos [, len] ) 
-**功能**：  返回 expr 的子字符串（从 pos 开始，长度为 len）。
+
+**功能**： 返回 expr 的子字符串（从 pos 开始，长度为 len）。
 
 **参数类型**：expr 类型为STRING，pos，len类型为BIGINT
 
 **返回类型**：STRING
 
 ###### **To_Hex**
+
     to_hex(value)
-**功能**：  将数字或二进制值转换为十六进制表示形式。
+
+**功能**： 将数字或二进制值转换为十六进制表示形式。
 
 **参数类型**：STRING
 
 **返回类型**：STRING
 
+###### **Translate**
+
+    translate(expr, from, to) 
+
+**功能**： 返回一个 expr，其中 from 中的所有字符都替换为 to 中的字符。
+
+**参数类型**：STRING
+
+**返回类型**：STRING
+
+###### **Trim**
+
+    trim(str) 
+
+**功能**：删除str首尾的空白字符
+
+**参数类型**：STRING
+
+**返回类型**：STRING
+
+###### **Upper**
+
+    upper(expr)
+
+返回将 expr 的所有字符均更改为大写后的结果。
+
 ### 时间函数
+
 ###### **Date_Part**
 
     date_part(field, expr) 
 
 **功能**：提取部分日期、时间戳或间隔。
 
-**参数类型**：field
+**参数类型**：field 类型为STRING，且只能是('year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', '
+second')中的一种
+
+expr 类型为 TIMESTAMP
 
 **返回类型**：BIGINT
 
@@ -496,17 +545,25 @@ icon: config
 
 **功能**：返回已截断到 field 中指定的单位的值。
 
-**参数类型**：field 类型为STRING，且只能为 'year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', 'second'
+**参数类型**：field 类型为STRING，且只能是('year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', '
+second')中的一种
 
-expr 类型为 TIMESTAMP
+expr 类型为TIMESTAMP
 
 ###### **To_Timestamp**
+
     to_timestamp(expr [, fmt] ) 
+
 返回使用可选格式设置强制转换为某个时间戳的 expr。
+
 ###### **To_Timestamp_Millis**
+
     to_timestamp_millis(expr [, fmt] ) 
+
 返回使用可选格式设置强制转换为Timestamp(Millisseconds, None)格式。
+
 ###### **To_Timestamp_Micros**
+
     to_timestamp_micros(expr [, fmt] ) 
 返回使用可选格式设置强制转换为Timestamp(Microseconds, None)格式。
 ###### **To_Timestamp_Seconds**
@@ -518,67 +575,208 @@ expr 类型为 TIMESTAMP
 ###### **Now**
     以 Timestamp(Nanoseconds, UTC) 
 格式返回当前时间戳
-###### **Translate**
-    translate(expr, from, to) 
-返回一个 expr，其中 from 中的所有字符都替换为 to 中的字符。
-###### **Trim**
-    trim(str) 
-从 str 中删除指定字符
-###### **Upper**
-    upper(expr)
-返回将 expr 的所有字符均更改为大写后的结果。
 
 [//]: # (###### **Regexp_Match**)
+
 [//]: # (    返回与正则表达式匹配的项)
 
 ###### **Struct**
+
     struct(expr1 [, ...] ) 
+
 创建一个具有指定字段值的 STRUCT。
 
-
 ## **聚合函数**
+
 ### **一般聚合函数**
 
-###### **Count**(x) -> Int64
-    返回选定元素中检索过的行的数目。
-###### **Sum**(NUMERICS) -> [same as input type]
-    返回从选定元素计算出的总和值。
-###### **Min**(STRINGS | NUMERICS | TIMESTAMPS | DATES) -> [same as input type]
-    返回选定元素中最小值。
-###### **Max**(STRINGS | NUMERICS | TIMESTAMPS | DATES) -> [same as input type]
-    返回选定元素中最大值。
-###### **Avg**(NUMERICS) -> [same as input type]
-    返回选定元素的平均值。
-###### **Array_Agg**(x) -> [same as input type]
-    返回一个数组，该数组由选定元素的所有值组成，元素类型必须相同
+###### **Count**
+
+    COUNT(x)
+
+**功能**：返回选定元素中检索过的行的数目。
+
+**参数类型**：任意
+
+**返回类型**：BIGINT
+
+###### **Sum**
+
+    SUM(NUMERIC)
+
+**功能**： 返回从选定元素计算出的总和值。
+
+**参数类型**：数值类型
+
+**返回类型**：与参数类型相同
+
+###### **Min**
+
+    MIN(STRING | NUMERICS | TIMESTAMP | DATES)
+
+**功能**： 返回选定元素中最小值。
+
+**参数类型**：数值类型或STRING或TIMESTAMP
+
+**返回类型**：与参数类型相同
+
+###### **Max**
+
+    MAX(STRINGS | NUMERICS | TIMESTAMPS | DATES)
+
+**功能**： 返回选定元素中最大值。
+
+**参数类型**：数值类型或STRING或TIMESTAMP
+
+**返回类型**：与参数类型相同
+
+###### **Avg**
+    AVG(NUMERICS)
+
+**功能**： 返回选定元素的平均值。
+
+**参数类型**：数值类型
+
+**返回类型**：数值类型
+
+###### **Array_Agg**
+
+**功能**： 返回一个数组，该数组由选定元素的所有值组成，元素类型必须相同
+
+**参数类型**：任意
+
 ### **统计聚合函数**
-###### **Var**(NUMERICS) |  Var_Samp(NUMERICS) -> [same as input type]
-    计算给定样本的方差
+
+###### **Var**(NUMERICS) | Var_Samp(NUMERICS) -> [same as input type]
+    VAR(NUMERICS)
+
+**功能**： 计算给定样本的方差
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### Var_Samp
+    VAR_SAMP(NUMERICS) -> [same as input type]
+
+**功能**： 计算给定样本的方差
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
 ###### **Var_Pop**(NUMERICS) -> [same as input type]
-    返回从组的值计算出的总体方差。
-###### **Stddev**(NUMERICS) | Stddev_Samp(NUMERICS) -> [same as input type]
-    返回从组中的值计算出的样本标准偏差。
-###### **Stddev_Pop**(NUMERICS) -> [same as input type]
-    返回从组的值计算出的总体标准偏差。
-###### **Covar**(NUMERICS, NUMERICS) | Covar_Samp(NUMERICS, NUMERICS) -> [same as first input type]
-    返回样本的协方差
-###### **Covar_Pop**(NUMERICS, NUMERICS) -> [same as first input type]
-    返回组中数字对的总体协方差。
-###### **Corr**(NUMERICS, NUMERICS) -> [same as first input type]
-    返回表示一组数字对之间的关联情况的皮尔逊系数。
+    Var_Pop(NUMERICS) -> [same as input type]
+
+**功能**： 返回从组的值计算出的总体方差。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+
+###### **Stddev**
+
+**功能**： 返回从组中的值计算出的样本标准偏差。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### **Stddev_Samp**
+    STDDEV_SAMP(NUMERICS)
+**功能**： 返回从组中的值计算出的样本标准偏差。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### **STDDEV_POP**(NUMERICS)
+    STDDEV_POP(NUMERICS)
+**功能**： 返回从组的值计算出的总体标准偏差。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### **COVAR**
+    COVAR(NUMERICS, NUMERICS)
+
+**功能**： 返回样本的协方差
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### **COVAR_SAMP**
+    COVAR_SAMP(NUMERICS, NUMERICS)
+
+**功能**： 返回样本的协方差
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### **Covar_Pop**
+    COVAR_POP(NUMERICS, NUMERICS)
+
+**功能**： 返回组中数字对的总体协方差。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
+###### **Corr**
+    Corr**(NUMERICS, NUMERICS)
+
+**功能**： 返回表示一组数字对之间的关联情况的皮尔逊系数。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
 
 ### **近似聚合函数**
 
-###### **Approx_Distinct**(x) -> Int64
-    approx_distinct(x) -> uint64返回不同输入值的近似值(HyperLogLog)。
-###### **Approx_Percentile_Cont**(NUMERICS, Float64) -> [same as first input type]
-    approx_percentile_cont(x, p) -> x返回输入值的近似百分位(TDigest)，其中p是0到1(包括)之间的浮点64。
-###### **Approx_Percentile_Cont_With_Weight**(NUMERICS, [same as first type], Float64) ->
-    approx_percentile_cont_with_weight(x, w, p) -> x返回带权重的输入值的近似百分比(TDigest)，其中w是权重列表达式，p是0到1(包括)之间的浮点64。
-###### **Approx_Median**(NUMERICS) -> [same as input type]
-    返回输入值的近似中值。
+###### **Approx_Distinct**
+    approx_distinct(x) -> 
+**功能**： uint64返回不同输入值的近似值(HyperLogLog)。
+
+**参数类型**：数值类型
+
+**返回类型**：BIGINT
+
+###### **Approx_Percentile_Cont**
+    approx_percentile_cont(x, p)  
+**功能**： x返回输入值的近似百分位(TDigest)，其中p是0到1(包括)之间的浮点64。
+
+**参数类型**：x为数值类型，p为DOUBLE类型
+
+**返回类型**：DOUBLE
+
+###### **Approx_Percentile_Cont_With_Weight**
+    approx_percentile_cont_with_weight(x, w, p)  
+**功能**： x返回带权重的输入值的近似百分比(TDigest)，其中w是权重列表达式，p是0到1(包括)之间的浮点64。
+
+**参数类型**：x,w为数值类型，p为DOUBLE类型
+
+**返回类型**：DOUBLE
+
+###### **Approx_Median**(NUMERICS) 
+    APPROX_MEDIAN(NUMERICS)
+**功能**： 返回输入值的近似中值。
+
+**参数类型**：数值类型
+
+**返回类型**：DOUBLE
+
 ###### **Grouping**(x) -> Int32
-    GROUPING 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。
+    GROUPING(x)
+**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。
+
+**参数类型**：数值类型
+
+**返回类型** BIGINT
+
 
 ## **窗口函数**
 
