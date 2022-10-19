@@ -18,19 +18,13 @@ db_options:
     db_option ...
 
 db_option: {
-		TTL value
+	  TTL value
 	| SHARD value
 	| VNODE_DURATION value
 	| REPLICA value
 	| PRECISION {'ms' | 'us' | 'ns'}
 }
 ```
-
-## **修改数据库参数**
-```sql
-todo!()
-```
-
 ### 参数说明
 1. TTL： 表示数据文件保存的时间，默认为365天，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL 100m，当不带单位时，默认为天，如TTL 30
 2. SHARD：表示数据分片个数，默认为1
@@ -38,7 +32,12 @@ todo!()
 4. REPLICA： 表示数据在集群中的副本数，默认为1
 5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
 
-## **CREATE EXTERNAL** **TABLE**
+## **修改数据库参数**
+```sql
+todo!()
+```
+
+## **创建外部表**
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
@@ -65,7 +64,7 @@ CREATE TABLE [IF NOT EXISTS] tb_name (field_defination [, field_defination] ...T
 field_defination:
 field_name field_type [field_codec_type]
 ```
-使用说明：
+### 使用说明：
 1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
 2. 各列的名字需要互不相同
 3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
@@ -76,6 +75,11 @@ field_name field_type [field_codec_type]
     * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
     * BOOLEAN：BIPACK，NULL
 
+
+## **修改表**
+```sql
+todo!()
+```
 
 ## **删除表**
 
