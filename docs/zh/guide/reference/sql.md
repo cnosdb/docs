@@ -92,7 +92,15 @@ DROP DATABASE [IF EXISTS] db_name
 
 
 # **DML**
-> CnosDB SQL 不支持DML。
+
+## 插入数据
+```sql
+INSERT INTO table_item VALUES (TIME, ...) [, ...]
+```
+目前只支持插入常量,TIME列为必选
+
+
+> CnosDB SQL 不支持其他DML。
 
 
 # **DQL**

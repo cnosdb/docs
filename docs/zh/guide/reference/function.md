@@ -657,6 +657,7 @@ expr 类型为TIMESTAMP
 **返回类型**：DOUBLE
 
 ###### Var_Samp
+
     VAR_SAMP(NUMERICS) -> [same as input type]
 
 **功能**： 计算给定样本的方差
@@ -665,8 +666,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Var_Pop**(NUMERICS) -> [same as input type]
-    Var_Pop(NUMERICS) -> [same as input type]
+###### **Var_Pop**
+
+    Var_Pop(NUMERICS)
 
 **功能**： 返回从组的值计算出的总体方差。
 
@@ -674,8 +676,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-
 ###### **Stddev**
+
+    STDDEV(NUMERICS)
 
 **功能**： 返回从组中的值计算出的样本标准偏差。
 
@@ -684,14 +687,16 @@ expr 类型为TIMESTAMP
 **返回类型**：DOUBLE
 
 ###### **Stddev_Samp**
+
     STDDEV_SAMP(NUMERICS)
+
 **功能**： 返回从组中的值计算出的样本标准偏差。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-###### **STDDEV_POP**(NUMERICS)
+###### **STDDEV_POP**
     STDDEV_POP(NUMERICS)
 **功能**： 返回从组的值计算出的总体标准偏差。
 
@@ -769,36 +774,125 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Grouping**(x) -> Int32
+###### **Grouping**(x)
     GROUPING(x)
+
 **功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。
 
 **参数类型**：数值类型
 
 **返回类型** BIGINT
 
-
 ## **窗口函数**
 
 ###### **ROW_NUMBER**
-    根据窗口分区中的行顺序，为每一行分配唯一的顺序编号（从 1 开始）。
+
+    ROW_NUMBER() OVER([partition_clause] [orderby_clause])
+
+**功能**：根据窗口分区中的行顺序，为每一行分配唯一的顺序编号（从 1 开始）。
+
+**参数类型**：无
+
+**返回类型**：BIGINT
+
 ###### **RANK**
-    返回某个值相对于分区中所有值的排名（跳跃排名）。
+
+    RANK() OVER([partition_clause] [orderby_clause])
+
+**功能**：返回某个值相对于分区中所有值的排名（跳跃排名）。
+
+**参数类型**：无
+
+**返回类型**：BIGINT
+
 ###### **DENSE_RANK**
-    返回某个值相对于分区中所有值的排名（连续排名）。
+
+    DENSE_RANK() OVER([partition_clause] [orderby_clause])
+
+**功能**：返回某个值相对于分区中所有值的排名（连续排名）。
+
+**参数类型**：无
+
+**返回类型**：BIGINT
+
 ###### **PERCENT_RANK**
-    计算分区中某个值的百分比排名。
+
+    PERCEN_RANK() OVER([partition_clause] [orderby_clause])
+
+**功能**： 计算分区中某个值的百分比排名。
+
+**参数类型**：无
+
+**返回类型**：DOUBLE
+
 ###### **CUME_DIST**
-    返回某个值相对于分区中的所有值的位置。
+
+    CUME_DIST() OVER ([partition_clause] [orderby_clause])
+
+**功能**：返回某个值相对于分区中的所有值的位置。
+
+**参数类型**：无
+
+**返回类型**：DOUBLE
+
 ###### **NTILE**
-    ntile(expr) over([partition_clause] order_by_clause) 把有序的数据集合平均分配到expr指定的数量的桶中,将桶号分配给每一行。
+
+    ntile(n) over([partition_clause] [order_by_clause])
+
+**功能**：把有序的数据集合平均分配到expr指定的数量的桶中,将桶号分配给每一行。
+
+**参数类型**：BIGINT
+
+**返回类型**：BIGINT
+
 ###### **LAG**
-    lag( expr [, offset [, default] ] ) 从分区中的前一行返回 expr 的值。
+
+    lag( expr [, offset [, default] ] ) OVER([partition_clause] orderby_clause)
+
+**功能**：从分区中的前一行返回 expr 的值。
+
+**参数类型**：expr为任意类型，offset为BIGINT，default 需要与expr对应的数据类型相同,默认为NULL
+
+**返回类型**：与expr相同的类型
+
 ###### **LEAD**
-    lead(expr [, offset [, default] ] ) 从分区中的后续行返回值 expr。
+
+    lead(expr [, offset [, default] ] ) OVER ([partition_clause] orderby_clause)
+
+**功能**：从分区中的后续行返回值 expr。
+
+**参数类型**：expr为任意类型，offset为BIGINT，default需要与expr类型相同，默认是NULL
+
+**返回类型**：与expr类型相同
+
 ###### **FIRST_VALUE**
-     返回一组值(该组通常是有序集合)中的第一个值。
+
+    FIRST_VALUE(expr, [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+
+**功能**： 返回一组值(该组通常是有序集合)中的第一个值。
+
+**参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
+
+**返回类型**：与expr类型相同
+
 ###### **LAST_VALUE**
-     返回一组值(该组通常是有序集合)中的最后一个值。
+
+    LAST_VALUE(expr, [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+
+**功能**： 返回一组值(该组通常是有序集合)中的最后一个值。
+
+**参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
+
+**返回类型**：与expr类型相同
+
 ###### **NTH_VALUE**
-    返回相对于窗口的第一行的窗口框架的指定行的表达式值。
+
+    NTH_VALUE(expr, number [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+
+**功能**： 返回相对于窗口的第一行的窗口框架的指定行的表达式值。
+
+**参数类型**：expr为任意类型，number为BIGINT，ignore_nulls为BOOLEAN类型，默认值为false
+
+**返回类型**：与expr类型相同
+
+    

@@ -89,7 +89,7 @@ $ cargo run -- run --cpu 4 --memory 64
 CREATE DATABASE cnosdb;
 ```
 
-正确的执行，会返回以下内容：
+正确地执行，会返回以下内容：
 ```
 
 ```
@@ -108,7 +108,7 @@ INSERT INTO foo (TIME, t0, f0, f1) VALUES
                 (1, 'Hello,', 1, 'CnosDB!');
 ```
 
-正确的执行，会返回以下内容：
+正确地执行，会返回以下内容：
 ```
 rows
 1
@@ -120,7 +120,7 @@ rows
 SELECT * FROM foo;
 ```
 
-正确的执行，会返回以下内容：
+正确地执行，会返回以下内容：
 
 ```
 f0,f1,t0,time
