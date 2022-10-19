@@ -21,10 +21,10 @@ CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序�
 ## 应用开发
 
 本章节介绍了如何把CnosDB集成到您的程序里。
-- [Rust](guide/application.md#Rust)
-- [Golang](guide/application.md#Golang)
-- [Java](guide/application.md#Java)
-- [Python](guide/application.md#Python)
+- [Rust](guide/application.md#rust)
+- [Golang](guide/application.md#golang)
+- [Java](guide/application.md#java)
+- [Python](guide/application.md#python)
 
 ## 概念
 
