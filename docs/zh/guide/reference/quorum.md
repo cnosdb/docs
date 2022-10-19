@@ -1,3 +1,8 @@
+---
+title: Quorum算法
+icon: config
+---
+
 ### Quorum算法基本原理
 在Quorum NRW算法中，存在三个参数：N、R、W。
 参数N为副本数又被称作复制因子，其含义是一份数据在整个集群中的副本数量。

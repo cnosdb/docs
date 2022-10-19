@@ -4,21 +4,55 @@ icon: config
 order: 3
 ---
 
-::: code-tabs#language
+## Rust
 
-@tab Rust
+示例代码使用[reqwest](https://crates.io/crates/reqwest)构建Http请求
+
+http请求需要指定操作的数据库，写在url query里 db=database_name
+```rust
+let url = Url::parse("127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
+let sql = r#"
+    CREATE TABLE cpu (
+        power DOUBLE,
+        temperature DOUBLE
+        TAGS(host, machine)
+    );"#.to_string();
+```
+
+请求执行的sql放在http的body中
+
+用户名和密码需要basic编码添加到Authorization头中
 
 ```rust
-TODO example
+let user_name = "cnosdb";
+let password = "";
+let http_client = reqwest::Client::new();
+let request = http_client
+    .request(Method::POST, url)
+    //用户名和密码
+    .basic_auth::<&str, &str>(user_name, Some(password))
+    .body(sql)
+    .build().unwrap();
 ```
 
-@tab Golang
+response的status code 会指示sql是否执行成功，200为成功。
 
-```golang
-TODO example
+失败信息或正确执行的结果会在response的text()中
+
+```rust
+let response = http_client.execute(request).await.unwrap();
+let success = response.status().is_success();
+let result = response.text().await.unwrap();
 ```
 
-@tab Java
+
+## Golang
+
+```
+// TODO example
+```
+
+## Java
 使用[Apache HttpComponentsApache](https://hc.apache.org/) 和 [Apache Commons CSV](https://commons.apache.org/proper/commons-csv/)作为依赖
 
 ```java
@@ -62,10 +96,8 @@ public static void main(String[] args) {
 }
 ```
 
-@tab Python
+## Python
 
 ```python
 TODO example
 ```
-
-:::
