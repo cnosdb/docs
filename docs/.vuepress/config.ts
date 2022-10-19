@@ -31,15 +31,15 @@ export default defineUserConfig({
   ],
 
   locales: {
-    '/': {
-      lang: 'en-US',
-      title: 'Docs',
-      description: 'A docs for CsonDB',
-    },
     '/zh/': {
       lang: 'zh-CN',
       title: '文档',
-      description: 'CsonDB 的文档',
+      description: 'CnosDB 的文档',
+    },
+    '/': {
+      lang: 'en-US',
+      title: 'Docs',
+      description: 'A docs for CnosDB',
     },
   },
 
