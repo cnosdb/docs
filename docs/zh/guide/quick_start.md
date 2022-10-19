@@ -7,7 +7,7 @@ order: 2
 ## Docker
 
 ```shell
-docker run -itd -p 31007:31007 cnosdb/cnosdb
+docker run -itd  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb
 ```
 
 ## **从源码安装**
