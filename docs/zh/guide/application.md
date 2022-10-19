@@ -53,14 +53,14 @@ let result = response.text().await.unwrap();
 ```
 
 ## Java
-使用[Apache HttpComponentsApache](https://hc.apache.org/) 和 [Apache Commons CSV](https://commons.apache.org/proper/commons-csv/)作为依赖
+使用[Apache HttpComponentsApache](https://hc.apache.org/)作为依赖
 
 ```java
 public static void main(String[] args) {
     String database = "public";
     String name = "cnosdb";
     String pwd = "";
-    String query = "SELECT 'Hello, CnosDB!';";
+    String query = "CREATE TABLE cpu (power DOUBLE, temperature DOUBLE, TAGS(host, machine));";
     String url = "http://127.0.0.1:31007/";
 
     try {
@@ -88,6 +88,7 @@ public static void main(String[] args) {
         if (resp.getStatusLine().getStatusCode() != 200) {
             System.out.println("Request Fail");
         }
+        // 获取错误信息或返回结果
         String res = IOUtils.toString(resp.getEntity().getContent());
         System.out.println(res);
     } catch (Exception e) {
