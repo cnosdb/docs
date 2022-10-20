@@ -12,6 +12,7 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 
 ## **创建数据库**
 
+语法：
 ```sql
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options]
 
@@ -29,13 +30,68 @@ TTL value
 ### 参数说明
 1. TTL： 表示数据文件保存的时间，默认为365天，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL 100m，当不带单位时，默认为天，如TTL 30
 2. SHARD：表示数据分片个数，默认为1
-3. VNODE_DURATION：表示数据在shard中的时间范围，同样适用带单位的数据表示，表示意义与TTL一致
+3. VNODE_DURATION：表示数据在shard中的时间范围，默认为365天，同样使用带单位的数据来表示，数据意义与TTL的value一致
 4. REPLICA： 表示数据在集群中的副本数，默认为1
 5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
 
+## 删除数据库
+```sql
+DROP DATABASE [IF EXISTS] db_name
+```
 ## **修改数据库参数**
 ```sql
 todo!()
+```
+
+## **查看系统中所有数据库**
+
+## **显示一个数据库的创建语句**
+
+## **查看数据库参数**
+
+## **创建表**
+
+可以使用 `CREATE TABLE` 创建表
+
+CnosDB 支持创建普通表和外部表
+
+### 参数说明
+1. STORE AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式
+2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头
+3. DELIMITER：仅在csv格式下生效，表示列数据的分隔符
+4. PARTITIONED BY：使用创建表时指定的列来进行分区
+5. LOCATION：表示关联的文件的位置
+
+## **创建表**
+```sql
+CREATE TABLE [IF NOT EXISTS] tb_name
+(field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
+
+field_defination:
+column_name data_type [field_codec_type]
+```
+### 使用说明：
+1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
+2. 各列的名字需要互不相同
+3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
+4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法
+
+* BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
+* DOUBLE：GORILLA，QUANTILE，NULL
+* STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
+* BOOLEAN：BIPACK，NULL
+压缩算法详情请看
+
+## **修改表**
+```sql
+todo!()
+```
+
+## **删除表**
+
+```sql
+-- We don't support cascade and purge for now.
+DROP TABLE [ IF EXISTS ] table_name
 ```
 
 ## **创建外部表**
@@ -56,53 +112,43 @@ STORED AS { PARQUET | NDJSON | CSV | AVRO }
 LOCATION '/path/to/file'
 ```
 
-## **创建表**
-```sql
-CREATE TABLE [IF NOT EXISTS] tb_name
-(field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
-
-field_defination:
-column_name data_type [field_codec_type]
-```
-### 使用说明：
-1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
-2. 各列的名字需要互不相同
-3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
-4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法
-
-* BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
-* DOUBLE：GORILLA，QUANTILE，NULL
-* STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
-* BOOLEAN：BIPACK，NULL
-
-
-## **修改表**
-```sql
-todo!()
-```
-
-## **删除表**
-
-```sql
--- We don't support cascade and purge for now.
-DROP TABLE [ IF EXISTS ] table_name
-```
-
-## 删除数据库
-```sql
-DROP DATABASE [IF EXISTS] db_name
-```
-
 
 
 # **DML**
 
-## 插入数据
+## 写入数据
+
+CnosDB支持两种数据写入的方法，一种是使用INSERT INTO 语句，另一种是使用Http write 接口，写入lineprotocol格式数据。
+
+语法：
 ```sql
 INSERT INTO table_item VALUES (TIME, ...) [, ...]
 ```
-目前只支持插入常量,TIME列为必选
+说明：
+CnosDB 要求插入的数据必须要有时间戳，且Value列表必须为字面量。
 
+
+## 插入一条记录
+
+TIME 列的数据既可以是时间字符串，也可以是时间戳
+
+```
+INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
+(1666165200290401000, 'localhost', 'macbook', 25.7, 67.2);
+```
+
+## 插入多条记录
+
+```sql
+INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
+(1666165200290401000, '127.0.0.1', 'macbook', 25.7, 67.2),
+('2022-10-20 08:35:44.525229', '255.255.255.255', 'linux', 30.1, 70.6);
+```
+
+
+```sql
+
+```
 
 > CnosDB SQL暂不支持其他DML。
 
