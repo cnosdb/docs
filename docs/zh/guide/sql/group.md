@@ -4,7 +4,7 @@ icon: config
 order: 8
 ---
 
-## **GROUP BY 子句**
+# **GROUP 子句**
 
 GROUP BY 子句必须在 WHERE 子句的条件之后，ORDER BY 子句（如果有的话）之前。
 
@@ -16,7 +16,7 @@ FROM CUSTOMERS
 GROUP BY NAME;
 ```
 
-### **复杂的分组操作**
+## **复杂的分组操作**
 
 CnosDB 提供了 `GROUPING SET`， `ROLLUP`， `CUBE`等复杂分组操作，使您能以不同的方式操作查询结果
 

@@ -16,26 +16,26 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
     [ GROUP BY [ ALL | DISTINCT ] grouping_element [, ...] ]
     [ HAVING condition ]
     [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] select ]
-                                                            [ ORDER BY expression [ ASC | DESC ] [, ...] ]
-                                                            [ OFFSET count ]
-                                                            [ LIMIT { count | ALL } ]
+    [ ORDER BY expression [ ASC | DESC ] [, ...] ]
+    [ OFFSET count ]
+    [ LIMIT { count | ALL } ]
 
 -- from_item
 -- 1.
-                                                            table_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+    table_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
 -- 2.
-                                                            from_item join_type from_item
-                                                            { ON join_condition | USING ( join_column [, ...] ) }
+    from_item join_type from_item
+    { ON join_condition | USING ( join_column [, ...] ) }
 
 -- join_type
-                                                            [ INNER ] JOIN
-                                                            LEFT [ OUTER ] JOIN
-                                                            RIGHT [ OUTER ] JOIN
-                                                            FULL [ OUTER ] JOIN
-                                                            CROSS JOIN
+    [ INNER ] JOIN
+    LEFT [ OUTER ] JOIN
+    RIGHT [ OUTER ] JOIN
+    FULL [ OUTER ] JOIN
+    CROSS JOIN
 
 -- grouping_element
-                                                            ()
+    ()
 ```
 
 通配符 * 可以用于代指全部列。

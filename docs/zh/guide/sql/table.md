@@ -4,13 +4,13 @@ icon: config
 order: 3
 ---
 
-# **创建表**
+## **创建表**
 
 可以使用 `CREATE TABLE` 创建表
 
 CnosDB 支持创建普通表和外部表
 
-## **创建普通表**
+### **创建普通表**
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
@@ -20,7 +20,7 @@ field_defination:
 column_name data_type [field_codec_type]
 ```
 
-### 使用说明：
+#### 使用说明：
 
 1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
 2. 各列的名字需要互不相同
@@ -33,7 +33,7 @@ column_name data_type [field_codec_type]
     * BOOLEAN：BIPACK，NULL
       压缩算法详情请看
 
-## **创建外部表**
+### **创建外部表**
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
@@ -52,7 +52,7 @@ STORED AS { PARQUET | NDJSON | CSV | AVRO }
 LOCATION '/path/to/file'
 ```
 
-### 参数说明
+#### 参数说明
 
 1. STORE AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式
 2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头

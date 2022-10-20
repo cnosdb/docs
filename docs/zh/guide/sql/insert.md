@@ -32,8 +32,3 @@ INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
 (1666165200290401000, '127.0.0.1', 'macbook', 25.7, 67.2),
 ('2022-10-20 08:35:44.525229', '255.255.255.255', 'linux', 30.1, 70.6);
 ```
-
-
-```sql
-
-```
