@@ -27,6 +27,16 @@ export default defineUserConfig({
         })();
       `,
     ],
+    [
+      'script',
+      {
+        defer: true,
+        src: path.resolve(
+          __dirname,
+          './components/jQuery.js'
+        ),
+      }
+    ],
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
 

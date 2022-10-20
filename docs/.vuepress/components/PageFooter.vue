@@ -185,6 +185,27 @@
                   placeholder="您的电子邮件"
                 />
               </div>
+              <div id="mce-responses" class="clear foot">
+                <div
+                  class="response"
+                  id="mce-error-response"
+                  style="display: none;width: 210px;margin-bottom: 18px;text-align: left;"
+                ></div>
+                <div
+                  class="response"
+                  id="mce-success-response"
+                  style="display: none;width: 210px;margin-bottom: 18px;text-align: left;"
+                ></div>
+              </div>
+              <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+              <div style="position: absolute; left: -5000px" aria-hidden="true">
+                <input
+                  type="text"
+                  name="b_c03ce1201d729fbc75abed13e_2fa623f286"
+                  tabindex="-1"
+                  value=""
+                />
+              </div>
               <div class="optionalParent" style="text-align: left">
                 <div class="clear foot">
                   <input
