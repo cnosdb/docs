@@ -15,9 +15,12 @@ icon: config
 
 Authorization: BASIC
 
+    basic64(user_name + ":" + password)
+
 **请求参数**
 
 - db
+    db 名字
 
 **请求示例**
 
@@ -53,6 +56,8 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 **请求头**
 
 - Authorization: BATIC
+   
+       basic64(user_name + ":" + password)
 
 - Accept: application/csv | application/json | application/nd-json
 

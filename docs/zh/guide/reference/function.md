@@ -550,6 +550,9 @@ second')中的一种
 
 expr 类型为TIMESTAMP
 
+###### **Date_Bin**
+    date_bin(stride, source, origin)
+
 ###### **To_Timestamp**
 
     to_timestamp(expr [, fmt] ) 
