@@ -1,11 +1,10 @@
 ---
-title: GROUP 子句
+title: 分组操作
 icon: config
 order: 8
 ---
 
-# **GROUP 子句**
-
+## GROUP BY 子句
 GROUP BY 子句必须在 WHERE 子句的条件之后，ORDER BY 子句（如果有的话）之前。
 
 示例：
