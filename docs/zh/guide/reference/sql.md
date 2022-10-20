@@ -57,7 +57,8 @@ tb_option:
 
 ## **创建表**
 ```sql
-CREATE TABLE [IF NOT EXISTS] tb_name (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
+CREATE TABLE [IF NOT EXISTS] tb_name
+    (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
 
 field_defination:
    column_name data_type [field_codec_type]
@@ -102,13 +103,13 @@ INSERT INTO table_item VALUES (TIME, ...) [, ...]
 目前只支持插入常量,TIME列为必选
 
 
-> CnosDB SQL 不支持其他DML。
+> CnosDB SQL暂不支持其他DML。
 
 
 # **DQL**
 
 ## **SELECT**
-
+语法：
 ```sql
 [ WITH with_query [, ...] ]
 SELECT [ ALL | DISTINCT ] select_expression [, ...]
@@ -139,22 +140,33 @@ CROSS JOIN
 ()
 ```
 
-## **WITH clause**
+通配符 * 可以用于代指全部列。
+
+``` 
+SELECT * FROM cpu;
+```
+
+可以用`DISTINCT`进行结果去重
+
+```sql
+SELECT DISTINCT host FROM cpu;
+```
+
+## **WITH 子句**
 
 ```sql
 -- eg.
 SELECT a, b
-FROM (
-SELECT a, MAX(b) AS b FROM t GROUP BY a
-) AS x;
+FROM (SELECT a, MAX(b) AS b
+      FROM t
+      GROUP BY a) AS x;
 
 WITH x AS (SELECT a, MAX(b) AS b FROM t GROUP BY a)
-SELECT a, b FROM x;
+SELECT a, b
+FROM x;
 ```
 
-
-
-## **SELECT clause**
+## **SELECT 子句**
 
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...]
@@ -175,13 +187,22 @@ relation.*
 *
 ```
 
+## **GROUP BY 子句**
 
+GROUP BY 子句必须在 WHERE 子句的条件之后，ORDER BY 子句（如果有的话）之前。
 
-## **GROUP BY clause**
+示例：
 
+```sql
+SELECT NAME, SUM(SALARY) 
+FROM CUSTOMERS
+GROUP BY NAME;
+```
 ### **复杂的分组操作**
 
 ### **GROUPING SETS**
+
+对分组集中指定的组表达式的每个子集执行group by，group by A,B grouping sets(A,B)就等价于 group by A union group by B,其中A和B也可以是一个集合，比如group by A,B,C grouping sets((A,B),(A,C))。
 
 ```sql
 -- 原始数据
@@ -196,14 +217,14 @@ SELECT * FROM shipping;
 --  New York     |      10002 | New Jersey        |            8540 |              3
 -- (6 rows)
 ```
+
 ```sql
 -- 如下查询演示了GROUPING SETS的语义
 SELECT origin_state, origin_zip, destination_state, sum(package_weight)
 FROM shipping
-GROUP BY GROUPING SETS (
-(origin_state),
-(origin_state, origin_zip),
-(destination_state));
+GROUP BY GROUPING SETS ( (origin_state),
+                         (origin_state, origin_zip),
+                         (destination_state));
 --  origin_state | origin_zip | destination_state | _col0
 --  --------------+------------+-------------------+-------
 --   New Jersey   | NULL       | NULL              |   225
@@ -236,6 +257,8 @@ FROM shipping GROUP BY destination_state;
 
 ### **CUBE**
 
+为指定表达式集的每个可能组合创建分组集。首先会对(A、B、C)进行group by，然后依次是(A、B)，(A、C)，(A)，(B、C)，(B)，(C)，最后对全表进行group by操作。
+
 ```sql
 SELECT origin_state, destination_state, sum(package_weight)
 FROM shipping
@@ -244,14 +267,16 @@ GROUP BY CUBE (origin_state, destination_state);
 SELECT origin_state, destination_state, sum(package_weight)
 FROM shipping
 GROUP BY GROUPING SETS (
-(origin_state, destination_state),
-(origin_state),
-(destination_state),
-()
+    (origin_state, destination_state),
+    (origin_state),
+    (destination_state),
+    ()
 );
 ```
 
 ### **ROLLUP**
+
+在指定表达式的每个层次级别创建分组集。group by A,B,C with rollup首先会对(A、B、C)进行group by，然后对(A、B)进行group by，然后是(A)进行group by，最后对全表进行group by操作。   
 
 ```sql
 SELECT origin_state, origin_zip, sum(package_weight)
@@ -271,13 +296,16 @@ GROUP BY GROUPING SETS ((origin_state, origin_zip), (origin_state), ());
 ### **GROUPING operation**
 
 ```sql
-SELECT origin_state, origin_zip, destination_state, sum(package_weight),
-grouping(origin_state, origin_zip, destination_state)
+SELECT origin_state,
+       origin_zip,
+       destination_state,
+       sum(package_weight),
+       grouping(origin_state, origin_zip, destination_state)
 FROM shipping
 GROUP BY GROUPING SETS (
-(origin_state),
-(origin_state, origin_zip),
-(destination_state)
+    (origin_state),
+    (origin_state, origin_zip),
+    (destination_state)
 );
 
 -- origin_state | origin_zip | destination_state | _col3 | _col4
@@ -295,48 +323,57 @@ GROUP BY GROUPING SETS (
 -- (10 rows)
 ```
 
-
-
-## **HAVING clause**
+## **HAVING 子句**
 
 ```sql
-SELECT count(*), mktsegment, nationkey,
-CAST(sum(acctbal) AS bigint) AS totalbal
+SELECT count(*),
+       mktsegment,
+       nationkey,
+       CAST(sum(acctbal) AS bigint) AS totalbal
 FROM customer
 GROUP BY mktsegment, nationkey
 HAVING sum(acctbal) > 5700000
 ORDER BY totalbal DESC;
 ```
 
-
-
-## **WINDOW clause**
+## **WINDOW 子句**
 
 ```sql
 select c1, first_value(c1) over (partition by c2)
 from aggregate_test_100
 ```
 
-
-
 ## **Set operations**
 
-### **UNION clause**
+### **UNION 子句**
 
-### **INTERSECT clause**
+UNION子句用于合并多个SELECT语句的分析结果。
 
-### **EXCEPT clause**
+```
+select_clause_set_left
+[ UNION | UNION ALL| EXCEPT | INTERSECT] 
+select_clause_set_right
+[sort_list_columns] [limit_clause]
+```
 
+注意:UNION内每个SELECT子句必须拥有相同数量的列，对应列的数据类型相同。
 
+示例：
+
+```sql
+SELECT 1
+UNION ALL
+SELECT 2;
+```
 
 #### ORDER BY 子句
 
 按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 order by 的表达式后添加 DESC 按降序排序。
 
-
-
 ```sql
-SELECT age, person FROM table ORDER BY age;
+SELECT age, person
+FROM table
+ORDER BY age;
 SELECT age, person FROM table ORDER BY age DESC;
 SELECT age, person FROM table ORDER BY age, person DESC;
 ```
@@ -348,8 +385,8 @@ SELECT age, person FROM table ORDER BY age, person DESC;
 例子：
 
 ```sql
-SELECT age, person FROM table
-LIMIT 10
+SELECT age, person
+FROM table LIMIT 10
 ```
 
 ## **OFFSET clause**
@@ -421,9 +458,7 @@ select * from x full outer join x y ON x.column_1 = y.column_2;
 +----------+----------+----------+----------+
 ```
 
-
-
-#### FULL JOIN 
+#### FULL JOIN
 
 关键字`FULL JOIN`或`FULL OUTER JOIN`定义了一个全连接，实际上它是 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 的联合。 它会显示连接左侧和右侧的所有行，并将在连接的任一侧不匹配的地方产生空值。
 
