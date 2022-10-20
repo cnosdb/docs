@@ -29,7 +29,7 @@ db_option: {
 ### 参数说明
 1. TTL： 表示数据文件保存的时间，默认为365天，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL 100m，当不带单位时，默认为天，如TTL 30
 2. SHARD：表示数据分片个数，默认为1
-3. VNODE_DURATION：表示数据在shard中的时间范围，同样适用带单位的数据表示，表示意义与TTL一致
+3. VNODE_DURATION：表示数据在shard中的时间范围，默认为365天，同样使用带单位的数据来表示，数据意义与TTL的value一致
 4. REPLICA： 表示数据在集群中的副本数，默认为1
 5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
 
@@ -53,6 +53,13 @@ todo!()
 可以使用 `CREATE TABLE` 创建表
 
 CnosDB 支持创建普通表和外部表
+
+### 参数说明
+1. STORE AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式
+2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头
+3. DELIMITER：仅在csv格式下生效，表示列数据的分隔符 
+4. PARTITIONED BY：使用创建表时指定的列来进行分区
+5. LOCATION：表示关联的文件的位置
 
 ## **创建表**
 ```sql
