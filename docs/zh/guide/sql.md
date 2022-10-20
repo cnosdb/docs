@@ -1,6 +1,6 @@
 ---
-title: 
+title: SQL 手册
 icon: config
-order: 5
+order: 6
 index: false
 ---
