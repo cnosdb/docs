@@ -42,27 +42,25 @@ todo!()
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
-CREATE EXTERNAL TABLE [ IF NOT EXISTS ]
-table_name (
-{ column_name data_type
-[ NULL ]
-}
-[, ...]
-)
-STORED AS { PARQUET | NDJSON | CSV | AVRO }
-[ WITH HEADER ROW ]
-[ DELIMITER 'a_single_char' ]
-[ PARTITIONED BY (column_name, [, ...]) ]
-LOCATION '/path/to/file'
-```
+CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name ( field_defination [, field_defination] ... ) tb_option
 
+field_defination: 
+    column_name data_type [ NULL ]
+
+tb_option:
+    STORED AS { PARQUET | NDJSON | CSV | AVRO }
+    [ WITH HEADER ROW ]
+    [ DELIMITER 'a_single_char' ]
+    [ PARTITIONED BY ( column_name, [, ... ] ) ]
+    LOCATION '/path/to/file'
+```
 
 ## **创建表**
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
 
 field_defination:
-field_name field_type [field_codec_type]
+   column_name data_type [field_codec_type]
 ```
 ### 使用说明：
 1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
