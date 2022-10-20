@@ -1,7 +1,7 @@
 ---
 title: 配置
 icon: config
-order: 5
+order: 2
 ---
 
 ## [storage]

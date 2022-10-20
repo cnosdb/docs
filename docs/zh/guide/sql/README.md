@@ -1,7 +1,6 @@
 ---
-title: 生态集成
+title: SQL手册
 icon: config
 order: 5
 index: false
 ---
-

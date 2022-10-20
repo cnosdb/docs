@@ -20,34 +20,36 @@ CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序�
 - [基本操作](guide/QUICK_START.md#基本操作)
 
 ## 应用集成
+
 本章节介绍了如何把CnosDB集成到您的程序里。
-- [Rust](guide/application.md#rust)
-- [Golang](guide/application.md#golang)
-- [Java](guide/application.md#java)
-- [Python](guide/application.md#python)
-- [HTTP API](guide/reference/api.md)
+- [Rust](guide/application/application.md#rust)
+- [Golang](guide/application/application.md#golang)
+- [Java](guide/application/application.md#java)
+- [Python](guide/application/application.md#python)
+- [HTTP API](guide/application/api.md)
 
 ## 实现原理
 本章节介绍了CnosDB的实现原理，包括存储引擎，查询引擎，压缩算法等。
-- [系统架构](guide/arch.md) 
-- [配置](guide/reference/config.md)
-- [压缩算法](guide/reference/compress.md)
-- [系统监控]
+- [系统架构](guide/design/arch.md)
+- [配置](guide/design/config.md)
+- [压缩算法](guide/design/compress.md)
 - [参考文献]
-  
+
 ## SQL手册
 本章节包含以下内容
-- [SQL](guide/reference/sql.md)
-- [函数](guide/reference/function.md)
+- [SQL](guide/sql/sql.md)
+- [函数](guide/sql/function.md)
 
 ## 生态集成
 本章节包含以下内容
-- [grafana](guide/reference/sql.md)
-- [telegraf](guide/reference/function.md)
-- [监控实战]
+- [grafana](guide/ecology/grafana.md)
+- [telegraf](guide/ecology/telegraf.md)
+
 ## Cloud
-敬请期待
+本章节包含以下内容
+- [Cloud](guide/could.md)
+
 ## 版本发布
 本章节包含以下内容
-- [发布历史](guide/reference/sql.md)
-- [演进路线]
+- [发布历史](guide/release/changlist.md)
+- [演进路线](guide/release/evolution.md)

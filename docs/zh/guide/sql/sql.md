@@ -1,6 +1,7 @@
 ---
 title: SQL
 icon: config
+order: 1
 ---
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，我们支持DataFusion的大部分SQL语法。
@@ -15,14 +16,14 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options]
 
 db_options:
-    db_option ...
+db_option ...
 
 db_option: {
-	  TTL value
-	| SHARD value
-	| VNODE_DURATION value
-	| REPLICA value
-	| PRECISION {'ms' | 'us' | 'ns'}
+TTL value
+| SHARD value
+| VNODE_DURATION value
+| REPLICA value
+| PRECISION {'ms' | 'us' | 'ns'}
 }
 ```
 ### 参数说明
@@ -44,24 +45,24 @@ todo!()
 
 CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name ( field_defination [, field_defination] ... ) tb_option
 
-field_defination: 
-    column_name data_type [ NULL ]
+field_defination:
+column_name data_type [ NULL ]
 
 tb_option:
-    STORED AS { PARQUET | NDJSON | CSV | AVRO }
-    [ WITH HEADER ROW ]
-    [ DELIMITER 'a_single_char' ]
-    [ PARTITIONED BY ( column_name, [, ... ] ) ]
-    LOCATION '/path/to/file'
+STORED AS { PARQUET | NDJSON | CSV | AVRO }
+[ WITH HEADER ROW ]
+[ DELIMITER 'a_single_char' ]
+[ PARTITIONED BY ( column_name, [, ... ] ) ]
+LOCATION '/path/to/file'
 ```
 
 ## **创建表**
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-    (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
+(field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
 
 field_defination:
-   column_name data_type [field_codec_type]
+column_name data_type [field_codec_type]
 ```
 ### 使用说明：
 1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
@@ -69,10 +70,10 @@ field_defination:
 3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
 4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法
 
-    * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
-    * DOUBLE：GORILLA，QUANTILE，NULL
-    * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
-    * BOOLEAN：BIPACK，NULL
+* BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
+* DOUBLE：GORILLA，QUANTILE，NULL
+* STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
+* BOOLEAN：BIPACK，NULL
 
 
 ## **修改表**
@@ -142,7 +143,7 @@ CROSS JOIN
 
 通配符 * 可以用于代指全部列。
 
-``` 
+```
 SELECT * FROM cpu;
 ```
 
@@ -158,8 +159,8 @@ SELECT DISTINCT host FROM cpu;
 -- eg.
 SELECT a, b
 FROM (SELECT a, MAX(b) AS b
-      FROM t
-      GROUP BY a) AS x;
+FROM t
+GROUP BY a) AS x;
 
 WITH x AS (SELECT a, MAX(b) AS b FROM t GROUP BY a)
 SELECT a, b
@@ -194,7 +195,7 @@ GROUP BY 子句必须在 WHERE 子句的条件之后，ORDER BY 子句（如果�
 示例：
 
 ```sql
-SELECT NAME, SUM(SALARY) 
+SELECT NAME, SUM(SALARY)
 FROM CUSTOMERS
 GROUP BY NAME;
 ```
@@ -223,8 +224,8 @@ SELECT * FROM shipping;
 SELECT origin_state, origin_zip, destination_state, sum(package_weight)
 FROM shipping
 GROUP BY GROUPING SETS ( (origin_state),
-                         (origin_state, origin_zip),
-                         (destination_state));
+(origin_state, origin_zip),
+(destination_state));
 --  origin_state | origin_zip | destination_state | _col0
 --  --------------+------------+-------------------+-------
 --   New Jersey   | NULL       | NULL              |   225
@@ -267,16 +268,16 @@ GROUP BY CUBE (origin_state, destination_state);
 SELECT origin_state, destination_state, sum(package_weight)
 FROM shipping
 GROUP BY GROUPING SETS (
-    (origin_state, destination_state),
-    (origin_state),
-    (destination_state),
-    ()
+(origin_state, destination_state),
+(origin_state),
+(destination_state),
+()
 );
 ```
 
 ### **ROLLUP**
 
-在指定表达式的每个层次级别创建分组集。group by A,B,C with rollup首先会对(A、B、C)进行group by，然后对(A、B)进行group by，然后是(A)进行group by，最后对全表进行group by操作。   
+在指定表达式的每个层次级别创建分组集。group by A,B,C with rollup首先会对(A、B、C)进行group by，然后对(A、B)进行group by，然后是(A)进行group by，最后对全表进行group by操作。
 
 ```sql
 SELECT origin_state, origin_zip, sum(package_weight)
@@ -297,15 +298,15 @@ GROUP BY GROUPING SETS ((origin_state, origin_zip), (origin_state), ());
 
 ```sql
 SELECT origin_state,
-       origin_zip,
-       destination_state,
-       sum(package_weight),
-       grouping(origin_state, origin_zip, destination_state)
+origin_zip,
+destination_state,
+sum(package_weight),
+grouping(origin_state, origin_zip, destination_state)
 FROM shipping
 GROUP BY GROUPING SETS (
-    (origin_state),
-    (origin_state, origin_zip),
-    (destination_state)
+(origin_state),
+(origin_state, origin_zip),
+(destination_state)
 );
 
 -- origin_state | origin_zip | destination_state | _col3 | _col4
@@ -327,9 +328,9 @@ GROUP BY GROUPING SETS (
 
 ```sql
 SELECT count(*),
-       mktsegment,
-       nationkey,
-       CAST(sum(acctbal) AS bigint) AS totalbal
+mktsegment,
+nationkey,
+CAST(sum(acctbal) AS bigint) AS totalbal
 FROM customer
 GROUP BY mktsegment, nationkey
 HAVING sum(acctbal) > 5700000
@@ -351,7 +352,7 @@ UNION子句用于合并多个SELECT语句的分析结果。
 
 ```
 select_clause_set_left
-[ UNION | UNION ALL| EXCEPT | INTERSECT] 
+[ UNION | UNION ALL| EXCEPT | INTERSECT]
 select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
@@ -501,7 +502,7 @@ EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一�
 ```sql
 SELECT id  FROM date
 WHERE EXISTS (SELECT 1 FROM shop
-              WHERE date.id = shop.id)
+WHERE date.id = shop.id)
 ORDER BY id;
 ```
 
@@ -512,7 +513,7 @@ IN 操作符允许您在 WHERE 子句中规定多个值。
 示例：
 
 ```sql
-SELECT host, machine 
+SELECT host, machine
 FROM cpu
 WHERE host IN ('127.0.0.1', '0.0.0.0');
 ```
@@ -531,42 +532,42 @@ EXPLAIN 语句仅用于显示查询的执行计划，而不执行查询。
 
 ```sql
 { EXPLAIN | DESCRIBE } [ ANALYZE ] [ VERBOSE ] <statement>
-```
+    ```
 
 
 
-# **DESCRIBE**
+    # **DESCRIBE**
 
-```sql
-DESCRIBE table_name
-```
+    ```sql
+    DESCRIBE table_name
+    ```
 
 
 
-# **SHOW**
+    # **SHOW**
 
-## **SHOW VARIABLE**
+    ## **SHOW VARIABLE**
 
-```sql
--- only support show tables
--- SHOW TABLES is not supported unless information_schema is enabled
-SHOW TABLES
-```
+    ```sql
+    -- only support show tables
+    -- SHOW TABLES is not supported unless information_schema is enabled
+    SHOW TABLES
+    ```
 
-## **SHOW COLUMNS**
+    ## **SHOW COLUMNS**
 
-```sql
--- SHOW COLUMNS with WHERE or LIKE is not supported
--- SHOW COLUMNS is not supported unless information_schema is enabled
--- treat both FULL and EXTENDED as the same
-SHOW [ EXTENDED ] [ FULL ]
-{ COLUMNS | FIELDS }
-{ FROM | IN }
-table_name
-```
+    ```sql
+    -- SHOW COLUMNS with WHERE or LIKE is not supported
+    -- SHOW COLUMNS is not supported unless information_schema is enabled
+    -- treat both FULL and EXTENDED as the same
+    SHOW [ EXTENDED ] [ FULL ]
+    { COLUMNS | FIELDS }
+    { FROM | IN }
+    table_name
+    ```
 
-## **SHOW CREATE TABLE**
+    ## **SHOW CREATE TABLE**
 
-```sql
-SHOW CREATE TABLE table_name
-```
+    ```sql
+    SHOW CREATE TABLE table_name
+    ```

@@ -6,9 +6,25 @@ order: 2
 
 ## Docker
 
-```shell
-docker run -itd  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb
-```
+1. 使用Docker启动容器
+   ```shell
+   docker run -itd  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb
+   ```
+
+2. 进入容器运行`cnosdb-cli`
+   ```shell
+   docker exec -it <container_name> sh
+   ```
+   ```shell
+   $ cnosdb-cli
+   CnosDB CLI v0.1.0
+   Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: "", database: "public", data_path: None, file: [], rc: None, format: Table, quiet: false }
+   ❯
+   ```
+::: tip
+查看帮助请执行`\?`
+:::
+更多内容请查看[基本操作](#基本操作)
 
 ## **从源码安装**
 
@@ -137,8 +153,10 @@ SELECT * FROM cpu;
 +-----------+---------+-------+-------------+----------------------------+
 ```
 
-> 有关更多关于数据库的操作请参考：
->
-> [SQL](reference/sql.md)
->
-> [编程接口](reference/api.md)
+   > 有关更多关于数据库的操作请参考：
+   >
+   > [SQL](sql/sql.md)
+   >
+   > [编程接口](application/api.md)
+
+

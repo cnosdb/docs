@@ -1,6 +1,7 @@
 ---
 title: 函数
 icon: config
+order: 2
 ---
 
 ## **选择函数**

@@ -1,6 +1,7 @@
 ---
 title: 压缩算法
 icon: config
+order: 3
 ---
 
 ## DELTA
