@@ -1,7 +1,7 @@
 ---
 title: 函数
 icon: config
-order: 2
+order: 7
 ---
 
 ## **选择函数**
