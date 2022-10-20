@@ -494,7 +494,28 @@ select * from x cross join x y;
 
 ### **EXISTS**
 
+EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。
+
+示例：
+
+```sql
+SELECT id  FROM date
+WHERE EXISTS (SELECT 1 FROM shop
+              WHERE date.id = shop.id)
+ORDER BY id;
+```
+
 ### **IN**
+
+IN 操作符允许您在 WHERE 子句中规定多个值。
+
+示例：
+
+```sql
+SELECT host, machine 
+FROM cpu
+WHERE host IN ('127.0.0.1', '0.0.0.0');
+```
 
 ### **Scalar subquery**
 
@@ -505,6 +526,8 @@ select * from x cross join x y;
 
 
 # **EXPLAIN**
+
+EXPLAIN 语句仅用于显示查询的执行计划，而不执行查询。
 
 ```sql
 { EXPLAIN | DESCRIBE } [ ANALYZE ] [ VERBOSE ] <statement>
