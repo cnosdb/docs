@@ -6,7 +6,7 @@ order: 4
 
 ## 写入数据
 
-CnosDB支持两种数据写入的方法，一种是使用INSERT INTO 语句，另一种是使用Http write 接口，写入lineprotocol格式数据。
+CnosDB支持两种数据写入的方法，一种是使用INSERT INTO 语句，另一种是使用`http write`接口，写入lineprotocol格式数据。
 
 语法：
 ```sql

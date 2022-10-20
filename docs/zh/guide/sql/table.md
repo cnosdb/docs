@@ -4,20 +4,14 @@ icon: config
 order: 3
 ---
 
-## **创建表**
+# **创建表**
 
 可以使用 `CREATE TABLE` 创建表
 
 CnosDB 支持创建普通表和外部表
 
-### 参数说明
-1. STORE AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式
-2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头
-3. DELIMITER：仅在csv格式下生效，表示列数据的分隔符
-4. PARTITIONED BY：使用创建表时指定的列来进行分区
-5. LOCATION：表示关联的文件的位置
+## **创建普通表**
 
-## **创建表**
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
 (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
@@ -25,7 +19,9 @@ CREATE TABLE [IF NOT EXISTS] tb_name
 field_defination:
 column_name data_type [field_codec_type]
 ```
+
 ### 使用说明：
+
 1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
 2. 各列的名字需要互不相同
 3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
@@ -37,24 +33,13 @@ column_name data_type [field_codec_type]
     * BOOLEAN：BIPACK，NULL
       压缩算法详情请看
 
-## **修改表**
-```sql
-todo!()
-```
-
-## **删除表**
-
-```sql
--- We don't support cascade and purge for now.
-DROP TABLE [ IF EXISTS ] table_name
-```
-
 ## **创建外部表**
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
-CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name ( field_defination [, field_defination] ... ) tb_option
+CREATE
+EXTERNAL TABLE [ IF NOT EXISTS ] table_name ( field_defination [, field_defination] ... ) tb_option
 
 field_defination:
 column_name data_type [ NULL ]
@@ -67,3 +52,23 @@ STORED AS { PARQUET | NDJSON | CSV | AVRO }
 LOCATION '/path/to/file'
 ```
 
+### 参数说明
+
+1. STORE AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式
+2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头
+3. DELIMITER：仅在csv格式下生效，表示列数据的分隔符
+4. PARTITIONED BY：使用创建表时指定的列来进行分区
+5. LOCATION：表示关联的文件的位置
+
+## **删除表**
+
+```sql
+-- We don't support cascade and purge for now.
+DROP TABLE [ IF EXISTS ] table_name
+```
+
+[//]: # (## **修改表**)
+[//]: # (```sql)
+[//]: # (todo)
+[//]: # (!&#40;&#41;)
+[//]: # (```)
