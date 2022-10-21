@@ -5,7 +5,7 @@ order: 1
 ---
 ## 设计目标
 
-cnosdb2.0 使用 rust 语言进行开发，利用它带来的安全，性能和社区上的影响力争取时序数据库领域有自己的立足之地，形成一套完整的 DBaas 解决方案。
+CnosDB2.0 使用 Rust 语言进行开发，利用它带来的安全，性能和社区上的影响力争取时序数据库领域有自己的立足之地，形成一套完整的 DBaas 解决方案。
 
 > 设计目标
 
@@ -33,7 +33,7 @@ cnosdb2.0 使用 rust 语言进行开发，利用它带来的安全，性能和�
 
 ## 数据复制与共识
 
-cnosdb的分片规则使用基于 time-range 的分区规则
+CnosDB的分片规则使用基于 time-range 的分区规则
 我们 采用 db + time_range 来放入对应的 bucket 中，bucket 是一个虚拟逻辑单元，每个 bucket 由以下主要的属性, bucket 会根据用户配置创建多个分片，把数据打散（默认情况下数据的分片 shard num 是 1）。
 
 > 「db , shardid, time_range, create_time, end_time, List\<Vnode\>」
@@ -58,7 +58,7 @@ Vnode 是一个虚拟的运行单元，分布到一个具体的 Node 上，每�
 
 ### 基于 Quorum 机制的数据共识
 
-#### Cnosdb 实现为一个最终一致性的系统
+#### CnosDB 实现为一个最终一致性的系统
 
 我们使用 Quorum 机制来做数据共识
 负责处理读或写请求的模块为 coordinator
