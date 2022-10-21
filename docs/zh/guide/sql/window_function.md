@@ -4,6 +4,27 @@ icon: config
 order: 10
 ---
 
+您可以在CnosDB中使用窗口函数对指定开窗列的数据灵活地进行分析处理工作。
+下面展示CnosDB支持的窗口函数的命令格式、参数说明及示例，指导您使用窗口函数完成开发。
+
+## 语法
+
+```
+function_call OVER ([PARTITIONBY] [ORDERBY])
+```
+
+## 使用限制
+- 窗口函数只能出现在select语句中。
+- 窗口函数中不能嵌套使用窗口函数和聚合函数。
+
+**示例**：
+```sql
+SELECT c1, first_value(c1) OVER (PARTITION BY c2)
+FROM aggregate_test_100
+```
+
+## 窗口函数列表
+
 ### **ROW_NUMBER**
 
     ROW_NUMBER() OVER([partition_clause] [orderby_clause])
