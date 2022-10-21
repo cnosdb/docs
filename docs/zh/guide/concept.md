@@ -19,14 +19,14 @@ order: 2
 
 CnosDB 是一款时序数据库，他的应用就是存储与时间序列有关的数据，提供高效的写入和查询。
 
-因此CnosDB依据时间序列数据的特性，设计了时间序列的设计模型。
+因此 CnosDB 依据时间序列数据的特性，设计了时间序列的设计模型。
 
 ## 数据模型
 ### 时间戳(TimeStamp)
 
 时序数据库要求写入的每一条数据都带有时间戳，表示采集到该条数据的时刻。
 
-CnosDB支持设置时间的精度
+CnosDB 支持设置时间的精度
 
 ### 标签(Tag)
 
@@ -34,7 +34,7 @@ CnosDB支持设置时间的精度
 
 这些数据我们称之为**标签(Tag)**，我们使用字符串(STRING)来存储Tag。
 
-在CnosDB 中一个标签数据是一个键值对，由key，value两部分组成，key 即标签名，value 是标签值。
+在 CnosDB 中一个标签数据是一个键值对，由key，value两部分组成，key 即标签名，value 是标签值。
 
 通常情况下为了更好的分类会对用多个Tag 标记一个时间序列，即Tags 。
 
@@ -46,8 +46,8 @@ CnosDB支持设置时间的精度
 对检测环境的设备来说，它采集的室温，湿度等信息就是随时间变化而变化，这些数据我们称之为
 **字段(Field)**。
 
-采集的数据是多样的，CnosDB为存储字段提供了`BIGINT`，`BIGINT UNSIGNED`，
-`STRING`，`BOOLEAN`，`DOUBLE`来存储多样的数据，还提供压缩算法高效地存储。
+采集的数据是多样的，CnosDB 为存储字段提供了`BIGINT`，`BIGINT UNSIGNED`，`DOUBLE`，
+`STRING`，`BOOLEAN`来存储多样的数据，还提供压缩算法高效地存储。
 
 ### 行(Row)
 
@@ -63,7 +63,7 @@ CnosDB支持设置时间的精度
 
 区别仅在于，CnosDB 中的行是时间戳，标签，字段组成的数据行。
 
-我们可以使用我们熟知的 SQL 来操作CnosDB 数据库中存储时间序列数据的表，SQL标准中的 INSERT，大部分 SELECT 语句，CnosDB都
+我们可以使用我们熟知的 SQL 来操作 CnosDB 数据库中存储时间序列数据的表，SQL标准中的 INSERT，大部分 SELECT 语句，CnosDB都
 高效地支持。
 
 **示例**：
