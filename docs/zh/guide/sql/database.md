@@ -1,6 +1,5 @@
 ---
 title: 数据库
-icon: config
 order: 2
 ---
 
@@ -11,7 +10,7 @@ order: 2
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options]
 
 db_options:
-db_option ...
+    db_option ...
 
 db_option: {
     TTL value
@@ -35,6 +34,7 @@ db_option: {
 ```sql
 DROP DATABASE [IF EXISTS] db_name
 ```
+删除数据库会将指定database的所有table数据及元数据全部删除
 
 [//]: # (## **修改数据库参数**)
 

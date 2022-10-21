@@ -1,6 +1,5 @@
 ---
-title: JOIN 子句
-icon: config
+title: 连接操作
 order: 6
 ---
 
@@ -10,7 +9,7 @@ CnosDB支持`INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER 
 
 
 
-示例：
+示例仅演示JOIN操作的概念：
 
 以下是基表x,y
 
