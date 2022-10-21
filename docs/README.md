@@ -10,5 +10,4 @@ actions:
     type: primary
 
 copyright: false
-footer: CnosDB © 2022
 ---

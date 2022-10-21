@@ -11,7 +11,8 @@ export default hopeTheme({
 
   iconAssets: 'iconfont',
 
-  logo: 'https://www.cnosdb.com/wp-content/uploads/2022/05/CnosDB_%E7%99%BD-300x108.png',
+  logo: '/logo.png',
+  logoDark: 'https://www.cnosdb.com/wp-content/uploads/2022/05/CnosDB_%E7%99%BD-300x108.png',
 
   repo: 'cnosdb/docs',
 
