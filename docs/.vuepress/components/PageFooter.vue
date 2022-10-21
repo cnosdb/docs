@@ -75,7 +75,7 @@
             >
               <ul id="menu-%e5%ba%95%e9%83%a8-%e4%ba%a7%e5%93%81" class="menu">
                 <li>
-                  <a href="https://www.cnosdb.com/cnosdb-v2/">CnosDB V2</a>
+                  <a href="https://www.cnosdb.com/cnosdb-v2/">CnosDB 2.0</a>
                 </li>
               </ul>
             </nav>
