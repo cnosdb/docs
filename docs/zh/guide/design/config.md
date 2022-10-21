@@ -4,6 +4,13 @@ icon: config
 order: 2
 ---
 
+配置采用TOML语法
+- storage  存储配置
+- wal      写前日志配置
+- cache    缓存配置
+- log      运行日志配置
+- security 安全配置
+
 ## [storage]
 
 | 参数                 | 说明 |
@@ -35,3 +42,14 @@ order: 2
 | ----- | ---- |
 | level |  日志等级（debug、info、error、warn），默认：info   |
 | path  |  日志存放位置    |
+
+## [security]
+| 参数 | 说明       |
+| ---  |----------|
+| tls_config | 可选，TLS配置 |
+
+### [security.tls_config]
+|参数 | 说明       |
+|---|----------|
+|certificate| TLS服务的证书 |
+|private_key| TLS服务的私钥 |
