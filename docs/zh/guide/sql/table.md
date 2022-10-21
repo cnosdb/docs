@@ -1,6 +1,5 @@
 ---
 title: 表
-icon: config
 order: 3
 ---
 // TODO 外部表例子

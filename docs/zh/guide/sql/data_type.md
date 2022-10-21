@@ -1,6 +1,5 @@
 ---
 title: 数据类型
-icon: config
 order: 1
 ---
 

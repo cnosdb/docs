@@ -1,6 +1,5 @@
 ---
 title: 数据库
-icon: config
 order: 2
 ---
 

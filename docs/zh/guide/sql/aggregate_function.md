@@ -1,6 +1,5 @@
 ---
 title: 聚合函数
-icon: config
 order: 8
 ---
 

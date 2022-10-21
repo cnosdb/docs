@@ -1,6 +1,5 @@
 ---
-title: JOIN 子句
-icon: config
+title: 连接操作
 order: 6
 ---
 

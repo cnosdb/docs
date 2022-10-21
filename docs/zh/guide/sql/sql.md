@@ -1,6 +1,5 @@
 ---
 title: 查询数据
-icon: config
 order: 5
 ---
 

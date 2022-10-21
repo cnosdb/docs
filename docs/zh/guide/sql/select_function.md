@@ -1,6 +1,5 @@
 ---
 title: 函数
-icon: config
 order: 9
 ---
 

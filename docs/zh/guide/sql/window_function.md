@@ -1,6 +1,5 @@
 ---
 title: 窗口函数
-icon: config
 order: 10
 ---
 

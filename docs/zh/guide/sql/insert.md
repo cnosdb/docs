@@ -1,10 +1,9 @@
 ---
 title: 插入数据
-icon: config
 order: 4
 ---
 
-CnosDB支持两种数据写入的方法，一种是使用INSERT INTO 语句，另一种是使用`http write`接口，写入lineprotocol格式数据。
+CnosDB支持两种数据写入的方法，一种是使用`INSERT INTO`语句，另一种是使用[http write](../application/api.md)接口，写入lineprotocol格式数据。
 
 本页面只展示`INSERT`相关的语法
 ## INSERT

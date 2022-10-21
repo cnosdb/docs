@@ -1,6 +1,5 @@
 ---
 title: 分组操作
-icon: config
 order: 7
 ---
 
