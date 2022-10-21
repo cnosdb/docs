@@ -71,6 +71,11 @@ tb_option: {
 DROP TABLE [ IF EXISTS ] table_name
 ```
 
+## **显示当前数据库所有表**
+```sql
+SHOW TABLES
+```
+
 [//]: # (## **修改表**)
 [//]: # (```sql)
 [//]: # (todo)
