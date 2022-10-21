@@ -3,7 +3,7 @@ title: 表
 icon: config
 order: 3
 ---
-
+// TODO 外部表例子
 ## **创建表**
 
 可以使用 `CREATE TABLE` 创建表

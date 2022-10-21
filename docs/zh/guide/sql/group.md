@@ -1,7 +1,7 @@
 ---
 title: 分组操作
 icon: config
-order: 8
+order: 7
 ---
 
 ## GROUP BY 子句
