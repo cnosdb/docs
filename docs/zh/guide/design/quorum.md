@@ -1,6 +1,7 @@
 ---
 title: Quorum算法
 icon: config
+order: 4
 ---
 
 ### Quorum算法基本原理

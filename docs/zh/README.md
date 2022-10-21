@@ -6,37 +6,50 @@ order: 1
 
 CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序数据库。
 
-## 快速开始
+## 基础知识
+数据模型和基本概念
 
+## 运行安装
 本章节介绍了如何使用以下其中之一安装和运行CnosDB
 
 - [Dokcer](guide/quick_start.md#Docker)
 - [从源码开始](guide/quick_start.md#从源码开始)
 
 ## 基本操作
-
 本章节介绍了CnosDB的基本操作，包含写入数据，查询数据等。
-- [开始学习](guide/QUICK_START.md#基本操作)
+- [基本操作](guide/QUICK_START.md#基本操作)
 
-## 应用开发
+## 应用集成
 
 本章节介绍了如何把CnosDB集成到您的程序里。
-- [Rust](guide/application.md#rust)
-- [Golang](guide/application.md#golang)
-- [Java](guide/application.md#java)
-- [Python](guide/application.md#python)
+- [Rust](guide/application/application.md#rust)
+- [Golang](guide/application/application.md#golang)
+- [Java](guide/application/application.md#java)
+- [Python](guide/application/application.md#python)
+- [HTTP API](guide/application/api.md)
 
-## 概念
-
+## 实现原理
 本章节介绍了CnosDB的实现原理，包括存储引擎，查询引擎，压缩算法等。
-- [系统架构](guide/arch.md) 
+- [系统架构](guide/design/arch.md)
+- [配置](guide/design/config.md)
+- [压缩算法](guide/design/compress.md)
+- [参考文献]
 
-
-## 参考
-
+## SQL手册
 本章节包含以下内容
-- [配置](guide/reference/config.md)
-- [编程接口](guide/reference/api.md)
-- [SQL](guide/reference/sql.md)
-- [函数](guide/reference/function.md)
-- [压缩算法](guide/reference/compress.md)
+- [SQL](guide/sql/sql.md)
+- [函数](guide/sql/function.md)
+
+## 生态集成
+本章节包含以下内容
+- [grafana](guide/ecology/grafana.md)
+- [telegraf](guide/ecology/telegraf.md)
+
+## Cloud
+本章节包含以下内容
+- [Cloud](guide/could.md)
+
+## 版本发布
+本章节包含以下内容
+- [发布历史](guide/release/changlist.md)
+- [演进路线](guide/release/evolution.md)

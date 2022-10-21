@@ -1,7 +1,7 @@
 ---
 title: 配置
 icon: config
-order: 5
+order: 2
 ---
 
 ## [storage]
@@ -14,10 +14,6 @@ order: 5
 | base_file_size       |  单个文件数据大小，默认：16777216    |
 | compact_trigger      |  出发compation的文件数量, 默认：4    |
 | max_compact_size     |  最大压缩大小，默认：2147483648    |
-| dio_max_resident     |      |
-| dio_max_non_resident |      |
-| dio_page_len_scale   |      |
-
 ## [wal]
 
 | 参数    | 说明 |

@@ -1,6 +1,7 @@
 ---
 title: 函数
 icon: config
+order: 7
 ---
 
 ## **选择函数**
@@ -12,19 +13,26 @@ icon: config
 
 **返回类型**：与函数参数类型一致
 
+----------------
+
 #### **acos(x)**
 **功能**：   返回x的反余弦值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
-    
+
+----------------
+
 #### **asin(x)**
 **功能**：   返回x的反正弦值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
+
+
+----------------
     
 #### **atan(x)**
 **功能**：   返回x的反正切值。
@@ -32,6 +40,9 @@ icon: config
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
+
+
+----------------
     
 #### **atan2(y,x)**
 **功能**：   返回y/x的反正切值。
@@ -39,6 +50,9 @@ icon: config
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
+
+
+----------------
     
 #### **ceil(x)**
 **功能**：   向下取整。
@@ -46,6 +60,9 @@ icon: config
 **参数类型**：数值类型
 
 **返回类型**：BIGINT
+
+
+----------------
     
 #### **cos(x)**
 **功能**：   返回x的余弦值。
@@ -53,20 +70,26 @@ icon: config
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
-    
+
+----------------
+
 #### **exp(x)**
 **功能**：   返回e的x次方。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
-    
+
+----------------
+
 #### **floor(x)**
 **功能**：   小于或等于参数的最接近整数
 
 **参数类型**：数值类型
 
 **返回类型**：BIGINT
+
+----------------
     
 #### **ln(x)**
 **功能**：   自然对数
@@ -74,6 +97,10 @@ icon: config
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
+
+----------------
+
+
     
 #### **log(x)**
 **功能**：   以10为底的对数
@@ -82,13 +109,17 @@ icon: config
 
 **返回类型**：DOUBLE
     
+----------------
+
 #### **log10(x)**
 **功能**：   以10为底的对数
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
-    
+
+----------------
+
 #### **log2(x)**
 **功能**：   以 2 为底的对数
 
@@ -96,6 +127,7 @@ icon: config
 
 **返回类型**：DOUBLE
     
+----------------
     
 #### **power(x,y)**
 **功能**：   x的y次方
@@ -104,9 +136,12 @@ icon: config
 
 **返回类型**：DOUBLE
     
+----------------
 
 #### **pow(x,y)**
 同 power
+
+----------------
 
 #### **round(x)**
 **功能**：   四舍五入到最接近的整数
@@ -115,6 +150,8 @@ icon: config
 
 **返回类型**：BIGINT
     
+----------------
+
 #### **signum(x)**
 **功能**：   参数的符号 (-1, 0, +1)
 
@@ -122,6 +159,8 @@ icon: config
 
 **返回类型**：BIGINT
     
+----------------
+
 #### **sin(x)**
 **功能**：   x的正弦值
 
@@ -129,6 +168,8 @@ icon: config
 
 **返回类型**：DOUBLE
     
+----------------
+
 #### **sqrt(x)**
 **功能**：   x的平方根
 
@@ -136,12 +177,16 @@ icon: config
 
 **返回类型**：与函数参数类型一致
     
+----------------
+
 #### **tan(x)**
 **功能**：    x的正切值
 
 **参数类型**：数值类型
 
 **返回类型**： DOUBLE
+
+----------------
 
 #### **trunc(x)**
 **功能**：向零截断，返回大小不大于x的最大整数值
@@ -150,9 +195,10 @@ icon: config
 
 **返回类型**：BIGINT
     
+----------------
 
 ### **条件函数**
-###### **Coalesce**
+#### **Coalesce**
     coalesce(expr[,...exp])
 **功能**：返回其第一个不为空的参数。只有当所有参数都为 null 时才返回 Null。当检索数据以进行显示时，它通常用于将默认值替换为空值。
 
@@ -160,7 +206,9 @@ icon: config
 
 **返回类型**：第一个不为null的参数类型
 
-###### **NullIf**
+----------------
+
+#### **NullIf**
     nullif(expr1, expr2) 
 
 **功能**：如果 expr1 等于 expr2，则返回 NULL；否则返回 expr1。
@@ -169,12 +217,14 @@ icon: config
 
 **返回类型**：expr1的类型或NULL
 
+----------------
+
 ### **字符串函数**
 
-[//]: # (###### **Array**)
+[//]: # (#### **Array**)
 [//]: # (    创建数组)
 
-###### **Ascii**
+#### **Ascii**
 
     ascii(str) 
 
@@ -184,7 +234,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Bit_Length**
+----------------
+
+#### **Bit_Length**
 
     bit_length(str) 
 
@@ -194,7 +246,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Btrim**
+----------------
+
+#### **Btrim**
 
     btrim(string [, matching_string ] ) 
 
@@ -204,7 +258,9 @@ icon: config
 
 **返回类型**: STRING
 
-###### **Char_Length | Character_Length**
+----------------
+
+#### **Char_Length | Character_Length**
 
     character_length(expr) 
 
@@ -214,7 +270,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Chr**
+----------------
+
+#### **Chr**
 
     chr(expr) 
 
@@ -224,7 +282,9 @@ icon: config
 
 **返回类型**: STRING
 
-###### **Concat**
+----------------
+
+#### **Concat**
 
     concat(expr1, expr2 [, ...exp] ) 
 
@@ -234,7 +294,9 @@ icon: config
 
 **返回类型**: STRING
 
-###### **Concat_WS**
+----------------
+
+#### **Concat_WS**
 
     concat_ws(sep , expr1 [, ...] ) 
 
@@ -244,10 +306,9 @@ icon: config
 
 **返回类型**：STRING
 
+----------------
 
-**返回类型**：BIGINT
-
-###### **InitCap**
+#### **InitCap**
 
     initcap(expr) 
 
@@ -257,7 +318,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Left**
+----------------
+
+#### **Left**
 
     left(str, len) 
 
@@ -267,7 +330,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Lpad**
+----------------
+
+#### **Lpad**
 
     lpad(expr, len [, pad] ) 
 
@@ -279,7 +344,10 @@ icon: config
 
 当len为负数时，len表现为0，当len过大，函数执行失败
 
-###### **Lower**
+
+----------------
+
+#### **Lower**
 
     lower(expr) 
 
@@ -289,7 +357,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Ltrim**
+----------------
+
+#### **Ltrim**
 
     ltrim(str[, trimstr] ) 
 
@@ -299,7 +369,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **MD5**
+----------------
+
+#### **MD5**
 
     md5(expr) 
 
@@ -309,7 +381,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Octet_Length**
+----------------
+
+#### **Octet_Length**
 
     octet_length(expr) 
 
@@ -319,7 +393,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Random**
+----------------
+
+#### **Random**
 
     random( [seed] ) 
 
@@ -329,21 +405,15 @@ icon: config
 
 **返回类型**：DOUBLE
 
-[//]: # (###### **Regexp_Replace**)
-
-[//]: # ()
+[//]: # (#### **Regexp_Replace**)
 [//]: # (    regexp_replace&#40;str, regexp, rep [, position] &#41; )
-
-[//]: # ()
 [//]: # (**功能**：将 str 中与 regexp 匹配的所有子字符串都替换为 rep。)
-
-[//]: # ()
 [//]: # (**参数类型**：STRING)
-
-[//]: # ()
 [//]: # (**返回类型**：BIGINT)
 
-###### **Repeat**
+----------------
+
+#### **Repeat**
 
     repeat(expr, n) 
 
@@ -353,7 +423,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Replace**
+----------------
+
+#### **Replace**
 
     replace(str, search [, replace] ) 
 
@@ -363,7 +435,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Reverse**
+----------------
+
+#### **Reverse**
 
     reverse(expr) 
 
@@ -373,7 +447,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Right**
+----------------
+
+#### **Right**
 
     right(str, len) 
 
@@ -383,7 +459,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Rpad**
+----------------
+
+#### **Rpad**
 
     rpad(expr, len [, pad] ) 
 
@@ -393,7 +471,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **digest**
+----------------
+
+#### **digest**
 
     digest(x)
 
@@ -403,7 +483,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Rtrim**
+----------------
+
+#### **Rtrim**
 
     rtrim( str [, trimStr] ) 
 
@@ -413,7 +495,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **SHA224**
+----------------
+
+#### **SHA224**
     sha224(str)
 
 **功能**：计算字符串的 sha224 散列值
@@ -422,7 +506,9 @@ icon: config
 
 **参数类型**：STRING
 
-###### **SHA256**
+----------------
+
+#### **SHA256**
     sha256(str)
 **功能**：    计算字符串的 sha256 散列值
 
@@ -430,7 +516,9 @@ icon: config
 
 **参数类型**：STRING
 
-###### **SHA384**
+----------------
+
+#### **SHA384**
     sha256(str)
 **功能**：   计算字符串的 sha384 散列值
 
@@ -438,7 +526,9 @@ icon: config
 
 **参数类型**：STRING
 
-###### **SHA512**
+----------------
+
+#### **SHA512**
 
     sha512(str)
 
@@ -448,7 +538,9 @@ icon: config
 
 **参数类型**：STRING
 
-###### **Split_Part**
+----------------
+
+#### **Split_Part**
 
     split_part(str, delim, n) 
 
@@ -458,7 +550,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Starts_With**
+----------------
+
+#### **Starts_With**
 
     starts_with(expr, startExpr) 
 
@@ -468,7 +562,9 @@ icon: config
 
 **返回类型**：BOOLEAN
 
-###### **Strpos**
+----------------
+
+#### **Strpos**
 
     strpos(str, substr ) 
 
@@ -478,7 +574,9 @@ icon: config
 
 **返回类型**：BIGINT
 
-###### **Substr**
+----------------
+
+#### **Substr**
 
     substr(expr, pos [, len] ) 
 
@@ -488,7 +586,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **To_Hex**
+----------------
+
+#### **To_Hex**
 
     to_hex(value)
 
@@ -498,7 +598,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Translate**
+----------------
+
+#### **Translate**
 
     translate(expr, from, to) 
 
@@ -508,7 +610,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Trim**
+----------------
+
+#### **Trim**
 
     trim(str) 
 
@@ -518,7 +622,9 @@ icon: config
 
 **返回类型**：STRING
 
-###### **Upper**
+----------------
+
+#### **Upper**
 
     upper(expr)
 
@@ -526,7 +632,7 @@ icon: config
 
 ### 时间函数
 
-###### **Date_Part**
+#### **Date_Part**
 
     date_part(field, expr) 
 
@@ -539,7 +645,9 @@ expr 类型为 TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **Date_Trunc**
+----------------
+
+#### **Date_Trunc**
 
     date_trunc(field, expr) 
 
@@ -550,37 +658,56 @@ second')中的一种
 
 expr 类型为TIMESTAMP
 
-###### **To_Timestamp**
+----------------
+
+#### **Date_Bin**
+    date_bin(stride, source, origin)
+
+----------------
+
+#### **To_Timestamp**
 
     to_timestamp(expr [, fmt] ) 
 
 返回使用可选格式设置强制转换为某个时间戳的 expr。
 
-###### **To_Timestamp_Millis**
+----------------
+
+#### **To_Timestamp_Millis**
 
     to_timestamp_millis(expr [, fmt] ) 
 
 返回使用可选格式设置强制转换为Timestamp(Millisseconds, None)格式。
 
-###### **To_Timestamp_Micros**
+----------------
+
+#### **To_Timestamp_Micros**
 
     to_timestamp_micros(expr [, fmt] ) 
 返回使用可选格式设置强制转换为Timestamp(Microseconds, None)格式。
-###### **To_Timestamp_Seconds**
+#### **To_Timestamp_Seconds**
     to_timestamp_seconds(expr [, fmt] ) 
 返回使用可选格式设置强制转换为Timestamp(Seconds, None)格式。
-###### **From_Unixtime**
+
+
+----------------
+
+#### **From_Unixtime**
     from_unixtime(unixTime [, fmt]) 
 在 fmt 中返回 unixTime。
-###### **Now**
+
+----------------
+
+#### **Now**
     以 Timestamp(Nanoseconds, UTC) 
 格式返回当前时间戳
 
-[//]: # (###### **Regexp_Match**)
-
+[//]: # (#### **Regexp_Match**)
 [//]: # (    返回与正则表达式匹配的项)
 
-###### **Struct**
+----------------
+
+#### **Struct**
 
     struct(expr1 [, ...] ) 
 
@@ -590,7 +717,7 @@ expr 类型为TIMESTAMP
 
 ### **一般聚合函数**
 
-###### **Count**
+#### **Count**
 
     COUNT(x)
 
@@ -600,7 +727,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **Sum**
+----------------
+
+#### **Sum**
 
     SUM(NUMERIC)
 
@@ -610,7 +739,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与参数类型相同
 
-###### **Min**
+----------------
+
+#### **Min**
 
     MIN(STRING | NUMERICS | TIMESTAMP | DATES)
 
@@ -620,7 +751,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与参数类型相同
 
-###### **Max**
+----------------
+
+#### **Max**
 
     MAX(STRINGS | NUMERICS | TIMESTAMPS | DATES)
 
@@ -630,7 +763,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与参数类型相同
 
-###### **Avg**
+----------------
+
+#### **Avg**
     AVG(NUMERICS)
 
 **功能**： 返回选定元素的平均值。
@@ -639,7 +774,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：数值类型
 
-###### **Array_Agg**
+----------------
+
+#### **Array_Agg**
 
 **功能**： 返回一个数组，该数组由选定元素的所有值组成，元素类型必须相同
 
@@ -647,7 +784,7 @@ expr 类型为TIMESTAMP
 
 ### **统计聚合函数**
 
-###### **Var**(NUMERICS) | Var_Samp(NUMERICS) -> [same as input type]
+#### **Var**(NUMERICS) | Var_Samp(NUMERICS) -> [same as input type]
     VAR(NUMERICS)
 
 **功能**： 计算给定样本的方差
@@ -656,7 +793,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### Var_Samp
+----------------
+
+#### Var_Samp
 
     VAR_SAMP(NUMERICS) -> [same as input type]
 
@@ -666,7 +805,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Var_Pop**
+----------------
+
+#### **Var_Pop**
 
     Var_Pop(NUMERICS)
 
@@ -676,7 +817,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Stddev**
+----------------
+
+#### **Stddev**
 
     STDDEV(NUMERICS)
 
@@ -686,7 +829,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Stddev_Samp**
+----------------
+
+#### **Stddev_Samp**
 
     STDDEV_SAMP(NUMERICS)
 
@@ -696,7 +841,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **STDDEV_POP**
+----------------
+
+#### **STDDEV_POP**
     STDDEV_POP(NUMERICS)
 **功能**： 返回从组的值计算出的总体标准偏差。
 
@@ -704,7 +851,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **COVAR**
+----------------
+
+#### **COVAR**
     COVAR(NUMERICS, NUMERICS)
 
 **功能**： 返回样本的协方差
@@ -713,7 +862,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **COVAR_SAMP**
+----------------
+
+#### **COVAR_SAMP**
     COVAR_SAMP(NUMERICS, NUMERICS)
 
 **功能**： 返回样本的协方差
@@ -722,7 +873,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Covar_Pop**
+----------------
+
+#### **Covar_Pop**
     COVAR_POP(NUMERICS, NUMERICS)
 
 **功能**： 返回组中数字对的总体协方差。
@@ -731,7 +884,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Corr**
+----------------
+
+#### **Corr**
     Corr**(NUMERICS, NUMERICS)
 
 **功能**： 返回表示一组数字对之间的关联情况的皮尔逊系数。
@@ -742,7 +897,7 @@ expr 类型为TIMESTAMP
 
 ### **近似聚合函数**
 
-###### **Approx_Distinct**
+#### **Approx_Distinct**
     approx_distinct(x) -> 
 **功能**： uint64返回不同输入值的近似值(HyperLogLog)。
 
@@ -750,7 +905,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **Approx_Percentile_Cont**
+----------------
+
+#### **Approx_Percentile_Cont**
     approx_percentile_cont(x, p)  
 **功能**： x返回输入值的近似百分位(TDigest)，其中p是0到1(包括)之间的浮点64。
 
@@ -758,7 +915,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Approx_Percentile_Cont_With_Weight**
+----------------
+
+#### **Approx_Percentile_Cont_With_Weight**
     approx_percentile_cont_with_weight(x, w, p)  
 **功能**： x返回带权重的输入值的近似百分比(TDigest)，其中w是权重列表达式，p是0到1(包括)之间的浮点64。
 
@@ -766,7 +925,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Approx_Median**(NUMERICS) 
+----------------
+
+#### **Approx_Median**(NUMERICS) 
     APPROX_MEDIAN(NUMERICS)
 **功能**： 返回输入值的近似中值。
 
@@ -774,7 +935,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **Grouping**(x)
+----------------
+
+#### **Grouping**(x)
     GROUPING(x)
 
 **功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。
@@ -785,7 +948,7 @@ expr 类型为TIMESTAMP
 
 ## **窗口函数**
 
-###### **ROW_NUMBER**
+#### **ROW_NUMBER**
 
     ROW_NUMBER() OVER([partition_clause] [orderby_clause])
 
@@ -795,7 +958,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **RANK**
+----------------
+
+#### **RANK**
 
     RANK() OVER([partition_clause] [orderby_clause])
 
@@ -805,7 +970,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **DENSE_RANK**
+----------------
+
+#### **DENSE_RANK**
 
     DENSE_RANK() OVER([partition_clause] [orderby_clause])
 
@@ -815,7 +982,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **PERCENT_RANK**
+----------------
+
+#### **PERCENT_RANK**
 
     PERCEN_RANK() OVER([partition_clause] [orderby_clause])
 
@@ -825,7 +994,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **CUME_DIST**
+----------------
+
+#### **CUME_DIST**
 
     CUME_DIST() OVER ([partition_clause] [orderby_clause])
 
@@ -835,7 +1006,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：DOUBLE
 
-###### **NTILE**
+----------------
+
+#### **NTILE**
 
     ntile(n) over([partition_clause] [order_by_clause])
 
@@ -845,7 +1018,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：BIGINT
 
-###### **LAG**
+----------------
+
+#### **LAG**
 
     lag( expr [, offset [, default] ] ) OVER([partition_clause] orderby_clause)
 
@@ -855,7 +1030,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与expr相同的类型
 
-###### **LEAD**
+----------------
+
+#### **LEAD**
 
     lead(expr [, offset [, default] ] ) OVER ([partition_clause] orderby_clause)
 
@@ -865,7 +1042,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与expr类型相同
 
-###### **FIRST_VALUE**
+----------------
+
+#### **FIRST_VALUE**
 
     FIRST_VALUE(expr, [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
 
@@ -875,7 +1054,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与expr类型相同
 
-###### **LAST_VALUE**
+----------------
+
+#### **LAST_VALUE**
 
     LAST_VALUE(expr, [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
 
@@ -885,7 +1066,9 @@ expr 类型为TIMESTAMP
 
 **返回类型**：与expr类型相同
 
-###### **NTH_VALUE**
+----------------
+
+#### **NTH_VALUE**
 
     NTH_VALUE(expr, number [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
 

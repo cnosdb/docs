@@ -1,7 +1,7 @@
 ---
 title: 整体架构
 icon: config
-order: 5
+order: 1
 ---
 ## 设计目标
 
