@@ -20,8 +20,11 @@ Authorization: BASIC
 
 **请求参数**
 
-- db
-    db 名字
+- db：数据库名字
+
+**请求体**
+- 行协议：有关行协议的具体内容可以看[这里](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
+    
 
 **请求示例**
 
