@@ -13,14 +13,19 @@ order: 2
 
 ## [storage]
 
-| 参数                 | 说明 |
-| -------------------- | ---- |
-| path                 |  数据存储位置    |
-| max_summary_size     |  最大Summary日志大小，用于恢复数据库中的数据，默认：134217728    |
-| max_level            |  lsm的最大层数，取值范围0-4，默认：4    |
-| base_file_size       |  单个文件数据大小，默认：16777216    |
-| compact_trigger      |  出发compation的文件数量, 默认：4    |
-| max_compact_size     |  最大压缩大小，默认：2147483648    |
+| 参数                 | 说明                                     |
+| -------------------- |----------------------------------------|
+| path                 | 数据存储位置                                 |
+| max_summary_size     | 最大Summary日志大小，用于恢复数据库中的数据，默认：134217728 |
+| max_level            | lsm的最大层数，取值范围0-4，默认：4                  |
+| base_file_size       | 单个文件数据大小，默认：16777216                   |
+| compact_trigger      | 触发compation的文件数量, 默认：4                 |
+| max_compact_size     | 最大压缩大小，默认：2147483648                   |
+| dio_max_resident     | 文件io最大驻留page数量，默认：1024                 |
+| dio_max_non_resident     | 文件io最大非驻留page数量，默认：1024                |
+| dio_page_len_scale     | 文件io page缩放比，默认为：1                     |
+| strict_write     | 是否严格写入，默认为false                        |
+
 ## [wal]
 
 | 参数    | 说明 |
