@@ -19,9 +19,12 @@ order: 2
 ### 点
 点是时间序列的最小单元(Point)，时间序列的本质是折线图，而折线是由点组成的。点描述的是某一时刻的事物状态，因此一个点应该包含两个部分：时间戳 & 状态指数。
 ```
-type Point struct {
-uint64 timestamp;
-value []bytes; //value可以是多种类型，其中包括int、float，string等
+table Point {
+    db: [ubyte];
+    table: [ubyte];
+    tags: [Tag];
+    fields: [Field];
+    timestamp: int64;
 }
 ```
 
@@ -49,27 +52,29 @@ CnosDB 容许用户修改、删除或增加标签值。与采集量不一样的�
 #### 参考结构
 
 ```
-type TimeSeries struct {
-Tags []Tag
-Fields []Field
+table Tag {
+    key: [ubyte];
+    value: [ubyte];
 }
 
-type Tag struct {
-Key []byte
-Value []byte
+table Field {
+    name: [ubyte];
+    type: FieldType;
+    value: [ubyte];
 }
 
-type Field struct {
-Name []byte
-Type uint8
-Points []Point
+table Point {
+    db: [ubyte];
+    table: [ubyte];
+    tags: [Tag];
+    fields: [Field];
+    timestamp: int64;
 }
 
-type Point struct {
-Timestamp uint64
-Value []byte
+table Points {
+    database: [ubyte];
+    points: [Point];
 }
-
 ```
 ### 数据采集点（Data Collection Point）
 

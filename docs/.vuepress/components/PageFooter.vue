@@ -142,7 +142,6 @@
           <section id="block-47" class="widget widget_block">
             <h3
               class="has-ast-global-color-5-color has-text-color"
-              style="text-align: left"
             >
               <strong>欢迎订阅CnosDB期刊</strong>
             </h3>
@@ -160,7 +159,7 @@
             >
               <div
                 class="mc-field-group"
-                style="margin-bottom: 1.75em; text-align: left"
+                style="margin-bottom: 1.75em;"
               >
                 <input
                   style="
@@ -189,12 +188,20 @@
                 <div
                   class="response"
                   id="mce-error-response"
-                  style="display: none;width: 210px;margin-bottom: 18px;text-align: left;"
+                  style="
+                    display: none;
+                    width: 210px;
+                    margin-bottom: 18px;
+                  "
                 ></div>
                 <div
                   class="response"
                   id="mce-success-response"
-                  style="display: none;width: 210px;margin-bottom: 18px;text-align: left;"
+                  style="
+                    display: none;
+                    width: 210px;
+                    margin-bottom: 18px;
+                  "
                 ></div>
               </div>
               <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
@@ -206,7 +213,7 @@
                   value=""
                 />
               </div>
-              <div class="optionalParent" style="text-align: left">
+              <div class="optionalParent">
                 <div class="clear foot">
                   <input
                     style="
@@ -462,13 +469,39 @@
 <style scoped>
 .footer-warpper {
   padding-left: calc(var(--sidebar-width) + 2rem);
+  transition: padding var(--transform-transition);
 }
+
+@media (min-width: 1440px) {
+  .theme-container .footer-warpper {
+    padding-right: 16rem;
+  }
+  .theme-container.sidebar-collapsed .footer-warpper {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 719px) {
+  .theme-container .footer-warpper {
+    padding-left: 0;
+  }
+  .theme-container .footer-warpper .footer {
+    /* flex-direction: column;  */
+  }
+}
+
+@media (max-width: 420px) {
+  .theme-container .footer-warpper .footer {
+    flex-direction: column; 
+  }
+}
+
 .footer {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  max-width: 900px;
-  padding: 2rem 2.5rem;
+  max-width: var(--content-width);
+  margin: 0 auto;
   text-align: center;
 }
 
