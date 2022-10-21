@@ -3,13 +3,13 @@ title: 窗口函数
 order: 10
 ---
 
-您可以在CnosDB中使用窗口函数对指定开窗列的数据灵活地进行分析处理工作。
-下面展示CnosDB支持的窗口函数的命令格式、参数说明及示例，指导您使用窗口函数完成开发。
+您可以在 CnosDB 中使用窗口函数对指定开窗列的数据灵活地进行分析处理工作。
+下面展示 CnosDB 支持的窗口函数的命令格式、参数说明及示例，指导您使用窗口函数完成开发。
 
 ## 语法
 
 ```
-function_call OVER ([PARTITIONBY] [ORDERBY])
+function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr])
 ```
 
 ## 使用限制
@@ -18,7 +18,7 @@ function_call OVER ([PARTITIONBY] [ORDERBY])
 
 **示例**：
 ```sql
-SELECT c1, first_value(c1) OVER (PARTITION BY c2)
+SELECT c1, FIRST_VALUE(c1) OVER (PARTITION BY c2)
 FROM aggregate_test_100
 ```
 
@@ -146,7 +146,7 @@ FROM aggregate_test_100
 
 ### **NTH_VALUE**
 
-    NTH_VALUE(expr, number [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+    NTH_VALUE(expr, number [, ignore_nulls]) OVER ([partition_clause] [orderby_clause])
 
 **功能**： 返回相对于窗口的第一行的窗口框架的指定行的表达式值。
 

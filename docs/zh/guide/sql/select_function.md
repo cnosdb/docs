@@ -196,7 +196,8 @@ order: 9
 ----------------
 
 ## **条件函数**
-### **Coalesce**
+
+### **coalesce**
     coalesce(expr[,...exp])
 **功能**：返回其第一个不为空的参数。只有当所有参数都为 null 时才返回 Null。当检索数据以进行显示时，它通常用于将默认值替换为空值。
 
@@ -206,7 +207,7 @@ order: 9
 
 ----------------
 
-### **NullIf**
+### **nullif**
     nullif(expr1, expr2) 
 
 **功能**：如果 expr1 等于 expr2，则返回 NULL；否则返回 expr1。
@@ -222,7 +223,7 @@ order: 9
 [//]: # (### **Array**)
 [//]: # (    创建数组)
 
-### **Ascii**
+### **ascii**
 
     ascii(str) 
 
@@ -234,7 +235,7 @@ order: 9
 
 ----------------
 
-### **Bit_Length**
+### **bit_length**
 
     bit_length(str) 
 
@@ -246,7 +247,7 @@ order: 9
 
 ----------------
 
-### **Btrim**
+### **btrim**
 
     btrim(string [, matching_string ] ) 
 
@@ -258,9 +259,9 @@ order: 9
 
 ----------------
 
-### **Char_Length | Character_Length**
+### **char_length**
 
-    character_length(expr) 
+    char_length(expr) 
 
 **功能**：以字符数形式返回指定字符串的长度。
 
@@ -270,7 +271,15 @@ order: 9
 
 ----------------
 
-### **Chr**
+### **character_length**
+
+    character_length(expr)
+
+同char_length
+
+----------------
+
+### **chr**
 
     chr(expr) 
 
@@ -282,7 +291,7 @@ order: 9
 
 ----------------
 
-### **Concat**
+### **concat**
 
     concat(expr1, expr2 [, ...exp] ) 
 
@@ -294,7 +303,7 @@ order: 9
 
 ----------------
 
-### **Concat_WS**
+### **concat_ws**
 
     concat_ws(sep , expr1 [, ...] ) 
 
@@ -306,7 +315,7 @@ order: 9
 
 ----------------
 
-### **InitCap**
+### **initcap**
 
     initcap(expr) 
 
@@ -318,7 +327,7 @@ order: 9
 
 ----------------
 
-### **Left**
+### **left**
 
     left(str, len) 
 
@@ -330,7 +339,7 @@ order: 9
 
 ----------------
 
-### **Lpad**
+### **lpad**
 
     lpad(expr, len [, pad] ) 
 
@@ -345,7 +354,7 @@ order: 9
 
 ----------------
 
-### **Lower**
+### **lower**
 
     lower(expr) 
 
@@ -357,7 +366,7 @@ order: 9
 
 ----------------
 
-### **Ltrim**
+### **ltrim**
 
     ltrim(str[, trimstr] ) 
 
@@ -369,7 +378,7 @@ order: 9
 
 ----------------
 
-### **MD5**
+### **md5**
 
     md5(expr) 
 
@@ -381,7 +390,7 @@ order: 9
 
 ----------------
 
-### **Octet_Length**
+### **octet_length**
 
     octet_length(expr) 
 
@@ -393,7 +402,7 @@ order: 9
 
 ----------------
 
-### **Random**
+### **random**
 
     random( [seed] ) 
 
@@ -411,7 +420,7 @@ order: 9
 
 ----------------
 
-### **Repeat**
+### **repeat**
 
     repeat(expr, n) 
 
@@ -423,7 +432,7 @@ order: 9
 
 ----------------
 
-### **Replace**
+### **replace**
 
     replace(str, search [, replace] ) 
 
@@ -435,7 +444,7 @@ order: 9
 
 ----------------
 
-### **Reverse**
+### **reverse**
 
     reverse(expr) 
 
@@ -447,7 +456,7 @@ order: 9
 
 ----------------
 
-### **Right**
+### **right**
 
     right(str, len) 
 
@@ -459,7 +468,7 @@ order: 9
 
 ----------------
 
-### **Rpad**
+### **rpad**
 
     rpad(expr, len [, pad] ) 
 
@@ -483,7 +492,7 @@ order: 9
 
 ----------------
 
-### **Rtrim**
+### **rtrim**
 
     rtrim( str [, trimStr] ) 
 
@@ -495,7 +504,7 @@ order: 9
 
 ----------------
 
-### **SHA224**
+### **sha224**
     sha224(str)
 
 **功能**：计算字符串的 sha224 散列值
@@ -506,7 +515,7 @@ order: 9
 
 ----------------
 
-### **SHA256**
+### **sha256**
     sha256(str)
 **功能**：    计算字符串的 sha256 散列值
 
@@ -516,7 +525,7 @@ order: 9
 
 ----------------
 
-### **SHA384**
+### **sha384**
     sha256(str)
 **功能**：   计算字符串的 sha384 散列值
 
@@ -526,7 +535,7 @@ order: 9
 
 ----------------
 
-### **SHA512**
+### **sha512**
 
     sha512(str)
 
@@ -538,7 +547,7 @@ order: 9
 
 ----------------
 
-### **Split_Part**
+### **split_part**
 
     split_part(str, delim, n) 
 
@@ -550,7 +559,7 @@ order: 9
 
 ----------------
 
-### **Starts_With**
+### **starts_with**
 
     starts_with(expr, startExpr) 
 
@@ -562,7 +571,7 @@ order: 9
 
 ----------------
 
-### **Strpos**
+### **strpos**
 
     strpos(str, substr ) 
 
@@ -574,7 +583,7 @@ order: 9
 
 ----------------
 
-### **Substr**
+### **substr**
 
     substr(expr, pos [, len] ) 
 
@@ -586,7 +595,7 @@ order: 9
 
 ----------------
 
-### **To_Hex**
+### **to_hex**
 
     to_hex(value)
 
@@ -598,7 +607,7 @@ order: 9
 
 ----------------
 
-### **Translate**
+### **translate**
 
     translate(expr, from, to) 
 
@@ -610,7 +619,7 @@ order: 9
 
 ----------------
 
-### **Trim**
+### **trim**
 
     trim(str) 
 
@@ -622,7 +631,7 @@ order: 9
 
 ----------------
 
-### **Upper**
+### **upper**
 
     upper(expr)
 
@@ -630,7 +639,7 @@ order: 9
 
 ## 时间函数
 
-### **Date_Part**
+### **date_part**
 
     date_part(field, expr) 
 
@@ -645,7 +654,7 @@ expr 类型为 TIMESTAMP
 
 ----------------
 
-### **Date_Trunc**
+### **date_trunc**
 
     date_trunc(field, expr) 
 
@@ -658,12 +667,12 @@ expr 类型为TIMESTAMP
 
 ----------------
 
-### **Date_Bin**
+### **date_bin**
     date_bin(stride, source, origin)
 
 ----------------
 
-### **To_Timestamp**
+### **to_timestamp**
 
     to_timestamp(expr [, fmt] ) 
 
@@ -671,7 +680,7 @@ expr 类型为TIMESTAMP
 
 ----------------
 
-### **To_Timestamp_Millis**
+### **to_timestamp_millis**
 
     to_timestamp_millis(expr [, fmt] ) 
 
@@ -679,24 +688,24 @@ expr 类型为TIMESTAMP
 
 ----------------
 
-### **To_Timestamp_Micros**
+### **to_timestamp_micros**
 
     to_timestamp_micros(expr [, fmt] ) 
 返回使用可选格式设置强制转换为Timestamp(Microseconds, None)格式。
-### **To_Timestamp_Seconds**
+### **to_timestamp_seconds**
     to_timestamp_seconds(expr [, fmt] ) 
 返回使用可选格式设置强制转换为Timestamp(Seconds, None)格式。
 
 
 ----------------
 
-### **From_Unixtime**
+### **from_unixtime**
     from_unixtime(unixTime [, fmt]) 
 在 fmt 中返回 unixTime。
 
 ----------------
 
-### **Now**
+### **now**
     以 Timestamp(Nanoseconds, UTC) 
 格式返回当前时间戳
 
@@ -705,7 +714,7 @@ expr 类型为TIMESTAMP
 
 ----------------
 
-### **Struct**
+### **struct**
 
     struct(expr1 [, ...] ) 
 
