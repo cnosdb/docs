@@ -14,10 +14,10 @@ CnosDB 支持创建普通表和外部表
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-(field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
+    (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
 
 field_defination:
-column_name data_type [field_codec_type]
+    column_name data_type [field_codec_type]
 ```
 
 #### 使用说明：
@@ -31,25 +31,27 @@ column_name data_type [field_codec_type]
     * DOUBLE：GORILLA，QUANTILE，NULL
     * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
     * BOOLEAN：BIPACK，NULL
-      压缩算法详情请看
+      
+想了解更多有关压缩算法的内容可以看[压缩算法详情](../design/compress.md)
 
 ### **创建外部表**
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
-CREATE
-EXTERNAL TABLE [ IF NOT EXISTS ] table_name ( field_defination [, field_defination] ... ) tb_option
+CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name 
+    ( field_defination [, field_defination] ... ) tb_option
 
 field_defination:
-column_name data_type [ NULL ]
+    column_name data_type [ NULL ]
 
-tb_option:
-STORED AS { PARQUET | NDJSON | CSV | AVRO }
-[ WITH HEADER ROW ]
-[ DELIMITER 'a_single_char' ]
-[ PARTITIONED BY ( column_name, [, ... ] ) ]
-LOCATION '/path/to/file'
+tb_option: {
+      STORED AS { PARQUET | NDJSON | CSV | AVRO }
+    | [ WITH HEADER ROW ]
+    | [ DELIMITER 'a_single_char' ]
+    | [ PARTITIONED BY ( column_name, [, ... ] ) ]
+    | LOCATION '/path/to/file'
+}
 ```
 
 #### 参数说明
