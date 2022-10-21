@@ -29,6 +29,19 @@ export default defineUserConfig({
     ],
     [
       'script',
+      {},
+      `
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?667048807bc5edda32d1c6f4185c219b";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+      `
+    ],
+    [
+      'script',
       {
         defer: true,
         src: path.resolve(
