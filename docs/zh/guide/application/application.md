@@ -131,10 +131,3 @@ public static void main(String[] args) {
     }
 }
 ```
-
-## Python
-
-```python
-TODO
-example
-```
