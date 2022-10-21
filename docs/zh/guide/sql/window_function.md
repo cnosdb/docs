@@ -9,7 +9,7 @@ order: 10
 ## 语法
 
 ```
-function_call OVER ([PARTITIONBY] [ORDERBY])
+function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr])
 ```
 
 ## 使用限制
@@ -18,7 +18,7 @@ function_call OVER ([PARTITIONBY] [ORDERBY])
 
 **示例**：
 ```sql
-SELECT c1, first_value(c1) OVER (PARTITION BY c2)
+SELECT c1, FIRST_VALUE(c1) OVER (PARTITION BY c2)
 FROM aggregate_test_100
 ```
 
@@ -146,7 +146,7 @@ FROM aggregate_test_100
 
 ### **NTH_VALUE**
 
-    NTH_VALUE(expr, number [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+    NTH_VALUE(expr, number [, ignore_nulls]) OVER ([partition_clause] [orderby_clause])
 
 **功能**： 返回相对于窗口的第一行的窗口框架的指定行的表达式值。
 

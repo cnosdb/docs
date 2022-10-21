@@ -41,7 +41,7 @@ INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
 
 ## 插入查询结果(INSERT SELECT)
 
-你还可以使用 `INTO table SELECT`语法，来插入查询的数据
+你还可以使用 `INSERT table SELECT`语法，来插入查询的数据
 
 示例：
 

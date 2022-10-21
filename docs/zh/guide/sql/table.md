@@ -2,7 +2,7 @@
 title: 表
 order: 3
 ---
-// TODO 外部表例子
+[//]: # (TODO 外部表例子)
 ## **创建表**
 
 可以使用 `CREATE TABLE` 创建表
@@ -24,7 +24,7 @@ field_defination:
 1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列
 2. 各列的名字需要互不相同
 3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法
-4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法
+4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法，NULL表示不使用压缩算法
 
     * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
     * DOUBLE：GORILLA，QUANTILE，NULL
