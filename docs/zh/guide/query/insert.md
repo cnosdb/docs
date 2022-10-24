@@ -15,7 +15,7 @@ INSERT [INTO] tb_name VALUES (TIME, ...) [, ...]
 ```
 
 说明：
-CnosDB 要求插入的数据必须要有时间戳，且VALUES列表必须为字面量。
+CnosDB 要求插入的数据必须要有时间戳，且VALUES列表必须为[常量](data_type.md/#常量)。
 
 如果VALUES列表需要表达式，请使用INSERT SELECT 语法
 
