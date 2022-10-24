@@ -13,9 +13,9 @@ CnosDB 支持创建普通表和外部表
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-    (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
+    (field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...))
 
-field_defination:
+field_definition:
     column_name data_type [field_codec_type]
 ```
 
@@ -39,9 +39,9 @@ field_defination:
 -- Column definitions can not be specified for PARQUET files
 
 CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name 
-    ( field_defination [, field_defination] ... ) tb_option
+    ( field_definition [, field_definition] ... ) tb_option
 
-field_defination:
+field_definition:
     column_name data_type [ NULL ]
 
 tb_option: {

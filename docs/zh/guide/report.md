@@ -15,12 +15,12 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章着重介绍目前 CnosDB 的基础知识，快速上手，实现原理，生态集成以及云原生计划等等，让大家对 CnosDB 有一个充分的认识。
 
 ## 基础知识
-本章节主要介绍 CnosDB 的一些基本概念
+本章节主要介绍 CnosDB 的一些基本概念。
 
 - [基本概念](concept.md#基本概念)
 
 ## 运行安装
-本章节介绍了如何使用以下其中之一安装和运行 CnosDB
+本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
 
 - [Dokcer](quick_start.md#Docker)
 - [从源码开始](quick_start.md#从源码开始)
@@ -45,20 +45,20 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 - [参考文献]
   
 ## SQL手册
-本章节包含以下内容
+本章节包含以下内容：
 - [SQL](sql/sql.md)
 - [函数](sql/function.md)
 
 ## 生态集成
-本章节包含以下内容
+本章节包含以下内容：
 - [grafana](ecology/grafana.md)
 - [telegraf](ecology/telegraf.md)
   
 ## Cloud
-本章节包含以下内容
+本章节包含以下内容：
 - [Cloud](could.md)
 
 ## 版本发布
-本章节包含以下内容
+本章节包含以下内容：
 - [发布历史](release/changlist.md)
 - [演进路线](release/evolution.md)
