@@ -10,12 +10,12 @@ order: 3
 CnosDB 支持创建普通表和外部表
 
 ### **创建普通表**
-
+**语法**：
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-    (field_defination [, field_defination] ...TAGS(tg_name [, tg_name] ...))
+    (field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...))
 
-field_defination:
+field_definition:
     column_name data_type [field_codec_type]
 ```
 
@@ -33,15 +33,27 @@ field_defination:
       
 想了解更多有关压缩算法的内容可以看[压缩算法详情](../design/compress.md)
 
-### **创建外部表**
+**示例**：
+```sql
+> CREATE TABLE air (
+    visibility DOUBLE,
+    temperature DOUBLE,
+    presssure DOUBLE,
+    TAGS(station)
+);
 
+Query took 0.033 seconds.
+```
+
+### **创建外部表**
+**语法**：
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
-CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name 
-    ( field_defination [, field_defination] ... ) tb_option
+CREATE EXTERNAL TABLE [ IF NOT EXISTS ] tb_name 
+    ( field_definition [, field_definition] ... ) tb_option
 
-field_defination:
+field_definition:
     column_name data_type [ NULL ]
 
 tb_option: {
@@ -65,10 +77,15 @@ tb_option: {
 5. LOCATION：表示关联的文件的位置
 
 ## **删除表**
-
+**语法**：
 ```sql
--- We don't support cascade and purge for now.
-DROP TABLE [ IF EXISTS ] table_name
+DROP TABLE [ IF EXISTS ] tb_name
+```
+
+**示例**：
+```sql
+> DROP TABLE IF EXISTS air;
+Query took 0.033 seconds.
 ```
 
 ## **显示当前数据库所有表**

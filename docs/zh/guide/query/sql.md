@@ -21,7 +21,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 -- from_item
 -- 1.
-    table_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+    tb_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
 -- 2.
     from_item join_type from_item
     { ON join_condition | USING ( join_column [, ...] ) }
@@ -69,7 +69,7 @@ expression [ [ AS ] column_alias ]
 ```
 示例
 ```sql
-SELECT power as p FROM cpu;
+SELECT power AS p FROM cpu;
 ```
 
 
@@ -95,7 +95,7 @@ FROM x;
 
 ## **UNION 子句**
 
-UNION子句用于合并多个SELECT语句的分析结果。
+UNION 子句用于合并多个 SELECT 语句的分析结果。
 
 ```
 select_clause_set_left
@@ -104,7 +104,7 @@ select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
 
-注意:UNION内每个SELECT子句必须拥有相同数量的列，对应列的数据类型相同。
+注意：UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据类型相同。
 
 示例：
 
@@ -116,7 +116,7 @@ SELECT 2;
 
 ## ORDER BY 子句
 
-按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 order by 的表达式后添加 DESC 按降序排序。
+按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
 
 ```sql
 SELECT age, person
@@ -130,11 +130,11 @@ SELECT age, person FROM table ORDER BY age, person DESC;
 
 限制行数为count，count必须非负
 
-例子：
+示例：
 
 ```sql
 SELECT age, person
-FROM table LIMIT 10
+FROM tb_name LIMIT 10
 ```
 
 ## **OFFSET 子句**
@@ -172,11 +172,18 @@ WHERE host IN ('127.0.0.1', '0.0.0.0');
 
 ## **EXPLAIN**
 
-EXPLAIN 语句仅用于显示查询的执行计划，而不执行查询。
-
+语法：
 ```sql
 { EXPLAIN | DESCRIBE } [ ANALYZE ] [ VERBOSE ] <statement>
 ```
+说明：
+目前 statement 不支持`CREATE`系列的语句
+
+`EXPLAIN` 语句仅用于显示查询的执行计划，而不执行查询。
+
+`EXPLAIN ANALYZE` 执行查询，并显示查询的执行计划。
+
+`EXPLAIN ANALYZE VERBOSE` 执行查询，并显示更详细的执行计划，包括读取的行数等。
 
 [//]: # (# **DCL &#40;无&#41;**)
 [//]: # (# **DESCRIBE**)

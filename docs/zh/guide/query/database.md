@@ -5,7 +5,7 @@ order: 2
 
 ## **创建数据库**
 
-语法：
+**语法**：
 ```sql
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options]
 
@@ -29,14 +29,24 @@ db_option: {
 4. REPLICA： 表示数据在集群中的副本数，默认为1
 5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
 
-## 删除数据库
+**示例**：
+```
+> CREATE DATABASE oceanic_station;
+Query took 0.062 seconds.
+```
 
+## 删除数据库
+**语法**：
 ```sql
 DROP DATABASE [IF EXISTS] db_name
 ```
 删除数据库会将指定database的所有table数据及元数据全部删除
 
-[//]: # (## **修改数据库参数**)
+**示例**：
+```sql
+> DROP DATABASE oceanic_station;
+Query took 0.030 seconds.
+```
 
 ## **查看系统中所有数据库**
 ```sql
@@ -49,6 +59,6 @@ SHOW DATABASES
 \c dbname
 ```
 
+[//]: # (## **修改数据库参数**)
 [//]: # (## **显示一个数据库的创建语句**)
-
 [//]: # (## **查看数据库参数**)
