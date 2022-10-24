@@ -69,7 +69,7 @@ expression [ [ AS ] column_alias ]
 ```
 示例
 ```sql
-SELECT power as p FROM cpu;
+SELECT power AS p FROM cpu;
 ```
 
 
