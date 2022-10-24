@@ -5,6 +5,31 @@ order: 5
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，我们支持DataFusion的大部分SQL语法。
 
+## 示例数据
+为了进一步学习CnosDB，本节将提供示例数据供您下载，并教您如何将数据导入数据库。后面章节中引用的数据源都来自此示例数据。
+
+### 下载数据
+执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
+
+```shell
+wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station
+```
+
+### 导入数据
+- 启动CLI
+
+在源码根目录下运行
+```shell
+cargo run --package client --bin client
+```
+- 导入数据
+ 
+执行`\w`指令，`\w`后面为数据文件的路径
+```sql
+> \w path/to/oceanic_station
+Query took 2.133 seconds.
+```
+
 ## **语法**
 
 ```sql

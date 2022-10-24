@@ -25,15 +25,17 @@ cargo run --package client --bin client
 --quiet                     运行在安静模式，只输出结果，不输出执行时间
 ```
 
-**进入程序后你可以运行指令和SQL：**
+**进入程序后你可以运行指令或SQL：**
 
-例如：
+运行SQL例如：
 ```
-CnosDB CLI v0.1.0
-Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: "", database: "public", data_path: None, file: [], rc: None, format: Table, quiet: false }
 ❯ CREATE DATABASE test;
+
+Query took 0.050 seconds.
+❯ 
 ```
 
+运行指令例如：
 
 程序的指令如下：
 
@@ -42,7 +44,7 @@ Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: 
 \q          退出CLI
 \c <db>     连接数据库db_name
 \d <table>  描述表table
-\\quiet     切换至安静模式，只输出结果，不输出执行时间
+\quiet     切换至安静模式，只输出结果，不输出执行时间
 \w <path>   读取line protocol格式的文件，写入数据库
 ```
 
