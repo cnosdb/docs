@@ -33,6 +33,18 @@ field_definition:
       
 想了解更多有关压缩算法的内容可以看[压缩算法详情](../design/compress.md)
 
+**示例**：
+```sql
+> CREATE TABLE air (
+visibility DOUBLE,
+temperature DOUBLE,
+presssure DOUBLE,
+TAGS(station)
+);
+
+Query took 0.033 seconds.
+```
+
 ### **创建外部表**
 
 ```sql
@@ -65,10 +77,15 @@ tb_option: {
 5. LOCATION：表示关联的文件的位置
 
 ## **删除表**
-
+**语法**：
 ```sql
--- We don't support cascade and purge for now.
 DROP TABLE [ IF EXISTS ] tb_name
+```
+
+**示例**：
+```sql
+> DROP TABLE IF EXISTS air;
+Query took 0.033 seconds.
 ```
 
 ## **显示当前数据库所有表**
