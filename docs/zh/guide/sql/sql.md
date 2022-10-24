@@ -21,7 +21,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 -- from_item
 -- 1.
-    table_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+    tb_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
 -- 2.
     from_item join_type from_item
     { ON join_condition | USING ( join_column [, ...] ) }

@@ -38,7 +38,7 @@ field_definition:
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
-CREATE EXTERNAL TABLE [ IF NOT EXISTS ] table_name 
+CREATE EXTERNAL TABLE [ IF NOT EXISTS ] tb_name 
     ( field_definition [, field_definition] ... ) tb_option
 
 field_definition:
@@ -68,7 +68,7 @@ tb_option: {
 
 ```sql
 -- We don't support cascade and purge for now.
-DROP TABLE [ IF EXISTS ] table_name
+DROP TABLE [ IF EXISTS ] tb_name
 ```
 
 ## **显示当前数据库所有表**
