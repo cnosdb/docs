@@ -30,7 +30,8 @@ order: 2
 
 ### **支持平台**
 
-我们支持以下平台，如果发现可以在列表以外的平台上运行，请报告给我们。
+我们支持以下平台，如果发现可以在列表以外的平台上运行，
+请[报告](https://github.com/cnosdb/cnosdb/issues)给我们。
 
 - Linux x86(`x86_64-unknown-linux-gnu`)
 - Darwin arm(`aarch64-apple-darwin`)
