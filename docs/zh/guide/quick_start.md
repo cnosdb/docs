@@ -103,7 +103,7 @@ cargo run --package client --bin client
 ### 创建数据库
 
 ```sql
-CREATE DATABASE computor;
+CREATE DATABASE oceanic_station;
 ```
 
 正确执行，会返回以下内容：
@@ -115,17 +115,18 @@ CREATE DATABASE computor;
 
 ### 创建表
 ```sql
-CREATE TABLE cpu (
-    power DOUBLE,
+CREATE TABLE air (
+    visibility DOUBLE,
     temperature DOUBLE,
-    TAGS(host, machine)
+    presssure DOUBLE,
+    TAGS(station)
 );
 ```
 
 ### 写入您的第一条数据
 ```sql
-INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES 
-                (1666165200290401000, 'localhost', 'macbook', 25.7, 67.2);
+INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES 
+                (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);
 ```
 
 正确执行，会返回以下内容：
@@ -140,17 +141,17 @@ INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
 ### 使用 SQL 查询数据
 
 ```
-SELECT * FROM cpu;
+SELECT * FROM air;
 ```
 
 正确执行，会返回以下内容：
 
 ```
-+-----------+---------+-------+-------------+----------------------------+
-| host      | machine | power | temperature | time                       |
-+-----------+---------+-------+-------------+----------------------------+
-| localhost | macbook | 25.7  | 67.2        | 2022-10-19 07:40:00.290401 |
-+-----------+---------+-------+-------------+----------------------------+
++-----------+------------+-------------+----------------------------+------------+
+| presssure | station    | temperature | time                       | visibility |
++-----------+------------+-------------+----------------------------+------------+
+| 77        | XiaoMaiDao | 69          | 2022-10-19 07:40:00.290401 | 56         |
++-----------+------------+-------------+----------------------------+------------+
 ```
 
    > 有关更多关于数据库的操作请参考：
