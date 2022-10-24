@@ -24,11 +24,15 @@ CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[
 
 ## 插入一条记录
 
-TIME 列的数据既可以是时间字符串，也可以是BIGINT类型的时间戳
+TIME 列的数据既可以用时间字符串表示，也可以用数字类型的时间戳表示
 
+**示例**：
 ```
 INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
 (1666165200290401000, 'localhost', 'macbook', 25.7, 67.2);
+
+INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
+('2022-10-20 08:35:44.525229', '255.255.255.255', 'linux', 30.1, 70.6);
 ```
 
 ## 插入多条记录
