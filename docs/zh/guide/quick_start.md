@@ -107,11 +107,11 @@ cargo run --package client --bin client
 CREATE DATABASE oceanic_station;
 ```
 
-正确执行，会返回以下内容：
+正确执行，会返回类似如下内容：
 
 ```
-++
-++
+
+Query took 0.080 seconds.
 ```
 
 ### 创建表
@@ -122,6 +122,12 @@ CREATE TABLE air (
     presssure DOUBLE,
     TAGS(station)
 );
+```
+
+正确执行，会返回类似如下内容：
+
+```
+Query took 0.032 seconds.
 ```
 
 ### 写入您的第一条数据
