@@ -19,7 +19,7 @@ CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[
 
 时间列不能为`NULL`，Tag列和Field列可以为`NULL`
 
-如果 VALUES 列表需要表达式，请使用`INSERT SELECT`语法
+如果 VALUES 列表需要表达式，请使用[INSERT SELECT](#%E6%8F%92%E5%85%A5%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C-insert-select)语法
 
 
 ## 插入一条记录
