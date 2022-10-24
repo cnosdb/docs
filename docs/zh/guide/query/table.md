@@ -10,7 +10,7 @@ order: 3
 CnosDB 支持创建普通表和外部表
 
 ### **创建普通表**
-
+**语法**：
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
     (field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...))
@@ -36,17 +36,17 @@ field_definition:
 **示例**：
 ```sql
 > CREATE TABLE air (
-visibility DOUBLE,
-temperature DOUBLE,
-presssure DOUBLE,
-TAGS(station)
+    visibility DOUBLE,
+    temperature DOUBLE,
+    presssure DOUBLE,
+    TAGS(station)
 );
 
 Query took 0.033 seconds.
 ```
 
 ### **创建外部表**
-
+**语法**：
 ```sql
 -- Column definitions can not be specified for PARQUET files
 

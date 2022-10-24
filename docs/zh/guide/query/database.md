@@ -36,12 +36,13 @@ Query took 0.062 seconds.
 ```
 
 ## 删除数据库
-
+**语法**：
 ```sql
 DROP DATABASE [IF EXISTS] db_name
 ```
 删除数据库会将指定database的所有table数据及元数据全部删除
 
+**示例**：
 ```sql
 > DROP DATABASE oceanic_station;
 Query took 0.030 seconds.
