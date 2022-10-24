@@ -15,61 +15,126 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 ```
 
 **说明**：
-CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[常量](data_type.md/#常量)。
 
-时间列不能为`NULL`，Tag列和Field列可以为`NULL`
+CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[常量](data_type.md/#常量)，
+如果有列没有被选中，那么值为`NULL`。
+
+**注意**：
+
+时间列不能为`NULL`，Tag列和Field列可以为`NULL`。
+
+例如`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
 如果 VALUES 列表需要表达式，请使用[INSERT SELECT](#%E6%8F%92%E5%85%A5%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C-insert-select)语法
 
 
 ## 插入一条记录
 
-TIME 列的数据既可以用时间字符串表示，也可以用数字类型的时间戳表示
+TIME 列的数据既可以用时间字符串表示，也可以用数字类型的时间戳表示，请注意
 
 **示例**：
-```
-INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
-(1666165200290401000, 'localhost', 'macbook', 25.7, 67.2);
+```sql
+> CREATE TABLE air (
+    visibility DOUBLE,
+    temperature DOUBLE,
+    presssure DOUBLE,
+    TAGS(station)
+);
+Query took 0.027 seconds.
 
-INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
-('2022-10-20 08:35:44.525229', '255.255.255.255', 'linux', 30.1, 70.6);
+> INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
+                (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);
+
++------+
+| rows |
++------+
+| 1    |
++------+
+Query took 0.044 seconds.
+
+> INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
+                ('2022-10-19 06:40:00', 'XiaoMaiDao', 55, 68, 76);
++------+
+| rows |
++------+
+| 1    |
++------+
+Query took 0.032 seconds.
+
+> SELECT * FROM air;
++----------------------------+------------+------------+-------------+-----------+
+| time                       | station    | visibility | temperature | presssure |
++----------------------------+------------+------------+-------------+-----------+
+| 2022-10-18 22:40:00        | XiaoMaiDao | 55         | 68          | 76        |
+| 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
++----------------------------+------------+------------+-------------+-----------+
+Query took 0.029 seconds.
 ```
+
+**注意**：
+
+字符串表示的时间被认为是本地时区，会转换成UTC时区的时间戳。
+
+输出时输出UTC时区的时间
+
 
 ## 插入多条记录
 
 `VALUES`关键字后面可以跟多个列表，用`,`分隔开
 
-```
-INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
-(1666165200290401000, '127.0.0.1', 'macbook', 25.7, 67.2),
-('2022-10-20 08:35:44.525229', '255.255.255.255', 'linux', 30.1, 70.6);
+```sql
+> INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
+                  ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 76), 
+                  ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);
++------+
+| rows |
++------+
+| 2    |
++------+
+Query took 0.037 seconds.
+
++----------------------------+------------+------------+-------------+-----------+
+| time                       | station    | visibility | temperature | presssure |
++----------------------------+------------+------------+-------------+-----------+
+| 2022-10-18 20:40:00        | XiaoMaiDao | 55         | 68          | 76        |
+| 2022-10-18 21:40:00        | XiaoMaiDao | 55         | 68          | 76        |
+| 2022-10-18 22:40:00        | XiaoMaiDao | 55         | 68          | 76        |
+| 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
++----------------------------+------------+------------+-------------+-----------+
+Query took 0.035 seconds.
 ```
 
 ## 插入查询结果(INSERT SELECT)
 
-你还可以使用 `INSERT SELECT`语法，来插入查询的数据
+你还可以使用 `INSERT SELECT`语法，向表中插入查询的数据
 
 **示例**：
 
-如下是两个表
-
 ```sql
-CREATE TABLE cpu (
-    power DOUBLE,
-    temperature DOUBLE,
-    TAGS(host, machine)
-);
+> CREATE TABLE air_visibility (
+      visibility DOUBLE,
+      TAGS(station)
+  );
+Query took 0.027 seconds.
 
-CREATE TABLE cpu_power (
-    power DOUBLE,
-    TAGS(host, machine)
-);
-```
+> INSERT air_visibility (TIME, station, visibility) 
+      SELECT TIME, station, visibility FROM air;
++------+
+| rows |
++------+
+| 4    |
++------+
+Query took 0.045 seconds.
 
-您可以使用如下语法，把查询结果写入到一个表中
+> SELECT * FROM air_visibility;
++----------------------------+------------+------------+
+| time                       | station    | visibility |
++----------------------------+------------+------------+
+| 2022-10-18 20:40:00        | XiaoMaiDao | 55         |
+| 2022-10-18 21:40:00        | XiaoMaiDao | 55         |
+| 2022-10-18 22:40:00        | XiaoMaiDao | 55         |
+| 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         |
++----------------------------+------------+------------+
+Query took 0.029 seconds.
 
-```sql
-INSERT INTO cpu_power(TIME, host, machine, power)
-SELECT TIME, host, machine, power
-FROM cpu;
 ```
