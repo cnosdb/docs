@@ -17,7 +17,7 @@ order: 2
    ```
    ```shell
    $ cnosdb-cli
-   CnosDB CLI v0.1.0
+   CnosDB CLI v2.0.0
    Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: "", database: "public", data_path: None, file: [], rc: None, format: Table, quiet: false }
    ❯
    ```

@@ -115,7 +115,7 @@ curl -G 'http://localhost:31007/api/v1/ping'
 请求成功
 ```json
 {
-"version":"0.1.0",
+"version":"2.0.0",
 "status":"healthy"
 }
 ```
