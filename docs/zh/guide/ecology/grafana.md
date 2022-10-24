@@ -67,7 +67,7 @@ Grafana 可以通过图形化界面来配置仪表板，配置好的仪表板可
 
 ![](../source/_static/img/grafana_main_page_3.png)
 
-将 [JSON](https://github.com/cnosdb/docs/blob/main/asseets/grafana_dashboard.json) 复制到【`import via panel json`】处，随后点击【`load`】按钮。
+将 [JSON](https://github.com/cnosdb/docs/blob/main/assets/grafana_dashboard.json) 复制到【`import via panel json`】处，随后点击【`load`】按钮。
 
 ![](../source/_static/img/grafana_import_dashboard_1.png)
 
