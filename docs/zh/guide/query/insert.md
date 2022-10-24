@@ -17,6 +17,8 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 **说明**：
 CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[常量](data_type.md/#常量)。
 
+时间列不能为`NULL`，Tag列和Field列可以为`NULL`
+
 如果 VALUES 列表需要表达式，请使用`INSERT SELECT`语法
 
 
