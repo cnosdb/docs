@@ -110,7 +110,6 @@ CREATE DATABASE oceanic_station;
 正确执行，会返回类似如下内容：
 
 ```
-
 Query took 0.080 seconds.
 ```
 
