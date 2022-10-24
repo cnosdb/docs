@@ -11,13 +11,13 @@ CnosDB支持两种数据写入的方法，一种是使用`INSERT INTO`语句，�
 语法：
 
 ```sql
-INSERT [INTO] tb_name VALUES (TIME, ...) [, ...]
+INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, ...] | query 
 ```
 
-说明：
-CnosDB 要求插入的数据必须要有时间戳，且VALUES列表必须为[常量](data_type.md/#常量)。
+**说明**：
+CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[常量](data_type.md/#常量)。
 
-如果VALUES列表需要表达式，请使用INSERT SELECT 语法
+如果 VALUES 列表需要表达式，请使用`INSERT SELECT`语法
 
 
 ## 插入一条记录
@@ -41,9 +41,9 @@ INSERT INTO cpu (TIME, host, machine, power, temperature) VALUES
 
 ## 插入查询结果(INSERT SELECT)
 
-你还可以使用 `INSERT table SELECT`语法，来插入查询的数据
+你还可以使用 `INSERT SELECT`语法，来插入查询的数据
 
-示例：
+**示例**：
 
 如下是两个表
 
