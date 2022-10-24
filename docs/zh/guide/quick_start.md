@@ -157,7 +157,7 @@ SELECT * FROM air;
 
    > 有关更多关于数据库的操作请参考：
    >
-   > [SQL](sql/sql.md)
+   > [SQL](query/sql.md)
    >
    > [编程接口](application/api.md)
 

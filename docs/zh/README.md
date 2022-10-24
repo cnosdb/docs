@@ -37,8 +37,8 @@ CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## SQL手册
 本章节包含以下内容
-- [SQL](guide/sql/sql.md)
-- [函数](guide/sql/function.md)
+- [SQL](guide/query/sql.md)
+- [函数](guide/query/function.md)
 
 ## 生态集成
 本章节包含以下内容
@@ -51,5 +51,5 @@ CnosDB是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## 版本发布
 本章节包含以下内容
-- [发布历史](guide/release/changlist.md)
-- [演进路线](guide/release/evolution.md)
+- [发布历史](guide/release/changelist.md)
+- [演进路线](guide/release/roadmap.md)
