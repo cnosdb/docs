@@ -1,6 +1,5 @@
 ---
 title: 应用开发
-icon: config
 order: 1
 ---
 

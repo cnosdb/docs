@@ -1,6 +1,6 @@
 ---
 title: 介绍
-icon: config
+icon: home
 order: 1
 ---
 

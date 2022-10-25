@@ -1,6 +1,6 @@
 ---
 title: 工具
-icon: config
+icon: tool
 order: 4
 index: false
 ---

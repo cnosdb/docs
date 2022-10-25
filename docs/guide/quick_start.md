@@ -1,6 +1,6 @@
 ---
 title: 快速开始
-icon: config
+icon: launch
 order: 2
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: 编程接口
-icon: config
 order: 2
 ---
 

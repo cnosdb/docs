@@ -1,6 +1,5 @@
 ---
 title: 配置
-icon: config
 order: 2
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 基础概念
-icon: config
+icon: creative
 order: 2
 ---
 

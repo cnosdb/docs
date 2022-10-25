@@ -1,6 +1,6 @@
 ---
 title: 应用集成
-icon: config
+icon: type
 order: 3
 index: false
 ---

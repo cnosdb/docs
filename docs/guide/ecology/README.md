@@ -1,6 +1,6 @@
 ---
 title: 生态集成
-icon: config
+icon: leaf
 order: 3
 index: false
 ---

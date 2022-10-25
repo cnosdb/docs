@@ -1,6 +1,6 @@
 ---
 title: 实现原理
-icon: config
+icon: generic
 order: 10
 index: false
 ---

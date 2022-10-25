@@ -1,6 +1,6 @@
 ---
 title: Cloud
-icon: config
+icon: cache
 order: 7
 ---
 

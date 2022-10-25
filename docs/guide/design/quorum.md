@@ -1,6 +1,5 @@
 ---
 title: Quorum算法
-icon: config
 order: 4
 ---
 
