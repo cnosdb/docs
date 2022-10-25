@@ -1,6 +1,6 @@
 ---
 title: 应用集成
 icon: type
-order: 3
+order: 7
 index: false
 ---

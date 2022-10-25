@@ -37,13 +37,6 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 - [Java](./guide/application/application.md#java)
 - [HTTP API](./guide/application/api.md)
 
-## 实现原理
-本章节介绍了 CnosDB 的实现原理，包括存储引擎，查询引擎，压缩算法等。
-- [系统架构](./guide/design/arch.md)
-- [配置](./guide/design/config.md)
-- [压缩算法](./guide/design/compress.md)
-- [参考文献]
-
 ## SQL手册
 本章节包含以下内容：
 - [SQL](./guide/query/sql.md)
@@ -56,10 +49,17 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## Cloud
 本章节包含以下内容：
-- [Cloud](./guide/could.md)
+- [Cloud](./guide/cloud.md)
 
 ## 版本发布
 
 本章节包含以下内容：
 - [发布历史](./guide/release/changelist.md)
 - [演进路线](./guide/release/roadmap.md)
+
+## 实现原理
+本章节介绍了 CnosDB 的实现原理，包括存储引擎，查询引擎，压缩算法等。
+- [系统架构](./guide/design/arch.md)
+- [配置](./guide/design/config.md)
+- [压缩算法](./guide/design/compress.md)
+- [参考文献]

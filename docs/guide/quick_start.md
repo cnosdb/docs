@@ -1,7 +1,7 @@
 ---
 title: 快速开始
 icon: launch
-order: 2
+order: 3
 ---
 
 ## Docker
