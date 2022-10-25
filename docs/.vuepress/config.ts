@@ -54,12 +54,12 @@ export default defineUserConfig({
   ],
 
   locales: {
-    '/zh/': {
+    '/': {
       lang: 'zh-CN',
       title: '文档',
       description: 'CnosDB 的文档',
     },
-    '/': {
+    '/en/': {
       lang: 'en-US',
       title: 'Docs',
       description: 'A docs for CnosDB',
@@ -78,7 +78,7 @@ export default defineUserConfig({
   plugins: [
     searchPlugin({
       locales: {
-        '/zh/': {
+        '/zh': {
           placeholder: '搜索',
         },
       },
