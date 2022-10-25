@@ -26,8 +26,8 @@ cargo run --package client --bin client
  
 执行`\w`指令，`\w`后面为数据文件的路径
 ```sql
-> \w path/to/oceanic_station
-Query took 2.133 seconds.
+> \w ../data_set/oceanic_station
+Query took 0.023 seconds.
 ```
 
 ## **语法**
@@ -66,8 +66,26 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 ### SELECT \*
 通配符 * 可以用于代指全部列。
 
+**示例**：
 ```
-SELECT * FROM cpu;
+> SELECT * FROM air;
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
++---------------------+-------------+------------+-------------+----------+
 ```
 
 ### ALL/DISTINCT
@@ -75,46 +93,206 @@ SELECT * FROM cpu;
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...]
 ```
-在选取的列名前可以使用`DISTINCT`去掉重复字段，只返回去重后的值。
+在`SELECT`关键字后可以使用`DISTINCT`去掉重复字段，只返回去重后的值。
 使用`ALL`会返回字段中所有重复的值。不指定此选项时，默认值为`ALL`。
 
 示例:
 ```sql
-SELECT DISTINCT host FROM cpu;
-SELECT ALL host FROM cpu;
+SELECT DISTINCT station, visibility FROM air;
++-------------+------------+
+| station     | visibility |
++-------------+------------+
+| XiaoMaiDao  | 56         |
+| XiaoMaiDao  | 50         |
+| XiaoMaiDao  | 67         |
+| XiaoMaiDao  | 65         |
+| XiaoMaiDao  | 53         |
+| XiaoMaiDao  | 74         |
+| XiaoMaiDao  | 71         |
+| LianYunGang | 78         |
+| LianYunGang | 79         |
+| LianYunGang | 59         |
+| LianYunGang | 67         |
+| LianYunGang | 80         |
++-------------+------------+
+
+> SELECT  station, visibility FROM air;
+SELECT station, visibility FROM air;
++-------------+------------+
+| station     | visibility |
++-------------+------------+
+| XiaoMaiDao  | 56         |
+| XiaoMaiDao  | 50         |
+| XiaoMaiDao  | 67         |
+| XiaoMaiDao  | 65         |
+| XiaoMaiDao  | 53         |
+| XiaoMaiDao  | 74         |
+| XiaoMaiDao  | 71         |
+| LianYunGang | 78         |
+| LianYunGang | 79         |
+| LianYunGang | 59         |
+| LianYunGang | 67         |
+| LianYunGang | 80         |
+| LianYunGang | 59         |
++-------------+------------+
 ```
 
-### AS
+## 别名
 
-可以用 AS 为列表达式取别名
+可以用`AS`关键字为列表达式或表取别名
 
+### 为列表达式取别名
 语法：
 ```sql
 expression [ [ AS ] column_alias ]
 ```
 示例
 ```sql
-SELECT power AS p FROM cpu;
+> SELECT station s, visibility AS v FROM air;
++-------------+----+
+| s           | v  |
++-------------+----+
+| XiaoMaiDao  | 56 |
+| XiaoMaiDao  | 50 |
+| XiaoMaiDao  | 67 |
+| XiaoMaiDao  | 65 |
+| XiaoMaiDao  | 53 |
+| XiaoMaiDao  | 74 |
+| XiaoMaiDao  | 71 |
+| LianYunGang | 78 |
+| LianYunGang | 79 |
+| LianYunGang | 59 |
+| LianYunGang | 67 |
+| LianYunGang | 80 |
+| LianYunGang | 59 |
++-------------+----+
+```
+### 为表取别名
+你也可以用关键字`AS`为表取别名
+**语法**：
+```sql
+FROM tb_name [AS] alias_name
 ```
 
+**示例**：
+```sql
+SELECT a.visibility, s.temperature
+FROM air AS a, sea s LIMIT 10;
++------------+-------------+
+| visibility | temperature |
++------------+-------------+
+| 56         | 62          |
+| 56         | 63          |
+| 56         | 77          |
+| 56         | 54          |
+| 56         | 55          |
+| 56         | 64          |
+| 56         | 56          |
+| 56         | 57          |
+| 56         | 64          |
+| 56         | 51          |
++------------+-------------+
+```
+## LIMIT 子句
+**语法**：
+```sql
+LIMIT n
+```
+限制返回结果集的行数为n，n必须非负
+
+示例：
+```sql
+SELECT *
+FROM air LIMIT 10;
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
++---------------------+-------------+------------+-------------+----------+
+```
+
+## **OFFSET 子句**
+**语法**：
+```sql
+OFFSET m
+```
+返回的结果集跳过 m 条记录, 默认 m=0
+**示例**：
+```sql
+SELECT *
+FROM air OFFSET 10;
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
++---------------------+-------------+------------+-------------+----------+
+```
+
+`OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`，
+也可以简写为`LIMIT n, m`。
+其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
+OFFSET 0与省略OFFSET子句效果相同。
+
+**示例**：
+
+```sql
+SELECT *
+FROM air LIMIT 3, 3;
++---------------------+------------+------------+-------------+----------+
+| time                | station    | visibility | temperature | pressure |
++---------------------+------------+------------+-------------+----------+
+| 2022-01-28 13:30:00 | XiaoMaiDao | 65         | 79          | 77       |
+| 2022-01-28 13:33:00 | XiaoMaiDao | 53         | 53          | 68       |
+| 2022-01-28 13:36:00 | XiaoMaiDao | 74         | 72          | 68       |
++---------------------+------------+------------+-------------+----------+
+```
 
 ## **WITH 子句**
+**语法**：
+```sql
+WITH cte AS cte_query_definiton [, ...] query
+```
 可选。WITH子句包含一个或多个常用的表达式CTE(Common Table Expression)。
 CTE充当当前运行环境中的临时表，您可以在之后的查询中引用该表。CTE使用规则如下：
 - 在同一WITH子句中的CTE必须具有唯一的名字。
 - 在WITH子句中定义的CTE仅对在其后定义的同一WITH子句中的其他CTE可以使用。
 假设A是子句中的第一个CTE，B是子句中的第二个CTE：
 
+**示例**：
 ```sql
 -- eg.
-SELECT a, b
-FROM (SELECT a, MAX(b) AS b
-FROM t
-GROUP BY a) AS x;
+> SELECT station, avg 
+  FROM (SELECT station, AVG(visibility) AS avg 
+        FROM air 
+        GROUP BY station) AS x;
++-------------+--------------------+
+| station     | avg                |
++-------------+--------------------+
+| XiaoMaiDao  | 62.285714285714285 |
+| LianYunGang | 70.33333333333333  |
++-------------+--------------------+
 
-WITH x AS (SELECT a, MAX(b) AS b FROM t GROUP BY a)
-SELECT a, b
-FROM x;
+> WITH x AS 
+      (SELECT station, AVG(visibility) AS avg FROM air GROUP BY station)
+  SELECT station, avg
+  FROM x;
++-------------+--------------------+
+| station     | avg                |
++-------------+--------------------+
+| XiaoMaiDao  | 62.285714285714285 |
+| LianYunGang | 70.33333333333333  |
++-------------+--------------------+
 ```
 
 
@@ -122,6 +300,7 @@ FROM x;
 
 UNION 子句用于合并多个 SELECT 语句的分析结果。
 
+**语法**：
 ```
 select_clause_set_left
 [ UNION | UNION ALL| EXCEPT | INTERSECT]
@@ -129,14 +308,98 @@ select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
 
-注意：UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据类型相同。
+`UNION`会对合并的结果集去重，
+`UNION ALL`保留合并的结果集中相同的数据
+`EXCEPT` 会作两个结果集的差，从左查询中返回右查询没有找到的所有非重复值
+`INTERSECT` 返回两个结果集的交集（即两个查询都返回的所有非重复值）。
 
-示例：
+**注意**：
 
+UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据类型相同。
+
+**示例**：
+
+**UNION ALL**
 ```sql
-SELECT 1
+SELECT visibility FROM air WHERE temperature < 60
 UNION ALL
-SELECT 2;
+SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
++------------+
+| visibility |
++------------+
+| 53         |
+| 56         |
+| 50         |
+| 67         |
+| 65         |
+| 53         |
+| 74         |
+| 71         |
+| 78         |
+| 79         |
++------------+
+    
+
+```
+**UNION**
+```sql
+SELECT visibility FROM air WHERE temperature < 60
+UNION
+SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
++------------+
+| visibility |
++------------+
+| 53         |
+| 56         |
+| 50         |
+| 67         |
+| 65         |
+| 74         |
+| 71         |
+| 78         |
+| 79         |
+| 59         |
++------------+
+```
+**EXCEPT**
+```sql
+SELECT visibility FROM air
+EXCEPT
+SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
++------------+
+| visibility |
++------------+
+| 56         |
+| 50         |
+| 67         |
+| 65         |
+| 53         |
+| 74         |
+| 71         |
+| 78         |
+| 79         |
+| 59         |
++------------+
+```
+**INTERSECT**
+```sql
+> SELECT visibility FROM air
+  INTERSECT
+  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
++------------+
+| visibility |
++------------+
+| 56         |
+| 50         |
+| 67         |
+| 65         |
+| 53         |
+| 74         |
+| 71         |
+| 78         |
+| 79         |
+| 59         |
++------------+
 ```
 
 ## ORDER BY 子句
@@ -151,49 +414,24 @@ SELECT age, person FROM table ORDER BY age DESC;
 SELECT age, person FROM table ORDER BY age, person DESC;
 ```
 
-## LIMIT 子句
-
-限制行数为count，count必须非负
-
-示例：
-
-```sql
-SELECT age, person
-FROM tb_name LIMIT 10
-```
-
-## **OFFSET 子句**
-`OFFSET`可以和`ORDER BY...LIMIT`语句配合使用，用于指定跳过的行数，格式为`ORDER BY...LIMIT m OFFSET n`，
-也可以简写为`ORDER BY...LIMIT n, m`。
-其中：LIMIT m控制输出m行数据，OFFSET n表示在开始返回数据之前跳过的行数。
-OFFSET 0与省略OFFSET子句效果相同。
-
-## **子查询**
-
-### **EXISTS**
-
-EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。
-
-示例：
-
-```sql
-SELECT id  FROM date
-WHERE EXISTS (SELECT 1 FROM shop
-WHERE date.id = shop.id)
-ORDER BY id;
-```
-
-### **IN**
+## **IN**
 
 IN 操作符允许您在 WHERE 子句中规定多个值。
 
 示例：
-
 ```sql
-SELECT host, machine
-FROM cpu
-WHERE host IN ('127.0.0.1', '0.0.0.0');
+SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
++-------------+-------------+------------+
+| station     | temperature | visibility |
++-------------+-------------+------------+
+| XiaoMaiDao  | 69          | 56         |
+| LianYunGang | 69          | 78         |
++-------------+-------------+------------+
 ```
+
+**注意**：
+
+IN 列表暂不支持表达式，暂时只支持常量
 
 ## **EXPLAIN**
 
@@ -210,6 +448,15 @@ WHERE host IN ('127.0.0.1', '0.0.0.0');
 
 `EXPLAIN ANALYZE VERBOSE` 执行查询，并显示更详细的执行计划，包括读取的行数等。
 
+[//]: # (## **EXISTS**)
+[//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
+[//]: # (示例：)
+[//]: # (```sql)
+[//]: # (SELECT id  FROM date)
+[//]: # (WHERE EXISTS &#40;SELECT 1 FROM shop)
+[//]: # (WHERE date.id = shop.id&#41;)
+[//]: # (ORDER BY id;)
+[//]: # (```)
 [//]: # (# **DCL &#40;无&#41;**)
 [//]: # (# **DESCRIBE**)
 [//]: # (```sql)

@@ -30,7 +30,6 @@ cargo run --package client --bin client
 运行SQL例如：
 ```
 ❯ CREATE DATABASE test;
-
 Query took 0.050 seconds.
 ❯ 
 ```
