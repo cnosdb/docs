@@ -418,7 +418,7 @@ SELECT age, person FROM table ORDER BY age, person DESC;
 
 IN 操作符允许您在 WHERE 子句中规定多个值。
 
-示例：
+**示例**：
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 +-------------+-------------+------------+
@@ -433,20 +433,123 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 
 IN 列表暂不支持表达式，暂时只支持常量
 
+
+## **SHOW**
+
+**语法**：
+```sql
+SHOW {DATABASES | TABLES}
+```
+显示所有数据库，或显示所有表
+
+**示例**：
+
+```sql
+SHOW DATABASES;
++----------+
+| Database |
++----------+
+| public   |
++----------+
+
+SHOW TABLES;
++-------+
+| Table |
++-------+
+| sea   |
+| air   |
+| wind  |
++-------+
+```
 ## **EXPLAIN**
 
-语法：
+**语法**：
+
 ```sql
-{ EXPLAIN | DESCRIBE } [ ANALYZE ] [ VERBOSE ] <statement>
+EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>
 ```
-说明：
-目前 statement 不支持`CREATE`系列的语句
+**说明**：
 
 `EXPLAIN` 语句仅用于显示查询的执行计划，而不执行查询。
 
 `EXPLAIN ANALYZE` 执行查询，并显示查询的执行计划。
 
 `EXPLAIN ANALYZE VERBOSE` 执行查询，并显示更详细的执行计划，包括读取的行数等。
+
+**示例**：
+```sql
+EXPLAIN SELECT station, temperature, visibility FROM air;
++---------------+-----------------------------------------------------------------------------------------------------------------------------+
+| plan_type     | plan                                                                                                                        |
++---------------+-----------------------------------------------------------------------------------------------------------------------------+
+| logical_plan  | Projection: #air.station, #air.temperature, #air.visibility                                                                 |
+|               |   TableScan: air projection=[station, visibility, temperature]                                                              |
+| physical_plan | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility]                       |
+|               |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature] |
+|               |                                                                                                                             |
++---------------+-----------------------------------------------------------------------------------------------------------------------------+
+
+EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Plan with Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=20.375µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                   |
+|                   |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=15.929624ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_series_scan=1.698791ms, elapsed_point_to_record_batch=4.572954ms, elapsed_field_scan=5.119076ms] |
+|                   |                                                                                                                                                                                                                                                                                                                                         |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Plan with Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=20.375µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                   |
+|                   |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=15.929624ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_series_scan=1.698791ms, elapsed_point_to_record_batch=4.572954ms, elapsed_field_scan=5.119076ms] |
+|                   |                                                                                                                                                                                                                                                                                                                                         |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    
+EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
++------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| plan_type              | plan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Plan with Metrics      | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=26.75µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                                                                                                                                                                                                                                                    |
+|                        |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=13.225875ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_point_to_record_batch=3.918163ms, elapsed_field_scan=3.992161ms, elapsed_series_scan=1.657416ms]                                                                                                                                                                                                                                 |
+|                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Plan with Full Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[start_timestamp{partition=0}=2022-10-25 03:00:14.865034 UTC, end_timestamp{partition=0}=2022-10-25 03:00:14.879596 UTC, elapsed_compute{partition=0}=26.75µs, spill_count{partition=0}=0, spilled_bytes{partition=0}=0, mem_used{partition=0}=0, output_rows{partition=0}=13]                                                                                                                                                                           |
+|                        |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[start_timestamp{partition=0}=2022-10-25 03:00:14.864225 UTC, end_timestamp{partition=0}=2022-10-25 03:00:14.879596 UTC, elapsed_compute{partition=0}=13.225875ms, spill_count{partition=0}=0, spilled_bytes{partition=0}=0, mem_used{partition=0}=0, output_rows{partition=0}=13, elapsed_point_to_record_batch{partition=0}=3.918163ms, elapsed_field_scan{partition=0}=3.992161ms, elapsed_series_scan{partition=0}=1.657416ms] |
+|                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Output Rows            | 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Duration               | 13.307708ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
++------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
+
+
+## **DESCRIBE**
+**语法**：
+```sql
+DESCRIBE {DATABASE db_name | TABLE tb_name}
+```
+描述数据库的参数，描述表的模式
+
+**示例**：
+```sql
+DESCRIBE TABLE air;
++-------------+-----------+-------+-------------+
+| FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
++-------------+-----------+-------+-------------+
+| time        | TIMESTAMP | false | Default     |
+| station     | STRING    | true  | Default     |
+| visibility  | DOUBLE    | false | Default     |
+| temperature | DOUBLE    | false | Default     |
+| pressure    | DOUBLE    | false | Default     |
++-------------+-----------+-------+-------------+
+
+DESCRIBE DATABASE public;
++----------+-------+----------------+---------+-----------+
+| TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
++----------+-------+----------------+---------+-----------+
+| 365 Days | 1     | 365 Days       | 1       | NS        |
++----------+-------+----------------+---------+-----------+
+```
 
 [//]: # (## **EXISTS**)
 [//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
@@ -458,7 +561,6 @@ IN 列表暂不支持表达式，暂时只支持常量
 [//]: # (ORDER BY id;)
 [//]: # (```)
 [//]: # (# **DCL &#40;无&#41;**)
-[//]: # (# **DESCRIBE**)
 [//]: # (```sql)
 [//]: # (DESCRIBE table_name)
 [//]: # (```)
