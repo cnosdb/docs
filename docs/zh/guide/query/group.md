@@ -14,6 +14,33 @@ FROM CUSTOMERS
 GROUP BY NAME;
 ```
 
+## **HAVING 子句**
+
+**语法**：
+```sql
+group_by_clause 
+[ HAVING condition ]
+```
+在 SELECT 查询中，HAVING 子句必须紧随 GROUP BY 子句，并出现在 ORDER BY 子句（如果有的话）之前。
+
+**HAVING 与 WHERE 的区别**：
+
+HAVING 在 GROUP BY 子句之后使你能够指定过滤条件，从而控制查询结果中哪些组可以出现在最终结果里面。
+
+WHERE 在 GROUP BY 子句之前对被选择的列施加条件，而 HAVING 子句则对 GROUP BY 子句所产生的组施加条件。
+
+**示例**：
+```sql
+SELECT count(*),
+mktsegment,
+nationkey,
+CAST(sum(acctbal) AS bigint) AS totalbal
+FROM customer
+GROUP BY mktsegment, nationkey
+HAVING sum(acctbal) > 5700000
+ORDER BY totalbal DESC;
+```
+
 ## **复杂的分组操作**
 
 CnosDB 提供了 `GROUPING SET`， `ROLLUP`， `CUBE`等复杂分组操作，使您能以不同的方式操作查询结果
@@ -193,16 +220,3 @@ GROUP BY GROUPING SETS (
 作为 ROLLUP、CUBE 或 GROUPING SETS 操作的结果返回的 NULL 是 NULL 的一种特殊用途。
 
 这充当结果集中的列占位符，表示全部。
-
-## **HAVING 子句**
-
-```sql
-SELECT count(*),
-mktsegment,
-nationkey,
-CAST(sum(acctbal) AS bigint) AS totalbal
-FROM customer
-GROUP BY mktsegment, nationkey
-HAVING sum(acctbal) > 5700000
-ORDER BY totalbal DESC;
-```
