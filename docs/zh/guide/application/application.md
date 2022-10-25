@@ -13,10 +13,11 @@ http请求需要指定操作的数据库，写在url query里 db=database_name�
 ```rust
 let url = Url::parse("127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
 let sql = r#"
-    CREATE TABLE cpu (
-        power DOUBLE,
-        temperature DOUBLE
-        TAGS(host, machine)
+    CREATE TABLE air (
+        visibility DOUBLE,
+        temperature DOUBLE,
+        presssure DOUBLE,
+        TAGS(station)
     );"#.to_string();
 ```
 
@@ -56,10 +57,12 @@ user := "cnosdb"
 pwd := ""
 // db means database, we use default db 'public'
 url := "http://127.0.0.1:31007/" + "api/v1/sql?db=public&pretty=true"
-query1 := "CREATE TABLE cpu (" +
-	"power DOUBLE," +
-	"temperature DOUBLE," +
-	"TAGS(host, machine));"
+query1 := "CREATE TABLE air (
+               visibility DOUBLE,
+               temperature DOUBLE,
+               presssure DOUBLE,
+               TAGS(station)
+            );"
 ```
 
 构造http request：
@@ -99,7 +102,12 @@ public static void main(String[] args) {
     String database = "public";
     String name = "cnosdb";
     String pwd = "";
-    String query = "CREATE TABLE cpu (power DOUBLE, temperature DOUBLE, TAGS(host, machine));";
+    String query = "CREATE TABLE air (
+                        visibility DOUBLE,
+                        temperature DOUBLE,
+                        presssure DOUBLE,
+                        TAGS(station)
+                    );";
     String url = "http://127.0.0.1:31007/";
 
     try {
