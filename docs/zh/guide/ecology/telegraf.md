@@ -116,7 +116,7 @@ systemctl start telegraf
 接下来使用 CnosDB 查询接口来查看数据，以验证 Telegraf 是否正确运行：
 
 ```sh
-curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用户名:密码'|base64)" 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos' -d 'select * from cpu limit 1'
+curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用户名:密码'|base64)" 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
 ```
 
 在上面的命令中，有一些文本可能需要替换：
@@ -129,7 +129,7 @@ curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用�
 如：
 
 ```sh
-> curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo 'admin:admin'|base64)" 'http://127.0.0.1:31007/api/v1/sql?db=cnos' -d 'select * from cpu limit 1'
+> curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo 'admin:admin'|base64)" 'http://127.0.0.1:31007/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
 ```
 
 在正确配置的情况下，我们能够获得以下结果：

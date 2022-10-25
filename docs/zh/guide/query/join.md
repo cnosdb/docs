@@ -43,7 +43,7 @@ SELECT * FROM x INNER JOIN x y ON x.column_1 = y.column_1;
 
 ### LEFT JOIN
 
-用关键字`LEFT JOIN`或`LEFT OUTER JOIN`定义一个右连接。该连接包括左表中的所有行，如果右表没有匹配行，则连接的右侧为空值。
+用关键字`LEFT JOIN`或`LEFT OUTER JOIN`定义一个左连接。该连接包括左表中的所有行，如果右表没有匹配行，则连接的右侧为空值。
 
 ```sql
 SELECT * FROM x LEFT JOIN x y ON x.column_1 = y.column_2;

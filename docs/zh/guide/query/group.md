@@ -98,8 +98,8 @@ GROUP BY ROLLUP(column_1,column_2)
 
 ```sql
 GROUP BY GROUPING SETS(
-    (column_1, column_2)
-    (column_1)
+    (column_1, column_2),
+    (column_1),
     ()
 )
 ```

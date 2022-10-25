@@ -77,7 +77,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 **请求示例**
 
 ```curl
-curl -i -u "username:password" -H "Accept: application/json" -XPOST ""http://localhost:31007/api/v1/sql?db=example -d 'select * from t1'
+curl -i -u "username:password" -H "Accept: application/json" -XPOST ""http://localhost:31007/api/v1/sql?db=example -d 'SELECT * from t1'
 ```
 
 **请求成功**

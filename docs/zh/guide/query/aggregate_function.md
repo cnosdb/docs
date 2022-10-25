@@ -19,7 +19,7 @@ order: 8
 
 ### **SUM**
 
-    SUM(NUMERIC)
+    SUM(NUMERICS)
 
 **功能**： 返回从选定元素计算出的总和值。
 
@@ -197,7 +197,7 @@ order: 8
 
 ### **APPROX_PERCENTILE_CONT**
     APPROX_PERCENTILE_CONT(x, p)  
-**功能**： x返回输入值的近似百分位(TDigest)，其中p是0到1(包括)之间的浮点64。
+**功能**： x返回输入值的近似百分位(TDigest)，其中p是0到1(包括)之间的64位浮点数。
 
 **参数类型**：x为数值类型，p为DOUBLE类型
 

@@ -13,7 +13,7 @@ function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr])
 ```
 
 ## 使用限制
-- 窗口函数只能出现在select语句中。
+- 窗口函数只能出现在SELECT语句中。
 - 窗口函数中不能嵌套使用窗口函数和聚合函数。
 
 **示例**：
@@ -122,7 +122,7 @@ FROM aggregate_test_100
 
 ### **FIRST_VALUE**
 
-    FIRST_VALUE(expr, [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+    FIRST_VALUE(expr [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
 
 **功能**： 返回一组值(该组通常是有序集合)中的第一个值。
 
@@ -134,7 +134,7 @@ FROM aggregate_test_100
 
 ### **LAST_VALUE**
 
-    LAST_VALUE(expr, [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
+    LAST_VALUE(expr [, ignore_nulls) OVER ([partition_clause] [orderby_clause])
 
 **功能**： 返回一组值(该组通常是有序集合)中的最后一个值。
 
