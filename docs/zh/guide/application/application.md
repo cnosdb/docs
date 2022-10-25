@@ -6,9 +6,9 @@ order: 1
 
 ## Rust
 
-示例代码使用[reqwest](https://crates.io/crates/reqwest)构建Http请求
+示例代码使用[reqwest](https://crates.io/crates/reqwest)构建Http请求。
 
-http请求需要指定操作的数据库，写在url query里 db=database_name
+http请求需要指定操作的数据库，写在url query里 db=database_name。
 
 ```rust
 let url = Url::parse("127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
@@ -20,9 +20,9 @@ let sql = r#"
     );"#.to_string();
 ```
 
-请求执行的sql放在http的body中
+请求执行的sql放在http的body中。
 
-用户名和密码需要basic编码添加到Authorization头中
+用户名和密码需要basic编码添加到Authorization头中。
 
 ```rust
 let user_name = "cnosdb";
@@ -38,7 +38,7 @@ let request = http_client
 
 response的status code 会指示sql是否执行成功，200为成功。
 
-失败信息或正确执行的结果会在response的text()中
+失败信息或正确执行的结果会在response的text()中。
 
 ```rust
 let response = http_client.execute(request).await.unwrap();
@@ -48,9 +48,9 @@ let result = response.text().await.unwrap();
 
 ## Golang
 
-示例代码使用[fasthttp](https://github.com/valyala/fasthttp)作为依赖
+示例代码使用[fasthttp](https://github.com/valyala/fasthttp)作为依赖。
 
-以下为构造http request所需的参数
+以下为构造http request所需的参数。
 ```go
 user := "cnosdb"
 pwd := ""
@@ -61,7 +61,9 @@ query1 := "CREATE TABLE cpu (" +
 	"temperature DOUBLE," +
 	"TAGS(host, machine));"
 ```
-构造http request
+
+构造http request：
+
 ```go
 func basicAuth(username, password string) string {
     auth := username + ":" + password
@@ -74,7 +76,9 @@ req.Header.Set("Authorization", basicAuth(user, pwd))
 req.SetBody([]byte(query1))
 req.SetRequestURI(url)
 ```
-发送http请求
+
+发送http请求：
+
 ```go
 cli := fasthttp.Client{}
 resp := fasthttp.Response{}
@@ -88,7 +92,7 @@ response的status code 会指示sql是否执行成功，200为成功。
 
 ## Java
 
-使用[Apache HttpComponentsApache](https://hc.apache.org/)作为依赖
+使用[Apache HttpComponentsApache](https://hc.apache.org/)作为依赖。
 
 ```java
 public static void main(String[] args) {
