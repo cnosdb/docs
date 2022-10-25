@@ -631,7 +631,11 @@ order: 9
 
     upper(expr)
 
-返回将 expr 的所有字符均更改为大写后的结果。
+**功能**：返回将 expr 的所有字符均更改为大写后的结果。
+
+**参数类型**：STRING
+
+**返回类型**：STRING
 
 ## 时间函数
 
@@ -641,7 +645,9 @@ order: 9
 
 **功能**：提取部分日期、时间戳或间隔。
 
-**参数类型**：field 类型为STRING，且只能是('year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', '
+**参数类型**：
+
+field 类型为STRING，且只能是('year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', '
 second')中的一种
 
 expr 类型为 TIMESTAMP
@@ -664,7 +670,16 @@ expr 类型为TIMESTAMP
 ----------------
 
 ### **date_bin**
-    date_bin(stride, source, origin)
+    date_bin(interval, source, origin)
+**功能**： 从origin开始，按interval切分bucket，返回source所在的bucket timestamp
+
+**参数类型**：
+
+interval 是 STRING 类型，会解析成时间间隔，
+
+source, origin 是 TIMESTAMP 类型
+
+**返回类型**：TIMESTAMP
 
 ----------------
 
@@ -672,7 +687,11 @@ expr 类型为TIMESTAMP
 
     to_timestamp(expr [, fmt] ) 
 
-返回使用可选格式设置强制转换为某个时间戳的 expr。
+**功能**：返回使用可选格式设置强制转换为某个时间戳的 expr。
+
+**参数类型**：STRING类型
+
+**返回类型**：TIMESTAMP类型
 
 ----------------
 
@@ -680,30 +699,39 @@ expr 类型为TIMESTAMP
 
     to_timestamp_millis(expr [, fmt] ) 
 
-返回使用可选格式设置强制转换为Timestamp(Millisseconds, None)格式。
+**功能**：返回使用可选格式设置强制转换为Timestamp(Millisseconds, None)格式。
 
 ----------------
 
 ### **to_timestamp_micros**
 
     to_timestamp_micros(expr [, fmt] ) 
-返回使用可选格式设置强制转换为Timestamp(Microseconds, None)格式。
+**功能**：返回使用可选格式设置强制转换为Timestamp(Microseconds, None)格式。
+
+---------
+
 ### **to_timestamp_seconds**
     to_timestamp_seconds(expr [, fmt] ) 
-返回使用可选格式设置强制转换为Timestamp(Seconds, None)格式。
-
+**功能**：返回使用可选格式设置强制转换为Timestamp(Seconds, None)格式。
 
 ----------------
 
 ### **from_unixtime**
     from_unixtime(unixTime [, fmt]) 
-在 fmt 中返回 unixTime。
+
+**功能**：返回 unixTime。
 
 ----------------
 
 ### **now**
     以 Timestamp(Nanoseconds, UTC) 
-格式返回当前时间戳
+
+
+**功能**：返回当前时间戳
+
+**返回类型**：TIMESTAMP
+
+
 
 [//]: # (### **Regexp_Match**)
 [//]: # (    返回与正则表达式匹配的项)
