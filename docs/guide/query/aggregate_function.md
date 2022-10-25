@@ -85,9 +85,9 @@ order: 8
 
 ### VAR_SAMP
 
-    VAR_SAMP(NUMERICS) -> [same as input type]
+    VAR_SAMP(NUMERICS) 
 
-**功能**： 计算给定样本的方差
+**功能**： 计算样本方差
 
 **参数类型**：数值类型
 
@@ -97,9 +97,9 @@ order: 8
 
 ### **VAR_POP**
 
-    Var_Pop(NUMERICS)
+    VAR_POP(NUMERICS)
 
-**功能**： 返回从组的值计算出的总体方差。
+**功能**： 计算总体方差。
 
 **参数类型**：数值类型
 
@@ -107,33 +107,22 @@ order: 8
 
 ----------------
 
-### **STDDEV**
+### **STDDEV | STDDEV_SAMP**
 
     STDDEV(NUMERICS)
 
-**功能**： 返回从组中的值计算出的样本标准偏差。
+**功能**： 计算样本标准差。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-----------------
-
-### **STDDEV_SAMP**
-
-    STDDEV_SAMP(NUMERICS)
-
-**功能**： 返回从组中的值计算出的样本标准偏差。
-
-**参数类型**：数值类型
-
-**返回类型**：DOUBLE
 
 ----------------
 
 ### **STDDEV_POP**
     STDDEV_POP(NUMERICS)
-**功能**： 返回从组的值计算出的总体标准偏差。
+**功能**： 计算出的总体标准差。
 
 **参数类型**：数值类型
 
@@ -141,19 +130,8 @@ order: 8
 
 ----------------
 
-### **COVAR**
+### **COVAR | COVAR_SAMP**
     COVAR(NUMERICS, NUMERICS)
-
-**功能**： 返回样本的协方差
-
-**参数类型**：数值类型
-
-**返回类型**：DOUBLE
-
-----------------
-
-### **COVAR_SAMP**
-    COVAR_SAMP(NUMERICS, NUMERICS)
 
 **功能**： 返回样本的协方差
 
