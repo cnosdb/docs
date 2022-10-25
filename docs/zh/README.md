@@ -1,5 +1,5 @@
 ---
-title: 介绍
+title: 主页
 icon: config
 order: 1
 ---
