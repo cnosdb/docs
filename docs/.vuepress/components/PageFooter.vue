@@ -11,7 +11,7 @@
           <div class="ast-header-html inner-link-style-">
             <div class="ast-builder-html-element">
               <p>
-                <a class="footer-logo" href="https://www.cnosdb.com/cnosdb-v2/"
+                <a class="footer-logo" href="https://www.cnosdb.com"
                   ><img
                     data-mode="lightmode-only"
                     alt=""
@@ -19,7 +19,7 @@
                     class="aligncenter wp-image-759 ls-is-cached lazyloaded"
                     src="/cropped-cropped-CnosDB-1024x288.png"
                 /></a>
-                <a class="footer-logo" href="https://www.cnosdb.com/cnosdb-v2/"
+                <a class="footer-logo" href="https://www.cnosdb.com"
                   ><img
                     data-mode="darkmode-only"
                     alt=""
@@ -75,7 +75,7 @@
             >
               <ul id="menu-%e5%ba%95%e9%83%a8-%e4%ba%a7%e5%93%81" class="menu">
                 <li>
-                  <a href="https://www.cnosdb.com/cnosdb-v2/">CnosDB 2.0</a>
+                  <a href="https://www.cnosdb.com">CnosDB 2.0</a>
                 </li>
               </ul>
             </nav>

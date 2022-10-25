@@ -19,10 +19,10 @@ export default defineUserConfig({
       `
         (function() {
           var logoEle = document.querySelector(".navbar-left a.brand");
-          logoEle.href = "https://www.cnosdb.com/cnosdb-v2/";
+          logoEle.href = "https://www.cnosdb.com";
           
           logoEle.addEventListener('click', function() {
-            window.location.href = 'https://www.cnosdb.com/cnosdb-v2/'
+            window.location.href = 'https://www.cnosdb.com'
           })
         })();
       `,
