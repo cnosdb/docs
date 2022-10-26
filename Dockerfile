@@ -9,4 +9,4 @@ EXPOSE 8080
 
 VOLUME /docs/docs
 
-CMD npm run docs:clean-dev
+CMD npm config set registry https://registry.npmmirror.com/ && npm run docs:clean-dev
