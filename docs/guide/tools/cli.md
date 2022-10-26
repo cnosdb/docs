@@ -44,6 +44,6 @@ Query took 0.050 seconds.
 \c <db>     连接数据库db_name
 \d <table>  描述表table
 \quiet     切换至安静模式，只输出结果，不输出执行时间
-\w <path>   读取line protocol格式的文件，写入数据库
+\w <path>   读取Line Protocol格式的文件，写入数据库
 ```
 
