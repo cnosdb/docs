@@ -6,7 +6,7 @@ export const enSidebar = sidebar({
       text: "Docs",
       icon: "note",
       prefix: "/",
-      children: "structure",
+      children: [],
     }
   ],
 });
