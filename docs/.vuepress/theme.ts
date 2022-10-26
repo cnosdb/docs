@@ -25,7 +25,7 @@ export default hopeTheme({
     /**
      * Chinese locale config
      */
-    '/': {
+    '/en/': {
       // navbar
       navbar: enNavbar,
 
@@ -36,7 +36,7 @@ export default hopeTheme({
 
       copyright: false,
     },
-    '/zh/': {
+    '/': {
       // navbar
       navbar: zhNavbar,
 
@@ -51,8 +51,8 @@ export default hopeTheme({
 
   encrypt: {
     config: {
+      '/en/demo/encrypt.html': ['1234'],
       '/demo/encrypt.html': ['1234'],
-      '/zh/demo/encrypt.html': ['1234'],
     },
   },
 

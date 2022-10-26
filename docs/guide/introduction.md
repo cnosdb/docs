@@ -1,6 +1,6 @@
 ---
-title: 主页
-icon: config
+title: 介绍
+icon: home
 order: 1
 ---
 
@@ -17,49 +17,49 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 ## 基础知识
 本章节主要介绍 CnosDB 的一些基本概念。
 
-- [基本概念](./guide/concept.md#基本概念)
+- [基本概念](concept.md#基本概念)
 
 ## 运行安装
 本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
 
-- [Dokcer](./guide/quick_start.md#Docker)
-- [从源码开始](./guide/quick_start.md#从源码开始)
+- [Dokcer](quick_start.md#Docker)
+- [从源码开始](quick_start.md#从源码开始)
 
 ## 基本操作
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
-- [基本操作](./guide/QUICK_START.md#基本操作)
+- [基本操作](QUICK_START.md#基本操作)
 
 ## 应用集成
 
 本章节介绍了如何把 CnosDB 集成到您的程序里。
-- [Rust](./guide/application/application.md#rust)
-- [Golang](./guide/application/application.md#golang)
-- [Java](./guide/application/application.md#java)
-- [HTTP API](./guide/application/api.md)
+- [Rust](application/application.md#rust)
+- [Golang](application/application.md#golang)
+- [Java](application/application.md#java)
+- [HTTP API](application/api.md)
 
 ## SQL手册
 本章节包含以下内容：
-- [SQL](./guide/query/sql.md)
-- [函数](./guide/query/function.md)
+- [SQL](query/sql.md)
+- [函数](query/function.md)
 
 ## 生态集成
 本章节包含以下内容：
-- [grafana](./guide/ecology/grafana.md)
-- [telegraf](./guide/ecology/telegraf.md)
-
+- [grafana](ecology/grafana.md)
+- [telegraf](ecology/telegraf.md)
+  
 ## Cloud
 本章节包含以下内容：
-- [Cloud](./guide/cloud.md)
+- [Cloud](cloud.md)
 
 ## 版本发布
 
 本章节包含以下内容：
-- [发布历史](./guide/release/changelist.md)
-- [演进路线](./guide/release/roadmap.md)
+- [发布历史](release/changelist.md)
+- [演进路线](release/roadmap.md)
 
 ## 实现原理
 本章节介绍了 CnosDB 的实现原理，包括存储引擎，查询引擎，压缩算法等。
-- [系统架构](./guide/design/arch.md)
-- [配置](./guide/design/config.md)
-- [压缩算法](./guide/design/compress.md)
+- [系统架构](design/arch.md)
+- [配置](design/config.md)
+- [压缩算法](design/compress.md)
 - [参考文献]
