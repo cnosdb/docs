@@ -20,7 +20,7 @@ let sql = r#"
     );"#.to_string();
 ```
 
-请求执行的sql放在http的body中。
+请求执行的SQL放在http的body中。
 
 用户名和密码需要basic编码添加到Authorization头中。
 
@@ -36,7 +36,7 @@ let request = http_client
     .build().unwrap();
 ```
 
-response的status code 会指示sql是否执行成功，200为成功。
+response的status code 会指示SQL是否执行成功，200为成功。
 
 失败信息或正确执行的结果会在response的text()中。
 
@@ -90,7 +90,7 @@ if err != nil {
 }
 fmt.Println(resp.StatusCode())
 ```
-response的status code 会指示sql是否执行成功，200为成功。
+response的status code 会指示SQL是否执行成功，200为成功。
 
 ## Java
 
