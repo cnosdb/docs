@@ -18,10 +18,16 @@ export default defineUserConfig({
       {},
       `
         (function() {
-          var logoEle = document.querySelector(".navbar-left a.brand");
-          logoEle.href = "https://www.cnosdb.com";
+          var logoEleLight = document.querySelector(".navbar-left a.brand .logo.light") ;
+          var logoEleDark = document.querySelector(".navbar-left a.brand .logo.dark") ;
           
-          logoEle.addEventListener('click', function() {
+          logoEleLight.href = "https://www.cnosdb.com";
+          logoEleDark.href = "https://www.cnosdb.com";
+          
+          logoEleLight.addEventListener('click', function() {
+            window.location.href = 'https://www.cnosdb.com'
+          })
+          logoEleDark.addEventListener('click', function() {
             window.location.href = 'https://www.cnosdb.com'
           })
         })();
