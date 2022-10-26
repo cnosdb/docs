@@ -8,6 +8,7 @@ actions:
 - text: Docs
 link: /guide/
 type: primary
-
 copyright: false
 ---
+
+![comingso](/Docs_banner.png)
