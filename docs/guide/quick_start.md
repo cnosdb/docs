@@ -18,8 +18,8 @@ order: 3
    ```shell
    $ cnosdb-cli
    CnosDB CLI v2.0.0
-   Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: "", database: "public", data_path: None, file: [], rc: None, format: Table, quiet: false }
-   ❯
+   Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
+   public ❯
    ```
 ::: tip
 查看帮助请执行`\?`
@@ -111,6 +111,12 @@ CREATE DATABASE oceanic_station;
 
 ```
 Query took 0.080 seconds.
+```
+
+CLI中输入如下命令，切换连接的数据库
+
+```sql
+\c oceanic_station
 ```
 
 ### 创建表
