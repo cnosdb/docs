@@ -17,6 +17,9 @@ CREATE TABLE [IF NOT EXISTS] tb_name
 
 field_definition:
     column_name data_type [field_codec_type]
+    
+field_codec_type:
+    CODEC(code_type)
 ```
 
 #### 使用说明：
