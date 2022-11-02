@@ -75,7 +75,7 @@
             >
               <ul id="menu-%e5%ba%95%e9%83%a8-%e4%ba%a7%e5%93%81" class="menu">
                 <li>
-                  <a href="https://www.cnosdb.com">CnosDB 2.0</a>
+                  <a href="https://www.cnosdb.com/cnosdb-2-0/">CnosDB 2.0</a>
                 </li>
               </ul>
             </nav>
@@ -237,9 +237,9 @@
         >
           <div class="ast-footer-social-1-wrap ast-footer-social-wrap">
             <div
-              class="footer-social-inner-wrap element-social-inner-wrap social-show-label-false ast-social-color-type-custom ast-social-stack-none ast-social-element-style-filled"
+              class="element-social-inner-wrap social-show-label-false ast-social-color-type-custom ast-social-stack-none ast-social-element-style-filled"
             >
-              <div>
+              <div class="footer-social-inner-wrap">
                 <a
                   href="https://space.bilibili.com/36231559"
                   aria-label="哔哩哔哩"
