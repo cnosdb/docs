@@ -9,7 +9,7 @@
           data-section="section-fb-html-1"
         >
           <div class="ast-header-html inner-link-style-">
-            <div class="ast-builder-html-element">
+            <div class="ast-builder-html-element" style="text-align: center">
               <p>
                 <a class="footer-logo" href="https://www.cnosdb.com"
                   ><img
@@ -76,6 +76,9 @@
               <ul id="menu-%e5%ba%95%e9%83%a8-%e4%ba%a7%e5%93%81" class="menu">
                 <li>
                   <a href="https://www.cnosdb.com/cnosdb-2-0/">CnosDB 2.0</a>
+                </li>
+                <li>
+                  <a href="https://www.cnosdb.com/cnosdb-2-0/">文档</a>
                 </li>
               </ul>
             </nav>
@@ -489,11 +492,17 @@
   flex-wrap: wrap;
   max-width: var(--content-width);
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
+}
+@media (max-width: 1200px) {
+  .footer {
+    text-align: center;
+  }
 }
 
 .footer ul {
   list-style: none;
+  padding-left: 0;
 }
 
 .footer ul a {
@@ -522,7 +531,7 @@ svg {
   transition: all 0.5s;
   width: 258px;
   height: 300px;
-  box-shadow: 0 0 3px rgba(0,0,0, .15);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
   background: url('https://www.cnosdb.com/wp-content/uploads/2022/06/CnosDB%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.png')
     no-repeat center center;
   background-size: cover;
@@ -547,7 +556,7 @@ svg {
   background: url('https://www.cnosdb.com/wp-content/uploads/2022/06/CnosDB-%E8%A7%86%E9%A2%91%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpeg')
     no-repeat center center;
   background-size: cover;
-  box-shadow: 0 0 3px rgba(0,0,0, .15);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
   opacity: 0;
 }
 .footer-social-inner-wrap .footer-social-item:nth-of-type(4):hover::before {
