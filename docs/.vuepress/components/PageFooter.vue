@@ -105,7 +105,7 @@
                   <a
                     target="_blank"
                     rel="noopener"
-                    href="/blog/category/工程师有话说/"
+                    href="https://www.cnosdb.com/blog/category/工程师有话说/"
                     >工程师有话说</a
                   >
                 </li>
@@ -140,9 +140,7 @@
           aria-label="Footer Widget 4"
         >
           <section id="block-47" class="widget widget_block">
-            <h3
-              class="has-ast-global-color-5-color has-text-color"
-            >
+            <h3 class="has-ast-global-color-5-color has-text-color">
               <strong>欢迎订阅CnosDB期刊</strong>
             </h3>
           </section>
@@ -157,10 +155,7 @@
               target="_blank"
               novalidate
             >
-              <div
-                class="mc-field-group"
-                style="margin-bottom: 1.75em;"
-              >
+              <div class="mc-field-group" style="margin-bottom: 1.75em">
                 <input
                   style="
                     color: #666;
@@ -188,20 +183,12 @@
                 <div
                   class="response"
                   id="mce-error-response"
-                  style="
-                    display: none;
-                    width: 210px;
-                    margin-bottom: 18px;
-                  "
+                  style="display: none; width: 210px; margin-bottom: 18px"
                 ></div>
                 <div
                   class="response"
                   id="mce-success-response"
-                  style="
-                    display: none;
-                    width: 210px;
-                    margin-bottom: 18px;
-                  "
+                  style="display: none; width: 210px; margin-bottom: 18px"
                 ></div>
               </div>
               <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
@@ -492,7 +479,7 @@
 
 @media (max-width: 420px) {
   .theme-container .footer-warpper .footer {
-    flex-direction: column; 
+    flex-direction: column;
   }
 }
 
@@ -519,5 +506,54 @@
 }
 svg {
   fill: var(--text-color);
+}
+
+.footer-social-inner-wrap .footer-social-item {
+  position: relative;
+}
+.footer-social-inner-wrap .footer-social-item:nth-of-type(3)::before {
+  position: absolute;
+  left: -100px;
+  z-index: 99;
+  content: '';
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-360px);
+  transition: all 0.5s;
+  width: 258px;
+  height: 300px;
+  box-shadow: 0 0 3px rgba(0,0,0, .15);
+  background: url('https://www.cnosdb.com/wp-content/uploads/2022/06/CnosDB%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.png')
+    no-repeat center center;
+  background-size: cover;
+}
+.footer-social-inner-wrap .footer-social-item:nth-of-type(3):hover::before {
+  visibility: visible;
+  transform: translateY(-300px);
+  opacity: 1;
+  cursor: pointer !important;
+}
+
+.footer-social-inner-wrap .footer-social-item:nth-of-type(4)::before {
+  position: absolute;
+  left: -100px;
+  z-index: 99;
+  content: '';
+  visibility: hidden;
+  width: 258px;
+  height: 300px;
+  transform: translateY(-360px);
+  transition: all 0.5s;
+  background: url('https://www.cnosdb.com/wp-content/uploads/2022/06/CnosDB-%E8%A7%86%E9%A2%91%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpeg')
+    no-repeat center center;
+  background-size: cover;
+  box-shadow: 0 0 3px rgba(0,0,0, .15);
+  opacity: 0;
+}
+.footer-social-inner-wrap .footer-social-item:nth-of-type(4):hover::before {
+  visibility: visible;
+  transform: translateY(-300px);
+  opacity: 1;
+  cursor: pointer !important;
 }
 </style>
