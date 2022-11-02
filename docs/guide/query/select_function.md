@@ -382,7 +382,7 @@ order: 9
 
 **参数类型**：STRING
 
-**返回类型**：STRING
+**返回类型**：BINARY
 
 ----------------
 
@@ -505,7 +505,7 @@ order: 9
 
 **功能**：计算字符串的 sha224 散列值
 
-**返回类型**：STRING
+**返回类型**：BINARY
 
 **参数类型**：STRING
 
@@ -515,7 +515,7 @@ order: 9
     sha256(str)
 **功能**：    计算字符串的 sha256 散列值
 
-**返回类型**：STRING
+**返回类型**：BINARY
 
 **参数类型**：STRING
 
@@ -525,7 +525,7 @@ order: 9
     sha256(str)
 **功能**：   计算字符串的 sha384 散列值
 
-**返回类型**：STRING
+**返回类型**：BINARY
 
 **参数类型**：STRING
 
@@ -537,7 +537,7 @@ order: 9
 
 **功能**： 计算字符串的 sha512 散列值
 
-**返回类型**：STRING
+**返回类型**：BINARY
 
 **参数类型**：STRING
 
@@ -597,7 +597,7 @@ order: 9
 
 **功能**： 将数字或二进制值转换为十六进制表示形式。
 
-**参数类型**：STRING
+**参数类型**：BIGINT
 
 **返回类型**：STRING
 
@@ -724,7 +724,7 @@ source, origin 是 TIMESTAMP 类型
 ----------------
 
 ### **now**
-    以 Timestamp(Nanoseconds, UTC) 
+    Timestamp(Nanoseconds, UTC) 
 
 
 **功能**：返回当前时间戳
