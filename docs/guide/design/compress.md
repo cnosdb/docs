@@ -51,9 +51,10 @@ quantile支持多种级别压缩，CnosDB 目前采用默认的压缩等级
 
 ### 适用情况
 
-相比较于delta算法与gorilla算法，由于同样使用了差分算法，在适用数据的选择上大致相同，由于quantile算法采用了更复杂的编码方式，导致压缩效率比较低，大约有5到10倍的差距，相对的，压缩率则稍优于delta与gorilla算法。
+相比较于delta算法与gorilla算法，由于同样使用了差分算法，在适用数据的选择上大致相同，由于quantile算法采用了更复杂的编码方式，导致压缩效率比较低，大约有5到10倍的差距，相对地，压缩率则稍优于delta与gorilla算法。
 
 图片纵轴为压缩比，时间只比较相对值
+
 ![](../source/_static/img/f64_codec.png) 
 ![](../source/_static/img/i64_codec.png)
 ## BITPACK

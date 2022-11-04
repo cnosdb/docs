@@ -17,7 +17,7 @@ Cnosdb2.0 使用 Rust 语言进行开发，基于它的安全性、高性能和�
 1. 支持云原生，支持充分利用云基础设施带来的便捷，融入云原生生态。
 2. 高可用性，秒级故障恢复，支持多云，跨区容灾备灾。
 3. 原生支持多租户，按量付费。
-4. CDC,日志可以提供订阅和分发到其他节点。
+4. CDC，日志可以提供订阅和分发到其他节点。
 5. 为用户提供更多可配置项，来满足公有云用户的多场景复杂需求。
 6. 云边端协同，提供边端与公有云融合的能力。
 7. 融合云上OLAP/CloudAI 数据生态系统。
@@ -27,7 +27,7 @@ Cnosdb2.0 使用 Rust 语言进行开发，基于它的安全性、高性能和�
 
 ![整体架构](../source/_static/img/new_arch.jpg)
 
-> 下面我们将从一下几个方面进行详细阐述,
+> 下面我们将从一下几个方面进行详细阐述，
 
 - 数据复制与共识
 - meta 集群
@@ -37,7 +37,7 @@ Cnosdb2.0 使用 Rust 语言进行开发，基于它的安全性、高性能和�
 ## 数据复制与共识
 
 CnosDB 2.0 的分片规则基于Time-range。它采用 DB + Time_range 的分片规则将数据放入对应的 Bucket 中。Bucket 是一个虚拟逻辑单元。每个 Bucket 由以下主要的属性组成。 Bucket 会根据用户配置创建多个分片，把数据打散（默认情况下数据的分片 Shard Num 是 1）。
-> 「db , shardid, time_range, create_time, end_time, List\<Vnode\>」
+> 「db， shardid， time_range， create_time， end_time， List\<Vnode\>」
 
 Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上。每个 Vnode 是一个单独的LSM Tree。 其对应的 tsfamily结构体是一个独立的运行单元。
 ![数据分片](../source/_static/img/buket.jpg)
@@ -59,8 +59,7 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 
 #### Cnosdb2.0 实现为一个最终一致性的系统
 
-我们使用 Quorum 机制来做数据共识
-负责处理读或写请求的模块为 coordinator
+我们使用 Quorum 机制来做数据共识负责处理读或写请求的模块为 coordinator
 
 - 元信息缓存，与 meta 节点交互
 
@@ -70,17 +69,17 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
   管理与不同的 tskv 的 connection， 用于数据读取/写入。
 - 数据读/写/删的代理操作
   
-  数据根据用户配置 支持多种不同的一致性级别。
+  数据根据用户配置，支持多种不同的一致性级别。
   ```Rust
   pub enum ConsistencyLevel {
-      /// allows for hinted handoff, potentially no write happened yet.
-      Any,
+      /// allows for hinted handoff， potentially no write happened yet.
+      Any，
       /// at least one data node acknowledged a write/read.
-      One,
+      One，
       /// a quorum of data nodes to acknowledge a write/read.
-      Quorum,
+      Quorum，
       /// requires all data nodes to acknowledge a write/read.
-      All,
+      All，
       }
   ```
 - Hinted handoff  
@@ -88,15 +87,14 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 
 数据写入
 
-当收到一个 write 请求后，coordinator 根据分区策略以及 db 对应的放置规则（place-rule）,确定出要存放的数据所在物理节点（node）。只要有至少 W 个节点返回成功，这次写操作就认为是成功了。
+当收到一个 write 请求后，coordinator 根据分区策略以及 db 对应的放置规则（place-rule），确定出要存放的数据所在物理节点（node）。只要有至少 W 个节点返回成功，这次写操作就认为是成功了。
 
 #### 写流程
-
 ![write](../source/_static/img/write.jpg)
 
 数据读取
 
-当收到一个 read 请求后，coordinator 会根据分区策略以及 db 对应的放置规则（place-rule）,确定出要存放的数据所在物理节点（node）请求这个 key 对应的数据，当前我们不实现读修复（read repair）的功能，只发起一个读请求。在读延迟的情况下 发起第二个读请求。
+当收到一个 read 请求后，coordinator 会根据分区策略以及 db 对应的放置规则（place-rule），确定出要存放的数据所在物理节点（node）请求这个 key 对应的数据，当前我们不实现读修复（read repair）的功能，只发起一个读请求。在读延迟的情况下，发起第二个读请求。
 
 #### 读流程
 
@@ -140,7 +138,7 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 
 ## tskv 索引与数据存储
 
-tskv 主要承担数据和索引的存储,对 node 节点上所有 Vnode 进行管理, 每个 Vnode 负责某个 db 里的部分数据。 在 Vnode 中主要有 3 个模块组成 WAL，IndexEngine 和 DataEngine，
+tskv 主要承担数据和索引的存储，对 node 节点上所有 Vnode 进行管理， 每个 Vnode 负责某个 db 里的部分数据。在 Vnode 中主要有 3 个模块组成 WAL，IndexEngine 和 DataEngine。
 
 ![tskv](../source/_static/img/tskv.jpg)
 
@@ -203,23 +201,23 @@ WAL 为写前日志，将写入操作具体应用到内存前先增补到磁盘�
 
 #### TimeSeriesFamily
 
-TimeSeriesFamily, 时序数据的储存单元，保存着对应的内存中的数据和对应的磁盘中的数据的元数据，一般简写为 tsfamily，我们在写入数据前，会根据数据的 tag 和 field 生成 SeriesID 和 FieldID。coordinator 根据 db 和 timerange，获取 bucket，根据 hash（SeriesID）% shard_nums 获取 TseriesFamilyID 向 tsfamily 写数据。
+TimeSeriesFamily， 时序数据的储存单元，保存着对应的内存中的数据和对应的磁盘中的数据的元数据，一般简写为 tsfamily，我们在写入数据前，会根据数据的 tag 和 field 生成 SeriesID 和 FieldID。coordinator 根据 db 和 timerange，获取 bucket，根据 hash（SeriesID）% shard_nums 获取 TseriesFamilyID 向 tsfamily 写数据。
 tsfamily 成员如下
 
 ```
 pub struct TseriesFamily {
-    tf_id: u32,
-    delta_mut_cache: Arc<RwLock<MemCache>>,
-    delta_immut_cache: Vec<Arc<RwLock<MemCache>>>,
-    mut_cache: Arc<RwLock<MemCache>>,
-    immut_cache: Vec<Arc<RwLock<MemCache>>>,
-    super_version: Arc<SuperVersion>,
-    super_version_id: AtomicU64,
-    version: Arc<RwLock<Version>>,
-    opts: Arc<TseriesFamOpt>,
-    seq_no: u64,
-    immut_ts_min: i64,
-    mut_ts_max: i64,
+    tf_id: u32，
+    delta_mut_cache: Arc<RwLock<MemCache>>，
+    delta_immut_cache: Vec<Arc<RwLock<MemCache>>>，
+    mut_cache: Arc<RwLock<MemCache>>，
+    immut_cache: Vec<Arc<RwLock<MemCache>>>，
+    super_version: Arc<SuperVersion>，
+    super_version_id: AtomicU64，
+    version: Arc<RwLock<Version>>，
+    opts: Arc<TseriesFamOpt>，
+    seq_no: u64，
+    immut_ts_min: i64，
+    mut_ts_max: i64，
 }
 ```
 
@@ -268,7 +266,7 @@ tskv 在创建时首先会执行 recover 函数：
 
 1. 通常情况下 时间序列数据库，是按照时间点的数据进行顺序写入，为了应对乱序数据，我们增加了 delta 文件。delta 的数据会刷到 L0 层。
 2. 从 L1 到 L3，LevelInfo 中的数据是按照时间进行分层排放的。 每一层都有一个固定的时间范围 且 不会重叠，memcache 中的数据是有一个固定的 time range。每一层的时间范围都会有在 compaction 或者 flush 的时候进行动态更新。
-3. 每次新写入的 TSM 文件都具有本层最新的时间范围。即 L0 层中 filename 中文件 id 最大 TSM 文件所持有的时间范围中 TimeRange（ts_min, ts_max), ts_max 是最大的。
+3. 每次新写入的 TSM 文件都具有本层最新的时间范围。即 L0 层中 filename 中文件 id 最大 TSM 文件所持有的时间范围中 TimeRange（ts_min， ts_max)， ts_max 是最大的。
 4. compact 的 pick 流程会建立一个虚拟的 time_window。time_window 会选取本层中合适的 TSM 文件 进行 compaction 到下一层，同时更新本层 level_info 的数据。将 level_info 中 TSMin 更新到 time_window 的最大时间戳，即本层的时间范围向前推进。新生成的 TSM 文件会放入到下一层，下一层的 time_range 的 ts_max 推进到 time_window 的最大值。
 5. 在 L3 开始，按照 table 把 TSM 文件按照目录进行划分；同一个 table 的 TSM 文件放到一起。 支持生成 parquet 文件 放到 S3 上进行分级存储。
 
@@ -276,8 +274,7 @@ tskv 在创建时首先会执行 recover 函数：
   ![time_window](../source/_static/img/time_range.jpg)
 
 1. 基于 window 的 compaction 方式 不同 leve_lrange 的 compaction 方式， 从 immut_cache flush 到磁盘中时，会根据 TSM 的时间范围生成不同的 TSM 文件放入到对应的 window 中， window 随着时间的推移，会动态创建。每个 window 负责一段时间内的写入。
-2. 在 window 内部会有一些离散的数据 TSM 文件块，需要进行合并。生成较大的文件块。window 内部会维护一个关于文件的元信息一个列表。
-   相比与 level_range 的合并方式。 time_window 的 compaction 方式会减小写入的放大。
+2. 在 window 内部会有一些离散的数据 tsm 文件块 需要进行合并，生成较大的文件块。 window 内部会维护一个关于文件的元信息一个列表。 相比与 level_range 的合并方式， time_window 的 compaction 方式会减小写入的放大。
 
 - data_engine 数据流
   ![data_flow](../source/_static/img/data_engine.jpg)
@@ -290,9 +287,9 @@ tskv 在创建时首先会执行 recover 函数：
 
 在 DataFusion 中，catalog 隔离关系分为 catalog/schema/table。我们利用这种隔离关系， 拆分租户之间的隔离关系为 tenant（namespace）/database/table。
 
-1. table，对应到具体的数据库中的一个具体的表，提供具体 table 的 schema 定义实现 TableProvider
-2. database，对应到具体数据库中一个 database，database 下面管理多个 table。
-3. namespace，对应 Catalog。 每个租户独占一个 catalog，不同的租户中看到的 db 都是不一样的，并且不同的租户可以使用相同的 database name。 用户登陆的时候在 session 中拿到 TenantID 默认看到自在所在的 namespace，这个意义上 namespace 有软隔离的作用
+1. table对应到具体的数据库中的一个具体的表，提供具体 table 的 schema 定义实现 TableProvider
+2. database对应到具体数据库中一个 database，database 下面管理多个 table。
+3. namespace对应 Catalog。 每个租户独占一个 catalog，不同的租户中看到的 db 都是不一样的，并且不同的租户可以使用相同的 database name。 用户登陆的时候在 session 中拿到 TenantID 默认看到自己所在的 namespace，这个意义上 namespace 有软隔离的作用。
 
 #### tskv 层
 

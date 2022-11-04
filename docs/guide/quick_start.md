@@ -5,15 +5,16 @@ order: 3
 ---
 
 ## Docker
+1. 安装最新版 [Docker](https://www.docker.com/products/docker-desktop/)
 
-1. 使用Docker启动容器
+2. 使用 Docker 启动容器
    ```shell
    docker run -itd  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.0
    ```
 
-2. 进入容器运行`cnosdb-cli`
+3. 进入容器运行`cnosdb-cli`
    ```shell
-   docker exec -it <container_name> sh
+   docker exec -it <container_id> sh
    ```
    ```shell
    $ cnosdb-cli

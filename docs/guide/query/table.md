@@ -13,7 +13,7 @@ CnosDB 支持创建普通表和外部表
 **语法**：
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-    (field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...))
+    (field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...));
 
 field_definition:
     column_name data_type [field_codec_type]
@@ -54,7 +54,7 @@ Query took 0.033 seconds.
 -- Column definitions can not be specified for PARQUET files
 
 CREATE EXTERNAL TABLE [ IF NOT EXISTS ] tb_name 
-    ( field_definition [, field_definition] ... ) tb_option
+    ( field_definition [, field_definition] ... ) tb_option;
 
 field_definition:
     column_name data_type [ NULL ]
@@ -79,10 +79,27 @@ tb_option: {
 4. PARTITIONED BY：使用创建表时指定的列来进行分区
 5. LOCATION：表示关联的文件的位置
 
+**示例**：
+```sql
+> CREATE EXTERNAL TABLE 
+    cpu (
+        cpu_hz  DECIMAL(10,6) NOT NULL,
+        temp  DOUBLE NOT NULL,
+        version_num  BIGINT NOT NULL,
+        is_old  BOOLEAN NOT NULL,
+        weight  DECIMAL(12,7) NOT NULL
+    )
+    STORED AS CSV
+    WITH HEADER ROW
+    LOCATION 'tests/data/csv/cpu.csv';
+
+Query took 0.031 seconds.
+```
+
 ## **删除表**
 **语法**：
 ```sql
-DROP TABLE [ IF EXISTS ] tb_name
+DROP TABLE [ IF EXISTS ] tb_name;
 ```
 
 **示例**：
@@ -93,7 +110,7 @@ Query took 0.033 seconds.
 
 ## **显示当前数据库所有表**
 ```sql
-SHOW TABLES
+SHOW TABLES;
 ```
 
 [//]: # (## **修改表**)

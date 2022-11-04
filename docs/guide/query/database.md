@@ -38,7 +38,7 @@ Query took 0.062 seconds.
 ## 删除数据库
 **语法**：
 ```sql
-DROP DATABASE [IF EXISTS] db_name
+DROP DATABASE [IF EXISTS] db_name;
 ```
 删除数据库会将指定database的所有table数据及元数据全部删除
 
@@ -50,7 +50,7 @@ Query took 0.030 seconds.
 
 ## **查看系统中所有数据库**
 ```sql
-SHOW DATABASES
+SHOW DATABASES;
 ```
 
 ## **使用数据库**
