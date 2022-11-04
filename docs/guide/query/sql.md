@@ -17,16 +17,14 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station
 
 ### 导入数据
 - 启动CLI
-
-在源码根目录下运行
 ```shell
-cargo run --package client --bin client
+cnosdb-cli
 ```
 - 导入数据
  
-执行`\w`指令，`\w`后面为数据文件的路径
+执行`\w`指令，`\w`后面为数据文件的绝对路径或相对cnosdb-cli的工作路径
 ```sql
-> \w ../data_set/oceanic_station
+> \w oceanic_station
 Query took 0.023 seconds.
 ```
 
