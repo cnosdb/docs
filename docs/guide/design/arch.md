@@ -235,9 +235,9 @@ version：维护当前 tsfaimily 中磁盘数据的快照，
 
 #### Recover 和 Summary
 
-Summary 是 TSM 文件版本变更产生的元数据文件，summary 会对应存储 summary 文件，summary 文件中存储着版本变更元信息 version_edit，用于宕机恢复 version_set 元数据，node 节点长时间运行会产生较大的 summary 文件，我们会定期将 summary 文件进行整合。减少宕机恢复的时间。
+Summary 是 TSM 文件版本变更产生的元数据文件，summary 会对应存储 summary 文件。summary 文件中存储着版本变更元信息 version_edit，用于宕机恢复 version_set 元数据。node 节点长时间运行会产生较大的 summary 文件，我们会定期将 summary 文件进行整合。减少宕机恢复的时间。
 
-tskv 在创建时首先会执行 recover 函数
+tskv 在创建时首先会执行 recover 函数：
 
 1. 从 summary 文件中获取得到 summary 结构体
 2. 根据 summary 结构体的 ctx 的 last_seq，得知有哪些 batch 已经被 flush 成文件
@@ -257,20 +257,19 @@ tskv 在创建时首先会执行 recover 函数
 
 #### compaction
 
-我们是使用类 LSM tree 的方式 进行数据整理。 通常情况下时序数据库的写入是按照时间顺序的方式写入点。在 IOT 也会有补录数据的场景，会导致时间戳陈旧的问题。除此之外,在共有云的场景下很难保证所有的用户的写入顺序。面对多种复杂的写入场景，我们需要在对数据 compaction 的时候考虑多种复杂的场景。
-compaction 目的
+我们使用类 LSM tree 的方式进行数据整理。通常情况下时序数据库的数据按时间顺序方式写入。但在 IoT 会有补录数据的场景，会导致时间戳陈旧的问题。 除此之外，因网络延迟在公有云的场景下很难保证所有的用户的写入顺序。面对多种复杂的写入场景，我们需要在对数据 compaction 的时候考虑多种复杂的场景。 compaction 的目的有：compaction 目的
 
-1. 把小的 TSM 文件进行聚合 生成较大的 TSM 文件。
-2. 清理到过期或者被删除的文件。
-3. 减小读放大，维护我们当前 version 中维护的 levels_info 的元数据。
+1. 把小的 tsm 文件进行聚合生成较大的 tsm 文件。
+2. 清理已过期或被标记删除的文件。
+3. 减小读放大，维护我们当前 version 中 levelinfo 的元数据。
 
 - level_range compaction
   ![level_range](../source/_static/img/level_range.jpg)
 
-1. 通常情况下 时间序列数据库，是按照时间点的数据进行顺序写入，为了应对乱序数据的我们增加 delta 文件， delta 的数据会刷到 L0 层。
+1. 通常情况下 时间序列数据库，是按照时间点的数据进行顺序写入，为了应对乱序数据，我们增加了 delta 文件。delta 的数据会刷到 L0 层。
 2. 从 L1 到 L3，LevelInfo 中的数据是按照时间进行分层排放的。 每一层都有一个固定的时间范围 且 不会重叠，memcache 中的数据是有一个固定的 time range。每一层的时间范围都会有在 compaction 或者 flush 的时候进行动态更新。
-3. 每次新写入的 TSM 文件都是具有本层最新的时间范围。 即 L0 层中 filename 中文件 id 最大 TSM 文件所持有的时间范围中 TimeRange（ts_min, ts_max), ts_max 是最大的。
-4. compact 的 pick 流程会，会建立一个虚拟的 time_window。time_window 会选取本层中合适的 TSM 文件 进行 compaction 到下一层。同时更新本层 level_info 的数据。将 level_info 中 TSMin 更新到 time_window 的最大时间戳，即本层的时间范围向前推进。新生成的 TSM 文件会放入到下一层，下一层的 time_range 的 ts_max 推进到 time_window 的最大值。
+3. 每次新写入的 TSM 文件都具有本层最新的时间范围。即 L0 层中 filename 中文件 id 最大 TSM 文件所持有的时间范围中 TimeRange（ts_min, ts_max), ts_max 是最大的。
+4. compact 的 pick 流程会建立一个虚拟的 time_window。time_window 会选取本层中合适的 TSM 文件 进行 compaction 到下一层，同时更新本层 level_info 的数据。将 level_info 中 TSMin 更新到 time_window 的最大时间戳，即本层的时间范围向前推进。新生成的 TSM 文件会放入到下一层，下一层的 time_range 的 ts_max 推进到 time_window 的最大值。
 5. 在 L3 开始，按照 table 把 TSM 文件按照目录进行划分；同一个 table 的 TSM 文件放到一起。 支持生成 parquet 文件 放到 S3 上进行分级存储。
 
 - time_window compaction
