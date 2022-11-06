@@ -166,7 +166,7 @@ SELECT ARRAY_AGG(temperature) from air;
 ## **近似聚合函数**
 
 ### **APPROX_DISTINCT**
-    APPROX_DISTINCT(x) -> 
+    APPROX_DISTINCT(x)
 **功能**： uint64返回不同输入值的近似值(HyperLogLog)。
 
 **参数类型**：数值类型

@@ -9,7 +9,7 @@ order: 10
 ## 语法
 
 ```
-function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr])
+function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr]);
 ```
 
 ## 使用限制

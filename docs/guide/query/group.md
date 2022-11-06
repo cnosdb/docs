@@ -25,7 +25,7 @@ GROUP BY station;
 **语法**：
 ```sql
 group_by_clause 
-[ HAVING condition ]
+[ HAVING condition ];
 ```
 在 SELECT 查询中，HAVING 子句必须紧随 GROUP BY 子句，并出现在 ORDER BY 子句（如果有的话）之前。
 
@@ -40,7 +40,7 @@ WHERE 在 GROUP BY 子句之前对被选择的列施加条件，而 HAVING 子�
 SELECT station, AVG(temperature)  AS avg_t 
 FROM air 
 GROUP BY station 
-HAVING avg_t > 70 ;
+HAVING avg_t > 70;
 ```
     +-------------+-------------------+
     | station     | avg_t             |
@@ -114,7 +114,7 @@ ROLLUP 假定输入列之间存在层次结构。
 ```sql
 SELECT ...
 FROM ...
-GROUP BY ROLLUP(column_1,column_2)
+GROUP BY ROLLUP(column_1,column_2);
 ```
 
 它与如下的语句等同
@@ -136,7 +136,7 @@ UNION ALL
 SELECT ...
 FROM ...
 GROUP BY
-column_1, column2
+column_1, column2;
 ```
 
 [//]: # (GROUP BY GROUPING SETS&#40;)
@@ -186,7 +186,7 @@ CUBE为指定表达式集的每个可能组合创建分组集。首先会对(A�
 ```sql
 SELECT ... 
 FROM ...
-GROUP BY CUBE (column1, column2)
+GROUP BY CUBE (column1, column2);
 ```
 
 等价于
@@ -212,6 +212,7 @@ UNION ALL
 
 SELECT ...
 FROM ...
+;
 ```
 
 **示例**：

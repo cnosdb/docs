@@ -39,7 +39,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
     [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] select ]
     [ ORDER BY expression [ ASC | DESC ] [, ...] ]
     [ OFFSET count ]
-    [ LIMIT { count | ALL } ]
+    [ LIMIT { count | ALL } ];
 
 -- from_item
 -- 1.
@@ -88,7 +88,7 @@ SELECT * FROM air;
 ### ALL/DISTINCT
 语法：
 ```sql
-SELECT [ ALL | DISTINCT ] select_expression [, ...]
+SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
 在`SELECT`关键字后可以使用`DISTINCT`去掉重复字段，只返回去重后的值。
 使用`ALL`会返回字段中所有重复的值。不指定此选项时，默认值为`ALL`。
@@ -521,7 +521,7 @@ SHOW TABLES;
 **语法**：
 
 ```sql
-EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>
+EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
 **说明**：
 
@@ -586,7 +586,7 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
 ## **DESCRIBE**
 **语法**：
 ```sql
-DESCRIBE {DATABASE db_name | TABLE tb_name}
+DESCRIBE {DATABASE db_name | TABLE tb_name};
 ```
 描述数据库的参数，描述表的模式
 

@@ -7,7 +7,7 @@ order: 2
 
 **语法**：
 ```sql
-CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options]
+CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options];
 
 db_options:
     db_option ...

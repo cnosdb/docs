@@ -2,7 +2,6 @@
 title: 表
 order: 3
 ---
-[//]: # (TODO 外部表例子)
 ## **创建表**
 
 可以使用 `CREATE TABLE` 创建表
@@ -13,7 +12,7 @@ CnosDB 支持创建普通表和外部表
 **语法**：
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-    (field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...));
+(field_definition [, field_definition] ...TAGS(tg_name [, tg_name] ...));
 
 field_definition:
     column_name data_type [field_codec_type]
@@ -33,20 +32,20 @@ field_codec_type:
     * DOUBLE：GORILLA，QUANTILE，NULL
     * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
     * BOOLEAN：BIPACK，NULL
-      
+
 想了解更多有关压缩算法的内容可以看[压缩算法详情](../design/compress.md)
 
 **示例**：
 ```sql
-> CREATE TABLE air (
-    visibility DOUBLE,
-    temperature DOUBLE,
-    presssure DOUBLE,
-    TAGS(station)
+CREATE TABLE air (
+   visibility DOUBLE,
+   temperature DOUBLE,
+   presssure DOUBLE,
+   TAGS(station)
 );
-
-Query took 0.033 seconds.
 ```
+
+    Query took 0.033 seconds.
 
 ### **创建外部表**
 **语法**：
@@ -81,20 +80,18 @@ tb_option: {
 
 **示例**：
 ```sql
-> CREATE EXTERNAL TABLE 
-    cpu (
-        cpu_hz  DECIMAL(10,6) NOT NULL,
-        temp  DOUBLE NOT NULL,
-        version_num  BIGINT NOT NULL,
-        is_old  BOOLEAN NOT NULL,
-        weight  DECIMAL(12,7) NOT NULL
-    )
-    STORED AS CSV
-    WITH HEADER ROW
-    LOCATION 'tests/data/csv/cpu.csv';
-
-Query took 0.031 seconds.
+CREATE EXTERNAL TABLE cpu (
+     cpu_hz  DECIMAL(10,6) NOT NULL,
+     temp  DOUBLE NOT NULL,
+     version_num  BIGINT NOT NULL,
+     is_old  BOOLEAN NOT NULL,
+     weight  DECIMAL(12,7) NOT NULL
+)
+STORED AS CSV
+WITH HEADER ROW
+LOCATION 'tests/data/csv/cpu.csv';
 ```
+    Query took 0.031 seconds.
 
 ## **删除表**
 **语法**：
@@ -104,14 +101,21 @@ DROP TABLE [ IF EXISTS ] tb_name;
 
 **示例**：
 ```sql
-> DROP TABLE IF EXISTS air;
-Query took 0.033 seconds.
+DROP TABLE IF EXISTS air;
 ```
+    Query took 0.033 seconds.
 
 ## **显示当前数据库所有表**
 ```sql
 SHOW TABLES;
 ```
+    +-------+
+    | Table |
+    +-------+
+    | sea   |
+    | air   |
+    | wind  |
+    +-------+
 
 [//]: # (## **修改表**)
 [//]: # (```sql)
