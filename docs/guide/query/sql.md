@@ -24,8 +24,7 @@ cnosdb-cli
  
 执行`\w`指令，`\w`后面为数据文件的绝对路径或相对cnosdb-cli的工作路径
 ```sql
-> \w oceanic_station
-Query took 0.023 seconds.
+\w oceanic_station
 ```
 
 ## **语法**
@@ -66,25 +65,25 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 **示例**：
 ```
-> SELECT * FROM air;
-+---------------------+-------------+------------+-------------+----------+
-| time                | station     | visibility | temperature | pressure |
-+---------------------+-------------+------------+-------------+----------+
-| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-+---------------------+-------------+------------+-------------+----------+
+SELECT * FROM air;
 ```
+    +---------------------+-------------+------------+-------------+----------+
+    | time                | station     | visibility | temperature | pressure |
+    +---------------------+-------------+------------+-------------+----------+
+    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+    +---------------------+-------------+------------+-------------+----------+
 
 ### ALL/DISTINCT
 语法：
@@ -97,43 +96,44 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 示例:
 ```sql
 SELECT DISTINCT station, visibility FROM air;
-+-------------+------------+
-| station     | visibility |
-+-------------+------------+
-| XiaoMaiDao  | 56         |
-| XiaoMaiDao  | 50         |
-| XiaoMaiDao  | 67         |
-| XiaoMaiDao  | 65         |
-| XiaoMaiDao  | 53         |
-| XiaoMaiDao  | 74         |
-| XiaoMaiDao  | 71         |
-| LianYunGang | 78         |
-| LianYunGang | 79         |
-| LianYunGang | 59         |
-| LianYunGang | 67         |
-| LianYunGang | 80         |
-+-------------+------------+
-
-> SELECT  station, visibility FROM air;
-SELECT station, visibility FROM air;
-+-------------+------------+
-| station     | visibility |
-+-------------+------------+
-| XiaoMaiDao  | 56         |
-| XiaoMaiDao  | 50         |
-| XiaoMaiDao  | 67         |
-| XiaoMaiDao  | 65         |
-| XiaoMaiDao  | 53         |
-| XiaoMaiDao  | 74         |
-| XiaoMaiDao  | 71         |
-| LianYunGang | 78         |
-| LianYunGang | 79         |
-| LianYunGang | 59         |
-| LianYunGang | 67         |
-| LianYunGang | 80         |
-| LianYunGang | 59         |
-+-------------+------------+
 ```
+    +-------------+------------+
+    | station     | visibility |
+    +-------------+------------+
+    | XiaoMaiDao  | 56         |
+    | XiaoMaiDao  | 50         |
+    | XiaoMaiDao  | 67         |
+    | XiaoMaiDao  | 65         |
+    | XiaoMaiDao  | 53         |
+    | XiaoMaiDao  | 74         |
+    | XiaoMaiDao  | 71         |
+    | LianYunGang | 78         |
+    | LianYunGang | 79         |
+    | LianYunGang | 59         |
+    | LianYunGang | 67         |
+    | LianYunGang | 80         |
+    +-------------+------------+
+
+```sql
+SELECT station, visibility FROM air;
+```
+    +-------------+------------+
+    | station     | visibility |
+    +-------------+------------+
+    | XiaoMaiDao  | 56         |
+    | XiaoMaiDao  | 50         |
+    | XiaoMaiDao  | 67         |
+    | XiaoMaiDao  | 65         |
+    | XiaoMaiDao  | 53         |
+    | XiaoMaiDao  | 74         |
+    | XiaoMaiDao  | 71         |
+    | LianYunGang | 78         |
+    | LianYunGang | 79         |
+    | LianYunGang | 59         |
+    | LianYunGang | 67         |
+    | LianYunGang | 80         |
+    | LianYunGang | 59         |
+    +-------------+------------+
 
 ## 别名
 
@@ -146,25 +146,25 @@ expression [ [ AS ] column_alias ]
 ```
 示例
 ```sql
-> SELECT station s, visibility AS v FROM air;
-+-------------+----+
-| s           | v  |
-+-------------+----+
-| XiaoMaiDao  | 56 |
-| XiaoMaiDao  | 50 |
-| XiaoMaiDao  | 67 |
-| XiaoMaiDao  | 65 |
-| XiaoMaiDao  | 53 |
-| XiaoMaiDao  | 74 |
-| XiaoMaiDao  | 71 |
-| LianYunGang | 78 |
-| LianYunGang | 79 |
-| LianYunGang | 59 |
-| LianYunGang | 67 |
-| LianYunGang | 80 |
-| LianYunGang | 59 |
-+-------------+----+
+SELECT station s, visibility AS v FROM air;
 ```
+    +-------------+----+
+    | s           | v  |
+    +-------------+----+
+    | XiaoMaiDao  | 56 |
+    | XiaoMaiDao  | 50 |
+    | XiaoMaiDao  | 67 |
+    | XiaoMaiDao  | 65 |
+    | XiaoMaiDao  | 53 |
+    | XiaoMaiDao  | 74 |
+    | XiaoMaiDao  | 71 |
+    | LianYunGang | 78 |
+    | LianYunGang | 79 |
+    | LianYunGang | 59 |
+    | LianYunGang | 67 |
+    | LianYunGang | 80 |
+    | LianYunGang | 59 |
+    +-------------+----+
 ### 为表取别名
 你也可以用关键字`AS`为表取别名
 **语法**：
@@ -176,21 +176,22 @@ FROM tb_name [AS] alias_name
 ```sql
 SELECT a.visibility, s.temperature
 FROM air AS a, sea s LIMIT 10;
-+------------+-------------+
-| visibility | temperature |
-+------------+-------------+
-| 56         | 62          |
-| 56         | 63          |
-| 56         | 77          |
-| 56         | 54          |
-| 56         | 55          |
-| 56         | 64          |
-| 56         | 56          |
-| 56         | 57          |
-| 56         | 64          |
-| 56         | 51          |
-+------------+-------------+
 ```
+    +------------+-------------+
+    | visibility | temperature |
+    +------------+-------------+
+    | 56         | 62          |
+    | 56         | 63          |
+    | 56         | 77          |
+    | 56         | 54          |
+    | 56         | 55          |
+    | 56         | 64          |
+    | 56         | 56          |
+    | 56         | 57          |
+    | 56         | 64          |
+    | 56         | 51          |
+    +------------+-------------+
+
 ## LIMIT 子句
 **语法**：
 ```sql
@@ -202,21 +203,21 @@ LIMIT n
 ```sql
 SELECT *
 FROM air LIMIT 10;
-+---------------------+-------------+------------+-------------+----------+
-| time                | station     | visibility | temperature | pressure |
-+---------------------+-------------+------------+-------------+----------+
-| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-+---------------------+-------------+------------+-------------+----------+
 ```
+    +---------------------+-------------+------------+-------------+----------+
+    | time                | station     | visibility | temperature | pressure |
+    +---------------------+-------------+------------+-------------+----------+
+    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+    +---------------------+-------------+------------+-------------+----------+
 
 ## **OFFSET 子句**
 **语法**：
@@ -228,14 +229,14 @@ OFFSET m
 ```sql
 SELECT *
 FROM air OFFSET 10;
-+---------------------+-------------+------------+-------------+----------+
-| time                | station     | visibility | temperature | pressure |
-+---------------------+-------------+------------+-------------+----------+
-| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-+---------------------+-------------+------------+-------------+----------+
 ```
+    +---------------------+-------------+------------+-------------+----------+
+    | time                | station     | visibility | temperature | pressure |
+    +---------------------+-------------+------------+-------------+----------+
+    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+    +---------------------+-------------+------------+-------------+----------+
 
 `OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`，
 也可以简写为`LIMIT n, m`。
@@ -247,14 +248,14 @@ OFFSET 0与省略OFFSET子句效果相同。
 ```sql
 SELECT *
 FROM air LIMIT 3, 3;
-+---------------------+------------+------------+-------------+----------+
-| time                | station    | visibility | temperature | pressure |
-+---------------------+------------+------------+-------------+----------+
-| 2022-01-28 13:30:00 | XiaoMaiDao | 65         | 79          | 77       |
-| 2022-01-28 13:33:00 | XiaoMaiDao | 53         | 53          | 68       |
-| 2022-01-28 13:36:00 | XiaoMaiDao | 74         | 72          | 68       |
-+---------------------+------------+------------+-------------+----------+
 ```
+    +---------------------+------------+------------+-------------+----------+
+    | time                | station    | visibility | temperature | pressure |
+    +---------------------+------------+------------+-------------+----------+
+    | 2022-01-28 13:30:00 | XiaoMaiDao | 65         | 79          | 77       |
+    | 2022-01-28 13:33:00 | XiaoMaiDao | 53         | 53          | 68       |
+    | 2022-01-28 13:36:00 | XiaoMaiDao | 74         | 72          | 68       |
+    +---------------------+------------+------------+-------------+----------+
 
 ## **WITH 子句**
 **语法**：
@@ -269,29 +270,30 @@ CTE充当当前运行环境中的临时表，您可以在之后的查询中引�
 
 **示例**：
 ```sql
--- eg.
-> SELECT station, avg 
-  FROM (SELECT station, AVG(visibility) AS avg 
+SELECT station, avg 
+FROM (  SELECT station, AVG(visibility) AS avg 
         FROM air 
         GROUP BY station) AS x;
-+-------------+--------------------+
-| station     | avg                |
-+-------------+--------------------+
-| XiaoMaiDao  | 62.285714285714285 |
-| LianYunGang | 70.33333333333333  |
-+-------------+--------------------+
-
-> WITH x AS 
-      (SELECT station, AVG(visibility) AS avg FROM air GROUP BY station)
-  SELECT station, avg
-  FROM x;
-+-------------+--------------------+
-| station     | avg                |
-+-------------+--------------------+
-| XiaoMaiDao  | 62.285714285714285 |
-| LianYunGang | 70.33333333333333  |
-+-------------+--------------------+
 ```
+    +-------------+--------------------+
+    | station     | avg                |
+    +-------------+--------------------+
+    | XiaoMaiDao  | 62.285714285714285 |
+    | LianYunGang | 70.33333333333333  |
+    +-------------+--------------------+
+
+```sql
+WITH x AS 
+    (SELECT station, AVG(visibility) AS avg FROM air GROUP BY station)
+SELECT station, avg
+FROM x;
+```
+    +-------------+--------------------+
+    | station     | avg                |
+    +-------------+--------------------+
+    | XiaoMaiDao  | 62.285714285714285 |
+    | LianYunGang | 70.33333333333333  |
+    +-------------+--------------------+
 
 
 ## **UNION 子句**
@@ -322,95 +324,147 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
 SELECT visibility FROM air WHERE temperature < 60
 UNION ALL
 SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
-+------------+
-| visibility |
-+------------+
-| 53         |
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 53         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-+------------+
-    
-
 ```
+    +------------+
+    | visibility |
+    +------------+
+    | 53         |
+    | 56         |
+    | 50         |
+    | 67         |
+    | 65         |
+    | 53         |
+    | 74         |
+    | 71         |
+    | 78         |
+    | 79         |
+    +------------+
+
 **UNION**
 ```sql
 SELECT visibility FROM air WHERE temperature < 60
 UNION
 SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
-+------------+
-| visibility |
-+------------+
-| 53         |
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-| 59         |
-+------------+
 ```
+    +------------+
+    | visibility |
+    +------------+
+    | 53         |
+    | 56         |
+    | 50         |
+    | 67         |
+    | 65         |
+    | 74         |
+    | 71         |
+    | 78         |
+    | 79         |
+    | 59         |
+    +------------+
 **EXCEPT**
 ```sql
 SELECT visibility FROM air
 EXCEPT
 SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
-+------------+
-| visibility |
-+------------+
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 53         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-| 59         |
-+------------+
 ```
+    +------------+
+    | visibility |
+    +------------+
+    | 56         |
+    | 50         |
+    | 67         |
+    | 65         |
+    | 53         |
+    | 74         |
+    | 71         |
+    | 78         |
+    | 79         |
+    | 59         |
+    +------------+
 **INTERSECT**
 ```sql
-> SELECT visibility FROM air
-  INTERSECT
-  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
-+------------+
-| visibility |
-+------------+
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 53         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-| 59         |
-+------------+
+SELECT visibility FROM air
+INTERSECT
+SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
 ```
+    +------------+
+    | visibility |
+    +------------+
+    | 56         |
+    | 50         |
+    | 67         |
+    | 65         |
+    | 53         |
+    | 74         |
+    | 71         |
+    | 78         |
+    | 79         |
+    | 59         |
+    +------------+
 
 ## ORDER BY 子句
 
 按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
 
 ```sql
-SELECT age, person
-FROM table
-ORDER BY age;
-SELECT age, person FROM table ORDER BY age DESC;
-SELECT age, person FROM table ORDER BY age, person DESC;
+SELECT * FROM air ORDER BY temperature;
 ```
+    +---------------------+-------------+------------+-------------+----------+
+    | time                | station     | visibility | temperature | pressure |
+    +---------------------+-------------+------------+-------------+----------+
+    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+    +---------------------+-------------+------------+-------------+----------+
+```sql
+SELECT * FROM air ORDER BY temperature DESC;
+```
+    +---------------------+-------------+------------+-------------+----------+
+    | time                | station     | visibility | temperature | pressure |
+    +---------------------+-------------+------------+-------------+----------+
+    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+    +---------------------+-------------+------------+-------------+----------+
+```sql
+SELECT * FROM air ORDER BY station, temperature;
+```
+    +---------------------+-------------+------------+-------------+----------+
+    | time                | station     | visibility | temperature | pressure |
+    +---------------------+-------------+------------+-------------+----------+
+    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+    +---------------------+-------------+------------+-------------+----------+
 
 ## **IN**
 
@@ -419,13 +473,13 @@ IN 操作符允许您在 WHERE 子句中规定多个值。
 **示例**：
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
-+-------------+-------------+------------+
-| station     | temperature | visibility |
-+-------------+-------------+------------+
-| XiaoMaiDao  | 69          | 56         |
-| LianYunGang | 69          | 78         |
-+-------------+-------------+------------+
 ```
+    +-------------+-------------+------------+
+    | station     | temperature | visibility |
+    +-------------+-------------+------------+
+    | XiaoMaiDao  | 69          | 56         |
+    | LianYunGang | 69          | 78         |
+    +-------------+-------------+------------+
 
 **注意**：
 
@@ -450,10 +504,10 @@ SHOW DATABASES;
     +----------+
     | public   |
     +----------+
+
 ```sql
 SHOW TABLES;
 ```
-
     +-------+
     | Table |
     +-------+
@@ -461,6 +515,7 @@ SHOW TABLES;
     | air   |
     | wind  |
     +-------+
+
 ## **EXPLAIN**
 
 **语法**：
@@ -538,23 +593,25 @@ DESCRIBE {DATABASE db_name | TABLE tb_name}
 **示例**：
 ```sql
 DESCRIBE TABLE air;
-+-------------+-----------+-------+-------------+
-| FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-+-------------+-----------+-------+-------------+
-| time        | TIMESTAMP | false | Default     |
-| station     | STRING    | true  | Default     |
-| visibility  | DOUBLE    | false | Default     |
-| temperature | DOUBLE    | false | Default     |
-| pressure    | DOUBLE    | false | Default     |
-+-------------+-----------+-------+-------------+
-
-DESCRIBE DATABASE public;
-+----------+-------+----------------+---------+-----------+
-| TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-+----------+-------+----------------+---------+-----------+
-| 365 Days | 1     | 365 Days       | 1       | NS        |
-+----------+-------+----------------+---------+-----------+
 ```
+    +-------------+-----------+-------+-------------+
+    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
+    +-------------+-----------+-------+-------------+
+    | time        | TIMESTAMP | false | Default     |
+    | station     | STRING    | true  | Default     |
+    | visibility  | DOUBLE    | false | Default     |
+    | temperature | DOUBLE    | false | Default     |
+    | pressure    | DOUBLE    | false | Default     |
+    +-------------+-----------+-------+-------------+
+
+```sql
+DESCRIBE DATABASE public;
+```
+    +----------+-------+----------------+---------+-----------+
+    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
+    +----------+-------+----------------+---------+-----------+
+    | 365 Days | 1     | 365 Days       | 1       | NS        |
+    +----------+-------+----------------+---------+-----------+
 
 [//]: # (## **EXISTS**)
 [//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
