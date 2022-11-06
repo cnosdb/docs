@@ -35,6 +35,30 @@ db_option: {
 Query took 0.062 seconds.
 ```
 
+## 查看所有数据库
+**示例**：
+
+```sql
+SHOW DATABASES;
+```
+    +-----------------+
+    | Database        |
+    +-----------------+
+    | oceanic_station |
+    | public          |
+    +-----------------+
+## **使用数据库**
+如果你通过[HTTP API](../application/api.md)来使用数据库，
+你可以在url中指定参数db=database_name 来使用数据库
+
+
+在 CnosDB-Cli 中，可以使用如下命令切换数据库
+```sql
+\c dbname
+```
+    public ❯ \c oceanic_station
+    oceanic_station ❯
+
 ## 删除数据库
 **语法**：
 ```sql
@@ -44,20 +68,9 @@ DROP DATABASE [IF EXISTS] db_name;
 
 **示例**：
 ```sql
-> DROP DATABASE oceanic_station;
-Query took 0.030 seconds.
+DROP DATABASE oceanic_station;
 ```
-
-## **查看系统中所有数据库**
-```sql
-SHOW DATABASES;
-```
-
-## **使用数据库**
-在 CnosDB-Cli 中，可以使用如下命令切换数据库
-```sql
-\c dbname
-```
+    Query took 0.030 seconds.
 
 [//]: # (## **修改数据库参数**)
 [//]: # (## **显示一个数据库的创建语句**)
