@@ -203,13 +203,9 @@ SELECT ARRAY_AGG(temperature) from air;
 
 **返回类型**：DOUBLE
 
-----------------
-
-### **GROUPING**(x)
-    GROUPING(x)
-
-**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。
-
-**参数类型**：数值类型
-
-**返回类型** BIGINT
+[//]: # (----------------)
+[//]: # (### **GROUPING**&#40;x&#41;)
+[//]: # (    GROUPING&#40;x&#41;)
+[//]: # (**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。)
+[//]: # (**参数类型**：数值类型)
+[//]: # (**返回类型** BIGINT)
