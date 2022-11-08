@@ -4,11 +4,21 @@ order: 2
 ---
 
 配置采用TOML语法
-- storage  存储配置
-- wal      写前日志配置
-- cache    缓存配置
-- log      运行日志配置
+
+- query 查询接口配置
+- storage 存储配置
+- wal 写前日志配置
+- cache 缓存配置
+- log 运行日志配置
 - security 安全配置
+
+## [query]
+
+| 参数                     | 说明                           |
+|------------------------|------------------------------|
+| max_server_connections | 最大并发连接请求数                    |
+| query_sql_limit        | 查询请求时的最大SQL所占字节              |
+| write_sql_limit        | line_protocol 写入请求时，请求体最大字节数 |
 
 ## [storage]
 
@@ -57,3 +67,21 @@ order: 2
 |---|----------|
 |certificate| TLS服务的证书 |
 |private_key| TLS服务的私钥 |
+
+## reporting_disabled
+
+**说明**：是否关闭信息收集
+
+CnosDB会收集一些信息，使社区更好地改进产品
+
+我们不会收集用户的数据，只会收集
+
+- 数据库实例运行时间
+- 数据库实例运行的操作系统类型和架构
+- 数据库版本
+- 数据库实例运行的区域，只到省级，州级
+
+你可以在配置文件顶部设置此项为true关闭信息收集
+```
+reporting_disabled = true
+```
