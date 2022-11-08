@@ -5,7 +5,8 @@ order: 3
 ---
 
 ## Docker
-1. 安装最新版 [Docker](https://www.docker.com/products/docker-desktop/)
+
+1. 安装 [Docker](https://www.docker.com/products/docker-desktop/)
 
 2. 使用 Docker 启动容器
    ```shell
@@ -23,11 +24,50 @@ order: 3
    public ❯
    ```
 ::: tip
-查看帮助请执行`\?`
+退出请输入`\q`
+
+查看帮助请输入`\?`
 :::
 更多内容请查看[基本操作](#基本操作)
 
-## **从源码安装**
+## Kubernetes
+
+### Helm
+
+1. 准备好Kubernetes环境
+2. 执行如下命令
+   ```shell
+   git clone https://github.com/cnosdb/cloud-deploy.git
+   cd helm-chart
+   helm install cnosdb .
+   ```
+
+### Terraform
+
+1. 克隆部署仓库
+   ```shell
+   git clone https://github.com/cnosdb/cloud-deploy.git
+   cd terraform
+   ```
+2. 创建
+   ```shell 
+   terraform init
+   ```
+3. 部署
+   ```shell 
+   terraform apply
+   ```
+4. 登陆
+   第三步会给出 CnosDB 的公共IP
+
+5. ```shell
+   chmod 400 /root/.ssh/id_rsa
+   ssh ubuntu@<cnosdb-public-ip>
+   ```
+   端口22和31007以开放，你可以添加IP白名单在main.tf文件
+   Port 22 and 31007 are opened, you can add whitelisted IP into the main.tf file.
+
+## 源码安装
 
 ### **支持平台**
 
@@ -37,10 +77,10 @@ order: 3
 - Linux x86(`x86_64-unknown-linux-gnu`)
 - Darwin arm(`aarch64-apple-darwin`)
 
-### **前置条件**
+### **编译环境**
 
 1. 安装`Rust`，可前往[官网](https://www.rust-lang.org/learn/get-started)下载安装
-2. Cmake
+2. 安装Cmake
    ```shell
    # Debian or Ubuntu
    apt-get install cmake
@@ -54,7 +94,7 @@ order: 3
    brew install cmake
    ```
    对于 Windows，你也可以在[Cmake官网](https://cmake.org/download/)下载和安装 Cmake
-3. FlatBuffers
+3. 安装FlatBuffers
 
    ```shell
    # Arch Linux
@@ -67,7 +107,7 @@ order: 3
    brew install flatbuffers
    ```
 
-   如果您的系统不在此列，需要自行编译
+   如果您的系统不在此列，可按照如下方法安装FlatBuffers
 
    ```shell
    $ git clone -b v2.0.6 --depth 1 https://github.com/google/flatbuffers.git && cd flatbuffers
@@ -83,8 +123,8 @@ order: 3
 ### **编译**
 
 ```shell
-$ git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
-$ cargo build
+git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
+cargo build
 ```
 
 ### **运行**
@@ -110,13 +150,11 @@ CREATE DATABASE oceanic_station;
 
 正确执行，会返回类似如下内容：
 
-```
-Query took 0.080 seconds.
-```
+    Query took 0.080 seconds.
 
 CLI中输入如下命令，切换连接的数据库
 
-```sql
+```
 \c oceanic_station
 ```
 
@@ -125,52 +163,47 @@ CLI中输入如下命令，切换连接的数据库
 CREATE TABLE air (
     visibility DOUBLE,
     temperature DOUBLE,
-    presssure DOUBLE,
+    pressure DOUBLE,
     TAGS(station)
 );
 ```
 
 正确执行，会返回类似如下内容：
 
-```
-Query took 0.032 seconds.
-```
+    Query took 0.032 seconds.
 
 ### 写入您的第一条数据
 ```sql
-INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES 
-                (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
+    (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);
 ```
 
 正确执行，会返回以下内容：
-```
-+------+
-| rows |
-+------+
-| 1    |
-+------+
-```
+
+    +------+
+    | rows |
+    +------+
+    | 1    |
+    +------+
 
 ### 使用 SQL 查询数据
 
-```
+```sql
 SELECT * FROM air;
 ```
 
 正确执行，会返回以下内容：
 
-```
-+-----------+------------+-------------+----------------------------+------------+
-| presssure | station    | temperature | time                       | visibility |
-+-----------+------------+-------------+----------------------------+------------+
-| 77        | XiaoMaiDao | 69          | 2022-10-19 07:40:00.290401 | 56         |
-+-----------+------------+-------------+----------------------------+------------+
-```
+    +-----------+------------+-------------+----------------------------+------------+
+    | pressure | station    | temperature | time                       | visibility |
+    +-----------+------------+-------------+----------------------------+------------+
+    | 77        | XiaoMaiDao | 69          | 2022-10-19 07:40:00.290401 | 56         |
+    +-----------+------------+-------------+----------------------------+------------+
 
-   > 有关更多关于数据库的操作请参考：
-   >
-   > [SQL](query/sql.md)
-   >
-   > [编程接口](application/api.md)
+> 有关更多关于数据库的操作请查看：
+>
+> [SQL](query/sql.md)
+>
+> [编程接口](application/api.md)
 
 
