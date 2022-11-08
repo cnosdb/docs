@@ -175,21 +175,15 @@ FROM tb_name [AS] alias_name
 **示例**：
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a, sea s LIMIT 10;
+FROM air AS a JOIN sea s ON a.temperature = s.temperature;
 ```
     +------------+-------------+
     | visibility | temperature |
     +------------+-------------+
-    | 56         | 62          |
-    | 56         | 63          |
-    | 56         | 77          |
-    | 56         | 54          |
-    | 56         | 55          |
-    | 56         | 64          |
-    | 56         | 56          |
-    | 56         | 57          |
-    | 56         | 64          |
-    | 56         | 51          |
+    | 67         | 62          |
+    | 50         | 78          |
+    | 50         | 78          |
+    | 65         | 79          |
     +------------+-------------+
 
 ## LIMIT 子句
