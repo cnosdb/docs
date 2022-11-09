@@ -64,8 +64,7 @@ order: 3
    chmod 400 /root/.ssh/id_rsa
    ssh ubuntu@<cnosdb-public-ip>
    ```
-   端口22和31007以开放，你可以添加IP白名单在main.tf文件
-   Port 22 and 31007 are opened, you can add whitelisted IP into the main.tf file.
+   端口22和31007已开放，你可以添加IP白名单在main.tf文件
 
 ## 源码安装
 
