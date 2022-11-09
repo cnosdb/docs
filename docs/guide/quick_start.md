@@ -15,7 +15,7 @@ order: 3
 
 3. 进入容器运行`cnosdb-cli`
    ```shell
-   docker exec -it cnosdb sh
+   docker exec -it cnosdb cnosdb-cli
    ```
    ```shell
    $ cnosdb-cli
