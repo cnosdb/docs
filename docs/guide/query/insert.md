@@ -37,14 +37,14 @@ TIME 列的数据既可以用时间字符串表示，也可以用数字类型的
 CREATE TABLE air (
     visibility DOUBLE,
     temperature DOUBLE,
-    presssure DOUBLE,
+    pressure DOUBLE,
     TAGS(station)
 );
 ```
     Query took 0.027 seconds.
 
 ```sql
-INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);
 ```
 
@@ -56,7 +56,7 @@ INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
     Query took 0.044 seconds.
 
 ```sql
-INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 06:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
     +------+
@@ -70,7 +70,7 @@ INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
 SELECT * FROM air;
 ```
     +----------------------------+------------+------------+-------------+-----------+
-    | time                       | station    | visibility | temperature | presssure |
+    | time                       | station    | visibility | temperature | pressure |
     +----------------------------+------------+------------+-------------+-----------+
     | 2022-10-18 22:40:00        | XiaoMaiDao | 55         | 68          | 76        |
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
@@ -88,7 +88,7 @@ SELECT * FROM air;
 `VALUES`关键字后面可以跟多个列表，用`,`分隔开
 
 ```sql
-INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 76), 
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
@@ -103,7 +103,7 @@ INSERT INTO air (TIME, station, visibility, temperature, presssure) VALUES
 SELECT * FROM air;
 ```
     +----------------------------+------------+------------+-------------+-----------+
-    | time                       | station    | visibility | temperature | presssure |
+    | time                       | station    | visibility | temperature | pressure |
     +----------------------------+------------+------------+-------------+-----------+
     | 2022-10-18 20:40:00        | XiaoMaiDao | 55         | 68          | 76        |
     | 2022-10-18 21:40:00        | XiaoMaiDao | 55         | 68          | 76        |
