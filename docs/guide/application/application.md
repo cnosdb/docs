@@ -15,7 +15,7 @@ let sql = r#"
     CREATE TABLE air (
         visibility DOUBLE,
         temperature DOUBLE,
-        presssure DOUBLE,
+        pressure DOUBLE,
         TAGS(station)
     );"#.to_string();
 ```
@@ -59,7 +59,7 @@ url := "http://127.0.0.1:31007/" + "api/v1/sql?db=public&pretty=true"
 query1 := "CREATE TABLE air (
                visibility DOUBLE,
                temperature DOUBLE,
-               presssure DOUBLE,
+               pressure DOUBLE,
                TAGS(station)
             );"
 ```
@@ -104,7 +104,7 @@ public static void main(String[] args) {
     String query = "CREATE TABLE air (
                         visibility DOUBLE,
                         temperature DOUBLE,
-                        presssure DOUBLE,
+                        pressure DOUBLE,
                         TAGS(station)
                     );";
     String url = "http://127.0.0.1:31007/";
