@@ -9,7 +9,9 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 为了进一步学习CnosDB，本节将提供示例数据供您下载，并教您如何将数据导入数据库。后面章节中引用的数据源都来自此示例数据。
 
 ### 下载数据
-执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
+如果在 cnosdb-cli 中，请输入`\q`退出
+
+在shell中执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
 
 ```shell
 wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station
