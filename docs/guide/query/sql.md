@@ -5,6 +5,8 @@ order: 5
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，我们支持DataFusion的大部分SQL语法。
 
+**注意**：为了查询能更高效，没有指定排序的查询，每次行顺序都不一定相同
+
 ## 示例数据
 为了进一步学习CnosDB，本节将提供示例数据供您下载，并教您如何将数据导入数据库。后面章节中引用的数据源都来自此示例数据。
 
