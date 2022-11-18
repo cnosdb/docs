@@ -13,17 +13,21 @@ order: 3
    docker run --name cnosdb -d  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
    ```
 
-3. 进入容器运行`cnosdb-cli`
+3. 进入容器
    ```shell
    docker exec -it cnosdb sh
+   ```
+4. 运行`cnosdb-cli`
+   ```shell
    cnosdb-cli
    ```
-   ```shell
-   $ cnosdb-cli
-   CnosDB CLI v2.0.0
-   Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
-   public ❯
+   会显示如下
    ```
+    CnosDB CLI v2.0.0
+    Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
+    public ❯
+   ```
+
 ::: tip
 退出请输入`\q`
 
