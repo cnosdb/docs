@@ -14,7 +14,7 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 在shell中执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
 
 ```shell
-wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station
+wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ```
 
 ### 导入数据
@@ -26,7 +26,7 @@ cnosdb-cli
  
 执行`\w`指令，`\w`后面为数据文件的绝对路径或相对cnosdb-cli的工作路径
 ```sql
-\w oceanic_station
+\w oceanic_station.txt
 ```
 
 ## **语法**

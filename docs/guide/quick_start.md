@@ -10,7 +10,7 @@ order: 3
 
 2. 使用 Docker 启动容器
    ```shell
-   docker run --name cnosdb -itd  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
+   docker run --name cnosdb -d  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
    ```
 
 3. 进入容器运行`cnosdb-cli`
