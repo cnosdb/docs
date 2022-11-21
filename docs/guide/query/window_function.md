@@ -24,16 +24,27 @@ frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUN
 ```
 ### 函数类型
 #### 排名函数
-DENSE_RANK | NTILE | PERCENT_RANK | RANK | ROW_NUMBER
+| 函数名          |
+|--------------|
+| DENSE_RANK   |
+| PERCENT_RANK |
+| RANK         |
+| ROW_NUMBER   |
 
-其中DENSE_RANK | RANK | PERCENT_RANK 需要ORDER BY 子句
+其中`DENSE_RANK` | `RANK` | `PERCENT_RANK` 需要 ORDER BY 子句
 
-其中 rank,dense_rank,row_number 指定window_frame 无效
+其中 `RANK`, `DENSE_RANK`, `ROW_NUMBER` 指定window_frame 无效
 
 #### 聚合函数
 详见[聚合函数](aggregate_function.md)
 #### 分析窗口函数
-CUME_DIST | LAG | LEAD | NTH_VALUE 
+
+| 函数名                   | 
+|-----------------------|
+| CUME_DIST |
+| LAG                   |
+| LEAD                  |
+| NTH_VALUE             |
 
 ### PARTITION BY 子句
 一个或多个表达式，用于指定一个行分区，如果没有该子句，则分区由所有行组成
@@ -58,12 +69,6 @@ frame 是当前分区的一个子集，在分区里进一步细分窗口
 - 窗口函数只能出现在SELECT语句中。
 - 窗口函数中不能嵌套使用窗口函数和聚合函数。
 
-**示例**：
-```sql
-SELECT c1, FIRST_VALUE(c1) OVER (PARTITION BY c2)
-FROM aggregate_test_100
-```
-
 ## 窗口函数列表
 
 包括[聚合函数](aggregate_function.md)
@@ -80,7 +85,9 @@ FROM aggregate_test_100
 
 **示例**：
 ```sql
-SELECT temperature, station, ROW_NUMBER() OVER (PARTITION BY station) FROM air;
+SELECT temperature, station, 
+       ROW_NUMBER() OVER (PARTITION BY station) 
+FROM air;
 ```
     +-------------+-------------+--------------+
     | temperature | station     | ROW_NUMBER() |
@@ -115,25 +122,27 @@ SELECT temperature, station, ROW_NUMBER() OVER (PARTITION BY station) FROM air;
 
 **示例**：
 ```sql
-SELECT station, temperature, RANK() OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       RANK() OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
-+-------------+-------------+--------+
-| station     | temperature | RANK() |
-+-------------+-------------+--------+
-| LianYunGang | 69          | 1      |
-| LianYunGang | 70          | 2      |
-| LianYunGang | 70          | 2      |
-| LianYunGang | 70          | 2      |
-| LianYunGang | 74          | 5      |
-| LianYunGang | 80          | 6      |
-| XiaoMaiDao  | 53          | 1      |
-| XiaoMaiDao  | 62          | 2      |
-| XiaoMaiDao  | 69          | 3      |
-| XiaoMaiDao  | 71          | 4      |
-| XiaoMaiDao  | 72          | 5      |
-| XiaoMaiDao  | 78          | 6      |
-| XiaoMaiDao  | 79          | 7      |
-+-------------+-------------+--------+
+    +-------------+-------------+--------+
+    | station     | temperature | RANK() |
+    +-------------+-------------+--------+
+    | LianYunGang | 69          | 1      |
+    | LianYunGang | 70          | 2      |
+    | LianYunGang | 70          | 2      |
+    | LianYunGang | 70          | 2      |
+    | LianYunGang | 74          | 5      |
+    | LianYunGang | 80          | 6      |
+    | XiaoMaiDao  | 53          | 1      |
+    | XiaoMaiDao  | 62          | 2      |
+    | XiaoMaiDao  | 69          | 3      |
+    | XiaoMaiDao  | 71          | 4      |
+    | XiaoMaiDao  | 72          | 5      |
+    | XiaoMaiDao  | 78          | 6      |
+    | XiaoMaiDao  | 79          | 7      |
+    +-------------+-------------+--------+
 
 ----------------
 
@@ -149,7 +158,9 @@ SELECT station, temperature, RANK() OVER (PARTITION BY station ORDER BY temperat
 
 **示例**：
 ```sql
-SELECT station, temperature, DENSE_RANK() OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       DENSE_RANK() OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
 
     +-------------+-------------+--------------+
@@ -184,7 +195,9 @@ SELECT station, temperature, DENSE_RANK() OVER (PARTITION BY station ORDER BY te
 
 **示例**：
 ```sql
- SELECT station, temperature, PERCENT_RANK() OVER (PARTITION BY station ORDER BY temperature) FROM air;
+ SELECT station, temperature, 
+        PERCENT_RANK() OVER (PARTITION BY station ORDER BY temperature) 
+ FROM air;
 ```
     +-------------+-------------+---------------------+
     | station     | temperature | PERCENT_RANK()      |
@@ -217,7 +230,9 @@ SELECT station, temperature, DENSE_RANK() OVER (PARTITION BY station ORDER BY te
 
 **示例**：
 ```sql
-SELECT station, temperature, CUME_DIST() OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       CUME_DIST() OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
     +-------------+-------------+---------------------+
     | station     | temperature | CUME_DIST()         |
@@ -272,7 +287,9 @@ default 需要与expr对应的数据类型相同,默认为NULL
 
 **示例**：
 ```sql
-SELECT station, temperature, LAG(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       LAG(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
     +-------------+-------------+-------------------------------+
     | station     | temperature | LAG(air.temperature,Int64(2)) |
@@ -309,7 +326,9 @@ default需要与expr类型相同，默认是NULL
 
 **示例**：
 ```sql
-SELECT station, temperature, LEAD(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       LEAD(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
     +-------------+-------------+--------------------------------+
     | station     | temperature | LEAD(air.temperature,Int64(2)) |
@@ -343,7 +362,9 @@ SELECT station, temperature, LEAD(temperature, 2) OVER (PARTITION BY station ORD
 
 **示例**：
 ```sql
-SELECT station, temperature, FIRST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       FIRST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
     +-------------+-------------+------------------------------+
     | station     | temperature | FIRST_VALUE(air.temperature) |
@@ -378,7 +399,9 @@ SELECT station, temperature, FIRST_VALUE(temperature) OVER (PARTITION BY station
 
 **示例**：
 ```sql
-SELECT station, temperature, LAST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       LAST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
     +-------------+-------------+-----------------------------+
     | station     | temperature | LAST_VALUE(air.temperature) |
@@ -412,7 +435,9 @@ SELECT station, temperature, LAST_VALUE(temperature) OVER (PARTITION BY station 
 
 **示例**：
 ```sql
-SELECT station, temperature, NTH_VALUE(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) FROM air;
+SELECT station, temperature, 
+       NTH_VALUE(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
+FROM air;
 ```
     +-------------+-------------+-------------------------------------+
     | station     | temperature | NTH_VALUE(air.temperature,Int64(2)) |
