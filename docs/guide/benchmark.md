@@ -192,4 +192,4 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置
 
 1. CnosDB 相比 InfluxDB，在大多数情况下，拥有更高的性能。
 2. CnosDB 相比 InfluxDB，可以支持更高的并发数，更高的 batch-size。
-3. 我们未与其他不支持 LineProtocol 或者将 LineProtocol 在客户端进行转化的时序数据库比较，这对直接写入 LineProtocol 的 CnosDB 以及 InfluxDB 来说是不太公平的。
+3. 我们未与其他不支持 Line Protocol 或者将 Line Protocol 在客户端进行转化的时序数据库比较，这对直接写入 Line Protocol 的 CnosDB 以及 InfluxDB 来说是不太公平的。

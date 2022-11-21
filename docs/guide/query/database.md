@@ -13,7 +13,7 @@ db_options:
     db_option ...
 
 db_option: {
-    TTL value
+      TTL value
     | SHARD value
     | VNODE_DURATION value
     | REPLICA value
@@ -72,6 +72,33 @@ DROP DATABASE oceanic_station;
 ```
     Query took 0.030 seconds.
 
-[//]: # (## **修改数据库参数**)
-[//]: # (## **显示一个数据库的创建语句**)
-[//]: # (## **查看数据库参数**)
+## **修改数据库参数**
+```sql
+ALTER DATABASE db_name [alter_db_options]
+
+alter_db_options:
+    SET db_option
+
+db_option: {
+      TTL value
+    | SHARD value
+    | VNODE_DURATION value
+    | REPLICA value
+    | PRECISION {'ms' | 'us' | 'ns'}
+}
+```
+**示例**：
+```sql
+ALTER DATABASE oceanic_station SET TTL '30d';
+```
+## **查看数据库参数**
+```sql
+DESCRIBE DATABASE dbname;
+```
+**示例**：
+```sql
+DESCRIBE DATABASE oceanic_station;
+```
+
+    TTL,SHARD,VNODE_DURATION,REPLICA,PRECISION
+    365 Days,1,365 Days,1,NS

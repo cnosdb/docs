@@ -117,7 +117,29 @@ SHOW TABLES;
     | wind  |
     +-------+
 
-[//]: # (## **修改表**)
+## **修改表**
+**说明** 目前我们支持修改普通表
+1. 添加列：添加 field，tag 列
+2. 删除列：删除 field 列，当删除列导致删除某一行的最后一个 field 值时，我们认为这一行没有值，SELECT 时将不显示这一行
+3. 修改列：修改列定义，目前支持修改列的压缩算法
+
+```sql
+ALTER TABLE tb_name alter_table_option;
+
+alter_table_option: {
+      ADD TAG col_name
+    | ADD FIELD col_name [CODEC(code_type)]
+    | ALTER col_name SET CODEC(code_type)
+    | DROP col_name
+}
+```
+**示例**
+```sql
+ALTER TABLE air ADD TAG height;
+ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
+ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
+ALTER TABLE air DROP humidity;
+```
 [//]: # (```sql)
 [//]: # (todo)
 [//]: # (!&#40;&#41;)
