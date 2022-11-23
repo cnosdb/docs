@@ -389,13 +389,11 @@ FROM air;
 
     LAST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
-**功能**： 返回一组值(该组通常是有序集合)中的最后一个值。
+**功能**： 返回当前窗口中的最后一个值。
 
 **参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
 
 **返回类型**：与expr类型相同
-
-**注意**：该函数目前不稳定
 
 **示例**：
 ```sql
