@@ -983,7 +983,7 @@ SELECT reverse('你好');
 
 algorithm指定计算散列的算法，仅支持 md5, sha224, sha256, sha384, sha512, blake2s, blake2b, blake3
 
-**返回类型**：BIGINT
+**返回类型**：BINARY
 
 **示例**：
 ```sql
