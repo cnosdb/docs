@@ -308,8 +308,7 @@ FROM air OFFSET 10;
     | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
     +---------------------+-------------+------------+-------------+----------+
 
-`OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`，
-也可以简写为`LIMIT n, m`。
+`OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`。
 其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
 OFFSET 0与省略OFFSET子句效果相同。
 
@@ -317,7 +316,7 @@ OFFSET 0与省略OFFSET子句效果相同。
 
 ```sql
 SELECT *
-FROM air LIMIT 3, 3;
+FROM air LIMIT 3 OFFSET 3;
 ```
     +---------------------+------------+------------+-------------+----------+
     | time                | station    | visibility | temperature | pressure |
