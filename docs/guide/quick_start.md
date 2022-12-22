@@ -5,7 +5,33 @@ order: 3
 ---
 
 ## 快速开始
-下载和安装CnosDB请查看[安装CnosDB](install_cnosdb.md)
+
+其他安装方式请查看[安装CnosDB](install_cnosdb.md)
+
+### Docker安装
+
+1. 安装 [Docker](https://www.docker.com/products/docker-desktop/) 环境
+
+2. 使用 Docker 启动容器
+```shell
+docker run --name cnosdb -d  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
+```
+
+3. 进入容器
+```shell
+docker exec -it cnosdb sh
+```
+4. 运行`cnosdb-cli`
+```shell
+cnosdb-cli
+```
+会显示如下
+```
+CnosDB CLI v2.0.0
+Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
+public ❯
+```
+
 ### 下载示例数据
 
     如果在 cnosdb-cli 中，请输入`\q`退出
