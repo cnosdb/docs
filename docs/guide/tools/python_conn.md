@@ -116,8 +116,37 @@ conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
 conn.execute(query)
 
 path = os.path.abspath("test.csv")
-conn.write_csv("test_insert", path)
+conn.write_csv("air", path)
 
-resp = conn.execute("SELECT * FROM test_insert;")
+resp = conn.execute("SELECT * FROM air;")
 print(resp)
 ```
+
+## 接口文档
+为了便于用户更加方便地连接使用 CnosDB，cnosdb_connector 对于一些常用的 SQL 进行了简单的封装 
+```python
+# CREATE DATABASE database_name;
+def create_database(self, database_name)
+
+# CREATE DATABASE database_name WITH TTL ttl;
+def create_database_with_ttl(self, database_name, ttl)
+
+# CREATE USER user WITH PASSWORD = password;
+def create_user(self, user, password)
+
+# DROP DATABASE database_name;
+def drop_database(self, database_name)
+    
+# DROP TABLE table_name;
+def drop_table(self, table_name)
+
+# DROP USER user;
+def drop_user(self, user)
+
+# SHOW DATABASES;
+def list_database(self)
+
+# SHOW TABLES;
+def list_table(self)
+```
+接口的实现较为简单，如果您对接口封装有更好的想法，欢迎向我们 Python 连接器的[源码仓库](https://github.com/cnosdb/cnosdb-client-python)提交PR
