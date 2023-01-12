@@ -5,8 +5,8 @@ export const enSidebar = sidebar({
     {
       text: "Docs",
       icon: "note",
-      prefix: "/",
-      children: [],
+      prefix: "en/",
+      children: 'structure',
     }
   ],
 });

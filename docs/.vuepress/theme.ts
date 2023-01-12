@@ -36,7 +36,7 @@ export default hopeTheme({
 
       copyright: false,
     },
-    '/zh': {
+    '/zh/': {
       // navbar
       navbar: zhNavbar,
 

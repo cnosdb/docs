@@ -1,6 +1,6 @@
 ---
 icon: home
-title: Introduction
+title: Home
 heroImage: /logo.png
 heroText: CnosDB
 tagline: CnosDB
