@@ -71,7 +71,6 @@ export default defineUserConfig({
 
   theme,
   alias: (app, isServe) => {
-    console.log('alias-app-siteData', app);
     return {
       // 你可以在这里将别名定向到自己的组件
       // 比如这里我们将主题的主页组件改为用户 .vuepress/components 下的 HomePage.vue
