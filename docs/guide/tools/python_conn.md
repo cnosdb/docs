@@ -3,9 +3,9 @@ title: Python连接器
 order: 8
 ---
 
-cnos-connector 是 CnosDB 的 Python 语言连接器。cnos-connector 包装了对 CnosDB 的请求，使其更加简洁，易用。提供了符合 [PEP 249](https://peps.python.org/pep-0249/) 的编程接口，更易与 SQLAlchemy 以及 pandas 进行交互。
+随着分布式新版本的发布，细心的小伙伴们想必已经发现CnosDB 2.0已经全面支持了Python。通过调用连接器cnos-connector， 实现了CnosDB 2.0与Python 的连接。cnos-connector 封装了对 CnosDB 的请求，使在Python环境下使用CnosDB更加简洁、易用。同时，cnos-connector提供了符合 [PEP 249](https://peps.python.org/pep-0249/) 的编程接口，更易与 SQLAlchemy 以及 pandas 进行交互。
 
-cnos-connector 源码位于 [GitHub](https://github.com/cnosdb/cnosdb-client-python)
+cnos-connector 已全部开源，源码位于 [GitHub](https://github.com/cnosdb/cnosdb-client-python)
 
 ## 安装
 
@@ -17,7 +17,9 @@ pip install cnos-connector
 
 ## 使用示例
 
-#### Query use SQL
+### 查询示例
+
+#### 通过SQL进行查询
 
 ```python
 from cnosdb_connector import connect
@@ -27,7 +29,7 @@ resp = conn.execute("SHOW DATABASES")
 print(resp)
 ```
 
-#### Query use interface
+#### 通过接口定义的函数查询
 
 ```python
 from cnosdb_connector import connect
@@ -38,7 +40,7 @@ resp = conn.list_database()
 print(resp)
 ```
 
-#### Query use PEP-249
+#### 通过PEP-249进行查询，详细信息请参考 [PEP-249](https://peps.python.org/pep-0249/)
 
 ```python
 from cnosdb_connector import connect
@@ -51,7 +53,7 @@ resp = cursor.fetchall()
 print(resp)
 ```
 
-#### Query use pandas
+#### 通过pandas进行查询，pandas支持PEP-249的规范
 
 ```python
 import pandas as pd
@@ -62,8 +64,9 @@ conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
 resp = pd.read_sql("SHOW DATABASES", conn)
 print(resp)
 ```
+### 写入示例
 
-#### Write use LineProtocol
+#### 支持Line Protocol的方式进行数据的写入
 
 ```python
 from cnosdb_connector import connect
@@ -83,7 +86,7 @@ resp = conn.execute("SELECT * FROM ocean;")
 print(resp)
 ```
 
-#### Write use SQL
+#### 支持SQL的方式进行写入
 
 ```python
 from cnosdb_connector import connect
@@ -99,7 +102,7 @@ resp = conn.execute("SELECT * FROM ocean;")
 print(resp)
 ```
 
-#### Write use CSV
+#### 支持CSV的方式进行写入
 
 ```python
 from cnosdb_connector import connect
@@ -149,4 +152,4 @@ def list_database(self)
 # SHOW TABLES;
 def list_table(self)
 ```
-接口的实现较为简单，如果您对接口封装有更好的想法，欢迎向我们 Python 连接器的[源码仓库](https://github.com/cnosdb/cnosdb-client-python)提交PR
+如果您对接口封装有更好的想法，欢迎向我们 Python 连接器的[源码仓库](https://github.com/cnosdb/cnosdb-client-python)提交PR
