@@ -1,6 +1,6 @@
 ---
 title: 实现原理
 icon: generic
-order: 10
+order: -6
 index: false
 ---
