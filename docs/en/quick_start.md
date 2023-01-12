@@ -8,7 +8,7 @@ order: 3
 
 For other installation methods, please see Installing CnosDB
 
-### Docker安装
+### Docker install
 
 1. Installing a Docker environment
 
