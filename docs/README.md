@@ -1,65 +1,69 @@
 ---
-title: 主页
-icon: config
-order: 1
+icon: home
+title: Introduction
+heroImage: /logo.png
+heroText: CnosDB
+tagline: CnosDB
+actions:
+- text: Docs
+link: /guide/
+type: primary
+copyright: false
 ---
 
-CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序数据库。主要应用场景为物联网，工业互联网，车联网，IT运维。所有代码均已在 [GitHub](https://github.com/cnosdb/cnosdb) 开源。
+CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.
 
-我们在设计上充分利用了时序数据特点，包括结构化数据、无事务、较少的删除更新、写多读少等等，因此相比其它时序数据库，CnosDB 有以下特点：
-* **高性能**：CnosDB 解决了时间序列膨胀，理论上支持时间序列无上限，支持沿时间线的聚合查询，包括按等间隔划分窗口的查询、按某列枚举值划分窗口的查询、按相邻时序记录的时间间隔长度划分窗口。具备对最新数据的缓存能力，并且可以配置缓存空间，能够高速获取最新数据。
-* **简单易用**：CnosDB 提供清晰明了的接口，简单的配置项目，支持标准SQL，轻松上手，与第三方工具生态无缝集成，拥有便捷的数据访问功能。支持 schemaless （"无模式"）的写入方式，支持历史数据补录（含乱序写入）
-* **云原生**： CnosDB 有原生的分布式设计、数据分片和分区、存算分离、Quorum 机制、Kubernetes 部署和完整的可观测性，具有最终一致性，能够部署在公有云、私有云和混合云上。提供多租户的功能，有基于角色管理的权限分配。支持计算层无状态增减节点，储存层水平扩展提高系统存储容量。
+We design to take full advantage of the characteristics of temporal data, including structured data, no transactions, less delete updates, write more read less, etc. Therefore, compared with other temporal databases, CnosDB has the following characteristics:
 
 
-本章着重介绍目前 CnosDB 的基础知识，快速上手，实现原理，生态集成以及云原生计划等等，让大家对 CnosDB 有一个充分的认识。
+- **High performance**: CnosDB solves time series inflation, theoretically supports time series without upper limit, and supports aggregation query along the time line, including query by equal interval window, query by a column enumeration value window, and window by the length of time interval of adjacent time series records. It has the ability to cache the latest data, and the cache space can be configured to get the latest data at high speed.
+- **Easy to use**: CnosDB provides a clear interface, easy to configure items, supports standard SQL, easy to start, seamlessly integrated with third-party tools, and has convenient data access functions. It supports schemaless ("schemaless") writing method and historical data replenishment (including chaotic writing).
+- **Cloud-native**: CnosDB has a native distributed design, data sharding and partitioning, store-and-counter separation, Quorum mechanism, Kubernetes deployment and full observability with ultimate consistency, and can be deployed on public, private and hybrid clouds. Provides multi-tenant capabilities with role-based management for privilege assignment. It supports stateless node addition and deletion in the compute layer and horizontal scaling in the storage layer to increase system storage capacity.
 
-## 快速开始
-本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
-- [快速开始](./guide/QUICK_START.md#基本操作)
+This chapter focuses on the current basics of CnosDB, quick start, implementation principles, ecological integration and cloud-native plans, etc., to give you a full understanding of CnosDB.
 
-## 运行安装
-本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
+## QuickStart
+This chapter introduces the basic operations of CnosDB, including writing data, querying data, etc.
+ - Quick start
 
-- [Dokcer](/guide/install_cnosdb.md#Docker)
-- [从源码开始](/guide/install_cnosdb.md#源码安装)
+## Run the installation
+This section describes how to install and run CnosDB using one of the following.
+- Docker
+- Starting with the source code
 
-## 基础知识
-本章节主要介绍 CnosDB 的一些基本概念。
+## Basics
+This section introduces some basic concepts of CnosDB.
+- Basic concents
 
-- [基本概念](/guide/concept.md#基本概念)
+# Application Integration
+This section describes how to integrate CnosDB into your application.
+- Rust
+- Golang
+- Java
+- HTTP API
 
-## 应用集成
+## SQL Manual
+This section contains the following.
+- SQL
+- functions
 
-本章节介绍了如何把 CnosDB 集成到您的程序里。
-- [Rust](./guide/application/application.md#rust)
-- [Golang](./guide/application/application.md#golang)
-- [Java](./guide/application/application.md#java)
-- [HTTP API](./guide/application/api.md)
-
-## SQL手册
-本章节包含以下内容：
-- [SQL](./guide/query/sql.md)
-- [函数](./guide/query/function.md)
-
-## 生态集成
-本章节包含以下内容：
-- [grafana](./guide/ecology/grafana.md)
-- [telegraf](./guide/ecology/telegraf.md)
+## Eco Integration
+This section contains the following.
+- grafana
+- telegraf
 
 ## Cloud
-本章节包含以下内容：
-- [Cloud](./guide/cloud.md)
+This section contains the following.
+- Cloud
 
-## 版本发布
+## Version release
+This section contains the following.
+- Release History
+- Evolutionary Route
 
-本章节包含以下内容：
-- [发布历史](./guide/release/changelist.md)
-- [演进路线](./guide/release/roadmap.md)
-
-## 实现原理
-本章节介绍了 CnosDB 的实现原理，包括存储引擎，查询引擎，压缩算法等。
-- [系统架构](./guide/design/arch.md)
-- [配置](./guide/design/config.md)
-- [压缩算法](./guide/design/compress.md)
-- [参考文献]
+## Implementation Principles
+This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc.
+- System Architecture
+- Configuration
+- Compression Algorithm
+- [Reference]

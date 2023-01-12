@@ -44,31 +44,28 @@ export default defineUserConfig({
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         })();
-      `
+      `,
     ],
     [
       'script',
       {
         defer: true,
-        src: path.resolve(
-          __dirname,
-          './components/jQuery.js'
-        ),
-      }
+        src: path.resolve(__dirname, './components/jQuery.js'),
+      },
     ],
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
 
   locales: {
     '/': {
-      lang: 'zh-CN',
-      title: '文档',
-      description: 'CnosDB 的文档',
-    },
-    '/en/': {
       lang: 'en-US',
       title: 'Docs',
       description: 'A docs for CnosDB',
+    },
+    '/zh/': {
+      lang: 'zh-CN',
+      title: '文档',
+      description: 'CnosDB 的文档',
     },
   },
 
