@@ -76,8 +76,8 @@ make build
 
 ```sh
 ./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
-curl http://127.0.0.1/21001/init -d '{}'
-curl http://127.0.0.1/21001/metrics
+curl http://127.0.0.1:21001/init -d '{}'
+curl http://127.0.0.1:21001/metrics
 ./target/debug/cnosdb run --config ./config/config_31001.toml
 ```
 
@@ -106,18 +106,18 @@ curl http://127.0.0.1/21001/metrics
 **初始化 meta**
 
 ```sh
-curl http://127.0.0.1/21001/init -d '{}'
-curl http://127.0.0.1/21001/add-learner -d '[2, "127.0.0.1:21002"]'
-curl http://127.0.0.1/21001/add-learner -d '[3, "127.0.0.1:21003"]'
-curl http://127.0.0.1/21001/change-membership -d '[1, 2, 3]'
+curl http://127.0.0.1:21001/init -d '{}'
+curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[2, "127.0.0.1:21002"]'
+curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[3, "127.0.0.1:21003"]'
+curl http://127.0.0.1:21001/change-membership -H "Content-Type: application/json" -d '[1, 2, 3]'
 ```
 
 **查看 meta 集群状态**
 
 ```sh
-curl http://127.0.0.1/21001/metrics
-curl http://127.0.0.1/21002/metrics
-curl http://127.0.0.1/21003/metrics
+curl http://127.0.0.1:21001/metrics
+curl http://127.0.0.1:21002/metrics
+curl http://127.0.0.1:21003/metrics
 ```
 
 ### Data 集群启动流程
