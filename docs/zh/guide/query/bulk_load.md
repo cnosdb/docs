@@ -17,32 +17,31 @@ COPY INTO externalLocation
     [ CONNECTION = ( connection_options ) ]
     [ FILE_FORMAT = ( TYPE = { 'CSV' | 'NDJSON' | 'PARQUET'} [ formatTypeOptions ] ) ]
     [ COPY_OPTIONS = ( copyOptions ) ]
-    externalLocation (for Amazon S3) : :=
+    externalLocation (for Amazon S3) ::=
     's3://<bucket>[/<path>]'
-    connection_options : :=
+    connection_options ::=
     region = '<string>'
     , access_key_id = '<string>'
     , secret_key = '<string>'
     [, endpoint_url = '<string>' ]
     [, token = '<string>' ]
     [, virtual_hosted_style = true | false ]
-    externalLocation (for Google Cloud Storage) : :=
+    externalLocation (for Google Cloud Storage) ::=
     'gcs://<bucket>[/<path>]'
-    connection_options : :=
+    connection_options ::=
     gcs_base_url = '<string>'
     [, disable_oauth = true | false ] -- 默认 false
     [, client_email = '<string>' ] -- 如果disable_oauth = false，此项必填
     [, private_key = '<string>' ] -- 如果disable_oauth = false，此项必填
 
-    externalLocation (for Microsoft Azure) : :=
+    externalLocation (for Microsoft Azure) ::=
     'azblob://<container>[/<path>]'
-    connection_options : :=
+    connection_options ::=
     account = '<string>'
     [, access_key = '<string>' ]
     [, bearer_token = '<string>' ]
-    [, use_emulator = true | false ] -- 默认 false，如果为true，则url使用环境变量AZURITE_BLOB_STORAGE_URL或http://127.0.0.1:10000，不对用户开放，内部测试使用
 
-    formatTypeOptions : :=
+    formatTypeOptions ::=
     DELIMITER = '<character>' -- 仅适用于csv文件，文件分割符，为单个字符
     WITH_HEADER = true | false -- 仅适用于csv文件，是否带有表头，默认为true
     auto_infer_schema = true | false -- 仅适用于copy into table语句，是否自动推断文件的schema，如果为false则使用目标表的schema（copy into table中的table即为目标表
@@ -81,31 +80,30 @@ COPY INTO [<database>.]< table_name >
     [ CONNECTION = ( connection_options ) ]
     [ FILE_FORMAT = ( TYPE = { 'CSV' | 'NDJSON' | 'PARQUET' } [ formatTypeOptions ] ) ]
     [ COPY_OPTIONS = ( copyOptions ) ]
-    externalLocation (for Amazon S3) : :=
+    externalLocation (for Amazon S3) ::=
     's3://<bucket>[/<path>]'
-    connection_options : :=
+    connection_options ::=
     region = '<string>'
     , access_key_id = '<string>'
     , secret_key = '<string>'
     [, token = '<string>' ]
     [, virtual_hosted_style = true | false ]
-    externalLocation (for Google Cloud Storage) : :=
+    externalLocation (for Google Cloud Storage) ::=
     'gcs://<bucket>[/<path>]'
-    connection_options : :=
+    connection_options ::=
     gcs_base_url = '<string>'
     [, disable_oauth = true | false ] -- 默认 false
     [, client_email = '<string>' ] -- 如果disable_oauth = false，此项必填
     [, private_key = '<string>' ] -- 如果disable_oauth = false，此项必填
 
-    externalLocation (for Microsoft Azure) : :=
+    externalLocation (for Microsoft Azure) ::=
     'azblob://<container>[/<path>]'
-    connection_options : :=
+    connection_options ::=
     account = '<string>'
     [, access_key = '<string>' ]
     [, bearer_token = '<string>' ]
-    [, use_emulator = true | false ] -- 默认 false，如果为true，则url使用环境变量AZURITE_BLOB_STORAGE_URL或http://127.0.0.1:10000，不对用户开放，内部测试使用
 
-    formatTypeOptions : :=
+    formatTypeOptions ::=
     DELIMITER = '<character>' -- 仅适用于csv文件，文件分割符，为单个字符
     WITH_HEADER = true | false -- 仅适用于csv文件，是否带有表头，默认为true
     auto_infer_schema = true | false -- 仅适用于copy into table语句，是否自动推断文件的schema，如果为false则使用目标表的schema（copy into table中的table即为目标表）
@@ -145,9 +143,9 @@ COPY INTO air FROM 'file:///tmp/air'
 ```sql
 COPY INTO air FROM 's3://test/air/'
     CONNECTION = (
-    REGION = '',
-    access_key_id = '',
-    secret_key = '',
+    region = 'us‑east‑1',
+    access_key_id = '****************',
+    secret_key = '****************'
     )
     FILE_FORMAT = (TYPE = 'CSV');
 ```
@@ -157,9 +155,9 @@ COPY INTO air FROM 's3://test/air/'
 ```sql
 COPY INTO 's3://test/air' FROM air
     CONNECTION = (
-    region = 'localhost',
-    access_key_id = '',
-    secret_key = '',
+    region = 'us‑east‑1',
+    access_key_id = '****************',
+    secret_key = '****************'
     )
     FILE_FORMAT = (TYPE = 'CSV');
 ```
@@ -209,8 +207,8 @@ COPY INTO 'gcs://test/air' FROM air
 ```sql
 COPY INTO air FROM 'azblob://test/air/'
     CONNECTION = (
-    account = 'devstoreaccount1',
-    use_emulator = true
+        account = 'devstoreaccount1',
+        access_key = '*****'
     )
     FILE_FORMAT = (TYPE = 'CSV'); 
 ```
@@ -220,8 +218,8 @@ COPY INTO air FROM 'azblob://test/air/'
 ```sql
 COPY INTO 'azblob://test/air/' FROM air
     CONNECTION = (
-    account = 'devstoreaccount1',
-    use_emulator = true
+        account = 'devstoreaccount1',
+        access_key = '*****'
     )
     FILE_FORMAT = (TYPE = 'CSV'); 
 ```
