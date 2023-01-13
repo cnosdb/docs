@@ -98,6 +98,7 @@ terraform apply
     brew install cmake
     ```
     对于 Windows，你也可以在[Cmake官网](https://cmake.org/download/)下载和安装 Cmake
+
     3. 安装FlatBuffers
 
     ```shell

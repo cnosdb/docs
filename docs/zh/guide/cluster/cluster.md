@@ -185,7 +185,7 @@ Meta 维护集群的元数据，如 Table Schema、Node 存活心跳与负载数
 
 元数据频繁被每个 Node 所访问，CnosDB 选择维护一个强一致性的 Meta Node 集群，Node 订阅 Meta Node 来拉取感兴趣的信息，所有的元数据信息的更新都通过 Meta Node 集群进行。
 
-![](../source/_static/img/cluster_metas.jpg)
+![](../../../source/_static/img/cluster_metas.jpg)
 
 ## Data
 
@@ -193,7 +193,7 @@ Meta 维护集群的元数据，如 Table Schema、Node 存活心跳与负载数
 
 ## 数据流
 
-![](../source/_static/img/cluster_data_flow.jpg)
+![](../../../source/_static/img/cluster_data_flow.jpg)
 
 # 配置
 

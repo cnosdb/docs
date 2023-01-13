@@ -25,7 +25,7 @@ Cnosdb2.0 使用 Rust 语言进行开发，基于它的安全性、高性能和�
 
 在重新设计时序数据库的过程中我们尽可能去解决当前时序数据库面临的一系列问题，形成一套完整的时序数据解决方案及时序生态系统，在公有云提供 DBaas 服务。
 
-![整体架构](../source/_static/img/new_arch.jpg)
+![整体架构](../../../source/_static/img/new_arch.jpg)
 
 > 下面我们将从一下几个方面进行详细阐述，
 
@@ -40,7 +40,7 @@ CnosDB 2.0 的分片规则基于Time-range。它采用 DB + Time_range 的分片
 > 「db， shardid， time_range， create_time， end_time， List\<Vnode\>」
 
 Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上。每个 Vnode 是一个单独的LSM Tree。 其对应的 tsfamily结构体是一个独立的运行单元。
-![数据分片](../source/_static/img/buket.jpg)
+![数据分片](../../../source/_static/img/buket.jpg)
 
 ### 复制组（replicaset）
 
@@ -53,7 +53,7 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 
 在 Node 上不同租户的数据是在物理上进行分割的
 /User/db/bucket/replicaset_id/vnode_id
-![数据分割目录存储](../source/_static/img/data_path.jpg)
+![数据分割目录存储](../../../source/_static/img/data_path.jpg)
 
 ### 基于 Quorum 机制的数据共识
 
@@ -90,7 +90,7 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 当收到一个 write 请求后，coordinator 根据分区策略以及 db 对应的放置规则（place-rule），确定出要存放的数据所在物理节点（node）。只要有至少 W 个节点返回成功，这次写操作就认为是成功了。
 
 #### 写流程
-![write](../source/_static/img/write.jpg)
+![write](../../../source/_static/img/write.jpg)
 
 数据读取
 
@@ -98,7 +98,7 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 
 #### 读流程
 
-![read](../source/_static/img/read.jpg)
+![read](../../../source/_static/img/read.jpg)
 
 #### 更新冲突
 
@@ -108,7 +108,7 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 ## Meta 集群
 
 通过 raft 去维护一个强一致性的 meta 集群。meta 集群 api 的方式对外进行服务，同时 node 也会对 meta 信息的更新进行订阅。所有的元数据信息的更新都通过 meta 集群进行更新。
-![meta——server](../source/_static/img/raft.jpg)
+![meta——server](../../../source/_static/img/raft.jpg)
 
 > 1.  数据库 catalog 信息，DDL 操作。
 > 2.  节点探活/节点注册，以及节点负载信息统计，作为 coordinator 进行选择的 read 和 write 的依据。
@@ -134,13 +134,13 @@ Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上�
 4. 融合大数据生态：作为 Apache Arrow 生态系统（Arrow、Flight、Parquet）的一部分，与大数据生态系统融合的较好。
 
 我们通过扩展 DataFusion 的数据源并且提供自定义 SQL 语句，在分布式场景下数据的查询流程如下：
-![query](../source/_static/img/query_data_path.jpg)
+![query](../../../source/_static/img/query_data_path.jpg)
 
 ## tskv 索引与数据存储
 
 tskv 主要承担数据和索引的存储，对 node 节点上所有 Vnode 进行管理， 每个 Vnode 负责某个 db 里的部分数据。在 Vnode 中主要有 3 个模块组成 WAL，IndexEngine 和 DataEngine。
 
-![tskv](../source/_static/img/tskv.jpg)
+![tskv](../../../source/_static/img/tskv.jpg)
 
 ### IndexEngine
 
@@ -262,7 +262,7 @@ tskv 在创建时首先会执行 recover 函数：
 3. 减小读放大，维护我们当前 version 中 levelinfo 的元数据。
 
 - level_range compaction
-  ![level_range](../source/_static/img/level_range.jpg)
+  ![level_range](../../../source/_static/img/level_range.jpg)
 
 1. 通常情况下 时间序列数据库，是按照时间点的数据进行顺序写入，为了应对乱序数据，我们增加了 delta 文件。delta 的数据会刷到 L0 层。
 2. 从 L1 到 L3，LevelInfo 中的数据是按照时间进行分层排放的。 每一层都有一个固定的时间范围 且 不会重叠，memcache 中的数据是有一个固定的 time range。每一层的时间范围都会有在 compaction 或者 flush 的时候进行动态更新。
@@ -271,13 +271,13 @@ tskv 在创建时首先会执行 recover 函数：
 5. 在 L3 开始，按照 table 把 TSM 文件按照目录进行划分；同一个 table 的 TSM 文件放到一起。 支持生成 parquet 文件 放到 S3 上进行分级存储。
 
 - time_window compaction
-  ![time_window](../source/_static/img/time_range.jpg)
+  ![time_window](../../../source/_static/img/time_range.jpg)
 
 1. 基于 window 的 compaction 方式 不同 leve_lrange 的 compaction 方式， 从 immut_cache flush 到磁盘中时，会根据 TSM 的时间范围生成不同的 TSM 文件放入到对应的 window 中， window 随着时间的推移，会动态创建。每个 window 负责一段时间内的写入。
 2. 在 window 内部会有一些离散的数据 tsm 文件块 需要进行合并，生成较大的文件块。 window 内部会维护一个关于文件的元信息一个列表。 相比与 level_range 的合并方式， time_window 的 compaction 方式会减小写入的放大。
 
 - data_engine 数据流
-  ![data_flow](../source/_static/img/data_engine.jpg)
+  ![data_flow](../../../source/_static/img/data_engine.jpg)
 
 ## 其他系统设计
 
