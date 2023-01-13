@@ -1,6 +1,6 @@
 ---
 title: 版本发布
 icon: copy
-order: 8
+order: -2
 index: false
 ---

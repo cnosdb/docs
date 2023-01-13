@@ -1,6 +1,6 @@
 ---
 title: 生态集成
 icon: leaf
-order: 9
+order: -5
 index: false
 ---
