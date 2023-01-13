@@ -1,6 +1,6 @@
 ---
 title: Grafana
-order: 2
+order: 3
 ---
 
 ## Grafana 简介
