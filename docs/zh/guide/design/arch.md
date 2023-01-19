@@ -154,7 +154,7 @@ tskv 主要承担数据和索引的存储，对 node 节点上所有 Vnode 进�
 常用查询语句
 
 ```
-SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time < bbb] [group by\order by\limit ....]
+SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time < bbb] [group by\order by\limit ....]
 ```
 
 索引的设计主要针对 where 过滤条件；用于降低数据的搜索规模，加快数据的查询效率。
@@ -170,26 +170,26 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
 
 存储结构
 
-1. 根据 hash 函数计算 HashID：hash(SeriesKey) -> HashID(24 位整型，大约 1600 万);
-   2.HashID 与自增 id 得到 SeriesID(uint64)：HashID << 40 | auto_increment_id -> SeriesID
+1. 根据 hash 函数计算 HashID：hash(SeriesKey) -> HashID(24 位整型，大约 1600 万);
+   2.HashID 与自增 id 得到 SeriesID(uint64)：HashID << 40 | auto_increment_id -> SeriesID
 1. FieldID（uint64）由 SeriesID 与 TableFiledID 组合而成(field 在 table 内部有一个编号记为 TableFiledID)：FieldID 的高 24 位是 TableFiledID、低 40 位是 SeriesID 的低 40 位。
    限制条件：
-   1. HashID 数量大约 1600 万，单台机器 Series 规模上亿以后会导致 List 变长拖累查找。
-   2. SeriesID 的高 24 位有其他用途，只有低 40 位有意义大约是 1 万亿左右。
+   1. HashID 数量大约 1600 万，单台机器 Series 规模上亿以后会导致 List 变长拖累查找。
+   2. SeriesID 的高 24 位有其他用途，只有低 40 位有意义大约是 1 万亿左右。
    TSM 数据文件存放 FieldID 以及对应的 Data 信息。
    SeriesKey 相关信息存放在索引文件，下面讲述索引数据组织方式。
 
 索引数据结构设计
 
-1. HashList：HashID -> List<(SeriesKey、SeriesID)> 用于 SeriesKey 与 SeriesID 互查
-   1. SeriesKey 查找 SeriesID 过程：Hash(SeriesKey) -> HashID，根据 HashID 从 HashList 中得到 List\<SeriesKey、SeriesID\>，然后遍历 List 获取 SeriesID。
+1. HashList：HashID -> List<(SeriesKey、SeriesID)> 用于 SeriesKey 与 SeriesID 互查
+   1. SeriesKey 查找 SeriesID 过程：Hash(SeriesKey) -> HashID，根据 HashID 从 HashList 中得到 List\<SeriesKey、SeriesID\>，然后遍历 List 获取 SeriesID。
    2. SeriesID 查找 SeriesKey 过程，取 SeriesID 的高 24 位为 HashID，后面查找过程同上。
-2. TagValue -> List\<SeriesID\>实现对 Tag 的索引功能，用途  tag 查询条件过滤
+2. TagValue -> List\<SeriesID\>实现对 Tag 的索引功能，用途  tag 查询条件过滤
    1. 查询条件：where tag=value，根据 TagValue 得到 SeriesID 列表，进一步获取 FieldID 从 TSM 文件加载数据。
    2. 多个查询条件与或需要对多个List\<SeriesID\>进行交、并操作。
 3. 要求 TagValue 顺序存储可遍历访问。用途 show tag values 查询
    HashList 结构需要在内存维护一份，惰性加载。
-   HashID -> List<(SeriesKey、SeriesID)>与 TagValue -> List\<SeriesID\>进行持久化。
+   HashID -> List<(SeriesKey、SeriesID)>与 TagValue -> List\<SeriesID\>进行持久化。
 
 ### DataEngine
 
