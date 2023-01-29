@@ -11,7 +11,7 @@ order: 10
 ```
 function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr] [window_frame]);
 
-function: {aggregate_function | analytic_function| aggregate_function}
+function: {aggregate_function | analytic_function}
 
 window_frame: { frame_mode frame_start |
                 frame_mode BETWEEN frame_start AND frame_end } }
