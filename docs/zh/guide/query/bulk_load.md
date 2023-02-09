@@ -17,6 +17,7 @@ COPY INTO externalLocation
     [ CONNECTION = ( connection_options ) ]
     [ FILE_FORMAT = ( TYPE = { 'CSV' | 'NDJSON' | 'PARQUET'} [ formatTypeOptions ] ) ]
     [ COPY_OPTIONS = ( copyOptions ) ]
+    
     externalLocation (for Amazon S3) ::=
     's3://<bucket>[/<path>]'
     connection_options ::=
@@ -40,11 +41,14 @@ COPY INTO externalLocation
     account = '<string>'
     [, access_key = '<string>' ]
     [, bearer_token = '<string>' ]
-
+    
+    copyOptions ::=
+    auto_infer_schema = true | false -- 仅适用于copy into table语句，是否自动推断文件的schema，如果为false则使用目标表的schema（copy into table中的table即为目标表
+    
     formatTypeOptions ::=
     DELIMITER = '<character>' -- 仅适用于csv文件，文件分割符，为单个字符
     WITH_HEADER = true | false -- 仅适用于csv文件，是否带有表头，默认为true
-    auto_infer_schema = true | false -- 仅适用于copy into table语句，是否自动推断文件的schema，如果为false则使用目标表的schema（copy into table中的table即为目标表
+
 ```
 
 **示例**
@@ -103,10 +107,13 @@ COPY INTO [<database>.]< table_name >
     [, access_key = '<string>' ]
     [, bearer_token = '<string>' ]
 
+    copyOptions ::= 
+    auto_infer_schema = true | false -- 仅适用于copy into table语句，是否自动推断文件的schema，如果为false则使用目标表的schema（copy into table中的table即为目标表）
+    
     formatTypeOptions ::=
     DELIMITER = '<character>' -- 仅适用于csv文件，文件分割符，为单个字符
     WITH_HEADER = true | false -- 仅适用于csv文件，是否带有表头，默认为true
-    auto_infer_schema = true | false -- 仅适用于copy into table语句，是否自动推断文件的schema，如果为false则使用目标表的schema（copy into table中的table即为目标表）
+    
 ```
 
 **注意**：导入之前，请确定目标表已经存在，并且列名和列的类型对应
