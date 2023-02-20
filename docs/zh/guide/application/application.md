@@ -10,7 +10,7 @@ order: 1
 http请求需要指定操作的数据库，写在url query里 db=database_name。
 
 ```rust
-let url = Url::parse("127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
+let url = Url::parse("http://127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
 let sql = r#"
     CREATE TABLE air (
         visibility DOUBLE,
