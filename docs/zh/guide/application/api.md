@@ -58,7 +58,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 **请求头**
 
-- Authorization: BATIC
+- Authorization: BASIC
    
        basic64(user_name + ":" + password)
 

@@ -60,7 +60,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 **Request Header**
 
-- Authorization: BATIC
+- Authorization: BASIC
 
 basic64(user_name + ":" + password)
 
