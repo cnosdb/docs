@@ -10,7 +10,7 @@ The sample code uses[reqwest](https://crates.io/crates/reqwest)to build Http req
 Http request needs to specify the database to be operated on, written in the url query as db=database_name.
 
 ```rust
-let url = Url::parse("127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
+let url = Url::parse("http://127.0.0.1:31007/api/v1/sql?db=public&pretty=true").unwrap();
 let sql = r#"
 CREATE TABLE air (
 visibility DOUBLE,
