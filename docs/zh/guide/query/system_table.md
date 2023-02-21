@@ -30,8 +30,7 @@ CnosDB 提供了系统视图用来查看集群状态和集群Schema信息
 **示例**
 
 ```sql
-SELECT *
-FROM cluster_schema.tenants;
+SELECT * FROM cluster_schema.tenants;
 ```
 
     +-------------+---------------------------------------------------+
@@ -55,8 +54,7 @@ FROM cluster_schema.tenants;
 **示例**
 
 ```sql
-SELECT *
-FROM cluster_schema.users;
+SELECT * FROM cluster_schema.users;
 ```
 
     +-----------+----------+-------------------------------------------------------------------------------------------------+
@@ -88,8 +86,7 @@ FROM cluster_schema.users;
 **示例**
 
 ```sql
-SELECT *
-FROM information_schema.databases;
+SELECT * FROM information_schema.databases;
 ```
 
     +-------------+---------------+----------+-------+----------------+---------+-----------+
@@ -117,8 +114,7 @@ FROM information_schema.databases;
 **示例**
 
 ```sql
-SELECT *
-FROM information_schema.tables;
+SELECT * FROM information_schema.tables;
 ```
 
     +--------------+----------------+------------+------------+--------------+---------------+
@@ -150,8 +146,7 @@ FROM information_schema.tables;
 **示例**
 
 ```sql
-SELECT *
-FROM information_schema.columns;
+SELECT * FROM information_schema.columns;
 ```
 
     +-------------+---------------+------------+-------------+-------------+------------------+----------------+-------------+-----------+-------------------+
@@ -182,8 +177,7 @@ FROM information_schema.columns;
 | ROLE_NAME | STRING | 角色名称 |
 
 ```sql
-SELECT *
-FROM information_schema.enabled_roles;
+SELECT * FROM information_schema.enabled_roles;
 ```
 
     +-----------+
@@ -208,8 +202,7 @@ FROM information_schema.enabled_roles;
 **示例**
 
 ```sql
-SELECT *
-FROM information_schema.roles;
+SELECT * FROM information_schema.roles;
 ```
 
     +-----------+-----------+--------------+
@@ -238,11 +231,8 @@ FROM information_schema.roles;
 
 ```sql
 CREATE ROLE rrr INHERIT member;
-GRANT
-READ
-ON DATABASE air TO ROLE rrr;
-SELECT *
-FROM information_schema.database_privileges;
+GRANT READ ON DATABASE air TO ROLE rrr;
+SELECT * FROM information_schema.database_privileges;
 ```
 
     +-------------+---------------+----------------+-----------+
@@ -267,9 +257,7 @@ FROM information_schema.database_privileges;
 **示例**
 
 ```sql
-SELECT *
-FROM information_schema.members;
-
+SELECT * FROM information_schema.members;
 ```
 
     +-----------+-----------+
@@ -302,8 +290,21 @@ FROM information_schema.members;
 **示例**
 
 ```sql
-SELECT *
-FROM information_schema.queries;
+SELECT * FROM information_schema.queries;
+```
+
+    +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+    | query_id | query_text                                                       | user_id                                 | user_name | tenant_id                              | tenant_name | state      | duration     |
+    +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+    | 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
+    +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+
+#### SHOW QUERIES
+你还可以使用`SHOW QUERIES`语句来查看正在执行的SQL语句, 该语句这是对QUERIES视图的包装
+
+**示例**
+```sql
+SHOW QUERIES;
 ```
 
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
