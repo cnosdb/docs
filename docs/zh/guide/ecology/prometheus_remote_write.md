@@ -48,9 +48,9 @@ CnosDB 支持Prometheus的Remote Read协议，只需要在 Prometheus 中启动 
 
 修改配置文件
 ```yaml
-# remote_write cnosdb
+# remote_read cnosdb
 remote_read:
-- url: "http://{db_url}/api/v1/prom/write?db={db_name}"
+- url: "http://{db_url}/api/v1/prom/read?db={db_name}"
   basic_auth:
   username: 'root'
   password: ''
