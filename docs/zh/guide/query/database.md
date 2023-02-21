@@ -99,6 +99,8 @@ DESCRIBE DATABASE dbname;
 ```sql
 DESCRIBE DATABASE oceanic_station;
 ```
-
-    TTL,SHARD,VNODE_DURATION,REPLICA,PRECISION
-    365 Days,1,365 Days,1,NS
+    +----------+-------+----------------+---------+-----------+
+    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
+    +----------+-------+----------------+---------+-----------+
+    | 365 Days | 1     | 365 Days       | 1       | NS        |
+    +----------+-------+----------------+---------+-----------+

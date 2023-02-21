@@ -106,6 +106,7 @@ DROP TABLE IF EXISTS air;
     Query took 0.033 seconds.
 
 ## **显示当前数据库所有表**
+**示例**：
 ```sql
 SHOW TABLES;
 ```
@@ -116,6 +117,26 @@ SHOW TABLES;
     | air   |
     | wind  |
     +-------+
+
+## **查看表的模式**
+外部表和普通表的模式都可以使用该语句查看。
+**语法**：
+```sql
+DESCRIBE DATABASE table_name;
+```
+**示例**：
+```sql
+DESCRIBE TABLE air;
+```
+    +-------------+-----------+-------+-------------+
+    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
+    +-------------+-----------+-------+-------------+
+    | time        | TIMESTAMP | false | Default     |
+    | station     | STRING    | true  | Default     |
+    | visibility  | DOUBLE    | false | Default     |
+    | temperature | DOUBLE    | false | Default     |
+    | pressure    | DOUBLE    | false | Default     |
+    +-------------+-----------+-------+-------------+
 
 ## **修改表**
 **说明** 目前我们支持修改普通表
@@ -140,7 +161,3 @@ ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
 ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ALTER TABLE air DROP humidity;
 ```
-[//]: # (```sql)
-[//]: # (todo)
-[//]: # (!&#40;&#41;)
-[//]: # (```)
