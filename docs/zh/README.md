@@ -16,18 +16,18 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## 快速开始
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
-- [快速开始](./guide/QUICK_START.md#基本操作)
+- [快速开始](./guide/quick_start.md#快速开始)
 
 ## 运行安装
 本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
 
-- [Dokcer](/guide/install_cnosdb.md#Docker)
-- [从源码开始](/guide/install_cnosdb.md#源码安装)
+- [Dokcer](./guide/install_cnosdb.md#docker)
+- [从源码开始](./guide/install_cnosdb.md#源码安装)
 
 ## 基础知识
 本章节主要介绍 CnosDB 的一些基本概念。
 
-- [基本概念](/guide/concept.md#基本概念)
+- [基本概念](./guide/concept.md#基本概念)
 
 ## 应用集成
 
