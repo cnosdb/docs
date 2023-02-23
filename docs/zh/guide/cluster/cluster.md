@@ -248,7 +248,7 @@ DROP VNODE <vnode_id>
 **压缩 Vnode**
 
 ```
-COMPACT VNODE <vnode_id>[, <vnode_id>[, ...]]
+COMPACT VNODE <vnode_id>[ <vnode_id>[ ...]]
 ```
 
 **检查 Group 数据一致性**
