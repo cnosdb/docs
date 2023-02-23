@@ -145,6 +145,7 @@ flight_rpc_server = '127.0.0.1:31006'
 http_server = '127.0.0.1:31007'
 grpc_server = '127.0.0.1:31008'
 tcp_server = '127.0.0.1:31009'
+store_metrics = true 
 
 [hintedoff]
 enable = true
@@ -204,15 +205,16 @@ path = '/tmp/cnosdb/hh'
 
 #### 配置项 cluster
 
-| 配置项            | 默认值          | 说明                    |
-| ----------------- | --------------- | ----------------------- |
-| node_id           | 100             | Data 节点 ID            |
+| 配置项               | 默认值             | 说明                  |
+|-------------------|-----------------|---------------------|
+| node_id           | 100             | Data 节点 ID          |
 | name              | cluster_xxx     | Data 节点名称           |
 | meta              | 127.0.0.1:21001 | Meta 节点地址           |
-| flight_rpc_server | 127.0.0.1:31006 | Flight RPC 服务监听地址 |
-| http_server       | 127.0.0.1:31007 | HTTP 服务监听地址       |
-| grpc_server       | 127.0.0.1:31008 | GRPC 服务监听地址       |
-| tcp_server        | 127.0.0.1:31009 | TCP 服务监听地址        |
+| flight_rpc_server | 127.0.0.1:31006 | Flight RPC 服务监听地址   |
+| http_server       | 127.0.0.1:31007 | HTTP 服务监听地址         |
+| grpc_server       | 127.0.0.1:31008 | GRPC 服务监听地址         |
+| tcp_server        | 127.0.0.1:31009 | TCP 服务监听地址          |
+| store_metrics     | true            | 是否存储metrics在CnosDB中 |
 
 #### 配置项 hintedoff
 

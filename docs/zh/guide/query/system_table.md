@@ -475,6 +475,7 @@ select * from usage_schema.data_out order by time desc limit 2;
 | DATABASE | STRING          | Database名称       |
 | NODE_ID  | STRING          | Data节点的 ID       |
 | TENANT   | STRING          | Database 所属的租户名称 |
+| USER     | STRING          | 用户名称             |
 | VALUE    | BIGINT UNSIGNED | 用户查询次数           |
 
 
@@ -485,6 +486,7 @@ select * from usage_schema.data_out order by time desc limit 2;
 | TIME     | TIMESTAMP       | 统计queries的时间 |
 | DATABASE | STRING          | Database名称   |
 | NODE_ID  | STRING          | Data节点的 ID   |
+| USER     | STRING          | 用户名称             |
 | VALUE    | BIGINT UNSIGNED | 用户查询次数       |
 
 #### 示例
