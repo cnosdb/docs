@@ -45,7 +45,7 @@ Count
 | DATABASE | Database名称       |
 | NODE_ID  | Data节点的 ID       |
 | TENANT   | Database 所属的租户名称 |
-| VALUE    | 写入流量的总大小         |
+| VALUE    | 写入流量的总大小Bytes         |
 
 
 ### DATA_OUT
@@ -63,12 +63,12 @@ Count
 | DATABASE | Database名称       |
 | NODE_ID  | Data节点的 ID       |
 | TENANT   | Database 所属的租户名称 |
-| VALUE    | 读取流量的总大小         |
+| VALUE    | 读取流量的总大小单位Bytes         |
 
 ### QUERIES
 
 #### 名称
-data_out
+queries
 #### 种类
 Count
 #### 描述
