@@ -6,7 +6,7 @@ order: 8
 在CnosDB源码的根目录下，运行如下命令启动CLI程序
 
 ```shell
-cargo run --package client --bin client
+cargo run --package client --bin cnosdb-cli
 ```
 
 **程序的参数如下：**
