@@ -13,11 +13,11 @@ cargo run --package client --bin client
 
 ```
 -h --host CnosDB            服务的host，默认为"0.0.0.0"
--p --port CnosDB            服务的端口，默认为31007
--u --user                   用户名，默认为"CnosDB"
+-p --port CnosDB            服务的端口，默认为31001
+-u --user                   用户名，默认为"root"
 -p --password               密码，默认没有
 -d --database               连接的数据库，默认为"public"
--t --target-partitions      可选，执行查询的分片数，增加分片数可以增加并发。默认不指定
+-t --target-partitions      可选，执行查询的分片数，增加分片数可以增加并发。默认为机器CPU核数
 --data-path                 CLI程序数据存放位置，默认为执行client的目录
 -f --file                   可选，执行多个命令脚本，并退出
 --rc                        可选，配置文件

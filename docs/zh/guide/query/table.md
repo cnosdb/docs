@@ -121,6 +121,7 @@ SHOW TABLES;
 ## **查看表的模式**
 外部表和普通表的模式都可以使用该语句查看。
 **语法**：
+
 ```sql
 DESCRIBE DATABASE table_name;
 ```
