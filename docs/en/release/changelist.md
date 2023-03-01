@@ -1,5 +1,28 @@
 # changelist
 
+
+# v2.2.0
+
+On March 01, 2023, CnosDB released version V2.1.0. This version mainly adds the storage and computation separation mode and further enhances the performance and stability of distributed, and continues to be open source. The major changes in this release also include:
+
+- Support for the Prometheus Remote Read/Write API.
+
+- Improved performance: added caching for index and file index.
+
+- Refactor the code of Coodinator and Watch to improve performance and enhance stability.
+
+- Support multiple startup modes: storage and computing integration, separation and stand-alone mode start.
+
+- Improved monitoring metrics and added memory limits to prevent OOM.
+
+- Improved the O&M functions, adding copy/move/drop vnode capabilities.
+
+- Added count pushdown, optimized count(*) and significantly improving count performance.
+
+- Add multi-threaded flush, reduce memory copy during writes, optimize the use of some locks and improve write performance.
+
+addition, there are a series of bug fixes.
+
 ## V2.1.0
 
 On January 10, 2023, CnosDB released version V2.1.0. This version releases the CnosDB 2.0 distributed cluster version and continues to be open source. The major changes in this release also include.
