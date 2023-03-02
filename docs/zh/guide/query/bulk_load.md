@@ -123,21 +123,21 @@ COPY INTO [<database>.]< table_name >
 导入 CSV
 
 ```sql
-COPY INTO air FROM 'file:///tmp/air'
+COPY INTO air FROM 'file:///tmp/air/'
     FILE_FORMAT = (TYPE = 'CSV', DELIMITER = ',');
 ```
 
 导入 PARQUET
 
 ```sql
-COPY INTO air FROM 'file:///tmp/air'
+COPY INTO air FROM 'file:///tmp/air/'
     FILE_FORMAT = (TYPE = 'PARQUET', DELIMITER = ',');
 ```
 
 导入 JSON
 
 ```sql
-COPY INTO air FROM 'file:///tmp/air'
+COPY INTO air FROM 'file:///tmp/air/'
     FILE_FORMAT = (TYPE = 'JSON', DELIMITER = ',');
 ```
 
