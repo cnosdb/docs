@@ -4,31 +4,31 @@ icon: launch
 order: 2
 ---
 
-# Install CnosDB
+# Install CnosDB
 
 # Docker
 
-1.  Install [Docker](https://www.docker.com/products/docker-desktop/)
+1.  Install [Docker](https://www.docker.com/products/docker-desktop/)
     
-2.  Start containers with Docker
+2.  Start containers with Docker
     
 ```
 docker run --name cnosdb -d  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
 ```
 
-3.  Enter the container
+3.  Enter the container
     
 ```
     docker exec -it cnosdb sh
 ```
 
-4.  Run cnosdb-cli
+4.  Run cnosdb-cli
     
 ```
     cnosdb-cli
 ```
 
-The following will be displayed:
+The following will be displayed:
 
 ```
     CnosDB CLI v2.0.0
@@ -37,9 +37,9 @@ The following will be displayed:
 ```
 
 ::: tip
- Please enter \q to exit
+ Please enter \q to exit
 
-To view help please enter \\? 
+To view help please enter \\?
 
 :::
 
@@ -47,9 +47,9 @@ To view help please enter \\? 
 
 ## Helm
 
-1.  Prepare the Kubernetes environment
+1.  Prepare the Kubernetes environment
     
-2.  Execute the following command:
+2.  Execute the following command:
     
 ```
     git clone https://github.com/cnosdb/cloud-deploy.git
@@ -59,7 +59,7 @@ To view help please enter \\? 
 
 ## Terraform
 
-1.  Clone Deployment Warehouse
+1.  Clone Deployment Warehouse
     
 ```
     git clone https://github.com/cnosdb/cloud-deploy.git
@@ -78,7 +78,7 @@ To view help please enter \\? 
     terraform apply
 ```
 
-4.  Login; The third step will give you the public IP of CnosDB
+4.  Login; The third step will give you the public IP of CnosDB
 
 5.
 ```shell
@@ -86,24 +86,24 @@ To view help please enter \\? 
     ssh ubuntu@<cnosdb-public-ip>
 ```
 
-Ports 22 and 31007 are open, you could add IP whitelist in main.tf file.
+Ports 22 and 31007 are open, you could add IP whitelist in main.tf file.
 
-# Source Code Installation
+# Source Code Installation
 
-## Supported Platforms
+## Supported Platforms
 
-We support the following platforms, please [report](https://github.com/cnosdb/cnosdb/issues) to us if you find it works on platforms other than those listed.
+We support the following platforms, please [report](https://github.com/cnosdb/cnosdb/issues) to us if you find it works on platforms other than those listed.
 
-*   Linux x86(`x86_64-unknown-linux-gnu`)
+*   Linux x86(`x86_64-unknown-linux-gnu`)
     
-*   Darwin arm(`aarch64-apple-darwin`)
+*   Darwin arm(`aarch64-apple-darwin`)
     
 
-## Compilation Environment
+## Compilation Environment
 
-i. Install Rust, you can go to the [official website](https://www.rust-lang.org/learn/get-started) to download and install.
+i. Install Rust, you can go to the [official website](https://www.rust-lang.org/learn/get-started) to download and install.
 
-ii. Install Cmake
+ii. Install Cmake
 
 ```
     # Debian or Ubuntu
@@ -118,9 +118,9 @@ ii. Install Cmake
     brew install cmake
 ```
 
-For Windows, you can also download and install Cmake from the [official website](https://cmake.org/download/).
+For Windows, you can also download and install Cmake from the [official website](https://cmake.org/download/).
 
-iii. Install Flatbuffers
+iii. Install Flatbuffers
 
 ```
     # Arch Linux
@@ -133,7 +133,7 @@ iii. Install Flatbuffers
     brew install flatbuffers
 ```
 
-If your system is not listed here, you can install FlatBuffers as follows:
+If your system is not listed here, you can install FlatBuffers as follows:
 
 ```
     $ git clone -b v22.9.29 --depth 1 https://github.com/google/flatbuffers.git && cd flatbuffers
@@ -155,15 +155,15 @@ If your system is not listed here, you can install FlatBuffers as fo
 
 ## Run
 
-### Run database services
+### Run database services
 
 ```
     cargo run -- run --cpu 4 --memory 64
 ```
 
-### Run CLI
+### Run CLI
 
-In another terminal, in the same directory, run the following command:
+In another terminal, in the same directory, run the following command:
 
 ```
     cargo run --package client --bin client

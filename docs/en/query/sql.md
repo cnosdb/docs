@@ -3,7 +3,7 @@ title: Query Data
 order: 5
 ---
 
-CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，We support most of the SQL syntax of DataFusion. 
+CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，We support most of the SQL syntax of DataFusion.
 
 **Note**：In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
 
@@ -205,7 +205,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
   <br>
   
   ```sql
-  -- temperature is a field column，time column accompanied by at least one field can be queried. 
+  -- temperature is a field column，time column accompanied by at least one field can be queried.
   SELECT time, temperature FROM air;
   ```
       +---------------------+-------------+

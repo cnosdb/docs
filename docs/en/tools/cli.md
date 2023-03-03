@@ -1,14 +1,14 @@
-# CnosDB Tools
+# CnosDB Tools
 
-# Client CLI
+# Client CLI
 
-Run the following command to start the CLI program in the root directory of CnosDB source code.
+Run the following command to start the CLI program in the root directory of CnosDB source code.
 
 ```
     cargo run --package client --bin client
 ```
 
-The parameters of CLI program are as follows:
+The parameters of CLI program are as follows:
 
 ```
     -h --host CnosDB            Host of the service. The default is "0.0.0.0".
@@ -24,9 +24,9 @@ The parameters of CLI program are as follows:
     --quiet                     To run in quiet mode, output only the result, not execution time.
  ```
 
-After entering the program you can run the command or SQL:.
+After entering the program you can run the command or SQL:.
 
-Run an SQL example:
+Run an SQL example:
 
 ```
     ❯ CREATE DATABASE test;
@@ -34,9 +34,9 @@ Run an SQL example:
     ❯
 ```
 
-Run a command example:
+Run a command example:
 
-The commands for the program are as follows:
+The commands for the program are as follows:
 ```
     \?          Command Help
     \q          Exit CLI
