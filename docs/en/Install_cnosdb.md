@@ -43,8 +43,6 @@ To view help please enter \\? 
 
 :::
 
- For more, see  Basic Operations
-
 # Kubernetes
 
 ## Helm
@@ -94,7 +92,7 @@ Ports 22 and 31007 are open, you could add IP whitelist in main.tf 
 
 ## Supported Platforms
 
-We support the following platforms, please report to us if you find it works on platforms other than those listed.
+We support the following platforms, please [report](https://github.com/cnosdb/cnosdb/issues) to us if you find it works on platforms other than those listed.
 
 *   Linux x86(`x86_64-unknown-linux-gnu`)
     

@@ -11,7 +11,7 @@ type: primary
 copyright: false
 ---
 
-CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.
+CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in [GitHub](https://github.com/cnosdb/cnosdb).
 
 We design to take full advantage of the characteristics of temporal data, including structured data, no transactions, less delete updates, write more read less, etc. Therefore, compared with other temporal databases, CnosDB has the following characteristics:
 
@@ -24,33 +24,33 @@ This chapter focuses on the current basics of CnosDB, quick start, implementatio
 
 ## QuickStart
 This chapter introduces the basic operations of CnosDB, including writing data, querying data, etc.
- - Quick start
+ - [Quick start](./en/quick_start.html)
 
 ## Run the installation
 This section describes how to install and run CnosDB using one of the following.
-- Docker
-- Starting with the source code
+- [Docker](./en/install_cnosdb.md#docker)
+- [Starting with the source code](./en/install_cnosdb.md#source-code-installation)
 
 ## Basics
 This section introduces some basic concepts of CnosDB.
-- Basic concents
+- [Basic concents](./en/concept.md)
 
 # Application Integration
 This section describes how to integrate CnosDB into your application.
-- Rust
-- Golang
-- Java
-- HTTP API
+- [Rust](./en/application/application.md#rust)
+- [Golang](./en/application/application.md#golang)
+- [Java](./en/application/application.md#java)
+- [HTTP API](../en/guide/application/api.md)
 
 ## SQL Manual
 This section contains the following.
-- SQL
-- functions
+- [SQL](./en/query/sql.md)
+- [functions](./en/query/select_function.md)
 
 ## Eco Integration
 This section contains the following.
-- grafana
-- telegraf
+- [grafana](./en/ecology/grafana.md)
+- [telegraf](./en/ecology/telegraf.md)
 
 ## Cloud
 This section contains the following.
@@ -58,12 +58,12 @@ This section contains the following.
 
 ## Version release
 This section contains the following.
-- Release History
-- Evolutionary Route
+- [Release History](./en/release/changelist.md)
+- [Evolutionary Route](./en/release/roadmap.md)
 
 ## Implementation Principles
 This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc.
-- System Architecture
-- Configuration
-- Compression Algorithm
+- [System Architecture](./en/design/arch.md)
+- [Configuration](./en/design/config.md)
+- [Compression Algorithm](./en/design/compress.md)
 - [Reference]

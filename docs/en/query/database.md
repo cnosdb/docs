@@ -48,7 +48,7 @@ SHOW DATABASES;
     | public          |
     +-----------------+
 ## **Use Database**
-If you use the database through HTTP API, you can specify the parameter db=database_ name in the url to use the database.
+If you use the database through [HTTP API](../application/api.md), you can specify the parameter db=database_ name in the url to use the database.
 
 
 If you use the database through HTTP API, you can specify the parameter db=database_ name in the url to use the database.
@@ -99,5 +99,8 @@ DESCRIBE DATABASE dbname;
 DESCRIBE DATABASE oceanic_station;
 ```
 
-    TTL,SHARD,VNODE_DURATION,REPLICA,PRECISION
-    365 Days,1,365 Days,1,NS
+    +----------+-------+----------------+---------+-----------+
+    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
+    +----------+-------+----------------+---------+-----------+
+    | 365 Days | 1     | 365 Days       | 1       | NS        |
+    +----------+-------+----------------+---------+-----------+

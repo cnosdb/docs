@@ -126,11 +126,11 @@ We adopt a strong consistency meta cluster and realize corresponding optimizatio
 > - In practice, metadata in our cluster is usually controlled on a smaller scale and without extensible requirements.
 > - Engineering practice is relatively simple and is conducive to rapid iteration.
 > - Make cache and localized storage for access to frequently accessible data, optimize.
-> - After storage locally, subscribe to schema version changes from the meta cluster to relieve the pressure of meta cluster reading.
-> - Meta clusters share the leveler pressure and provide the Follower / Read scheme. Reading performance is optimized.
+>   - After storage locally, subscribe to schema version changes from the meta cluster to relieve the pressure of meta cluster reading.
+>   - Meta clusters share the leveler pressure and provide the Follower / Read scheme. Reading performance is optimized.
 
 ## SQL engine
-We used [DataFusion](https://arrow.apache.org/datafusion/) as the query engine. DataFusion is an extensible query execution framework, written with Rust, used Apache Arrow As its memory format. DataFusion supports SQL and DataFrame API for building logical query schemes, as well as query optimizers and execution engines that can be executed in parallel with partition data sources using threads. It has the following advantages:
+We used [DataFusion](https://arrow.apache.org/datafusion/) as the query engine. DataFusion is an extensible query execution framework, written with Rust, used [Apache Arrow](https://arrow.apache.org/) As its memory format. DataFusion supports SQL and DataFrame API for building logical query schemes, as well as query optimizers and execution engines that can be executed in parallel with partition data sources using threads. It has the following advantages:
 
 1. High performance: Using the memory models of Rust and Arrow, it has high performance.
 2. Strong extensibility: Allows almost any point in its design to be extended and customized with a needle-specific use case.

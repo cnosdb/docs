@@ -16,7 +16,7 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 
 **Explanation**：
 
-CnosDB requires that the inserted data column must have a timestamp, and the VALUES list must be a[constant](data_type.md/#constant)，
+CnosDB requires that the inserted data column must have a timestamp, and the VALUES list must be a [constant](data_type.md/#constant)，
 If a column is not selected, the value is`NULL`。
 
 **Note**：
@@ -25,7 +25,7 @@ The time column cannot be`NULL`，and the Tag column and Field column can be `NU
 
 Example`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
-If the VALUES list requires an expression, please use the[INSERT SELECT](#%E6%8F%92%E5%85%A5%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C-insert-select)syntax.
+If the VALUES list requires an expression, please use the [INSERT SELECT](#%E6%8F%92%E5%85%A5%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C-insert-select)syntax.
 
 
 ##  Insert one Record

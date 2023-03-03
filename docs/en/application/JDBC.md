@@ -28,11 +28,11 @@ order: 3
 
    ```shell
    java --add-opens=java.base/java.nio=ALL-UNNAMED -jar ...
-   # 或
+   # Or
    env _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" java -jar ...
    
    
-   # 如果使用 maven 
+   # If use maven
    _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" mvn exec:java -Dexec.mainClass="YourMainCode"
    ```
 

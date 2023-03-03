@@ -1363,7 +1363,7 @@ SELECT to_timestamp_millis(1);
     to_timestamp_micros(expr) 
 **Function**：Convert to a microsecond-level timestamp.
 
-**参数**：BIGINT or STRING
+**Parameter**：BIGINT or STRING
 
 **Return Type**： Microsecond-level TIMESTAMP
 

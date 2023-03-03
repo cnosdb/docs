@@ -6,11 +6,11 @@ order: 3
 
 ## Quick start
 
-For other installation methods, please see Installing CnosDB
+For other installation methods, please see [Installing CnosDB](https://www.docker.com/products/docker-desktop/)
 
 ### Docker install
 
-1. Installing a Docker environment
+1. Installing a [Docker](https://www.docker.com/products/docker-desktop/) environment
 
 2. Start the container with Docker
 ```shell
