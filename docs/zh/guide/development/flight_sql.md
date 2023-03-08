@@ -228,15 +228,17 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 创建Flight Sql客户端
 
    ```go
+   addr := "127.0.0.1:31004"
    var dialOpts = []grpc.DialOption{
      grpc.WithTransportCredentials(insecure.NewCredentials()),
    }
-   cl, err := flightsql.NewClient("localhost:31004", nil, nil, dialOpts...)
+   cl, err := flightsql.NewClient(addr, nil, nil, dialOpts...)
    if err != nil {
      fmt.Print(err)
      return
    }
    ```
+   addr 为CnosDB配置项`flight_rpc_listen_addr`指定的地址
 
 - #### 设置连接凭证，并取得已经验证的上下文
 
