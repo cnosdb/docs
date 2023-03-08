@@ -1,5 +1,6 @@
 ---
 title: REST API
+icon: note
 order: 4
 ---
 

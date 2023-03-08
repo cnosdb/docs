@@ -1,5 +1,6 @@
 ---
 title: 客户端CLI
+icon: tool
 order: 2
 ---
 

@@ -1,14 +1,15 @@
 ---
 title: 版本发布
 icon: copy
-order: 6
+index: false
+order: -1
 ---
 
 # 版本发布
 
-本章节介绍了CnosDB的版本发布历史。
+本章节介绍了 CnosDB 的版本发布历史。
 
-- [版本发布](./index.md)
+- [版本发布](./README.md)
     - [版本发布历史](./changelist.md)
       - [v2.2.0](./changelist.md#v220)
       - [v2.1.0](./changelist.md#v210)

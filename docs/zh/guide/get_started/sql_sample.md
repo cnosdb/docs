@@ -1,6 +1,6 @@
 ---
 title: 查询示例
-icon: book
+icon: note
 order: 2
 ---
 

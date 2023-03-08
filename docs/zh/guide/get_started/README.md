@@ -1,7 +1,8 @@
 ---
 title: 快速开始
 icon: launch
-order: 2
+index: false
+order: -7
 ---
 
 # 快速开始

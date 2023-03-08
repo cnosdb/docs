@@ -1,5 +1,6 @@
 ---
 title: 版本发布历史
+icon: type
 order: 1
 ---
 
@@ -9,14 +10,14 @@ order: 1
 
 2023年03月01日，CnosDB 发布 V2.1.0 版。该版本主要增加了存算分离模式并对分布式的性能和稳定性进一步增强，并继续保持开源。这个版本的主要修改还包括：
 
-‒ 支持Prometheus Remote Read/Write API。
-‒ 提高性能：增加索引和文件索引的缓存。
-‒ 重构coodinator和watch的代码，提高性能并增强稳定性。
-‒ 支持多种启动模式： 存算一体、分离和单机模式启动。
-‒ 完善监控metric并增加内存限制以防止oom。
-‒ 完善运维功能，增加copy/move/drop vnode的功能。
-‒ 增加count下推，优化count(*)，大幅提升了count的性能。
-‒ 增加多线程flush，减少写入时内存copy，优化一些锁的使用，提高了写入性能。
+- 支持Prometheus Remote Read/Write API。
+- 提高性能：增加索引和文件索引的缓存。
+- 重构coodinator和watch的代码，提高性能并增强稳定性。
+- 支持多种启动模式： 存算一体、分离和单机模式启动。
+- 完善监控metric并增加内存限制以防止oom。
+- 完善运维功能，增加copy/move/drop vnode的功能。
+- 增加count下推，优化count(*)，大幅提升了count的性能。
+- 增加多线程flush，减少写入时内存copy，优化一些锁的使用，提高了写入性能。
 
 此外，还有一系列bug修复。
 

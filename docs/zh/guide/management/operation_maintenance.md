@@ -1,7 +1,7 @@
 ---
 title: 运维管理
 order: 2
-icon: book
+icon: tool
 ---
 
 # 运维管理

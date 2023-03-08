@@ -1,7 +1,8 @@
 ---
 title: 管理
-icon: leaf
-order: 5
+icon: lock
+index: false
+order: -4
 ---
 
 
@@ -9,7 +10,7 @@ order: 5
 
 CnosDB提供了多种管理方式，包括集群管理、用户管理、权限管理、角色管理、备份恢复、配置管理等。本章将对其进行详细的介绍。
 
-- [管理](./index.md)  
+- [管理](./README.md)  
     - [配置](./config.md)
       - [介绍](./config.md#介绍)
       - [[query]](./config.md#query)

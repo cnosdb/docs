@@ -1,6 +1,6 @@
 ---
 title: 应用开发
-icon: button
+icon: type
 order: 1
 ---
 

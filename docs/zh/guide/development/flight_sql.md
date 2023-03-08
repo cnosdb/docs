@@ -1,6 +1,6 @@
 ---
 title: Arrow Flight SQL
-icon: paper
+icon: copy
 order: 3
 ---
 

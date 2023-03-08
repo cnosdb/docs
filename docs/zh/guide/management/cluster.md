@@ -1,7 +1,7 @@
 ---
 
 title: 集群管理
-icon: launch
+icon: note
 order: 4
 
 ---

@@ -1,6 +1,6 @@
 ---
 title: 基本概念
-icon: creative
+icon: copy
 order: 1
 ---
 

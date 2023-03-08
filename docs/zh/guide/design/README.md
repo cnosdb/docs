@@ -1,14 +1,15 @@
 ---
 title: 设计原理
 icon: creative
-order: 6
+index: false
+order: -2
 ---
 
 # 设计原理
 
 本章将介绍 CnosDB 的设计原理以及云原生的相关知识。
 
-- [设计原理](./index.md)
+- [设计原理](./README.md)
     - [基本概念](./concept.md)
       - [前言](./concept.md#前言)
       - [时间序列(Time Series)](./concept.md#时间序列--time-series-)

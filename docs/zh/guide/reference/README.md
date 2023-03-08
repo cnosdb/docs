@@ -1,14 +1,15 @@
 ---
 title: 参考手册
-icon: book
-order: 5
+icon: note
+index: false
+order: -3
 ---
 
 # 参考手册
 
 本章节包含了CnosDB的所有参考手册。将介绍SQL语法参考手册、客户端工具和基准测试报告。
 
-- [参考手册](./index.md)
+- [参考手册](./README.md)
     - [SQL语法参考手册](./sql.md)
       - [数据类型](./sql.md#数据类型)
       - [创建数据库](./sql.md#创建数据库)

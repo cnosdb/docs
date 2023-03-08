@@ -1,7 +1,7 @@
 ---
 title: 主页
 icon: config
-order: 1
+order: -7
 ---
 
 CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序数据库。主要应用场景为物联网，工业互联网，车联网，IT运维。所有代码均已在 [GitHub](https://github.com/cnosdb/cnosdb) 开源。
@@ -18,24 +18,24 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
 
-- [快速开始](./guide/get_started/index.md)
+- [快速开始](./guide/get_started/README.md)
   - [启动服务](./guide/get_started/start_service.md)
   - [查询示例](./guide/get_started/sql_sample.md)
 
-## 安装CnosDB
+## 安装
 
-本章节介绍了如何使用以下其中之一安装和运行CnosDB。
+本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
 
-- [安装CnosDB](./guide/deploy/index.md)
+- [安装](./guide/deploy/README.md)
   - [Docker](./guide/deploy/install_cnosdb.md#docker)
   - [Kubernetes](./guide/deploy/install_cnosdb.md#Kubernetes)
   - [源码安装](./guide/deploy/install_cnosdb.md#源码安装)
 
 ## 集成
 
-本章节介绍了CnosDB的生态集成与应用集成
+本章节介绍了 CnosDB 的生态集成与应用集成
 
-- [集成](./guide/development/index.md)
+- [集成](./guide/development/README.md)
   - [应用集成](./guide/development/application.md)
   - [生态集成](./guide/development/ecology.md)
   - [Arrow Flight SQL](./guide/development/flight_sql.md)
@@ -43,9 +43,9 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## 管理
 
-本章节介绍了CnosDB单机版与集群版的管理与监控
+本章节介绍了 CnosDB 单机版与集群版的管理与监控
 
-- [管理](./guide/management/index.md)
+- [管理](./guide/management/README.md)
   - [配置](./guide/management/config.md)
   - [运维管理](./guide/management/operation_maintenance.md)
   - [权限管理](./guide/management/authority_management.md)
@@ -54,27 +54,27 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## 参考手册
 
-本章节介绍了CnosDB的基本概念、数据类型、SQL语法、函数等，以及客户端工具和基准测试结果。
+本章节介绍了 CnosDB 的基本概念、数据类型、SQL 语法、函数等，以及客户端工具和基准测试结果。
 
-- [参考手册](./guide/reference/index.md)
+- [参考手册](./guide/reference/README.md)
   - [SQL语法参考手册](./guide/reference/sql.md)
   - [客户端CLI](./guide/reference/tools.md)
   - [性能测试](./guide/reference/benchmark.md)
 
 ## 设计原理
 
-本章节介绍了CnosDB的架构设计、数据存储、查询引擎、计算引擎、分布式协调等。
+本章节介绍了 CnosDB 的架构设计、数据存储、查询引擎、计算引擎、分布式协调等。
 
-- [设计原理](./guide/design/index.md)
+- [设计原理](./guide/design/README.md)
   - [基本概念](./guide/design/concept.md)
   - [实现原理](./guide/design/implementation.md)
   - [云原生](./guide/design/cloud_native.md)
 
 ## 版本发布
 
-本章节介绍了CnosDB的版本发布历史。
+本章节介绍了 CnosDB 的版本发布历史。
 
-- [版本发布](./guide/release/index.md)
+- [版本发布](./guide/release/README.md)
   - [版本发布历史](./guide/release/changelist.md)
   - [版本发布计划](./guide/release/roadmap.md)
 

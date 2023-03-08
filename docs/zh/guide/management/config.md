@@ -1,7 +1,7 @@
 ---
 title: 配置
 order: 1
-icon: paper
+icon: tool
 ---
 
 # 配置

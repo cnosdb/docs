@@ -1,14 +1,14 @@
 ---
 title: 集成
 icon: leaf
-order: 4
+order: -5
 index: false
 ---
 # 集成
 
 CnosDB提供了多种集成方式，包括应用开发、生态集成、Arrow Flight SQL等。本章将对其进行详细的介绍。
 
-- [集成](./index.md)
+- [集成](./README.md)
     - [应用开发](./application.md)
       - [Rust](./application.md#rust)
       - [Golang](./application.md#golang)
