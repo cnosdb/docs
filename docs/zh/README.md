@@ -15,51 +15,66 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章着重介绍目前 CnosDB 的基础知识，快速上手，实现原理，生态集成以及云原生计划等等，让大家对 CnosDB 有一个充分的认识。
 
 ## 快速开始
+
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
-- [快速开始](./guide/quick_start.md#快速开始)
 
-## 运行安装
-本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
+- [快速开始](./guide/get_started/index.md)
+  - [启动服务](./guide/get_started/start_service.md)
+  - [查询示例](./guide/get_started/sql_sample.md)
 
-- [Dokcer](./guide/install_cnosdb.md#docker)
-- [从源码开始](./guide/install_cnosdb.md#源码安装)
+## 安装CnosDB
 
-## 基础知识
-本章节主要介绍 CnosDB 的一些基本概念。
+本章节介绍了如何使用以下其中之一安装和运行CnosDB。
 
-- [基本概念](./guide/concept.md#基本概念)
+- [安装CnosDB](./guide/deploy/index.md)
+  - [Docker](./guide/deploy/install_cnosdb.md#docker)
+  - [Kubernetes](./guide/deploy/install_cnosdb.md#Kubernetes)
+  - [源码安装](./guide/deploy/install_cnosdb.md#源码安装)
 
-## 应用集成
+## 集成
 
-本章节介绍了如何把 CnosDB 集成到您的程序里。
-- [Rust](./guide/application/application.md#rust)
-- [Golang](./guide/application/application.md#golang)
-- [Java](./guide/application/application.md#java)
-- [HTTP API](./guide/application/api.md)
+本章节介绍了CnosDB的生态集成与应用集成
 
-## SQL手册
-本章节包含以下内容：
-- [SQL](./guide/query/sql.md)
-- [函数](./guide/query/function.md)
+- [集成](./guide/development/index.md)
+  - [应用集成](./guide/development/application.md)
+  - [生态集成](./guide/development/ecology.md)
+  - [Arrow Flight SQL](./guide/development/flight_sql.md)
+  - [REST API](./guide/development/rest_api.md)
 
-## 生态集成
-本章节包含以下内容：
-- [grafana](./guide/ecology/grafana.md)
-- [telegraf](./guide/ecology/telegraf.md)
+## 管理
 
-## Cloud
-本章节包含以下内容：
-- [Cloud](./guide/cloud.md)
+本章节介绍了CnosDB单机版与集群版的管理与监控
+
+- [管理](./guide/management/index.md)
+  - [配置](./guide/management/config.md)
+  - [运维管理](./guide/management/operation_maintenance.md)
+  - [权限管理](./guide/management/authority_management.md)
+  - [集群管理](./guide/management/cluster.md)
+  - [集群监控指标](./guide/management/metrics.md)
+
+## 参考手册
+
+本章节介绍了CnosDB的基本概念、数据类型、SQL语法、函数等，以及客户端工具和基准测试结果。
+
+- [参考手册](./guide/reference/index.md)
+  - [SQL语法参考手册](./guide/reference/sql.md)
+  - [客户端CLI](./guide/reference/tools.md)
+  - [性能测试](./guide/reference/benchmark.md)
+
+## 设计原理
+
+本章节介绍了CnosDB的架构设计、数据存储、查询引擎、计算引擎、分布式协调等。
+
+- [设计原理](./guide/design/index.md)
+  - [基本概念](./guide/design/concept.md)
+  - [实现原理](./guide/design/implementation.md)
+  - [云原生](./guide/design/cloud_native.md)
 
 ## 版本发布
 
-本章节包含以下内容：
-- [发布历史](./guide/release/changelist.md)
-- [演进路线](./guide/release/roadmap.md)
+本章节介绍了CnosDB的版本发布历史。
 
-## 实现原理
-本章节介绍了 CnosDB 的实现原理，包括存储引擎，查询引擎，压缩算法等。
-- [系统架构](./guide/design/arch.md)
-- [配置](./guide/design/config.md)
-- [压缩算法](./guide/design/compress.md)
-- [参考文献]
+- [版本发布](./guide/release/index.md)
+  - [版本发布历史](./guide/release/changelist.md)
+  - [版本发布计划](./guide/release/roadmap.md)
+

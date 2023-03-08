@@ -100,6 +100,6 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 
 > 有关更多关于数据库的操作请查看：
 >
-> [SQL](query/sql.md)
+> [SQL](#query/sql.md)
 >
-> [编程接口](application/api.md)
+> [编程接口](#application/api.md)

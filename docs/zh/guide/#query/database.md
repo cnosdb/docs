@@ -48,7 +48,7 @@ SHOW DATABASES;
     | public          |
     +-----------------+
 ## **使用数据库**
-如果你通过[HTTP API](../application/api.md)来使用数据库，
+如果你通过[HTTP API](../%23application/api.md)来使用数据库，
 你可以在url中指定参数db=database_name 来使用数据库
 
 
