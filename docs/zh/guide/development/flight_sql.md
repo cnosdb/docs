@@ -12,7 +12,7 @@ Arrow Flight SQL 是一种使用 Arrow 内存格式和 Flight RPC 框架与 SQL 
 
 目前我们支持Arrow Flight SQL 客户端的环境有：
 
-- [C++](#c++)
+- [C++](#c)
 - [Go](#go)
 - [Java](#java)
 - [Rust](#rust)
