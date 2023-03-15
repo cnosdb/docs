@@ -1,6 +1,6 @@
 ---
 title: 管理
 icon: tool
-order: -4
+order: -3
 index: false
 ---

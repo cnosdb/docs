@@ -1,6 +1,6 @@
 ---
 title: 指南
-icon: creative
+icon: generic
 index: false
 order: -2
 ---
