@@ -1,10 +1,12 @@
 ---
-title: 客户端CLI
+title: 工具
 icon: tool
-order: 2
+order: 7
 ---
 
-# 客户端CLI
+# 工具
+
+## 客户端CLI
 
 在CnosDB源码的根目录下，运行如下命令启动CLI程序：
 

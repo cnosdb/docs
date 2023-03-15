@@ -1,6 +1,6 @@
 ---
 title: 配置
-order: 1
+order: 6
 icon: tool
 ---
 
@@ -115,4 +115,3 @@ CnosDB会收集一些信息，使社区更好地改进产品
 ```
 reporting_disabled = true
 ```
-

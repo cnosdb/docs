@@ -1,12 +1,14 @@
 ---
-title: Arrow Flight SQL
+title: 连接器
 icon: copy
-order: 3
+order: 4
 ---
 
-# Arrow Flight SQL
+# 连接器
 
-## Arrow Flight SQL 简介
+## Arrow Flight SQL
+
+### Arrow Flight SQL 简介
 
 Arrow Flight SQL 是一种使用 Arrow 内存格式和 Flight RPC 框架与 SQL 数据库交互的协议。
 
@@ -54,14 +56,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 ![流程图](../../../source/_static/img/arrow_flight_flow.png)
 
 
-## C++
+### C++
 
-### 操作流程
+#### 操作流程
 
 - #### 安装Apache Arrow
 
-   你可以去[官方文档](arrow.apache.org/install/)找到详细的安装教程
-   在Mac系统下，使用brew命令就可以简单安装了。
+  你可以去[官方文档](arrow.apache.org/install/)找到详细的安装教程
+  在Mac系统下，使用brew命令就可以简单安装了。
 
    ```shell
    brew install apache-arrow
@@ -91,7 +93,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 - #### C++ Arrow库的用法
 
-   arrow的函数大多数是返回arrow::Result\<T\>类型，因此需要把代码写在返回值为 arrow::Result\<T>的类型的函数中，如下
+  arrow的函数大多数是返回arrow::Result\<T\>类型，因此需要把代码写在返回值为 arrow::Result\<T>的类型的函数中，如下
 
    ```c++
     arrow::Result <std::unique_ptr<FlightClient>> get_location() {
@@ -100,9 +102,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
     }
    ```
 
-   `ARROW_ASSIGN_OR_RAISE`宏的效果是，先对右边返回值为arrow::Result\<T\>类型的表达式求值，如果出现异常，则提前return，赋上相应的Status值
-   
-   为了方便展示，我们把代码写在`lambda`函数中
+  `ARROW_ASSIGN_OR_RAISE`宏的效果是，先对右边返回值为arrow::Result\<T\>类型的表达式求值，如果出现异常，则提前return，赋上相应的Status值
+
+  为了方便展示，我们把代码写在`lambda`函数中
 
    ```c++
    int main() {
@@ -158,7 +160,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-### 整体代码
+#### 整体代码
 
    ```c++
    #include <iostream>
@@ -210,13 +212,13 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-## Go
+### Go
 
-### 操作流程
+#### 操作流程
 
 - #### 添加依赖
 
-   在go.mod中写入依赖
+  在go.mod中写入依赖
 
    ```go
    require (
@@ -238,7 +240,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      return
    }
    ```
-   addr 为CnosDB配置项`flight_rpc_listen_addr`指定的地址
+  addr 为CnosDB配置项`flight_rpc_listen_addr`指定的地址
 
 - #### 设置连接凭证，并取得已经验证的上下文
 
@@ -288,9 +290,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-## Java
+### Java
 
-### 操作流程
+#### 操作流程
 
 - #### 添加依赖
 
@@ -420,7 +422,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-### 全部代码
+#### 全部代码
 
    ```java
    package org.example;
@@ -476,7 +478,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-## Rust
+### Rust
 
 代码运行在异步环境下。
 
@@ -600,7 +602,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-### 完整代码
+#### 完整代码
 
    ```rust
    use std::collections::HashMap;
@@ -840,8 +842,6 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ## ODBC
 
-
-
 目前仅支持x86_64架构的系统，linux仅支持centos和redhat系列发行版
 
 更多关于Arrow Flight SQL ODBC的内容，请查看[Dremio文档](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/)
@@ -852,7 +852,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 - #### 安装ODBC管理器
 
-   在Linux下安装unixODBC
+  在Linux下安装unixODBC
 
    ```shell
    yum install unixODBC-devel
@@ -866,7 +866,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```
 
 - #### 修改配置文件
-   修改位于/etc/odbc.ini的配置文件
+  修改位于/etc/odbc.ini的配置文件
 
    ```
    [ODBC Data Sources]
@@ -886,7 +886,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    UseSystemTrustStore=true
    ```
 
-   其中 UID是用户名，PWD是密码
+  其中 UID是用户名，PWD是密码
 
 - #### 测试是否连接
 
@@ -894,7 +894,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    isql -v CNOSDB
    ```
 
-   如果出现如下内容，说明连接成功
+  如果出现如下内容，说明连接成功
 
    ```
    +---------------------------------------+
@@ -908,7 +908,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    SQL>
    ```
 
-   下面进入代码测试
+  下面进入代码测试
 
 - #### 编写cmake
 

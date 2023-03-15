@@ -1,10 +1,12 @@
 ---
 title: SQL语法参考手册
 icon: copy
-order: 1
+order: 5
 ---
 
 # SQL语法参考手册
+
+## 数据库操作
 
 ## 数据类型
 
@@ -197,6 +199,8 @@ DESCRIBE DATABASE oceanic_station;
     | 365 Days | 1     | 365 Days       | 1       | NS        |
     +----------+-------+----------------+---------+-----------+
 
+
+## 表操作
 
 ## 创建表
 
@@ -602,6 +606,9 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 -- grouping_element
     ()
 ```
+
+## SQL 语法
+
 ## SELECT 子句
 
 ### SELECT \*
@@ -2103,6 +2110,8 @@ GROUP BY CUBE (station, visibility);
 
 ## 聚合函数
 
+## 一般聚合函数
+
 ### COUNT
 
 #### 语法
@@ -2542,6 +2551,8 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 [//]: # (**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。)
 [//]: # (**参数类型**：数值类型)
 [//]: # (**返回类型** BIGINT)
+
+## 函数
 
 ## **数学函数**
 
@@ -5200,7 +5211,7 @@ select * from usage_schema.writes order by time desc limit 2;
     +----------------------------+----------+---------+------+-------+
 
 
-## KILL QUERY  
+## KILL QUERY
 
 ### 语法
 

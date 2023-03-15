@@ -1,12 +1,12 @@
 ---
-title: 启动服务
+title: 安装
 icon: launch
-order: 1
+order: 2
 ---
 
-# 启动服务
+# 安装
 
-## 快速开始
+## 部署
 
 其他安装方式请查看[安装CnosDB](../deploy/install_cnosdb.md)
 

@@ -1,7 +1,7 @@
 ---
 title: REST API
 icon: note
-order: 4
+order: 3
 ---
 
 # REST API

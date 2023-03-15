@@ -1,10 +1,10 @@
 ---
-title: 权限管理
-order: 3
+title: 租户和权限
+order: 8
 icon: lock
 ---
 
-# 权限管理
+# 租户和权限
 
 以下所有操作都在CnosDB用户界面中进行。
 

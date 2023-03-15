@@ -1,8 +1,10 @@
 ---
-title: 应用开发
+title: Connect to CnosDB
 icon: type
-order: 1
+order: 2
 ---
+
+# Connect to CnosDB
 
 ## Rust
 

@@ -1,8 +1,11 @@
 ---
 title: 主页
 icon: config
-order: -7
+index: false
+order: -8
 ---
+
+# 主页
 
 CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序数据库。主要应用场景为物联网，工业互联网，车联网，IT运维。所有代码均已在 [GitHub](https://github.com/cnosdb/cnosdb) 开源。
 
@@ -14,67 +17,64 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章着重介绍目前 CnosDB 的基础知识，快速上手，实现原理，生态集成以及云原生计划等等，让大家对 CnosDB 有一个充分的认识。
 
-## 快速开始
+## 开始
 
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
 
-- [快速开始](./guide/get_started/README.md)
-  - [启动服务](./guide/get_started/start_service.md)
-  - [查询示例](./guide/get_started/sql_sample.md)
+- [开始](./guide/start/index.md)
+  - [安装](./guide/start/install.md)
+  - [快速开始](./guide/start/quick_start.md)
 
-## 安装
+## 开发
 
-本章节介绍了如何使用以下其中之一安装和运行 CnosDB。
+本章节介绍了 CnosDB 的开发指南，包含如何使用 CnosDB 的各种API，如何连接 CnosDB 进行数据的写入与查询。
 
-- [安装](./guide/deploy/README.md)
-  - [Docker](./guide/deploy/install_cnosdb.md#docker)
-  - [Kubernetes](./guide/deploy/install_cnosdb.md#Kubernetes)
-  - [源码安装](./guide/deploy/install_cnosdb.md#源码安装)
+- [开发](./guide/develop/index.md)
+  - [Connect to CnosDB](./guide/develop/api.md)
+  - [数据写入](./guide/develop/write.md)
+  - [数据查询](./guide/develop/query.md)
 
-## 集成
+## 部署
 
-本章节介绍了 CnosDB 的生态集成与应用集成
+本章节介绍了如何使用以下其中之一安装和运行单机版或集群版 CnosDB，以及 CnosDB 的计算存储分离架构。
 
-- [集成](./guide/development/README.md)
-  - [应用集成](./guide/development/application.md)
-  - [生态集成](./guide/development/ecology.md)
-  - [Arrow Flight SQL](./guide/development/flight_sql.md)
-  - [REST API](./guide/development/rest_api.md)
+- [部署](./guide/deploy/index.md)
+  - [单机版](./guide/deploy/single.md)
+  - [分布式版](./guide/deploy/distributed.md)
+  - [存算分离](./guide/deploy/separation_mod.md)
 
 ## 管理
 
 本章节介绍了 CnosDB 单机版与集群版的管理与监控
 
-- [管理](./guide/management/README.md)
-  - [配置](./guide/management/config.md)
-  - [运维管理](./guide/management/operation_maintenance.md)
-  - [权限管理](./guide/management/authority_management.md)
-  - [集群管理](./guide/management/cluster.md)
-  - [集群监控指标](./guide/management/metrics.md)
+- [管理](./guide/manage/index.md)
+  - [节点升级](./guide/manage/upgrade.md) 
+  - [节点迁移](./guide/manage/migration.md)
+  - [集群扩容](./guide/manage/cluster_expansion.md)
+  - [集群缩容](./guide/manage/cluster_shrink.md)
+  - [备份与还原](./guide/manage/backup.md)
+  - [监控](./guide/manage/monitor.md)
+  - [租户和权限](./guide/manage/tenant.md)
 
-## 参考手册
+# 指南
 
-本章节介绍了 CnosDB 的基本概念、数据类型、SQL 语法、函数等，以及客户端工具和基准测试结果。
+本章节介绍了 CnosDB 的实现原理，以及 CnosDB 的生态集成。
 
-- [参考手册](./guide/reference/README.md)
-  - [SQL语法参考手册](./guide/reference/sql.md)
-  - [客户端CLI](./guide/reference/tools.md)
-  - [性能测试](./guide/reference/benchmark.md)
-
-## 设计原理
-
-本章节介绍了 CnosDB 的架构设计、数据存储、查询引擎、计算引擎、分布式协调等。
-
-- [设计原理](./guide/design/README.md)
-  - [基本概念](./guide/design/concept.md)
-  - [实现原理](./guide/design/implementation.md)
-  - [云原生](./guide/design/cloud_native.md)
+- [指南](./guide/reference/index.md)
+  - [设计](./guide/reference/design.md)
+  - [REST API](./guide/reference/rest_api.md)
+  - [连接器](./guide/reference/connector.md)
+  - [SQL](./guide/reference/sql.md)
+  - [配置文件](./guide/reference/config.md)
+  - [工具](./guide/reference/tools.md)
+  - [生态集成](./guide/reference/ecosystem.md)
+  - [性能测试](./guide/reference/performance.md)
 
 ## 版本发布
 
 本章节介绍了 CnosDB 的版本发布历史。
 
-- [版本发布](./guide/release/README.md)
+- [版本发布](./guide/release/index.md)
   - [版本发布历史](./guide/release/changelist.md)
   - [版本发布计划](./guide/release/roadmap.md)
 

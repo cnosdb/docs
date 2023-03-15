@@ -1,7 +1,7 @@
 ---
 title: 版本发布计划
 icon: note
-order: 2
+order: 3
 ---
 
 # 版本发布计划

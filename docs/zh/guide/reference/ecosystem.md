@@ -1,12 +1,12 @@
 ---
 title: 生态集成
 icon: leaf
-order: 2
+order: 8
 ---
 
 # 生态集成
 
-## Telegraf 
+## Telegraf
 
 ### 简介
 
@@ -31,15 +31,15 @@ order: 2
 
 - **下载**
 
-    [官方下载链接](https://portal.influxdata.com/downloads)
+  [官方下载链接](https://portal.influxdata.com/downloads)
 
 - **安装**
 
-    [官方安装教程(v1.23)](https://docs.influxdata.com/telegraf/v1.23/install/)
+  [官方安装教程(v1.23)](https://docs.influxdata.com/telegraf/v1.23/install/)
 
 - **启动**
 
-    [官方基础教程(v1.23)](https://docs.influxdata.com/telegraf/v1.23/get_started/)
+  [官方基础教程(v1.23)](https://docs.influxdata.com/telegraf/v1.23/get_started/)
 
 ### Telegraf 配置
 
@@ -48,18 +48,18 @@ order: 2
     ```sh
     telegraf --sample-config > telegraf.conf
     ```
-  
+
 - **默认配置文件路径**
 
-  - macOS **Homebrew**: `/usr/local/etc/telegraf.conf`
-  - Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
+    - macOS **Homebrew**: `/usr/local/etc/telegraf.conf`
+    - Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
 
 - **使用 `vim` 等文本编辑器修改配置文件**
 
-    为实现将指标数据输出至 CnosDB，我们需要配置 Telegraf 的输出插件 `http`，来将行协议数据输出至 CnosDB 的写如接口。
-    
-    在配置文件中找到 `[[outputs.http]]`，将其内容修改如下：
-    
+  为实现将指标数据输出至 CnosDB，我们需要配置 Telegraf 的输出插件 `http`，来将行协议数据输出至 CnosDB 的写如接口。
+
+  在配置文件中找到 `[[outputs.http]]`，将其内容修改如下：
+
     ```toml
     [[outputs.http]]
       url = "http://CnosDB地址:CnosDB端口/api/v1/write?db=cnos"
@@ -72,16 +72,16 @@ order: 2
       content_encoding = "identity"
       idle_conn_timeout = 10
     ```
-    
-    在上面的配置中，有一些文本可能需要替换：
-    
+
+  在上面的配置中，有一些文本可能需要替换：
+
     - `CnosDB地址`
     - `CnosDB端口`
     - `用户名`
     - `密码`
-    
-    如：
-    
+
+  如：
+
     ```toml
     [[outputs.http]]
       url = "http://host.docker.internal:31007/api/v1/write?db=cnos"
@@ -95,47 +95,47 @@ order: 2
       idle_conn_timeout = 10
     ```
 
-    接下来，启动 Telegraf 服务，并提供配置文件路径：
-    
-    **macOS Homebrew**
-    
+  接下来，启动 Telegraf 服务，并提供配置文件路径：
+
+  **macOS Homebrew**
+
     ```sh
     telegraf --config telegraf.conf
     ```
-    
-    **Linux (sysvinit and upstart installations)**
-    
+
+  **Linux (sysvinit and upstart installations)**
+
     ```sh
     sudo service telegraf start
     ```
-    
-    **Linux (systemd installations)**
-    
+
+  **Linux (systemd installations)**
+
     ```sh
     systemctl start telegraf
     ```
-    
-    接下来使用 CnosDB 查询接口来查看数据，以验证 Telegraf 是否正确运行：
-    
+
+  接下来使用 CnosDB 查询接口来查看数据，以验证 Telegraf 是否正确运行：
+
     ```sh
     curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用户名:密码'|base64)" 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
     ```
-    
-    在上面的命令中，有一些文本可能需要替换：
-    
+
+  在上面的命令中，有一些文本可能需要替换：
+
     - `CnosDB地址`
     - `CnosDB端口`
     - `用户名`
     - `密码`
-    
-    如：
-    
+
+  如：
+
     ```sh
     > curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo 'admin:admin'|base64)" 'http://127.0.0.1:31007/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
     ```
-    
-    在正确配置的情况下，我们能够获得以下结果：
-    
+
+  在正确配置的情况下，我们能够获得以下结果：
+
     ```json
     [
       {
@@ -310,53 +310,53 @@ CnosDB--data frame-->Grafana
 
 - **连接 CnosDB**
 
-    输入 `http://localhost:3000`，当 Grafana 正确运行，便可以看到 Grafana 登录界面了。初始用户名 `admin`，初始密码 `admin`。
-    
-    ![](../../../source/_static/img/grafana_login_page.png)
-    
-    初次登陆时，还会要求你输入新的密码。再之后，我们便进入了 Grafana 的主界面。
-    
-    ![](../../../source/_static/img/grafana_main_page_1.png)
-    
-    Grafana 提供了通用的数据接口，我们可以通过 CnosDB 数据源插件来从 CnosDB 数据库中读取数据。首先我们进入数据源配置界面。
-    
-    ![](../../../source/_static/img/grafana_main_page_2.png)
-    
-    然后点击【`Add data source`】 按钮。
-    
-    ![](../../../source/_static/img/grafana_setting_add_data_source_button.png)
-    
-    搜索 CnosDB，然后点击进入配置界面。
-    
-    ![](../../../source/_static/img/grafana_setting_add_data_source_1.png)
-    
-    在配置界面中，输入 CnosDB 的地址，以及用户名等信息，然后点击【`Save & test`】按钮。
-    
-    ![](../../../source/_static/img/grafana_setting_add_data_source_2.png)
-    
-    配置正确的情况下，之后会出现 `Data source is working` 提示，表明 Grafana 已经能够获取 CnosDB 的数据。
-    
-    ![](../../../source/_static/img/grafana_setting_add_data_source_3.png)
+  输入 `http://localhost:3000`，当 Grafana 正确运行，便可以看到 Grafana 登录界面了。初始用户名 `admin`，初始密码 `admin`。
+
+  ![](../../../source/_static/img/grafana_login_page.png)
+
+  初次登陆时，还会要求你输入新的密码。再之后，我们便进入了 Grafana 的主界面。
+
+  ![](../../../source/_static/img/grafana_main_page_1.png)
+
+  Grafana 提供了通用的数据接口，我们可以通过 CnosDB 数据源插件来从 CnosDB 数据库中读取数据。首先我们进入数据源配置界面。
+
+  ![](../../../source/_static/img/grafana_main_page_2.png)
+
+  然后点击【`Add data source`】 按钮。
+
+  ![](../../../source/_static/img/grafana_setting_add_data_source_button.png)
+
+  搜索 CnosDB，然后点击进入配置界面。
+
+  ![](../../../source/_static/img/grafana_setting_add_data_source_1.png)
+
+  在配置界面中，输入 CnosDB 的地址，以及用户名等信息，然后点击【`Save & test`】按钮。
+
+  ![](../../../source/_static/img/grafana_setting_add_data_source_2.png)
+
+  配置正确的情况下，之后会出现 `Data source is working` 提示，表明 Grafana 已经能够获取 CnosDB 的数据。
+
+  ![](../../../source/_static/img/grafana_setting_add_data_source_3.png)
 
 - **配置仪表板**
 
-    Grafana 可以通过图形化界面来配置仪表板，配置好的仪表板可以通过 JSON 格式的数据进行导出，也可以导入 JSON 格式的仪表板数据。
-    
-    我们接下来导入一段仪表板数据。
-    
-    ![](../../../source/_static/img/grafana_main_page_3.png)
-    
-    将 [JSON](https://github.com/cnosdb/docs/blob/main/assets/grafana_dashboard.json) 复制到【`import via panel json`】处，随后点击【`load`】按钮。
-    
-    ![](../../../source/_static/img/grafana_import_dashboard_1.png)
-    
-    接下来选择我们刚才配置好的 CnosDB 数据源，随后点击【`import`】按钮。
-    
-    ![](../../../source/_static/img/grafana_import_dashboard_2.png)
-    
-    我们便创建好一张仪表板了。
-    
-    ![](../../../source/_static/img/grafana_dashboard_1.png)
+  Grafana 可以通过图形化界面来配置仪表板，配置好的仪表板可以通过 JSON 格式的数据进行导出，也可以导入 JSON 格式的仪表板数据。
+
+  我们接下来导入一段仪表板数据。
+
+  ![](../../../source/_static/img/grafana_main_page_3.png)
+
+  将 [JSON](https://github.com/cnosdb/docs/blob/main/assets/grafana_dashboard.json) 复制到【`import via panel json`】处，随后点击【`load`】按钮。
+
+  ![](../../../source/_static/img/grafana_import_dashboard_1.png)
+
+  接下来选择我们刚才配置好的 CnosDB 数据源，随后点击【`import`】按钮。
+
+  ![](../../../source/_static/img/grafana_import_dashboard_2.png)
+
+  我们便创建好一张仪表板了。
+
+  ![](../../../source/_static/img/grafana_dashboard_1.png)
 
 ## Prometheus
 
@@ -384,15 +384,15 @@ CnosDB 支持Prometheus的Remote Write协议，只需要在 Prometheus 中启动
       username: 'root'
       password: ''
     ```
-    **参数说明**:
-    
+  **参数说明**:
+
     ```
     db_url: CnosDB 的Http Server地址，如 127.0.0.1:31001
     db_name: Remote Write 写入的db名字
     username: CnosDB 中用户的用户名
     password: CnosDB 中用户的用户密码
     ```
-  
+
 Prometheus的remote_write的所有配置项可以从[Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/?spm=a2c4g.11186623.0.0.231f780eoLUxCY#remote_write)
 官网得到。
 
@@ -411,19 +411,19 @@ CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启
       username: 'root'
       password: ''
     ```
-    **参数说明**:
-    
+  **参数说明**:
+
     ```
     db_url: CnosDB 的Http Server地址，如 127.0.0.1:31001
     db_name: Remote Read 读取的db名字
     username: CnosDB 中用户的用户名
     password: CnosDB 中用户的用户密码
     ```
-    
-    Prometheus的remote_write的所有配置项可以从
-    [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read)
-    官网得到。
- 
+
+  Prometheus的remote_write的所有配置项可以从
+  [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read)
+  官网得到。
+
 ## TensorFlow
 
 ### 使用 CnosDB 与 TensorFlow 进行时间序列预测

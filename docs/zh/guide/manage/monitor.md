@@ -1,10 +1,10 @@
 ---
-title: 集群监控指标
+title: 监控
 icon: leaf
-order: 5
+order: 7
 ---
 
-# 集群监控指标
+# 监控
 
 目前 CnosDB的监控指标可以通过Prometheus采集，也可以存储到CnosDB上。
 

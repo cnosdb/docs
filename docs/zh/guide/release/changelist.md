@@ -1,7 +1,7 @@
 ---
 title: 版本发布历史
 icon: type
-order: 1
+order: 2
 ---
 
 # 版本发布历史

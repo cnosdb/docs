@@ -1,10 +1,10 @@
 ---
-title: 安装CnosDB
+title: 单机版
 icon: launch
-order: 1
+order: 2
 ---
 
-# 安装CnosDB
+# 单机版
 
 ## Docker
 

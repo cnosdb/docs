@@ -1,10 +1,10 @@
 ---
-title: 查询示例
+title: 快速开始
 icon: note
-order: 2
+order: 3
 ---
 
-# 查询示例
+# 快速开始
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，我们支持DataFusion的大部分SQL语法。
 

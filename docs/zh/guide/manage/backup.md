@@ -1,10 +1,10 @@
 ---
-title: 运维管理
-order: 2
+title: 备份与还原
+order: 6
 icon: tool
 ---
 
-# 运维管理
+# 备份与还原
 
 CnosDB 可以使用 SQL`COPY INTO`把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
 
@@ -214,7 +214,7 @@ COPY INTO [<database>.]< table_name >
 - use_emulator 默认为false，当为true的时，url使用环境变量AZURITE_BLOB_STORAGE_URL或http://127.0.0.1:10000
 
 - #### 导入
-    
+
     ```sql
     COPY INTO air FROM 'azblob://test/air/'
         CONNECTION = (

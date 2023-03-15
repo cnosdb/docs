@@ -1,12 +1,12 @@
 ---
 
-title: 集群管理
+title: 集群扩容
 icon: note
 order: 4
 
 ---
 
-# 集群管理
+# 集群扩容
 
 ## 概述
 
@@ -176,35 +176,35 @@ curl http://127.0.0.1:21001/metrics
 
 - #### Meta 集群启动流程
 
-    **启动 meta-1**
-    
+  **启动 meta-1**
+
     ```sh
     ./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
     ```
-    
-    **启动 meta-2**
-    
+
+  **启动 meta-2**
+
     ```sh
     ./target/debug/cnosdb-meta --id 2 --http-addr 127.0.0.1:21002
     ```
-    
-    **启动 meta-3**
-    
+
+  **启动 meta-3**
+
     ```sh
     ./target/debug/cnosdb-meta --id 3 --http-addr 127.0.0.1:21003
     ```
-    
-    **初始化 meta**
-    
+
+  **初始化 meta**
+
     ```sh
     curl http://127.0.0.1:21001/init -d '{}'
     curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[2, "127.0.0.1:21002"]'
     curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[3, "127.0.0.1:21003"]'
     curl http://127.0.0.1:21001/change-membership -H "Content-Type: application/json" -d '[1, 2, 3]'
     ```
-    
-    **查看 meta 集群状态**
-    
+
+  **查看 meta 集群状态**
+
     ```sh
     curl http://127.0.0.1:21001/metrics
     curl http://127.0.0.1:21002/metrics
@@ -213,14 +213,14 @@ curl http://127.0.0.1:21001/metrics
 
 - #### Data 集群启动流程
 
-    **启动 data-1**
-    
+  **启动 data-1**
+
     ```sh
     ./target/debug/cnosdb run --config ./config/config_31001.toml
     ```
-    
-    **启动 data-2**
-    
+
+  **启动 data-2**
+
     ```sh
     ./target/debug/cnosdb run --config ./config/config_32001.toml
     ```

@@ -1,6 +1,6 @@
 ---
-title: 安装CnosDB
+title: 管理
 icon: launch
-order: -5
+order: -4
 index: false
 ---
