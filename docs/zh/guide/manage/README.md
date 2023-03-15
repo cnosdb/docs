@@ -1,6 +1,6 @@
 ---
 title: 管理
-icon: launch
+icon: tool
 order: -4
 index: false
 ---
