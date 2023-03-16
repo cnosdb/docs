@@ -1,76 +1,78 @@
 ---
-title: 连接器
+title: Connector
 icon: copy
 order: 4
 ---
 
-# 连接器
+# Connector
 
 ## Arrow Flight SQL
 
-### Arrow Flight SQL 简介
+### Arrow Flight SQL Introduction
 
-Arrow Flight SQL 是一种使用 Arrow 内存格式和 Flight RPC 框架与 SQL 数据库交互的协议。
+Arrow Flight SQL is a protocol for interacting with SQL databases using the Arrow in-memory format and the Flight RPC framework.
 
-目前我们支持Arrow Flight SQL 客户端的环境有：
+Our current environments that support the Arrow Flight SQL client are
 
-- [C++](#c)
-- [Go](#go)
-- [Java](#java)
-- [Rust](#rust)
-- 基于Arrow Flight SQL 的 [JDBC](#jdbc)
-- 基于Arrow Flight SQL 的 [ODBC](#odbc)
+- [C++](#c.md)
+- [Go](#go.md)
+- [Java](#java.md)
+- [Rust](#rust.md)
+- [JDBC](#JDBC.md) based on Arrow Flight SQL
+- [ODBC](#ODBC.md) based on Arrow Flight SQL
 
-### Arrow Flight SQL 优势
+### Benefits of Arrow Flight SQL
 
-1. 功能强大。功能与JDBC和ODBC等API类似，包括执行查询，创建准备好的语句。
-2. 安全。Flight，支持开箱即用的加密和身份验证等功能。
-3. 性能。与实现Arrow Flight 的客户端服务端通信，无需进行数据转化，同时允许进一步优化，如并行数据访问。
+1. Powerful functionality. Functionality similar to APIs such as JDBC and ODBC, including executing queries, creating prepared statements
+2. security. Flight, supporting features such as out-of-the-box encryption and authentication.
+3. Performance. Communicates with client-side servers that implement Arrow Flight without data transformation, while allowing further optimizations such as parallel data access.
 
-虽然它可以直接用于数据库访问，但它不能直接替代 JDBC/ODBC。 但是，Flight SQL 可以用作具体的有线协议/驱动程序实现，支持 JDBC/ODBC 驱动程序，并减少数据库的实现负担。
+While it can be used directly for database access, it is not a direct replacement for JDBC/ODBC. However, Flight SQL can be used as a specific wired protocol/driver implementation that supports JDBC/ODBC drivers and reduces the implementation burden on the database.
 
-![](../../../source/_static/img/cnosdb_arrow_flight.png)
-
-### Arrow Flight SQL 查询流程
-
-客户端使用arrow flight sql 客户端与数据库连接，查询数据，执行SQL的流程大致如下。
-
-1. 创建FlightSql客户端
-2. 验证用户名，密码
-3. 执行SQL，获取FlightInfo结构体
-4. 通过FlightInfo结构体中的FlightEndPoint获取到FlightData数据流
-
-FlightInfo中包含有关数据所在位置的详细信息，
-客户端可以从适当的服务器获取数据。
-服务器信息被编码为 FlightInfo 中的一系列 FlightEndpoint 消息。
-每个Endpoint代表包含响应数据子集的某个位置。
-
-一个FlightEndpoint包含一个服务器地址列表，
-一个Ticket, 一个服务器用来识别请求数据的二进制Token。
-FlightEndPoint 没有定义顺序，如果数据集是排序的，
-只会在一个FlightEndPoint中返回数据。
+![cnosdb_arrow_flight.png](https://github.com/cnosdb/docs/blob/main/docs/source/_static/img/cnosdb_arrow_flight.png?raw=true)
 
 
-流程图如下
+### Flow of Arrow Flight SQL Queries
 
-![流程图](../../../source/_static/img/arrow_flight_flow.png)
+The client uses arrow flight sql client to connect to the database, query data, and execute SQL in the following flow.
+
+1. create FlightSql client
+2. verify the user name and password
+3. Execute the SQL and get the FlightInfo structure
+4. Get the FlightData data stream through the FlightEndPoint in the FlightInfo structure.
+
+
+FlightInfo contains detailed information about the location of the data.
+The client can get the data from the appropriate server.
+The server information is encoded as a series of FlightEndpoint messages in FlightInfo.
+Each Endpoint represents a location that contains a subset of the response data.
+
+A FlightEndpoint contains a list of server addresses.
+a Ticket, a binary Token that the server uses to identify the requested data.
+FlightEndPoint has no defined order, and if the data set is sorted
+If the data set is sorted, the data will be returned in only one FlightEndPoint.
+
+
+The flow chart is as follows:
+
+![流程图](https://github.com/cnosdb/docs/raw/main/docs/source/_static/img/arrow_flight_flow.png)
 
 
 ### C++
 
-#### 操作流程
 
-- #### 安装Apache Arrow
-
-  你可以去[官方文档](arrow.apache.org/install/)找到详细的安装教程
-  在Mac系统下，使用brew命令就可以简单安装了。
+- #### Installing Apache Arrow
+   You can find a detailed installation tutorial in the [official  documentation](arrow.apache.org/install/)
+   On Mac systems, it's easy to install with the brew command
 
    ```shell
    brew install apache-arrow
    brew install apache-arrow-glib
    ```
 
-- #### 配置CMakeLists.txt
+
+
+- #### Configuring CMakeLists.txt
 
    ```CMake
    cmake_minimum_required(VERSION 3.24)
@@ -89,11 +91,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    target_link_libraries(arrow_flight_cpp PRIVATE ArrowFlightSql::arrow_flight_sql_shared)
    ```
 
+- #### Usage of C++ Arrow library
 
-
-- #### C++ Arrow库的用法
-
-  arrow的函数大多数是返回 `arrow::Result\<T\>` 类型，因此需要把代码写在返回值为 `arrow::Result\<T>` 的类型的函数中，如下：
+  Most of arrow's functions return the `arrow::Result\<T\>` type, so you need to write the code in a function that returns a value of the type `arrow::Result\<T>`, as follows:
 
    ```c++
     arrow::Result <std::unique_ptr<FlightClient>> get_location() {
@@ -102,9 +102,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
     }
    ```
 
-  `ARROW_ASSIGN_OR_RAISE`宏的效果是，先对右边返回值为 `arrow::Result\<T\>` 类型的表达式求值，如果出现异常，则提前return，赋上相应的Status值。
+  `ARROW_ASSIGN_OR_RAISE`The effect of the macro is to first evaluate the expression with a return value of type `arrow::Result\<T\>` on the right, and then return it early if an exception occurs, assigning the corresponding Status value.
 
-  为了方便展示，我们把代码写在`lambda`函数中。
+  For convenience, the sample code is written in the `lambda` function.
 
    ```c++
    int main() {
@@ -116,40 +116,40 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-- #### 验证身份获取令牌，并创建一个FlightSqlClient
+- #### Verify identity to obtain a token and create a FlightSqlClient
 
    ```c++
    ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
    ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
    auto user = "root";
    auto password = "";
-   //Base64加密认证
+   //Base64 Encrypted Authentication
    auto auth = client->AuthenticateBasicToken({}, user, password); 
-   ARROW_RETURN_NOT_OK(auth); // 如果result出现异常，直接return
+   ARROW_RETURN_NOT_OK(auth); // If an exception occurs in result, return directly
    FlightCallOptions call_options;
-   call_options.headers.push_back(auth.ValueOrDie()); //把认证放到调用选项中
+   call_options.headers.push_back(auth.ValueOrDie()); //Putting authentication in the call option
    auto sql_client = std::make_unique<FlightSqlClient>(std::move(client));
    ```
 
-- #### 执行sql取得FlightInfo
+- #### Execute sql to get FlightInfo
 
    ```c++
    ARROW_ASSIGN_OR_RAISE(auto info, sql_client->Execute(call_options, "select now();"));
    const auto endpoints = info->endpoints();
    ```
 
-- #### 通过FlightEndPoint取回数据
+- #### Retrieve data via FlightEndPoint
 
    ```c++
    for (auto i = 0; i < endpoints.size(); i++) {
      auto &ticket = endpoints[i].ticket; 
-     // stream中包含数据
+     // stream contains data
      ARROW_ASSIGN_OR_RAISE(auto stream, sql_client->DoGet(call_options, ticket));
-     // 获取数据的Schema
+     // Schema for obtaining data
      auto schema = stream->GetSchema();
      ARROW_RETURN_NOT_OK(schema);
      std::cout << "Schema:" << schema->get()->ToString() << std::endl;
-    // 取得并打印数据
+    // Obtain and print data
      while(true) {
        ARROW_ASSIGN_OR_RAISE(FlightStreamChunk chunk, stream->Next());
        if (chunk.data == nullptr) {
@@ -160,7 +160,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-#### 整体代码
+- #### Overall Code
 
    ```c++
    #include <iostream>
@@ -169,13 +169,13 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    using namespace arrow::flight;
    using namespace arrow::flight::sql;
    using namespace arrow;
-
+   
    int main() {
-
+   
        auto fun = []() {
            ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
            ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
-
+   
            auto user = "root";
            auto password = "";
            auto auth = client->AuthenticateBasicToken({}, user, password);
@@ -183,17 +183,17 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            ARROW_RETURN_NOT_OK(auth);
            FlightCallOptions call_options;
            call_options.headers.push_back(auth.ValueOrDie());
-
+   
            ARROW_ASSIGN_OR_RAISE(auto info, sql_client->Execute(call_options, "select now();"));
            const auto endpoints = info->endpoints();
            for (auto i = 0; i < endpoints.size(); i++) {
                auto &ticket = endpoints[i].ticket;
-
+   
                ARROW_ASSIGN_OR_RAISE(auto stream, sql_client->DoGet(call_options, ticket));
-
+   
                auto schema = stream->GetSchema();
                ARROW_RETURN_NOT_OK(schema);
-
+   
                std::cout << "Schema:" << schema->get()->ToString() << std::endl;
                while(true) {
                    ARROW_ASSIGN_OR_RAISE(FlightStreamChunk chunk, stream->Next());
@@ -205,20 +205,20 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
            return Status::OK();
        };
-
+   
        auto status = fun();
-
+   
        return 0;
    }
    ```
 
 ### Go
 
-#### 操作流程
+#### Operation flow
 
-- #### 添加依赖
+- #### Add dependencies
 
-  在go.mod中写入依赖
+  Add dependencies in `go.mod`.
 
    ```go
    require (
@@ -227,7 +227,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    )
    ```
 
-- #### 创建Flight SQL客户端
+- #### Build Flight SQL Client
 
    ```go
    addr := "127.0.0.1:31004"
@@ -240,9 +240,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      return
    }
    ```
-  addr 为CnosDB配置项`flight_rpc_listen_addr`指定的地址
+  `addr` is the address in CnosDB configure `flight_rpc_listen_addr`.
 
-- #### 设置连接凭证，并取得已经验证的上下文
+- #### Set connection credentials and retrieve the authenticated context
 
    ```go
    ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root", "")
@@ -252,7 +252,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-- #### 在已经验证的上下文中执行SQL，取得FlightInfo
+- #### Execute SQL in the authenticated context to get FlightInfo
 
    ```go
    info, err := cl.Execute(ctx, "SELECT now();")
@@ -262,10 +262,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-- #### 根据FlightInfo取得数据Reader
+- #### Get the data Reader from FlightInfo
 
    ```go
-   // 目前CnosDb仅实现了一个EndPoint
+   // CnosDB only implements one EndPoint now.
    rdr, err := cl.DoGet(ctx, info.GetEndpoint()[0].Ticket)
    if err != nil {
      fmt.Print(err)
@@ -275,7 +275,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    defer rdr.Release()
    ```
 
-- #### 操作Reader打印数据
+- #### Get the data via Reader
 
    ```go
    n := 0
@@ -292,11 +292,11 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ### Java
 
-#### 操作流程
+#### Operation flow
 
-- #### 添加依赖
+- #### Add dependencies
 
-    - 如果你使用maven构建Java项目，在pom.xml中写入依赖
+    - Add dependencies in `pom.xml`, if you use maven.
 
    ```xml
    <dependencies>
@@ -338,7 +338,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    </dependencies>
    ```
 
-    - 再写入
+    - write again
 
    ```xml
    <build>
@@ -354,7 +354,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 
 
-- #### 添加环境变量
+- #### Add environment variable
 
   ```shell
   _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED"
@@ -362,15 +362,15 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
   ```shell
   java --add-opens=java.base/java.nio=ALL-UNNAMED -jar ...
-  # 或
+  # ro
   env _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" java -jar ...
   
   
-  # 如果使用 maven 
+  # if maven used 
   _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" mvn exec:java -Dexec.mainClass="YourMainCode"
   ```
 
-- #### 构建FlightSqlClient
+- #### Build Flight SQL Client
 
    ```java
    BufferAllocator allocator = new RootAllocator(Integer.MAX_VALUE);
@@ -380,7 +380,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    FlightSqlClient sqlClinet = new FlightSqlClient(client);
    ```
 
-- #### 配置认证
+- #### Cofig Authentication
 
    ```java
    Optional<CredentialCallOption> credentialCallOption = client.authenticateBasicToken("root", "");
@@ -393,7 +393,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    CallOption[] callOptions = options.toArray(new CallOption[0]);
    ```
 
-- #### 执行SQL，取得FlightInfo
+- #### Execute SQL in the authenticated context to get FlightInfo
 
    ```java
    try (final FlightSqlClient.PreparedStatement preparedStatement = sqlClinet.prepare("select now();", callOptions)) {
@@ -404,7 +404,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    } 
    ```
 
-- #### 取得数据
+- #### Get the data
 
    ```java
    final Ticket ticket = info.getEndpoints().get(0).getTicket();
@@ -422,7 +422,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-#### 全部代码
+#### Overall Code
 
    ```java
    package org.example;
@@ -480,11 +480,11 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ### Rust
 
-代码运行在异步环境下。
+The code runs in an asynchronous environment.
 
-### 操作流程
+### Operation Flow
 
-- #### 添加依赖
+- #### Add dependencies
 
    ```toml
    arrow = {version = "28.0.0", features = ["prettyprint"] }
@@ -498,7 +498,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    base64 = "0.13.1"
    ```
 
-- #### 创建FlightServerClient
+- #### Creative Flight ServerClient
 
    ```rust
    let mut client = FlightServiceClient::connect("http://localhost:31004")
@@ -506,7 +506,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    .expect("connect faile");
    ```
 
-- #### 进行验证
+- #### Verify
 
    ```rust
    let mut req = Request::new(futures::stream::iter(iter::once(
@@ -527,7 +527,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    println!("handshake resp: {:?}", resp.metadata());
    ```
 
-- #### 执行SQL
+- #### Execute SQL
 
    ```rust
    let cmd = CommandStatementQuery {
@@ -549,7 +549,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    println!("{}", schema_ref);
    ```
 
-- #### 取得数据并打印
+- ####  Get the data and print it
 
    ```rust
    for ep in flight_info.endpoint {
@@ -602,7 +602,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-#### 完整代码
+#### Overall Code
 
    ```rust
    use std::collections::HashMap;
@@ -719,9 +719,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ## JDBC
 
-### 操作流程
+### Operation Flow
 
-- #### 添加依赖
+- #### Add dependencies
 
    ```xml
    <dependencies>
@@ -739,7 +739,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    </dependencies>
    ```
 
-- #### 添加环境变量
+- #### Add environment variables
 
    ```shell
    _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED"
@@ -747,15 +747,15 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```shell
    java --add-opens=java.base/java.nio=ALL-UNNAMED -jar ...
-   # 或
+   # or
    env _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" java -jar ...
    
    
-   # 如果使用 maven 
+   # if you use maven
    _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" mvn exec:java -Dexec.mainClass="YourMainCode"
    ```
 
-- #### 设置属性并查询
+- #### Set properties and query
 
    ```java
    package org.example;
@@ -766,9 +766,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    public class Main {
      public static void main(String[] args) {
        final Properties properties = new Properties();
-       properties.put("user", "root"); //用户名
-       properties.put("password", "");  //密码
-       properties.put("tenant", "cnosdb");//租户
+       properties.put("user", "root"); // username
+       properties.put("password", "");  // password
+       properties.put("tenant", "cnosdb");// tenant
        properties.put("useEncryption", false);
        try (
          Connection connection = DriverManager.getConnection(
@@ -791,7 +791,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-- #### 设置属性并执行SQL
+- #### Set properties and execute SQL
 
    ```java
    package org.example;
@@ -842,31 +842,32 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ## ODBC
 
-目前仅支持x86_64架构的系统，linux仅支持centos和redhat系列发行版。
+Currently only x86_64 architecture systems are supported, linux only supports centos and redhat series distributions
 
-更多关于Arrow Flight SQL ODBC的内容，请查看[Dremio文档](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/)。
+For more on Arrow Flight SQL ODBC, see the [Dremio documentation](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/)
 
-以下步骤基于Centos7。
+The following steps are based on Centos7.
 
-### 操作流程
+### Operation Flow
 
-- #### 安装ODBC管理器
+- #### Install ODBC Manager
 
-  在Linux下安装unixODBC
+     Install unixODBC under Linux
 
    ```shell
    yum install unixODBC-devel
    ```
 
-- #### 安装arrow-flight-odbc驱动
+- #### Install arrow-flight-odbc driver
 
    ```shell
    wget https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm 
    yum localinstall arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm 
    ```
 
-- #### 修改配置文件
-  修改位于`/etc/odbc.ini`的配置文件。
+- #### Modify the configuration file
+
+   Modify the configuration file located in `/etc/odbc.ini`.
 
    ```
    [ODBC Data Sources]
@@ -886,15 +887,15 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    UseSystemTrustStore=true
    ```
 
-  其中 UID是用户名，PWD是密码。
+   where UID is the user name and PWD is the password.
 
-- #### 测试是否连接
+- ####  test whether the connection
 
    ```shell
    isql -v CNOSDB
    ```
 
-  如果出现如下内容，说明连接成功。
+   If the following appears, the connection is successful.
 
    ```
    +---------------------------------------+
@@ -908,9 +909,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    SQL>
    ```
 
-  下面进入代码测试。
+   Go to the code test below.
 
-- #### 编写cmake
+- #### Writing cmake
 
    ```cmake
    cmake_minimum_required(VERSION 3.24)
@@ -924,7 +925,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    target_link_libraries(arrow_flight_odbc ${ODBC_LIBRARY})
    ```
 
-- #### 编写c语言代码 main.c
+- #### Write c code main.c
 
    ```c
    #include <stdio.h>
@@ -938,30 +939,30 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      SQLRETURN ret;
      
      
-     // 分配环境内存
+     // Allocate environment memory
      ret = SQLAllocEnv(&henv);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Unable to allocate an environment handle");
        return -1;
      }
-     // 设置环境属性
+     // Setting environmental properties
      ret = SQLSetEnvAttr(henv,  SQL_ATTR_ODBC_VERSION, (void *) SQL_OV_ODBC3, 0);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Unable to set env attr");
        return -1;
      }
-     // 分配连接内存
+     // Allocate connection memory
      ret = SQLAllocConnect(henv, &hdbc);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Unable to allocate connection");
      }
-     //连接到driver
+     //Connect to driver
      ret = SQLDriverConnect(hdbc, NULL, (SQLCHAR*) "DSN=CNOSDB;UID=root;PWD=", SQL_NTS,
                             NULL, 0, NULL, SQL_DRIVER_NOPROMPT);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "connect fail");
      }
-     // 分配语句空间
+     // Allocate statement space
      SQLAllocStmt(hdbc, &hsmt);
    
      SQLCHAR *sql = "CREATE TABLE IF NOT EXISTS air (\n"
@@ -969,7 +970,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        " temperature DOUBLE,\n"
        " pressure    DOUBLE,\n"
        " TAGS(station));";
-     // 执行 Create table
+     // Execute Create table
      ret = SQLExecDirect(hsmt, sql, SQL_NTS);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Execute create fail");
@@ -978,14 +979,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
     
      sql = "INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES\n"
        "    (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);";
-     // 执行 insert
+     // Execute insert
      ret = SQLExecDirect(hsmt, sql, SQL_NTS);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Execute insert fail");
      }
    
      sql = "SELECT * FROM air LIMIT 1";
-     //执行查询
+     //Execution of queries
      ret = SQLExecDirect(hsmt, sql ,SQL_NTS);
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Execute query fail");
@@ -995,13 +996,13 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      SQLDOUBLE visibility, temperature, pressure;
      long time_len, station_len;
      
-     // 获取结果集
+     // Get result set
      while (1) {
        ret = SQLFetch(hsmt);
        if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO) {
          printf("error SQLFetch");
        }
-       // 获取列的数据
+       // Get the data of a column
        if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO) {
          SQLGetData(hsmt, 1, SQL_C_TIMESTAMP, &time, 0, NULL);
          SQLGetData(hsmt, 2, SQL_C_CHAR, station, 50, &station_len);
@@ -1020,23 +1021,23 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ## Python
 
-随着分布式新版本的发布，细心的小伙伴们想必已经发现CnosDB 2.0已经全面支持了Python。通过调用连接器cnos-connector， 实现了CnosDB 2.0与Python 的连接。cnos-connector 封装了对 CnosDB 的请求，使在Python环境下使用CnosDB更加简洁、易用。同时，cnos-connector提供了符合 [PEP 249](https://peps.python.org/pep-0249/) 的编程接口，更易与 SQLAlchemy 以及 pandas 进行交互。
+With the release of the new version of the distribution, attentive friends will have noticed that CnosDB 2.0 has fully supported Python. cnos-connector enables the connection between CnosDB 2.0 and Python by calling the connector cnos-connector. cnos-connector encapsulates the requests to CnosDB, making it simpler and easier to use CnosDB in Python. It makes using CnosDB in Python environment more concise and easy to use. At the same time, cnos-connector provides a [PEP 249](https://peps.python.org/pep-0249/) compliant programming interface, which makes it easier to interact with SQLAlchemy and pandas.
 
-cnos-connector 已全部开源，源码位于 [GitHub](https://github.com/cnosdb/cnosdb-client-python)
+cnos-connector is fully open source and the source code is located on [GitHub](https://github.com/cnosdb/cnosdb-client-python)
 
-### 安装
+### Installation
 
-使用 pip 下载安装 cnos-connector，需要 Python 版本大于等于 3.6
+Download and install cnos-connector using pip, which requires Python version greater than or equal to 3.6
 
 ```
 pip install cnos-connector
 ```
 
-### 使用示例
+### Usage Examples
 
-#### 查询示例
+#### Query example
 
-- #### 通过SQL进行查询
+- #### Query by SQL
 
   ```python
   from cnosdb_connector import connect
@@ -1046,7 +1047,7 @@ pip install cnos-connector
   print(resp)
   ```
 
-- #### 通过接口定义的函数查询
+- #### Query by function defined by the interface
 
   ```python
   from cnosdb_connector import connect
@@ -1057,7 +1058,7 @@ pip install cnos-connector
   print(resp)
   ```
 
-- #### 通过PEP-249进行查询，详细信息请参考 [PEP-249](https://peps.python.org/pep-0249/)。
+- #### Search through PEP-249, for more information, please refer to [PEP-249](https://peps.python.org/pep-0249/)
 
   ```python
   from cnosdb_connector import connect
@@ -1070,7 +1071,7 @@ pip install cnos-connector
   print(resp)
   ```
 
-- #### 通过pandas进行查询，pandas支持PEP-249的规范
+- #### Querying via pandas, which supports the PEP-249 specification
 
   ```python
   import pandas as pd
@@ -1082,9 +1083,9 @@ pip install cnos-connector
   print(resp)
   ```
   
-#### 写入示例
+#### Writing example
 
-- #### 支持Line Protocol的方式进行数据的写入
+- #### supports the Line Protocol method for writing data.
 
   ```python
   from cnosdb_connector import connect
@@ -1104,7 +1105,7 @@ pip install cnos-connector
   print(resp)
   ```
 
-- #### 支持SQL的方式进行写入
+- #### Support SQL for writing
 
   ```python
   from cnosdb_connector import connect
@@ -1120,7 +1121,7 @@ pip install cnos-connector
   print(resp)
   ```
 
-- #### 支持CSV的方式进行写入
+- #### Support for writing in CSV format
 
   ```python
   from cnosdb_connector import connect
@@ -1143,9 +1144,9 @@ pip install cnos-connector
   print(resp)
   ```
 
-### 接口文档
+### Interface Documentation
 
-为了便于用户更加方便地连接使用 CnosDB，cnosdb_connector 对于一些常用的 SQL 进行了简单的封装。
+In order to make it easier for users to connect to CnosDB, cnosdb_connector provides a simple wrapper for some common SQL.
 
 ```python
 # CREATE DATABASE database_name;
@@ -1172,4 +1173,4 @@ def list_database(self)
 # SHOW TABLES;
 def list_table(self)
 ```
-如果您对接口封装有更好的想法，欢迎向我们 Python 连接器的[源码仓库](https://github.com/cnosdb/cnosdb-client-python)提交PR。
+If you have a better idea for an interface wrapper, feel free to submit a PR to our Python Connector[source code repository](https://github.com/cnosdb/cnosdb-client-python).

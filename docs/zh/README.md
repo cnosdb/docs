@@ -45,7 +45,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 ## 管理
 
-本章节介绍了 CnosDB 单机版与集群版的管理与监控
+本章节介绍了 CnosDB 单机版与集群版的管理与监控。
 
 - [管理](docs/zh/guide/manage/index.md)
   - [节点升级](docs/zh/guide/manage/upgrade.md) 

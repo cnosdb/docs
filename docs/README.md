@@ -11,7 +11,9 @@ type: primary
 copyright: false
 ---
 
-CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in [GitHub](https://github.com/cnosdb/cnosdb).
+# Home
+
+CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.
 
 We design to take full advantage of the characteristics of temporal data, including structured data, no transactions, less delete updates, write more read less, etc. Therefore, compared with other temporal databases, CnosDB has the following characteristics:
 
@@ -22,48 +24,64 @@ We design to take full advantage of the characteristics of temporal data, includ
 
 This chapter focuses on the current basics of CnosDB, quick start, implementation principles, ecological integration and cloud-native plans, etc., to give you a full understanding of CnosDB.
 
-## QuickStart
+
+## Get Started
+
 This chapter introduces the basic operations of CnosDB, including writing data, querying data, etc.
- - [Quick start](./en/quick_start.html)
 
-## Run the installation
-This section describes how to install and run CnosDB using one of the following.
-- [Docker](./en/install_cnosdb.md#docker)
-- [Starting with the source code](./en/install_cnosdb.md#source-code-installation)
+- [Get Started](./en/start/index.md)
+    - [Install](./en/start/install.md)
+    - [Quick Start](./en/start/quick_start.md)
 
-## Basics
-This section introduces some basic concepts of CnosDB.
-- [Basic concents](./en/concept.md)
+## Develop
 
-# Application Integration
 This section describes how to integrate CnosDB into your application.
-- [Rust](./en/application/application.md#rust)
-- [Golang](./en/application/application.md#golang)
-- [Java](./en/application/application.md#java)
-- [HTTP API](../en/guide/application/api.md)
 
-## SQL Manual
-This section contains the following.
-- [SQL](./en/query/sql.md)
-- [functions](./en/query/select_function.md)
+- [Develop](./en/develop/index.md)
+    - [Connect to CnosDB](./en/develop/api.md)
+    - [Write Data](./en/develop/write.md)
+    - [Query Data](./en/develop/query.md)
 
-## Eco Integration
-This section contains the following.
-- [grafana](./en/ecology/grafana.md)
-- [telegraf](./en/ecology/telegraf.md)
+## Deploy
 
-## Cloud
-This section contains the following.
-- Cloud
+This section describes how to install and run the single or cluster CnosDB, as well as the compute storage separation architecture for CnosDB.
 
-## Version release
-This section contains the following.
-- [Release History](./en/release/changelist.md)
-- [Evolutionary Route](./en/release/roadmap.md)
+- [Deploy](./en/deploy/index.md)
+    - [Single](./en/deploy/single.md)
+    - [Distributed](./en/deploy/distributed.md)
+    - [Separation Mod](./en/deploy/separation_mod.md)
 
-## Implementation Principles
-This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc.
-- [System Architecture](./en/design/arch.md)
-- [Configuration](./en/design/config.md)
-- [Compression Algorithm](./en/design/compress.md)
-- [Reference]
+## Manage
+
+This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition。
+
+- [Manage](./en/manage/index.md)
+    - [Upgrade](./en/manage/upgrade.md)
+    - [Node Migration](./en/manage/migration.md)
+    - [Cluster Expansion](./en/manage/cluster_expansion.md)
+    - [Cluster Shrink](./en/manage/cluster_shrink.md)
+    - [Backup and Restore](./en/manage/backup.md)
+    - [Monitor](./en/manage/monitor.md)
+    - [Tenants and Permissions](./en/manage/tenant.md)
+
+# Reference
+
+This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc. This chapter also introduces how to use CnosQL.
+
+- [Reference](./en/reference/index.md)
+    - [Design](./en/reference/design.md)
+    - [REST API](./en/reference/rest_api.md)
+    - [Connector](./en/reference/connector.md)
+    - [SQL](./en/reference/sql.md)
+    - [Configure](./en/reference/config.md)
+    - [Tools](./en/reference/tools.md)
+    - [Eco-integration](./en/reference/ecosystem.md)
+    - [Benchmark](./en/reference/performance.md)
+
+## Releases
+
+This section describes the version release history of CnosDB.
+
+- [Releases](./en/release/index.md)
+    - [Change List](./en/release/changelist.md)
+    - [Roadmap](./en/release/roadmap.md)

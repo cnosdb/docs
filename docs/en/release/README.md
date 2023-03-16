@@ -1,6 +1,6 @@
 ---
-title: Version Release
+title: Releases
 icon: copy
-order: -2
 index: false
+order: -1
 ---

@@ -22,6 +22,7 @@ CnosDB的设计目标是为了解决海量时序数据的存储和查询问题�
   - [数据查询](./install.md#数据查询)
 - [快速开始](./quick_start.md)
   - [示例数据](./quick_start.md#示例数据)
+  - [语法](./quick_start.md#语法)
   - [SELECT子句](./quick_start.md#select-子句)
   - [别名](./quick_start.md#别名)
   - [LIMIT子句](./quick_start.md#limit-子句)

@@ -188,7 +188,7 @@ CnosDB-Telegraf 基于 Telegraf (re1.25, commit 86cd0c0c2) 进行开发，增加
    data_format = "opentsdbtelnet"
    ```
 
-### Output Plugin
+#### Output Plugin
 
 增加 Output 插件 CnosDB，用于将指标输出到 CnosDB。
 
@@ -209,7 +209,7 @@ database = "telegraf"
 | password | 密码               |
 | database | CnosDB 数据库       |
 
-### Input Plugin
+#### Input Plugin
 
 增加配置参数 high_priority_io，用于开启端到端模式。
 
@@ -224,18 +224,18 @@ data_format = "opentsdb"
 high_priority_io = true
 ```
 
-以上配置与在 [Output](#output) 章节中的配置相比，增加了 `high_priority_io = true` 配置项。
+以上配置与在 [Output Plugin](#output-plugin) 章节中的配置相比，增加了 `high_priority_io = true` 配置项。
 
 ### 构建
 
-1. [安装 Go](https://golang.org/doc/install) >=1.18 (推荐 1.18.0 版本)
-2. 从 Github 克隆仓库:
+- #### [安装 Go](https://golang.org/doc/install) >=1.18 (推荐 1.18.0 版本)
+- #### 从 Github 克隆仓库:
 
    ```shell
    git clone https://github.com/cnosdb/cnos-telegraf.git
    ```
 
-3. 在仓库目录下执行 `make build`
+- #### 在仓库目录下执行 `make build`
 
    ```shell
    cd cnos-telegraf
@@ -244,41 +244,41 @@ high_priority_io = true
 
 ### 启动
 
-执行以下指令，查看用例:
+- #### 执行以下指令，查看用例:
 
-```shell
-telegraf --help
-```
+  ```shell
+  telegraf --help
+  ```
 
-#### 生成一份标准的 telegraf 配置文件
+- #### 生成一份标准的 telegraf 配置文件
 
-```shell
-telegraf config > telegraf.conf
-```
+  ```shell
+  telegraf config > telegraf.conf
+  ```
 
-#### 生成一份 telegraf 配置文件，仅包含 cpu 指标采集 & influxdb 输出两个插件
+- #### 生成一份 telegraf 配置文件，仅包含 cpu 指标采集 & influxdb 输出两个插件
 
-```shell
-telegraf config --section-filter agent:inputs:outputs --input-filter cpu --output-filter influxdb
-```
+  ```shell
+  telegraf config --section-filter agent:inputs:outputs --input-filter cpu --output-filter influxdb
+  ```
 
-#### 运行 telegraf 但是将采集指标输出到标准输出
+- #### 运行 telegraf 但是将采集指标输出到标准输出
 
-```shell
-telegraf --config telegraf.conf --test
-```
+  ```shell
+  telegraf --config telegraf.conf --test
+  ```
 
-#### 运行 telegraf 并通过配置文件来管理加载的插件
+- #### 运行 telegraf 并通过配置文件来管理加载的插件
+  
+  ```shell
+  telegraf --config telegraf.conf
+  ```
 
-```shell
-telegraf --config telegraf.conf
-```
+- #### 运行 telegraf，仅加载 cpu & memory 指标采集，和 influxdb 输出插件
 
-#### 运行 telegraf，仅加载 cpu & memory 指标采集，和 influxdb 输出插件
-
-```shell
-telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb
-```
+  ```shell
+  telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb
+  ```
 
 
 ## Grafana
@@ -363,11 +363,12 @@ CnosDB--data frame-->Grafana
 ### 简介
 
 Prometheus 是一款面向云原生的监控软件，支持众多软件、系统的数据采集与监控。
-本文介绍如何通过 Prometheus Remote Read/ Write 接口,配置 CnosDB 作为Prometheus终端
+
+本文介绍如何通过 Prometheus Remote Read/ Write 接口,配置 CnosDB 作为Prometheus终端。
 
 ### 前置条件
 
-启动 CnosDB服务，获取 CnosDB 服务的地址
+启动 CnosDB服务，获取 CnosDB 服务的地址。
 
 ### Remote Write
 
@@ -477,7 +478,7 @@ Column 6: Number of observations used to compute the monthly mean total sunspot 
 Column 7: Definitive/provisional marker. '1' indicates that the value is definitive. '0' indicates that the value is still provisional.
 ```
 
-我们使用 `pandas` 进行文件加载和预览
+我们使用 `pandas` 进行文件加载和预览。
 
 ```python
 import pandas as pd
@@ -520,7 +521,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 
 （注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com/）
 
-在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 CnosDB CLI 工具直接访问 CnosDB：
+在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](./tools.md) 工具直接访问 CnosDB：
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.2.1-beta
 
@@ -573,7 +574,7 @@ conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-如果不习惯使用 CnosDB CLI，我们也可以直接使用 Python Connector 创建数据表
+如果不习惯使用 [CnosDB CLI](./tools.md) ，我们也可以直接使用 Python Connector 创建数据表。
 
 ```python
 # 创建 tf_demo database
@@ -585,12 +586,12 @@ print(conn.list_database())
 cursor.execute("CREATE TABLE sunspot (date STRING, mssn DOUBLE,);")
 print(conn.list_table())
 ```
-输出如下，其中包括 CnosDB 默认的 Database
+输出如下，其中包括 CnosDB 默认的 Database。
 ```python
 [{'Database': 'tf_demo'}, {'Database': 'usage_schema'}, {'Database': 'public'}]
 [{'Table': 'sunspot'}]
 ```
-将之前 pandas 的 dataframe 写入 CnosDB
+将之前 pandas 的 dataframe 写入 CnosDB.
 ```python
 ### df 为pandas的dataframe，"sunspot"为CnosDB中的表名，['date', 'mssn']为需要写入的列的名字
 ### 如果写入的列不包含时间列，将会根据当前时间自动生成

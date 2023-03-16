@@ -1,16 +1,16 @@
 ---
-title: 目录
+title: Index
 icon: note
 order: 1
 ---
 
-# 版本发布
+# Releases
 
-本章节介绍了 CnosDB 的版本发布历史。
+This section describes the version release history of CnosDB.
 
-- [版本发布历史](./changelist.md)
+- [Change List](./changelist.md)
   - [v2.2.0](./changelist.md#v220)
   - [v2.1.0](./changelist.md#v210)
   - [v2.0.1](./changelist.md#v201)
   - [v2.0.0](./changelist.md#v200)
-- [版本发布计划](./roadmap.md)
+- [Roadmap](./roadmap.md)
