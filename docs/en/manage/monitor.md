@@ -6,110 +6,142 @@ order: 7
 
 # Monitor
 
-目前 CnosDB的监控指标可以通过Prometheus采集，也可以存储到CnosDB上。
+Currently, CnosDB metrics can be collected by Prometheus or stored on CnosDB.
 
-如果期待CnosDB支持更多的指标，请在仓库上发送ISSUE
+If you would like to see more metrics supported by CnosDB, please send an ISSUE to the [repository](https://github.com/cnosdb).
 
-## Data节点监控指标
+## Data Node Monitor Metrics
 
 ### DISK_STORAGE
-#### 名称
+
+#### Name
+
 disk_storage
-#### 种类
+
+#### Type
+
 Gauge
-#### 描述
-vnode_id 占据的磁盘数
 
-#### 标签
+#### Discription
 
-| 字段       | 描述              |
-|----------|-----------------|
-| DATABASE | vnode 所属的数据库    |
-| NODE_ID  | data节点的ID       |
-| TENANT   | vnode 所属的租户名称   |
-| VNODE_ID | vnode 的 ID      |
-| VALUE    | vnode 所占磁盘大小    |
+The disk that the Vnode occupies.
+
+#### Tag
+
+| Field    | Discription                   |
+|----------|-------------------------------|
+| DATABASE | Database vnode belongs to     |
+| NODE_ID  | ID of data node               |
+| TENANT   | tenant vnode belongs to       |
+| VNODE_ID | ID of Vnode                   |
+| VALUE    | Disk that the Vnode occupies. |
 
 
 ### DATA_IN
 
-#### 名称
-data_in
-#### 种类
-Count
-#### 描述
-数据写入到数据库时，写入流量的总大小
-#### 标签
+#### Name
 
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计data_in的时间     |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| VALUE    | 写入流量的总大小Bytes         |
+data_in
+
+#### Type
+
+Count
+
+#### Discription
+
+The total size of the written traffic when data is written to the database.
+
+#### Tag
+
+| Field    | Discription                                  |
+|----------|----------------------------------------------|
+| TIME     | Time of data_in                              |
+| DATABASE | DatabaseName                                 |
+| NODE_ID  | ID of data node                              |
+| TENANT   | Tenant name the database belongs to          |
+| VALUE    | The total size of the write traffic in Bytes |
 
 
 ### DATA_OUT
-#### 名称
-data_out
-#### 种类
-Count
-#### 描述
-从数据库读取数据的总流出流量
-#### 标签
 
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计data_out的时间    |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| VALUE    | 读取流量的总大小单位Bytes         |
+#### Name
+
+data_out
+
+#### Type
+
+Count
+
+#### Discription
+
+Total outflow traffic for reading data from the database.
+
+#### Tag
+
+| Field    | Discription                                 |
+|----------|---------------------------------------------|
+| TIME     | Time of data out                            |
+| DATABASE | Database name                               |
+| NODE_ID  | ID of data node                             |
+| TENANT   | Tenant name the database belongs to         |
+| VALUE    | The total size of the read traffic in Bytes |
 
 ### QUERIES
 
-#### 名称
+#### Name
+
 queries
-#### 种类
+
+#### Type
+
 Count
-#### 描述
-该指标记录用户查询DB的次数
-#### 标签
+
+#### Discription
+
+The times the user queries from the database.
+
+#### Tag
 
 
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计queries的时间     |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| USER     | 用户名称             |
-| VALUE    | 用户查询次数           |
+| Field    | Discription                                   |
+|----------|-----------------------------------------------|
+| TIME     | Time of queries                               |
+| DATABASE | Database name                                 |
+| NODE_ID  | ID of data node                               |
+| TENANT   | Tenant name the database belongs to           |
+| USER     | User name                                     |
+| VALUE    | The times the user queries from the database. |
 
 ### WRITES
 
-#### 名称
+#### Name
+
 writes
-#### 种类
+
+#### Type
+
 Count
-#### 描述
-该指标记录用户写入DB的次数
-#### 标签
 
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计writes的时间      |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| USER     | 用户名称             |
-| VALUE    | 用户写入次数           |
+#### Discription
+
+The times the user writes to the database.
+
+#### Tag
+
+| Field    | Discription                                |
+|----------|--------------------------------------------|
+| TIME     | Time of writes                             |
+| DATABASE | Database name                              |
+| NODE_ID  | ID of data node                            |
+| TENANT   | Tenant name the database belongs to        |
+| USER     | User name                                  |
+| VALUE    | The times the user writes to the database. |
 
 
-## Prometheus 采集
+## Prometheus Monitor
 
-只需要在Prometheus配置文件处加上Job
+Just add Job at the Prometheus configuration file.
+
 ```yaml
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
@@ -117,11 +149,12 @@ scrape_configs:
     static_configs:
       - targets: ['127.0.0.1:31001']
 ```
-参数说明：
-targets 填入CnosDB Http 服务地址
+**Params**
+
+`targets` is the adderss of CnosDB Http.
 
 
-## 存储到 CnosDB 上
+## Store to CnosDB 
 
 在[配置文件](cluster.md#配置项-cluster)中修改`store_metrics`参数为 `true` （默认为true）
 

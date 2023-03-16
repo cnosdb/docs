@@ -135,11 +135,11 @@ Vnode is a virtual running unit and is distributed to a specific Node. Each Vnod
 
 The high availability of data can be maintained through data replica set. Each db has its own replica group representing the number of data redundants. A set of Vnotes within the same bucket forms a replica group with the same data and inverted index information.
 
-#### Place rule
+#### Place Rule
 
 To address the possibility of concurrent failures, the meta node may need to ensure that data copies are located on devices that use different nodes, racks, power sources, controllers and physical locations, when creating bucket. Considering that different tenants will access data at different region, Vnote should be dispatched and discharged by the way of optimal cost.
 
-#### Data separation strategy:
+#### Data Separation Strategy
 
 Data from different tenants on Node are physically segmented.
 
@@ -147,7 +147,7 @@ Data from different tenants on Node are physically segmented.
 
 ![数据分割目录存储](../../source/_static/img/data_path.jpg)
 
-#### Data Consensus based on Quorum mechanism
+#### Data Consensus Based on Quorum Mechanism
 
 - #### The Cnosdb2.0 is implemented as a system with final consistency.
 
@@ -184,18 +184,18 @@ Data from different tenants on Node are physically segmented.
 
     When a write request is received, the cordinator determines the physical node (note) where the data to be stored, based on the partition policy and the corresponding placement rules (place-rule). As long as at least W nodes return to success, the writing operation is considered successful.
 
-#### Writer process
+#### Writer Process
 
 ![write](../../source/_static/img/write.jpg)
 
-#### Data reading
+#### Data Reading
 
 When a read request is received, the cordinator determines that the physical node (note) where the data to be stored and requires this key corresponding data based on the partition policy and the corresponding placement rules (place-rule), and at present we do not perform the function of read repair (read repair) to initiate only one reading request. In the case of delay in reading, initiate a second reading request.
 
 
 ![read](../../source/_static/img/read.jpg)
 
-#### Update of conflicts
+#### Update of Conflicts
 
 1.  After data creates conflict in a time series scenario, use consistency hash to be replaced by the first copy (replaica) as a confirmation point
 2.  At the same time, the last-write-win strategy is used to resolve conflicts.
@@ -239,7 +239,7 @@ tskv mainly undertakes data and index storage, manages all Vnodes on node, each 
 
 ![tskv](../../source/_static/img/tskv.jpg)
 
-#### IndexEngine
+#### Index Engine
 
 Indexes used to store time series data are usually models that read more and write less, mainly quickly indexing and tagkey-based conditional filtering to filter out the right series.
 
@@ -287,7 +287,7 @@ Indexes is built when the data is written. In time series database, each tag is 
     - Multiple query conditions intersect and or need to operate multiple `List\<SereesID\>`.
   - The TagValue sequence is required to store traverse access. Used `show tag value` query HashList structure requires one maintenance, inert loading in memory. `HashID-> List \< (SeriesKey, SereesID) >` and `TagValue-> List \<SeriesID>` are persistent.
 
-#### DataEngine
+#### Data Engine
 
 Data used primarily to store time series data are usually scenes that write more and read less, using LSM models, mainly to write data quickly, while removing expired and deleted data through context. DataEngine is divided into the following modules:
 
