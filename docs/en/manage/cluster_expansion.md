@@ -161,7 +161,7 @@ path = '/tmp/cnosdb/hh'
 | query_sql_limit         | 16777216          | Maximum length of SQL (bytes)                                |
 | auth_enabled            | false             | Whether to check the identity information of each query request, when set to true, the execution of SQL will check whether the user has the corresponding permission. |
 
-#### 配置项 storage
+#### Configuration storage
 
 | **Configuration items** | **Default Value** | **Description**                                              |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |
@@ -173,7 +173,7 @@ path = '/tmp/cnosdb/hh'
 | max_compact_size        | 2147483648        | Total maximum selected file size per compaction job (bytes)  |
 | strict_write            | false             | Whether to ensure that each write request strictly conforms to the Table's Schema; when set to true, write requests are not checked for Schema conformance |
 
-#### 配置项 wal
+#### Configuration wal
 
 | **Configuration items** | **Default Value** | **Description**                                              |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |
@@ -181,21 +181,21 @@ path = '/tmp/cnosdb/hh'
 | path                    | data/wal          | WAL file directory                                           |
 | sync                    | false             | Whether to ensure that every WAL write request is flushed to disk |
 
-#### 配置项 cache
+#### Configuration cache
 
 | **Configuration items** | **Default Value** | **Description**                                              |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |
 | max_buffer_size         | 134217728         | Maximum writable size (in bytes) per active cache in a single Vnode |
 | max_immutable_number    | 4                 | The maximum number of inactive caches in a single Vnode, and when the number is reached, the inactive cache is written to disk |
 
-#### 配置项 log
+#### Configuration log
 
 | **Configuration items** | **Default Value** | **Description**                                              |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |
 | level                   | info              | Logging level, optionally  trace \| debug \| info \| warn \| error |
 | path                    | data/log          | Log file directory                                           |
 
-#### 配置项 security
+#### Configuration security
 
 **security.tls_confg**
 
@@ -204,7 +204,7 @@ path = '/tmp/cnosdb/hh'
 | certificate             | data/tls/server.crt | data/tls/server.crt |
 | private_key             | data/tls/server.key | data/tls/server.key |
 
-#### 配置项 cluster
+#### Configuration cluster
 
 | **Configuration items** | **Default Value** | **Description**                      |
 | ----------------------- | ----------------- | ------------------------------------ |
@@ -216,7 +216,7 @@ path = '/tmp/cnosdb/hh'
 | grpc_server             | 127.0.0.1:31008   | GRPC Service Listening Address       |
 | tcp_server              | 127.0.0.1:31009   | TCP Service Listening Address        |
 
-#### 配置项 hintedoff
+#### Configuration hintedoff
 
 | **Configuration items** | **Default Value** | **Description**                                              |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |

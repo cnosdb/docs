@@ -1,19 +1,19 @@
 ---
-title: 备份与还原
+title: Backup and Restore
 order: 6
 icon: tool
 ---
 
-# 备份与还原
+# Backup and Restore
 
-CnosDB 可以使用 SQL`COPY INTO`把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
+CnosDB can use SQL `COPY INTO` to export data to local or object stores, as well as import data from object stores and local filesystems.
 
-支持的文件格式有CSV/JSON/PARQUET，目前支持的对象存储有`AWS S3`, `Google Cloud
-Storage`, `Microsoft Azure`
+Supported file formats are CSV/JSON/PARQUET, and currently supported object stores are `AWS S3`, `Google Cloud Storage`, `Microsoft Azure`.
 
-## 导出
 
-### 语法
+## Export
+
+### Syntax
 
 ```sql
 COPY INTO externalLocation
@@ -55,32 +55,32 @@ COPY INTO externalLocation
 
 ```
 
-### 示例
+### Examples
 
-- #### 导出成 CSV
+- #### Export as CSV
 
     ```sql
     COPY INTO 'file:///tmp/air' FROM air
         FILE_FORMAT = (TYPE = 'CSV', DELIMITER = ',');
     ```
 
-- #### 导出成 PARQUET
+- #### Export as PARQUET
 
     ```sql
     COPY INTO 'file:///tmp/air' FROM air
         FILE_FORMAT = (TYPE = 'PARQUET');
     ```
 
-- #### 导出成 JSON
+- #### Export as JSON
 
     ```sql
     COPY INTO 'file:///tmp/air' FROM air
         FILE_FORMAT = (TYPE = 'JSON');
     ```
 
-## 导入
+## Import
 
-### 语法
+### Syntax
 
 ```sql
 COPY INTO [<database>.]< table_name >
@@ -120,36 +120,36 @@ COPY INTO [<database>.]< table_name >
     
 ```
 
-**注意**：导入之前，请确定目标表已经存在，并且列名和列的类型对应
+**Notice**：Before importing, make sure the target table already exists and that the column names match the column types.
 
-### 示例
+### Examples
 
-- #### 导入 CSV
+- #### Import CSV
 
     ```sql
     COPY INTO air FROM 'file:///tmp/air/'
         FILE_FORMAT = (TYPE = 'CSV', DELIMITER = ',');
     ```
 
-- #### 导入 PARQUET
+- #### Import PARQUET
 
     ```sql
     COPY INTO air FROM 'file:///tmp/air/'
         FILE_FORMAT = (TYPE = 'PARQUET', DELIMITER = ',');
     ```
 
-- #### 导入 JSON
+- #### Import JSON
 
     ```sql
     COPY INTO air FROM 'file:///tmp/air/'
         FILE_FORMAT = (TYPE = 'JSON', DELIMITER = ',');
     ```
 
-## 各对象存储示例
+## Object Store Examples
 
 ### AWS S3
 
-- #### 导入
+- #### Import
 
     ```sql
     COPY INTO air FROM 's3://test/air/'
@@ -161,7 +161,7 @@ COPY INTO [<database>.]< table_name >
         FILE_FORMAT = (TYPE = 'CSV');
     ```
 
-- #### 导出
+- #### Export
 
     ```sql
     COPY INTO 's3://test/air' FROM air
@@ -175,14 +175,14 @@ COPY INTO [<database>.]< table_name >
 
 ### Google Cloud Storage
 
-连接有四个参数
+There are four parameters in the connection options for Google Cloud Storage:
 
 - gcs_base_url
-- disable_oauth 关闭验证开关，为false时，必须指定 client_email, private_key 参数
+- disable_oauth： Turn off validation switch. If `false`, `client_email`, `private_key` parameters must be specified.
 - client_email
 - private_key
 
-- #### 导入
+- #### Import
 
     ```sql
     COPY INTO air FROM 'gcs://test/air/'
@@ -193,7 +193,7 @@ COPY INTO [<database>.]< table_name >
         FILE_FORMAT = (TYPE = 'CSV');
     ```
 
-- #### 导出
+- #### Export
 
     ```sql
     COPY INTO 'gcs://test/air' FROM air
@@ -206,14 +206,14 @@ COPY INTO [<database>.]< table_name >
 
 ### Microsoft Azure
 
-参数有四个
+There four parameters in the connection options for Microsoft Azure:
 
 - account
 - access_key
 - bearer_token
-- use_emulator 默认为false，当为true的时，url使用环境变量AZURITE_BLOB_STORAGE_URL或http://127.0.0.1:10000
+- use_emulator The default is `false`, and when `true`, the url uses the environment variable` AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000` .
 
-- #### 导入
+- #### Import
 
     ```sql
     COPY INTO air FROM 'azblob://test/air/'
@@ -224,7 +224,7 @@ COPY INTO [<database>.]< table_name >
         FILE_FORMAT = (TYPE = 'CSV'); 
     ```
 
-- #### 导出
+- #### Export
 
     ```sql
     COPY INTO 'azblob://test/air/' FROM air

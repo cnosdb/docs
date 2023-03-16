@@ -6,10 +6,9 @@ icon: tool
 
 # 备份与还原
 
-CnosDB 可以使用 SQL`COPY INTO`把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
+CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
 
-支持的文件格式有CSV/JSON/PARQUET，目前支持的对象存储有`AWS S3`, `Google Cloud
-Storage`, `Microsoft Azure`
+支持的文件格式有CSV/JSON/PARQUET，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Microsoft Azure` 。
 
 ## 导出
 
@@ -120,7 +119,7 @@ COPY INTO [<database>.]< table_name >
     
 ```
 
-**注意**：导入之前，请确定目标表已经存在，并且列名和列的类型对应
+**注意**：导入之前，请确定目标表已经存在，并且列名和列的类型对应。
 
 ### 示例
 
@@ -175,10 +174,10 @@ COPY INTO [<database>.]< table_name >
 
 ### Google Cloud Storage
 
-连接有四个参数
+连接有四个参数:
 
 - gcs_base_url
-- disable_oauth 关闭验证开关，为false时，必须指定 client_email, private_key 参数
+- disable_oauth 关闭验证开关，为 `false` 时，必须指定 `client_email`, `private_key` 参数。
 - client_email
 - private_key
 
@@ -211,7 +210,7 @@ COPY INTO [<database>.]< table_name >
 - account
 - access_key
 - bearer_token
-- use_emulator 默认为false，当为true的时，url使用环境变量AZURITE_BLOB_STORAGE_URL或http://127.0.0.1:10000
+- use_emulator 默认为 `false`，当为 `true` 时，url使用环境变量 `AZURITE_BLOB_STORAGE_URL` 或 `http://127.0.0.1:10000` 。
 
 - #### 导入
 

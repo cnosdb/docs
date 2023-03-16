@@ -97,7 +97,7 @@ response的status code 会指示SQL是否执行成功，200为成功。
 
 ## Java
 
-使用[Apache HttpComponentsApache](https://hc.apache.org/)作为依赖。
+使用[Apache Http Components Apache](https://hc.apache.org/)作为依赖。
 
 ```java
 public static void main(String[] args) {

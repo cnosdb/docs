@@ -97,7 +97,7 @@ The status code of the response will indicate whether the SQL is executed succes
 
 ## Java
 
-Use [Apache HttpComponentsApache](https://hc.apache.org/) as a dependency.
+Use [Apache Http Components Apache](https://hc.apache.org/) as a dependency.
 
 ```java
 public static void main(String[] args) {
