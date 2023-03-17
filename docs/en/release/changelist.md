@@ -9,7 +9,7 @@ order: 2
 
 ## v2.2.0
 
-On March 01, 2023, CnosDB released version V2.1.0. This version mainly adds the storage and computation separation mode and further enhances the performance and stability of distributed, and continues to be open source. The major changes in this release also include:
+On March 01, 2023, CnosDB released version V2.2.0. This version mainly adds the storage and computation separation mode and further enhances the performance and stability of distributed, and continues to be open source. The major changes in this release also include:
 
 - Support for the Prometheus Remote Read/Write API.
 

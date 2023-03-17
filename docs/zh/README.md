@@ -75,6 +75,6 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章节介绍了 CnosDB 的版本发布历史。
 
 - [版本发布](docs/zh/guide/release/index.md)
-  - [版本发布历史](docs/zh/guide/release/changelist.md)
-  - [版本发布计划](docs/zh/guide/release/roadmap.md)
+  - [版本发布](docs/zh/guide/release/changelist.md)
+  - [路线图](docs/zh/guide/release/roadmap.md)
 

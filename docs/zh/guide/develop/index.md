@@ -8,7 +8,7 @@ order: 1
 
 本章节介绍了 CnosDB 的开发指南，包含如何使用 CnosDB 的各种API，如何连接 CnosDB 进行数据的写入与查询。
 
-- [Connect to CnosDB](./api.md)
+- [连接 CnosDB](./api.md)
   - [Rust](./api.md#rust)
   - [Go](./api.md#go)
   - [Java](./api.md#java)
