@@ -27,59 +27,59 @@ This chapter focuses on the current basics of CnosDB, quick start, implementatio
 
 This chapter introduces the basic operations of CnosDB, including writing data, querying data, etc.
 
-- [Get Started](docs/en/start/index.md)
-    - [Install](docs/en/start/install.md)
-    - [Quick Start](docs/en/start/quick_start.md)
+- [Get Started](./start/index.md)
+    - [Install](./start/install.md)
+    - [Quick Start](./start/quick_start.md)
 
 ## Develop
 
 This section describes how to integrate CnosDB into your application.
 
-- [Develop](docs/en/develop/index.md)
-    - [Connect to CnosDB](docs/en/develop/api.md)
-    - [Write Data](docs/en/develop/write.md)
-    - [Query Data](docs/en/develop/query.md)
+- [Develop](./develop/index.md)
+    - [Connect to CnosDB](./develop/api.md)
+    - [Write Data](./develop/write.md)
+    - [Query Data](./develop/query.md)
 
 ## Deploy
 
 This section describes how to install and run the single or cluster CnosDB, as well as the compute storage separation architecture for CnosDB.
 
-- [Deploy](docs/en/deploy/index.md)
-    - [Single](docs/en/deploy/single.md)
-    - [Distributed](docs/en/deploy/distributed.md)
-    - [Separation Mod](docs/en/deploy/separation_mod.md)
+- [Deploy](./deploy/index.md)
+    - [Single](./deploy/single.md)
+    - [Distributed](./deploy/distributed.md)
+    - [Separation Mod](./deploy/separation_mod.md)
 
 ## Manage
 
 This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition。
 
-- [Manage](docs/en/manage/index.md)
-    - [Upgrade](docs/en/manage/upgrade.md)
-    - [Node Migration](docs/en/manage/migration.md)
-    - [Cluster Expansion](docs/en/manage/cluster_expansion.md)
-    - [Cluster Shrink](docs/en/manage/cluster_shrink.md)
-    - [Backup and Restore](docs/en/manage/backup.md)
-    - [Monitor](docs/en/manage/monitor.md)
-    - [Tenants and Permissions](docs/en/manage/tenant.md)
+- [Manage](./manage/index.md)
+    - [Upgrade](./manage/upgrade.md)
+    - [Node Migration](./manage/migration.md)
+    - [Cluster Expansion](./manage/cluster_expansion.md)
+    - [Cluster Shrink](./manage/cluster_shrink.md)
+    - [Backup and Restore](./manage/backup.md)
+    - [Monitor](./manage/monitor.md)
+    - [Tenants and Permissions](./manage/tenant.md)
 
 # Reference
 
 This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc. This chapter also introduces how to use CnosQL.
 
-- [Reference](docs/en/reference/index.md)
-    - [Design](docs/en/reference/design.md)
-    - [REST API](docs/en/reference/rest_api.md)
-    - [Connector](docs/en/reference/connector.md)
-    - [SQL](docs/en/reference/sql.md)
-    - [Configure](docs/en/reference/config.md)
-    - [Tools](docs/en/reference/tools.md)
-    - [Eco-integration](docs/en/reference/ecosystem.md)
-    - [Benchmark](docs/en/reference/performance.md)
+- [Reference](./reference/index.md)
+    - [Design](./reference/design.md)
+    - [REST API](./reference/rest_api.md)
+    - [Connector](./reference/connector.md)
+    - [SQL](./reference/sql.md)
+    - [Configure](./reference/config.md)
+    - [Tools](./reference/tools.md)
+    - [Eco-integration](./reference/ecosystem.md)
+    - [Benchmark](./reference/performance.md)
 
 ## Releases
 
 This section describes the version release history of CnosDB.
 
-- [Releases](docs/en/release/index.md)
-    - [Change List](docs/en/release/changelist.md)
-    - [Roadmap](docs/en/release/roadmap.md)
+- [Releases](./release/index.md)
+    - [Change List](./release/changelist.md)
+    - [Roadmap](./release/roadmap.md)
