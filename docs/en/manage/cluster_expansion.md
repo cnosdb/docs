@@ -10,7 +10,7 @@ order: 4
 
 ## **Installation**
 
-Reference [Installing CnosDB # source code installation](../install_cnosdb.md#源码安装)。
+Reference [Source Code Installation](../deploy/single.md#source-code-installation)。
 
 ## **Start**
 
@@ -155,59 +155,59 @@ path = '/tmp/cnosdb/hh'
 
 #### **Configuration item query**
 
-| **Configuration items** | **Default Value** | **Description**                                              |
-| ----------------------- | ----------------- | ------------------------------------------------------------ |
-| max_server_connections  | 10240             | Maximum number of simultaneous SQL executions                |
-| query_sql_limit         | 16777216          | Maximum length of SQL (bytes)                                |
+| **Configuration items** | **Default Value** | **Description**                                                                                                                                                       |
+|-------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| max_server_connections  | 10240             | Maximum number of simultaneous SQL executions                                                                                                                         |
+| query_sql_limit         | 16777216          | Maximum length of SQL (bytes)                                                                                                                                         |
 | auth_enabled            | false             | Whether to check the identity information of each query request, when set to true, the execution of SQL will check whether the user has the corresponding permission. |
 
 #### Configuration storage
 
-| **Configuration items** | **Default Value** | **Description**                                              |
-| ----------------------- | ----------------- | ------------------------------------------------------------ |
-| path                    | data/db           | Database file storage path                                   |
-| max_summary_size        | 134217728         | Maximum size (in bytes) of a single database summary file, create a new summary file when the size is reached |
-| max_level               | 4                 | Maximum hierarchy of database files                          |
-| base_file_size          | 16777216          | Database file size (bytes)                                   |
-| compact_trigger         | 4                 | When the number of files in level 0 is reached, the compression task is started and the files are merged into a higher level |
-| max_compact_size        | 2147483648        | Total maximum selected file size per compaction job (bytes)  |
+| **Configuration items** | **Default Value** | **Description**                                                                                                                                            |
+|-------------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| path                    | data/db           | Database file storage path                                                                                                                                 |
+| max_summary_size        | 134217728         | Maximum size (in bytes) of a single database summary file, create a new summary file when the size is reached                                              |
+| max_level               | 4                 | Maximum hierarchy of database files                                                                                                                        |
+| base_file_size          | 16777216          | Database file size (bytes)                                                                                                                                 |
+| compact_trigger         | 4                 | When the number of files in level 0 is reached, the compression task is started and the files are merged into a higher level                               |
+| max_compact_size        | 2147483648        | Total maximum selected file size per compaction job (bytes)                                                                                                |
 | strict_write            | false             | Whether to ensure that each write request strictly conforms to the Table's Schema; when set to true, write requests are not checked for Schema conformance |
 
 #### Configuration wal
 
-| **Configuration items** | **Default Value** | **Description**                                              |
-| ----------------------- | ----------------- | ------------------------------------------------------------ |
+| **Configuration items** | **Default Value** | **Description**                                                                                                             |
+|-------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------|
 | enabled                 | true              | Whether to enable WAL for disaster recovery support, when set to ture, write requests will be written to the WAL file first |
-| path                    | data/wal          | WAL file directory                                           |
-| sync                    | false             | Whether to ensure that every WAL write request is flushed to disk |
+| path                    | data/wal          | WAL file directory                                                                                                          |
+| sync                    | false             | Whether to ensure that every WAL write request is flushed to disk                                                           |
 
 #### Configuration cache
 
-| **Configuration items** | **Default Value** | **Description**                                              |
-| ----------------------- | ----------------- | ------------------------------------------------------------ |
-| max_buffer_size         | 134217728         | Maximum writable size (in bytes) per active cache in a single Vnode |
+| **Configuration items** | **Default Value** | **Description**                                                                                                                |
+|-------------------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| max_buffer_size         | 134217728         | Maximum writable size (in bytes) per active cache in a single Vnode                                                            |
 | max_immutable_number    | 4                 | The maximum number of inactive caches in a single Vnode, and when the number is reached, the inactive cache is written to disk |
 
 #### Configuration log
 
-| **Configuration items** | **Default Value** | **Description**                                              |
-| ----------------------- | ----------------- | ------------------------------------------------------------ |
-| level                   | info              | Logging level, optionally  trace \| debug \| info \| warn \| error |
-| path                    | data/log          | Log file directory                                           |
+| **Configuration items** | **Default Value** | **Description**                    |
+|-------------------------|-------------------|------------------------------------|
+| level                   | info              | Logging level, optionally  trace \ | debug \| info \| warn \| error |
+| path                    | data/log          | Log file directory                 |
 
 #### Configuration security
 
 **security.tls_confg**
 
 | **Configuration items** | **Default Value**   | **Description**     |
-| ----------------------- | ------------------- | ------------------- |
+|-------------------------|---------------------|---------------------|
 | certificate             | data/tls/server.crt | data/tls/server.crt |
 | private_key             | data/tls/server.key | data/tls/server.key |
 
 #### Configuration cluster
 
 | **Configuration items** | **Default Value** | **Description**                      |
-| ----------------------- | ----------------- | ------------------------------------ |
+|-------------------------|-------------------|--------------------------------------|
 | node_id                 | 100               | Data Node ID                         |
 | name                    | cluster_xxx       | Data Node Name                       |
 | meta                    | 127.0.0.1:21001   | Meta Node Address                    |
@@ -218,10 +218,10 @@ path = '/tmp/cnosdb/hh'
 
 #### Configuration hintedoff
 
-| **Configuration items** | **Default Value** | **Description**                                              |
-| ----------------------- | ----------------- | ------------------------------------------------------------ |
+| **Configuration items** | **Default Value** | **Description**                                                                                                                                                          |
+|-------------------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | enable                  | true              | Whether to enable Hinted Off for consistency support, when set to true, failed write requests will automatically enter the hinted-off queue and be retried automatically |
-| path                    | data/hh           | Hinted Off persistent directory                              |
+| path                    | data/hh           | Hinted Off persistent directory                                                                                                                                          |
 
 ## **Operations and Maintenance Guide**
 
