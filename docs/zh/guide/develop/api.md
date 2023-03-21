@@ -60,7 +60,7 @@ pwd := ""
 // db means database, we use default db 'public'
 url := "http://127.0.0.1:31007/" + "api/v1/sql?db=public&pretty=true"
 query1 := "CREATE TABLE air (
-               visibility DOUBLE,
+               visibility DOUBLE,****
                temperature DOUBLE,
                pressure DOUBLE,
                TAGS(station)
@@ -145,3 +145,22 @@ public static void main(String[] args) {
     }
 }
 ```
+
+## HTTP API
+
+```shell
+curl -X POST \
+-H "Authorization: Basic $(echo -n cnosdb: | base64)" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "CREATE TABLE air (
+visibility DOUBLE,
+temperature DOUBLE,
+pressure DOUBLE,
+TAGS(station)
+);" \
+"http://127.0.0.1:31007/api/v1/sql?db=public&pretty=true"
+```
+
+
+
+

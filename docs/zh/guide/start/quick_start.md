@@ -23,16 +23,25 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ```
 
 ### 导入数据
+
 - **启动CLI**
-  ```shell
-  cnosdb-cli
-  ```
+    ```shell
+    cnosdb-cli
+    ```
+- **创建数据库**
+    ```shell
+    create database oceanic_station;
+    ```
+- **切换到指定数据库**
+    ```shell
+    \c oceanic_station
+    ```
 - **导入数据**
 
-  执行`\w`指令，`\w`后面为数据文件的绝对路径或相对cnosdb-cli的工作路径
-  ```sql
-  \w oceanic_station.txt
-  ```
+  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+    ```shell
+    \w oceanic_station.txt
+    ```
 
 ## **语法**
 

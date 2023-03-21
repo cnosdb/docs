@@ -8,7 +8,7 @@ order: 2
 
 ## 部署
 
-其他安装方式请查看[安装CnosDB](../deploy/install_cnosdb.md)
+其他安装方式请查看[安装CnosDB](../deploy/single.md)
 
 ## Docker安装
 
@@ -45,6 +45,7 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ```
 
 ## 导入数据
+
 - **启动CLI**
     ```shell
     cnosdb-cli
@@ -59,10 +60,11 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
     ```
 - **导入数据**
 
-  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径
+  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
     ```shell
     \w oceanic_station.txt
     ```
+  
 ## 数据查询
 - **查看所有表**
 

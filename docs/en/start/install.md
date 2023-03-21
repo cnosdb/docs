@@ -46,11 +46,13 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ```
 
 ## Import Data
+
 - **Start the CLI**
     ```shell
     cnosdb-cli
     ```
 - **Create the database**
+- 
     ```shell
     create database oceanic_station;
     ```
@@ -61,7 +63,8 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
     ```
 - **Import data**
 
-    Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli
+    Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
+- 
     ```shell
     \w oceanic_station.txt
     ```

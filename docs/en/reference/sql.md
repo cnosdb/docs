@@ -130,10 +130,7 @@ SHOW DATABASES;
 
 ### **Use Database**
 
-If you use the database through [HTTP API](../application/api.md), you can specify the parameter db=database_ name in the url to use the database.
-
-
-If you use the database through HTTP API, you can specify the parameter db=database_ name in the url to use the database.
+If you use the database through [HTTP API](./rest_api.md), you can specify the parameter db=database_ name in the url to use the database.
 
 ```sql
 \c dbname
@@ -231,7 +228,7 @@ field_codec_type:
   * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
   * BOOLEAN：BIPACK，NULL
 
-For more information about the compression algorithm, see[the details of the compression algorithm.](./design.md#compression-algorithm)
+For more information about the compression algorithm, see the details of the [compression algorithm](./design.md#compression-algorithm).
 
 **Example**
 
@@ -385,7 +382,7 @@ ALTER TABLE air DROP humidity;
 
 ## INSERT
 
-CnosDB supports two data inserting methods: one is to use the`INSERT INTO`statement, and the other is to use the HTTP API[write](./rest_api.md)interface to insert Line Protocol format data.
+CnosDB supports two data inserting methods: one is to use the`INSERT INTO`statement, and the other is to use the HTTP API [write](./rest_api.md) interface to insert Line Protocol format data.
 
 This page only shows`INSERT`related syntax
 
@@ -406,7 +403,7 @@ The time column cannot be`NULL`，and the Tag column and Field Namecolumn can be
 
 Example`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
-If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.md#insert-query-results--insert-select-)syntax.
+If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.md#insert-query-results--insert-select-) syntax.
 
 
 ###  Insert One Record
@@ -467,7 +464,7 @@ The time of UTC time zone will be output when outputting.
 
 ### Insert Multiple Records
 
-The keyword VALUES can be followed by multiple lists separated by’,’.
+The keyword VALUES can be followed by multiple lists separated by ’,’.
 
 **Example**
 
@@ -553,15 +550,25 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 
 ### Import Data
 
-- **Launch CLI**
+- **Start the CLI**
+    ```shell
+    cnosdb-cli
+    ```
+- **Create the database**
+-
+```shell
+create database oceanic_station;
+```
+- **Switch to the specified database**
+
+    ```shell
+    \c oceanic_station
+    ```
+- **Import data**
+
+  Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
+
   ```shell
-  cnosdb-cli
-  ```
-- **Import Data**
-
-  Execute the`\w`command, `\w`followed by the absolute path of the data file or the working path of the relative cnosdb-cli.
-
-  ```sql
   \w oceanic_station.txt
   ```
 
@@ -717,6 +724,7 @@ FROM tb_name [AS] alias_name
 ```
 
 **Example**
+
 ```sql
 SELECT a.visibility, s.temperature
 FROM air AS a JOIN sea s ON a.temperature = s.temperature;
@@ -873,6 +881,7 @@ FROM air LIMIT 3 OFFSET 3;
 ### **WITH Clause**
 
 **Syntax**
+
 ```sql
 WITH cte AS cte_query_definiton [, ...] query
 ```
@@ -882,6 +891,7 @@ Optional. The WITH clause contains one or more commonly used expressions CTE (Co
 - The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause：
 
 **Example**
+
 ```sql
 SELECT station, avg 
 FROM (  SELECT station, AVG(visibility) AS avg 
@@ -914,7 +924,8 @@ FROM x;
 The UNION clause is used to combine the analysis results of multiple SELECT statements.
 
 **Syntax**
-```
+
+```sql
 select_clause_set_left
 [ UNION | UNION ALL| EXCEPT | INTERSECT]
 select_clause_set_right
@@ -954,6 +965,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
       +------------+
 
 - **UNION**
+
   ```sql
   SELECT visibility FROM air WHERE temperature < 60
   UNION
@@ -996,6 +1008,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
       +------------+
 
 - **INTERSECT**
+
   ```sql
   SELECT visibility FROM air
   INTERSECT
@@ -1042,6 +1055,8 @@ SELECT * FROM air ORDER BY temperature;
     | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
     | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
     +---------------------+-------------+------------+-------------+----------+
+
+
 ```sql
 SELECT * FROM air ORDER BY temperature DESC;
 ```
@@ -1062,6 +1077,7 @@ SELECT * FROM air ORDER BY temperature DESC;
     | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
     | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
     +---------------------+-------------+------------+-------------+----------+
+
 ```sql
 SELECT * FROM air ORDER BY station, temperature;
 ```
@@ -4178,7 +4194,8 @@ frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUN
 `RANK`, `DENSE_RANK`, `ROW_NUMBER` need ORDER BY Clause.
 
 #### Aggregate Function
-See[Aggregate Function](#aggregate-function).
+
+See [Aggregate Function](#aggregate-function).
 
 #### Analysis Window Functions
 
@@ -4214,7 +4231,7 @@ If RANGE is specified, the ORDER BY clause must be specified. The window calcula
 
 ## Window Function List
 
-Include [aggregate functions ](#aggregate-function).
+Include [Aggregate functions](#aggregate-function).
 
 ### **ROW_NUMBER**
 
