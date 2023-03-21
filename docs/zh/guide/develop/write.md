@@ -22,31 +22,6 @@ CnosDB 支持使用 SQL 进行单条写入、多条写入。
 
 ## HTTP API 写入
 
-HTTP API 写入命令如下所示，用代码实现 HTTP API 请求时，可以参考此段命令。
-
-#### 语法
-
-```shell
-curl -X POST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
--H "Authorization: Basic $(echo -n <username>:<password> | base64)" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "<your SQL statement>"
-```
-
-#### 示例
-
-```shell
-curl -X POST "http://127.0.0.1:31007/api/v1/sql?db=public&pretty=true" \
--H "Authorization: Basic $(echo -n cnosdb: | base64)" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "CREATE TABLE air (
-visibility DOUBLE,
-temperature DOUBLE,
-pressure DOUBLE,
-TAGS(station)
-);"
-```
-
 ### 单条数据写入
 
 #### 语法

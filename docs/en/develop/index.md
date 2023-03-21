@@ -12,6 +12,7 @@ This section contains information about developing with CnosDB.
   - [Rust](./api.md#rust)
   - [Golang](./api.md#golang)
   - [Java](./api.md#java)
+  - [HTTP API](./api.md#http-api)
 - [Write Data](./write.md)
   - [SQL](./write.md#sql)
   - [HTTP API](./write.md#http-api)

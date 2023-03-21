@@ -22,31 +22,6 @@ You can see [Insert Multiple Records](../reference/sql.md#insert-multiple-record
 
 ## HTTP API
 
-The HTTP API write command is as follows, which you can refer to when implementing HTTP API requests in code.
-
-#### Syntax
-
-```shell
-curl -X POST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
--H "Authorization: Basic $(echo -n <username>:<password> | base64)" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "<your SQL statement>"
-```
-
-#### Example
-
-```shell
-curl -X POST "http://127.0.0.1:31007/api/v1/sql?db=public&pretty=true" \
--H "Authorization: Basic $(echo -n cnosdb: | base64)" \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "CREATE TABLE air (
-visibility DOUBLE,
-temperature DOUBLE,
-pressure DOUBLE,
-TAGS(station)
-);"
-```
-
 ### Insert One Record
 
 #### Syntax

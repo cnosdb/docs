@@ -12,6 +12,7 @@ order: 1
   - [Rust](./api.md#rust)
   - [Go](./api.md#go)
   - [Java](./api.md#java)
+  - [HTTP API](./api.md#http-api)
 - [数据写入](./write.md)
   - [SQL 写入](./write.md#sql-写入)
   - [HTTP API 写入](./write.md#http-api-写入)
