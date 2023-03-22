@@ -31,7 +31,7 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en','zh-Hans'],
-    path: 'i18n',
+    path: 'docs',
     localeConfigs: {
       en: {
         label: 'English',
@@ -182,6 +182,15 @@ const config = {
       },
     }),
   themes: ['@docusaurus/theme-live-codeblock'],
+  plugins: [
+    [
+      require.resolve("@cmfcmf/docusaurus-search-local"),
+      {
+        // Options here
+        language: "zh",
+      },
+    ],
+  ],
 };
 
 module.exports = config;
