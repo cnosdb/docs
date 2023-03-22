@@ -9,7 +9,7 @@ sidebar_position: 2
 To design and develop a high performance, high compression ratio, highly available, distributed cloud native time series
 database, which meets the following objectives.
 
-> Time Series Database
+> **Time Series Database**
 
 1. Extensibility, theoretically support time series without upper limit, completely solve the problem of time series
 inflation, support horizontal/vertical expansion.
@@ -18,7 +18,7 @@ inflation, support horizontal/vertical expansion.
 4. Query engine supports vectorized queries.
 5. Supports multiple timing protocols to write and query, and provides external components to import data.
 
-> Cloud Native
+> **Cloud Native**
 
 1. Supports cloud native, making full use of the convenience brought by cloud infrastructure and integrating into cloud
 native ecology.

@@ -15,7 +15,7 @@ Our time series data is one of the branches born in this context. This article f
 
 In the ocean, we may monitor a variety of data indicators, used to study the environment, weather and human production, for example, a scenario: Suppose we have a detector that can record the visibility of the ocean air, we can determine whether to produce based on visibility changes. This visibility information is a time series data, in a common sense is a line graph of changes over time.
 
-![Time Series](..//source/_static/img/air_vis.png)
+![Time Series](../source/_static/img/air_vis.png)
 
 So let's make a summary:
 
@@ -94,13 +94,14 @@ CnosDB supports setting different storage policies for a database, data retentio
 
 Consdb2.0 is developed in Rust language, based on its security, high performance and community influence, provides users with an excellent time series database and forms a complete DBaas solution.
 
->Time series database
+> **Time Series Database**
 1. Extensive: Theoretically supported time series has no limit, completely solves the problem of time series expansion, and supports cross-river expansion.
 2. Calculate storage separation: Calculating nodes and storage nodes, can expand and shrink capacity independently and on a second scale.
 3. Storage performance and cost: High performance io stacks support hierarchical storage using cloud discs and object storage.
 4. The query engine supports vector queries.
 5. Supports multiple time series protocols to write and query, providing external component import data.
->Original cloud
+
+> **Original Cloud**
 1. Support cloud native, support the full use of cloud infrastructure to integrate into cloud native ecology.
 2. High availability, second-level failure recovery, support multi-cloud, cross-regional disaster preparedness.
 3. Native support multi-tenant, pay on schedule.
@@ -112,7 +113,7 @@ Consdb2.0 is developed in Rust language, based on its security, high performance
 
 In the process of redesigning the time series database, we solve a series of problems faced by the current time series database  as much as possible, form a complete set of time series data solutions and  time series  ecosystem and provide DBaas services in public clouds.
 
-![整体架构](..//source/_static/img/new_arch.jpg)
+![整体架构](../source/_static/img/new_arch.jpg)
 
 > We will have the elaboration from following aspects.
 
@@ -127,7 +128,7 @@ The fragment rule of CnosDB 2.0 is based on Time-range. It uses the fragmentatio
 
 Vnode is a virtual running unit and is distributed to a specific Node. Each Vnode is a separate LSM Tree. Its corresponding tsfamily structure is a separate running unit.
 
-![数据分片](..//source/_static/img/buket.jpg)
+![数据分片](../source/_static/img/buket.jpg)
 
 #### Replicaset
 
@@ -143,7 +144,7 @@ Data from different tenants on Node are physically segmented.
 
 `/User/db/bucket/replicaset_id/vnode_id`
 
-![数据分割目录存储](..//source/_static/img/data_path.jpg)
+![数据分割目录存储](../source/_static/img/data_path.jpg)
 
 #### Data Consensus Based on Quorum Mechanism
 
@@ -184,14 +185,14 @@ Data from different tenants on Node are physically segmented.
 
 #### Writer Process
 
-![write](..//source/_static/img/write.jpg)
+![write](../source/_static/img/write.jpg)
 
 #### Data Reading
 
 When a read request is received, the cordinator determines that the physical node (note) where the data to be stored and requires this key corresponding data based on the partition policy and the corresponding placement rules (place-rule), and at present we do not perform the function of read repair (read repair) to initiate only one reading request. In the case of delay in reading, initiate a second reading request.
 
 
-![read](..//source/_static/img/read.jpg)
+![read](../source/_static/img/read.jpg)
 
 #### Update of Conflicts
 
@@ -202,7 +203,7 @@ When a read request is received, the cordinator determines that the physical nod
 
 Maintain a strong consistency meta cluster through raft. Meta cluster api serves externally, while nodes also subscribe to updates to meta information. All metadata updates are updated through the meta-data cluster.
 
-![meta——server](..//source/_static/img/raft.jpg)
+![meta——server](../source/_static/img/raft.jpg)
 
 > 1.  Database catalog information, DDL operation.
 > 2.  The node probe/node registration, as well as node load information statistics, is the basis for the read and write selected by coordinator.
@@ -229,13 +230,13 @@ We used [DataFusion](https://arrow.apache.org/datafusion/) as the query engine. 
 
 By extending DataFusion data sources and providing custom SQL statements, the query process for data under distributed scenarios is as follows:
 
-![query](..//source/_static/img/query_data_path.jpg)
+![query](../source/_static/img/query_data_path.jpg)
 
 ### TSKV Index and Data Storage
 
 tskv mainly undertakes data and index storage, manages all Vnodes on node, each Vnode is responsible for some of the data in a db. In Vnode, three modules mainly make up WAL, Index Engine and Data Engine.
 
-![tskv](..//source/_static/img/tskv.jpg)
+![tskv](../source/_static/img/tskv.jpg)
 
 #### Index Engine
 
@@ -357,7 +358,7 @@ Data used primarily to store time series data are usually scenes that write more
 
 - #### level_range compaction
 
-  ![level_range](..//source/_static/img/level_range.jpg)
+  ![level_range](../source/_static/img/level_range.jpg)
 
   - Typically, time series databases are written in order to respond to disorderly data, we add delta files. The data of Delta is brushed to the L0 layer. 
   - From L1 to L3, The data of `LevelInfo` are classified by time. Each layer has a fixed time range and does not overlap, and the data in memcache has a fixed timerange. Each layer of time is dynamically updated when it works or flashes. 
@@ -367,7 +368,7 @@ Data used primarily to store time series data are usually scenes that write more
 
 - #### time_window compaction
 
-  ![time_window](..//source/_static/img/time_range.jpg)
+  ![time_window](../source/_static/img/time_range.jpg)
 
   - Window-based components are performed in different lev_lange modes, from immut_cache flash to disk, generating different TSM files into the corresponding windows based on the time range of TSM, and windows are created dynamically over time. Each windows is responsible for writing for some time. 
   
@@ -375,7 +376,7 @@ Data used primarily to store time series data are usually scenes that write more
 
 - #### data_engine data stream
 
-  ![data_flow](..//source/_static/img/data_engine.jpg)
+  ![data_flow](../source/_static/img/data_engine.jpg)
 
 ### Other System Design
 
@@ -404,7 +405,7 @@ Mainly used for timestamp, integer and unsigned integer.
 
 First, the difference is made, that is, the first data is unchanged, other data are transformed into delta with the previous data, and all numbers are processed byzigzag, i64 is mapped to u64, specifically to zero, negative numbers are mapped to odd numbers, such as [0, 1, 2] after zigzag processing to [0, 1,2] and maximum convention numbers are calculated. Then judge that if all deltas are the same, use the cruise path code directly, that is, only the first value, delta, and the number of data. Otherwise, all delta values are divided into maximum convention numbers (maximum convention numbers are encoded into data), and then encoded using Simple 8b.
 
-![](..//source/_static/img/simple8b.png)
+![](../source/_static/img/simple8b.png)
 
 Simple 8b is a compression algorithm that encapsulates multiple integers to a 64-bit integer, the first four-bit as selector to specify the number and validity of integers stored in the remaining 60 bits, and the latter 60 bits are used to store multiple integers. In addition, when delta is larger than the maximum range of Simple 8b energy encoding (more than 1<60-1, generally not) does not compress and stores arrays directly.
 
@@ -422,7 +423,7 @@ Mainly used for floating point type.
 
 The principle of Gorilla is similar to the difference, the difference is that the difference is the difference between two data, and gorilla is different or different. The first data is not processed at the time of coding, and if the previous data is different from the previous data, if the difference or value is 0, repeat it with the previous data, write a patch to represent repetition, and, if not zero, calculate the first zero and back derivative zeros of the heterogeneous or value delta. If the number is the same, only the intermediate valid bit is encoded. If the number is different, the first 0.5 bits are derived, the back 0. 5 bits are written, and then the intermediate valid bit is written.
 
-![](..//source/_static/img/gorilla.png)
+![](../source/_static/img/gorilla.png)
 
 #### Applicability
 
@@ -440,7 +441,7 @@ Qantile supports multiple levels of compression, and CosDB currently uses the de
 
 Each data is described by Huffman coding and offset, and the offset specifies the exact location of the range of the data by the Huffman code corresponding to the range of the data. For each block compression, the difference processing is first carried out, the data after the difference is replaced by the current data, then the current array is divided into multiple blocks at an interval of 128, each block determines a range and associated metadata, while calculating the maximum number of conventions per block, optimizes the number of conventions as appropriate, and merges some adjacent blocks, then determines its Huffman encoding based on the weight of each block in the data, and finally encodes the data using them.
 
-![](..//source/_static/img/quantile.png)
+![](../source/_static/img/quantile.png)
 
 #### Applicability
 
@@ -448,9 +449,9 @@ Compared with the delta algorithm and the gorilla algorithm, because the differe
 
 The longitudinal axis of the image is the compression ratio, the time is only relative.
 
-![](..//source/_static/img/f64_codec.png)
+![](../source/_static/img/f64_codec.png)
 
-![](..//source/_static/img/i64_codec.png)
+![](../source/_static/img/i64_codec.png)
 
 ### BITPACK
 
@@ -468,11 +469,11 @@ No matter what data, we can ensure a compression ratio of nearly eight times tha
 
 The string compression algorithm currently supported is compressed, such as below.
 
-![](..//source/_static/img/str_comrpess_ratio.png)
+![](../source/_static/img/str_comrpess_ratio.png)
 
 And compressed time and decompression time, units are us.
 
-![](..//source/_static/img/str_compress_time.png)
+![](../source/_static/img/str_compress_time.png)
 
 ### SNAPPY
 
@@ -551,13 +552,13 @@ For example, cloud database services provided by cloud service providers such as
 
 A shared memory architecture is a storage system that is used by multiple users/computers. It stores all files in a centralized storage pool and allows multiple users to access them simultaneously. For the upper computing nodes, the shared memory architecture provides a uniform data access interface for multiple users, and users do not need to care about the actual data distribution in the system, nor do they need to care about the load balancing problem of data distribution. In the shared storage architecture, cloud vendors can pool disk resources, let multiple users share a distributed storage cluster, and pay according to the actual use of capacity. This business model is more in line with the current market demand. The diagram is as follows:
 
-![共享存储架构](..//source/_static/img/share_everything.png)
+![共享存储架构](../source/_static/img/share_everything.png)
 
 The shared-nothing storage architecture is a relatively old pattern that has recently seen a resurgence in data storage technologies, especially in the NoSQL, data warehousing, and big data domains. As the architecture evolves, it has some very interesting performance tradeoffs compared to the more common simple shared memory architecture.
 
 Shared-nothing architecture is an architecture used for distributed computing, where each node is independent and different nodes are interconnected through a network. Each node consists of a processor, main memory, and disk. The main motivation for this architecture is to eliminate contention between nodes. The nodes here do not share memory or storage. Disks have a single node that cannot be shared. It works effectively in high volume and read/write environments. The diagram is shown below.
 
-![无共享存储架构](..//source/_static/img/share_nothing.png)
+![无共享存储架构](../source/_static/img/share_nothing.png)
 
 
 ##  Single Tenant Model VS Multi Tenant Model

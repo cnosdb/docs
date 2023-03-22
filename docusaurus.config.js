@@ -129,6 +129,7 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
+        //theme: require('prism-react-renderer/themes/dracula'),
         darkTheme: darkCodeTheme,
         additionalLanguages: ['powershell'],
         additionalLanguages: ['go'],
@@ -140,6 +141,7 @@ const config = {
         additionalLanguages: ['cmake'],
       },
     }),
+  themes: ['@docusaurus/theme-live-codeblock'],
 };
 
 module.exports = config;
