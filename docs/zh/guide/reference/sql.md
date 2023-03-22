@@ -129,7 +129,7 @@ SHOW DATABASES;
 
 ### 使用数据库
 
-如果你通过[HTTP API](../development/rest_api.md)来使用数据库，
+如果你通过[HTTP API](./rest_api.md)来使用数据库，
 你可以在url中指定参数db=database_name 来使用数据库。
 
 
@@ -564,16 +564,24 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 
 ### 导入数据
 
-- 启动CLI
-  ```shell
-  cnosdb-cli
-  ```
-- 导入数据
+- **启动CLI**
+    ```shell
+    cnosdb-cli
+    ```
+- **创建数据库**
+    ```shell
+    create database oceanic_station;
+    ```
+- **切换到指定数据库**
+    ```shell
+    \c oceanic_station
+    ```
+- **导入数据**
 
-  执行`\w`指令，`\w`后面为数据文件的绝对路径或相对cnosdb-cli的工作路径
-  ```sql
-  \w oceanic_station.txt
-  ```
+  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+    ```shell
+    \w oceanic_station.txt
+    ```
 
 #### 语法
 
@@ -5182,7 +5190,7 @@ select * from usage_schema.queries order by time desc limit 2;
 
 该视图记录用户写入DB的次数。
 
-注意，该视图目前只会在通过[lineprotocol](../development/rest_api.md#接口列表)/[prometheus remote write](../development/ecology.md#remote-write) 接口写入成功时创建。
+注意，该视图目前只会在通过[lineprotocol](./rest_api.md#接口列表)/[prometheus remote write](./ecosystem.md#remote-write) 接口写入成功时创建。
 
 #### 视图定义
 

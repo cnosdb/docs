@@ -17,7 +17,7 @@ This chapter includes the following:
 - [Install](./install.md)
   - [Deploy](./install.md#deploy)
   - [Docker Install](./install.md#docker-install)
-  - [Download Sample Data](./install.md#download-sample-datao)
+  - [Download Sample Data](./install.md#download-sample-data)
   - [Import Data](./install.md#import-data)
   - [Data Query](./install.md#data-query)
 - [Quick Start](./quick_start.md)

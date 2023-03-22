@@ -13,7 +13,7 @@ This chapter will introduce how to manage single and distributed CnosDB instance
 - [Upgrade](./upgrade.md)
 - [Node Migration](./migration.md)
 - [Cluster Expansion](./cluster_expansion.md)
-  - [Introduction](./cluster_expansion.md#概述)
+  - [Introduction](./cluster_expansion.md#introduction)
   - [Configure](./cluster_expansion.md#配置)
   - [Install CnosDB](./cluster_expansion.md#安装cnosdb)
   - [Setup CnosDB CLuster](./cluster_expansion.md#启动cnosdb集群)

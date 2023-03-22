@@ -14,12 +14,12 @@ Arrow Flight SQL is a protocol for interacting with SQL databases using the Arro
 
 Our current environments that support the Arrow Flight SQL client are
 
-- [C++](#c.md)
-- [Go](#go.md)
-- [Java](#java.md)
-- [Rust](#rust.md)
-- [JDBC](#JDBC.md) based on Arrow Flight SQL
-- [ODBC](#ODBC.md) based on Arrow Flight SQL
+- [C++](#c)
+- [Go](#go)
+- [Java](#java)
+- [Rust](#rust)
+- [JDBC](#JDBC) based on Arrow Flight SQL
+- [ODBC](#ODBC) based on Arrow Flight SQL
 
 ### Benefits of Arrow Flight SQL
 
@@ -844,7 +844,7 @@ The code runs in an asynchronous environment.
 
 Currently only x86_64 architecture systems are supported, linux only supports centos and redhat series distributions
 
-For more on Arrow Flight SQL ODBC, see the [Dremio documentation](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/)
+For more on Arrow Flight SQL ODBC, see the [Dremio documentation](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/).
 
 The following steps are based on Centos7.
 
@@ -1058,7 +1058,7 @@ pip install cnos-connector
   print(resp)
   ```
 
-- #### Search through PEP-249, for more information, please refer to [PEP-249](https://peps.python.org/pep-0249/)
+- #### Search through PEP-249, for more information, please refer to [PEP-249](https://peps.python.org/pep-0249/).
 
   ```python
   from cnosdb_connector import connect
@@ -1173,4 +1173,4 @@ def list_database(self)
 # SHOW TABLES;
 def list_table(self)
 ```
-If you have a better idea for an interface wrapper, feel free to submit a PR to our Python Connector[source code repository](https://github.com/cnosdb/cnosdb-client-python).
+If you have a better idea for an interface wrapper, feel free to submit a PR to our Python Connector [source code repository](https://github.com/cnosdb/cnosdb-client-python).

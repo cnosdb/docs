@@ -8,7 +8,7 @@ order: 2
 
 ## Rust
 
-The sample code uses[reqwest](https://crates.io/crates/reqwest)to build Http requests.
+The sample code uses [reqwest](https://crates.io/crates/reqwest) to build Http requests.
 
 Http request needs to specify the database to be operated on, written in the url query as db=database_name.
 
@@ -51,7 +51,7 @@ let result = response.text().await.unwrap();
 
 ## Golang
 
-The sample code uses[fasthttp](https://github.com/valyala/fasthttp) as a dependency.
+The sample code uses [fasthttp](https://github.com/valyala/fasthttp) as a dependency.
 
 Following are the parameters required to construct the http request.
 ```go
@@ -116,32 +116,59 @@ public static void main(String[] args) {
         CloseableHttpClient client = HttpClients.createDefault();
         URIBuilder builder = new URIBuilder(url + "api/v1/sql");
 
-// Set the query db on the url parameter
+        // Set the query db on the url parameter
         builder.setParameter("db", database);
         HttpPost httpPost = new HttpPost(builder.build());
 
 
-//Encode username and password into Authorization Header
+        //Encode username and password into Authorization Header
         String nameAndPwd = name + ":" + pwd;
         byte[] encodedAuth = Base64.encodeBase64(
         nameAndPwd.getBytes(StandardCharsets.ISO_8859_1));
         String auth = "Basic " + new String(encodedAuth);
         httpPost.setHeader(HttpHeaders.AUTHORIZATION, auth);
 
-// Set statement on the body
+        // Set statement on the body
         StringEntity stringEntity = new StringEntity(query);
         httpPost.setEntity(stringEntity);
 
         CloseableHttpResponse resp = client.execute(httpPost);
-// Status code is not 200--execution failed
+        // Status code is not 200--execution failed
         if (resp.getStatusLine().getStatusCode() != 200) {
         System.out.println("Request Fail");
         }
-// Get error messages or return results
+        // Get error messages or return results
         String res = IOUtils.toString(resp.getEntity().getContent());
         System.out.println(res);
         } catch (Exception e) {
 
         }
-        }
+}
+```
+
+## HTTP API
+
+The HTTP API query command is as follows, which you can refer to when implementing HTTP API requests in code.
+
+#### Syntax
+
+```shell
+curl -X POST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
+-H "Authorization: Basic $(echo -n <username>:<password> | base64)" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "<your SQL statement>"
+```
+
+#### Example
+
+```shell
+curl -X POST "http://127.0.0.1:31007/api/v1/sql?db=public&pretty=true" \
+-H "Authorization: Basic $(echo -n cnosdb: | base64)" \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-d "CREATE TABLE air (
+visibility DOUBLE,
+temperature DOUBLE,
+pressure DOUBLE,
+TAGS(station)
+);"
 ```

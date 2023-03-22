@@ -31,8 +31,8 @@ basic64(user_name + ":" + password)
 
 **Request Example**
 
-```
-curl -i -u "username:password" -XPOST ""http://localhost:31007/api/v1/write?db=example -d 't1,foo=a,bar=b v=1 3'
+```shell
+curl -i -u "username:password" -XPOST "http://localhost:31007/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
 ```
 
 **Request succeeded**
@@ -80,8 +80,8 @@ basic64(user_name + ":" + password)
 
 **Request Example**
 
-```curl
-curl -i -u "username:password" -H "Accept: application/json" -XPOST ""http://localhost:31007/api/v1/sql?db=example -d 'SELECT * from t1'
+```shell
+curl -i -u "username:password" -H "Accept: application/json" -XPOST "http://localhost:31007/api/v1/sql?db=example" -d 'SELECT * from t1'
 ```
 
 **Request succeeded**
@@ -97,6 +97,7 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 **Request failed**
 
 > A failed request will return 4xx or 5xx.
+> 
 ```shell
 HTTP/1.1 500 Internal Server Error
 content-type: application/json
@@ -115,7 +116,7 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 
 **Request Example**
 
-```
+```shell
 curl -G 'http://localhost:31007/api/v1/ping'
 ```
 
