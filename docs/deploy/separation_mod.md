@@ -8,14 +8,14 @@ sidebar_position: 3
 
 Consdb2.0 is developed in Rust language, based on its security, high performance and community influence, provides users with an excellent time series database and forms a complete DBaas solution.
 
->Time series database
+> **Time Series Database**
 1. Extensive: Theoretically supported time series has no limit, completely solves the problem of time series expansion, and supports cross-river expansion.
 2. Calculate storage separation: Calculating nodes and storage nodes, can expand and shrink capacity independently and on a second scale.
 3. Storage performance and cost: High performance io stacks support hierarchical storage using cloud discs and object storage.
 4. The query engine supports vector queries.
 5. Supports multiple time series protocols to write and query, providing external component import data.
 
->Original cloud
+> **Original Cloud**
 1. Support cloud native, support the full use of cloud infrastructure to integrate into cloud native ecology.
 2. High availability, second-level failure recovery, support multi-cloud, cross-regional disaster preparedness.
 3. Native support multi-tenant, pay on schedule.

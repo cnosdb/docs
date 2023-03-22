@@ -30,7 +30,24 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en','zh-Hans'],
+    path: 'i18n',
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+        calendar: 'gregory',
+        path: 'en',
+      },
+      zh: {
+        label: '简体中文',
+        direction: 'rtl',
+        htmlLang: 'zh-Hans',
+        calendar: 'persian',
+        path: 'zh',
+      },
+    },
   },
 
   presets: [
@@ -72,6 +89,29 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
+            // serach
+          {
+            type: 'search',
+            position: 'right',
+          },
+            // TODO: Add search engine api
+            // You can refer to https://www.docusaurus.io/zh-CN/docs/search
+          {
+            type: 'docsVersion',
+            position: 'right',
+            to: '/path',
+            label: 'Version',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
+            dropdownItemsAfter: [
+              {
+                to: 'https://github.com/cnosdb/docs',
+                label: '帮助我们翻译',
+              },
+            ],
+          },
           {
             type: 'doc',
             docId: 'intro',
