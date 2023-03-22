@@ -1,0 +1,29 @@
+{
+  "unversionedId": "manage/README",
+  "id": "manage/README",
+  "title": "Manage",
+  "description": "",
+  "source": "@site/docs/manage/README.md",
+  "sourceDirName": "manage",
+  "slug": "/manage/",
+  "permalink": "/docs/manage/",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/manage/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Manage",
+    "icon": "tool",
+    "order": -3,
+    "index": false
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deploy",
+    "permalink": "/docs/category/deploy-1"
+  },
+  "next": {
+    "title": "Backup and Restore",
+    "permalink": "/docs/manage/backup"
+  }
+}

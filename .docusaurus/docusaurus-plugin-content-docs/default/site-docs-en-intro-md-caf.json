@@ -1,8 +1,8 @@
 {
   "unversionedId": "en/intro",
   "id": "en/intro",
-  "title": "Tutorial Intro",
-  "description": "Let's discover Docusaurus in less than 5 minutes.",
+  "title": "Home",
+  "description": "This is a beta version of the document, and we are continuously improving and optimizing it. If there are any shortcomings, please correct them!",
   "source": "@site/docs/en/intro.md",
   "sourceDirName": "en",
   "slug": "/en/intro",
@@ -16,6 +16,10 @@
     "sidebar_position": 1
   },
   "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tutorial Intro",
+    "permalink": "/docs/intro"
+  },
   "next": {
     "title": "Tutorial - Basics",
     "permalink": "/docs/category/tutorial---basics"

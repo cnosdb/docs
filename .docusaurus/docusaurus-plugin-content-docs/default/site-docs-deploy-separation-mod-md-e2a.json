@@ -1,0 +1,27 @@
+{
+  "unversionedId": "deploy/separation_mod",
+  "id": "deploy/separation_mod",
+  "title": "Separation Mode",
+  "description": "Design Objectives",
+  "source": "@site/docs/deploy/separation_mod.md",
+  "sourceDirName": "deploy",
+  "slug": "/deploy/separation_mod",
+  "permalink": "/docs/deploy/separation_mod",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/deploy/separation_mod.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Distributed",
+    "permalink": "/docs/deploy/distributed"
+  },
+  "next": {
+    "title": "Manage",
+    "permalink": "/docs/category/manage"
+  }
+}

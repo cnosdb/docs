@@ -1,0 +1,27 @@
+{
+  "unversionedId": "manage/cluster_shrink",
+  "id": "manage/cluster_shrink",
+  "title": "Cluster Shrink",
+  "description": "",
+  "source": "@site/docs/manage/cluster_shrink.md",
+  "sourceDirName": "manage",
+  "slug": "/manage/cluster_shrink",
+  "permalink": "/docs/manage/cluster_shrink",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/manage/cluster_shrink.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cluster Expansion",
+    "permalink": "/docs/manage/cluster_expansion"
+  },
+  "next": {
+    "title": "Backup and Restore",
+    "permalink": "/docs/manage/backup"
+  }
+}

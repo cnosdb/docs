@@ -1,0 +1,28 @@
+{
+  "unversionedId": "release/index",
+  "id": "release/index",
+  "title": "Index",
+  "description": "This section describes the version release history of CnosDB.",
+  "source": "@site/docs/release/index.md",
+  "sourceDirName": "release",
+  "slug": "/release/",
+  "permalink": "/docs/release/",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/release/index.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Index",
+    "icon": "note",
+    "order": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Change List",
+    "permalink": "/docs/release/changelist"
+  },
+  "next": {
+    "title": "Roadmap",
+    "permalink": "/docs/release/roadmap"
+  }
+}

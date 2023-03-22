@@ -1,0 +1,27 @@
+{
+  "unversionedId": "start/quick_start",
+  "id": "start/quick_start",
+  "title": "Quick Start",
+  "description": "CnosDBSQL is inspired by DataFusion，We support most of the SQL syntax of DataFusion.",
+  "source": "@site/docs/start/quick_start.md",
+  "sourceDirName": "start",
+  "slug": "/start/quick_start",
+  "permalink": "/docs/start/quick_start",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/start/quick_start.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Install",
+    "permalink": "/docs/start/install"
+  },
+  "next": {
+    "title": "Develop",
+    "permalink": "/docs/category/develop"
+  }
+}

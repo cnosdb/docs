@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/reference/rest_api",
+  "id": "en/reference/rest_api",
+  "title": "REST API",
+  "description": "List of Interfaces",
+  "source": "@site/docs/en/reference/rest_api.md",
+  "sourceDirName": "en/reference",
+  "slug": "/en/reference/rest_api",
+  "permalink": "/docs/en/reference/rest_api",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/reference/rest_api.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "REST API",
+    "icon": "note",
+    "order": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Benchmark",
+    "permalink": "/docs/en/reference/performance"
+  },
+  "next": {
+    "title": "SQL Reference",
+    "permalink": "/docs/en/reference/sql"
+  }
+}

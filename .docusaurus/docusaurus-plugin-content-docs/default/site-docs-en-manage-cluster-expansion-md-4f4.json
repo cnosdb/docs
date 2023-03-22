@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/manage/cluster_expansion",
+  "id": "en/manage/cluster_expansion",
+  "title": "Cluster Expansion",
+  "description": "Installation",
+  "source": "@site/docs/en/manage/cluster_expansion.md",
+  "sourceDirName": "en/manage",
+  "slug": "/en/manage/cluster_expansion",
+  "permalink": "/docs/en/manage/cluster_expansion",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/manage/cluster_expansion.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cluster Expansion",
+    "icon": "note",
+    "order": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Backup and Restore",
+    "permalink": "/docs/en/manage/backup"
+  },
+  "next": {
+    "title": "Cluster Shrink",
+    "permalink": "/docs/en/manage/cluster_shrink"
+  }
+}

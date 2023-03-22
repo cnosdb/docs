@@ -1,0 +1,16 @@
+{
+  "title": "Tutorial - Basics",
+  "description": "5 minutes to learn the most important Docusaurus concepts.",
+  "slug": "/category/tutorial---basics-3",
+  "permalink": "/docs/category/tutorial---basics-3",
+  "navigation": {
+    "previous": {
+      "title": "Single",
+      "permalink": "/docs/en/deploy/single"
+    },
+    "next": {
+      "title": "Connect to CnosDB",
+      "permalink": "/docs/en/develop/api"
+    }
+  }
+}

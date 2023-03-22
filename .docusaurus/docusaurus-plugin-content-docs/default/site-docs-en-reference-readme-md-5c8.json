@@ -1,0 +1,29 @@
+{
+  "unversionedId": "en/reference/README",
+  "id": "en/reference/README",
+  "title": "Reference",
+  "description": "",
+  "source": "@site/docs/en/reference/README.md",
+  "sourceDirName": "en/reference",
+  "slug": "/en/reference/",
+  "permalink": "/docs/en/reference/",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/reference/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Reference",
+    "icon": "generic",
+    "index": false,
+    "order": -2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tutorial - Basics",
+    "permalink": "/docs/category/tutorial---basics-3"
+  },
+  "next": {
+    "title": "Configuration",
+    "permalink": "/docs/en/reference/config"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "unversionedId": "develop/api",
+  "id": "develop/api",
+  "title": "Connect to CnosDB",
+  "description": "Rust",
+  "source": "@site/docs/develop/api.md",
+  "sourceDirName": "develop",
+  "slug": "/develop/api",
+  "permalink": "/docs/develop/api",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/develop/api.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Develop",
+    "permalink": "/docs/category/develop"
+  },
+  "next": {
+    "title": "Wirte Data",
+    "permalink": "/docs/develop/write"
+  }
+}

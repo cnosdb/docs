@@ -5,6 +5,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
+// TODO: build our own homepage
+
 import styles from './index.module.css';
 
 function HomepageHeader() {

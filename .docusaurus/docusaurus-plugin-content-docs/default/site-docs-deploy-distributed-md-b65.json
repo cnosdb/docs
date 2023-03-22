@@ -1,0 +1,27 @@
+{
+  "unversionedId": "deploy/distributed",
+  "id": "deploy/distributed",
+  "title": "Distributed",
+  "description": "",
+  "source": "@site/docs/deploy/distributed.md",
+  "sourceDirName": "deploy",
+  "slug": "/deploy/distributed",
+  "permalink": "/docs/deploy/distributed",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/deploy/distributed.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Single",
+    "permalink": "/docs/deploy/single"
+  },
+  "next": {
+    "title": "Separation Mode",
+    "permalink": "/docs/deploy/separation_mod"
+  }
+}

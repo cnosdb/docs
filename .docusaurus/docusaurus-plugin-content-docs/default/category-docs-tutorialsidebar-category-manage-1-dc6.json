@@ -1,0 +1,16 @@
+{
+  "title": "Manage",
+  "description": "10 minutes to get familiar with the CnosDB.",
+  "slug": "/category/manage-1",
+  "permalink": "/docs/category/manage-1",
+  "navigation": {
+    "previous": {
+      "title": "Benchmark",
+      "permalink": "/docs/reference/performance"
+    },
+    "next": {
+      "title": "Change List",
+      "permalink": "/docs/release/changelist"
+    }
+  }
+}

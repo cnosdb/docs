@@ -1,0 +1,28 @@
+{
+  "unversionedId": "manage/index",
+  "id": "manage/index",
+  "title": "Index",
+  "description": "This chapter will introduce how to manage single and distributed CnosDB instance.",
+  "source": "@site/docs/manage/index.md",
+  "sourceDirName": "manage",
+  "slug": "/manage/",
+  "permalink": "/docs/manage/",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/manage/index.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Index",
+    "icon": "note",
+    "order": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cluster Shrink",
+    "permalink": "/docs/manage/cluster_shrink"
+  },
+  "next": {
+    "title": "Migration",
+    "permalink": "/docs/manage/migration"
+  }
+}

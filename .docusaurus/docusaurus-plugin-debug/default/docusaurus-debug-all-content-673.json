@@ -11,8 +11,8 @@
           "className": "docs-version-current",
           "path": "/docs",
           "tagsPath": "/docs/tags",
-          "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs",
-          "editUrlLocalized": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/i18n/en/docusaurus-plugin-content-docs/current",
+          "editUrl": "https://github.com/cnosdb/docs/docs",
+          "editUrlLocalized": "https://github.com/cnosdb/docs/i18n/en/docusaurus-plugin-content-docs/current",
           "isLast": true,
           "routePriority": -1,
           "sidebarFilePath": "/Users/xiaominghao/code/docs-docusaurus/sidebars.js",
@@ -20,16 +20,178 @@
           "contentPathLocalized": "/Users/xiaominghao/code/docs-docusaurus/i18n/en/docusaurus-plugin-content-docs/current",
           "docs": [
             {
+              "unversionedId": "deploy/distributed",
+              "id": "deploy/distributed",
+              "title": "Distributed",
+              "description": "",
+              "source": "@site/docs/deploy/distributed.md",
+              "sourceDirName": "deploy",
+              "slug": "/deploy/distributed",
+              "permalink": "/docs/deploy/distributed",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/deploy/distributed.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Single",
+                "permalink": "/docs/deploy/single"
+              },
+              "next": {
+                "title": "Separation Mode",
+                "permalink": "/docs/deploy/separation_mod"
+              }
+            },
+            {
+              "unversionedId": "deploy/separation_mod",
+              "id": "deploy/separation_mod",
+              "title": "Separation Mode",
+              "description": "Design Objectives",
+              "source": "@site/docs/deploy/separation_mod.md",
+              "sourceDirName": "deploy",
+              "slug": "/deploy/separation_mod",
+              "permalink": "/docs/deploy/separation_mod",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/deploy/separation_mod.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Distributed",
+                "permalink": "/docs/deploy/distributed"
+              },
+              "next": {
+                "title": "Manage",
+                "permalink": "/docs/category/manage"
+              }
+            },
+            {
+              "unversionedId": "deploy/single",
+              "id": "deploy/single",
+              "title": "Single",
+              "description": "Docker",
+              "source": "@site/docs/deploy/single.md",
+              "sourceDirName": "deploy",
+              "slug": "/deploy/single",
+              "permalink": "/docs/deploy/single",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/deploy/single.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Deploy",
+                "permalink": "/docs/category/deploy"
+              },
+              "next": {
+                "title": "Distributed",
+                "permalink": "/docs/deploy/distributed"
+              }
+            },
+            {
+              "unversionedId": "develop/api",
+              "id": "develop/api",
+              "title": "Connect to CnosDB",
+              "description": "Rust",
+              "source": "@site/docs/develop/api.md",
+              "sourceDirName": "develop",
+              "slug": "/develop/api",
+              "permalink": "/docs/develop/api",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/develop/api.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Develop",
+                "permalink": "/docs/category/develop"
+              },
+              "next": {
+                "title": "Wirte Data",
+                "permalink": "/docs/develop/write"
+              }
+            },
+            {
+              "unversionedId": "develop/query",
+              "id": "develop/query",
+              "title": "Query Data",
+              "description": "CnosDB supports a variety of query methods, including: direct query with SQL from the command line, query using HTTP API.",
+              "source": "@site/docs/develop/query.md",
+              "sourceDirName": "develop",
+              "slug": "/develop/query",
+              "permalink": "/docs/develop/query",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/develop/query.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Wirte Data",
+                "permalink": "/docs/develop/write"
+              },
+              "next": {
+                "title": "Deploy",
+                "permalink": "/docs/category/deploy"
+              }
+            },
+            {
+              "unversionedId": "develop/write",
+              "id": "develop/write",
+              "title": "Wirte Data",
+              "description": "CnosDB supports a variety of writing methods, including: direct writing with SQL from the command line, and writing using HTTP API.",
+              "source": "@site/docs/develop/write.md",
+              "sourceDirName": "develop",
+              "slug": "/develop/write",
+              "permalink": "/docs/develop/write",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/develop/write.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Connect to CnosDB",
+                "permalink": "/docs/develop/api"
+              },
+              "next": {
+                "title": "Query Data",
+                "permalink": "/docs/develop/query"
+              }
+            },
+            {
               "unversionedId": "intro",
               "id": "intro",
-              "title": "Tutorial Intro",
-              "description": "Let's discover Docusaurus in less than 5 minutes.",
+              "title": "Home",
+              "description": "CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.",
               "source": "@site/docs/intro.md",
               "sourceDirName": ".",
               "slug": "/intro",
               "permalink": "/docs/intro",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/intro.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/intro.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -38,8 +200,521 @@
               },
               "sidebar": "tutorialSidebar",
               "next": {
+                "title": "Get Started",
+                "permalink": "/docs/category/get-started"
+              }
+            },
+            {
+              "unversionedId": "manage/backup",
+              "id": "manage/backup",
+              "title": "Backup and Restore",
+              "description": "CnosDB can use SQL COPY INTO to export data to local or object stores, as well as import data from object stores and local filesystems.",
+              "source": "@site/docs/manage/backup.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/backup",
+              "permalink": "/docs/manage/backup",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/backup.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 5,
+              "frontMatter": {
+                "sidebar_position": 5
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Cluster Shrink",
+                "permalink": "/docs/manage/cluster_shrink"
+              },
+              "next": {
+                "title": "Monitor",
+                "permalink": "/docs/manage/monitor"
+              }
+            },
+            {
+              "unversionedId": "manage/cluster_expansion",
+              "id": "manage/cluster_expansion",
+              "title": "Cluster Expansion",
+              "description": "Installation",
+              "source": "@site/docs/manage/cluster_expansion.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/cluster_expansion",
+              "permalink": "/docs/manage/cluster_expansion",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/cluster_expansion.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Upgrade",
+                "permalink": "/docs/manage/upgrade"
+              },
+              "next": {
+                "title": "Cluster Shrink",
+                "permalink": "/docs/manage/cluster_shrink"
+              }
+            },
+            {
+              "unversionedId": "manage/cluster_shrink",
+              "id": "manage/cluster_shrink",
+              "title": "Cluster Shrink",
+              "description": "",
+              "source": "@site/docs/manage/cluster_shrink.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/cluster_shrink",
+              "permalink": "/docs/manage/cluster_shrink",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/cluster_shrink.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Cluster Expansion",
+                "permalink": "/docs/manage/cluster_expansion"
+              },
+              "next": {
+                "title": "Backup and Restore",
+                "permalink": "/docs/manage/backup"
+              }
+            },
+            {
+              "unversionedId": "manage/migration",
+              "id": "manage/migration",
+              "title": "Node Migration",
+              "description": "",
+              "source": "@site/docs/manage/migration.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/migration",
+              "permalink": "/docs/manage/migration",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/migration.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Manage",
+                "permalink": "/docs/category/manage"
+              },
+              "next": {
+                "title": "Upgrade",
+                "permalink": "/docs/manage/upgrade"
+              }
+            },
+            {
+              "unversionedId": "manage/monitor",
+              "id": "manage/monitor",
+              "title": "Monitor",
+              "description": "Currently, CnosDB metrics can be collected by Prometheus or stored on CnosDB.",
+              "source": "@site/docs/manage/monitor.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/monitor",
+              "permalink": "/docs/manage/monitor",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/monitor.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "sidebar_position": 6
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Backup and Restore",
+                "permalink": "/docs/manage/backup"
+              },
+              "next": {
+                "title": "Tenant and Permission",
+                "permalink": "/docs/manage/tenant"
+              }
+            },
+            {
+              "unversionedId": "manage/tenant",
+              "id": "manage/tenant",
+              "title": "Tenant and Permission",
+              "description": "All the following operations are performed in the CnosDB Cli.",
+              "source": "@site/docs/manage/tenant.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/tenant",
+              "permalink": "/docs/manage/tenant",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/tenant.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 7,
+              "frontMatter": {
+                "sidebar_position": 7
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Monitor",
+                "permalink": "/docs/manage/monitor"
+              },
+              "next": {
+                "title": "Reference",
+                "permalink": "/docs/category/reference"
+              }
+            },
+            {
+              "unversionedId": "manage/upgrade",
+              "id": "manage/upgrade",
+              "title": "Upgrade",
+              "description": "",
+              "source": "@site/docs/manage/upgrade.md",
+              "sourceDirName": "manage",
+              "slug": "/manage/upgrade",
+              "permalink": "/docs/manage/upgrade",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/manage/upgrade.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Node Migration",
+                "permalink": "/docs/manage/migration"
+              },
+              "next": {
+                "title": "Cluster Expansion",
+                "permalink": "/docs/manage/cluster_expansion"
+              }
+            },
+            {
+              "unversionedId": "reference/config",
+              "id": "reference/config",
+              "title": "Configuration",
+              "description": "Introduction",
+              "source": "@site/docs/reference/config.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/config",
+              "permalink": "/docs/reference/config",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/config.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 7,
+              "frontMatter": {
+                "sidebar_position": 7
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "CnosDB Tools",
+                "permalink": "/docs/reference/tools"
+              },
+              "next": {
+                "title": "Eco-integration",
+                "permalink": "/docs/reference/ecosystem"
+              }
+            },
+            {
+              "unversionedId": "reference/connector",
+              "id": "reference/connector",
+              "title": "Connector",
+              "description": "Arrow Flight SQL",
+              "source": "@site/docs/reference/connector.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/connector",
+              "permalink": "/docs/reference/connector",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/connector.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "REST API",
+                "permalink": "/docs/reference/rest_api"
+              },
+              "next": {
+                "title": "SQL Reference",
+                "permalink": "/docs/reference/sql"
+              }
+            },
+            {
+              "unversionedId": "reference/design",
+              "id": "reference/design",
+              "title": "Design",
+              "description": "Concepts",
+              "source": "@site/docs/reference/design.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/design",
+              "permalink": "/docs/reference/design",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/design.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Reference",
+                "permalink": "/docs/category/reference"
+              },
+              "next": {
+                "title": "REST API",
+                "permalink": "/docs/reference/rest_api"
+              }
+            },
+            {
+              "unversionedId": "reference/ecosystem",
+              "id": "reference/ecosystem",
+              "title": "Eco-integration",
+              "description": "Telegraf",
+              "source": "@site/docs/reference/ecosystem.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/ecosystem",
+              "permalink": "/docs/reference/ecosystem",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/ecosystem.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 7,
+              "frontMatter": {
+                "sidebar_position": 7
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Configuration",
+                "permalink": "/docs/reference/config"
+              },
+              "next": {
+                "title": "Benchmark",
+                "permalink": "/docs/reference/performance"
+              }
+            },
+            {
+              "unversionedId": "reference/performance",
+              "id": "reference/performance",
+              "title": "Benchmark",
+              "description": "To present CnosDB performance more intuitively, we do performance test of CnosDB and InfluxDB of the same time series database by using tsdb-comparisons.",
+              "source": "@site/docs/reference/performance.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/performance",
+              "permalink": "/docs/reference/performance",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/performance.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 8,
+              "frontMatter": {
+                "sidebar_position": 8
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Eco-integration",
+                "permalink": "/docs/reference/ecosystem"
+              },
+              "next": {
+                "title": "Manage",
+                "permalink": "/docs/category/manage-1"
+              }
+            },
+            {
+              "unversionedId": "reference/rest_api",
+              "id": "reference/rest_api",
+              "title": "REST API",
+              "description": "List of Interfaces",
+              "source": "@site/docs/reference/rest_api.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/rest_api",
+              "permalink": "/docs/reference/rest_api",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/rest_api.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Design",
+                "permalink": "/docs/reference/design"
+              },
+              "next": {
+                "title": "Connector",
+                "permalink": "/docs/reference/connector"
+              }
+            },
+            {
+              "unversionedId": "reference/sql",
+              "id": "reference/sql",
+              "title": "SQL Reference",
+              "description": "Database",
+              "source": "@site/docs/reference/sql.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/sql",
+              "permalink": "/docs/reference/sql",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/sql.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Connector",
+                "permalink": "/docs/reference/connector"
+              },
+              "next": {
+                "title": "CnosDB Tools",
+                "permalink": "/docs/reference/tools"
+              }
+            },
+            {
+              "unversionedId": "reference/tools",
+              "id": "reference/tools",
+              "title": "CnosDB Tools",
+              "description": "Client CLI",
+              "source": "@site/docs/reference/tools.md",
+              "sourceDirName": "reference",
+              "slug": "/reference/tools",
+              "permalink": "/docs/reference/tools",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/reference/tools.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 6,
+              "frontMatter": {
+                "sidebar_position": 6
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "SQL Reference",
+                "permalink": "/docs/reference/sql"
+              },
+              "next": {
+                "title": "Configuration",
+                "permalink": "/docs/reference/config"
+              }
+            },
+            {
+              "unversionedId": "release/changelist",
+              "id": "release/changelist",
+              "title": "Change List",
+              "description": "v2.2.0",
+              "source": "@site/docs/release/changelist.md",
+              "sourceDirName": "release",
+              "slug": "/release/changelist",
+              "permalink": "/docs/release/changelist",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/release/changelist.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Manage",
+                "permalink": "/docs/category/manage-1"
+              },
+              "next": {
+                "title": "CnosDB2.0 Road Map",
+                "permalink": "/docs/release/roadmap"
+              }
+            },
+            {
+              "unversionedId": "release/roadmap",
+              "id": "release/roadmap",
+              "title": "CnosDB2.0 Road Map",
+              "description": "Design Objectives of CnosDB2.0",
+              "source": "@site/docs/release/roadmap.md",
+              "sourceDirName": "release",
+              "slug": "/release/roadmap",
+              "permalink": "/docs/release/roadmap",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/release/roadmap.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Change List",
+                "permalink": "/docs/release/changelist"
+              },
+              "next": {
                 "title": "Tutorial - Basics",
                 "permalink": "/docs/category/tutorial---basics"
+              }
+            },
+            {
+              "unversionedId": "start/install",
+              "id": "start/install",
+              "title": "Install",
+              "description": "CnosDB is a time-series database dedicated to the collection, storage and processing of sequential data. It is a non-relational database, based on column storage, and supports high concurrency, high availability, high reliability, high scalability, high performance, low cost data storage and query.",
+              "source": "@site/docs/start/install.md",
+              "sourceDirName": "start",
+              "slug": "/start/install",
+              "permalink": "/docs/start/install",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/start/install.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Get Started",
+                "permalink": "/docs/category/get-started"
+              },
+              "next": {
+                "title": "Quick Start",
+                "permalink": "/docs/start/quick_start"
+              }
+            },
+            {
+              "unversionedId": "start/quick_start",
+              "id": "start/quick_start",
+              "title": "Quick Start",
+              "description": "CnosDBSQL is inspired by DataFusion，We support most of the SQL syntax of DataFusion.",
+              "source": "@site/docs/start/quick_start.md",
+              "sourceDirName": "start",
+              "slug": "/start/quick_start",
+              "permalink": "/docs/start/quick_start",
+              "draft": false,
+              "editUrl": "https://github.com/cnosdb/docs/docs/start/quick_start.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Install",
+                "permalink": "/docs/start/install"
+              },
+              "next": {
+                "title": "Develop",
+                "permalink": "/docs/category/develop"
               }
             },
             {
@@ -52,7 +727,7 @@
               "slug": "/tutorial-basics/congratulations",
               "permalink": "/docs/tutorial-basics/congratulations",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-basics/congratulations.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-basics/congratulations.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 6,
@@ -79,7 +754,7 @@
               "slug": "/tutorial-basics/create-a-blog-post",
               "permalink": "/docs/tutorial-basics/create-a-blog-post",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-basics/create-a-blog-post.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-basics/create-a-blog-post.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 3,
@@ -106,7 +781,7 @@
               "slug": "/tutorial-basics/create-a-document",
               "permalink": "/docs/tutorial-basics/create-a-document",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-basics/create-a-document.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-basics/create-a-document.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 2,
@@ -133,7 +808,7 @@
               "slug": "/tutorial-basics/create-a-page",
               "permalink": "/docs/tutorial-basics/create-a-page",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-basics/create-a-page.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-basics/create-a-page.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -160,7 +835,7 @@
               "slug": "/tutorial-basics/deploy-your-site",
               "permalink": "/docs/tutorial-basics/deploy-your-site",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-basics/deploy-your-site.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-basics/deploy-your-site.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 5,
@@ -187,7 +862,7 @@
               "slug": "/tutorial-basics/markdown-features",
               "permalink": "/docs/tutorial-basics/markdown-features",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-basics/markdown-features.mdx",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-basics/markdown-features.mdx",
               "tags": [],
               "version": "current",
               "sidebarPosition": 4,
@@ -214,7 +889,7 @@
               "slug": "/tutorial-extras/manage-docs-versions",
               "permalink": "/docs/tutorial-extras/manage-docs-versions",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-extras/manage-docs-versions.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-extras/manage-docs-versions.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 1,
@@ -241,7 +916,7 @@
               "slug": "/tutorial-extras/translate-your-site",
               "permalink": "/docs/tutorial-extras/translate-your-site",
               "draft": false,
-              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/tutorial-extras/translate-your-site.md",
+              "editUrl": "https://github.com/cnosdb/docs/docs/tutorial-extras/translate-your-site.md",
               "tags": [],
               "version": "current",
               "sidebarPosition": 2,
@@ -261,6 +936,190 @@
               {
                 "type": "doc",
                 "id": "intro"
+              },
+              {
+                "type": "category",
+                "label": "Get Started",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "start/install"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "start/quick_start"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "10 minutes to get familiar with the CnosDB.",
+                  "slug": "/category/get-started",
+                  "permalink": "/docs/category/get-started"
+                }
+              },
+              {
+                "type": "category",
+                "label": "Develop",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "develop/api"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "develop/write"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "develop/query"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "10 minutes to get familiar with the CnosDB.",
+                  "slug": "/category/develop",
+                  "permalink": "/docs/category/develop"
+                }
+              },
+              {
+                "type": "category",
+                "label": "Deploy",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "deploy/single"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "deploy/distributed"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "deploy/separation_mod"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "10 minutes to get familiar with the CnosDB.",
+                  "slug": "/category/deploy",
+                  "permalink": "/docs/category/deploy"
+                }
+              },
+              {
+                "type": "category",
+                "label": "Manage",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "manage/migration"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "manage/upgrade"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "manage/cluster_expansion"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "manage/cluster_shrink"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "manage/backup"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "manage/monitor"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "manage/tenant"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "10 minutes to get familiar with the CnosDB.",
+                  "slug": "/category/manage",
+                  "permalink": "/docs/category/manage"
+                }
+              },
+              {
+                "type": "category",
+                "label": "Reference",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "reference/design"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/rest_api"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/connector"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/sql"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/tools"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/config"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/ecosystem"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "reference/performance"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "10 minutes to get familiar with the CnosDB.",
+                  "slug": "/category/reference",
+                  "permalink": "/docs/category/reference"
+                }
+              },
+              {
+                "type": "category",
+                "label": "Manage",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "release/changelist"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "release/roadmap"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "10 minutes to get familiar with the CnosDB.",
+                  "slug": "/category/manage-1",
+                  "permalink": "/docs/category/manage-1"
+                }
               },
               {
                 "type": "category",
@@ -335,7 +1194,7 @@
           "id": "welcome",
           "metadata": {
             "permalink": "/blog/welcome",
-            "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/blog/2021-08-26-welcome/index.md",
+            "editUrl": "https://github.com/cnosdb/docs/blog/2021-08-26-welcome/index.md",
             "source": "@site/blog/2021-08-26-welcome/index.md",
             "title": "Welcome",
             "description": "Docusaurus blogging features are powered by the blog plugin.",
@@ -397,7 +1256,7 @@
           "id": "mdx-blog-post",
           "metadata": {
             "permalink": "/blog/mdx-blog-post",
-            "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/blog/2021-08-01-mdx-blog-post.mdx",
+            "editUrl": "https://github.com/cnosdb/docs/blog/2021-08-01-mdx-blog-post.mdx",
             "source": "@site/blog/2021-08-01-mdx-blog-post.mdx",
             "title": "MDX Blog Post",
             "description": "Blog posts support Docusaurus Markdown features, such as MDX.",
@@ -445,7 +1304,7 @@
           "id": "long-blog-post",
           "metadata": {
             "permalink": "/blog/long-blog-post",
-            "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/blog/2019-05-29-long-blog-post.md",
+            "editUrl": "https://github.com/cnosdb/docs/blog/2019-05-29-long-blog-post.md",
             "source": "@site/blog/2019-05-29-long-blog-post.md",
             "title": "Long Blog Post",
             "description": "This is the summary of a very long blog post,",
@@ -496,7 +1355,7 @@
           "id": "first-blog-post",
           "metadata": {
             "permalink": "/blog/first-blog-post",
-            "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/blog/2019-05-28-first-blog-post.md",
+            "editUrl": "https://github.com/cnosdb/docs/blog/2019-05-28-first-blog-post.md",
             "source": "@site/blog/2019-05-28-first-blog-post.md",
             "title": "First Blog Post",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet",

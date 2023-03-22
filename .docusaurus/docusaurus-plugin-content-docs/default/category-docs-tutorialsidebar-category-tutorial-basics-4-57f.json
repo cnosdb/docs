@@ -1,0 +1,16 @@
+{
+  "title": "Tutorial - Basics",
+  "description": "5 minutes to learn the most important Docusaurus concepts.",
+  "slug": "/category/tutorial---basics-4",
+  "permalink": "/docs/category/tutorial---basics-4",
+  "navigation": {
+    "previous": {
+      "title": "Write Data",
+      "permalink": "/docs/en/develop/write"
+    },
+    "next": {
+      "title": "Backup and Restore",
+      "permalink": "/docs/en/manage/backup"
+    }
+  }
+}

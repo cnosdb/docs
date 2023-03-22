@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/manage/upgrade",
+  "id": "en/manage/upgrade",
+  "title": "Upgrade",
+  "description": "",
+  "source": "@site/docs/en/manage/upgrade.md",
+  "sourceDirName": "en/manage",
+  "slug": "/en/manage/upgrade",
+  "permalink": "/docs/en/manage/upgrade",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/manage/upgrade.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Upgrade",
+    "order": 2,
+    "icon": "tool"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tenant and Permission",
+    "permalink": "/docs/en/manage/tenant"
+  },
+  "next": {
+    "title": "Tutorial - Basics",
+    "permalink": "/docs/category/tutorial---basics-5"
+  }
+}

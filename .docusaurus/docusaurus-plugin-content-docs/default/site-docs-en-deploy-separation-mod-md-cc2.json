@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/deploy/separation_mod",
+  "id": "en/deploy/separation_mod",
+  "title": "Separation Mode",
+  "description": "Design Objectives",
+  "source": "@site/docs/en/deploy/separation_mod.md",
+  "sourceDirName": "en/deploy",
+  "slug": "/en/deploy/separation_mod",
+  "permalink": "/docs/en/deploy/separation_mod",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/deploy/separation_mod.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Separation Mode",
+    "icon": "launch",
+    "order": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Index",
+    "permalink": "/docs/en/deploy/"
+  },
+  "next": {
+    "title": "Single",
+    "permalink": "/docs/en/deploy/single"
+  }
+}

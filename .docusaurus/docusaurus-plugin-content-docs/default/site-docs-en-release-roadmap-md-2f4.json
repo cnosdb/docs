@@ -1,0 +1,20 @@
+{
+  "unversionedId": "en/release/roadmap",
+  "id": "en/release/roadmap",
+  "title": "roadmap",
+  "description": "",
+  "source": "@site/docs/en/release/roadmap.md",
+  "sourceDirName": "en/release",
+  "slug": "/en/release/roadmap",
+  "permalink": "/docs/en/release/roadmap",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/release/roadmap.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "index",
+    "permalink": "/docs/en/release/"
+  }
+}

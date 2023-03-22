@@ -1,0 +1,27 @@
+{
+  "unversionedId": "manage/backup",
+  "id": "manage/backup",
+  "title": "Backup and Restore",
+  "description": "CnosDB can use SQL COPY INTO to export data to local or object stores, as well as import data from object stores and local filesystems.",
+  "source": "@site/docs/manage/backup.md",
+  "sourceDirName": "manage",
+  "slug": "/manage/backup",
+  "permalink": "/docs/manage/backup",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/manage/backup.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cluster Shrink",
+    "permalink": "/docs/manage/cluster_shrink"
+  },
+  "next": {
+    "title": "Monitor",
+    "permalink": "/docs/manage/monitor"
+  }
+}

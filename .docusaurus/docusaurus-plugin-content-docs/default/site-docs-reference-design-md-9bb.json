@@ -1,0 +1,27 @@
+{
+  "unversionedId": "reference/design",
+  "id": "reference/design",
+  "title": "Design",
+  "description": "Concepts",
+  "source": "@site/docs/reference/design.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/design",
+  "permalink": "/docs/reference/design",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/reference/design.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Reference",
+    "permalink": "/docs/category/reference"
+  },
+  "next": {
+    "title": "REST API",
+    "permalink": "/docs/reference/rest_api"
+  }
+}

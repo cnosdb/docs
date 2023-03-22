@@ -1,0 +1,16 @@
+{
+  "title": "Get Started",
+  "description": "10 minutes to get familiar with the CnosDB.",
+  "slug": "/category/get-started",
+  "permalink": "/docs/category/get-started",
+  "navigation": {
+    "previous": {
+      "title": "Home",
+      "permalink": "/docs/intro"
+    },
+    "next": {
+      "title": "Install",
+      "permalink": "/docs/start/install"
+    }
+  }
+}

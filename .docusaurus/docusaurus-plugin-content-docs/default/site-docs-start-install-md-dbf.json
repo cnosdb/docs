@@ -1,0 +1,27 @@
+{
+  "unversionedId": "start/install",
+  "id": "start/install",
+  "title": "Install",
+  "description": "CnosDB is a time-series database dedicated to the collection, storage and processing of sequential data. It is a non-relational database, based on column storage, and supports high concurrency, high availability, high reliability, high scalability, high performance, low cost data storage and query.",
+  "source": "@site/docs/start/install.md",
+  "sourceDirName": "start",
+  "slug": "/start/install",
+  "permalink": "/docs/start/install",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/start/install.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Get Started",
+    "permalink": "/docs/category/get-started"
+  },
+  "next": {
+    "title": "Quick Start",
+    "permalink": "/docs/start/quick_start"
+  }
+}

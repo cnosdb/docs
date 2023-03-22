@@ -1,0 +1,28 @@
+{
+  "unversionedId": "reference/index",
+  "id": "reference/index",
+  "title": "Index",
+  "description": "This chapter introduces the CnosDB reference documentation.",
+  "source": "@site/docs/reference/index.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/",
+  "permalink": "/docs/reference/",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/reference/index.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Index",
+    "icon": "note",
+    "order": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Eco-integration",
+    "permalink": "/docs/reference/ecosystem"
+  },
+  "next": {
+    "title": "Benchmark",
+    "permalink": "/docs/reference/performance"
+  }
+}

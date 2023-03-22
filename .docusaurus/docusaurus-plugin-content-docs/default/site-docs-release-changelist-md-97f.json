@@ -1,0 +1,27 @@
+{
+  "unversionedId": "release/changelist",
+  "id": "release/changelist",
+  "title": "Change List",
+  "description": "v2.2.0",
+  "source": "@site/docs/release/changelist.md",
+  "sourceDirName": "release",
+  "slug": "/release/changelist",
+  "permalink": "/docs/release/changelist",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/release/changelist.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Manage",
+    "permalink": "/docs/category/manage-1"
+  },
+  "next": {
+    "title": "CnosDB2.0 Road Map",
+    "permalink": "/docs/release/roadmap"
+  }
+}

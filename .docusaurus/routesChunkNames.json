@@ -186,12 +186,36 @@
     },
     "content": "content---markdown-page-393-028"
   },
-  "/docs-271": {
+  "/docs-691": {
     "__comp": "__comp---theme-doc-page-1-be-9be",
     "__context": {
       "plugin": "plugin---docs-808-96e"
     },
     "versionMetadata": "versionMetadata---docs-935-398"
+  },
+  "/docs/category/deploy-f8e": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-deployeda-b8f"
+  },
+  "/docs/category/develop-1cc": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-develop-576-e30"
+  },
+  "/docs/category/get-started-9e4": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-get-started-889-dcc"
+  },
+  "/docs/category/manage-787": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-manage-108-cc9"
+  },
+  "/docs/category/manage-1-9d9": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-manage-109-c-22f"
+  },
+  "/docs/category/reference-8c1": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-reference-91-c-eef"
   },
   "/docs/category/tutorial---basics-d44": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
@@ -201,9 +225,109 @@
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
     "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-tutorial-extrasc-84-abc"
   },
+  "/docs/deploy/distributed-122": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-deploy-distributedb-65-ef1"
+  },
+  "/docs/deploy/separation_mod-19a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-deploy-separation-mode-2-a-c87"
+  },
+  "/docs/deploy/single-90d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-deploy-single-2-a-6-f5a"
+  },
+  "/docs/develop/api-e84": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-develop-api-55-a-f79"
+  },
+  "/docs/develop/query-f68": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-develop-querya-53-cd5"
+  },
+  "/docs/develop/write-42a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-develop-write-999-ca6"
+  },
   "/docs/intro-aed": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-intro-0-e-3-be1"
+  },
+  "/docs/manage/backup-793": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-backup-3-d-1-cee"
+  },
+  "/docs/manage/cluster_expansion-791": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-cluster-expansion-1-af-3e9"
+  },
+  "/docs/manage/cluster_shrink-5d4": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-cluster-shrink-6-ec-673"
+  },
+  "/docs/manage/migration-024": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-migration-5-b-6-d3d"
+  },
+  "/docs/manage/monitor-ed6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-monitoraa-2-013"
+  },
+  "/docs/manage/tenant-5e0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-tenant-4-a-3-cec"
+  },
+  "/docs/manage/upgrade-ad6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-manage-upgraded-60-db4"
+  },
+  "/docs/reference/config-67b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-config-9-a-9-738"
+  },
+  "/docs/reference/connector-bbc": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-connector-404-fa7"
+  },
+  "/docs/reference/design-3e3": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-design-9-bb-63e"
+  },
+  "/docs/reference/ecosystem-37d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-ecosystem-1-ec-67f"
+  },
+  "/docs/reference/performance-21a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-performancea-5-a-b1c"
+  },
+  "/docs/reference/rest_api-945": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-rest-api-6-c-8-130"
+  },
+  "/docs/reference/sql-f64": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-sql-5-fc-9ff"
+  },
+  "/docs/reference/tools-18c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reference-tools-1-ec-fe3"
+  },
+  "/docs/release/changelist-e44": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-release-changelist-97-f-1db"
+  },
+  "/docs/release/roadmap-3a7": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-release-roadmapfd-4-1a3"
+  },
+  "/docs/start/install-87f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-start-installdbf-efa"
+  },
+  "/docs/start/quick_start-a1b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-start-quick-start-5-b-6-be1"
   },
   "/docs/tutorial-basics/congratulations-793": {
     "__comp": "__comp---theme-doc-item-178-a40",

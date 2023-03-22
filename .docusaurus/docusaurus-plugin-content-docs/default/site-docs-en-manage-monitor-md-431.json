@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/manage/monitor",
+  "id": "en/manage/monitor",
+  "title": "Monitor",
+  "description": "Currently, CnosDB metrics can be collected by Prometheus or stored on CnosDB.",
+  "source": "@site/docs/en/manage/monitor.md",
+  "sourceDirName": "en/manage",
+  "slug": "/en/manage/monitor",
+  "permalink": "/docs/en/manage/monitor",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/manage/monitor.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Monitor",
+    "icon": "leaf",
+    "order": 7
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Migration",
+    "permalink": "/docs/en/manage/migration"
+  },
+  "next": {
+    "title": "Tenant and Permission",
+    "permalink": "/docs/en/manage/tenant"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "en/deploy/README",
+  "id": "en/deploy/README",
+  "title": "Deploy",
+  "description": "",
+  "source": "@site/docs/en/deploy/README.md",
+  "sourceDirName": "en/deploy",
+  "slug": "/en/deploy/",
+  "permalink": "/docs/en/deploy/",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/deploy/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Deploy",
+    "icon": "stack",
+    "order": -4,
+    "index": false
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tutorial - Basics",
+    "permalink": "/docs/category/tutorial---basics"
+  },
+  "next": {
+    "title": "Distributed",
+    "permalink": "/docs/en/deploy/distributed"
+  }
+}

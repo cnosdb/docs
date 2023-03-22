@@ -1,0 +1,28 @@
+{
+  "unversionedId": "deploy/index",
+  "id": "deploy/index",
+  "title": "Index",
+  "description": "This section describes how to deploy CnosDB.",
+  "source": "@site/docs/deploy/index.md",
+  "sourceDirName": "deploy",
+  "slug": "/deploy/",
+  "permalink": "/docs/deploy/",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/deploy/index.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Index",
+    "icon": "note",
+    "order": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Distributed",
+    "permalink": "/docs/deploy/distributed"
+  },
+  "next": {
+    "title": "Separation Mode",
+    "permalink": "/docs/deploy/separation_mod"
+  }
+}

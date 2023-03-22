@@ -1,0 +1,29 @@
+{
+  "unversionedId": "en/release/README",
+  "id": "en/release/README",
+  "title": "Releases",
+  "description": "",
+  "source": "@site/docs/en/release/README.md",
+  "sourceDirName": "en/release",
+  "slug": "/en/release/",
+  "permalink": "/docs/en/release/",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/release/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Releases",
+    "icon": "copy",
+    "index": false,
+    "order": -1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tutorial - Basics",
+    "permalink": "/docs/category/tutorial---basics-4"
+  },
+  "next": {
+    "title": "Change List",
+    "permalink": "/docs/en/release/changelist"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "unversionedId": "deploy/single",
+  "id": "deploy/single",
+  "title": "Single",
+  "description": "Docker",
+  "source": "@site/docs/deploy/single.md",
+  "sourceDirName": "deploy",
+  "slug": "/deploy/single",
+  "permalink": "/docs/deploy/single",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/deploy/single.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deploy",
+    "permalink": "/docs/category/deploy"
+  },
+  "next": {
+    "title": "Distributed",
+    "permalink": "/docs/deploy/distributed"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "unversionedId": "en/start/README",
+  "id": "en/start/README",
+  "title": "Get Started",
+  "description": "",
+  "source": "@site/docs/en/start/README.md",
+  "sourceDirName": "en/start",
+  "slug": "/en/start/",
+  "permalink": "/docs/en/start/",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/start/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Get Started",
+    "icon": "launch",
+    "index": false,
+    "order": -6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tutorial - Basics",
+    "permalink": "/docs/category/tutorial---basics-5"
+  },
+  "next": {
+    "title": "Index",
+    "permalink": "/docs/en/start/"
+  }
+}

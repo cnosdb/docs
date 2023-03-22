@@ -1,0 +1,27 @@
+{
+  "unversionedId": "reference/rest_api",
+  "id": "reference/rest_api",
+  "title": "REST API",
+  "description": "List of Interfaces",
+  "source": "@site/docs/reference/rest_api.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/rest_api",
+  "permalink": "/docs/reference/rest_api",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/reference/rest_api.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Design",
+    "permalink": "/docs/reference/design"
+  },
+  "next": {
+    "title": "Connector",
+    "permalink": "/docs/reference/connector"
+  }
+}

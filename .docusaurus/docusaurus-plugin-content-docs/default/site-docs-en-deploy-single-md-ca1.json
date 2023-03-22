@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/deploy/single",
+  "id": "en/deploy/single",
+  "title": "Single",
+  "description": "Docker",
+  "source": "@site/docs/en/deploy/single.md",
+  "sourceDirName": "en/deploy",
+  "slug": "/en/deploy/single",
+  "permalink": "/docs/en/deploy/single",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/deploy/single.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Single",
+    "icon": "launch",
+    "order": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Separation Mode",
+    "permalink": "/docs/en/deploy/separation_mod"
+  },
+  "next": {
+    "title": "Tutorial - Basics",
+    "permalink": "/docs/category/tutorial---basics-3"
+  }
+}

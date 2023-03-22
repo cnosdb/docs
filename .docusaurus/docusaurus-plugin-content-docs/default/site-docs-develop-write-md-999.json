@@ -1,0 +1,27 @@
+{
+  "unversionedId": "develop/write",
+  "id": "develop/write",
+  "title": "Wirte Data",
+  "description": "CnosDB supports a variety of writing methods, including: direct writing with SQL from the command line, and writing using HTTP API.",
+  "source": "@site/docs/develop/write.md",
+  "sourceDirName": "develop",
+  "slug": "/develop/write",
+  "permalink": "/docs/develop/write",
+  "draft": false,
+  "editUrl": "https://github.com/cnosdb/docs/docs/develop/write.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Connect to CnosDB",
+    "permalink": "/docs/develop/api"
+  },
+  "next": {
+    "title": "Query Data",
+    "permalink": "/docs/develop/query"
+  }
+}

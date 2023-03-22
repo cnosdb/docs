@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/manage/cluster_shrink",
+  "id": "en/manage/cluster_shrink",
+  "title": "Cluster Shrink",
+  "description": "",
+  "source": "@site/docs/en/manage/cluster_shrink.md",
+  "sourceDirName": "en/manage",
+  "slug": "/en/manage/cluster_shrink",
+  "permalink": "/docs/en/manage/cluster_shrink",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/manage/cluster_shrink.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cluster Shrink",
+    "icon": "note",
+    "order": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Cluster Expansion",
+    "permalink": "/docs/en/manage/cluster_expansion"
+  },
+  "next": {
+    "title": "Index",
+    "permalink": "/docs/en/manage/"
+  }
+}

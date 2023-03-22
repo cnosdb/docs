@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/develop/query",
+  "id": "en/develop/query",
+  "title": "Query Data",
+  "description": "CnosDB supports a variety of query methods, including: direct query with SQL from the command line, query using HTTP API.",
+  "source": "@site/docs/en/develop/query.md",
+  "sourceDirName": "en/develop",
+  "slug": "/en/develop/query",
+  "permalink": "/docs/en/develop/query",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/develop/query.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Query Data",
+    "icon": "type",
+    "order": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Index",
+    "permalink": "/docs/en/develop/"
+  },
+  "next": {
+    "title": "Write Data",
+    "permalink": "/docs/en/develop/write"
+  }
+}

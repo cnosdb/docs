@@ -1,0 +1,16 @@
+{
+  "title": "Manage",
+  "description": "10 minutes to get familiar with the CnosDB.",
+  "slug": "/category/manage",
+  "permalink": "/docs/category/manage",
+  "navigation": {
+    "previous": {
+      "title": "Separation Mode",
+      "permalink": "/docs/deploy/separation_mod"
+    },
+    "next": {
+      "title": "Node Migration",
+      "permalink": "/docs/manage/migration"
+    }
+  }
+}

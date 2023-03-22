@@ -1,0 +1,28 @@
+{
+  "unversionedId": "en/start/install",
+  "id": "en/start/install",
+  "title": "Install",
+  "description": "Deploy",
+  "source": "@site/docs/en/start/install.md",
+  "sourceDirName": "en/start",
+  "slug": "/en/start/install",
+  "permalink": "/docs/en/start/install",
+  "draft": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/en/start/install.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Install",
+    "icon": "launch",
+    "order": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Index",
+    "permalink": "/docs/en/start/"
+  },
+  "next": {
+    "title": "Quick Start",
+    "permalink": "/docs/en/start/quick_start"
+  }
+}
