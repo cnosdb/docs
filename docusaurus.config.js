@@ -31,7 +31,7 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en','zh-Hans'],
-    path: 'docs',
+    path: 'zh',
     localeConfigs: {
       en: {
         label: 'English',
