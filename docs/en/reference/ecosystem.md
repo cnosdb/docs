@@ -1,6 +1,5 @@
 ---
 title: Eco-integration
-icon: leaf
 order: 8
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: 快速开始
-icon: note
 order: 3
 ---
 

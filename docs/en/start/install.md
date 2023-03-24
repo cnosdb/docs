@@ -1,6 +1,5 @@
 ---
 title: Install
-icon: launch
 order: 2
 ---
 

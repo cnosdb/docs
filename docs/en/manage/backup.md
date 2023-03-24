@@ -1,7 +1,6 @@
 ---
 title: Backup and Restore
 order: 6
-icon: tool
 ---
 
 # Backup and Restore

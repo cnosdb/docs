@@ -1,7 +1,6 @@
 ---
 title: 备份与还原
 order: 6
-icon: tool
 ---
 
 # 备份与还原

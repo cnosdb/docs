@@ -1,6 +1,5 @@
 ---
 title: Separation Mode
-icon: launch
 order: 4
 ---
 

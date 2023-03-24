@@ -1,6 +1,5 @@
 ---
 title: 路线图
-icon: note
 order: 3
 ---
 

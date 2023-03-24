@@ -1,7 +1,6 @@
 ---
 title: Configuration
 order: 6
-icon: tool
 ---
 
 # Configuration

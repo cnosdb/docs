@@ -1,6 +1,5 @@
 ---
 title: 监控
-icon: leaf
 order: 7
 ---
 

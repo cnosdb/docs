@@ -1,6 +1,5 @@
 ---
 title: Quick start
-icon: note
 order: 3
 ---
 

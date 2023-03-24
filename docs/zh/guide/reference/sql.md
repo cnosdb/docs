@@ -1,6 +1,5 @@
 ---
 title: SQL语法参考手册
-icon: copy
 order: 5
 ---
 

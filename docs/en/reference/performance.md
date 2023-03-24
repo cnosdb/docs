@@ -1,6 +1,5 @@
 ---
 title: Benchmark
-icon: stack
 order: 9
 ---
 

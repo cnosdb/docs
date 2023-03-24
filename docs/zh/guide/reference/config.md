@@ -1,7 +1,6 @@
 ---
 title: 配置
 order: 6
-icon: tool
 ---
 
 # 配置

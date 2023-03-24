@@ -1,6 +1,5 @@
 ---
 title: Monitor
-icon: leaf
 order: 7
 ---
 

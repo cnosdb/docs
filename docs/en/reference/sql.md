@@ -1,6 +1,5 @@
 ---
 title: SQL Reference
-icon: copy
 order: 5
 ---
 

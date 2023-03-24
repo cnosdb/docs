@@ -1,6 +1,5 @@
 ---
 title: 版本发布
-icon: type
 order: 2
 ---
 

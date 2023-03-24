@@ -1,7 +1,6 @@
 ---
 
 title: Cluster Expansion
-icon: note
 order: 4
 
 ---

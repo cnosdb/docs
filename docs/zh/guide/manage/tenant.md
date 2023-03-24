@@ -1,7 +1,6 @@
 ---
 title: 租户和权限
 order: 8
-icon: lock
 ---
 
 # 租户和权限

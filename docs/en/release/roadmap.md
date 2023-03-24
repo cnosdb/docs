@@ -1,6 +1,5 @@
 ---
 title: Roadmap
-icon: note
 order: 3
 ---
 

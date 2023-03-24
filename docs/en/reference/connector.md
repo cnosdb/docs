@@ -1,6 +1,5 @@
 ---
 title: Connector
-icon: copy
 order: 4
 ---
 

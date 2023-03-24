@@ -1,6 +1,5 @@
 ---
 title: Tools
-icon: tool
 order: 7
 ---
 

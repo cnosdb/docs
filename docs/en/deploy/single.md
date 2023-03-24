@@ -1,6 +1,5 @@
 ---
 title: Single
-icon: launch
 order: 2
 ---
 

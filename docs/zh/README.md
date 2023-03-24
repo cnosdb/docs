@@ -1,6 +1,6 @@
 ---
 title: 主页
-icon: config
+icon: home
 index: false
 order: -8
 ---
@@ -21,7 +21,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
 
-- [开始](./guide/start/index.md)
+- [开始](./guide/start)
   - [安装](./guide/start/install.md)
   - [快速开始](./guide/start/quick_start.md)
 
@@ -29,7 +29,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 的开发指南，包含如何使用 CnosDB 的各种API，如何连接 CnosDB 进行数据的写入与查询。
 
-- [开发](./guide/develop/index.md)
+- [开发](./guide/develop)
   - [Connect to CnosDB](./guide/develop/api.md)
   - [数据写入](./guide/develop/write.md)
   - [数据查询](./guide/develop/query.md)
@@ -38,7 +38,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了如何使用以下其中之一安装和运行单机版或集群版 CnosDB，以及 CnosDB 的计算存储分离架构。
 
-- [部署](./guide/deploy/index.md)
+- [部署](./guide/deploy)
   - [单机版](./guide/deploy/single.md)
   - [分布式版](./guide/deploy/distributed.md)
   - [存算分离](./guide/deploy/separation_mod.md)
@@ -47,7 +47,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 单机版与集群版的管理与监控。
 
-- [管理](./guide/manage/index.md)
+- [管理](./guide/manage)
   - [节点升级](./guide/manage/upgrade.md) 
   - [节点迁移](./guide/manage/migration.md)
   - [集群扩容](./guide/manage/cluster_expansion.md)
@@ -60,7 +60,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 的实现原理，以及 CnosDB 的生态集成。
 
-- [指南](./guide/reference/index.md)
+- [指南](./guide/reference)
   - [设计](./guide/reference/design.md)
   - [REST API](./guide/reference/rest_api.md)
   - [连接器](./guide/reference/connector.md)
@@ -74,7 +74,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 的版本发布历史。
 
-- [版本发布](./guide/release/index.md)
+- [版本发布](./guide/release)
   - [版本发布](./guide/release/changelist.md)
   - [路线图](./guide/release/roadmap.md)
 

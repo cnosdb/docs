@@ -1,6 +1,5 @@
 ---
 title: 生态集成
-icon: leaf
 order: 8
 ---
 

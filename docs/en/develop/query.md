@@ -1,6 +1,5 @@
 ---
 title: Query Data
-icon: type
 order: 4
 ---
 

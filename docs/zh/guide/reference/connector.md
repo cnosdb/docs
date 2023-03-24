@@ -1,6 +1,5 @@
 ---
 title: 连接器
-icon: copy
 order: 4
 ---
 

@@ -1,7 +1,6 @@
 ---
 
 title: 集群扩容
-icon: note
 order: 4
 
 ---

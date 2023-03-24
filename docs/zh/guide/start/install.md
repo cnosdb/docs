@@ -1,6 +1,5 @@
 ---
 title: 安装
-icon: launch
 order: 2
 ---
 

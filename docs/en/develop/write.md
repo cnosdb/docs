@@ -1,6 +1,5 @@
 ---
 title: Write Data
-icon: type
 order: 3
 ---
 

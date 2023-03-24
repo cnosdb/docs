@@ -1,6 +1,5 @@
 ---
 title: 单机版
-icon: launch
 order: 2
 ---
 

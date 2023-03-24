@@ -1,6 +1,5 @@
 ---
 title: 性能测试
-icon: stack
 order: 9
 ---
 

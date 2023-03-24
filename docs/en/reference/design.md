@@ -1,6 +1,5 @@
 ---
 title: Design
-icon: creative
 order: 2
 ---
 

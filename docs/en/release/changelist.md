@@ -1,6 +1,5 @@
 ---
 title: Change List
-icon: type
 order: 2
 ---
 

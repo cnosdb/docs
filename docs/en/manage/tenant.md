@@ -1,7 +1,6 @@
 ---
 title: Tenant and Permission
 order: 8
-icon: lock
 ---
 
 # Tenant and Permission

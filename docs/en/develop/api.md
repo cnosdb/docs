@@ -1,6 +1,5 @@
 ---
 title: Connect to CnosDB
-icon: type
 order: 2
 ---
 

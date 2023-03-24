@@ -1,6 +1,5 @@
 ---
 title: Distributed
-icon: launch
 order: 3
 ---
 
