@@ -8,7 +8,7 @@ Currently, CnosDB metrics can be collected by Prometheus or stored on CnosDB.
 
 If you would like to see more metrics supported by CnosDB, please send an ISSUE to the [repository](https://github.com/cnosdb).
 
-## Data Node Monitor Metrics
+## **Data Node Monitor Metrics**
 
 ### DISK_STORAGE
 
@@ -136,7 +136,7 @@ The times the user writes to the database.
 | VALUE    | The times the user writes to the database. |
 
 
-## Prometheus Monitor
+## **Prometheus Monitor**
 
 Just add Job at the Prometheus configuration file.
 
@@ -152,7 +152,9 @@ scrape_configs:
 `targets` is the adderss of CnosDB Http.
 
 
-## Store to CnosDB 
+## **Store to CnosDB**
 
-在[配置文件](cluster.md#配置项-cluster)中修改`store_metrics`参数为 `true` （默认为true）
+[//]: # (TODO: Add the description of how to store the metrics to CnosDB.)
+
+在[配置文件](./cluster_expansion)中修改`store_metrics`参数为 `true` （默认为true）
 

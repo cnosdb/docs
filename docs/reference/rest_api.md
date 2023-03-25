@@ -12,32 +12,32 @@ sidebar_position: 2
 
 ## **`/api/v1/write`**
 
-### **Request Method**
+### Request Method
 
 - POST
 
-### **Request Header**
+### Request Header
 
 Authorization: BASIC
 
 basic64(user_name + ":" + password)
 
-### **Request Parameter**
+### Request Parameter
 
 - db：name of database
 
-### **Request Body**
+### Request Body
 
 - Line agreement: The details of the line agreement can be seen [here](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/).
 
 
-### **Request Example**
+### Request Example
 
 ```shell
 curl -i -u "username:password" -XPOST "http://localhost:31007/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
 ```
 
-### **Request Succeeded**
+### Request Succeeded
 
 ```shell
 HTTP/1.1 200 OK
@@ -45,7 +45,7 @@ content-length: 0
 date: Sat, 08 Oct 2022 06:59:38 GMT
 ```
 
-### **Request Failed**
+### Request Failed
 
 > A failed request will return 4xx or 5xx.
 
@@ -57,11 +57,11 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 ## **`/api/v1/sql`**
 
-### **Request Method**
+### Request Method
 
 - POST
 
-### **Request Header**
+### Request Header
 
 - Authorization: BASIC
 
@@ -71,20 +71,20 @@ basic64(user_name + ":" + password)
 
 - Accept-Encoding: identity, gzip, compress, deflate, br
 
-### **Request parameter**
+### Request Parameter
 
 - db
   Default database based on the current request context.
 - chunked
   Whether or not stream the result data; Default is false.
 
-### **Request Example**
+### Request Example
 
 ```shell
 curl -i -u "username:password" -H "Accept: application/json" -XPOST "http://localhost:31007/api/v1/sql?db=example" -d 'SELECT * from t1'
 ```
 
-### **Request Succeeded**
+### Request Succeeded
 
 ```shell
 HTTP/1.1 200 OK
@@ -93,7 +93,7 @@ content-length: 139
 date: Sat, 08 Oct 2022 07:17:06 GMT
 ```
 
-### **Request Failed**
+### Request Failed
 
 > A failed request will return 4xx or 5xx.
 
@@ -104,20 +104,20 @@ content-length: 139
 date: Sat, 08 Oct 2022 07:17:06 GMT
 ```
 
-## `/api/v1/ping`
+## **`/api/v1/ping`**
 
-### **Request Method**
+### Request Method
 
 - GET
 - HEAD
 
-### **Request Example**
+### Request Example
 
 ```shell
 curl -G 'http://localhost:31007/api/v1/ping'
 ```
 
-### **Request Succeeded**
+### Request Succeeded
 
 ```json
 {
@@ -125,11 +125,12 @@ curl -G 'http://localhost:31007/api/v1/ping'
   "status":"healthy"
 }
 ```
-### **Request Failed**
+
+### Request Failed
 
 > No result will be returned.
 
-## Status Code
+## **Status Code**
 
 | Status Code | Description                                                                                              |
 |-------------|----------------------------------------------------------------------------------------------------------|

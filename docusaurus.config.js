@@ -126,6 +126,7 @@ const config = {
           },
         ],
       },
+      // TODO: add footer
       footer: {
         style: 'dark',
         links: [

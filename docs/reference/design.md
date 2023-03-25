@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Design
 
-## Concepts
+## **Concepts**
 
 ### Background
 
@@ -88,7 +88,7 @@ Users can use SQL to manipulate different tables in the database and also perfor
 
 CnosDB supports setting different storage policies for a database, data retention time, number of data slices, slice setting policy, time precision, etc.
 
-## Architecture
+## **Architecture**
 
 ### Design Objectives
 
@@ -395,7 +395,7 @@ Data used primarily to store time series data are usually scenes that write more
   The directory segmentation policy mentioned in the above introduction: `/User/db/book/replicationset_id/vnode_id/tskv` is an instance on each Node node. Save all Vnote information on the current Node. Each Vnode saves the data under a separate directory. Clean up the data based on the configuration db retion policy. At the same time, we can easily carry out the data directory size statistics, the tenant is billed.
 
 
-## Compression Algorithm
+## **Compression Algorithm**
 
 ### DELTA
 
@@ -496,7 +496,7 @@ Gzip is similar to zlib. For files to be compressed, a variant of the LZ77 algor
 Compared with several other algorithms, the compression rate is higher, but the compression efficiency is lower, which can be used for scenarios that require extreme compression rate, in general less recommended.
 
 
-## Quorum Algorithm
+## **Quorum Algorithm**
 
 Quorum algorithm is a voting algorithm commonly used in distributed systems to ensure data redundancy and eventual consistency. Quorum is used to ensure that if some participants fail, we can still collect votes from the surviving participants and continue to execute the algorithm. A Quorum represents the minimum number of votes needed to perform an action, typically a majority of participants. The core idea behind Quorum is that even if participants fail or happen to be separated by network partitions, at least one of them can act as an arbiter to ensure the accuracy of the protocol.
 
@@ -528,7 +528,7 @@ It is because of the large cost of the system that the antitropy mechanism is di
 
 
 
-## Cloud Native
+## **Cloud Native**
 
 ### Basic Concepts of Cloud Native
 
@@ -561,17 +561,17 @@ Shared-nothing architecture is an architecture used for distributed computing, w
 ![无共享存储架构](../source/_static/img/share_nothing.png)
 
 
-##  Single Tenant Model VS Multi Tenant Model
+###  Single Tenant Model VS Multi Tenant Model
 
 Single tenant model means that only one cloud software solution instance is running on its supported hardware and infrastructure components. Not shared with multiple customers involved in a single-tenant environment. In a multi-tenant environment, the cloud infrastructure is shared among multiple customers or accounts. No single customer has control over how resources are allocated or consumed.
 
 CnosDB uses a multi-tenant model. Multi-tenancy is a solution to provide Software as a Service (SaaS) in the cloud. Multi-tenancy uses a shared infrastructure to provide access to a SaaS solution to multiple customers. Multi-tenancy means that a single instance of the software and its supporting infrastructure serve multiple customers. Each customer shares the software application and also shares a database. Each tenant's data is isolated and not visible to other tenants.
 
 
-#### 多租户的潜在好处
+#### Advantages of Multi Tenant Model
 
--Low cost: Multiple customers imply shared environment costs, and these savings (from SaaS providers) are often transferred into software costs.
--Integration: The cloud environment allows easier integration with other applications through the use of apis.
+- Low cost: Multiple customers imply shared environment costs, and these savings (from SaaS providers) are often transferred into software costs.
+- Integration: The cloud environment allows easier integration with other applications through the use of apis.
 - Easy to maintain: The server is technically owned by the SaaS vendor, which means that some level of database maintenance is handled by the vendor rather than you maintaining the environment yourself.
 
 The multi-tenancy model of cloud-native time series database is usually a SaaS multi-tenancy model. Compared with the previous single-tenant model, it has many advantages.

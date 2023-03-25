@@ -4,9 +4,9 @@ sidebar_position: 7
 
 # Eco-integration
 
-## Telegraf
+## **Telegraf**
 
-### **Telegraf Introduction**
+### Telegraf Introduction
 
 [Telegraf](https://github.com/influxdata/telegraf) is an open source server agent program used to collect metrics from stacks, sensors, and systems to database intensively, with a minimal memory footprint and support for extensions via plug-ins.Telegraf is simple to configure, easy to get started with, and greatly reducing the difficulty of data acquisition compared to collecting data via handwritten scripts.
 
@@ -25,7 +25,7 @@ sidebar_position: 7
 
 In the following, we will describe how to install and configure Telegraf for collecting system metrics data and storing it in CnosDB.
 
-### **Telegraf Deployment**
+### Telegraf Deployment
 
 
 - #### Download
@@ -40,7 +40,7 @@ In the following, we will describe how to install and configure Telegraf for col
 
   [Offical Basic Tutorisl(v1.23)](https://docs.influxdata.com/telegraf/v1.23/get_started/)
 
-### **Telegraf Configuration**
+### Telegraf Configuration
 
 - #### Generate configuration files manually
 
@@ -156,11 +156,11 @@ In the following, we will describe how to install and configure Telegraf for col
   ```
 
 
-## Cnos-Telegraf
+## **Cnos-Telegraf**
 
 CnosDB-Telegraf is based on Telegraf (re1.25, commit 86cd0c0c2), with some added features and plugins.
 
-### **Description of the changes compared to Telegraf**
+### Description of the changes compared to Telegraf
 
 #### Parser Plugin
 
@@ -226,7 +226,7 @@ high_priority_io = true
 
 The above configuration adds the `high_priority_io = true` configuration compared to the configuration in the [Output Plugin](#output-plugin) section.
 
-### **Build**
+### Build
 
 - #### [Install Go](https://golang.org/doc/install) >=1.18 (1.18.0 version recommended)
 - #### Clone the repository from Github:
@@ -242,7 +242,7 @@ The above configuration adds the `high_priority_io = true` configuration compare
    make build
    ```
 
-### **Start**
+### Start
 
 - #### Execute the following command to view the use case:
 
@@ -280,7 +280,7 @@ The above configuration adds the `high_priority_io = true` configuration compare
   telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb
   ```
 
-## Grafana
+## **Grafana**
 
 ### Introduction
 
@@ -358,7 +358,7 @@ CnosDB--data frame-->Grafana
   ![](../source/_static/img/grafana_dashboard_1.png)
 
 
-## Prometheus
+## **Prometheus**
 
 ### Introduction
 
@@ -426,7 +426,7 @@ CnosDB supports Remote Read protocol of Prometheus. To ingest data to the loggin
 
 You can get the all configuration of Prometheus Remote Read via [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/?spm=a2c4g.11186623.0.0.231f780eoLUxCY#remote_read).
 
-## TensorFlow
+## **TensorFlow**
 
 ### Use CnosDB and TensorFlow for time series prediction
 

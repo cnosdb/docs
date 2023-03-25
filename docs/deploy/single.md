@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Single
 
-## Docker
+## **Docker**
 
 1.  Install [Docker](https://www.docker.com/products/docker-desktop/)
 
@@ -41,7 +41,7 @@ sidebar_position: 1
    
    :::
 
-## Kubernetes
+## **Kubernetes**
 
 ### Helm
 
@@ -86,7 +86,7 @@ sidebar_position: 1
 
 Ports 22 and 31007 are open, you could add IP whitelist in main.tf file.
 
-## Source Code Installation
+## **Source Code Installation**
 
 ### Supported Platforms
 

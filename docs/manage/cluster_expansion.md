@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Cluster Expansion
 
-## Installation
+## **Installation**
 
 Reference [Source Code Installation](../deploy/single#source-code-installation)ã€‚
 
@@ -12,7 +12,7 @@ Reference [Source Code Installation](../deploy/single#source-code-installation)ã
 
 Meta Cluster is a Raft Group composed of multiple cnos-meta via Raft protocol.
 
-### **Single-node startup process**
+### Single-node startup process
 
 ```sh
 ./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
@@ -21,9 +21,9 @@ curl http://127.0.0.1:21001/metrics
 ./target/debug/cnosdb run --config ./config/config_31001.toml
 ```
 
-### **Cluster Startup Process**
+### Cluster Startup Process
 
-### **Meta Custer Startup Process**
+### Meta Custer Startup Process
 
 Start meta-1
 
@@ -60,7 +60,7 @@ curl http://127.0.0.1:21002/metrics
 curl http://127.0.0.1:21003/metrics
 ```
 
-#### **Data Cluster Startup Process**
+#### Data Cluster Startup Process
 
 **Start data-1**
 
@@ -91,11 +91,11 @@ Metadata is frequently accessed by each Node, and CnosDB chooses to maintain a s
 
 Provides TCP Service to accept query and write requests distributed by Coodinator, which are similar to the standalone version.
 
-### **Data Flow**
+### Data Flow
 
 ![](../source/_static/img/cluster_data_flow.jpg)
 
-### **Configuration**
+### Configuration
 
 ### Data
 
@@ -150,7 +150,7 @@ enable = true
 path = '/tmp/cnosdb/hh'
 ```
 
-#### **Configuration item query**
+#### Configuration item query
 
 | **Configuration items** | **Default Value** | **Description**                                                                                                                                                       |
 |-------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -222,7 +222,7 @@ path = '/tmp/cnosdb/hh'
 
 ## **Operations and Maintenance Guide**
 
-### **Cluster maintenance (coming soon)**
+### Cluster maintenance (coming soon)
 
 **Transferring Vnode**
 

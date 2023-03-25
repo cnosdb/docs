@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # Configuration
 
-## Introduction
+## **Introduction**
 
 The configuration adopts TOML syntax.
 
@@ -15,7 +15,7 @@ The configuration adopts TOML syntax.
 - log runs log configuration
 - security configuration
 
-## [query]
+## **[query]**
 
 | Parameter              | Description                                                                   |
 |------------------------|-------------------------------------------------------------------------------|
@@ -23,7 +23,7 @@ The configuration adopts TOML syntax.
 | query_sql_limit        | The maximum SQL accounting when the request is requested                      |
 | write_sql_limit        | When writing a request on LINE_PROTOCOL, request  the maximum number of bytes |
 
-## [storage]
+## **[storage]**
 
 | Parameter            | Description                                                                              |
 |----------------------|------------------------------------------------------------------------------------------|
@@ -38,7 +38,7 @@ The configuration adopts TOML syntax.
 | dio_page_len_scale   | File IO Page Zoom ratio, default: 1                                                      |
 | strict_write         | Whether it is strictly written, default is False                                         |
 
-## [wal]
+## **[wal]**
 
 | Parameter | Description                                     |
 |-----------|-------------------------------------------------|
@@ -46,45 +46,48 @@ The configuration adopts TOML syntax.
 | path      | Remote log path                                 |
 | sync      | Synchronous Write WAL Remote Log, Default False |
 
-## [cache]
+## **[cache]**
 
 | Parameter            | Description                            |
 |----------------------|----------------------------------------|
 | max_buffer_size      | Maximum cache size, default: 134217728 |
 | max_immutable_number | ImmemTable maximum, default: 4         |
 
-## [log]
+## **[log]**
 
 | Parameter | Description                                         |
 |-----------|-----------------------------------------------------|
 | level     | Log Level (Debug, Info, Error, Warn), Default: Info |
 | path      | Log storage location                                |
 
-## [security]
+## **[security]**
+
 | Parameter  | Description                 |
 |------------|-----------------------------|
 | tls_config | Optional, TLS configuration |
 
-### [security.tls_config]
+## **[security.tls_config]**
+
 | Parameter   | Description             |
 |-------------|-------------------------|
 | certificate | TLS service certificate |
 | private_key | TLS service private key |
 
-## reporting_disabled
+## **reporting_disabled**
 
-**Note**：If close information collection
+**Note**：If close information collection.
 
-The CnosDB collects information to better improve the product
+The CnosDB collects information to better improve the product.
 
-We do not collect user data, we only collect
+We do not collect user data, we only collect:
 
-- Database instance running time
+- Database instance running time.
 - Operating system type and architecture run by database instance.
-- Database version
-- Areas run by database instances, only at the provincial level, state level
+- Database version.
+- Areas run by database instances, only at the provincial level, state level.
 
 You can set this as True to shut down information collection at the top of the configuration file.
+
 ```
 reporting_disabled = true
 ```

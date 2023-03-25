@@ -10,13 +10,13 @@ CnosDB was designed to solve the storage and query problems of massive temporal 
 
 In this chapter, you will be shown how to use CnosDB, including how to install, start, connect, create a database, create a table, insert data, query data and other basic operations, to help you have a preliminary understanding of the use of timing databases.
 
-## Deploy
+## **Deploy**
 
-For other installation methods, please see [Installing CnosDB](https://www.docker.com/products/docker-desktop/)
+For other installation methods, please see [Installing CnosDB](https://www.docker.com/products/docker-desktop/).
 
-## Docker install
+## **Docker install**
 
-1. Installing a [Docker](https://www.docker.com/products/docker-desktop/) environment
+1. Installing a [Docker](https://www.docker.com/products/docker-desktop/) environment.
 
 2. Start the container with Docker
     ```shell
@@ -39,17 +39,17 @@ Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: 
 public ❯
 ```
 
-## Download Sample Data
+## **Download Sample Data**
 
-If in cnosdb-cli, type `\q` to exit
+If in cnosdb-cli, type `\q` to exit.
 
-Executing the following command in the shell will generate a data file locally in Line Protocol format with the name oceanic_station
+Executing the following command in the shell will generate a data file locally in Line Protocol format with the name oceanic_station.
 
 ```shell
 wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ```
 
-## Import Data
+## **Import Data**
 
 - **Start the CLI**
     ```shell
@@ -73,7 +73,7 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
     \w oceanic_station.txt
     ```
 
-## Data Query
+## **Data Query**
 
 - **View all tables**
     ```shell
@@ -119,6 +119,6 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 
 > For more information about database operations, please refer to：
 >
-> [SQL](query/sql.md)
+> [SQL](../reference/sql)
 >
-> [Programming Interface](../develop/api.md) 
+> [Programming Interface](../develop/api) 

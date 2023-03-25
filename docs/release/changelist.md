@@ -5,7 +5,7 @@ sidebar_position: 1
 # Change List
 
 
-## v2.2.0
+## **V2.2.0**
 
 On March 01, 2023, CnosDB released version V2.2.0. This version mainly adds the storage and computation separation mode and further enhances the performance and stability of distributed, and continues to be open source. The major changes in this release also include:
 
@@ -27,7 +27,7 @@ On March 01, 2023, CnosDB released version V2.2.0. This version mainly adds the 
 
 addition, there are a series of bug fixes.
 
-## V2.1.0
+## **V2.1.0**
 
 On January 10, 2023, CnosDB released version V2.1.0. This version releases the CnosDB 2.0 distributed cluster version and continues to be open source. The major changes in this release also include.
 
@@ -46,7 +46,7 @@ On January 10, 2023, CnosDB released version V2.1.0. This version releases the C
 *   In addition, a series of metric and performance optimizations, as well as bug fixes, are included.
 
 
-## V2.0.1
+## **V2.0.1**
 
 On November 8th, 2022, CnosDB released version V2.0.1. This version fixes some of the key bugs in CnosDB and updates some essential new features, the details of the update are as follows:
 
@@ -101,7 +101,7 @@ On November 8th, 2022, CnosDB released version V2.0.1. This version fixes some o
 *   Structure naming change, change Point::table to tab, change Points::database to db.
 
 
-## V2.0.0
+## **V2.0.0**
 
 On October 24th, 2022, CnosDB released version V2.0.0. This release is a new beginning where we have rebuilt CnosDB time series database based on Rust, improved the performance of CnosDB, enhanced the ease of use of CnosDB, and made CnosDB more adaptable to the requirements of cloud ecology.
 

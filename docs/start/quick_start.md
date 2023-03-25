@@ -4,11 +4,11 @@ sidebar_position: 2
 
 # Quick Start
 
-CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，We support most of the SQL syntax of DataFusion.
+CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html), We support most of the SQL syntax of DataFusion.
 
-**Note**：In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
+**Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting.
 
-## Sample Data
+## **Sample Data**
 
 To further study CnosDB, this section will provide sample data for you to download and teach you how to import data into the database. The data sources referenced in the following chapters are all from this sample data.
 
@@ -156,7 +156,7 @@ SELECT station, visibility FROM air;
     +-------------+------------+
 
 
-## Alias
+## **Alias**
 
 You can use the keyword`AS`to alias a column expression or table.
 
@@ -193,11 +193,13 @@ SELECT station s, visibility AS v FROM air;
 You can also use the keyword AS to alias the table.
 
 **Syntax**
+
 ```sql
 FROM tb_name [AS] alias_name
 ```
 
 **Example**
+
 ```sql
 SELECT a.visibility, s.temperature
 FROM air AS a JOIN sea s ON a.temperature = s.temperature;
@@ -286,7 +288,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
       | LianYunGang |
       +-------------+ 
 
-##  LIMIT Clause
+##  **LIMIT Clause**
 
 **Syntax**
 
@@ -357,12 +359,13 @@ FROM air LIMIT 3 OFFSET 3;
 ## **WITH Clause**
 
 **Syntax**
+
 ```sql
 WITH cte AS cte_query_definiton [, ...] query
 ```
-Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows：
+Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows: 
 - CTE in the same WITH clause must have a unique name.
-- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause：
+- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause:
 
 **Example**
 ```sql
@@ -499,7 +502,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
       | 59         |
       +------------+
 
-## ORDER BY Clause
+## **ORDER BY Clause**
 
 Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
 

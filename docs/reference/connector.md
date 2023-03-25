@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Connector
 
-## Arrow Flight SQL
+## **Arrow Flight SQL**
 
 ### Arrow Flight SQL Introduction
 
@@ -16,8 +16,8 @@ Our current environments that support the Arrow Flight SQL client are
 - [Go](#go)
 - [Java](#java)
 - [Rust](#rust)
-- [JDBC](#JDBC) based on Arrow Flight SQL
-- [ODBC](#ODBC) based on Arrow Flight SQL
+- [JDBC](#jdbc) based on Arrow Flight SQL
+- [ODBC](#odbc) based on Arrow Flight SQL
 
 ### Benefits of Arrow Flight SQL
 
@@ -715,7 +715,7 @@ The code runs in an asynchronous environment.
    }
    ```
 
-## JDBC
+## **JDBC**
 
 ### Operation Flow
 
@@ -838,7 +838,7 @@ The code runs in an asynchronous environment.
    
    ```
 
-## ODBC
+## **ODBC**
 
 Currently only x86_64 architecture systems are supported, linux only supports centos and redhat series distributions
 

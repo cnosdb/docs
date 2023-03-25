@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # CnosDB Tools
 
-## Client CLI
+## **Client CLI**
 
 Run the following command to start the CLI program in the root directory of CnosDB source code.
 

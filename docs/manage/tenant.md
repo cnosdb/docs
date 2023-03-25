@@ -5,7 +5,7 @@ sidebar_position: 7
 
 All the following operations are performed in the CnosDB Cli.
 
-## Tenant and User
+## **Tenant and User**
 
 CnosDB provides a tenant system and a user system.
 
@@ -15,7 +15,7 @@ CnosDB provides a tenant system and a user system.
 
 - CnosDB instance starts with a tenant 'cnosdb' and a user 'root' by default.
 
-## Tenant 
+## **Tenant**
 
 ### Show Tenant
 
@@ -82,7 +82,7 @@ DROP
 TENANT test;
 ```
 
-## User
+## **User**
 
 ### Show User
 
@@ -154,7 +154,7 @@ USER IF EXISTS tester;
 ```
 
 
-## Role of Tenant
+## **Role of Tenant**
 
 The roles under the tenant are divided into system roles and user-defined roles.
 
@@ -224,7 +224,7 @@ DROP ROLE role_name;
 DROP ROLE owner_role;
 ```
 
-## Permission
+## **Permission**
 
 You can use `GRANT... ` To give permissions to roles under the tenant, use `REVOKE... ` Revoke permissions.
 

@@ -9,7 +9,7 @@ CnosDB can use SQL `COPY INTO` to export data to local or object stores, as well
 Supported file formats are CSV/JSON/PARQUET, and currently supported object stores are `AWS S3`, `Google Cloud Storage`, `Microsoft Azure`.
 
 
-## Export
+## **Export**
 
 ### Syntax
 
@@ -76,7 +76,7 @@ COPY INTO externalLocation
         FILE_FORMAT = (TYPE = 'JSON');
     ```
 
-## Import
+## **Import**
 
 ### Syntax
 
@@ -143,7 +143,7 @@ COPY INTO [<database>.]< table_name >
         FILE_FORMAT = (TYPE = 'JSON', DELIMITER = ',');
     ```
 
-## Object Store Examples
+## **Object Store Examples**
 
 ### AWS S3
 

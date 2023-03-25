@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # CnosDB2.0 Road Map
 
-## Design Objectives of CnosDB2.0
+## **Design Objectives of CnosDB2.0**
 
 To design and develop a high performance, high compression ratio, highly available, distributed cloud native time series
 database, which meets the following objectives.
@@ -29,15 +29,15 @@ native ecology.
 6. Cloud edge - end collaboration provides the edge - end integration capability with the public cloud
 7. Converged OLAP/CloudAI data Ecosystem on the cloud.
 
-## CnosDB Architecture
+## **CnosDB Architecture**
 
 ![整体架构](../source/_static/img/arch.jpg)
 
-## CnosDB Timeline
+## **CnosDB Timeline**
 
-|  Product Features  |  Time Points  |
-| --- | --- |
-|  2.0 Stand-alone beta  |  2022.10  |
-|  2.0 Distributed beta  |  2022.12  |
-|  Cloud Trial on AWS  |  2023.Q1  |
-|  Enterprise Service  |  2023.Q2  |
+| Product Features     | Time Points |
+|----------------------|-------------|
+| 2.0 Stand-alone beta | 2022.10     |
+| 2.0 Distributed beta | 2022.12     |
+| Cloud Trial on AWS   | 2023.Q1     |
+| Enterprise Service   | 2023.Q2     |

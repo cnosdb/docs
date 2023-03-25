@@ -6,15 +6,15 @@ sidebar_position: 8
 
 To present CnosDB performance more intuitively, we do performance test of CnosDB and InfluxDB of the same time series database by using [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons).
 
-## Basic Information
+## **Basic Information**
 
-|          |     CnosDB     |          InfluxDB          |
-| -------- | :------------: | :------------------------: |
-| Version     |     2.0.1      |           1.8.10           |
+|                         |     CnosDB     |          InfluxDB          |
+|-------------------------|:--------------:|:--------------------------:|
+| Version                 |     2.0.1      |           1.8.10           |
 | Implementation language |      rust      |             go             |
-| Official website     | www.cnosdb.com | https://www.influxdata.com |
+| Official website        | www.cnosdb.com | https://www.influxdata.com |
 
-## Testing Environment
+## **Testing Environment**
 
 To avoid being affected by network bandwidth while better simulating multi- tenant scenarios, our service side server opens a virtual machine as service side machines, while the client machine opens two Benchmark clients simultaneously and writes data to different databases of the service side virtual machine, CanosDB, or InfluxDB
 
@@ -41,7 +41,7 @@ All tests run on our servers, with the following configurations:
 
    ![](../source/_static/img/19bench.png)
 
-## Configuration
+## **Configuration**
 
 The configuration of the CosDB is as follows:
 
@@ -95,7 +95,7 @@ InfluxDB is the default configuration except [data] and [meta]
   wal-dir = "/opt-sdc1/var/lib/influxdb/wal"
 ```
 
-## Specific Steps
+## **Specific Steps**
 
 1. Install the db environment, go environment, etc. of the corresponding machine in advance, and ensure normal connection.
 
@@ -151,7 +151,7 @@ InfluxDB is the default configuration except [data] and [meta]
    ./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"  --batch-size=<batch_size_num> --workers=<workers_num>
    ```
 
-## Test Results
+## **Test Results**
 
 In our test scenario, InfluxDB can but do wrokers = 100(100 concurrent scenarios), with the test results as follows (row and metric units: 10,000):
 
@@ -187,7 +187,7 @@ In addition, CnosDB supports higher concurrent numbers, and we also test the per
 
 With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling.
 
-## Conclusion
+## **Conclusion**
 
 1. CnosDB has higher performance than InfluxDB in most cases.
 2. CnosDB can support higher concurrent, higher batch-size than InfluxDB.

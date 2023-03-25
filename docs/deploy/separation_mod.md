@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Separation Mode
 
-## Design Objectives
+## **Design Objectives**
 
 Consdb2.0 is developed in Rust language, based on its security, high performance and community influence, provides users with an excellent time series database and forms a complete DBaas solution.
 
@@ -36,7 +36,7 @@ In the process of redesigning the time series database, we solve a series of pro
 - SQL engine
 - tskv index and data storage
 
-## Data Replication and Consensus
+## **Data Replication and Consensus**
 
 The fragment rule of CnosDB 2.0 is based on Time-range. It uses the fragmentation rule of DB + Time_range to place the data in the corresponding Bucket. Bucket is a virtual logic unit. Each Bucket consists of the following main properties. Bucket creates multiple fragments based on user configurations, dissipating data (suppose data fragment Shad Num is 1).> 「db， shardid， time_range， create_time， end_time， List\<Vnode\>」
 
@@ -113,7 +113,7 @@ When a read request is received, the cordinator determines that the physical nod
 1.  After data creates conflict in a time series scenario, use consistency hash to be replaced by the first copy (replaica) as a confirmation point
 2.  At the same time, the last-write-win strategy is used to resolve conflicts.
 
-## Meta Cluster
+## **Meta Cluster**
 
 Maintain a strong consistency meta cluster through raft. Meta cluster api serves externally, while nodes also subscribe to updates to meta information. All metadata updates are updated through the meta-data cluster.
 
@@ -133,7 +133,7 @@ We adopt a strong consistency meta cluster and realize corresponding optimizatio
     >   - After storage locally, subscribe to schema version changes from the meta cluster to relieve the pressure of meta cluster reading.
     >   - Meta clusters share the leveler pressure and provide the Follower / Read scheme. Reading performance is optimized.
 
-## SQL Engine
+## **SQL Engine**
 
 We used [DataFusion](https://arrow.apache.org/datafusion/) as the query engine. DataFusion is an extensible query execution framework, written with Rust, used [Apache Arrow](https://arrow.apache.org/) As its memory format. DataFusion supports SQL and DataFrame API for building logical query schemes, as well as query optimizers and execution engines that can be executed in parallel with partition data sources using threads. It has the following advantages:
 
@@ -146,7 +146,7 @@ By extending DataFusion data sources and providing custom SQL statements, the qu
 
 ![query](../source/_static/img/query_data_path.jpg)
 
-## TSKV Index and Data Storage
+## **TSKV Index and Data Storage**
 
 tskv mainly undertakes data and index storage, manages all Vnodes on node, each Vnode is responsible for some of the data in a db. In Vnode, three modules mainly make up WAL, Index Engine and Data Engine.
 
@@ -292,7 +292,7 @@ Data used primarily to store time series data are usually scenes that write more
 
   ![data_flow](../source/_static/img/data_engine.jpg)
 
-## Other System Design
+## **Other System Design**
 
 ### Concession of tenants
 

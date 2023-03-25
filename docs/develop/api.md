@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Connect to CnosDB
 
-## Rust
+## **Rust**
 
 The sample code uses [reqwest](https://crates.io/crates/reqwest) to build Http requests.
 
@@ -47,7 +47,7 @@ let success = response.status().is_success();
 let result = response.text().await.unwrap();
 ```
 
-## Golang
+## **Golang**
 
 The sample code uses [fasthttp](https://github.com/valyala/fasthttp) as a dependency.
 
@@ -93,7 +93,7 @@ fmt.Println(resp.StatusCode())
 ```
 The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
 
-## Java
+## **Java**
 
 Use [Apache Http Components Apache](https://hc.apache.org/) as a dependency.
 
@@ -144,7 +144,7 @@ public static void main(String[] args) {
 }
 ```
 
-## HTTP API
+## **HTTP API**
 
 The HTTP API query command is as follows, which you can refer to when implementing HTTP API requests in code.
 

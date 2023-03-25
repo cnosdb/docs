@@ -6,15 +6,15 @@ sidebar_position: 3
 
 CnosDB supports a variety of query methods, including: direct query with SQL from the command line, query using HTTP API.
 
-## SQL
+## **SQL**
 
 CnosDB supports data queries using SQL.
 
 ### Data Query
 
-You can see [Data Query](../reference/sql.md#data-query).
+You can see [Data Query](../reference/sql#data-query).
 
-## HTTP API
+## **HTTP API**
 
 ### Data Query
 
@@ -34,7 +34,7 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
-## Golang
+## **Golang**
 
 #### Code
 
@@ -83,7 +83,7 @@ func main() {
 }
 ```
 
-## Python
+## **Python**
 
 #### Code
 
@@ -106,7 +106,7 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-## Java
+## **Java**
 
 #### Code
 
@@ -153,7 +153,7 @@ public class CurlToJava {
 }
 ```
 
-## Rust
+## **Rust**
 
 #### Code
 
@@ -192,7 +192,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-## C++
+## **C++**
 
 #### Code
 

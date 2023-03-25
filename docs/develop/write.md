@@ -2,23 +2,23 @@
 sidebar_position: 2
 ---
 
-# Wirte Data
+# Write Data
 
 CnosDB supports a variety of writing methods, including: direct writing with SQL from the command line, and writing using HTTP API.
 
-## SQL
+## **SQL**
 
 CnosDB supports single write and multiple write using SQL.
 
 ### Insert One Record
 
-You can see [Insert One Record](../reference/sql.md#insert-one-record).
+You can see [Insert One Record](../reference/sql#insert-one-record).
 
 ### Insert Multiple Records
 
-You can see [Insert Multiple Records](../reference/sql.md#insert-multiple-records).
+You can see [Insert Multiple Records](../reference/sql#insert-multiple-records).
 
-## HTTP API
+## **HTTP API**
 
 ### Insert One Record
 
@@ -123,7 +123,7 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 --data-binary @./oceanic_station.txt
 ```
 
-## Golang
+## **Golang**
 
 #### Code
 
@@ -174,7 +174,7 @@ func main() {
 
 When using the api `/api/v1/write`, just replace the api address wth `/api/v1/write` and replace `<your SQL statement>` with `<your data>`.
 
-## Python
+## **Python**
 
 #### Code
 
@@ -199,7 +199,7 @@ print(response.text)
 
 When using the api `/api/v1/write`, just replace the api address wth `/api/v1/write` and replace `<your SQL statement>` with `<your data>`.
 
-## Java
+## **Java**
 
 #### Code
 
@@ -248,7 +248,7 @@ public class CurlToJava {
 
 When using the api `/api/v1/write`, just replace the api address wth `/api/v1/write` and replace `<your SQL statement>` with `<your data>`.
 
-## Rust
+## **Rust**
 
 #### Code
 
@@ -289,7 +289,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 When using the api `/api/v1/write`, just replace the api address wth `/api/v1/write` and replace `<your SQL statement>` with `<your data>`.
 
-## C++
+## **C++**
 
 #### Code
 
