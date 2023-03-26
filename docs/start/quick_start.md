@@ -40,7 +40,7 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
     ```
 - **Import data**
 
-  Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
+  Execute the `\w` command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
 
   ```shell
   \w oceanic_station.txt
@@ -80,6 +80,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 ## **SELECT Clause**
 
 ### SELECT \*
+
 The wildcard * can be used to refer to all columns.
 
 **Example**
@@ -111,7 +112,7 @@ SELECT * FROM air;
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
-After the keyword `SELECT`, you can use `DISTINCT`to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`。
+After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`.
 
 **Example**
 ```sql
@@ -158,7 +159,7 @@ SELECT station, visibility FROM air;
 
 ## **Alias**
 
-You can use the keyword`AS`to alias a column expression or table.
+You can use the keyword `AS` to alias a column expression or table.
 
 ### Alias Column Expression
 
@@ -190,6 +191,7 @@ SELECT station s, visibility AS v FROM air;
     +-------------+----+
 
 ### Alias Table
+
 You can also use the keyword AS to alias the table.
 
 **Syntax**
@@ -226,9 +228,8 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
 
       "{\"error_code\":\"0100000\",\"error_message\":\"Error executiong query: Failed to do execute statement, err:Failed to do physical plan. err: External error: Invalid schema: If the projection contains the time column, it must contain the field column.\"}"
 
-
   ```sql
-  -- temperature is a field column，time column accompanied by at least one field can be queried.
+  -- temperature is a field column, time column accompanied by at least one field can be queried.
   SELECT time, temperature FROM air;
   ```
       +---------------------+-------------+
@@ -254,7 +255,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
   **Example**
 
   ```sql
-  -- station is a Tag column，temperature is a Field column.
+  -- station is a Tag column, temperature is a Field column.
   SELECT station, temperature FROM air;
   ```      
   ``` 
@@ -340,7 +341,7 @@ FROM air OFFSET 10;
     | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
     +---------------------+-------------+------------+-------------+----------+
 
-`OFFSET`can be used with the`LIMIT`statement to specify the number of lines to skip.The format is `LIMIT n OFFSET m`，or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
+`OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip.The format is `LIMIT n OFFSET m`, or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
 
 **Example**
 
@@ -407,8 +408,8 @@ select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
 
-`UNION`will de-duplicate the merged result set.
-`UNION ALL`will retain the same data in the merged result set.
+`UNION` will de-duplicate the merged result set.
+`UNION ALL` will retain the same data in the merged result set.
 `EXCEPT` will make the difference between the two result sets, return all non-duplicate values not found in the right query from the left query.
 `INTERSECT` returns the intersection of the two result sets (that means, all non-duplicate values are returned by both queries).
 
@@ -482,6 +483,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
       +------------+
 
 - **INTERSECT**
+
   ```sql
   SELECT visibility FROM air
   INTERSECT

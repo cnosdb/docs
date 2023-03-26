@@ -8,11 +8,13 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 
 **注意**：为了查询能更高效，没有指定排序的查询，每次行顺序都不一定相同，如果需要按字段排序的话，请参看`ORDER BY`子句。
 
-## 示例数据
+## **示例数据**
+
 为了进一步学习CnosDB，本节将提供示例数据供您下载，并教您如何将数据导入数据库。后面章节中引用的数据源都来自此示例数据。
 
 ### 下载数据
-如果在 cnosdb-cli 中，请输入`\q`退出
+
+如果在 cnosdb-cli 中，请输入 `\q` 退出
 
 在shell中执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
 
@@ -23,20 +25,23 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ### 导入数据
 
 - **启动CLI**
+
     ```shell
     cnosdb-cli
     ```
 - **创建数据库**
+
     ```shell
     create database oceanic_station;
     ```
 - **切换到指定数据库**
+
     ```shell
     \c oceanic_station
     ```
 - **导入数据**
 
-  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+  执行 `\w` 指令，`\w` 后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
     ```shell
     \w oceanic_station.txt
     ```
@@ -107,8 +112,8 @@ SELECT * FROM air;
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
-在`SELECT`关键字后可以使用`DISTINCT`去掉重复字段，只返回去重后的值。
-使用`ALL`会返回字段中所有重复的值。不指定此选项时，默认值为`ALL`。
+在 `SELECT` 关键字后可以使用 `DISTINCT` 去掉重复字段，只返回去重后的值。
+使用 `ALL` 会返回字段中所有重复的值。不指定此选项时，默认值为 `ALL`。
 
 **示例**
 ```sql
@@ -153,9 +158,9 @@ SELECT station, visibility FROM air;
     +-------------+------------+
 
 
-## 别名
+## **别名**
 
-可以用`AS`关键字为列表达式或表取别名
+可以用 `AS` 关键字为列表达式或表取别名
 
 ### 为列表达式取别名
 
@@ -186,7 +191,8 @@ SELECT station s, visibility AS v FROM air;
     +-------------+----+
 
 ### 为表取别名
-你也可以用关键字`AS`为表取别名。
+
+你也可以用关键字 `AS` 为表取别名。
 
 **语法**
 ```sql
@@ -208,7 +214,8 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
     +------------+-------------+
 
 ### SELECT限制
-- 如果SELECT子句包含Time列，则必须包含至少一个Field列
+
+- 如果SELECT子句包含Time列，则必须包含至少一个Field列。
 
   **示例**
   ```sql
@@ -218,7 +225,6 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
   错误如下：
 
       "{\"error_code\":\"0100000\",\"error_message\":\"Error executiong query: Failed to do execute statement, err:Failed to do physical plan. err: External error: Invalid schema: If the projection contains the time column, it must contain the field column.\"}"
-
 
   ```sql
   -- temperature 是 field 列，包括至少一个field就可以查询出time列了 
@@ -242,7 +248,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
       | 2022-01-28T13:36:00 | 70          |
       +---------------------+-------------+
 
-- 如果SELECT子句仅包含Tag列，相当于 SELECT DISTINCT Tag列
+- 如果SELECT子句仅包含Tag列，相当于 SELECT DISTINCT Tag列。
   
   **示例**
   ```sql
@@ -278,7 +284,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature;
       | LianYunGang |
       +-------------+ 
 
-## LIMIT 子句
+## **LIMIT 子句**
 
 **语法**
 ```sql
@@ -314,6 +320,7 @@ FROM air LIMIT 10;
 OFFSET m
 ```
 返回的结果集跳过 m 条记录, 默认 m=0。
+
 **示例**
 ```sql
 SELECT *
@@ -327,7 +334,7 @@ FROM air OFFSET 10;
     | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
     +---------------------+-------------+------------+-------------+----------+
 
-`OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`。
+`OFFSET` 可以和 `LIMIT` 语句配合使用，用于指定跳过的行数，格式为 `LIMIT n OFFSET m`。
 其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
 OFFSET 0与省略OFFSET子句效果相同。
 
@@ -397,8 +404,8 @@ select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
 
-`UNION`会对合并的结果集去重，
-`UNION ALL`保留合并的结果集中相同的数据
+`UNION` 会对合并的结果集去重。
+`UNION ALL` 保留合并的结果集中相同的数据。
 `EXCEPT` 会作两个结果集的差，从左查询中返回右查询没有找到的所有非重复值
 `INTERSECT` 返回两个结果集的交集（即两个查询都返回的所有非重复值）。
 
@@ -449,6 +456,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
       | 79         |
       | 59         |
       +------------+
+
 - **EXCEPT**
 
   ```sql
@@ -492,7 +500,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
       | 59         |
       +------------+
 
-## ORDER BY 子句
+## **ORDER BY 子句**
 
 按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
 
@@ -586,7 +594,7 @@ IN 列表暂不支持表达式，暂时只支持常量
 ```sql
 SHOW {DATABASES | TABLES | QUERIES}
 ```
-显示所有数据库，或显示所有表, 或正在执行的SQL
+显示所有数据库，或显示所有表, 或正在执行的SQL。
 
 **示例**
 
@@ -619,7 +627,7 @@ SHOW QUERIES;
     | 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](system_table.md#queries) 查看
+关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql#show-queries) 查看
 
 
 ## **EXPLAIN**
@@ -690,11 +698,12 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
     +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## **DESCRIBE**
+
 **语法**
 ```sql
 DESCRIBE {DATABASE db_name | TABLE tb_name};
 ```
-描述数据库的参数，描述表的模式
+描述数据库的参数，描述表的模式。
 
 **示例**
 ```sql

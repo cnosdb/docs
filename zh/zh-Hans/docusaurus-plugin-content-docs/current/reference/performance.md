@@ -6,7 +6,7 @@ sidebar_position: 8
 
 为了更直观的呈现 CnosDB 的性能，我们使用 [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) 对 [CnosDB](https://github.com/cnosdb/cnosdb) 以及同为时序数据库的 [InfluxDB](https://github.com/influxdata/influxdb) 做了写入的性能测试。
 
-## 基本信息
+## **基本信息**
 
 |      |     CnosDB     |          InfluxDB          |
 |------|:--------------:|:--------------------------:|
@@ -14,7 +14,7 @@ sidebar_position: 8
 | 实现语言 |      rust      |             go             |
 | 官网   | www.cnosdb.com | https://www.influxdata.com |
 
-## 测试环境
+## **测试环境**
 
 为了避免受到网络带宽影响，同时更好的模拟多租户场景，我们服务端服务器开启一个虚拟机用来当作服务端机器，客户端机器同时开启两个 benchmark 客户端，向服务端虚拟机 CnosDB 或 InfluxDB 的不同数据库内同时写数据。
 
@@ -40,7 +40,7 @@ sidebar_position: 8
 
    ![](../../../../../docs/source/_static/img/19bench.png)
 
-## 配置
+## **配置**
 
 CnosDB 的配置如下：
 
@@ -94,7 +94,7 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
   wal-dir = "/opt-sdc1/var/lib/influxdb/wal"
 ```
 
-## 具体步骤
+## **具体步骤**
 
 1. 提前安装好对应机器的db环境，go环境等，确保可以正常连接。
 
@@ -150,7 +150,7 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
    ./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"  --batch-size=<batch_size_num> --workers=<workers_num>
    ```
 
-## 测试结果
+## **测试结果**
 
 在我们的测试场景下，InfluxDB 只能做到 wrokers = 100，即 100 并发场景，测试结果如下（row 和 metric 单位：万）：
 
@@ -186,7 +186,7 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
 
 随着并发数的提高，某些场景下的性能也会提高，CnosDB 的性能拥有更高的上限。
 
-## 结论
+## **结论**
 
 1. CnosDB 相比 InfluxDB，在大多数情况下，拥有更高的性能。
 2. CnosDB 相比 InfluxDB，可以支持更高的并发数，更高的 batch-size。

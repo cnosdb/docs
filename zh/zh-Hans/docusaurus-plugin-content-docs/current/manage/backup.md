@@ -6,9 +6,9 @@ sidebar_position: 5
 
 CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
 
-支持的文件格式有CSV/JSON/PARQUET，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Microsoft Azure` 。
+支持的文件格式有CSV/JSON/PARQUET，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Microsoft Azure`。
 
-## 导出
+## **导出**
 
 ### 语法
 
@@ -75,7 +75,7 @@ COPY INTO externalLocation
         FILE_FORMAT = (TYPE = 'JSON');
     ```
 
-## 导入
+## **导入**
 
 ### 语法
 
@@ -142,7 +142,7 @@ COPY INTO [<database>.]< table_name >
         FILE_FORMAT = (TYPE = 'JSON', DELIMITER = ',');
     ```
 
-## 各对象存储示例
+## **各对象存储示例**
 
 ### AWS S3
 

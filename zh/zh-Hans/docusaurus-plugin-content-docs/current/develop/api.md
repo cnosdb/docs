@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Connect to CnosDB
 
-## Rust
+## **Rust**
 
 示例代码使用[reqwest](https://crates.io/crates/reqwest)构建Http请求。
 
@@ -47,7 +47,7 @@ let success = response.status().is_success();
 let result = response.text().await.unwrap();
 ```
 
-## Golang
+## **Golang**
 
 示例代码使用[fasthttp](https://github.com/valyala/fasthttp)作为依赖。
 
@@ -144,7 +144,7 @@ public static void main(String[] args) {
 }
 ```
 
-## HTTP API
+## **HTTP API**
 
 
 HTTP API 查询命令如下所示，用代码实现 HTTP API 请求时，可以参考此段命令。

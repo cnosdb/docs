@@ -4,15 +4,16 @@ sidebar_position: 1
 
 # 安装
 
-## 部署
+## **部署**
 
-其他安装方式请查看[安装CnosDB](../deploy/single.md)
+其他安装方式请查看[安装CnosDB](../deploy/single)
 
-## Docker安装
+## **Docker安装**
 
 1. 安装 [Docker](https://www.docker.com/products/docker-desktop/) 环境
 
 2. 使用 Docker 启动容器
+
   ```shell
   docker run --name cnosdb -d  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
   ```
@@ -21,18 +22,19 @@ sidebar_position: 1
   ```shell
   docker exec -it cnosdb sh
   ```
-4. 运行`cnosdb-cli`
+4. 运行 `cnosdb-cli`
   ```shell
   cnosdb-cli
   ```
 会显示如下：
+
 ```
 CnosDB CLI v2.0.0
 Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
 public ❯
 ```
 
-## 下载示例数据
+## **下载示例数据**
 
 如果在 cnosdb-cli 中，请输入`\q`退出
 
@@ -42,7 +44,7 @@ public ❯
 wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 ```
 
-## 导入数据
+## **导入数据**
 
 - **启动CLI**
     ```shell
@@ -58,12 +60,13 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
     ```
 - **导入数据**
 
-  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+  执行 `\w` 指令，`\w` 后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
     ```shell
     \w oceanic_station.txt
     ```
   
-## 数据查询
+## **数据查询**
+
 - **查看所有表**
 
     ```shell
@@ -79,6 +82,7 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
       | air   |
       +-------+
       Query took 0.002 seconds.
+
 - **查询数据**
 
     ```shell
@@ -107,6 +111,6 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
 
 > 有关更多关于数据库的操作请查看：
 >
-> [SQL](../reference/sql.md)
+> [SQL](../reference/sql)
 >
-> [编程接口](../develop/api.md)
+> [编程接口](../develop/api)

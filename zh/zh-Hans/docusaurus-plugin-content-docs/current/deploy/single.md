@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # 单机版
 
-## Docker
+## **Docker**
 
 1. 安装 [Docker](https://www.docker.com/products/docker-desktop/)
 
@@ -35,7 +35,7 @@ sidebar_position: 1
 查看帮助请输入`\?`
 :::
 
-## Kubernetes
+## **Kubernetes**
 
 ### Helm
 
@@ -71,9 +71,9 @@ sidebar_position: 1
     ```
    端口22和31007已开放，你可以添加IP白名单在main.tf文件
 
-## 源码安装
+## **源码安装**
 
-### **支持平台**
+### 支持平台
 
 我们支持以下平台，如果发现可以在列表以外的平台上运行，
 请[报告](https://github.com/cnosdb/cnosdb/issues)给我们。
@@ -81,7 +81,7 @@ sidebar_position: 1
 - Linux x86(`x86_64-unknown-linux-gnu`)
 - Darwin arm(`aarch64-apple-darwin`)
 
-### **编译环境**
+### 编译环境
 
 1. 安装`Rust`，可前往[官网](https://www.rust-lang.org/learn/get-started)下载安装
 2. 安装Cmake
@@ -123,22 +123,24 @@ sidebar_position: 1
     $ sudo make install
    ```
 
-### **编译**
+### 编译
 
 ```shell
 git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
 cargo build
 ```
 
-### **运行**
+### 运行
 
-#### **运行数据库服务**
+#### 运行数据库服务
 
 ```shell
 cargo run -- run --cpu 4 --memory 64
 ```
-#### **运行CLI**
-在另一个终端，相同目录下运行如下命令
+
+#### 运行CLI
+
+在另一个终端，相同目录下运行如下命令：
 ```shell
 cargo run --package client --bin client
 ```

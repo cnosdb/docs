@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # 生态集成
 
-## Telegraf
+## **Telegraf**
 
 ### 简介
 
@@ -154,7 +154,7 @@ sidebar_position: 7
     ]
     ```
 
-## Cnos-Telegraf
+## **Cnos-Telegraf**
 
 CnosDB-Telegraf 基于 Telegraf (re1.25, commit 86cd0c0c2) 进行开发，增加了一些功能与插件。
 
@@ -279,7 +279,7 @@ high_priority_io = true
   ```
 
 
-## Grafana
+## **Grafana**
 
 ### 简介
 
@@ -356,7 +356,7 @@ CnosDB--data frame-->Grafana
 
   ![](../../../../../docs/source/_static/img/grafana_dashboard_1.png)
 
-## Prometheus
+## **Prometheus**
 
 ### 简介
 
@@ -397,6 +397,7 @@ Prometheus的remote_write的所有配置项可以从[Prometheus](https://prometh
 
 
 ### Remote Read
+
 CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启动 Remote Read 功能即可采集数据到日志服务，相关操作如下所示。
 
 **操作步骤**
@@ -423,7 +424,7 @@ CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启
   [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read)
   官网得到。
 
-## TensorFlow
+## **TensorFlow**
 
 ### 使用 CnosDB 与 TensorFlow 进行时间序列预测
 
@@ -520,6 +521,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 （注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com/）
 
 在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](./tools.md) 工具直接访问 CnosDB：
+
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.2.1-beta
 
@@ -584,12 +586,16 @@ print(conn.list_database())
 cursor.execute("CREATE TABLE sunspot (date STRING, mssn DOUBLE,);")
 print(conn.list_table())
 ```
+
 输出如下，其中包括 CnosDB 默认的 Database。
+
 ```python
 [{'Database': 'tf_demo'}, {'Database': 'usage_schema'}, {'Database': 'public'}]
 [{'Table': 'sunspot'}]
 ```
+
 将之前 pandas 的 dataframe 写入 CnosDB.
+
 ```python
 ### df 为pandas的dataframe，"sunspot"为CnosDB中的表名，['date', 'mssn']为需要写入的列的名字
 ### 如果写入的列不包含时间列，将会根据当前时间自动生成
@@ -604,6 +610,7 @@ conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
 ![](../../../../../docs/source/_static/img/MSSN.png)
 
 #### 首先使用 CnosDB 读取数据
+
 ```python
 df = pd.read_sql("select * from sunspot;", conn)
 
@@ -668,6 +675,7 @@ tensor_test_dataset = ts_data_generator(tensor_test_data, WINDOW_SIZE, BATCH_SIZ
 ```
 
 #### 使用 tf.keras 模块定义 1DConv+LSTM 神经网络模型
+
 ```python
 model = tf.keras.models.Sequential([
                             tf.keras.layers.Conv1D(filters=128, kernel_size=3, strides=1, input_shape=[None, 1]),

@@ -6,7 +6,7 @@ sidebar_position: 2
 
 CnosDB 支持多种写入方式，包括：命令行使用 SQL 直接写入，使用 HTTP API 写入。
 
-## SQL 写入
+## **SQL 写入**
 
 CnosDB 支持使用 SQL 进行单条写入、多条写入。
 
@@ -18,7 +18,7 @@ CnosDB 支持使用 SQL 进行单条写入、多条写入。
 
 多条写入详情可以参考[插入数据](../reference/sql.md#插入多条记录)。
 
-## HTTP API 写入
+## **HTTP API 写入**
 
 ### 单条数据写入
 
@@ -100,7 +100,6 @@ CnosDB 支持使用 SQL 进行单条写入、多条写入。
         air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
     ```
 
-
 ### 批量数据写入
 
 #### 语法
@@ -120,7 +119,7 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 --data-binary @./oceanic_station.txt
 ```
 
-## Golang
+## **Golang**
 
 #### 代码示例
 
@@ -171,7 +170,7 @@ func main() {
 
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
 
-## Python
+## **Python**
 
 #### 代码示例
 
@@ -196,7 +195,7 @@ print(response.text)
 
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
 
-## Java
+## **Java**
 
 #### 代码示例
 
@@ -245,7 +244,7 @@ public class CurlToJava {
 
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
 
-## Rust
+## **Rust**
 
 #### 代码示例
 
@@ -286,7 +285,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
 
-## C++
+## **C++**
 
 #### 代码示例
 

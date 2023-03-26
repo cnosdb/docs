@@ -8,7 +8,7 @@ sidebar_position: 6
 
 如果期待CnosDB支持更多的指标，请在[仓库](https://github.com/cnosdb)上发送ISSUE。
 
-## Data节点监控指标
+## **Data节点监控指标**
 
 ### DISK_STORAGE
 
@@ -136,7 +136,7 @@ Count
 | VALUE    | 用户写入次数           |
 
 
-## Prometheus 采集
+## **Prometheus 采集**
 
 只需要在Prometheus配置文件处加上Job。
 
@@ -154,5 +154,5 @@ scrape_configs:
 
 ## 存储到 CnosDB 上
 
-在[配置文件](cluster.md#配置项-cluster)中修改`store_metrics`参数为 `true` （默认为true）
+在[配置文件](./cluster_expansion#配置项-cluster)中修改`store_metrics`参数为 `true` （默认为true）
 

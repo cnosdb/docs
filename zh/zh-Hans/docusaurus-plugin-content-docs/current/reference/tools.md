@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # 工具
 
-## 客户端CLI
+## **客户端CLI**
 
 在CnosDB源码的根目录下，运行如下命令启动CLI程序：
 

@@ -309,7 +309,7 @@ CnosDB--data frame-->Grafana
 
 - #### **Connect CnosDB**
 
-  Type `http://localhost:3000`，and the Grafana login screen will show up if running correctly. The original username and password are both admin.
+  Type `http://localhost:3000`, and the Grafana login screen will show up if running correctly. The original username and password are both admin.
   
   ![](../source/_static/img/grafana_login_page.png)
   
@@ -577,7 +577,7 @@ conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-If you are not familiar wit [CnosDB CLI](./tools.md) ，We can use Python Connector to create a data table.
+If you are not familiar wit [CnosDB CLI](./tools.md) , We can use Python Connector to create a data table.
 
 ```python
 

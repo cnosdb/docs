@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # 配置
 
-## 介绍
+## **介绍**
 
 配置采用TOML语法
 
@@ -17,7 +17,7 @@ sidebar_position: 5
 - cluster 集群配置
 - hintedoff HintedOff配置
 
-## [query]
+## **[query]**
 
 | 参数                     | 说明                           |
 |------------------------|------------------------------|
@@ -26,7 +26,7 @@ sidebar_position: 5
 | write_sql_limit        | line_protocol 写入请求时，请求体最大字节数 |
 | auth_enabled           | 是否检查用户的权限                    |
 
-## [storage]
+## **[storage]**
 
 | 参数                            | 说明                                |
 |-------------------------------|-----------------------------------|
@@ -41,7 +41,7 @@ sidebar_position: 5
 | max_concurrent_compaction     | 最多同时进行的compaction任务数量，默认：4        |
 | strict_write                  | 是否开启严格写入，默认：false                 |
 
-## [wal]
+## **[wal]**
 
 | 参数                  | 说明                     |
 |---------------------|------------------------|
@@ -52,32 +52,34 @@ sidebar_position: 5
 | sync                | 是否为每次写入进行同步，默认：false   |
 | sync_interval       | 同步WAL的时间间隔，默认：0，即不主动同步 |
 
-## [cache]
+## **[cache]**
 
 | 参数                   | 说明                |
 |----------------------|-------------------|
 | max_buffer_size      | 最大的活跃缓存大小，默认：128M |
 | max_immutable_number | 最大的非活跃缓存数量, 默认：4  |
 
-## [log]
+## **[log]**
 
 | 参数    | 说明                                  |
 |-------|-------------------------------------|
 | level | 日志等级（debug、info、error、warn），默认：info |
 | path  | 日志存储目录                              |
 
-## [security]
+## **[security]**
+
 | 参数         | 说明       |
 |------------|----------|
 | tls_config | 可选，TLS配置 |
 
 ### [security.tls_config]
+
 | 参数          | 说明       |
 |-------------|----------|
 | certificate | TLS服务的证书 |
 | private_key | TLS服务的私钥 |
 
-## [cluster]
+## **[cluster]**
 
 | 参数                     | 说明               |
 |------------------------|------------------|
@@ -89,27 +91,27 @@ sidebar_position: 5
 | tcp_listen_addr        | TCP服务监听地址        |
 | flight_rpc_listen_addr | Flight RPC服务监听地址 |
 
-## [hintedoff]
+## **[hintedoff]**
 
 | 参数     | 说明              |
 |--------|-----------------|
 | enable | 是否开启HIntedOff服务 |
 | path   | HintedOff存储目录   |
 
-## reporting_disabled
+## **reporting_disabled**
 
-**说明**：是否关闭信息收集
+**说明**：是否关闭信息收集。
 
-CnosDB会收集一些信息，使社区更好地改进产品
+CnosDB会收集一些信息，使社区更好地改进产品。
 
-我们不会收集用户的数据，只会收集
+我们不会收集用户的数据，只会收集：
 
 - 数据库实例运行时间
 - 数据库实例运行的操作系统类型和架构
 - 数据库版本
 - 数据库实例运行的区域，只到省级，州级
 
-你可以在配置文件顶部设置此项为true关闭信息收集
+你可以在配置文件顶部设置此项为true关闭信息收集：
 ```
 reporting_disabled = true
 ```

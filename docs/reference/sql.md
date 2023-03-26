@@ -58,7 +58,7 @@ as follows:
 - `1997-01-31 09:26:56.123` # Close to RCF3339, replace T by space, and no time zone is specified.
 - `1997-01-31 09:26:56`     # Close to RCF3339, replace T by space, and no time zone is specified.
 
-**Note**: `CAST (BIGINT AS TIMESTAMP)`is a timestamp converted to nanosecond, as follows:
+**Note**: `CAST (BIGINT AS TIMESTAMP)` is a timestamp converted to nanosecond, as follows:
 
 ```sql
 SELECT CAST (1 AS TIMESTAMP);
@@ -152,7 +152,7 @@ DROP DATABASE oceanic_station;
 ```
     Query took 0.030 seconds.
 
-### Alter Database Parameters**
+### Alter Database Parameters
 
 **Syntax**
 ```sql
@@ -197,9 +197,9 @@ DESCRIBE DATABASE oceanic_station;
 
 ###  Create Table
 
-You can use `CREATE TABLE`  to create tables
+You can use `CREATE TABLE`  to create tables.
 
-CnosDB supports the creation of common tables and external tables
+CnosDB supports the creation of common tables and external tables.
 
 ###  Create Common Table
 
@@ -274,7 +274,7 @@ tb_option: {
 2. WITH HEADER ROW: Effective only in csv file format, representing with csv header.
 3. DELIMITER: only effective in csv format, representing the delimiter of column data.
 4. PARTITIONED BY: use the column specified when creating the table to partition.
-5. LOCATION: represents the location of the associated file
+5. LOCATION: represents the location of the associated file.
 
 **Example**
 
@@ -307,7 +307,7 @@ DROP TABLE IF EXISTS air;
 ```
     Query took 0.033 seconds.
 
-### Show Tables of Current Database**
+### Show Tables of Current Database
 
 **Syntax**
 
@@ -400,9 +400,9 @@ If a column is not selected, the value is `NULL`.
 
 **Note**
 
-The time column cannot be`NULL`, and the Tag column and Field Namecolumn can be `NULL`.
+The time column cannot be `NULL`, and the Tag column and Field Namecolumn can be `NULL`.
 
-Example`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`.
+Example `INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`.
 
 If the VALUES list requires an expression, please use the [INSERT SELECT](#insert-select) syntax.
 
@@ -456,7 +456,7 @@ SELECT * FROM air;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
     +----------------------------+------------+------------+-------------+-----------+
 
-**Note: **
+**Note**:
 
 The time represented by the string is considered as the local time zone and will be converted to the timestamp of UTC time zone.
 
@@ -534,7 +534,7 @@ SELECT * FROM air_visibility;
 
 CnosDB SQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html), We support most of the SQL syntax of DataFusion.
 
-**Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
+**Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting.
 
 ### Sample Data
 
@@ -542,7 +542,7 @@ To further study CnosDB, this section will provide sample data for you to downlo
 
 ### Download Data
 
-If in cnosdb cli, enter`\q`to exit.
+If in cnosdb cli, enter `\q` to exit.
 
 Executing the following command in the shell will generate a local data file named oceanic_station in Line Protocol format.
 
@@ -569,7 +569,7 @@ create database oceanic_station;
     ```
 - **Import data**
 
-  Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
+  Execute the `\w` command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
 
   ```shell
   \w oceanic_station.txt
@@ -609,6 +609,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 ### SELECT Clause
 
 ### SELECT \*
+
 The wildcard * can be used to refer to all columns.
 
 **Example**
@@ -720,7 +721,7 @@ SELECT station s, visibility AS v FROM air;
 
 ### Alias Table
 
-You can also use the keyword AS to alias the table.
+You can also use the keyword `AS` to alias the table.
 
 **Syntax**
 
@@ -1323,7 +1324,7 @@ SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
 
 ### LEFT JOIN
 
-Define a left join with the keyword`LEFT JOIN`or`LEFT OUTER JOIN`.This join includes all the rows in the left table. If there are no matching rows in the right table, the right side of the join is null.
+Define a left join with the keyword `LEFT JOIN` or `LEFT OUTER JOIN`. This join includes all the rows in the left table. If there are no matching rows in the right table, the right side of the join is null.
 
 **Example**
 
@@ -2274,7 +2275,7 @@ SELECT ARRAY_AGG(temperature) from air;
 
     VAR(NUMERICS)
 
-**Function**: Calculate the variance of a given sample
+**Function**: Calculate the variance of a given sample.
 
 **Parameter Type**: Numeric type
 
@@ -4937,7 +4938,7 @@ SELECT * FROM information_schema.members;
     | root      | owner     |
     +-----------+-----------+
 
-### QUERIES(INFORMATION_SCHEMA)
+### QUERIES (INFORMATION_SCHEMA)
 
 This schema shows a real-time snapshot of SQL statements, which is used to monitor SQL jobs in real time.
 
@@ -4987,7 +4988,7 @@ SHOW QUERIES;
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 
 
-## **USAGE_SCHEMA**
+### USAGE_SCHEMA
 
 This database, which belongs to a Tenant, is automatically created when a tenant is created and is visible to all members under the tenant.
 
@@ -5026,8 +5027,6 @@ Common users can access only the tenant information of the current session.
 
 
 #### Example
-
-```sql
 
 administator:
 
@@ -5138,6 +5137,8 @@ Common users can access only the tenant information of the current session.
 
 #### Example
 
+administrator:
+
 ```sql
 select * from usage_schema.data_out order by time desc limit 2;
 ```
@@ -5147,6 +5148,9 @@ select * from usage_schema.data_out order by time desc limit 2;
     | 2023-02-23T06:51:16.577110 | usage_schema | 1001    | cnosdb | 15156112 |
     | 2023-02-23T06:51:06.577132 | usage_schema | 1001    | cnosdb | 15156112 |
     +----------------------------+--------------+---------+--------+----------+
+
+common user:
+
 ```sql
 select * from usage_schema.data_out order by time desc limit 2;
 ```
@@ -5188,6 +5192,8 @@ Common users can access only the tenant information of the current session.
 
 #### Example
 
+administrator:
+
 ```sql
 select * from usage_schema.queries order by time desc limit 2;
 ```
@@ -5197,6 +5203,8 @@ select * from usage_schema.queries order by time desc limit 2;
     | 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | usage | 9     |
     | 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | root  | 17    |
     +----------------------------+--------------+---------+--------+-------+-------+
+
+common users:
 
 ```sql
 select * from usage_schema.queries order by time desc limit 2;

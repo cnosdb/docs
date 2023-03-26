@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # CnosDB2.0 路线图
 
-## 设计目标
+## **设计目标**
 
 设计和开发一个高性能、高压缩比、高可用性、分布式云原生时序数据库，需要满足以下目标。
 
@@ -26,14 +26,14 @@ sidebar_position: 2
 7. 云边协同，提供与公共云的边缘-端集成能力。
 6. 云上汇聚的 OLAP/CloudAI 数据生态系统。
 
-## CnosDB 架构
+## **CnosDB 架构**
 
 ![整体架构](https://raw.githubusercontent.com/cnosdb/cnosdb/main/docs/source/_static/img/arch.jpg)
 
-## CnosDB Timeline
+## **CnosDB Timeline**
 
-| 产品特性                  | 时间节点  |
-|-----------------------| ----  |
+| 产品特性                  | 时间节点    |
+|-----------------------|---------|
 | 2.0 Stand-alone  Beta | 2022.10 |
 | 2.0 Distribution Beta | 2022.12 |
 | Cloud Trial on AWS    | 2023.Q1 |

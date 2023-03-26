@@ -169,7 +169,7 @@ We take the data in Benchmark when database writing levels off which is valued a
 
 When the batch-size is set to 20,000, InfluxDB returns an error on the client:
 
-`{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`，
+`{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`, 
 
 So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
 

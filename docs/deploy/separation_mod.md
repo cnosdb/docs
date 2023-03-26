@@ -38,7 +38,7 @@ In the process of redesigning the time series database, we solve a series of pro
 
 ## **Data Replication and Consensus**
 
-The fragment rule of CnosDB 2.0 is based on Time-range. It uses the fragmentation rule of DB + Time_range to place the data in the corresponding Bucket. Bucket is a virtual logic unit. Each Bucket consists of the following main properties. Bucket creates multiple fragments based on user configurations, dissipating data (suppose data fragment Shad Num is 1).> 「db， shardid， time_range， create_time， end_time， List\<Vnode\>」
+The fragment rule of CnosDB 2.0 is based on Time-range. It uses the fragmentation rule of DB + Time_range to place the data in the corresponding Bucket. Bucket is a virtual logic unit. Each Bucket consists of the following main properties. Bucket creates multiple fragments based on user configurations, dissipating data (suppose data fragment Shad Num is 1).> 「db,  shardid,  time_range,  create_time,  end_time,  List\<Vnode\>」
 
 Vnode is a virtual running unit and is distributed to a specific Node. Each Vnode is a separate LSM Tree. Its corresponding tsfamily structure is a separate running unit.
 
@@ -80,14 +80,14 @@ Data from different tenants on Node are physically segmented.
 
       ```Rust
       pub enum ConsistencyLevel {
-          /// allows for hinted handoff， potentially no write happened yet.
-          Any，
+          /// allows for hinted handoff,  potentially no write happened yet.
+          Any, 
           /// at least one data node acknowledged a write/read.
-          One，
+          One, 
           /// a quorum of data nodes to acknowledge a write/read.
-          Quorum，
+          Quorum, 
           /// requires all data nodes to acknowledge a write/read.
-          All，
+          All, 
           }
       ```
     - Hinted handoff  
@@ -214,18 +214,18 @@ Data used primarily to store time series data are usually scenes that write more
 
     ```
     pub struct TseriesFamily {
-        tf_id: u32，
-        delta_mut_cache: Arc \<RwLock \<MemCache>>，
-        delta_immut_cache: Vec \<Arc \<RwLock \<MemCache>>>，
-        mut_cache: Arc \<RwLock \<MemCache>>，
-        immut_cache: Vec \<Arc \<RwLock \<MemCache>>>，
-        super_version: Arc \<SuperVersion>，
-        super_version_id: AtomicU64，
-        version: Arc \<RwLock \<Version>>，
-        opts: Arc \<TseriesFamOpt>，
-        seq_no: u64，
-        immut_ts_min: i64，
-        mut_ts_max: i64，
+        tf_id: u32, 
+        delta_mut_cache: Arc \<RwLock \<MemCache>>, 
+        delta_immut_cache: Vec \<Arc \<RwLock \<MemCache>>>, 
+        mut_cache: Arc \<RwLock \<MemCache>>, 
+        immut_cache: Vec \<Arc \<RwLock \<MemCache>>>, 
+        super_version: Arc \<SuperVersion>, 
+        super_version_id: AtomicU64, 
+        version: Arc \<RwLock \<Version>>, 
+        opts: Arc \<TseriesFamOpt>, 
+        seq_no: u64, 
+        immut_ts_min: i64, 
+        mut_ts_max: i64, 
     }
     ```
 

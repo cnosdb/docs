@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # 连接器
 
-## Arrow Flight SQL
+## **Arrow Flight SQL**
 
 ### Arrow Flight SQL 简介
 
@@ -715,7 +715,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-## JDBC
+## **JDBC**
 
 ### 操作流程
 
@@ -838,7 +838,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    
    ```
 
-## ODBC
+## **ODBC**
 
 目前仅支持x86_64架构的系统，linux仅支持centos和redhat系列发行版。
 

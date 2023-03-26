@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## **Installation**
 
-Reference [Source Code Installation](../deploy/single#source-code-installation)。
+Reference [Source Code Installation](../deploy/single#source-code-installation).
 
 ## **Start**
 
@@ -82,7 +82,7 @@ In the CnosDB cluster version, individual running instances are called Nodes, an
 
 Meta maintains cluster metadata, such as Table Schema, Node survival heartbeat and load data, Vnode to Node mapping relationships, etc.
 
-Metadata is frequently accessed by each Node, and CnosDB chooses to maintain a strongly consistent Meta Node cluster, where Nodes subscribe to the Meta Node to pull information of interest, and all updates to metadata information are made through the Meta Node cluster.。
+Metadata is frequently accessed by each Node, and CnosDB chooses to maintain a strongly consistent Meta Node cluster, where Nodes subscribe to the Meta Node to pull information of interest, and all updates to metadata information are made through the Meta Node cluster..
 
 [//]: # (TODO: 修改图片大小)
 ![](../source/_static/img/cluster_metas.jpg)
