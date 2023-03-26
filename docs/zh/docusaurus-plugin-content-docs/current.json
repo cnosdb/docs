@@ -1,0 +1,54 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Get Started": {
+    "message": "开始",
+    "description": "The label for category Get Started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Get Started.link.generated-index.description": {
+    "message": "本章将介绍如何快速上手CnosDB。",
+    "description": "The generated-index page description for category Get Started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Develop": {
+    "message": "开发",
+    "description": "The label for category Develop in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Develop.link.generated-index.description": {
+    "message": "本章将介绍如何使用CnosDB进行开发。",
+    "description": "The generated-index page description for category Develop in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Deploy": {
+    "message": "部署",
+    "description": "The label for category Deploy in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Deploy.link.generated-index.description": {
+    "message": "本章将介绍如何部署CnosDB。",
+    "description": "The generated-index page description for category Deploy in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Manage": {
+    "message": "管理",
+    "description": "The label for category Manage in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Manage.link.generated-index.description": {
+    "message": "本章将介绍如何管理CnosDB。",
+    "description": "The generated-index page description for category Manage in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Reference": {
+    "message": "参考",
+    "description": "The label for category Reference in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Reference.link.generated-index.description": {
+    "message": "本章将介绍CnosDB的参考文档。",
+    "description": "The generated-index page description for category Reference in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Releases": {
+    "message": "版本发布",
+    "description": "The label for category Releases in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Releases.link.generated-index.description": {
+    "message": "本章将介绍CnosDB的版本发布历史。",
+    "description": "The generated-index page description for category Releases in sidebar tutorialSidebar"
+  }
+}

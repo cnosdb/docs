@@ -1,0 +1,8 @@
+{
+  "label": "版本发布",
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "description": "10 minutes to get familiar with the CnosDB."
+  }
+}

@@ -3,6 +3,8 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const versions = require('./versions.json');
+const versionsArchived = require('./versionsArchived.json');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -15,7 +17,10 @@ const config = {
   url: 'https://cnosdb.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  // TODO: somthing wrong with baseUrl
+  // you can refer to : https://github.com/facebook/docusaurus/issues/6294
+  // https://github.com/facebook/docusaurus/issues/6294
+  baseUrl: '/docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -25,56 +30,53 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en','zh-Hans'],
-    path: 'zh',
-    localeConfigs: {
-      en: {
-        label: 'English',
-        direction: 'ltr',
-        htmlLang: 'en-US',
-        calendar: 'gregory',
-        path: 'en',
-      },
-      zh: {
-        label: '简体中文',
-        direction: 'rtl',
-        htmlLang: 'zh-Hans',
-        calendar: 'persian',
-        path: 'zh',
-      },
-    },
-  },
-
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          // TODO: 'routeBasePath: '/'' is for docs only mod.
+          routeBasePath: '/',
+          path: 'docs/en/docusaurus-plugin-content-docs/current',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/cnosdb/docs',
-        },
-        blog: {
-          showReadingTime: true,
           // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/cnosdb/docs',
+          lastVersion: versions[0],
+          versions: {
+            current: {
+              label: `2.0 🚧`,
+              path: 'v2',
+            },
+            '2.0': {
+              label: '2.0',
+              path: 'v2',
+            },
+          },
+          // TODO: fix editUrl
+          // editUrl: ({ versionDocsDirPath, docPath, locale, version }) => {
+          //   if ('en' === locale) {
+          //     return `https://github.com/cnosdb/docs/main/${versionDocsDirPath}/${docPath}`;
+          //   } else {
+          //     return 'current' === version
+          //         ? `https://github.com/cnosdb/docs/main/docs/${locale}/docusaurus-plugin-content-docs/${version}/${docPath}`
+          //         : `https://github.com/cnosdb/docs/main/docs/${locale}/docusaurus-plugin-content-docs/version-${version}/${docPath}`;
+          //   }
+          // },
         },
+        blog: false, // Optional: disable the blog plugin
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
   ],
+
+  themes: ['docusaurus-theme-search-typesense'],
+  themes: ['@docusaurus/theme-live-codeblock'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -97,10 +99,12 @@ const config = {
             // TODO: Add search engine api
             // You can refer to https://www.docusaurus.io/zh-CN/docs/search
           {
-            type: 'docsVersion',
+            type: 'docsVersionDropdown',
             position: 'right',
-            to: '/path',
-            label: 'Version',
+            dropdownActiveClassDisabled: true,
+            dropdownItemsAfter: [
+              ...versionsArchived.wiki,
+            ],
           },
           {
             type: 'localeDropdown',
@@ -116,9 +120,8 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/cnosdb/cnosdb',
             label: 'GitHub',
@@ -134,31 +137,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Docs',
+                to: '/docs/v2/intro',
               },
             ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/cnosdb',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/cnosdb',
-              },
-            ],
-          },
-          {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/cnosdb/cnosdb',
@@ -170,7 +154,6 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
-        //theme: require('prism-react-renderer/themes/dracula'),
         darkTheme: darkCodeTheme,
         additionalLanguages: ['powershell'],
         additionalLanguages: ['go'],
@@ -182,16 +165,31 @@ const config = {
         additionalLanguages: ['cmake'],
       },
     }),
-  themes: ['@docusaurus/theme-live-codeblock'],
-  plugins: [
-    [
-      require.resolve("@cmfcmf/docusaurus-search-local"),
-      {
-        // Options here
-        language: "zh",
+
+  // Even if you don't use internalization, you can use this field to set useful
+  // metadata like html lang. For example, if your site is Chinese, you may want
+  // to replace "en" with "zh-Hans".
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en','zh-Hans'],
+    path: 'docs',
+    localeConfigs: {
+      'en': {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en',
+        calendar: 'gregory',
+        path: 'en',
       },
-    ],
-  ],
+      'zh-Hans': {
+        label: '简体中文',
+        direction: 'ltr',
+        htmlLang: 'zh-Hans',
+        calendar: 'persian',
+        path: 'zh',
+      },
+    },
+  },
 };
 
 module.exports = config;

@@ -1,0 +1,54 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Get Started": {
+    "message": "Get Started",
+    "description": "The label for category Get Started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Get Started.link.generated-index.description": {
+    "message": "10 minutes to get familiar with the CnosDB.",
+    "description": "The generated-index page description for category Get Started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Develop": {
+    "message": "Develop",
+    "description": "The label for category Develop in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Develop.link.generated-index.description": {
+    "message": "This chapter will guide you to develop your application with CnosDB.",
+    "description": "The generated-index page description for category Develop in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Deploy": {
+    "message": "Deploy",
+    "description": "The label for category Deploy in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Deploy.link.generated-index.description": {
+    "message": "This chapter will guide you to deploy CnosDB in your environment.",
+    "description": "The generated-index page description for category Deploy in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Manage": {
+    "message": "Manage",
+    "description": "The label for category Manage in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Manage.link.generated-index.description": {
+    "message": "This chapter will guide you to manage CnosDB.",
+    "description": "The generated-index page description for category Manage in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Reference": {
+    "message": "Reference",
+    "description": "The label for category Reference in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Reference.link.generated-index.description": {
+    "message": "This chapter will guide you to know more about CnosDB.",
+    "description": "The generated-index page description for category Reference in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Releases": {
+    "message": "Releases",
+    "description": "The label for category Releases in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Releases.link.generated-index.description": {
+    "message": "This chapter will guide you to know the release history about CnosDB.",
+    "description": "The generated-index page description for category Releases in sidebar tutorialSidebar"
+  }
+}
