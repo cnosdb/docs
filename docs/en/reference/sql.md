@@ -103,7 +103,7 @@ db_option: {
 1. TTL： represents the saving time of the data file, defaults to 365 days, expressed in data with units. It supports day（d），hour（h），minute（m），such as TTL 10d，TTL 50h，TTL 100m.When no unit, the default is day, such as TTL 30.
 2. SHARD：represents the number of data partitions，defaults to 1.
 3. VNODE_DURATION：represents the time range of data in the shard，defaults to 365 days，and also expressed by data with units.Its data meaning is consistent with the value of TTL.
-4. REPLICA：represents the number of replicas of data in the cluster，defaults to 1
+4. REPLICA：represents the number of replicas of data in the cluster，defaults to 1 (the number of replicas is not larger than the number of distributed data nodes).
 5. PRECISION：The timestamp accuracy of the database. ms represents milliseconds, us represents microseconds, ns represents nanoseconds,defaults to ns.
 
 **Example**

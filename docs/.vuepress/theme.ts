@@ -61,18 +61,18 @@ export default hopeTheme({
       cmpResult = cmp(a.frontmatter.order, b.frontmatter.order);
     }
 
-    console.log(
-      'Sorting',
-      a.frontmatter.title,
-      a.type,
-      a.frontmatter.order,
-      '<',
-      cmpResult,
-      '>',
-      b.frontmatter.title,
-      a.type,
-      b.frontmatter.order
-    );
+    // console.log(
+    //   'Sorting',
+    //   a.frontmatter.title,
+    //   a.type,
+    //   a.frontmatter.order,
+    //   '<',
+    //   cmpResult,
+    //   '>',
+    //   b.frontmatter.title,
+    //   a.type,
+    //   b.frontmatter.order
+    // );
 
     return cmpResult;
   },

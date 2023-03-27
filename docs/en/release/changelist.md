@@ -6,7 +6,7 @@ order: 2
 # Change List
 
 
-## v2.2.0
+## V2.2.0
 
 On March 01, 2023, CnosDB released version V2.2.0. This version mainly adds the storage and computation separation mode and further enhances the performance and stability of distributed, and continues to be open source. The major changes in this release also include:
 

@@ -128,18 +128,27 @@ order: 2
 
 ```shell
 git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
-cargo build
+make build
 ```
 
 ### **运行**
 
-#### **运行数据库服务**
+#### **运行分布式存算分离数据库服务**
 
 ```shell
-cargo run -- run --cpu 4 --memory 64
+## 单meta，data，query节点
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb tskv --cpu 4 --memory 64
+./target/debug/cnosdb query --cpu 4 --memory 64
 ```
-#### **运行CLI**
-在另一个终端，相同目录下运行如下命令
+#### **运行分布式存算一体数据库服务**
 ```shell
-cargo run --package client --bin client
+## 单meta，cnosdb节点
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb run --cpu 4 --memory 64
+```
+#### **运行单机版数据库服务**
+
+```shell
+./target/debug/cnosdb singleton --cpu 4 --memory 64
 ```

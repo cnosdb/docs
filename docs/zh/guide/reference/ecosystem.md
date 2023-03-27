@@ -381,8 +381,8 @@ CnosDB 支持Prometheus的Remote Write协议，只需要在 Prometheus 中启动
     remote_write:
     - url: "http://{db_url}/api/v1/prom/write?db={db_name}"
       basic_auth:
-      username: 'root'
-      password: ''
+        username: 'root'
+        password: ''
     ```
   **参数说明**:
 
@@ -408,8 +408,8 @@ CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启
     remote_read:
     - url: "http://{db_url}/api/v1/prom/read?db={db_name}"
       basic_auth:
-      username: 'root'
-      password: ''
+        username: 'root'
+        password: ''
     ```
   **参数说明**:
 
@@ -430,7 +430,7 @@ CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启
 
 ### 从三体运动到太阳黑子变化预测
 
-#### 前言
+### 前言
 
 太阳黑子是太阳光球层上发生的太阳活动现象，通常成群出现。 预测太阳黑子变化是空间气象研究中最活跃的领域之一。
 
@@ -511,7 +511,7 @@ plt.show()
 
 ![](../../../source/_static/img/plt_show.png)
 
-#### 使用时序数据库 CnosDB 存储 MSSN 数据
+### 使用时序数据库 CnosDB 存储 MSSN 数据
 
 CnosDB（An Open Source Distributed Time Series Database with high performance, high compression ratio and high usability.）
 
@@ -521,6 +521,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 （注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com/）
 
 在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](./tools.md) 工具直接访问 CnosDB：
+
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.2.1-beta
 
@@ -604,7 +605,8 @@ conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
 
 ![](../../../source/_static/img/MSSN.png)
 
-#### 首先使用 CnosDB 读取数据
+#### 使用 CnosDB 读取数据
+
 ```python
 df = pd.read_sql("select * from sunspot;", conn)
 
@@ -668,7 +670,8 @@ tensor_train_dataset = ts_data_generator(tensor_train_data, WINDOW_SIZE, BATCH_S
 tensor_test_dataset = ts_data_generator(tensor_test_data, WINDOW_SIZE, BATCH_SIZE, SHUFFLE_BUFFER)
 ```
 
-#### 使用 tf.keras 模块定义 1DConv+LSTM 神经网络模型
+#### 定义 1DConv+LSTM 神经网络模型
+
 ```python
 model = tf.keras.models.Sequential([
                             tf.keras.layers.Conv1D(filters=128, kernel_size=3, strides=1, input_shape=[None, 1]),
