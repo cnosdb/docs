@@ -7,9 +7,12 @@
   "scripts": {
     "docs:build": "vuepress build docs",
     "docs:clean-dev": "vuepress dev docs --clean-cache",
-    "docs:dev": "vuepress dev docs"
+    "docs:dev": "vuepress dev docs",
+    "export-pdf-zh": "press-export-pdf export docs/zh --debug",
+    "export-pdf-en": "press-export-pdf export docs/en --debug"
   },
   "devDependencies": {
+    "@condorhero/vuepress-plugin-export-pdf-v2": "^2.0.1",
     "@vuepress/client": "2.0.0-beta.51",
     "@vuepress/plugin-search": "^2.0.0-beta.51",
     "vue": "^3.2.29",

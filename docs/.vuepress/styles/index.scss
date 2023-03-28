@@ -12,3 +12,13 @@
     Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   color: var(--text-color);
 }
+
+@media print {
+  .navbar,
+  .sidebar,
+  .sidebar-mask,
+  .page-edit,
+  .page-nav {
+    display: none !important;
+  }
+}
