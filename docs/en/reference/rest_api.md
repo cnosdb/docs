@@ -21,7 +21,8 @@ basic64(user_name + ":" + password)
 
 **Request Parameter**
 
-- db：name of database
+- db：name of database (optional, default database is public)
+- tenant: name of tenant (optional, if not specified, the default tenant cnosdb will be used)
 
 **Request Body**
 
@@ -72,8 +73,9 @@ basic64(user_name + ":" + password)
 
 **Request parameter**
 
-- db
+- db : name of database (optional, default database is public)
   Default database based on the current request context.
+- tenant: name of tenant (optional, if not specified, the default tenant cnosdb will be used)
 - chunked
   Whether or not stream the result data; Default is false.
 

@@ -53,6 +53,7 @@ let result = response.text().await.unwrap();
 示例代码使用[fasthttp](https://github.com/valyala/fasthttp)作为依赖。
 
 以下为构造http request所需的参数。
+
 ```go
 user := "cnosdb"
 pwd := ""

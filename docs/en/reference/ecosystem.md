@@ -384,8 +384,8 @@ CnosDB supports the Remote Write protocol of Prometheus. To ingest data to the l
     remote_write:
     - url: "http://{db_url}/api/v1/prom/write?db={db_name}"
       basic_auth:
-      username: 'root'
-      password: ''
+        username: 'root'
+        password: ''
     ```
   **Parameter**
 
@@ -411,8 +411,8 @@ CnosDB supports Remote Read protocol of Prometheus. To ingest data to the loggin
     remote_read:
     - url: "http://{db_url}/api/v1/prom/read?db={db_name}"
       basic_auth:
-      username: 'root'
-      password: ''
+        username: 'root'
+        password: ''
     ```
   **Parameter**
 

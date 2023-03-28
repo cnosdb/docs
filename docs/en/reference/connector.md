@@ -17,8 +17,8 @@ Our current environments that support the Arrow Flight SQL client are
 - [Go](#go)
 - [Java](#java)
 - [Rust](#rust)
-- [JDBC](#JDBC) based on Arrow Flight SQL
-- [ODBC](#ODBC) based on Arrow Flight SQL
+- [JDBC](#jdbc) based on Arrow Flight SQL
+- [ODBC](#odbc) based on Arrow Flight SQL
 
 ### Benefits of Arrow Flight SQL
 
@@ -61,7 +61,7 @@ The flow chart is as follows:
 
 
 - #### Installing Apache Arrow
-   You can find a detailed installation tutorial in the [official  documentation](arrow.apache.org/install/)
+   You can find a detailed installation tutorial in the [official documentation](https://arrow.apache.org/datafusion/user-guide/introduction)
    On Mac systems, it's easy to install with the brew command
 
    ```shell

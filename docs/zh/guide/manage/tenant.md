@@ -40,7 +40,7 @@ FROM cluster_schema.tenants;
 
 ```sql
 CREATE
-TENANT [IF NOT EXISTS] tenant_name [WITH comment = ''];
+TENANT [IF NOT EXISTS] tenant_name WITH [comment = ''];
 ```
 
 **示例**

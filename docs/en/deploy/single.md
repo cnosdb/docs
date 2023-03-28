@@ -147,23 +147,31 @@ If your system is not listed here, you can install FlatBuffers as follows:
 
 ### Compile
 
-   ```
-    git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
-    cargo build
-   ```
-
-### Run
-
-#### Run database services
-
-```
-cargo run -- run --cpu 4 --memory 64
+```shell
+git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
+make build
 ```
 
-#### Run CLI
+### **Run**
 
-In another terminal, in the same directory, run the following command:
+#### **Run a distributed memory/compute split database service**
 
+```shell
+## 单meta，data，query节点
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb tskv --cpu 4 --memory 64
+./target/debug/cnosdb query --cpu 4 --memory 64
 ```
-cargo run --package client --bin client
+
+#### **Running distributed memory and computing integrated database services**
+
+```shell
+## 单meta，cnosdb节点
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb run --cpu 4 --memory 64
+```
+#### **Run single database instance**
+
+```shell
+./target/debug/cnosdb singleton --cpu 4 --memory 64
 ```
