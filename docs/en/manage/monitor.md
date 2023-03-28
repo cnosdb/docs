@@ -11,11 +11,11 @@ If you would like to see more metrics supported by CnosDB, please send an ISSUE 
 
 ## Data Node Monitor Metrics
 
-### DISK_STORAGE
+### VNODE_DISK_STORAGE
 
 #### Name
 
-disk_storage
+vnode_disk_storage
 
 #### Type
 
@@ -27,20 +27,44 @@ The disk that the Vnode occupies.
 
 #### Tag
 
-| Field    | Discription                   |
-|----------|-------------------------------|
-| DATABASE | Database vnode belongs to     |
-| NODE_ID  | ID of data node               |
-| TENANT   | tenant vnode belongs to       |
-| VNODE_ID | ID of Vnode                   |
-| VALUE    | Disk that the Vnode occupies. |
+| Field    | Discription                           |
+|----------|---------------------------------------|
+| DATABASE | Database vnode belongs to             |
+| NODE_ID  | ID of data node                       |
+| TENANT   | tenant vnode belongs to               |
+| VNODE_ID | ID of Vnode                           |
+| VALUE    | Disk that the Vnode occupies in bytes |
 
 
-### DATA_IN
+### VNODE_CACHE_SIZE
 
 #### Name
 
-data_in
+vnode_cache_size
+
+#### Type
+
+Gauge
+
+#### Description
+
+The cache size that vnode occupies in bytes.
+
+#### Tag
+
+| Field    | Discription                            |
+|----------|----------------------------------------|
+| DATABASE | Database vnode belongs to              |
+| NODE_ID  | ID of data node                        |
+| TENANT   | tenant vnode belongs to                |
+| VNODE_ID | ID of Vnode                            |
+| VALUE    | Cache that the Vnode occupies in bytes |
+
+### COORD_DATA_IN
+
+#### Name
+
+coord_data_in
 
 #### Type
 
@@ -61,11 +85,11 @@ The total size of the written traffic when data is written to the database.
 | VALUE    | The total size of the write traffic in Bytes |
 
 
-### DATA_OUT
+### COORD_DATA_OUT
 
 #### Name
 
-data_out
+coord_data_out
 
 #### Type
 
@@ -85,11 +109,11 @@ Total outflow traffic for reading data from the database.
 | TENANT   | Tenant name the database belongs to         |
 | VALUE    | The total size of the read traffic in Bytes |
 
-### QUERIES
+### USER_QUERIES
 
 #### Name
 
-queries
+user_queries
 
 #### Type
 
@@ -101,7 +125,6 @@ The times the user queries from the database.
 
 #### Tag
 
-
 | Field    | Discription                                   |
 |----------|-----------------------------------------------|
 | TIME     | Time of queries                               |
@@ -111,11 +134,11 @@ The times the user queries from the database.
 | USER     | User name                                     |
 | VALUE    | The times the user queries from the database. |
 
-### WRITES
+### USER_WRITES
 
 #### Name
 
-writes
+user_writes
 
 #### Type
 
@@ -152,8 +175,7 @@ scrape_configs:
 
 `targets` is the adderss of CnosDB Http.
 
-
 ## Store to CnosDB 
 
-在[配置文件](cluster.md#配置项-cluster)中修改`store_metrics`参数为 `true` （默认为true）
+Change the `store_metrics` in [config](./cluster_expansion.md#configuration-cluster) to `true`.
 

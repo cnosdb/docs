@@ -1098,11 +1098,114 @@ SELECT * FROM air ORDER BY station, temperature;
     | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
     +---------------------+-------------+------------+-------------+----------+
 
-### **IN**
+## Expression
 
-The IN operator allows you to specify multiple values in the WHERE clause.
+An expression is a kind of combination of symbols and operators that CnosDB will process to obtain a single data value.
+A simple expression can be a constant, variable, column, or scalar function.
+Complex expressions can be formed by concatenating two or more simple expressions with operators.
 
-**Example*
+**Syntax**
+
+```sql
+<expresion> :: = { 
+    constant 
+    | [ table_name. ] column   
+    | scalar_function 
+    | ( expression ) 
+    | expression { binary_operator } expression   
+    | case_when_expression
+    | window_function | aggregate_function  
+}
+```
+
+#### Constant
+
+A symbol representing a single specific data value.
+You can refer to [constant](#constant).
+
+**Example**
+
+```sql
+select 1;
+```
+    +----------+
+    | Int64(1) |
+    +----------+
+    | 1        |
+    +----------+
+
+#### Functions
+
+You can refer to [function](#functions).
+
+#### Unary Operator
+
+| Operator    | Description                                                                                                                     |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------|
+| NOT         | If the subexpression is true, the whole expression is false, and if the whole expression is false, the whole expression is true |
+| IS NULL     | If the subexpression is null, the whole expression is true                                                                      |
+| IS NOT NULL | If the subexpression is null, the whole expression is false                                                                     |
+
+#### Binary Operator
+
+Binary operators and two expressions are combined to form a new expression.
+
+Binary operators supported now:
+
+| Operator     | Description                                                                                                 |
+|--------------|-------------------------------------------------------------------------------------------------------------|
+| +            | Numeric type expressions add                                                                                |
+| -            | Number type expressions are subtracted                                                                      |
+| *            | Number type expressions multiply                                                                            |
+| /            | Number type expressions divide                                                                              |
+| %            | Integer type expressions are modulo                                                                         |
+| &#124;&#124; | String type expression concatenation                                                                        |
+| =            | Comparing expressions for equality                                                                          |
+| !=、 <>       | Comparing expressions for inequality                                                                        |
+| <            | Compare expressions to see if they are less than                                                            |
+| <=           | Comparing expressions to see if they are less than or equal to                                              |
+| &gt;         | Compare expressions for greater than                                                                        |
+| >=           | Compares expressions for greater than or equal to                                                           |
+| AND          | Evaluate the left expression first, and if it's true, evaluate the right expression, both true and true     | 
+| OR           | First evaluate the left expression, and if it is false, evaluate the right expression, both false and false |
+| LIKE         | Determines whether the left expression matches the pattern of the right expression                          |
+
+### `BETWEEN AND` Expression
+
+**Syntax**
+
+```sql
+expr BETWEEN expr AND expr
+```
+
+**Example**
+```sql
+SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
+```
+    +----------+
+    | pressure |
+    +----------+
+    | 52       |
+    | 54       |
+    | 57       |
+    | 50       |
+    | 60       |
+    | 51       |
+    | 56       |
+    | 58       |
+    | 59       |
+    | 53       |
+    | 55       |
+    +----------+
+
+Note: `BETWEEN x AND y` lists the numbers between x and y, including x and y
+
+### `IN` 表达式
+
+The IN operator determines whether any value in the list is equal to the expression.
+
+**Example**
+
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 ```
@@ -1113,9 +1216,69 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
     | LianYunGang | 69          | 78         |
     +-------------+-------------+------------+
 
-**Note**
+**Note**：
 
-The IN list does not support expressions currently, but only constants.
+IN only supports a list of constants, not a list of expressions.
+
+### `CASE WHEN` Expression
+
+The `CASE WHEN` expression is used when the expression needs different values depending on the situation.
+
+**Syntax**
+```sql
+CASE
+    ( WHEN expression THEN result1 [, ...] )
+    ELSE result
+END;
+```
+
+**Example**
+
+```sql
+SELECT DISTINCT 
+    CASE WHEN PRESSURE >= 60 THEN 50 
+         ELSE PRESSURE 
+    END PRESSURE 
+FROM AIR;
+```
+    +----------+
+    | pressure |
+    +----------+
+    | 52       |
+    | 54       |
+    | 57       |
+    | 50       |
+    | 51       |
+    | 56       |
+    | 58       |
+    | 59       |
+    | 53       |
+    | 55       |
+    +----------+
+
+### Window Functions
+
+You can refer to [Window Functions](#window-functions)
+
+### Aggregate Functions
+
+You can refer to [Aggregate Functions](#aggregate-function)
+
+### Operator Precedence
+
+If a complex expression has more than one operator, operator precedence determines the sequence of operations. The order of execution may have a noticeable effect on the resulting value.
+
+The precedence levels of the operators are given in the following table. Operators at higher levels are evaluated before operators at lower levels. In the following table, 1 represents the highest level and 8 represents the lowest level.
+
+
+| 级别  | 运算符                       |
+|-----|---------------------------|
+| 1   | *（乘）、/（除）、%（取模）           |
+| 2   | +（正）、-（负）、+（加）、+（串联）、-（减） |
+| 3   | =、>=、<=、<>、!=、>、<（比较运算符）  |
+| 4   | NOT                       |
+| 5   | AND                       |
+| 6   | BETWEEN、IN、LIKE、OR        |
 
 
 ### **SHOW**
