@@ -15,20 +15,20 @@ order: 2
 
 2. 使用 Docker 启动容器
   ```shell
-  docker run --name cnosdb -d  --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.1
+    docker run --name cnosdb -d cnosdb/cnosdb:v2.2.0 cnosdb run -M singleton
   ```
 
 3. 进入容器
   ```shell
-  docker exec -it cnosdb sh
+    docker exec -it cnosdb sh
   ```
 4. 运行`cnosdb-cli`
   ```shell
-  cnosdb-cli
+    cnosdb-cli --port 31007
   ```
 会显示如下：
 ```
-CnosDB CLI v2.0.0
+CnosDB CLI v2.2.0
 Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
 public ❯
 ```
@@ -51,7 +51,7 @@ wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
     ```
 - **创建数据库**
     ```shell
-    create database oceanic_station;
+    create database oceanic_station with ttl '10000d';
     ```
 - **切换到指定数据库**
     ```shell
