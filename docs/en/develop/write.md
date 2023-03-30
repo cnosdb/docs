@@ -118,7 +118,7 @@ curl -i -u "<username>:<password>" -H "Accept: application/json" \
 #### Example
 
 ```shell
-wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt &&
+wget https://dl.cnosdb.com/sample/oceanic_station.txt &&
 curl -i -u "cnosdb:" -H "Accept: application/json" \
 -XPOST "http://127.0.0.1:31007/api/v1/write?db=oceanic_station" \
 --data-binary @./oceanic_station.txt

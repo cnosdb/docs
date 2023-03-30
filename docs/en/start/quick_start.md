@@ -18,7 +18,7 @@ If in cnosdb cli, enter`\q`to exit.
 Executing the following command in the shell will generate a local data file named oceanic_station in Line Protocol format.
 
 ```shell
-wget https://fastdl.cnosdb.com/cpizkpfk/oceanic_station.txt
+wget https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
 ### Import Data
