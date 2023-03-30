@@ -9,6 +9,7 @@ order: 6
 
 配置采用TOML语法
 
+- deployment CnosDB启动配置(v2.2.0)
 - query 查询接口配置
 - storage 存储配置
 - wal 写前日志配置
@@ -17,6 +18,21 @@ order: 6
 - security 安全配置
 - cluster 集群配置
 - hintedoff HintedOff配置
+
+## [deployment] (v2.2.0)
+
+| 参数           | 说明                                                    |
+|--------------|-------------------------------------------------------|
+| mode         | 部署模式，从['tskv', 'query', 'query_tskv', 'singleton']中选择 |
+| cpu          | 指定实例需要的cpu核数                                          |
+| memory       | line_protocol 写入请求时，请求体最大字节数                          |
+
+### [deployment.mode]
+tskv: 只部署tskv引擎，需要指定meta地址
+query: 只部署query引擎，需要指定meta地址
+query_tskv: query和tskv引擎都部署，需要指定meta地址
+singleton: 部署单机版，无需指定meta地址
+
 
 ## [query]
 
