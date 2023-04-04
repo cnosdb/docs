@@ -28,10 +28,10 @@ order: 6
 | memory       | line_protocol 写入请求时，请求体最大字节数                          |
 
 ### [deployment.mode]
-tskv: 只部署tskv引擎，需要指定meta地址
-query: 只部署query引擎，需要指定meta地址
-query_tskv: query和tskv引擎都部署，需要指定meta地址
-singleton: 部署单机版，无需指定meta地址
+- tskv: 只部署tskv引擎，需要指定meta地址
+- query: 只部署query引擎，需要指定meta地址
+- query_tskv: query和tskv引擎都部署，需要指定meta地址
+- singleton: 部署单机版，无需指定meta地址
 
 
 ## [query]

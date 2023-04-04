@@ -156,12 +156,20 @@ make build
 
 #### **Run a distributed memory/compute split database service**
 
+##### v2.1
 ```shell
 ## 单meta，data，query节点
 ./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
 ./target/debug/cnosdb tskv --cpu 4 --memory 64
 ./target/debug/cnosdb query --cpu 4 --memory 64
 ```
+
+##### v2.2
+    ```shell
+    ./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+    ./target/debug/cnosdb run --deployment-mode tskv --cpu 4 --memory 64
+    ./target/debug/cnosdb run --deployment-mode query --cpu 4 --memory 64
+    ```
 
 #### **Running distributed memory and computing integrated database services**
 
@@ -172,6 +180,20 @@ make build
 ```
 #### **Run single database instance**
 
+##### v2.1
 ```shell
 ./target/debug/cnosdb singleton --cpu 4 --memory 64
 ```
+##### v2.2
+```shell
+./target/debug/cnosdb run --deployment-mode singleton --cpu 4 --memory 64
+```
+
+#### **Run CLI**
+On another terminal, run the following command in the same directory:
+
+```shell
+cargo run --package client --bin client
+```
+**Attention**: Please refer to the [cnosdb-cli manual](../reference/tools.md#client-cli) to view cli usage and pay attention to the IP address and port number.
+
