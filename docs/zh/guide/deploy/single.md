@@ -135,20 +135,43 @@ make build
 
 #### **运行分布式存算分离数据库服务**
 
+##### v2.1
 ```shell
 ## 单meta，data，query节点
 ./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
 ./target/debug/cnosdb tskv --cpu 4 --memory 64
 ./target/debug/cnosdb query --cpu 4 --memory 64
 ```
+##### v2.2
+```shell
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb run --deployment-mode tskv --cpu 4 --memory 64
+./target/debug/cnosdb run --deployment-mode query --cpu 4 --memory 64
+```
+
 #### **运行分布式存算一体数据库服务**
 ```shell
 ## 单meta，cnosdb节点
 ./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
 ./target/debug/cnosdb run --cpu 4 --memory 64
 ```
+
 #### **运行单机版数据库服务**
 
+##### v2.1
 ```shell
 ./target/debug/cnosdb singleton --cpu 4 --memory 64
 ```
+##### v2.2
+```shell
+./target/debug/cnosdb run --deployment-mode singleton --cpu 4 --memory 64
+```
+
+
+#### **运行CLI**
+在另一个终端，相同目录下运行如下命令
+
+```shell
+cargo run --package client --bin client
+```
+**注意**：请参考[cnosdb-cli手册](../reference/tools.md#客户端cli) 查看cli用法，并注意IP地址端口号
