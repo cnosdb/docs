@@ -13,7 +13,7 @@ import { ref, watch } from 'vue';
 
 const isZh = ref(false);
 const route = useRoute();
-console.log('route', route);
+// console.log('route', route);
 isZh.value = route.fullPath.indexOf('zh') > -1;
 watch(
   () => route.path,
