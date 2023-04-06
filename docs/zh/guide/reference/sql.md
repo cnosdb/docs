@@ -214,7 +214,7 @@ CnosDB 支持创建普通表和外部表。
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-(field_definition, [field_definition, ] ...TAGS(tg_name [, tg_name] ...));
+(field_definition [, field_definition ] ... [, TAGS(tg_name [, tg_name] ...)]);
 
 field_definition:
     column_name data_type [field_codec_type]
