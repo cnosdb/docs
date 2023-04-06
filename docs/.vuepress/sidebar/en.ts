@@ -42,6 +42,14 @@ export const enSidebar = sidebar({
       link: "en/reference/README.md",
       icon: "generic",
       collapsable: true,
+    },
+    {
+      text: "Eco-integration",
+      prefix: "en/eco/",
+      children: 'structure',
+      link: "en/eco/README.md",
+      icon: "leaf",
+      collapsable: true,
     },{
       text: "Release",
       prefix: "en/release/",

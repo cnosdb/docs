@@ -42,7 +42,16 @@ export const zhSidebar = sidebar({
       link: "guide/reference/README.md",
       icon: "generic",
       collapsable: true,
-    },{
+    },
+    {
+      text: "生态",
+      prefix: "guide/eco/",
+      children: 'structure',
+      link: "guide/eco/README.md",
+      icon: "leaf",
+      collapsable: true,
+    },
+    {
       text: "发布",
       prefix: "guide/release/",
       children: 'structure',
