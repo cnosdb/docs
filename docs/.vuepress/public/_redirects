@@ -1,3 +1,6 @@
 /guide/quick_start.html /en/start/quick_start.html 301!
 /zh/guide/quick_start.html  /zh/guide/start/quick_start.html 301!
 /en/quick_start.html  /en/start/quick_start.html 301!
+
+/proxy/* https://d33wubrfki0l68.cloudfront.net/:splat 200
+    Access-Control-Allow-Origin: https://docs.cnosdb.com
