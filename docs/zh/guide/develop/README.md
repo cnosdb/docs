@@ -4,32 +4,14 @@ index: false
 order: -5
 ---
 
+CnosDB 可以使用 Go、Rust、Java、Python 等常用的开发语言进行操作，同时还支持ODBC，Arrow Flight SQL等技术，本章介绍了在开发过程中如何连接 CnosDB 进行读取和写入操作并提供了一些示例。
 
-## 开发
+- [连接 CnosDB](./api)
+- [写入数据](./write)
+- [查询数据](./query)
 
-本章节介绍了 CnosDB 的开发指南，包含如何使用 CnosDB 的各种API，如何连接 CnosDB 进行数据的写入与查询。
+相关内容：
 
-- [连接 CnosDB](./api.md)
-- [Rust](./api.md#rust)
-- [Go](./api.md#go)
-- [Java](./api.md#java)
-- [HTTP API](./api.md#http-api)
-- [数据写入](./write.md)
-- [SQL 写入](./write.md#sql-写入)
-- [HTTP API 写入](./write.md#http-api-写入)
-- [单条数据写入](./write.md#单条数据写入)
-- [多条数据写入](./write.md#多条数据写入)
-- [批量数据写入](./write.md#批量数据写入)
-- [Golang](./write.md#golang)
-- [Python](./write.md#python)
-- [Java](./write.md#java)
-- [Rust](./write.md#rust)
-- [C++](./write.md#c)
-- [数据查询](./query.md)
-- [SQL 查询](./query.md#sql-查询)
-- [HTTP API 查询](./query.md#http-api-查询)
-- [Golang](./query.md#golang)
-- [Python](./query.md#python)
-- [Java](./query.md#java)
-- [Rust](./query.md#rust)
-- [C++](./query.md#c)
+- [ODBC](../reference/connector/arrow_flight_sql.md#不同客户端的使用方式)
+- [JDBC](../reference/connector/arrow_flight_sql.md#不同客户端的使用方式)
+- [Arrow Filght SQL](../reference/connector/arrow_flight_sql)

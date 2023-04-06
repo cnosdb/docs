@@ -5,15 +5,7 @@ order: 4
 
 # 查询数据
 
-CnosDB 支持多种查询方式，包括：命令行使用 SQL 直接查询，使用 HTTP API 查询。
-
-## SQL 查询
-
-CnosDB 支持使用 SQL 进行数据查询。
-
-### 查询数据
-
-单条查询详情可以参考[查询数据](../reference/sql.md#查询数据)。
+CnosDB 支持多种查询接入方式，以下提供一些示例。包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
 
 
 ## HTTP API 查询
@@ -36,9 +28,9 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
-## Golang
+::: tabs#language
 
-#### 代码示例
+@tab Golang#Golang
 
 ```go
 package main
@@ -85,9 +77,7 @@ func main() {
 }
 ```
 
-## Python
-
-#### 代码示例
+@tab Python#Python
 
 ```python
 import requests
@@ -108,9 +98,7 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-## Java
-
-#### 代码示例
+@tab Java#Java
 
 ```java
 import java.io.BufferedReader;
@@ -153,11 +141,8 @@ public class CurlToJava {
         connection.disconnect();
     }
 }
-```
 
-## Rust
-
-#### 代码示例
+@tab Rust#Rust
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -194,9 +179,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-## C++
-
-#### 代码示例
+@tab C++#C++
 
 ```cpp
 #include <iostream>
@@ -237,3 +220,7 @@ int main() {
   return 0;
 }
 ```
+
+:::
+
+相关内容：

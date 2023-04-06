@@ -1,26 +1,24 @@
 ---
-title: 连接器
-order: 4
+title: Arrow Flight SQL
+order: 2
 ---
 
-# 连接器
+# Arrow Flight SQL
 
-## Arrow Flight SQL
-
-### Arrow Flight SQL 简介
+## Arrow Flight SQL 简介
 
 Arrow Flight SQL 是一种使用 Arrow 内存格式和 Flight RPC 框架与 SQL 数据库交互的协议。
 
 目前我们支持Arrow Flight SQL 客户端的环境有：
 
-- [C++](#c)
-- [Go](#go)
-- [Java](#java)
-- [Rust](#rust)
-- 基于Arrow Flight SQL 的 [JDBC](#jdbc)
-- 基于Arrow Flight SQL 的 [ODBC](#odbc)
+- [C++](#不同客户端的使用方式)
+- [Go](#不同客户端的使用方式)
+- [Java](#不同客户端的使用方式)
+- [Rust](#不同客户端的使用方式)
+- 基于Arrow Flight SQL 的 [JDBC](#不同客户端的使用方式)
+- 基于Arrow Flight SQL 的 [ODBC](#不同客户端的使用方式)
 
-### Arrow Flight SQL 优势
+## Arrow Flight SQL 优势
 
 1. 功能强大。功能与JDBC和ODBC等API类似，包括执行查询，创建准备好的语句。
 2. 安全。Flight，支持开箱即用的加密和身份验证等功能。
@@ -28,9 +26,9 @@ Arrow Flight SQL 是一种使用 Arrow 内存格式和 Flight RPC 框架与 SQL 
 
 虽然它可以直接用于数据库访问，但它不能直接替代 JDBC/ODBC。 但是，Flight SQL 可以用作具体的有线协议/驱动程序实现，支持 JDBC/ODBC 驱动程序，并减少数据库的实现负担。
 
-![](../../../source/_static/img/cnosdb_arrow_flight.png)
+![](../../../../source/_static/img/cnosdb_arrow_flight.png)
 
-### Arrow Flight SQL 查询流程
+## Arrow Flight SQL 查询流程
 
 客户端使用arrow flight sql 客户端与数据库连接，查询数据，执行SQL的流程大致如下。
 
@@ -52,13 +50,16 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 流程图如下
 
-![流程图](../../../source/_static/img/arrow_flight_flow.png)
+![流程图](../../../../source/_static/img/arrow_flight_flow.png)
 
+## 不同客户端的使用方式
 
-### C++
+::: info 下面分别介绍不同客户端的使用方式：
+:::
 
-#### 操作流程
+::: tabs#language
 
+@tab C++#C++
 - #### 安装Apache Arrow
 
   你可以去[官方文档](arrow.apache.org/install/)找到详细的安装教程
@@ -211,9 +212,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-### Go
-
-#### 操作流程
+@tab Golang#Golang
 
 - #### 添加依赖
 
@@ -289,9 +288,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-### Java
-
-#### 操作流程
+@tab Java#Java
 
 - #### 添加依赖
 
@@ -477,11 +474,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-### Rust
+@tab Rust#Rust
 
 代码运行在异步环境下。
-
-### 操作流程
 
 - #### 添加依赖
 
@@ -716,9 +711,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-## JDBC
-
-### 操作流程
+@tab JDBC#JDBC
 
 - #### 添加依赖
 
@@ -839,15 +832,13 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    
    ```
 
-## ODBC
+@tab ODBC#ODBC
 
 目前仅支持x86_64架构的系统，linux仅支持centos和redhat系列发行版。
 
 更多关于Arrow Flight SQL ODBC的内容，请查看[Dremio文档](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/)。
 
 以下步骤基于Centos7。
-
-### 操作流程
 
 - #### 安装ODBC管理器
 
@@ -1017,158 +1008,6 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-## Python
 
-随着分布式新版本的发布，细心的小伙伴们想必已经发现CnosDB 2.0已经全面支持了Python。通过调用连接器cnos-connector， 实现了CnosDB 2.0与Python 的连接。cnos-connector 封装了对 CnosDB 的请求，使在Python环境下使用CnosDB更加简洁、易用。同时，cnos-connector提供了符合 [PEP 249](https://peps.python.org/pep-0249/) 的编程接口，更易与 SQLAlchemy 以及 pandas 进行交互。
 
-cnos-connector 已全部开源，源码位于 [GitHub](https://github.com/cnosdb/cnosdb-client-python)
-
-### 安装
-
-使用 pip 下载安装 cnos-connector，需要 Python 版本大于等于 3.6
-
-```
-pip install cnos-connector
-```
-
-### 使用示例
-
-#### 查询示例
-
-- #### 通过SQL进行查询
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  resp = conn.execute("SHOW DATABASES")
-  print(resp)
-  ```
-
-- #### 通过接口定义的函数查询
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  conn.create_database("air")
-  resp = conn.list_database()
-  print(resp)
-  ```
-
-- #### 通过PEP-249进行查询，详细信息请参考 [PEP-249](https://peps.python.org/pep-0249/)。
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  cursor = conn.cursor()
-  
-  cursor.execute("SHOW DATABASES")
-  resp = cursor.fetchall()
-  print(resp)
-  ```
-
-- #### 通过pandas进行查询，pandas支持PEP-249的规范
-
-  ```python
-  import pandas as pd
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
-  resp = pd.read_sql("SHOW DATABASES", conn)
-  print(resp)
-  ```
-  
-#### 写入示例
-
-- #### 支持Line Protocol的方式进行数据的写入
-
-  ```python
-  from cnosdb_connector import connect
-  
-  line0 = "air,station=XiaoMaiDao temperature=56,pressure=77 1666165200290401000"
-  line1 = "air,station=XiaoMaiDao temperature=72,pressure=71 1666165300290401000"
-  line2 = "air,station=XiaoMaiDao temperature=46,pressure=67 1666165400290401000"
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
-  conn.create_database_with_ttl("ocean")
-  conn.switch_database("ocean")
-  
-  conn.write_lines([line0, line1, line2])
-  
-  resp = conn.execute("SELECT * FROM ocean;")
-  print(resp)
-  ```
-
-- #### 支持SQL的方式进行写入
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
-  query = "INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
-                  (1666165200290401000, 'XiaoMaiDao', 56, 69, 77); "
-  
-  conn.execute(query)
-  
-  resp = conn.execute("SELECT * FROM ocean;")
-  print(resp)
-  ```
-
-- #### 支持CSV的方式进行写入
-
-  ```python
-  from cnosdb_connector import connect
-  import os
-  
-  query = "CREATE TABLE air (\
-               visibility DOUBLE,\
-               temperature DOUBLE,\
-               pressure DOUBLE,\
-               TAGS(station));"
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  # table schema must same with csv file
-  conn.execute(query)
-  
-  path = os.path.abspath("test.csv")
-  conn.write_csv("air", path)
-  
-  resp = conn.execute("SELECT * FROM air;")
-  print(resp)
-  ```
-
-### 接口文档
-
-为了便于用户更加方便地连接使用 CnosDB，cnosdb_connector 对于一些常用的 SQL 进行了简单的封装。
-
-```python
-# CREATE DATABASE database_name;
-def create_database(self, database_name)
-
-# CREATE DATABASE database_name WITH TTL ttl;
-def create_database_with_ttl(self, database_name, ttl)
-
-# CREATE USER user WITH PASSWORD = password;
-def create_user(self, user, password)
-
-# DROP DATABASE database_name;
-def drop_database(self, database_name)
-    
-# DROP TABLE table_name;
-def drop_table(self, table_name)
-
-# DROP USER user;
-def drop_user(self, user)
-
-# SHOW DATABASES;
-def list_database(self)
-
-# SHOW TABLES;
-def list_table(self)
-```
-如果您对接口封装有更好的想法，欢迎向我们 Python 连接器的[源码仓库](https://github.com/cnosdb/cnosdb-client-python)提交PR。
+:::

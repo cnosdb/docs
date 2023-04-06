@@ -5,21 +5,7 @@ order: 3
 
 # 写入数据
 
-CnosDB 支持多种写入方式，包括：命令行使用 SQL 直接写入，使用 HTTP API 写入。
-
-## SQL 写入
-
-CnosDB 支持使用 SQL 进行单条写入、多条写入。
-
-### 单条写入
-
-单条写入详情可以参考[插入数据](../reference/sql.md#插入一条记录)。
-
-### 多条写入
-
-多条写入详情可以参考[插入数据](../reference/sql.md#插入多条记录)。
-
-## HTTP API 写入
+CnosDB 支持多种写入方式，以下提供一些示例。包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
 
 ### 单条数据写入
 
@@ -45,11 +31,11 @@ CnosDB 支持使用 SQL 进行单条写入、多条写入。
 #### 示例
 
 - **使用 `/api/v1/sql` 接口**
-    
+
     ```shell
     curl -i -u "cnosdb:" -H "Accept: application/json" \
     -XPOST "http://127.0.0.1:31007/api/v1/sql?db=oceanic_station" \
-    -d "INSERT INTO air (TIME, station, visibility, temperature, pressure) 
+    -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
     VALUES (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);"
     ```
 - **使用 `/api/v1/write` 接口**
@@ -77,7 +63,7 @@ CnosDB 支持使用 SQL 进行单条写入、多条写入。
     ```shell
     curl -i -u "<username>:<password>" -H "Accept: application/json" \
     -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/write?db=<database_name>&pretty=true" \
-    -d "<your data> 
+    -d "<your data>
         <your data>"
     ```
   注意，插入的数据应该是符合[Line Protocol](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/line-protocol/) 的格式。
@@ -120,10 +106,11 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -XPOST "http://127.0.0.1:31007/api/v1/write?db=oceanic_station" \
 --data-binary @./oceanic_station.txt
 ```
+### 使用编程语言写入
 
-## Golang
+::: tabs#language
 
-#### 代码示例
+@tab Golang#Golang
 
 ```go
 package main
@@ -170,36 +157,8 @@ func main() {
 }
 ```
 
-当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
 
-## Python
-
-#### 代码示例
-
-```python
-import requests
-
-username = "<username>"
-password = "<password>"
-cnosdb_url = "<cnosdb_url>"
-cnosdb_port = "<cnosdb_port>"
-database_name = "<database_name>"
-sql_statement = "<your SQL statement>"
-
-url = f"http://{cnosdb_url}:{cnosdb_port}/api/v1/sql?db={database_name}&pretty=true"
-headers = {"Accept": "application/json"}
-data = {"query": sql_statement}
-
-response = requests.post(url, auth=(username, password), headers=headers, json=data)
-
-print(response.text)
-```
-
-当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
-
-## Java
-
-#### 代码示例
+@tab Java#Java
 
 ```java
 import java.io.BufferedReader;
@@ -244,11 +203,30 @@ public class CurlToJava {
 }
 ```
 
-当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
 
-## Rust
+@tab Python#Python
 
-#### 代码示例
+```python
+import requests
+
+username = "<username>"
+password = "<password>"
+cnosdb_url = "<cnosdb_url>"
+cnosdb_port = "<cnosdb_port>"
+database_name = "<database_name>"
+sql_statement = "<your SQL statement>"
+
+url = f"http://{cnosdb_url}:{cnosdb_port}/api/v1/sql?db={database_name}&pretty=true"
+headers = {"Accept": "application/json"}
+data = {"query": sql_statement}
+
+response = requests.post(url, auth=(username, password), headers=headers, json=data)
+
+print(response.text)
+```
+
+
+@tab Rust#Rust
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -285,11 +263,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
-
-## C++
-
-#### 代码示例
+@tab C++#C++
 
 ```cpp
 #include <iostream>
@@ -331,4 +305,8 @@ int main() {
 }
 ```
 
+:::
+
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
+
+相关内容：
