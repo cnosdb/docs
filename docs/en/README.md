@@ -73,8 +73,17 @@ This chapter introduces the implementation principles of CnosDB, including stora
     - [SQL](./reference/sql.md)
     - [Configure](./reference/config.md)
     - [Tools](./reference/tools.md)
-    - [Eco-integration](./reference/ecosystem.md)
     - [Benchmark](./reference/performance.md)
+
+## Eco-integration
+
+This paragraph introduces the ecosystem integration of CnosDB, including examples of how some commonly used open-source components can be combined with CnosDB.
+
+- [Eco-integration](./eco)
+    - [Telegraf](./eco/telegraf.md)
+    - [Grafana](./eco/grafana.md)
+    - [Prometheus](./eco/prometheus.md)
+    - [TensorFlow](./eco/tensorflow.md)
 
 ## Releases
 

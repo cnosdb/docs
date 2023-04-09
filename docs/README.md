@@ -66,7 +66,7 @@ This chapter describes the management and monitoring of CnosDB standalone editio
     - [Monitor](./en/manage/monitor.md)
     - [Tenants and Permissions](./en/manage/tenant.md)
 
-# Reference
+## Reference
 
 This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc. This chapter also introduces how to use CnosQL.
 
@@ -77,8 +77,18 @@ This chapter introduces the implementation principles of CnosDB, including stora
     - [SQL](./en/reference/sql.md)
     - [Configure](./en/reference/config.md)
     - [Tools](./en/reference/tools.md)
-    - [Eco-integration](./en/reference/ecosystem.md)
     - [Benchmark](./en/reference/performance.md)
+
+## Eco-integration
+
+This paragraph introduces the ecosystem integration of CnosDB, including examples of how some commonly used open-source components can be combined with CnosDB.
+
+- [Eco-integration](./en/eco)
+    - [Telegraf](./en/eco/telegraf.md)
+    - [Grafana](./en/eco/grafana.md)
+    - [Prometheus](./en/eco/prometheus.md)
+    - [TensorFlow](./en/eco/tensorflow.md)
+
 
 ## Releases
 
