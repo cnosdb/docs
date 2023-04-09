@@ -177,7 +177,3 @@ System.out.println(res);
 ```
 
 :::
-
-
-
-

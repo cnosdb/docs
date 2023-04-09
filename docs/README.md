@@ -73,7 +73,7 @@ This chapter introduces the implementation principles of CnosDB, including stora
 - [Reference](./en/reference)
     - [Design](./en/reference/design.md)
     - [REST API](./en/reference/rest_api.md)
-    - [Connector](./en/reference/connector.md)
+    - [Connector](en/reference/connector/README.md)
     - [SQL](./en/reference/sql.md)
     - [Configure](./en/reference/config.md)
     - [Tools](./en/reference/tools.md)

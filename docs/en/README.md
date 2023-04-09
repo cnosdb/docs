@@ -27,7 +27,7 @@ This chapter focuses on the current basics of CnosDB, quick start, implementatio
 
 This chapter introduces the basic operations of CnosDB, including writing data, querying data, etc.
 
-- [Get Started](./start/index_x.md)
+- [Get Started](./start)
     - [Install](./start/install.md)
     - [Quick Start](./start/quick_start.md)
 
@@ -35,7 +35,7 @@ This chapter introduces the basic operations of CnosDB, including writing data, 
 
 This section describes how to integrate CnosDB into your application.
 
-- [Develop](./develop/index_x.md)
+- [Develop](./develop)
     - [Connect to CnosDB](./develop/api.md)
     - [Write Data](./develop/write.md)
     - [Query Data](./develop/query.md)
@@ -44,7 +44,7 @@ This section describes how to integrate CnosDB into your application.
 
 This section describes how to install and run the single or cluster CnosDB, as well as the compute storage separation architecture for CnosDB.
 
-- [Deploy](./deploy/index_x.md)
+- [Deploy](./deploy)
     - [Single](./deploy/single.md)
     - [Distributed](./deploy/distributed.md)
     - [Separation Mod](./deploy/separation_mod.md)
@@ -53,7 +53,7 @@ This section describes how to install and run the single or cluster CnosDB, as w
 
 This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition。
 
-- [Manage](./manage/index_x.md)
+- [Manage](./manage)
     - [Upgrade](./manage/upgrade.md)
     - [Node Migration](./manage/migration.md)
     - [Cluster Expansion](./manage/cluster_expansion.md)
@@ -66,10 +66,10 @@ This chapter describes the management and monitoring of CnosDB standalone editio
 
 This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc. This chapter also introduces how to use CnosQL.
 
-- [Reference](./reference/index_x.md)
+- [Reference](./reference)
     - [Design](./reference/design.md)
     - [REST API](./reference/rest_api.md)
-    - [Connector](./reference/connector.md)
+    - [Connector](reference/connector/README.md)
     - [SQL](./reference/sql.md)
     - [Configure](./reference/config.md)
     - [Tools](./reference/tools.md)
@@ -80,6 +80,6 @@ This chapter introduces the implementation principles of CnosDB, including stora
 
 This section describes the version release history of CnosDB.
 
-- [Releases](./release/index_x.md)
+- [Releases](./release)
     - [Change List](./release/changelist.md)
     - [Roadmap](./release/roadmap.md)

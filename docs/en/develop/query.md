@@ -5,19 +5,12 @@ order: 4
 
 # Query Data
 
-CnosDB supports a variety of query methods, including: direct query with SQL from the command line, query using HTTP API.
+CnosDB supports a variety of query access methods, some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.
 
-## SQL
 
-CnosDB supports data queries using SQL.
+## HTTP API Query
 
-### Data Query
-
-You can see [Data Query](../reference/sql.md#data-query).
-
-## HTTP API
-
-### Data Query
+### Query Data
 
 #### Syntax
 
@@ -35,9 +28,9 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
-## Golang
+::: tabs#language
 
-#### Code
+@tab Golang#Golang
 
 ```go
 package main
@@ -84,9 +77,7 @@ func main() {
 }
 ```
 
-## Python
-
-#### Code
+@tab Python#Python
 
 ```python
 import requests
@@ -107,9 +98,7 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-## Java
-
-#### Code
+@tab Java#Java
 
 ```java
 import java.io.BufferedReader;
@@ -152,11 +141,8 @@ public class CurlToJava {
         connection.disconnect();
     }
 }
-```
 
-## Rust
-
-#### Code
+@tab Rust#Rust
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -193,9 +179,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-## C++
-
-#### Code
+@tab C++#C++
 
 ```cpp
 #include <iostream>
@@ -236,3 +220,7 @@ int main() {
   return 0;
 }
 ```
+
+:::
+
+Related Content：
