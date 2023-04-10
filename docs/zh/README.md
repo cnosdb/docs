@@ -63,12 +63,21 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 - [指南](./guide/reference)
   - [设计](./guide/reference/design.md)
   - [REST API](./guide/reference/rest_api.md)
-  - [连接器](./guide/reference/connector.md)
+  - [连接器](./guide/reference/README.md)
   - [SQL](./guide/reference/sql.md)
   - [配置文件](./guide/reference/config.md)
   - [工具](./guide/reference/tools.md)
-  - [生态集成](./guide/reference/ecosystem.md)
   - [性能测试](./guide/reference/performance.md)
+
+## 生态
+
+本段介绍了 CnosDB 的生态集成，包括一些开源常用的的组件如何与 CnosDB 结合的一些示例。
+
+- [生态集成](./guide/eco)
+  - [Telegraf](./guide/eco/telegraf.md)
+  - [Grafana](./guide/eco/grafana.md)
+  - [Prometheus](./guide/eco/prometheus.md)
+  - [TensorFlow](./guide/eco/tensorflow.md)
 
 ## 版本发布
 

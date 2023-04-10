@@ -1,24 +1,22 @@
 ---
-title: Connector
-order: 4
+title: Arrow Flight SQL
+order: 2
 ---
 
-# Connector
+# Arrow Flight SQL
 
-## Arrow Flight SQL
-
-### Arrow Flight SQL Introduction
+## Arrow Flight SQL Introduction
 
 Arrow Flight SQL is a protocol for interacting with SQL databases using the Arrow in-memory format and the Flight RPC framework.
 
 Our current environments that support the Arrow Flight SQL client are
 
-- [C++](#c)
-- [Go](#go)
-- [Java](#java)
-- [Rust](#rust)
-- [JDBC](#jdbc) based on Arrow Flight SQL
-- [ODBC](#odbc) based on Arrow Flight SQL
+- [C++](#different-client-usage)
+- [Go](#different-client-usage)
+- [Java](#different-client-usage)
+- [Rust](#different-client-usage)
+- [JDBC](#different-client-usage) based on Arrow Flight SQL
+- [ODBC](#different-client-usage) based on Arrow Flight SQL
 
 ### Benefits of Arrow Flight SQL
 
@@ -28,18 +26,16 @@ Our current environments that support the Arrow Flight SQL client are
 
 While it can be used directly for database access, it is not a direct replacement for JDBC/ODBC. However, Flight SQL can be used as a specific wired protocol/driver implementation that supports JDBC/ODBC drivers and reduces the implementation burden on the database.
 
-![cnosdb_arrow_flight.png](https://github.com/cnosdb/docs/blob/main/docs/source/_static/img/cnosdb_arrow_flight.png?raw=true)
+![](../../../source/_static/img/cnosdb_arrow_flight.png)
 
-
-### Flow of Arrow Flight SQL Queries
+## Flow of Arrow Flight SQL Queries
 
 The client uses arrow flight sql client to connect to the database, query data, and execute SQL in the following flow.
 
-1. create FlightSql client
-2. verify the user name and password
-3. Execute the SQL and get the FlightInfo structure
+1. Create FlightSql client.
+2. Verify the user name and password.
+3. Execute the SQL and get the FlightInfo structure.
 4. Get the FlightData data stream through the FlightEndPoint in the FlightInfo structure.
-
 
 FlightInfo contains detailed information about the location of the data.
 The client can get the data from the appropriate server.
@@ -54,13 +50,19 @@ If the data set is sorted, the data will be returned in only one FlightEndPoint.
 
 The flow chart is as follows:
 
-![流程图](https://github.com/cnosdb/docs/raw/main/docs/source/_static/img/arrow_flight_flow.png)
+![流程图](../../../source/_static/img/arrow_flight_flow.png)
 
+## Different Client Usage
 
-### C++
+::: info Here's how to use the different clients:
+:::
 
+::: tabs#language
+
+@tab C++#C++
 
 - #### Installing Apache Arrow
+
    You can find a detailed installation tutorial in the [official documentation](https://arrow.apache.org/datafusion/user-guide/introduction)
    On Mac systems, it's easy to install with the brew command
 
@@ -68,8 +70,6 @@ The flow chart is as follows:
    brew install apache-arrow
    brew install apache-arrow-glib
    ```
-
-
 
 - #### Configuring CMakeLists.txt
 
@@ -159,7 +159,7 @@ The flow chart is as follows:
    }
    ```
 
-- #### Overall Code
+#### Overall code
 
    ```c++
    #include <iostream>
@@ -168,13 +168,13 @@ The flow chart is as follows:
    using namespace arrow::flight;
    using namespace arrow::flight::sql;
    using namespace arrow;
-   
+
    int main() {
-   
+
        auto fun = []() {
            ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
            ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
-   
+
            auto user = "root";
            auto password = "";
            auto auth = client->AuthenticateBasicToken({}, user, password);
@@ -182,17 +182,17 @@ The flow chart is as follows:
            ARROW_RETURN_NOT_OK(auth);
            FlightCallOptions call_options;
            call_options.headers.push_back(auth.ValueOrDie());
-   
+
            ARROW_ASSIGN_OR_RAISE(auto info, sql_client->Execute(call_options, "select now();"));
            const auto endpoints = info->endpoints();
            for (auto i = 0; i < endpoints.size(); i++) {
                auto &ticket = endpoints[i].ticket;
-   
+
                ARROW_ASSIGN_OR_RAISE(auto stream, sql_client->DoGet(call_options, ticket));
-   
+
                auto schema = stream->GetSchema();
                ARROW_RETURN_NOT_OK(schema);
-   
+
                std::cout << "Schema:" << schema->get()->ToString() << std::endl;
                while(true) {
                    ARROW_ASSIGN_OR_RAISE(FlightStreamChunk chunk, stream->Next());
@@ -204,16 +204,14 @@ The flow chart is as follows:
            }
            return Status::OK();
        };
-   
+
        auto status = fun();
-   
+
        return 0;
    }
    ```
 
-### Go
-
-#### Operation flow
+@tab Golang#Golang
 
 - #### Add dependencies
 
@@ -289,9 +287,7 @@ The flow chart is as follows:
    }
    ```
 
-### Java
-
-#### Operation flow
+@tab Java#Java
 
 - #### Add dependencies
 
@@ -351,8 +347,6 @@ The flow chart is as follows:
    </build>
    ```
 
-
-
 - #### Add environment variable
 
   ```shell
@@ -361,7 +355,7 @@ The flow chart is as follows:
 
   ```shell
   java --add-opens=java.base/java.nio=ALL-UNNAMED -jar ...
-  # ro
+  # or
   env _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" java -jar ...
   
   
@@ -379,7 +373,7 @@ The flow chart is as follows:
    FlightSqlClient sqlClinet = new FlightSqlClient(client);
    ```
 
-- #### Cofig Authentication
+- #### Config Authentication
 
    ```java
    Optional<CredentialCallOption> credentialCallOption = client.authenticateBasicToken("root", "");
@@ -477,11 +471,9 @@ The flow chart is as follows:
    }
    ```
 
-### Rust
+@tab Rust#Rust
 
 The code runs in an asynchronous environment.
-
-### Operation Flow
 
 - #### Add dependencies
 
@@ -716,9 +708,7 @@ The code runs in an asynchronous environment.
    }
    ```
 
-## JDBC
-
-### Operation Flow
+@tab JDBC#JDBC
 
 - #### Add dependencies
 
@@ -839,15 +829,13 @@ The code runs in an asynchronous environment.
    
    ```
 
-## ODBC
+@tab ODBC#ODBC
 
 Currently only x86_64 architecture systems are supported, linux only supports centos and redhat series distributions
 
 For more on Arrow Flight SQL ODBC, see the [Dremio documentation](https://docs.dremio.com/software/drivers/arrow-flight-sql-odbc-driver/).
 
 The following steps are based on Centos7.
-
-### Operation Flow
 
 - #### Install ODBC Manager
 
@@ -1018,158 +1006,6 @@ The following steps are based on Centos7.
    }
    ```
 
-## Python
 
-With the release of the new version of the distribution, attentive friends will have noticed that CnosDB 2.0 has fully supported Python. cnos-connector enables the connection between CnosDB 2.0 and Python by calling the connector cnos-connector. cnos-connector encapsulates the requests to CnosDB, making it simpler and easier to use CnosDB in Python. It makes using CnosDB in Python environment more concise and easy to use. At the same time, cnos-connector provides a [PEP 249](https://peps.python.org/pep-0249/) compliant programming interface, which makes it easier to interact with SQLAlchemy and pandas.
 
-cnos-connector is fully open source and the source code is located on [GitHub](https://github.com/cnosdb/cnosdb-client-python)
-
-### Installation
-
-Download and install cnos-connector using pip, which requires Python version greater than or equal to 3.6
-
-```
-pip install cnos-connector
-```
-
-### Usage Examples
-
-#### Query example
-
-- #### Query by SQL
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  resp = conn.execute("SHOW DATABASES")
-  print(resp)
-  ```
-
-- #### Query by function defined by the interface
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  conn.create_database("air")
-  resp = conn.list_database()
-  print(resp)
-  ```
-
-- #### Search through PEP-249, for more information, please refer to [PEP-249](https://peps.python.org/pep-0249/).
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  cursor = conn.cursor()
-  
-  cursor.execute("SHOW DATABASES")
-  resp = cursor.fetchall()
-  print(resp)
-  ```
-
-- #### Querying via pandas, which supports the PEP-249 specification
-
-  ```python
-  import pandas as pd
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
-  resp = pd.read_sql("SHOW DATABASES", conn)
-  print(resp)
-  ```
-  
-#### Writing example
-
-- #### supports the Line Protocol method for writing data.
-
-  ```python
-  from cnosdb_connector import connect
-  
-  line0 = "air,station=XiaoMaiDao temperature=56,pressure=77 1666165200290401000"
-  line1 = "air,station=XiaoMaiDao temperature=72,pressure=71 1666165300290401000"
-  line2 = "air,station=XiaoMaiDao temperature=46,pressure=67 1666165400290401000"
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
-  conn.create_database_with_ttl("ocean")
-  conn.switch_database("ocean")
-  
-  conn.write_lines([line0, line1, line2])
-  
-  resp = conn.execute("SELECT * FROM ocean;")
-  print(resp)
-  ```
-
-- #### Support SQL for writing
-
-  ```python
-  from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
-  query = "INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
-                  (1666165200290401000, 'XiaoMaiDao', 56, 69, 77); "
-  
-  conn.execute(query)
-  
-  resp = conn.execute("SELECT * FROM ocean;")
-  print(resp)
-  ```
-
-- #### Support for writing in CSV format
-
-  ```python
-  from cnosdb_connector import connect
-  import os
-  
-  query = "CREATE TABLE air (\
-               visibility DOUBLE,\
-               temperature DOUBLE,\
-               pressure DOUBLE,\
-               TAGS(station));"
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  # table schema must same with csv file
-  conn.execute(query)
-  
-  path = os.path.abspath("test.csv")
-  conn.write_csv("air", path)
-  
-  resp = conn.execute("SELECT * FROM air;")
-  print(resp)
-  ```
-
-### Interface Documentation
-
-In order to make it easier for users to connect to CnosDB, cnosdb_connector provides a simple wrapper for some common SQL.
-
-```python
-# CREATE DATABASE database_name;
-def create_database(self, database_name)
-
-# CREATE DATABASE database_name WITH TTL ttl;
-def create_database_with_ttl(self, database_name, ttl)
-
-# CREATE USER user WITH PASSWORD = password;
-def create_user(self, user, password)
-
-# DROP DATABASE database_name;
-def drop_database(self, database_name)
-    
-# DROP TABLE table_name;
-def drop_table(self, table_name)
-
-# DROP USER user;
-def drop_user(self, user)
-
-# SHOW DATABASES;
-def list_database(self)
-
-# SHOW TABLES;
-def list_table(self)
-```
-If you have a better idea for an interface wrapper, feel free to submit a PR to our Python Connector [source code repository](https://github.com/cnosdb/cnosdb-client-python).
+:::
