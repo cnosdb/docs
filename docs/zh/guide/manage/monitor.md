@@ -1,5 +1,5 @@
 ---
-title: 监控
+title: 监控指标
 order: 7
 ---
 
