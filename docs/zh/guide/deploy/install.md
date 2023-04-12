@@ -39,7 +39,12 @@ docker run -d -p 8091-8095:8091-8095 cnosdb/cnosdb:latest
     ```bash
     dpkg -i cnosdb_latest-1_amd64.deb
     ```
-3. 启动 CnosDB 服务
+3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
+
+    修改`[deployment].mode` 为 `singleton`。\
+    修改`[cluster].*listen_addr` 为您自己的 IP 地址。
+
+4. 启动 CnosDB 服务
 
     ```bash
     systemctl start cnosdb
@@ -56,7 +61,12 @@ docker run -d -p 8091-8095:8091-8095 cnosdb/cnosdb:latest
     ```bash
     yum localinstall cnosdb-latest-1.x86_64.rpm
     ```
-3. 启动 CnosDB 服务
+3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
+
+    修改`[deployment].mode` 为 `singleton`。\
+    修改`[cluster].*listen_addr` 为您自己的 IP 地址。
+
+4. 启动 CnosDB 服务
 
     ```bash
     systemctl start cnosdb
