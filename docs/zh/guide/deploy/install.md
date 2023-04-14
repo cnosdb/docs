@@ -29,12 +29,26 @@ index: true
 
 @tab Docker
 
+**v2.0.1**
+
 ```bash
-docker run -d -p 8091-8095:8091-8095 cnosdb/cnosdb:latest
+docker run -d -p 31007:31007 cnosdb/cnosdb:2.0.1
+```
+
+**v2.2.0**
+
+```bash
+## 如果你想把端口映射到宿主机上，
+## 可以修改 `/etc/cnosdb/cnosdb.conf` 中的配置 `http_listen_addr` 为 `0.0.0.0:31007`。
+## 并且将 `docker run` 命令中的 加上 `-p 31007:31007` 参数。
+docker run --name cnosdb -d cnosdb/cnosdb:v2.2.0 cnosdb run -M singleton --config /etc/cnosdb/cnosdb.conf
 ```
 
 @tab Ubuntu & Debian
-1. **在[下载页](https://cn.cnosdb.com/download/)下载安装包**
+1. **下载**
+    ```bash
+    wget https://dl.cnosdb.com/packages/deb/cnosdb_latest-1_amd64.deb
+    ```
 2. **安装 CnosDB 程序**
     ```bash
     dpkg -i cnosdb_latest-1_amd64.deb
@@ -56,7 +70,10 @@ docker run -d -p 8091-8095:8091-8095 cnosdb/cnosdb:latest
     ```
 @tab CentOS & RedHat
 
-1. **在[下载页](https://cn.cnosdb.com/download/)下载安装包**
+1. **下载**
+    ```bash
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-latest-1.x86_64.rpm
+    ```
 2. **安装 CnosDB 程序**
     ```bash
     yum localinstall cnosdb-latest-1.x86_64.rpm
@@ -79,6 +96,81 @@ docker run -d -p 8091-8095:8091-8095 cnosdb/cnosdb:latest
 @tab Helm
 
 敬请期待！
+
+@tab Source
+
+**支持平台**
+我们支持以下平台，如果发现可以在列表以外的平台上运行， 请[报告](https://github.com/cnosdb/cnosdb/issues)给我们。
+
+- Linux x86(`x86_64-unknown-linux-gnu`)
+- Darwin arm(`aarch64-apple-darwin`)
+#
+**编译环境**
+1. 安装`Rust`，可前往[官网](https://www.rust-lang.org/learn/get-started)下载安装
+2. 安装Cmake
+```shell
+# Debian or Ubuntu
+apt-get install cmake
+# Arch Linux
+pacman -S cmake
+# CentOS
+yum install cmake
+# Fedora
+dnf install cmake
+# macOS
+brew install cmake
+```
+对于 Windows，你也可以在[Cmake官网](https://cmake.org/download/)下载和安装 Cmake
+
+3. 安装FlatBuffers
+```shell
+# Arch Linux
+pacman -S flatbuffers
+# Fedora
+dnf install flatbuffers
+# Ubuntu
+snap install flatbuffers
+# macOS
+brew install flatbuffers
+```
+如果您的系统不在此列，可按照如下方法安装FlatBuffers
+
+```shell
+$ git clone -b v22.9.29 --depth 1 https://github.com/google/flatbuffers.git && cd flatbuffers
+
+# 根据操作系统选择以下命令之一
+$ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+$ cmake -G "Visual Studio 10" -DCMAKE_BUILD_TYPE=Release
+$ cmake -G "Xcode" -DCMAKE_BUILD_TYPE=Release
+
+$ sudo make install
+```
+
+**编译**
+
+```shell
+git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
+make build
+```
+
+**运行**
+
+v2.1
+```shell
+./target/debug/cnosdb singleton --cpu 4 --memory 64
+```
+v2.2
+```shell
+./target/debug/cnosdb run --deployment-mode singleton --cpu 4 --memory 64
+```
+
+#### **运行CLI**
+在另一个终端，相同目录下运行如下命令
+
+```shell
+cargo run --package client --bin client
+```
+**注意**：请参考[cnosdb-cli手册](../reference/tools.md#客户端cli) 查看cli用法，并注意IP地址端口号
 
 :::
 
@@ -456,5 +548,84 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```
 @tab Helm
 敬请期待！
+
+@tab Source
+
+**支持平台**
+我们支持以下平台，如果发现可以在列表以外的平台上运行， 请[报告](https://github.com/cnosdb/cnosdb/issues)给我们。
+
+- Linux x86(`x86_64-unknown-linux-gnu`)
+- Darwin arm(`aarch64-apple-darwin`)
+#
+**编译环境**
+1. 安装`Rust`，可前往[官网](https://www.rust-lang.org/learn/get-started)下载安装
+2. 安装Cmake
+```shell
+# Debian or Ubuntu
+apt-get install cmake
+# Arch Linux
+pacman -S cmake
+# CentOS
+yum install cmake
+# Fedora
+dnf install cmake
+# macOS
+brew install cmake
+```
+对于 Windows，你也可以在[Cmake官网](https://cmake.org/download/)下载和安装 Cmake
+
+3. 安装FlatBuffers
+```shell
+# Arch Linux
+pacman -S flatbuffers
+# Fedora
+dnf install flatbuffers
+# Ubuntu
+snap install flatbuffers
+# macOS
+brew install flatbuffers
+```
+如果您的系统不在此列，可按照如下方法安装FlatBuffers
+
+```shell
+$ git clone -b v22.9.29 --depth 1 https://github.com/google/flatbuffers.git && cd flatbuffers
+
+# 根据操作系统选择以下命令之一
+$ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+$ cmake -G "Visual Studio 10" -DCMAKE_BUILD_TYPE=Release
+$ cmake -G "Xcode" -DCMAKE_BUILD_TYPE=Release
+
+$ sudo make install
+```
+
+**编译**
+
+```shell
+git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
+make build
+```
+
+**运行分布式存算分离数据库服务**
+
+v2.1
+```shell
+## 单meta，data，query节点
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb tskv --cpu 4 --memory 64
+./target/debug/cnosdb query --cpu 4 --memory 64
+```
+v2.2
+```shell
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb run --deployment-mode tskv --cpu 4 --memory 64
+./target/debug/cnosdb run --deployment-mode query --cpu 4 --memory 64
+```
+
+**运行分布式存算一体数据库服务**
+```shell
+## 单meta，cnosdb节点
+./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
+./target/debug/cnosdb run --cpu 4 --memory 64
+```
 
 :::
