@@ -404,9 +404,9 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载
 
-        ```bash
-        wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_latest-1_amd64.deb
-        ```
+    ```bash
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-latest-1.x86_64.rpm
+    ```
 2. 安装 CnosDB Meta 程序
 
     ```bash
@@ -503,7 +503,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 1. 下载
 
    ```bash
-   wget https://dl.cnosdb.com/packages/deb/cnosdb_latest-1_amd64.deb
+   wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.2.0-1.x86_64.rpm
    ```
 2. 安装 CnosDB 程序
 
