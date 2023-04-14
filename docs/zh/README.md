@@ -61,7 +61,7 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章节介绍了 CnosDB 的实现原理，以及 CnosDB 的生态集成。
 
 - [指南](./guide/reference)
-  - [设计](./guide/reference/design.md)
+  - [设计](./guide/reference/concept_design)
   - [REST API](./guide/reference/rest_api.md)
   - [连接器](./guide/reference/README.md)
   - [SQL](./guide/reference/sql.md)

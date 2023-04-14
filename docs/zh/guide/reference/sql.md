@@ -235,7 +235,7 @@ field_codec_type:
     * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
     * BOOLEAN：BITPACK，NULL
 
-想了解更多有关压缩算法的内容可以看[压缩算法详情](./design.md#压缩算法)。
+想了解更多有关压缩算法的内容可以看[压缩算法详情](./concept_design/compress.md#压缩算法)。
 
 **示例**
 

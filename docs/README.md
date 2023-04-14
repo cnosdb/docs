@@ -71,7 +71,7 @@ This chapter describes the management and monitoring of CnosDB standalone editio
 This chapter introduces the implementation principles of CnosDB, including storage engine, query engine, compression algorithm, etc. This chapter also introduces how to use CnosQL.
 
 - [Reference](./en/reference)
-    - [Design](./en/reference/design.md)
+    - [Design](./en/reference/concept_design)
     - [REST API](./en/reference/rest_api.md)
     - [Connector](en/reference/connector/README.md)
     - [SQL](./en/reference/sql.md)

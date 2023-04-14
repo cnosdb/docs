@@ -225,9 +225,9 @@ field_codec_type:
   * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
   * DOUBLE：GORILLA，QUANTILE，NULL
   * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
-  * BOOLEAN：BIPACK，NULL
+  * BOOLEAN：BITPACK，NULL
 
-For more information about the compression algorithm, see the details of the [compression algorithm](./design.md#compression-algorithm).
+For more information about the compression algorithm, see the details of the [compression algorithm](./concept_design/compress.md#compression-algorithm).
 
 **Example**
 
