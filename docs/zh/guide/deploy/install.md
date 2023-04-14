@@ -205,25 +205,18 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 @tab Docker
 
-:::danger
-这个文件还没有。
+:::tip
 
-我们提供了一个Docker Compose的配置文件，可以使用以下命令下载和启动一个集群。
+工程师正在积极开发这个 Sandbox ，现阶段不能保证可以运行。
 
-1. 下载配置文件
-
+1. 克隆仓库
     ```bash
-    curl -o docker-compose.yml -sL https://raw.githubusercontent.com/cnosdb/cnosdb/docker/docker-compose.yml
+    git clone https://github.com/cnosdb/distributed-sandbox.git
     ```
 2. 启动集群
     ```bash
     docker-compose up -d
     ```
-通过指定环境变量，可以修改集群的配置。
-例如：\
-    可以通过修改 `docker-compose.yml` 文件中的 `DEPLOYMENT_MODE` 为 `tskv` 让实例
-以存储模式启动。
-
 
 @tab Ubuntu & Debian
 >请将以下记录添加到您的 DNS 解析服务器中，以便于CnosDB集群中的实例之间进行通信。必要时需要联系您的网络管理员。
@@ -238,12 +231,17 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 #### **安装 CnosDB Meta**
 
-1. 安装 CnosDB Meta 程序
+1. 下载 CnosDB Meta 程序
+    ```bash
+    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_latest-1_amd64.deb
+    ```
+
+2. 安装 CnosDB Meta 程序
 
     ```bash
     dpkg -i cnosdb-meta_latest-1_amd64.deb
     ```
-2. 修改配置文件
+3. 修改配置文件
     > Meta 服务的配置文件位于 `/etc/cnosdb-meta/cnosdb-meta.conf`。
 
     将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
@@ -259,7 +257,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     id = n
     http_addr = meta<n>.cnosdb.com:8901"
     ... ...
-3. 启动 CnosDB Meta 服务
+4. 启动 CnosDB Meta 服务
     ```bash
     systemctl start cnosdb-meta
     ```
@@ -268,22 +266,22 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```bash
     service cnosdb-meta start
     ```
-4. 初始化 Meta 服务
+5. 初始化 Meta 服务
    >如果您的集群中有多个 Meta 服务，只需要在其中一个 Meta 服务上执行初始化命令即可。
     ```bash
     curl http://meta1.cnosdb.com:8901/init -d '{}'
     ```
-5. 添加其他 Meta 服务
+6. 添加其他 Meta 服务
     ```bash
     curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[2, "meta2.cnosdb.com:8901"]' | jq
     curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[3, "meta3.cnosdb.com:8901"]' | jq
     ```
-6. 重置集群成员以使集群生效
+7. 重置集群成员以使集群生效
    > 执行以下命令可以修改集群成员，如果您的集群中有多个 Meta 服务，使用最初执行初始化的节点执行此命令 。
     ```bash
     curl http://meta1.cnosdb.com:8901/change-membership -H "Content-Type: application/json" -d '[1,2,3]' | jq
     ```
-7. 查看集群状态
+8. 查看集群状态
    > 分别指定不同的节点，执行以下命令，查看集群状态。
 
     如果集群安装成功，则应该返回以下内容：
@@ -332,13 +330,18 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 #### **安装 CnosDB**
 
-1. 安装 CnosDB 程序
+1. 下载 CnosDB 程序
+    ```bash
+    wget https://dl.cnosdb.com/packages/deb/cnosdb_latest-1_amd64.deb
+    ```
+
+2. 安装 CnosDB 程序
 
     ```bash
     dpkg -i cnosdb_latest-1_amd64.deb
     ```
 
-2. 修改配置文件
+3. 修改配置文件
     > CnosDB 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
    修改 [deployment].mode 为 query_tskv 。
    ```toml
@@ -376,7 +379,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     tcp_listen_addr = 'query_tskv<n>.cnosdb.com:8905'
     ... ...
    ```
-3. 启动 CnosDB 服务
+4. 启动 CnosDB 服务
     ```bash
     systemctl start cnosdb
     ```
@@ -399,12 +402,17 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 #### **安装 CnosDB Meta**
 
-1. 安装 CnosDB Meta 程序
+1. 下载
+
+        ```bash
+        wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_latest-1_amd64.deb
+        ```
+2. 安装 CnosDB Meta 程序
 
     ```bash
     yum localinstall cnosdb-meta_latest-1_amd64.deb
     ```
-2. 修改配置文件
+3. 修改配置文件
     > Meta 服务的配置文件位于 `/etc/cnosdb-meta/cnosdb-meta.conf`。
 
     将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
@@ -420,7 +428,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     id = n
     http_addr = meta<n>.cnosdb.com:8901"
     ... ...
-3. 启动 CnosDB Meta 服务
+4. 启动 CnosDB Meta 服务
     ```bash
     systemctl start cnosdb-meta
     ```
@@ -429,22 +437,22 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```bash
     service cnosdb-meta start
     ```
-4. 初始化 Meta 服务
+5. 初始化 Meta 服务
    >如果您的集群中有多个 Meta 服务，只需要在其中一个 Meta 服务上执行初始化命令即可。
     ```bash
     curl http://meta1.cnosdb.com:8901/init -d '{}'
     ```
-5. 添加其他 Meta 服务
+6. 添加其他 Meta 服务
     ```bash
     curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[2, "meta2.cnosdb.com:8901"]' | jq
     curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[3, "meta3.cnosdb.com:8901"]' | jq
     ```
-6. 重置集群成员以使集群生效
+7. 重置集群成员以使集群生效
    > 执行以下命令可以修改集群成员，如果您的集群中有多个 Meta 服务，使用最初执行初始化的节点执行此命令 。
     ```bash
     curl http://meta1.cnosdb.com:8901/change-membership -H "Content-Type: application/json" -d '[1,2,3]' | jq
     ```
-7. 查看集群状态
+8. 查看集群状态
    > 分别指定不同的节点，执行以下命令，查看集群状态。
 
     如果集群安装成功，则应该返回以下内容：
@@ -492,14 +500,18 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```
 
 #### **安装 CnosDB**
+1. 下载
 
-1. 安装 CnosDB 程序
+   ```bash
+   wget https://dl.cnosdb.com/packages/deb/cnosdb_latest-1_amd64.deb
+   ```
+2. 安装 CnosDB 程序
 
     ```bash
     dpkg -i cnosdb_latest-1_amd64.deb
     ```
 
-2. 修改配置文件
+3. 修改配置文件
     > CnosDB 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
    修改 [deployment].mode 为 query_tskv 。
    ```toml
@@ -537,7 +549,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     tcp_listen_addr = 'query_tskv<n>.cnosdb.com:8905'
     ... ...
    ```
-3. 启动 CnosDB 服务
+4. 启动 CnosDB 服务
     ```bash
     systemctl start cnosdb
     ```
