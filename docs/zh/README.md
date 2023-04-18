@@ -39,9 +39,8 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章节介绍了如何使用以下其中之一安装和运行单机版或集群版 CnosDB，以及 CnosDB 的计算存储分离架构。
 
 - [部署](./guide/deploy)
-  - [单机版](./guide/deploy/single.md)
-  - [分布式版](./guide/deploy/distributed.md)
-  - [存算分离](./guide/deploy/separation_mod.md)
+  - [下载](./guide/deploy/download.md)
+  - [安装](./guide/deploy/install.md)
 
 ## 管理
 
