@@ -49,9 +49,8 @@ This section describes how to integrate CnosDB into your application.
 This section describes how to install and run the single or cluster CnosDB, as well as the compute storage separation architecture for CnosDB.
 
 - [Deploy](./en/deploy)
-    - [Single](./en/deploy/single.md)
-    - [Distributed](./en/deploy/distributed.md)
-    - [Separation Mod](./en/deploy/separation_mod.md)
+    - [Download](./en/deploy/download.md)
+    - [Install](./en/deploy/install.md)
 
 ## Manage
 
