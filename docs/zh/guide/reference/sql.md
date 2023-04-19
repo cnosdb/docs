@@ -1347,6 +1347,56 @@ SHOW QUERIES;
 关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](./sql.md#queries--usageschema-) 查看。
 
 
+#### SHOW SERIES
+
+返回指定表的series
+
+**语法**
+
+```sql
+SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
+```
+
+**示例**
+```sql
+SHOW SERIES FROM air WHERE station = 'XiaoMaiDao' ORDER BY key LIMIT 1;
+```
+    +------------------------+
+    | key                    |
+    +------------------------+
+    | air,station=XiaoMaiDao |
+    +------------------------+
+
+**注意**
+WEHER子句中的表达式列，只能是tag列或time列，ORDER BY 子句的表达式只能是 key
+
+#### SHOW TAG VALUES
+
+**语法**
+```sql
+SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
+```
+operator 包括 `=`, `!=`
+
+**示例**
+```sql
+SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER BY key, value LIMIT 1;
+```
+    +---------+------------+
+    | key     | value      |
+    +---------+------------+
+    | station | XiaoMaiDao |
+    +---------+------------+
+```sql
+SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
+```
+    +---------+-------------+
+    | key     | value       |
+    +---------+-------------+
+    | station | XiaoMaiDao  |
+    | station | LianYunGang |
+    +---------+-------------+
+
 ### EXPLAIN
 
 **语法**
