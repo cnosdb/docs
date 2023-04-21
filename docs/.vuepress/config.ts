@@ -1,6 +1,5 @@
 import { defineUserConfig } from 'vuepress';
 import theme from './theme.js';
-import { searchPlugin } from '@vuepress/plugin-search';
 import { getDirname, path } from '@vuepress/utils';
 import { docsearchPlugin } from '@vuepress/plugin-docsearch';
 
