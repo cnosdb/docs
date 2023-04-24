@@ -98,13 +98,14 @@ order: 6
 
 | 参数                     | 说明               |
 |------------------------|------------------|
-| node_id                | 节点ID             |
 | name                   | 节点名称             |
 | meta_service_addr      | 远程Meta服务地址       |
-| http_listen_addr       | HTTP服务监听地址       |
-| grpc_listen_addr       | GRPC服务监听地址       |
-| tcp_listen_addr        | TCP服务监听地址        |
-| flight_rpc_listen_addr | Flight RPC服务监听地址 |
+| http_listen_port       | HTTP服务监听端口       |
+| grpc_listen_port       | GRPC服务监听端口       |
+| tcp_listen_port        | TCP服务监听端口        |
+| flight_rpc_listen_port | Flight RPC服务监听端口 |
+| cold_data_server       | 该字段如果为true则在分配vnode的时候不用到此节点 |
+
 
 ## [hintedoff]
 
@@ -130,3 +131,8 @@ CnosDB会收集一些信息，使社区更好地改进产品
 ```
 reporting_disabled = true
 ```
+
+## node_id
+**说明**：节点id
+## host
+**说明**：节点host，用来和其他节点通信使用
