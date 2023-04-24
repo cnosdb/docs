@@ -4381,10 +4381,73 @@ SELECT now();
     | 2022-11-21T04:44:19.742107+00:00 |
     +----------------------------------+
 
+### **time_window**
+
+#### 语法
+```sql
+time_window(time_expr, window_duration [, slide_duration])
+```
+time_column 为 Timestamp 类型
+
+window_duration 为STRING类型，解析成时间间隔，指定时间窗口的窗口大小
+
+slide_duration 为STRING类型，解析成时间间隔，指定时间窗口滑动的大小，不指定此参数时，滑动大小为时间窗口大小，变成滚动窗口
+
+时间间隔的表示方法：
+
+| 格式  | 意思 | 示例    |
+|-----|----|-------|
+| 'd' | 天  | '10d' |
+| 'h' | 小时 | '10h' |
+| 'm' | 分钟 | '10m' |
+| 's' | 秒  | '10s' |
+| 'ms' | 毫秒 | '10ms' |
 
 
-[//]: # (### **Regexp_Match**)
-[//]: # (    返回与正则表达式匹配的项)
+
+time_window(time, window_duration, slide_duration) 生成的窗口为：
+
+```sql
+start, end
+time, time_column + window_duration
+time - slide_duration, time + window_duration - slide_duration
+time - 2 * slide_duration, time + window_duration - 2 * slide_duration
+...
+time - n * slide_duration, time + window_duration - n * slide_duration
+```
+且窗口满足 start <= time < end
+
+**示例：**
+```sql
+CREATE TABLE test(a BIGINT, TAGS(b));
+INSERT INTO test(time, a, b) VALUES ('2023-04-23T00:00:00.000000Z', 1, 'b');
+SELECT time FROM test;
+```
+    +---------------------+
+    | time                |
+    +---------------------+
+    | 2023-04-23T00:00:00 |
+    +---------------------+
+
+```sql
+SELECT time_window(time, '3d') FROM test;
+```
+    +--------------------------------------------------------+
+    | TIME_WINDOW(test.time,Utf8("3d"))                      |
+    +--------------------------------------------------------+
+    | {start: 2023-04-23T00:00:00, end: 2023-04-26T00:00:00} |
+    +--------------------------------------------------------+
+
+```sql
+SELECT time_window(time, '5d', '3d') FROM test;
+```
+
+    +--------------------------------------------------------+
+    | TIME_WINDOW(test.time,Utf8("5d"),Utf8("3d"))           |
+    +--------------------------------------------------------+
+    | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00} |
+    | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00} |
+    +--------------------------------------------------------+ 
 
 ### 窗口函数
 
