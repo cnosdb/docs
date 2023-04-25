@@ -99,13 +99,27 @@ The configuration adopts TOML syntax.
 
 | Parameter                     | Description               |
 |------------------------|------------------|
-| node_id                | Node ID             |
-| name                   | Node Name             |
-| meta_service_addr      | Remote Meta Service Address       |
-| http_listen_addr       | HTTP service listening address       |
-| grpc_listen_addr       | GRPC service listening address       |
-| tcp_listen_addr        | TCP service listening address        |
-| flight_rpc_listen_addr | Flight RPC service listening address |
+| name                   | Cluster Name             |
+| meta_service_port      | Remote Meta Service port       |
+| http_listen_port       | HTTP service listening port       |
+| grpc_listen_port       | GRPC service listening port       |
+| tcp_listen_port        | TCP service listening port        |
+| flight_rpc_listen_port | Flight RPC service listening port |
+
+## [node_basic]
+
+| Parameter                     | Description               |
+|------------------------|------------------|
+| node_id                  | Node ID             |
+| cold_data_server       | If this field is true, it means that the node is not used when allocating vnode |
+| store_metrics       | If this field is true, it means storing metrics information to db |
+
+## [heartbeat]
+
+| Parameter                     | Description               |
+|------------------------|------------------|
+| report_time_interval_secs    | This field indicates how often the node reports the time stamp, disk remaining amount and other information to the meta node             |
+
 
 ## [hintedoff]
 
@@ -131,3 +145,6 @@ You can set this as True to shut down information collection at the top of the c
 ```
 reporting_disabled = true
 ```
+
+## host
+**Desciption**：node host，used to communicate with other nodes
