@@ -34,33 +34,52 @@ Meta 维护集群的元数据，如 Table Schema、Node 存活心跳与负载数
 以下介绍 CnosDB 集群版的配置文件。
 
 ```toml
+
+#reporting_disabled = false
+host = "localhost"
+
+[deployment]
+#mode = 'singleton'
+#cpu = 4
+#memory = 16
+
 [query]
 max_server_connections = 10240
-query_sql_limit = 16777216 # 16 * 1024 * 1024
-write_sql_limit = 167772160 # 160 * 1024 * 1024
+query_sql_limit = 16777216   # 16 * 1024 * 1024
+write_sql_limit = 167772160   # 160 * 1024 * 1024
 auth_enabled = false
 
 [storage]
-path = 'data/db'
-max_summary_size = 134217728 # 128 * 1024 * 1024
-max_level = 4
-base_file_size = 16777216 # 16 * 1024 * 1024
-compact_trigger = 4
-max_compact_size = 2147483648 # 2 * 1024 * 1024 * 1024
+# Directory for summary: $path/summary/
+# Directory for index: $path/index/$database/
+# Directory for tsm: $path/data/$database/tsm/
+# Directory for delta: $path/data/$database/delta/
+path = '/tmp/cnosdb/1001/db'
+max_summary_size = "128M" # 134217728
+base_file_size = "16M" # 16777216
+flush_req_channel_cap = 16
+compact_trigger_file_num = 4
+compact_trigger_cold_duration = "1h"
+max_compact_size = "2G" # 2147483648
+max_concurrent_compaction = 4
 strict_write = false
 
 [wal]
 enabled = true
-path = 'data/wal'
+path = '/tmp/cnosdb/1001/wal'
+wal_req_channel_cap = 64
+max_file_size = "1G" # 1073741824
+flush_trigger_total_file_size = "2G" # 2147483648
 sync = false
+sync_interval = "0"
 
 [cache]
-max_buffer_size = 134217728 # 128 * 1024 * 1024
+max_buffer_size = "128M" # 134217728
 max_immutable_number = 4
 
 [log]
 level = 'info'
-path = 'data/log'
+path = '/tmp/cnosdb/1001/log'
 
 [security]
 # [security.tls_config]
@@ -68,19 +87,25 @@ path = 'data/log'
 # private_key = "./config/tls/server.key"
 
 [cluster]
-node_id = 100
 name = 'cluster_xxx'
-meta = '127.0.0.1:21001'
+meta_service_addr = ["127.0.0.1:8901"]
 
-flight_rpc_server = '127.0.0.1:31006'
-http_server = '127.0.0.1:31007'
-grpc_server = '127.0.0.1:31008'
-tcp_server = '127.0.0.1:31009'
-store_metrics = true 
+http_listen_port = 8902
+grpc_listen_port = 8903
+flight_rpc_listen_port = 8904
+tcp_listen_port = 8905
 
-[hintedoff]
+[node_basic]
+node_id = 1001 
+cold_data_server = false
+store_metrics = true
+
+[heartbeat]
+report_time_interval_secs = 30
+
+[hinted_off]
 enable = true
-path = '/tmp/cnosdb/hh'
+path = '/tmp/cnosdb/1001/hh'
 ```
 
 #### 配置项 query
@@ -138,14 +163,28 @@ path = '/tmp/cnosdb/hh'
 
 | 配置项               | 默认值             | 说明                  |
 |-------------------|-----------------|---------------------|
-| node_id           | 100             | Data 节点 ID          |
 | name              | cluster_xxx     | Data 节点名称           |
-| meta              | 127.0.0.1:21001 | Meta 节点地址           |
-| flight_rpc_server | 127.0.0.1:31006 | Flight RPC 服务监听地址   |
-| http_server       | 127.0.0.1:31007 | HTTP 服务监听地址         |
-| grpc_server       | 127.0.0.1:31008 | GRPC 服务监听地址         |
-| tcp_server        | 127.0.0.1:31009 | TCP 服务监听地址          |
+| meta              | 127.0.0.1:8901 | Meta 节点地址           |
+| flight_rpc_server | 8902 | Flight RPC 服务监听端口   |
+| http_server       | 8903 | HTTP 服务监听端口        |
+| grpc_server       | 8904 | GRPC 服务监听端口         |
+| tcp_server        | 8905 | TCP 服务监听端口          |
 | store_metrics     | true            | 是否存储metrics在CnosDB中 |
+
+#### 配置项 node_basic
+
+| 配置项               | 默认值             | 说明                  |
+|-------------------|-----------------|---------------------|
+| node_id           | 100             | Data 节点 ID          |
+| cold_data_server  | true            | 是否在分配vnode的时候使用该节点        |
+| store_metrics     | true            | 是否存储metrics在CnosDB中 |
+
+#### 配置项 heartbeat
+
+| 配置项               | 默认值             | 说明                  |
+|-------------------|-----------------|---------------------|
+| report_time_interval_secs | 30             | Data 节点上报时间戳,磁盘剩余量等信息的频率         |
+
 
 #### 配置项 hintedoff
 
