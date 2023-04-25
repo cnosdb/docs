@@ -104,8 +104,14 @@ order: 6
 | grpc_listen_port       | GRPC服务监听端口       |
 | tcp_listen_port        | TCP服务监听端口        |
 | flight_rpc_listen_port | Flight RPC服务监听端口 |
-| cold_data_server       | 该字段如果为true则在分配vnode的时候不用到此节点 |
 
+## [node_basic]
+
+| 参数                     | 说明               |
+|------------------------|------------------|
+| node_id                  | 节点id             |
+| cold_data_server       | 该字段如果为true则在分配vnode的时候不用到此节点 |
+| store_metrics       | 该字段如果为true则表示存储metrics到db |
 
 ## [hintedoff]
 
@@ -132,7 +138,5 @@ CnosDB会收集一些信息，使社区更好地改进产品
 reporting_disabled = true
 ```
 
-## node_id
-**说明**：节点id
 ## host
 **说明**：节点host，用来和其他节点通信使用
