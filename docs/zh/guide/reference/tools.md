@@ -27,6 +27,7 @@ cargo run --package client --bin cnosdb-cli
 --rc                        可选，配置文件
 --format                    输出格式，默认是Table格式
 --quiet                     运行在安静模式，只输出结果，不输出执行时间
+--tenant                    指定租户名称，默认为"cnosdb"
 ```
 
 **进入程序后你可以运行指令或SQL：**
@@ -45,8 +46,8 @@ Query took 0.050 seconds.
 ```
 \?          指令帮助
 \q          退出CLI
-\c <db>     连接数据库db_name
+\c <db>     连接数据库db_name，db_name是大小写敏感的
 \d <table>  描述表table
-\quiet     切换至安静模式，只输出结果，不输出执行时间
-\w <path>   读取Line Protocol格式的文件，写入数据库
+\quiet      切换至安静模式，只输出结果，不输出执行时间
+\w <path>   读取Line Protocol格式的文件，写入数据库，path如果是目录，则会导入目录下所有文件
 ```

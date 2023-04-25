@@ -61,11 +61,24 @@ FROM cluster_schema.tenants;
 
 ### 修改租户
 
+**语法**
+```sql
+ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
+    
+sql_option: option_name = value
+option: {COMMENT}
+```
+SET 用来设置租户属性，属性只能为对应属性类型的常量
+
+UNSET 删除租户属性
+
+目前租户属性只有 COMMENT，对应属性类型为字符串类型，用单引号括起来
+
+
 **示例**
 
 ```sql
-ALTER
-TENANT test SET COMMENT = 'abc';
+ALTER TENANT test SET COMMENT = 'abc';
 ```
 
 ### 删除租户
@@ -122,19 +135,24 @@ USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMEN
 **语法**
 
 ```sql
-ALTER
-USER user_name SET {PASSWORD = ''| MUST_CHANGE_PASSWORD = {true | false}| COMMENT = ''} = 
+ALTER USER user_name {SET sql_option};
+
+sql_option: option_name = option_value
+option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 ```
+
+option_value 只能是常量
+
+COMMENT 的 option_value 类型为字符串
+MUST_CHANGE_PASSWORD 的 option_value 类型为布尔
+PASSWORD 的 option_value 类型为字符串
 
 **示例**
 
 ```sql
-ALTER
-USER tester SET PASSWORD = 'aaa';
-ALTER
-USER tester SET MUST_CHANGE_PASSWORD = false;
-ALTER
-USER tester SET COMMENT = 'bbb';
+ALTER USER tester SET PASSWORD = 'aaa';
+ALTER USER tester SET MUST_CHANGE_PASSWORD = false;
+ALTER USER tester SET COMMENT = 'bbb';
 ```
 
 ### 删除用户
