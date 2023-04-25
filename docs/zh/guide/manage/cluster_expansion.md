@@ -165,10 +165,10 @@ path = '/tmp/cnosdb/1001/hh'
 |-------------------|-----------------|---------------------|
 | name              | cluster_xxx     | Data 节点名称           |
 | meta              | 127.0.0.1:8901 | Meta 节点地址           |
-| flight_rpc_server | 8902 | Flight RPC 服务监听端口   |
-| http_server       | 8903 | HTTP 服务监听端口        |
-| grpc_server       | 8904 | GRPC 服务监听端口         |
-| tcp_server        | 8905 | TCP 服务监听端口          |
+| flight_rpc_listen_port | 8902 | Flight RPC 服务监听端口   |
+| http_listen_port       | 8903 | HTTP 服务监听端口        |
+| grpc_listen_port       | 8904 | GRPC 服务监听端口         |
+| tcp_listen_port        | 8905 | TCP 服务监听端口          |
 | store_metrics     | true            | 是否存储metrics在CnosDB中 |
 
 #### 配置项 node_basic
