@@ -113,6 +113,14 @@ order: 6
 | cold_data_server       | 该字段如果为true则在分配vnode的时候不用到此节点 |
 | store_metrics       | 该字段如果为true则表示存储metrics到db |
 
+## [heartbeat]
+
+| 参数                     | 说明               |
+|------------------------|------------------|
+| report_time_interval_sec                  | 该字段指示node节点每隔多长时间上报时间戳,磁盘剩余量等信息给meta节点             |
+
+
+
 ## [hintedoff]
 
 | 参数     | 说明              |
