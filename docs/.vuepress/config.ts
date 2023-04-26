@@ -77,9 +77,9 @@ export default defineUserConfig({
   },
   plugins: [
     docsearchPlugin({
-      appId: 'UT8LB08QUO',
-      apiKey: 'e4c71a1ddb01bd783f3a822e6ce5519e',
-      indexName: 'prod_cnosdb',
+      appId: '4O093YZHL1',
+      apiKey: 'b02a6bb324334323de977f71e73d06d0',
+      indexName: 'cnosdb',
       locales: {
         '/zh/': {
           placeholder: '搜索文档',
