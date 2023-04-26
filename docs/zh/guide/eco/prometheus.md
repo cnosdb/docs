@@ -33,7 +33,7 @@ password: ''
 **参数说明**:
 
 ```
-db_url: CnosDB 的Http Server地址，如 127.0.0.1:31001
+db_url: CnosDB 的Http Server地址，如 127.0.0.1:8902
 db_name: Remote Write 写入的db名字
 username: CnosDB 中用户的用户名
 password: CnosDB 中用户的用户密码
@@ -60,7 +60,7 @@ password: ''
 **参数说明**:
 
 ```
-db_url: CnosDB 的Http Server地址，如 127.0.0.1:31001
+db_url: CnosDB 的Http Server地址，如 127.0.0.1:8902
 db_name: Remote Read 读取的db名字
 username: CnosDB 中用户的用户名
 password: CnosDB 中用户的用户密码

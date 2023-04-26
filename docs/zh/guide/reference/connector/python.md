@@ -25,8 +25,8 @@ pip install cnos-connector
 
   ```python
   from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
   resp = conn.execute("SHOW DATABASES")
   print(resp)
   ```
@@ -35,8 +35,8 @@ pip install cnos-connector
 
   ```python
   from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
   conn.create_database("air")
   resp = conn.list_database()
   print(resp)
@@ -46,10 +46,10 @@ pip install cnos-connector
 
   ```python
   from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
   cursor = conn.cursor()
-  
+
   cursor.execute("SHOW DATABASES")
   resp = cursor.fetchall()
   print(resp)
@@ -60,31 +60,31 @@ pip install cnos-connector
   ```python
   import pandas as pd
   from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+
   resp = pd.read_sql("SHOW DATABASES", conn)
   print(resp)
   ```
-  
+
 #### 写入示例
 
 - #### 支持Line Protocol的方式进行数据的写入
 
   ```python
   from cnosdb_connector import connect
-  
+
   line0 = "air,station=XiaoMaiDao temperature=56,pressure=77 1666165200290401000"
   line1 = "air,station=XiaoMaiDao temperature=72,pressure=71 1666165300290401000"
   line2 = "air,station=XiaoMaiDao temperature=46,pressure=67 1666165400290401000"
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+
   conn.create_database_with_ttl("ocean")
   conn.switch_database("ocean")
-  
+
   conn.write_lines([line0, line1, line2])
-  
+
   resp = conn.execute("SELECT * FROM ocean;")
   print(resp)
   ```
@@ -93,14 +93,14 @@ pip install cnos-connector
 
   ```python
   from cnosdb_connector import connect
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
-  
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+
   query = "INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                   (1666165200290401000, 'XiaoMaiDao', 56, 69, 77); "
-  
+
   conn.execute(query)
-  
+
   resp = conn.execute("SELECT * FROM ocean;")
   print(resp)
   ```
@@ -110,20 +110,20 @@ pip install cnos-connector
   ```python
   from cnosdb_connector import connect
   import os
-  
+
   query = "CREATE TABLE air (\
                visibility DOUBLE,\
                temperature DOUBLE,\
                pressure DOUBLE,\
                TAGS(station));"
-  
-  conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+
+  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
   # table schema must same with csv file
   conn.execute(query)
-  
+
   path = os.path.abspath("test.csv")
   conn.write_csv("air", path)
-  
+
   resp = conn.execute("SELECT * FROM air;")
   print(resp)
   ```
@@ -144,7 +144,7 @@ def create_user(self, user, password)
 
 # DROP DATABASE database_name;
 def drop_database(self, database_name)
-    
+
 # DROP TABLE table_name;
 def drop_table(self, table_name)
 

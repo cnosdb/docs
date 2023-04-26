@@ -207,7 +207,7 @@ path = '/tmp/cnosdb/1001/hh'
 ./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
 curl http://127.0.0.1:21001/init -d '{}'
 curl http://127.0.0.1:21001/metrics
-./target/debug/cnosdb run --config ./config/config_31001.toml
+./target/debug/cnosdb run --config ./config/config_8902.toml
 ```
 
 ### 集群启动流程
@@ -254,7 +254,7 @@ curl http://127.0.0.1:21001/metrics
   **启动 data-1**
 
     ```sh
-    ./target/debug/cnosdb run --config ./config/config_31001.toml
+    ./target/debug/cnosdb run --config ./config/config_8902.toml
     ```
 
   **启动 data-2**

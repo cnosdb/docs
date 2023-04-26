@@ -32,15 +32,15 @@ index: true
 **v2.0.1**
 
 ```bash
-docker run -d -p 31007:31007 cnosdb/cnosdb:2.0.1
+docker run -d -p 8902:8902 cnosdb/cnosdb:2.0.1
 ```
 
 **v2.2.0**
 
 ```bash
 ## 如果你想把端口映射到宿主机上，
-## 可以修改 `/etc/cnosdb/cnosdb.conf` 中的配置 `http_listen_addr` 为 `0.0.0.0:31007`。
-## 并且将 `docker run` 命令中的 加上 `-p 31007:31007` 参数。
+## 可以修改 `/etc/cnosdb/cnosdb.conf` 中的配置 `http_listen_addr` 为 `0.0.0.0:8902`。
+## 并且将 `docker run` 命令中的 加上 `-p 8902:8902` 参数。
 docker run --name cnosdb -d cnosdb/cnosdb:v2.2.0 cnosdb run -M singleton --config /etc/cnosdb/cnosdb.conf
 ```
 

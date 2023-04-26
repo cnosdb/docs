@@ -102,12 +102,12 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](./tools.md) 工具直接访问 CnosDB：
 
 ```SHELL
-(base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.2.1-beta
+(base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2.0.2.1-beta
 
 (base) root@ecs-django-dev:~# docker exec -it cnosdb sh sh
 # cnosdb-cli
 CnosDB CLI v2.0.0
-Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
+Input arguments: Args { host: "0.0.0.0", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
 ```
 
 为了简化分析，我们只需存储数据集中观测时间和太阳黑子数。因此，我们将年（Col 0）和月（Col 1）拼接作为观测时间（date, 字符串类型），月均太阳黑子数（Col 3）可以不作处理直接存储。
@@ -149,7 +149,7 @@ pip install -U cnos-connector
 ```python
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 cursor = conn.cursor()
 ```
 

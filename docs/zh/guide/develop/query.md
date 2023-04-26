@@ -24,7 +24,7 @@ curl -i -u "<username>:<password>" -H "Accept: application/json" \
 
 ```shell
 curl -i -u "cnosdb:" -H "Accept: application/json" \
--XPOST "http://127.0.0.1:31007/api/v1/sql?db=oceanic_station" \
+-XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
@@ -116,12 +116,12 @@ public class CurlToJava {
         String cnosdbPort = "<cnosdb_port>";
         String dbName = "<database_name>";
         String sqlStatement = "<your SQL statement>";
-        
+
         String apiUrl = "http://" + cnosdbUrl + ":" + cnosdbPort + "/api/v1/sql?db=" + dbName + "&pretty=true";
         String auth = username + ":" + password;
         byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes());
         String authHeaderValue = "Basic " + new String(encodedAuth);
-        
+
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -161,7 +161,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "http://{}:{}/api/v1/sql?db={}&pretty=true",
         cdb_url, cdb_port, database_name
     );
-    
+
     let client = reqwest::Client::new();
     let res = client
         .post(&url)

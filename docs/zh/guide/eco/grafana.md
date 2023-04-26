@@ -81,7 +81,7 @@ idle_conn_timeout = 10
 
 ```toml
 [[outputs.http]]
-url = "http://host.docker.internal:31007/api/v1/write?db=cnos"
+url = "http://host.docker.internal:8902/api/v1/write?db=cnos"
 timeout = "5s"
 method = "POST"
 username = "admin"
@@ -115,7 +115,10 @@ systemctl start telegraf
 接下来使用 CnosDB 查询接口来查看数据，以验证 Telegraf 是否正确运行：
 
 ```sh
-curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用户名:密码'|base64)" 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
+curl -XPOST 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos' \
+  -u "<用户名>:<密码>" \
+  -H 'ACCEPT: application/json' \
+  -d 'SELECT * from cpu limit 1'
 ```
 
 在上面的命令中，有一些文本可能需要替换：
@@ -128,28 +131,31 @@ curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用�
 如：
 
 ```sh
-> curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo 'admin:admin'|base64)" 'http://127.0.0.1:31007/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
+> curl -XPOST 'http://127.0.0.1:8902/api/v1/sql?db=cnos' \
+  -u "root:" \
+  -H 'ACCEPT: application/json' \
+  -d 'SELECT * from cpu limit 1'
 ```
 
 在正确配置的情况下，我们能够获得以下结果：
 
 ```json
 [
-{
-"cpu": "cpu0",
-"host": "_HOST",
-"time": "2022-10-10 10:10:10",
-"usage_guest": 0.0,
-"usage_guest_nice": 0.0,
-"usage_idle": 99.49899799596298,
-"usage_iowait": 0.10020040080156893,
-"usage_irq": 0.0,
-"usage_nice": 0.0,
-"usage_softirq": 0.10020040080156893,
-"usage_steal": 0.0,
-"usage_system": 0.10020040080155113,
-"usage_user": 0.20040080160317345
-}
+    {
+        "cpu": "cpu0",
+        "host": "_HOST",
+        "time": "2022-10-10 10:10:10",
+        "usage_guest": 0.0,
+        "usage_guest_nice": 0.0,
+        "usage_idle": 99.49899799596298,
+        "usage_iowait": 0.10020040080156893,
+        "usage_irq": 0.0,
+        "usage_nice": 0.0,
+        "usage_softirq": 0.10020040080156893,
+        "usage_steal": 0.0,
+        "usage_system": 0.10020040080155113,
+        "usage_user": 0.20040080160317345
+    }
 ]
 ```
 
@@ -191,7 +197,7 @@ data_format = "opentsdbtelnet"
 
 ```toml
 [[outputs.cnosdb]]
-url = "localhost:31006"
+url = "localhost:8902"
 user = "user"
 password = "pass"
 database = "telegraf"
