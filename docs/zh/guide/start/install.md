@@ -40,7 +40,7 @@ public ❯
 在shell中执行以下命令将在本地生成一个名称为`oceanic_station`的 Line Protocol 格式的数据文件。
 
 ```shell
-curl -o /data/oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
+curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
 ## 导入数据
