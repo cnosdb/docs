@@ -24,7 +24,7 @@ For other installation methods, please see [Installing CnosDB](https://www.docke
     ```
 4. Run `cnosdb-cli`
     ```shell
-    cnosdb-cli --port 31007
+    cnosdb-cli --port 8902
     ```
 It will display the following:
 
@@ -41,7 +41,7 @@ If in cnosdb-cli, type `\q` to exit
 Executing the following command in the shell will generate a data file locally in Line Protocol format with the name oceanic_station
 
 ```shell
-wget https://dl.cnosdb.com/sample/oceanic_station.txt
+curl -o /data/oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
 ## Import Data
