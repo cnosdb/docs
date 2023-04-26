@@ -41,7 +41,7 @@ If in cnosdb-cli, type `\q` to exit
 Executing the following command in the shell will generate a data file locally in Line Protocol format with the name oceanic_station
 
 ```shell
-curl -o /data/oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
+curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
 ## Import Data
