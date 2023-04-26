@@ -104,33 +104,51 @@ Provides TCP Service to accept query and write requests distributed by Coodinato
 The following describes the configuration file of CnosDB Cluster Edition
 
 ```toml
+#reporting_disabled = false
+host = "localhost"
+
+[deployment]
+#mode = 'singleton'
+#cpu = 4
+#memory = 16
+
 [query]
 max_server_connections = 10240
-query_sql_limit = 16777216 # 16 * 1024 * 1024
-write_sql_limit = 167772160 # 160 * 1024 * 1024
+query_sql_limit = 16777216   # 16 * 1024 * 1024
+write_sql_limit = 167772160   # 160 * 1024 * 1024
 auth_enabled = false
 
 [storage]
-path = 'data/db'
-max_summary_size = 134217728 # 128 * 1024 * 1024
-max_level = 4
-base_file_size = 16777216 # 16 * 1024 * 1024
-compact_trigger = 4
-max_compact_size = 2147483648 # 2 * 1024 * 1024 * 1024
+# Directory for summary: $path/summary/
+# Directory for index: $path/index/$database/
+# Directory for tsm: $path/data/$database/tsm/
+# Directory for delta: $path/data/$database/delta/
+path = '/tmp/cnosdb/1001/db'
+max_summary_size = "128M" # 134217728
+base_file_size = "16M" # 16777216
+flush_req_channel_cap = 16
+compact_trigger_file_num = 4
+compact_trigger_cold_duration = "1h"
+max_compact_size = "2G" # 2147483648
+max_concurrent_compaction = 4
 strict_write = false
 
 [wal]
 enabled = true
-path = 'data/wal'
+path = '/tmp/cnosdb/1001/wal'
+wal_req_channel_cap = 64
+max_file_size = "1G" # 1073741824
+flush_trigger_total_file_size = "2G" # 2147483648
 sync = false
+sync_interval = "0"
 
 [cache]
-max_buffer_size = 134217728 # 128 * 1024 * 1024
+max_buffer_size = "128M" # 134217728
 max_immutable_number = 4
 
 [log]
 level = 'info'
-path = 'data/log'
+path = '/tmp/cnosdb/1001/log'
 
 [security]
 # [security.tls_config]
@@ -138,18 +156,25 @@ path = 'data/log'
 # private_key = "./config/tls/server.key"
 
 [cluster]
-node_id = 100
 name = 'cluster_xxx'
-meta = '127.0.0.1:21001'
+meta_service_addr = ["127.0.0.1:8901"]
 
-flight_rpc_server = '127.0.0.1:31006'
-http_server = '127.0.0.1:31007'
-grpc_server = '127.0.0.1:31008'
-tcp_server = '127.0.0.1:31009'
+http_listen_port = 8902
+grpc_listen_port = 8903
+flight_rpc_listen_port = 8904
+tcp_listen_port = 8905
 
-[hintedoff]
+[node_basic]
+node_id = 1001 
+cold_data_server = false
+store_metrics = true
+
+[heartbeat]
+report_time_interval_secs = 30
+
+[hinted_off]
 enable = true
-path = '/tmp/cnosdb/hh'
+path = '/tmp/cnosdb/1001/hh'
 ```
 
 #### **Configuration item query**
@@ -207,13 +232,26 @@ path = '/tmp/cnosdb/hh'
 
 | **Configuration items** | **Default Value** | **Description**                      |
 |-------------------------|-------------------|--------------------------------------|
-| node_id                 | 100               | Data Node ID                         |
 | name                    | cluster_xxx       | Data Node Name                       |
-| meta                    | 127.0.0.1:21001   | Meta Node Address                    |
-| flight_rpc_server       | 127.0.0.1:31006   | Flight RPC Service Listening Address |
-| http_server             | 127.0.0.1:31007   | HTTP Service Listening Address       |
-| grpc_server             | 127.0.0.1:31008   | GRPC Service Listening Address       |
-| tcp_server              | 127.0.0.1:31009   | TCP Service Listening Address        |
+| meta                    | 127.0.0.1:8901   | Meta Node Address                    |
+| flight_rpc_listen_port       | 8902   | Flight RPC Service Listening Port |
+| http_listen_port             | 8903   | HTTP Service Listening Port       |
+| grpc_listen_port             | 8904   | GRPC Service Listening Port       |
+| tcp_listen_port              | 8905   | TCP Service Listening Port        |
+
+#### Configuration node_basic
+
+|  **Configuration items**               | **Default Value**             | **Description**                  |
+|-------------------|-----------------|---------------------|
+| node_id           | 100             | Data Node ID          |
+| cold_data_server  | true            | Whether to use this node when allocating vnode        |
+| store_metrics     | true            | Whether to store metrics in db |
+
+#### Configuration heartbeat
+
+|  **Configuration items**               |  **Default Value**             |   **Description**                |
+|-------------------|-----------------|---------------------|
+| report_time_interval_secs | 30             | The frequency at which Data nodes report information such as time stamps and disk remaining capacity         |
 
 #### Configuration hintedoff
 
