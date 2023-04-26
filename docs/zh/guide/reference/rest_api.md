@@ -23,6 +23,7 @@ Authorization: BASIC
 
 - db: 数据库名字。（可选，不指定参数时为默认数据库 public）
 - tenant: 租户名（可选，不指定参数时为默认租户 cnosdb）
+- precision: 时间精度（可选，可用值为 `ms`/`us`/`ns`）
 
 **请求体**
 - 行协议：有关行协议的具体内容可以看[这里](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
@@ -125,6 +126,55 @@ curl -G 'http://localhost:8902/api/v1/ping'
 ```
 请求失败
 > 不反回任何结果
+:::
+
+::: details /api/v1/opentsdb/write
+
+**请求方法**
+
+- POST
+
+**请求头**
+
+Authorization: BASIC
+
+    basic64(user_name + ":" + password)
+
+**请求参数**
+
+- db: 数据库名字。（可选，不指定参数时为默认数据库 public）
+- tenant: 租户名（可选，不指定参数时为默认租户 cnosdb）
+- precision: 时间精度（可选，可用值为 `ms`/`us`/`ns`）
+
+**请求体**
+
+```
+<metric> <timestamp> <value> <tagk_1>=<tagv_1>[ <tagk_n>=<tagv_n>]
+```
+
+**请求示例**
+
+```shell
+curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/opentsdb/write?db=example" -d 'sys.if.bytes.out 1666165200290401000 1 host=web01 interface=eth0'
+```
+
+**请求成功**
+
+```shell
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
+```
+
+**请求失败**
+> 请求失败将返回4xx或5xx。
+
+```shell
+HTTP/1.1 500 Internal Server Error
+content-length: 0
+date: Sat, 08 Oct 2022 07:03:33 GMT
+... ...
+```
 :::
 
 ## 状态码
