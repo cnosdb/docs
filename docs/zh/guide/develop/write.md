@@ -34,7 +34,7 @@ CnosDB 支持多种写入方式，以下提供一些示例。包含 Java，Pytho
 
     ```shell
     curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:31007/api/v1/sql?db=oceanic_station" \
+    -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
     -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
     VALUES (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);"
     ```
@@ -42,7 +42,7 @@ CnosDB 支持多种写入方式，以下提供一些示例。包含 Java，Pytho
 
     ```shell
     curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:31007/api/v1/write?db=oceanic_station" \
+    -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
     -d "air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
     ```
 
@@ -74,7 +74,7 @@ CnosDB 支持多种写入方式，以下提供一些示例。包含 Java，Pytho
 
     ```shell
     curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:31007/api/v1/sql?db=oceanic_station" \
+    -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
     -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
     VALUES ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 76), ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);"
     ```
@@ -82,7 +82,7 @@ CnosDB 支持多种写入方式，以下提供一些示例。包含 Java，Pytho
 
     ```shell
     curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:31007/api/v1/write?db=oceanic_station" \
+    -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
     -d "air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000
         air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
     ```
@@ -103,7 +103,7 @@ curl -i -u "<username>:<password>" -H "Accept: application/json" \
 ```shell
 wget https://dl.cnosdb.com/sample/oceanic_station.txt &&
 curl -i -u "cnosdb:" -H "Accept: application/json" \
--XPOST "http://127.0.0.1:31007/api/v1/write?db=oceanic_station" \
+-XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
 --data-binary @./oceanic_station.txt
 ```
 ### 使用编程语言写入
@@ -176,12 +176,12 @@ public class CurlToJava {
         String cnosdbPort = "<cnosdb_port>";
         String dbName = "<database_name>";
         String sqlStatement = "<your SQL statement>";
-        
+
         String apiUrl = "http://" + cnosdbUrl + ":" + cnosdbPort + "/api/v1/sql?db=" + dbName + "&pretty=true";
         String auth = username + ":" + password;
         byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes());
         String authHeaderValue = "Basic " + new String(encodedAuth);
-        
+
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -245,7 +245,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "http://{}:{}/api/v1/sql?db={}&pretty=true",
         cdb_url, cdb_port, database_name
     );
-    
+
     let client = reqwest::Client::new();
     let res = client
         .post(&url)

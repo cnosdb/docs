@@ -31,7 +31,7 @@ Authorization: BASIC
 **请求示例**
 
 ```shell
-curl -i -u "username:password" -XPOST "http://localhost:31007/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
+curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
 ```
 
 **请求成功**
@@ -81,7 +81,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 **请求示例**
 
 ```curl
-curl -i -u "username:password" -H "Accept: application/json" -XPOST "http://localhost:31007/api/v1/sql?db=example" -d 'SELECT * from t1'
+curl -i -u "username:password" -H "Accept: application/json" -XPOST "http://localhost:8902/api/v1/sql?db=example" -d 'SELECT * from t1'
 ```
 
 **请求成功**
@@ -113,7 +113,7 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 
 **请求示例**
 ```
-curl -G 'http://localhost:31007/api/v1/ping'
+curl -G 'http://localhost:8902/api/v1/ping'
 ```
 
 请求成功

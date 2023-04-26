@@ -24,12 +24,12 @@ order: 2
   ```
 4. 运行`cnosdb-cli`
   ```shell
-    cnosdb-cli --port 31007
+    cnosdb-cli --port 8902
   ```
 会显示如下：
 ```
 CnosDB CLI v2.2.0
-Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
+Input arguments: Args { host: "0.0.0.0", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
 public ❯
 ```
 
@@ -63,7 +63,7 @@ wget https://dl.cnosdb.com/sample/oceanic_station.txt
     ```shell
     \w oceanic_station.txt
     ```
-  
+
 ## 数据查询
 - **查看所有表**
 
@@ -71,7 +71,7 @@ wget https://dl.cnosdb.com/sample/oceanic_station.txt
     SHOW TABLES;
     ```
   执行成功返回以下结果：
-  
+
       +-------+
       | Table |
       +-------+

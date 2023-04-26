@@ -140,7 +140,7 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
    ```
    cd tsdb-comparisons/cmd/load_cnosdb
    go build
-   ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:31007"   --batch-size=<batch_size_num> --workers=<workers_num>
+   ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
    ```
 
 5. 测试 InfluxDB 写入。

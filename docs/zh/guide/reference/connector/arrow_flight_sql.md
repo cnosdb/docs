@@ -75,13 +75,13 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```CMake
    cmake_minimum_required(VERSION 3.24)
    project(arrow_flight_cpp)
-   
+
    set(CMAKE_CXX_STANDARD 20)
-   
+
    find_package(Arrow REQUIRED)
    find_package(ArrowFlight REQUIRED)
    find_package(ArrowFlightSql REQUIRED)
-   
+
    include_directories(${ARROW_INCLUDE_DIR})
    add_executable(arrow_flight_cpp main.cpp)
    target_link_libraries(arrow_flight_cpp PRIVATE Arrow::arrow_shared)
@@ -93,24 +93,24 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 - #### C++ Arrow库的用法
 
-  arrow的函数大多数是返回 `arrow::Result\<T\>` 类型，因此需要把代码写在返回值为 `arrow::Result\<T>` 的类型的函数中，如下：
+  arrow的函数大多数是返回 `arrow::Result<T>` 类型，因此需要把代码写在返回值为 `arrow::Result<T>` 的类型的函数中，如下：
 
    ```c++
     arrow::Result <std::unique_ptr<FlightClient>> get_location() {
-        ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004));
+        ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 8904));
         ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
     }
    ```
 
-  `ARROW_ASSIGN_OR_RAISE`宏的效果是，先对右边返回值为 `arrow::Result\<T\>` 类型的表达式求值，如果出现异常，则提前return，赋上相应的Status值。
+  `ARROW_ASSIGN_OR_RAISE`宏的效果是，先对右边返回值为 `arrow::Result<T>` 类型的表达式求值，如果出现异常，则提前return，赋上相应的Status值。
 
   为了方便展示，我们把代码写在`lambda`函数中。
 
    ```c++
    int main() {
      auto fun = []() {
-     // code
-   	}
+       // code
+     }
      fun();
      return 0;
    }
@@ -119,12 +119,12 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 验证身份获取令牌，并创建一个FlightSqlClient
 
    ```c++
-   ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
+   ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 8904))
    ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
    auto user = "root";
    auto password = "";
    //Base64加密认证
-   auto auth = client->AuthenticateBasicToken({}, user, password); 
+   auto auth = client->AuthenticateBasicToken({}, user, password);
    ARROW_RETURN_NOT_OK(auth); // 如果result出现异常，直接return
    FlightCallOptions call_options;
    call_options.headers.push_back(auth.ValueOrDie()); //把认证放到调用选项中
@@ -142,14 +142,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```c++
    for (auto i = 0; i < endpoints.size(); i++) {
-     auto &ticket = endpoints[i].ticket; 
+     auto &ticket = endpoints[i].ticket;
      // stream中包含数据
      ARROW_ASSIGN_OR_RAISE(auto stream, sql_client->DoGet(call_options, ticket));
      // 获取数据的Schema
      auto schema = stream->GetSchema();
      ARROW_RETURN_NOT_OK(schema);
      std::cout << "Schema:" << schema->get()->ToString() << std::endl;
-    // 取得并打印数据
+     // 取得并打印数据
      while(true) {
        ARROW_ASSIGN_OR_RAISE(FlightStreamChunk chunk, stream->Next());
        if (chunk.data == nullptr) {
@@ -173,7 +173,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    int main() {
 
        auto fun = []() {
-           ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
+           ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 8904))
            ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
 
            auto user = "root";
@@ -228,7 +228,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 创建Flight SQL客户端
 
    ```go
-   addr := "127.0.0.1:31004"
+   addr := "127.0.0.1:8904"
    var dialOpts = []grpc.DialOption{
      grpc.WithTransportCredentials(insecure.NewCredentials()),
    }
@@ -303,28 +303,28 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        <version>10.0.1</version>
        <type>pom</type>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-sql -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
        <artifactId>flight-sql</artifactId>
        <version>10.0.1</version>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
      <dependency>
        <groupId>org.slf4j</groupId>
        <artifactId>slf4j-api</artifactId>
        <version>2.0.5</version>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-core -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
        <artifactId>arrow-memory-netty</artifactId>
        <version>10.0.1</version>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-core -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
@@ -360,9 +360,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
   java --add-opens=java.base/java.nio=ALL-UNNAMED -jar ...
   # 或
   env _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" java -jar ...
-  
-  
-  # 如果使用 maven 
+
+
+  # 如果使用 maven
   _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" mvn exec:java -Dexec.mainClass="YourMainCode"
   ```
 
@@ -370,8 +370,8 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```java
    BufferAllocator allocator = new RootAllocator(Integer.MAX_VALUE);
-   final Location clientLocation = Location.forGrpcInsecure("localhost", 31004);
-   
+   final Location clientLocation = Location.forGrpcInsecure("localhost", 8904);
+
    FlightClient client = FlightClient.builder(allocator, clientLocation).build();
    FlightSqlClient sqlClinet = new FlightSqlClient(client);
    ```
@@ -383,7 +383,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    final CallHeaders headers = new FlightCallHeaders();
    headers.insert("tenant", "cnosdb");
    Set<CallOption> options = new HashSet<>();
-   
+
    credentialCallOption.ifPresent(options::add);
    options.add(new HeaderCallOption(headers));
    CallOption[] callOptions = options.toArray(new CallOption[0]);
@@ -395,9 +395,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    try (final FlightSqlClient.PreparedStatement preparedStatement = sqlClinet.prepare("select now();", callOptions)) {
      final FlightInfo info = preparedStatement.execute();
      System.out.println(info.getSchema());
-     
+
      //剩余代码在下一个步骤
-   } 
+   }
    ```
 
 - #### 取得数据
@@ -422,37 +422,37 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```java
    package org.example;
-   
+
    import org.apache.arrow.flight.*;
    import org.apache.arrow.flight.grpc.CredentialCallOption;
    import org.apache.arrow.flight.sql.FlightSqlClient;
    import org.apache.arrow.memory.BufferAllocator;
    import org.apache.arrow.memory.RootAllocator;
    import org.apache.arrow.vector.FieldVector;
-   
+
    import java.util.HashSet;
    import java.util.List;
    import java.util.Optional;
    import java.util.Set;
-   
-   
+
+
    public class Main {
      public static void main(String[] args) {
        BufferAllocator allocator = new RootAllocator(Integer.MAX_VALUE);
-       final Location clientLocation = Location.forGrpcInsecure("localhost", 31004);
-   
+       final Location clientLocation = Location.forGrpcInsecure("localhost", 8904);
+
        FlightClient client = FlightClient.builder(allocator, clientLocation).build();
        FlightSqlClient sqlClinet = new FlightSqlClient(client);
-   
+
        Optional<CredentialCallOption> credentialCallOption = client.authenticateBasicToken("root", "");
        final CallHeaders headers = new FlightCallHeaders();
        headers.insert("tenant", "cnosdb");
        Set<CallOption> options = new HashSet<>();
-   
+
        credentialCallOption.ifPresent(options::add);
        options.add(new HeaderCallOption(headers));
        CallOption[] callOptions = options.toArray(new CallOption[0]);
-   
+
        try (final FlightSqlClient.PreparedStatement preparedStatement = sqlClinet.prepare("select now();", callOptions)) {
          final FlightInfo info = preparedStatement.execute();
          System.out.println(info.getSchema());
@@ -495,7 +495,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 创建FlightServerClient
 
    ```rust
-   let mut client = FlightServiceClient::connect("http://localhost:31004")
+   let mut client = FlightServiceClient::connect("http://localhost:8904")
    .await
    .expect("connect faile");
    ```
@@ -506,7 +506,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    let mut req = Request::new(futures::stream::iter(iter::once(
      HandshakeRequest::default(),
    )));
-   
+
    req.metadata_mut().insert(
      AUTHORIZATION.as_str(),
      AsciiMetadataValue::try_from(format!(
@@ -515,9 +515,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      ))
      .expect("metadata construct fail"),
    );
-   
+
    let resp = client.handshake(req).await.expect("handshake");
-   
+
    println!("handshake resp: {:?}", resp.metadata());
    ```
 
@@ -529,14 +529,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    };
    let pack = prost_types::Any::pack(&cmd).expect("pack");
    let fd = FlightDescriptor::new_cmd(pack.encode_to_vec());
-   
+
    let mut req = Request::new(fd);
    req.metadata_mut().insert(
      AUTHORIZATION.as_str(),
      resp.metadata().get(AUTHORIZATION.as_str()).unwrap().clone(),
    );
    let resp = client.get_flight_info(req).await.expect("get_flight_info");
-   
+
    let flight_info = resp.into_inner();
    let schema_ref =
    Arc::new(Schema::try_from(IpcMessage(flight_info.schema)).expect("Schema::try_from"));
@@ -551,7 +551,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        let resp = client.do_get(ticket).await.expect("do_get");
        let mut stream = resp.into_inner();
        let mut dictionaries_by_id = HashMap::new();
-   
+
        let mut record_batches = Vec::new();
        while let Some(Ok(flight_data)) = stream.next().await {
          let message =
@@ -560,7 +560,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            ipc::MessageHeader::Schema => {
              println!("a schema when messages are read",);
            }
-   
+
            ipc::MessageHeader::RecordBatch => {
              let record_batch = flight_data_to_arrow_batch(
                &flight_data,
@@ -572,7 +572,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
            ipc::MessageHeader::DictionaryBatch => {
              let ipc_batch = message.header_as_dictionary_batch().unwrap();
-   
+
              reader::read_dictionary(
                &Buffer::from(flight_data.data_body),
                ipc_batch,
@@ -587,7 +587,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
          }
        }
-   
+
        println!(
          "{}",
          arrow::util::pretty::pretty_format_batches(&record_batches).expect("print")
@@ -602,7 +602,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    use std::collections::HashMap;
    use std::iter;
    use std::sync::Arc;
-   
+
    use arrow::buffer::Buffer;
    use arrow::datatypes::Schema;
    use arrow::ipc;
@@ -612,23 +612,23 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    use arrow_flight::utils::flight_data_to_arrow_batch;
    use arrow_flight::{FlightDescriptor, HandshakeRequest, IpcMessage};
    use futures::StreamExt;
-   
+
    use prost::Message;
    use tonic::codegen::http::header::AUTHORIZATION;
    use tonic::metadata::AsciiMetadataValue;
    use tonic::Request;
-   
+
    #[tokio::main]
    async fn main() {
-   
-     let mut client = FlightServiceClient::connect("http://localhost:31004")
+
+     let mut client = FlightServiceClient::connect("http://localhost:8904")
      .await
      .expect("connect");
-   
+
      let mut req = Request::new(futures::stream::iter(iter::once(
        HandshakeRequest::default(),
      )));
-   
+
      req.metadata_mut().insert(
        AUTHORIZATION.as_str(),
        AsciiMetadataValue::try_from(format!(
@@ -637,35 +637,35 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        ))
        .expect("metadata construct fail"),
      );
-   
+
      let resp = client.handshake(req).await.expect("handshake");
-   
+
      println!("handshake resp: {:?}", resp.metadata());
-   
+
      let cmd = CommandStatementQuery {
        query: "select 1;".to_string(),
      };
      let pack = prost_types::Any::pack(&cmd).expect("pack");
      let fd = FlightDescriptor::new_cmd(pack.encode_to_vec());
-   
+
      let mut req = Request::new(fd);
      req.metadata_mut().insert(
        AUTHORIZATION.as_str(),
        resp.metadata().get(AUTHORIZATION.as_str()).unwrap().clone(),
      );
      let resp = client.get_flight_info(req).await.expect("get_flight_info");
-   
+
      let flight_info = resp.into_inner();
      let schema_ref =
      Arc::new(Schema::try_from(IpcMessage(flight_info.schema)).expect("Schema::try_from"));
      println!("{}", schema_ref);
-   
+
      for ep in flight_info.endpoint {
        if let Some(ticket) = ep.ticket {
          let resp = client.do_get(ticket).await.expect("do_get");
          let mut stream = resp.into_inner();
          let mut dictionaries_by_id = HashMap::new();
-   
+
          let mut record_batches = Vec::new();
          while let Some(Ok(flight_data)) = stream.next().await {
            let message =
@@ -674,7 +674,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
              ipc::MessageHeader::Schema => {
                println!("a schema when messages are read",);
              }
-   
+
              ipc::MessageHeader::RecordBatch => {
                let record_batch = flight_data_to_arrow_batch(
                  &flight_data,
@@ -686,7 +686,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
              }
              ipc::MessageHeader::DictionaryBatch => {
                let ipc_batch = message.header_as_dictionary_batch().unwrap();
-   
+
                reader::read_dictionary(
                  &Buffer::from(flight_data.data_body),
                  ipc_batch,
@@ -701,7 +701,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
              }
            }
          }
-   
+
          println!(
            "{}",
            arrow::util::pretty::pretty_format_batches(&record_batches).expect("print")
@@ -741,9 +741,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    java --add-opens=java.base/java.nio=ALL-UNNAMED -jar ...
    # 或
    env _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" java -jar ...
-   
-   
-   # 如果使用 maven 
+
+
+   # 如果使用 maven
    _JAVA_OPTIONS="--add-opens=java.base/java.nio=ALL-UNNAMED" mvn exec:java -Dexec.mainClass="YourMainCode"
    ```
 
@@ -751,10 +751,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```java
    package org.example;
-   
+
    import java.sql.*;
    import java.util.Properties;
-   
+
    public class Main {
      public static void main(String[] args) {
        final Properties properties = new Properties();
@@ -764,12 +764,12 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        properties.put("useEncryption", false);
        try (
          Connection connection = DriverManager.getConnection(
-           "jdbc:arrow-flight-sql://localhost:31004", properties
+           "jdbc:arrow-flight-sql://localhost:8904", properties
          );
          Statement statement = connection.createStatement())
        {
          ResultSet resultSet = statement.executeQuery("SELECT 1, 2, 3;");
-   
+
          while (resultSet.next()) {
            int column1 = resultSet.getInt(1);
            int column2 = resultSet.getInt(2);
@@ -787,10 +787,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```java
    package org.example;
-   
+
    import java.sql.*;
    import java.util.Properties;
-   
+
    public class Main {
      public static void main(String[] args) {
        final Properties properties = new Properties();
@@ -800,7 +800,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        properties.put("useEncryption", false);
        try (
          Connection connection = DriverManager.getConnection(
-           "jdbc:arrow-flight-sql://localhost:31004", properties
+           "jdbc:arrow-flight-sql://localhost:8904", properties
          );
          Statement statement = connection.createStatement())
        {
@@ -814,14 +814,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
          statement.executeUpdate("INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES\n" +
                                  "    (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);");
          ResultSet resultSet = statement.executeQuery("select * from air limit 1;");
-   
+
          while (resultSet.next()) {
            Timestamp column1 = resultSet.getTimestamp(1);
            String column2 = resultSet.getString(2);
            Double column3 = resultSet.getDouble(3);
            Double column4 = resultSet.getDouble(4);
            Double column5 = resultSet.getDouble(5);
-   
+
            System.out.printf("%s %s %f %f %f", column1, column2, column3, column4, column5);
          }
        } catch (SQLException e) {
@@ -829,7 +829,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        }
      }
    }
-   
+
    ```
 
 @tab ODBC#ODBC
@@ -851,8 +851,8 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 安装arrow-flight-odbc驱动
 
    ```shell
-   wget https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm 
-   yum localinstall arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm 
+   wget https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm
+   yum localinstall arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm
    ```
 
 - #### 修改配置文件
@@ -861,12 +861,12 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```
    [ODBC Data Sources]
    CNOSDB=Arrow Flight SQL ODBC Driver
-   
+
    [CNOSDB]
    Description=ODBC Driver DSN for Arrow Flight SQL developed by Dremio
    Driver=Arrow Flight SQL ODBC Driver
    Host=localhost
-   Port=31004  
+   Port=8904
    UID=root
    PWD=
    Database=public
@@ -905,7 +905,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```cmake
    cmake_minimum_required(VERSION 3.24)
    project(arrow_flight_odbc C)
-   
+
    set(CMAKE_C_STANDARD 11)
    find_package(ODBC)
    include_directories(${ODBC_INCLUDE_DIR})
@@ -920,14 +920,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    #include <stdio.h>
    #include <sql.h>
    #include <sqlext.h>
-   
+
    int main() {
      SQLHENV henv;
      SQLHDBC hdbc;
      SQLHSTMT hsmt;
      SQLRETURN ret;
-     
-     
+
+
      // 分配环境内存
      ret = SQLAllocEnv(&henv);
      if (ret != SQL_SUCCESS) {
@@ -953,7 +953,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      }
      // 分配语句空间
      SQLAllocStmt(hdbc, &hsmt);
-   
+
      SQLCHAR *sql = "CREATE TABLE IF NOT EXISTS air (\n"
        " visibility  DOUBLE,\n"
        " temperature DOUBLE,\n"
@@ -964,8 +964,8 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Execute create fail");
      }
-   
-    
+
+
      sql = "INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES\n"
        "    (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);";
      // 执行 insert
@@ -973,7 +973,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Execute insert fail");
      }
-   
+
      sql = "SELECT * FROM air LIMIT 1";
      //执行查询
      ret = SQLExecDirect(hsmt, sql ,SQL_NTS);
@@ -984,7 +984,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      SQLCHAR station[50];
      SQLDOUBLE visibility, temperature, pressure;
      long time_len, station_len;
-     
+
      // 获取结果集
      while (1) {
        ret = SQLFetch(hsmt);
@@ -1003,7 +1003,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
         break;
        }
      }
-   
+
      return 0;
    }
    ```

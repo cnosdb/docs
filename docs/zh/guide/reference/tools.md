@@ -17,7 +17,7 @@ cargo run --package client --bin cnosdb-cli
 
 ```
 -h --host CnosDB            服务的host，默认为"0.0.0.0"
--p --port CnosDB            服务的端口，默认为31001
+-p --port CnosDB            服务的端口，默认为8902
 -u --user                   用户名，默认为"root"
 -p --password               密码，默认没有
 -d --database               连接的数据库，默认为"public"
