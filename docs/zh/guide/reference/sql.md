@@ -208,7 +208,7 @@ DESCRIBE DATABASE oceanic_station;
 
 CnosDB 支持创建普通表和外部表。
 
-### 创建普通表
+### 创建普通(TSKV)表
 
 **语法**
 
@@ -5512,6 +5512,117 @@ select * from usage_schema.writes order by time desc limit 2;
     | 2023-02-23T07:06:56.547905 | public   | 1001    | root | 2     |
     | 2023-02-23T07:06:46.547673 | public   | 1001    | root | 2     |
     +----------------------------+----------+---------+------+-------+
+
+
+## 流
+
+### 创建流表
+
+创建流表，需要一个表作为source表，流表暂不支持 ALTER
+
+**语法：**
+
+```sql
+CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
+    WITH (db = 'db_name', table = 'table_name', event_time_column = 'time_column')
+    engine = tskv;
+
+field_definition: 
+    column_name data_type
+```
+
+db和table参数，指定源表
+
+event_time_column 指定事件时间列，该列数据类型必须是 TIMESTAMP 类型
+
+目前仅支持普通表为source表，流表字段定义的字段名和字段类型必须是属于source表，且与source表定义相同
+
+**示例:**
+创建 source 表
+```sql
+CREATE DATABASE oceanic_station;
+```
+```
+\c oceanic_station
+```
+```
+CREATE TABLE air(pressure DOUBLE, temperature DOUBLE, visibility DOUBLE, TAGS(station));
+```
+
+创建流表
+```sql
+CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
+    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time_column')
+    engine = tskv;
+```
+
+
+### 删除流表
+
+与删除普通表语法相同
+
+
+### 流查询
+
+流查询只支持 INSERT SELECT 语句，SELECT 语句中 FROM 子句是流表，插入到目标表。
+
+写入数据到源表时，触发流式查询。
+
+流查询的 SELECT 子句不支持 JOIN
+
+流查询的语句会持久化运行，通过[KILL QUERY](#kill-query) 取消执行
+
+**示例：**
+以流式降采样场景为示例，source表时间间隔为一分钟，降采样时间区间为1小时
+
+创建流查询的目标表
+```sql
+CREATE TABLE air_down_sampling_1hour(max_pressure DOUBLE, avg_temperature DOUBLE, sum_temperature DOUBLE, count_pressure BIGINT, TAGS(station));
+```
+
+创建流查询语句
+
+```sql
+INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
+SELECT 
+	date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00') time, 
+	station, 
+	MAX(pressure) max_pressure, 
+	AVG(temperature) avg_temperature, 
+	SUM(temperature) sum_temperature, 
+	COUNT(pressure) count_pressure 
+FROM air_stream 
+GROUP BY date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00'), station;
+```
+
+写入数据时触发流查询语句
+
+[数据来源](#示例数据)
+
+```sql
+\w oceanic_station.txt
+```
+
+查看目标表结果
+
+```sql
+SELECT * FROM air_down_sampling_1hour LIMIT 10;
+```
+    +---------------------+------------+--------------+-----------------+-----------------+----------------+
+    | time                | station    | max_pressure | avg_temperature | sum_temperature | count_pressure |
+    +---------------------+------------+--------------+-----------------+-----------------+----------------+
+    | 2023-01-14T16:00:00 | XiaoMaiDao | 80.0         | 68.05           | 1361.0          | 20             |
+    | 2023-01-14T17:00:00 | XiaoMaiDao | 79.0         | 63.75           | 1275.0          | 20             |
+    | 2023-01-14T18:00:00 | XiaoMaiDao | 79.0         | 66.35           | 1327.0          | 20             |
+    | 2023-01-14T19:00:00 | XiaoMaiDao | 78.0         | 68.05           | 1361.0          | 20             |
+    | 2023-01-14T20:00:00 | XiaoMaiDao | 80.0         | 64.35           | 1287.0          | 20             |
+    | 2023-01-14T21:00:00 | XiaoMaiDao | 77.0         | 61.05           | 1221.0          | 20             |
+    | 2023-01-14T22:00:00 | XiaoMaiDao | 80.0         | 64.8            | 1296.0          | 20             |
+    | 2023-01-14T23:00:00 | XiaoMaiDao | 80.0         | 66.35           | 1327.0          | 20             |
+    | 2023-01-15T00:00:00 | XiaoMaiDao | 80.0         | 65.15           | 1303.0          | 20             |
+    | 2023-01-15T01:00:00 | XiaoMaiDao | 80.0         | 69.55           | 1391.0          | 20             |
+    +---------------------+------------+--------------+-----------------+-----------------+----------------+
+
 
 
 ## KILL QUERY
