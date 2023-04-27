@@ -33,7 +33,7 @@ DROP VNODE <vnode_id>
 COMPACT VNODE <vnode_id>[ <vnode_id>[ ...]]
 ```
 
-**检查 Group 数据一致性**
+**检查 Group 数据一致性** \
 该功能待上线
 
 ```
