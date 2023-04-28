@@ -29,6 +29,12 @@ index: true
 
 @tab Docker
 
+**community-latest**
+
+```bash
+docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+```
+
 **v2.0.1**
 
 ```bash
