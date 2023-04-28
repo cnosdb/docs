@@ -44,6 +44,14 @@ export const zhSidebar = sidebar({
       collapsible: true,
     },
     {
+      text: "企业版功能",
+      prefix: "enterprise/",
+      children: 'structure',
+      link: "enterprise/README.md",
+      icon: "leaf",
+      collapsible: true,
+    },
+    {
       text: "生态",
       prefix: "eco/",
       children: 'structure',
