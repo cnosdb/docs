@@ -69,14 +69,29 @@ SELECT CAST (1 AS TIMESTAMP);
     | 1970-01-01T00:00:00.000000001 |
     +-------------------------------+
 
-#### INTERVAL 常量语法
+#### INTERVAL 常量
 
-1. `INTERVAL '1' DAY` 一天
-2. `INTERVAL '1' MONTH` 一月
-3. `INTERVAL '1' HOUR` 一小时
-4. `INTERVAL '1' MINS` 一分钟
-5. `INTERVAL '1' YEAR` 一年
-6. `INTERVAL '1' SECS` 一秒
+**示例：**
+
+1. `INTERVAL '1'` 一秒
+2. `INTERVAL '1 SECONDE'` 一秒
+3. `INTERVAL '1 MILLISECONDS'` 一毫秒
+4. `INTERVAL '1 MINUTE'` 一分钟
+5. `INTERVAL '0.5 MINUTE'` 半分钟
+6. `INTERVAL '1 HOUR'` 一小时
+7. `INTERVAL '1 DAY'` 一天
+8. `INTERVAL '1 DAY 1'` 一天零一秒
+9. `INTERVAL '1 WEEK'` 一周
+10. `INTERVAL '1 MONTH'` 一月(30天)
+11. `INTERVAL '0.5 MONTH'` 半月(15天)
+12. `INTERVAL '1 YEAR'` 一年（12个月）
+13. `INTERVAL '1 YEAR 1 DAY 1 HOUR 1 MINUTE'` 一年零一天零一小时一分
+14. `INTERVAL '1 DECADES' ` 一个十年
+
+**注意:**
+
+INTERVAL '1 YEAR' 并不是365天或366天，而是12个月
+INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天
 
 ### 创建数据库
 

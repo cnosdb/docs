@@ -18,7 +18,7 @@ Supported file formats are CSV/JSON/PARQUET, and currently supported object stor
 COPY INTO externalLocation
     FROM [<database>.]< table_name >
     [ CONNECTION = ( connection_options ) ]
-    [ FILE_FORMAT = ( TYPE = { 'CSV' | 'NDJSON' | 'PARQUET'} [ formatTypeOptions ] ) ]
+    [ FILE_FORMAT = ( TYPE = { 'CSV' | 'JSON' | 'PARQUET'} [ formatTypeOptions ] ) ]
     [ COPY_OPTIONS = ( copyOptions ) ]
     
     externalLocation (for Amazon S3) ::=
@@ -85,7 +85,7 @@ COPY INTO externalLocation
 COPY INTO [<database>.]< table_name >
     FROM externalLocation
     [ CONNECTION = ( connection_options ) ]
-    [ FILE_FORMAT = ( TYPE = { 'CSV' | 'NDJSON' | 'PARQUET' } [ formatTypeOptions ] ) ]
+    [ FILE_FORMAT = ( TYPE = { 'CSV' | 'JSON' | 'PARQUET' } [ formatTypeOptions ] ) ]
     [ COPY_OPTIONS = ( copyOptions ) ]
     externalLocation (for Amazon S3) ::=
     's3://<bucket>[/<path>]'

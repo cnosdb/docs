@@ -255,7 +255,7 @@ field_definition:
     column_name data_type [ NULL ]
 
 tb_option: {
-      STORED AS { PARQUET | NDJSON | CSV | AVRO }
+      STORED AS { PARQUET | JSON | CSV | AVRO }
     | [ WITH HEADER ROW ]
     | [ DELIMITER 'a_single_char' ]
     | [ PARTITIONED BY ( column_name, [, ... ] ) ]
@@ -269,7 +269,7 @@ tb_option: {
 
 #### Parameter Description
 
-1. STORED AS：represents the format in which the file is stored. Currently, PARQUET, NDJSON, CSV and AVRO formats are supported.
+1. STORED AS：represents the format in which the file is stored. Currently, PARQUET, JSON, CSV and AVRO formats are supported.
 2. WITH HEADER ROW：Effective only in csv file format, representing with csv header.
 3. DELIMITER：only effective in csv format, representing the delimiter of column data.
 4. PARTITIONED BY：use the column specified when creating the table to partition.
