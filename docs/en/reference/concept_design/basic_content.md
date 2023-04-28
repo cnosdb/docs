@@ -14,7 +14,7 @@ Our time series data is one of the branches born in this context. This article f
 
 In the ocean, we may monitor a variety of data indicators, used to study the environment, weather and human production, for example, a scenario: Suppose we have a detector that can record the visibility of the ocean air, we can determine whether to produce based on visibility changes. This visibility information is a time series data, in a common sense is a line graph of changes over time.
 
-![Time Series](](../../../source/_static/img/air_vis.png)
+![Time Series](](/_static/img/air_vis.png)
 
 So let's make a summary:
 

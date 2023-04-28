@@ -26,7 +26,7 @@ Arrow Flight SQL 是一种使用 Arrow 内存格式和 Flight RPC 框架与 SQL 
 
 虽然它可以直接用于数据库访问，但它不能直接替代 JDBC/ODBC。 但是，Flight SQL 可以用作具体的有线协议/驱动程序实现，支持 JDBC/ODBC 驱动程序，并减少数据库的实现负担。
 
-![](../../../../source/_static/img/cnosdb_arrow_flight.png)
+![](/_static/img/cnosdb_arrow_flight.png)
 
 ## Arrow Flight SQL 查询流程
 
@@ -50,7 +50,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 流程图如下
 
-![流程图](../../../../source/_static/img/arrow_flight_flow.png)
+![流程图](/_static/img/arrow_flight_flow.png)
 
 ## 不同客户端的使用方式
 

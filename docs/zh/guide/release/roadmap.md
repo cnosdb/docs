@@ -29,7 +29,7 @@ order: 3
 
 ## CnosDB 架构
 
-![整体架构](https://raw.githubusercontent.com/cnosdb/cnosdb/main/docs/source/_static/img/arch.jpg)
+![整体架构](/_static/img/arch.jpg)
 
 ## CnosDB Timeline
 
