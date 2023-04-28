@@ -279,7 +279,7 @@ tb_option: {
 
 #### 参数说明
 
-1. STORE AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式。
+1. STORED AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式。
 2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头。
 3. DELIMITER：仅在csv格式下生效，表示列数据的分隔符。
 4. PARTITIONED BY：使用创建表时指定的列来进行分区。

@@ -269,7 +269,7 @@ tb_option: {
 
 #### Parameter Description
 
-1. STORE AS：represents the format in which the file is stored. Currently, PARQUET, NDJSON, CSV and AVRO formats are supported.
+1. STORED AS：represents the format in which the file is stored. Currently, PARQUET, NDJSON, CSV and AVRO formats are supported.
 2. WITH HEADER ROW：Effective only in csv file format, representing with csv header.
 3. DELIMITER：only effective in csv format, representing the delimiter of column data.
 4. PARTITIONED BY：use the column specified when creating the table to partition.
