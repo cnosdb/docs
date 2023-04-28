@@ -27,11 +27,11 @@ order: 9
 
    磁盘一共两块，一块挂载到虚拟机 /opt-sdc1，性能 bench 如下：
 
-   ![](../../../source/_static/img/nvme_bench.png)
+   ![](/_static/img/nvme_bench.png)
 
    虚拟机其他目录磁盘性能 bench 如下：
 
-   ![](../../../source/_static/img/other_bench.png)
+   ![](/_static/img/other_bench.png)
 
 
 
@@ -39,7 +39,7 @@ order: 9
 
    磁盘性能 bench 如下：
 
-   ![](../../../source/_static/img/19bench.png)
+   ![](/_static/img/19bench.png)
 
 ## 配置
 

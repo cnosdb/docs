@@ -32,7 +32,7 @@ native ecology.
 
 ## CnosDB Architecture
 
-![整体架构](../../source/_static/img/arch.jpg)
+![整体架构](/_static/img/arch.jpg)
 
 ## CnosDB Timeline
 

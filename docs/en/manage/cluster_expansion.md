@@ -87,7 +87,7 @@ Meta maintains cluster metadata, such as Table Schema, Node survival heartbeat a
 
 Metadata is frequently accessed by each Node, and CnosDB chooses to maintain a strongly consistent Meta Node cluster, where Nodes subscribe to the Meta Node to pull information of interest, and all updates to metadata information are made through the Meta Node cluster.。
 
-<img src="../../source/_static/img/cluster_metas.jpg" style="width:50% "/>
+<img src="/_static/img/cluster_metas.jpg" style="width:50% "/>
 
 ### Data
 
@@ -95,7 +95,7 @@ Provides TCP Service to accept query and write requests distributed by Coodinato
 
 ### **Data Flow**
 
-![](../../source/_static/img/cluster_data_flow.jpg)
+![](/_static/img/cluster_data_flow.jpg)
 
 ### **Configuration**
 
