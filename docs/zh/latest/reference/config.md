@@ -178,3 +178,11 @@ reporting_disabled = true
 | ------ | ------------------------------------------ |
 | enable | 是否开启 HIntedOff 服务，默认：true        |
 | path   | HintedOff 存储目录，默认：`/tmp/cnosdb/hh` |
+
+## \[subscription]
+
+| 参数 | 说明                           |
+|----|------------------------------|
+| cache | 发送转发前写入cache的大小(bit)，默认：1028 |
+| concurrency   | 处理转发请求的并发数，默认：8              |
+| timeout | 转发请求的超时时间（秒），默认：300          |
