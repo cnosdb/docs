@@ -7,7 +7,7 @@ order: 2
 
 ## 部署
 
-其他安装方式请查看[安装CnosDB](../deploy/single.md)
+其他安装方式请查看[安装CnosDB](../deploy)
 
 ## Docker安装
 

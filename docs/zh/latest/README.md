@@ -21,68 +21,68 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本章节介绍了 CnosDB 的基本操作，包含写入数据，查询数据等。
 
-- [开始](./guide/start)
-  - [安装](./guide/start/install.md)
-  - [快速开始](./guide/start/quick_start.md)
+- [开始](./start)
+  - [安装](./start/install.md)
+  - [快速开始](./start/quick_start.md)
 
 ## 开发
 
 本章节介绍了 CnosDB 的开发指南，包含如何使用 CnosDB 的各种API，如何连接 CnosDB 进行数据的写入与查询。
 
-- [开发](./guide/develop)
-  - [Connect to CnosDB](./guide/develop/api.md)
-  - [数据写入](./guide/develop/write.md)
-  - [数据查询](./guide/develop/query.md)
+- [开发](./develop)
+  - [Connect to CnosDB](./develop/api.md)
+  - [数据写入](./develop/write.md)
+  - [数据查询](./develop/query.md)
 
 ## 部署
 
 本章节介绍了如何使用以下其中之一安装和运行单机版或集群版 CnosDB，以及 CnosDB 的计算存储分离架构。
 
-- [部署](./guide/deploy)
-  - [下载](./guide/deploy/download.md)
-  - [安装](./guide/deploy/install.md)
+- [部署](./deploy)
+  - [下载](./deploy/download.md)
+  - [安装](./deploy/install.md)
 
 ## 管理
 
 本章节介绍了 CnosDB 单机版与集群版的管理与监控。
 
-- [管理](./guide/manage)
-  - [节点升级](./guide/manage/upgrade.md) 
-  - [节点迁移](./guide/manage/migration.md)
-  - [集群扩容](./guide/manage/cluster_expansion.md)
-  - [集群缩容](./guide/manage/cluster_shrink.md)
-  - [备份与还原](./guide/manage/backup.md)
-  - [监控](./guide/manage/monitor.md)
-  - [租户和权限](./guide/manage/tenant.md)
+- [管理](./manage)
+  - [节点升级](./manage/upgrade.md)
+  - [节点迁移](./manage/migration.md)
+  - [集群扩容](./manage/cluster_expansion.md)
+  - [集群缩容](./manage/cluster_shrink.md)
+  - [备份与还原](./manage/backup.md)
+  - [监控](./manage/monitor.md)
+  - [租户和权限](./manage/tenant.md)
 
 # 指南
 
 本章节介绍了 CnosDB 的实现原理，以及 CnosDB 的生态集成。
 
-- [指南](./guide/reference)
-  - [设计](./guide/reference/concept_design)
-  - [REST API](./guide/reference/rest_api.md)
-  - [连接器](./guide/reference/README.md)
-  - [SQL](./guide/reference/sql.md)
-  - [配置文件](./guide/reference/config.md)
-  - [工具](./guide/reference/tools.md)
-  - [性能测试](./guide/reference/performance.md)
+- [指南](./reference)
+  - [设计](./reference/concept_design)
+  - [REST API](./reference/rest_api.md)
+  - [连接器](./reference/README.md)
+  - [SQL](./reference/sql.md)
+  - [配置文件](./reference/config.md)
+  - [工具](./reference/tools.md)
+  - [性能测试](./reference/performance.md)
 
 ## 生态
 
 本段介绍了 CnosDB 的生态集成，包括一些开源常用的的组件如何与 CnosDB 结合的一些示例。
 
-- [生态集成](./guide/eco)
-  - [Telegraf](./guide/eco/telegraf.md)
-  - [Grafana](./guide/eco/grafana.md)
-  - [Prometheus](./guide/eco/prometheus.md)
-  - [TensorFlow](./guide/eco/tensorflow.md)
+- [生态集成](./eco)
+  - [Telegraf](./eco/telegraf.md)
+  - [Grafana](./eco/grafana.md)
+  - [Prometheus](./eco/prometheus.md)
+  - [TensorFlow](./eco/tensorflow.md)
 
 ## 版本发布
 
 本章节介绍了 CnosDB 的版本发布历史。
 
-- [版本发布](./guide/release)
-  - [版本发布](./guide/release/changelist.md)
-  - [路线图](./guide/release/roadmap.md)
+- [版本发布](./release)
+  - [版本发布](./release/changelist.md)
+  - [路线图](./release/roadmap.md)
 

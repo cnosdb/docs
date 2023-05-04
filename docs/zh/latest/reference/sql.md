@@ -5478,7 +5478,7 @@ select * from usage_schema.queries order by time desc limit 2;
 
 该视图记录用户写入DB的次数。
 
-注意，该视图目前只会在通过[lineprotocol](./rest_api.md#接口列表)/[prometheus remote write](./ecosystem.md#remote-write) 接口写入成功时创建。
+注意，该视图目前只会在通过[lineprotocol](./rest_api.md#接口列表)/[prometheus remote write](../eco/prometheus#remote-write) 接口写入成功时创建。
 
 #### 视图定义
 

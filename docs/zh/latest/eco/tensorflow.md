@@ -99,7 +99,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 
 （注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com/）
 
-在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](./tools.md) 工具直接访问 CnosDB：
+在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](../reference/tools.md) 工具直接访问 CnosDB：
 
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2.0.2.1-beta
@@ -153,7 +153,7 @@ conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-如果不习惯使用 [CnosDB CLI](./tools.md) ，我们也可以直接使用 Python Connector 创建数据表。
+如果不习惯使用 [CnosDB CLI](../reference/tools.md) ，我们也可以直接使用 Python Connector 创建数据表。
 
 ```python
 # 创建 tf_demo database
