@@ -9,7 +9,7 @@ order: 4
 
 ## **Installation**
 
-Reference [Source Code Installation](../deploy/single.md#source-code-installation)。
+Reference [Source Code Installation](../deploy/)。
 
 ## **Start**
 

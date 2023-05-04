@@ -99,7 +99,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 
 （Notice：We suppose the you have the ability to deploy and use CnosDB. You can get more information through https://docs.cnosdb.com/）
 
-Use Docker to start CnosDB service in command line, enter the container and use the [CnosDB CLI](./tools.md) to use CnosDB：
+Use Docker to start CnosDB service in command line, enter the container and use the [CnosDB CLI](../reference/tools.md) to use CnosDB：
 
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.2.1-beta
@@ -154,7 +154,7 @@ conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-If you are not familiar wit [CnosDB CLI](./tools.md) ，We can use Python Connector to create a data table.
+If you are not familiar wit [CnosDB CLI](../reference/tools.md) ，We can use Python Connector to create a data table.
 
 ```python
 

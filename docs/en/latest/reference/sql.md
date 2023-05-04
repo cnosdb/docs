@@ -5354,7 +5354,7 @@ select * from usage_schema.queries order by time desc limit 2;
 
 This schema records the number of writes to the database.
 
-Notice: The schema will only be created when we write in [lineprotocol](./rest_api.md)/[Prometheus remote write](./ecosystem.md#remote-write) successfully.
+Notice: The schema will only be created when we write in [lineprotocol](./rest_api.md)/[Prometheus remote write](../eco/prometheus#remote-write) successfully.
 
 
 #### Schema definition

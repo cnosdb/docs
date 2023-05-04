@@ -195,7 +195,7 @@ path = '/tmp/cnosdb/1001/hh'
 
 ## 安装CnosDB
 
-参考 [安装CnosDB#源码安装](../install_cnosdb.md#源码安装)。
+参考 [安装CnosDB#源码安装](../deploy/install.md#源码安装)。
 
 ## 启动CnosDB集群
 

@@ -176,5 +176,5 @@ scrape_configs:
 
 ## 存储到 CnosDB 上
 
-在[配置文件](cluster.md#配置项-cluster)中修改`store_metrics`参数为 `true` （默认为true）
+在[配置文件](../reference/config.md#node-basic)中修改`store_metrics`参数为 `true` （默认为true）
 
