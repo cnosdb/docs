@@ -4,3 +4,5 @@ node_modules
 .temp
 .cache
 .idea
+
+.DS_Store

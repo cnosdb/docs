@@ -9,6 +9,8 @@ index: false
 
 **This feature allows users to view their cloud usage and costs for a selected period of time. The following cost categories are included in the bills:**
 
+![](/_static/img/cloud/usage.png)
+
 1. Disk: This refers to the cost of using disk storage in the cloud. The disk cost is based on the amount of storage used and the duration of usage.
 
 2. Queries: This refers to the cost of executing SQL queries in the cloud. The queries cost is based on the number of queries executed and the complexity of the queries.
@@ -26,7 +28,7 @@ We hope this overview provides a clear understanding of the CnosDB Cloud Bills f
 ## Invoice
 
 
-** The CnosDB cloud invoice is a feature that provides users with detailed information about their monthly expenses. The invoice includes data on the previous month's consumption, current month's consumption, and historical invoices. Each invoice contains the following information:**
+**The CnosDB cloud invoice is a feature that provides users with detailed information about their monthly expenses. The invoice includes data on the previous month's consumption, current month's consumption, and historical invoices. Each invoice contains the following information:**
 
 1. INVOICE ID - A unique identifier for the invoice that allows users to easily reference it in the future.
 
