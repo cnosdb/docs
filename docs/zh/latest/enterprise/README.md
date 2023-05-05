@@ -10,4 +10,4 @@ index: false
 
 - [多级存储](../manage/tiered_storage.md)
 
-- [CDC订阅机制]()
+- [订阅管理](../manage/subscriptions.md)
