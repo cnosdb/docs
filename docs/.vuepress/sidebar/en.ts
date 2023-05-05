@@ -117,4 +117,39 @@ export const enSidebar = sidebar({
       collapsible: true,
     },
   ],
+
+  "/en/cloud/": [
+    "README.md",
+    {
+      text: "Get Started",
+      link: "get-started.md",
+      icon: "launch",
+      collapsible: true,
+    },
+
+    {
+      text: "Billing",
+      link: "billing.md",
+      icon: "creative",
+      collapsible: true,
+    },
+    {
+      text: "Navigator",
+      link: "navigator.md",
+      icon: "tool",
+      collapsible: true,
+    },
+    {
+      text: "Dashboard",
+      link: "dashboard.md",
+      icon: "generic",
+      collapsible: true,
+    },
+    {
+      text: "Tenant View",
+      link: "tenant.md",
+      icon: "leaf",
+      collapsible: true,
+    },
+  ],
 });
