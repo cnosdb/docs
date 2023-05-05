@@ -8,6 +8,8 @@ index: false
 CnosDB Cloud's Data Navigator is a powerful tool that allows users to easily navigate and query databases within the CnosDB Cloud environment. With this feature, users can select databases, tables, and even write SQL queries to retrieve the data they need.
 Here are the steps to use CnosDB Cloud's Data Navigator:
 
+![](/_static/img/cloud/data-navigator.png)
+
 1. Log in to your CnosDB Cloud account and navigate to the Data Navigator feature.
 
 2. Select the database you want to work with from the list of available databases.
