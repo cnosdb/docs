@@ -13,6 +13,15 @@
   color: var(--text-color);
 }
 
+.navbar-center {
+  justify-content: flex-end;
+}
+
+.navbar-end {
+  flex: 0;
+  margin-left: 12px;
+}
+
 @media print {
   .navbar,
   .sidebar,
