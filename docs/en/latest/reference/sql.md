@@ -165,7 +165,6 @@ db_option: {
     | SHARD value
     | VNODE_DURATION value
     | REPLICA value
-    | PRECISION {'ms' | 'us' | 'ns'}
 }
 ```
 **Example**
