@@ -1,5 +1,5 @@
 ---
-title: Enterprise Ui
+title: Enterprise UI
 index: true
 ---
 
@@ -19,15 +19,11 @@ Enterprise Ui 是CnosDB 专属的数据库应用程序，功能如下：
 
 ![](/_static/img/enterprise-ui/deploy_arch.png)
 
-
+:::tip
+以下所有使用到的安装程序请联系 <a class="color-fg-default" itemprop="email" href="mailto:contact@cnosdb.com">contact@cnosdb.com</a> 获取
+:::
 
 ## 部署静态页面
-
-### 下载
-
-```
-wget https://dl.cnosdb.com/ui/cnosdb-enterprise-ui.zip
-```
 
 ### 解压并编译代码：
 
@@ -69,13 +65,6 @@ server {
 ```
 
 ### 部署后端 API 程序
-
-> 点击这里下载 cnosdb-enterprise-api 安装包：
-
-[cnosdb-enterprise-api-linux-amd64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-linux-amd64.tar.gz)\
-[cnosdb-enterprise-api-linux-arm64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-linux-arm64.tar.gz)\
-[cnosdb-enterprise-api-darwin-amd64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-darwin-amd64.tar.gz)\
-[cnosdb-enterprise-api-darwin-arm64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-darwin-arm64.tar.gz)
 
 > 解压后目录结构如下：
 
