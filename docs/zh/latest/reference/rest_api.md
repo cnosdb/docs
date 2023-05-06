@@ -32,7 +32,7 @@ Authorization: BASIC
 **请求示例**
 
 ```shell
-curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
+curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1'
 ```
 
 **请求成功**
