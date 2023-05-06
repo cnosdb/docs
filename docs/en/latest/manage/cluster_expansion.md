@@ -7,76 +7,6 @@ order: 4
 
 # Cluster Expansion
 
-## **Installation**
-
-Reference [Source Code Installation](../deploy/)。
-
-## **Start**
-
-Meta Cluster is a Raft Group composed of multiple cnos-meta via Raft protocol.
-
-### **Single-node startup process**
-
-```sh
-./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
-curl http://127.0.0.1:21001/init -d '{}'
-curl http://127.0.0.1:21001/metrics
-./target/debug/cnosdb run --config ./config/config_31001.toml
-```
-
-### **Cluster Startup Process**
-
-### **Meta Custer Startup Process**
-
-Start meta-1
-
-```sh
-./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
-```
-
-**Start meta-2**
-
-```sh
-./target/debug/cnosdb-meta --id 2 --http-addr 127.0.0.1:21002
-```
-
-**Start meta-3**
-
-```sh
-./target/debug/cnosdb-meta --id 3 --http-addr 127.0.0.1:21003
-```
-
-**Initialize meta**
-
-```sh
-curl http://127.0.0.1:21001/init -d '{}'
-curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[2, "127.0.0.1:21002"]'
-curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[3, "127.0.0.1:21003"]'
-curl http://127.0.0.1:21001/change-membership -H "Content-Type: application/json" -d '[1, 2, 3]'
-```
-
-**View meta cluster status**
-
-```sh
-curl http://127.0.0.1:21001/metrics
-curl http://127.0.0.1:21002/metrics
-curl http://127.0.0.1:21003/metrics
-```
-
-#### **Data Cluster Startup Process**
-
-**Start data-1**
-
-```sh
-./target/debug/cnosdb run --config ./config/config_31001.toml
-```
-
-**Start data-2**
-
-```sh
-./target/debug/cnosdb run --config ./config/config_32001.toml
-```
-
 ## **Overview**
 
 In the CnosDB cluster version, individual running instances are called Nodes, and each Node is divided into two roles: Meta and Data.
@@ -97,13 +27,14 @@ Provides TCP Service to accept query and write requests distributed by Coodinato
 
 ![](/_static/img/cluster_data_flow.jpg)
 
-### **Configuration**
+## **Configuration**
 
 ### Data
 
 The following describes the configuration file of CnosDB Cluster Edition
 
 ```toml
+
 #reporting_disabled = false
 host = "localhost"
 
@@ -165,7 +96,7 @@ flight_rpc_listen_port = 8904
 tcp_listen_port = 8905
 
 [node_basic]
-node_id = 1001 
+node_id = 1001
 cold_data_server = false
 store_metrics = true
 
@@ -230,28 +161,28 @@ path = '/tmp/cnosdb/1001/hh'
 
 #### Configuration cluster
 
-| **Configuration items** | **Default Value** | **Description**                      |
-|-------------------------|-------------------|--------------------------------------|
-| name                    | cluster_xxx       | Data Node Name                       |
-| meta                    | 127.0.0.1:8901   | Meta Node Address                    |
-| flight_rpc_listen_port       | 8902   | Flight RPC Service Listening Port |
-| http_listen_port             | 8903   | HTTP Service Listening Port       |
-| grpc_listen_port             | 8904   | GRPC Service Listening Port       |
-| tcp_listen_port              | 8905   | TCP Service Listening Port        |
+| **Configuration items** | **Default Value** | **Description**                   |
+|-------------------------|-------------------|-----------------------------------|
+| name                    | cluster_xxx       | Data Node Name                    |
+| meta                    | 127.0.0.1:8901    | Meta Node Address                 |
+| flight_rpc_listen_port  | 8902              | Flight RPC Service Listening Port |
+| http_listen_port        | 8903              | HTTP Service Listening Port       |
+| grpc_listen_port        | 8904              | GRPC Service Listening Port       |
+| tcp_listen_port         | 8905              | TCP Service Listening Port        |
 
 #### Configuration node_basic
 
-|  **Configuration items**               | **Default Value**             | **Description**                  |
-|-------------------|-----------------|---------------------|
-| node_id           | 100             | Data Node ID          |
-| cold_data_server  | true            | Whether to use this node when allocating vnode        |
-| store_metrics     | true            | Whether to store metrics in db |
+| **Configuration items** | **Default Value** | **Description**                                |
+|-------------------------|-------------------|------------------------------------------------|
+| node_id                 | 100               | Data Node ID                                   |
+| cold_data_server        | true              | Whether to use this node when allocating vnode |
+| store_metrics           | true              | Whether to store metrics in db                 |
 
 #### Configuration heartbeat
 
-|  **Configuration items**               |  **Default Value**             |   **Description**                |
-|-------------------|-----------------|---------------------|
-| report_time_interval_secs | 30             | The frequency at which Data nodes report information such as time stamps and disk remaining capacity         |
+| **Configuration items**   | **Default Value** | **Description**                                                                                      |
+|---------------------------|-------------------|------------------------------------------------------------------------------------------------------|
+| report_time_interval_secs | 30                | The frequency at which Data nodes report information such as time stamps and disk remaining capacity |
 
 #### Configuration hintedoff
 
@@ -260,9 +191,81 @@ path = '/tmp/cnosdb/1001/hh'
 | enable                  | true              | Whether to enable Hinted Off for consistency support, when set to true, failed write requests will automatically enter the hinted-off queue and be retried automatically |
 | path                    | data/hh           | Hinted Off persistent directory                                                                                                                                          |
 
+
+
+## **Installation**
+
+Reference [Source Code Installation](../deploy/)。
+
+## **Start**
+
+Meta Cluster is a Raft Group composed of multiple cnos-meta via Raft protocol.
+
+### **Single-node startup process**
+
+```sh
+./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
+curl http://127.0.0.1:21001/init -d '{}'
+curl http://127.0.0.1:21001/metrics
+./target/debug/cnosdb run --config ./config/config_8902.toml
+```
+
+### **Cluster Startup Process**
+
+- #### **Meta Custer Startup Process**
+
+  **Start meta-1**
+
+    ```sh
+    ./target/debug/cnosdb-meta --id 1 --http-addr 127.0.0.1:21001
+    ```
+    
+  **Start meta-2**
+    
+    ```sh
+    ./target/debug/cnosdb-meta --id 2 --http-addr 127.0.0.1:21002
+    ```
+    
+  **Start meta-3**
+    
+    ```sh
+    ./target/debug/cnosdb-meta --id 3 --http-addr 127.0.0.1:21003
+    ```
+    
+  **Initialize meta**
+    
+    ```sh
+    curl http://127.0.0.1:21001/init -d '{}'
+    curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[2, "127.0.0.1:21002"]'
+    curl http://127.0.0.1:21001/add-learner -H "Content-Type: application/json" -d '[3, "127.0.0.1:21003"]'
+    curl http://127.0.0.1:21001/change-membership -H "Content-Type: application/json" -d '[1, 2, 3]'
+    ```
+    
+  **View meta cluster status**
+    
+    ```sh
+    curl http://127.0.0.1:21001/metrics
+    curl http://127.0.0.1:21002/metrics
+    curl http://127.0.0.1:21003/metrics
+    ```
+
+- #### **Data Cluster Startup Process**
+
+  **Start data-1**
+    
+    ```sh
+    ./target/debug/cnosdb run --config ./config/config_31001.toml
+    ```
+    
+  **Start data-2**
+    
+    ```sh
+    ./target/debug/cnosdb run --config ./config/config_32001.toml
+    ```
+
 ## **Operations and Maintenance Guide**
 
-### **Cluster maintenance (coming soon)**
+### **Cluster Maintenance**
 
 **Transferring Vnode**
 

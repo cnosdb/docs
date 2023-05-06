@@ -2,7 +2,7 @@
 title: 生态
 icon: generic
 index: false
-order: -1
+order: -2
 ---
 
 # 生态

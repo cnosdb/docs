@@ -71,13 +71,28 @@ SELECT CAST (1 AS TIMESTAMP);
 
 #### INTERVAL Constant Syntax
 
-1. `INTERVAL '1' DAY` One day
-2. `INTERVAL '1' MONTH` One month
-3. `INTERVAL '1' HOUR` One hour
-4. `INTERVAL '1' MINS` One minute
-5. `INTERVAL '1' YEAR` One year
-6. `INTERVAL '1' SECS` One second
 
+**Example：**
+
+1. `INTERVAL '1'` One second
+2. `INTERVAL '1 SECONDE'` One second
+3. `INTERVAL '1 MILLISECONDS'` One millisecond
+4. `INTERVAL '1 MINUTE'` One minute
+5. `INTERVAL '0.5 MINUTE'` Half a minute
+6. `INTERVAL '1 HOUR'` One hour
+7. `INTERVAL '1 DAY'` One day
+8. `INTERVAL '1 DAY 1'` One day and one second
+9. `INTERVAL '1 WEEK'` One week
+10. `INTERVAL '1 MONTH'` One month(30 days)
+11. `INTERVAL '0.5 MONTH'` Half a month(15 days)
+12. `INTERVAL '1 YEAR'` One year(12 months)
+13. `INTERVAL '1 YEAR 1 DAY 1 HOUR 1 MINUTE'` One year, one day, one hour, one minute
+14. `INTERVAL '1 DECADES' ` One decade(10 years)
+
+**Notice:**
+
+INTERVAL '1 YEAR' is not 365 days or 366 days, but 12-months.
+INTERVAL '1 MONTH' is not 30 days or 31 days, but 1-month.
 
 ### Create Database
 
@@ -200,7 +215,7 @@ You can use `CREATE TABLE`  to create tables
 
 CnosDB supports the creation of common tables and external tables
 
-###  Create Common Table
+###  Create Common (TSKV) Table
 
 **Syntax**
 
@@ -1271,14 +1286,14 @@ If a complex expression has more than one operator, operator precedence determin
 The precedence levels of the operators are given in the following table. Operators at higher levels are evaluated before operators at lower levels. In the following table, 1 represents the highest level and 8 represents the lowest level.
 
 
-| 级别  | 运算符                       |
-|-----|---------------------------|
-| 1   | *（乘）、/（除）、%（取模）           |
-| 2   | +（正）、-（负）、+（加）、+（串联）、-（减） |
-| 3   | =、>=、<=、<>、!=、>、<（比较运算符）  |
-| 4   | NOT                       |
-| 5   | AND                       |
-| 6   | BETWEEN、IN、LIKE、OR        |
+| Precedence | Operator                                                    |
+|------------|-------------------------------------------------------------|
+| 1          | *（plus）、/（division）、%（modular）                              |
+| 2          | + (positive), - (negative), + (plus), + (series), - (minus) |
+| 3          | =、>=、<=、<>、!=、>、<（Comparison operator)                      |
+| 4          | NOT                                                         |
+| 5          | AND                                                         |
+| 6          | BETWEEN、IN、LIKE、OR                                          |
 
 
 ### **SHOW**
@@ -1311,6 +1326,73 @@ SHOW TABLES;
     | air   |
     | wind  |
     +-------+
+
+```sql
+SHOW QUERIES;
+```
+    +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+    | query_id | query_text                                                       | user_id                                 | user_name | tenant_id                              | tenant_name | state      | duration     |
+    +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+    | 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
+    +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+
+For more information about SHOW QUERIES, you can reference to [SHOW QUERIES](#show-queries).
+
+
+#### SHOW SERIES
+
+Return the series in the specified table.
+
+**Syntax**
+
+```sql
+SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
+```
+
+**Example**
+
+```sql
+SHOW SERIES FROM air WHERE station = 'XiaoMaiDao' ORDER BY key LIMIT 1;
+```
+    +------------------------+
+    | key                    |
+    +------------------------+
+    | air,station=XiaoMaiDao |
+    +------------------------+
+
+**Notice**
+
+The expression column in the WEHER clause can only be the tag column or the time column, and the expression in the ORDER BY clause can only be the key.
+
+#### SHOW TAG VALUES
+
+**Syntax**
+
+```sql
+SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
+```
+operator include `=`, `!=`.
+
+**Example**
+
+```sql
+SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER BY key, value LIMIT 1;
+```
+    +---------+------------+
+    | key     | value      |
+    +---------+------------+
+    | station | XiaoMaiDao |
+    +---------+------------+
+
+```sql
+SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
+```
+    +---------+-------------+
+    | key     | value       |
+    +---------+-------------+
+    | station | XiaoMaiDao  |
+    | station | LianYunGang |
+    +---------+-------------+
 
 ### **EXPLAIN**
 
@@ -4320,6 +4402,74 @@ SELECT now();
 [//]: # (    返回与正则表达式匹配的项)
 
 
+### **time_window**
+
+#### Syntax
+
+```sql
+time_window(time_expr, window_duration [, slide_duration])
+```
+`time_column` is Timestamp.
+
+`window_duration` is a STRING, parsed as an interval, specifying the window size of the time window.
+
+`slide_duration` is a STRING, which is resolved as an interval and specifies the sliding size of the time window. If this parameter is not specified, slide_duration is the sliding size of the time window and becomes a rolling window.
+
+The expression of time interval:
+
+| Format | Description | Example |
+|--------|-------------|---------|
+| 'd'    | day         | '10d'   |
+| 'h'    | hour        | '10h'   |
+| 'm'    | minute      | '10m'   |
+| 's'    | second      | '10s'   |
+| 'ms'   | millisecond | '10ms'  |
+
+time_window(time, window_duration, slide_duration) the window is:
+
+```sql
+start, end
+time, time_column + window_duration
+time - slide_duration, time + window_duration - slide_duration
+time - 2 * slide_duration, time + window_duration - 2 * slide_duration
+...
+time - n * slide_duration, time + window_duration - n * slide_duration
+```
+The window satisfies that: start <= time < end
+
+**Example**
+
+```sql
+CREATE TABLE test(a BIGINT, TAGS(b));
+INSERT INTO test(time, a, b) VALUES ('2023-04-23T00:00:00.000000Z', 1, 'b');
+SELECT time FROM test;
+```
+    +---------------------+
+    | time                |
+    +---------------------+
+    | 2023-04-23T00:00:00 |
+    +---------------------+
+
+```sql
+SELECT time_window(time, '3d') FROM test;
+```
+    +--------------------------------------------------------+
+    | TIME_WINDOW(test.time,Utf8("3d"))                      |
+    +--------------------------------------------------------+
+    | {start: 2023-04-23T00:00:00, end: 2023-04-26T00:00:00} |
+    +--------------------------------------------------------+
+
+```sql
+SELECT time_window(time, '5d', '3d') FROM test;
+```
+
+    +--------------------------------------------------------+
+    | TIME_WINDOW(test.time,Utf8("5d"),Utf8("3d"))           |
+    +--------------------------------------------------------+
+    | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00} |
+    | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00} |
+    +--------------------------------------------------------+ 
+
 ### Window Functions
 
 You can use window functions (analysis functions) in CnosDB to flexibly analyze and process data of specified window columns. The command formats, parameter descriptions and examples of window functions supported by CnosDB are shown below to guide you to use window functions to complete development.
@@ -5406,6 +5556,120 @@ select * from usage_schema.writes order by time desc limit 2;
     | 2023-02-23T07:06:56.547905 | public   | 1001    | root | 2     |
     | 2023-02-23T07:06:46.547673 | public   | 1001    | root | 2     |
     +----------------------------+----------+---------+------+-------+
+
+
+
+## Stream 
+
+### CREATE STREAM TABLE
+
+To create a stream table, a source table is required. The stream table does not support `ALTER` now.
+
+**Syntax**
+
+```sql
+CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
+    WITH (db = 'db_name', table = 'table_name', event_time_column = 'time_column')
+    engine = tskv;
+field_definition: 
+    column_name data_type
+```
+
+The db and table arguments specify the source table.
+
+`event_time_column` Specifies the event time column. The data type of this column must be TIMESTAMP.
+
+Currently, only common tables can be source tables. Field names and field types defined in flow table fields must belong to the source table and be the same as those defined in the source table.
+
+**Example**
+
+Create source table
+
+```sql
+CREATE DATABASE oceanic_station;
+```
+```
+\c oceanic_station
+```
+```
+CREATE TABLE air(pressure DOUBLE, temperature DOUBLE, visibility DOUBLE, TAGS(station));
+```
+
+Create stream table
+
+```sql
+CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
+    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time_column')
+    engine = tskv;
+```
+
+
+### DROP STREAM TABLE
+
+The syntax is the same as [DROP TABLE](#drop-table)
+
+
+### INSERT INTO STREAM TABLE
+
+Stream queries support only `INSERT SELECT` statements, where the FROM clause is the stream table and is inserted into the target table.
+
+When data is written to the source table, the streaming query is triggered.
+
+The SELECT clause of a stream query does not support `JOIN`.
+
+Stream QUERY statements are persisted and are cancelled by [KILL QUERY](#kill-query).
+
+**Example**
+
+In the streaming down-sampling scenario, the source table interval is one minute, and the down-sampling interval is one hour
+
+Create source table
+```sql
+CREATE TABLE air_down_sampling_1hour(max_pressure DOUBLE, avg_temperature DOUBLE, sum_temperature DOUBLE, count_pressure BIGINT, TAGS(station));
+```
+
+Create stream query statement
+
+```sql
+INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
+SELECT 
+	date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00') time, 
+	station, 
+	MAX(pressure) max_pressure, 
+	AVG(temperature) avg_temperature, 
+	SUM(temperature) sum_temperature, 
+	COUNT(pressure) count_pressure 
+FROM air_stream 
+GROUP BY date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00'), station;
+```
+
+A stream query statement is triggered when data is written.
+
+[Data Source](#sample-data)
+
+```sql
+\w oceanic_station.txt
+```
+
+Show the result
+
+```sql
+SELECT * FROM air_down_sampling_1hour LIMIT 10;
+```
+    +---------------------+------------+--------------+-----------------+-----------------+----------------+
+    | time                | station    | max_pressure | avg_temperature | sum_temperature | count_pressure |
+    +---------------------+------------+--------------+-----------------+-----------------+----------------+
+    | 2023-01-14T16:00:00 | XiaoMaiDao | 80.0         | 68.05           | 1361.0          | 20             |
+    | 2023-01-14T17:00:00 | XiaoMaiDao | 79.0         | 63.75           | 1275.0          | 20             |
+    | 2023-01-14T18:00:00 | XiaoMaiDao | 79.0         | 66.35           | 1327.0          | 20             |
+    | 2023-01-14T19:00:00 | XiaoMaiDao | 78.0         | 68.05           | 1361.0          | 20             |
+    | 2023-01-14T20:00:00 | XiaoMaiDao | 80.0         | 64.35           | 1287.0          | 20             |
+    | 2023-01-14T21:00:00 | XiaoMaiDao | 77.0         | 61.05           | 1221.0          | 20             |
+    | 2023-01-14T22:00:00 | XiaoMaiDao | 80.0         | 64.8            | 1296.0          | 20             |
+    | 2023-01-14T23:00:00 | XiaoMaiDao | 80.0         | 66.35           | 1327.0          | 20             |
+    | 2023-01-15T00:00:00 | XiaoMaiDao | 80.0         | 65.15           | 1303.0          | 20             |
+    | 2023-01-15T01:00:00 | XiaoMaiDao | 80.0         | 69.55           | 1391.0          | 20             |
+    +---------------------+------------+--------------+-----------------+-----------------+----------------+
 
 
 ## KILL QUERY

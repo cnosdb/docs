@@ -30,7 +30,7 @@ It will display the following:
 
 ```
 CnosDB CLI v2.2.0
-Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
+Input arguments: Args { host: "0.0.0.0", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
 public ❯
 ```
 

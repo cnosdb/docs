@@ -141,7 +141,7 @@ InfluxDB is the default configuration except [data] and [meta]
    ```
    cd tsdb-comparisons/cmd/load_cnosdb
    go build
-   ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:31007"   --batch-size=<batch_size_num> --workers=<workers_num>
+   ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
    ```
 
 5. Test InfluxDB writes

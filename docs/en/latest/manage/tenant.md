@@ -61,11 +61,25 @@ FROM cluster_schema.tenants;
 
 ### Alter Tenant
 
+**Syntax**
+
+```sql
+ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
+    
+sql_option: option_name = value
+option: {COMMENT}
+```
+
+SET is used to set tenant properties. Properties can only be constants of the corresponding attribute type.
+
+UNSET deletes vstore attributes.
+
+Currently, the only tenant attribute is COMMENT, which is a string and enclosed in single quotation marks.
+
 **Example**
 
 ```sql
-ALTER
-TENANT test SET COMMENT = 'abc';
+ALTER TENANT test SET COMMENT = 'abc';
 ```
 
 ### Drop Tenant
@@ -125,18 +139,23 @@ USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMEN
 
 ```sql
 ALTER
-USER user_name SET {PASSWORD = ''| MUST_CHANGE_PASSWORD = {true | false}| COMMENT = ''} = 
+ALTER USER user_name {SET sql_option};
+sql_option: option_name = option_value
+option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 ```
+
+option_value is constant.
+
+COMMENT option_value type is string.
+MUST_CHANGE_PASSWORD option_value type is boolean.
+PASSWORD option_value type is string.
 
 **Example**
 
 ```sql
-ALTER
-USER tester SET PASSWORD = 'aaa';
-ALTER
-USER tester SET MUST_CHANGE_PASSWORD = false;
-ALTER
-USER tester SET COMMENT = 'bbb';
+ALTER USER tester SET PASSWORD = 'aaa';
+ALTER USER tester SET MUST_CHANGE_PASSWORD = false;
+ALTER USER tester SET COMMENT = 'bbb';
 ```
 
 ### Drop User

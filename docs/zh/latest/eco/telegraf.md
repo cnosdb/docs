@@ -115,8 +115,8 @@ systemctl start telegraf
 接下来使用 CnosDB 查询接口来查看数据，以验证 Telegraf 是否正确运行：
 
 ```sh
-curl -XPOST 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos'
-  -u "<用户名>:<>密码"
+curl -XPOST 'http://<CnosDB地址>:<CnosDB端口>/api/v1/sql?db=cnos'
+  -u "<用户名>:<密码>"
   -H 'ACCEPT: application/json' \
   -d 'SELECT * from cpu limit 1'
 ```

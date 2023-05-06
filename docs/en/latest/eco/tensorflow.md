@@ -102,12 +102,12 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 Use Docker to start CnosDB service in command line, enter the container and use the [CnosDB CLI](../reference/tools.md) to use CnosDB：
 
 ```SHELL
-(base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 31007:31007 cnosdb/cnosdb:v2.0.2.1-beta
+(base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2.0.2.1-beta
 
 (base) root@ecs-django-dev:~# docker exec -it cnosdb sh sh
 # cnosdb-cli
 CnosDB CLI v2.0.0
-Input arguments: Args { host: "0.0.0.0", port: 31007, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
+Input arguments: Args { host: "0.0.0.0", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
 ```
 
 To simplify the analysis, we only need to store the observation time and the number of sunspots in the dataset. Therefore, we concatenate the year (Col 0) and month (Col 1) as the observation time (date, string type), and the monthly mean sunspot number (Col 3) can be stored directly without processing.
@@ -150,7 +150,7 @@ pip install -U cnos-connector
 ```python
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 cursor = conn.cursor()
 ```
 

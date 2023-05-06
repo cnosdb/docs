@@ -43,14 +43,23 @@ export const enSidebar = sidebar({
       icon: "generic",
       collapsible: true,
     },
-    {
+      {
+        text: "Enterprise",
+        prefix: "enterprise/",
+        children: 'structure',
+        link: "enterprise/README.md",
+        icon: "leaf",
+        collapsible: true,
+      },
+      {
       text: "Eco-integration",
       prefix: "eco/",
       children: 'structure',
       link: "eco/README.md",
       icon: "leaf",
       collapsible: true,
-    },{
+    },
+      {
       text: "Release",
       prefix: "release/",
       children: 'structure',
@@ -102,13 +111,22 @@ export const enSidebar = sidebar({
       collapsible: true,
     },
     {
+      text: "Enterprise",
+      prefix: "enterprise/",
+      children: 'structure',
+      link: "enterprise/README.md",
+      icon: "leaf",
+      collapsible: true,
+    },
+    {
       text: "Eco-integration",
       prefix: "eco/",
       children: 'structure',
       link: "eco/README.md",
       icon: "leaf",
       collapsible: true,
-    },{
+    },
+    {
       text: "Release",
       prefix: "release/",
       children: 'structure',

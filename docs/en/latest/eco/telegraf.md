@@ -82,7 +82,7 @@ as, for example:
 
 ```toml
 [[outputs.http]]
-url = "http://host.docker.internal:31007/api/v1/write?db=cnos"
+url = "http://host.docker.internal:8902/api/v1/write?db=cnos"
 timeout = "5s"
 method = "POST"
 username = "admin"
@@ -116,7 +116,10 @@ systemctl start telegraf
 Next, use the CnosDB query interface to view the data to verify that Telegraf is running correctly:
 
 ```sh
-curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo '用户名:密码'|base64)" 'http://CnosDB地址:CnosDB端口/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
+curl -XPOST 'http://<CnosDB addr>:<CnosDB port>/api/v1/sql?db=cnos'
+  -u "<username>:<password>"
+  -H 'ACCEPT: application/json' \
+  -d 'SELECT * from cpu limit 1'
 ```
 
 In the above configuration, there are some texts needed to be replaced:
@@ -129,28 +132,31 @@ In the above configuration, there are some texts needed to be replaced:
 as, for example:
 
 ```sh
-> curl -XPOST -H 'ACCEPT: application/json' -H "AUTHORIZATION: Basic $(echo 'admin:admin'|base64)" 'http://127.0.0.1:31007/api/v1/sql?db=cnos' -d 'SELECT * from cpu limit 1'
+> curl -XPOST 'http://127.0.0.1:8902/api/v1/sql?db=cnos'
+  -u "root:"
+  -H 'ACCEPT: application/json' \
+  -d 'SELECT * from cpu limit 1'
 ```
 
 Under correct configuration, you will obtain the following results:
 
 ```json
 [
-{
-"cpu": "cpu0",
-"host": "_HOST",
-"time": "2022-10-10 10:10:10",
-"usage_guest": 0.0,
-"usage_guest_nice": 0.0,
-"usage_idle": 99.49899799596298,
-"usage_iowait": 0.10020040080156893,
-"usage_irq": 0.0,
-"usage_nice": 0.0,
-"usage_softirq": 0.10020040080156893,
-"usage_steal": 0.0,
-"usage_system": 0.10020040080155113,
-"usage_user": 0.20040080160317345
-}
+  {
+    "cpu": "cpu0",
+    "host": "_HOST",
+    "time": "2022-10-10 10:10:10",
+    "usage_guest": 0.0,
+    "usage_guest_nice": 0.0,
+    "usage_idle": 99.49899799596298,
+    "usage_iowait": 0.10020040080156893,
+    "usage_irq": 0.0,
+    "usage_nice": 0.0,
+    "usage_softirq": 0.10020040080156893,
+    "usage_steal": 0.0,
+    "usage_system": 0.10020040080155113,
+    "usage_user": 0.20040080160317345
+  }
 ]
 ```
 
@@ -193,7 +199,7 @@ Add Output plugin CnosDB for exporting metrics to CnosDB.
 
 ```toml
 [[outputs.cnosdb]]
-url = "localhost:31006"
+url = "localhost:8902"
 user = "user"
 password = "pass"
 database = "telegraf"
@@ -202,7 +208,7 @@ database = "telegraf"
 - **Configuration introduction**
 
 | **Parameters** | **Description**             |
-| -------------- | --------------------------- |
+|----------------|-----------------------------|
 | url            | CnosDB GRpc service address |
 | user           | User Name                   |
 | password       | Password                    |

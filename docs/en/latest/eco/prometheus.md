@@ -34,7 +34,7 @@ password: ''
 **Parameter**
 
 ```
-db_url: Http Server address of CnosDB, such as 127.0.0.1:31001
+db_url: Http Server address of CnosDB, such as 127.0.0.1:8902
 db_name: Remote Write database name
 username: CnosDB username
 password: CnosDB user's password
@@ -63,7 +63,7 @@ password: ''
 **Parameter**
 
 ```
-db_url: Http Server address of CnosDB, such as 127.0.0.1:31001
+db_url: Http Server address of CnosDB, such as 127.0.0.1:8902
 db_name: Remote Write database name
 username: CnosDB username
 password: CnosDB user's password
