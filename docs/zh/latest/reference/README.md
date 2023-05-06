@@ -2,7 +2,7 @@
 title: 指南
 icon: generic
 index: false
-order: -2
+order: -4
 ---
 
 # 指南

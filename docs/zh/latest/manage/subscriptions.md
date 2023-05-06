@@ -39,7 +39,7 @@ CREATE SUBCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903"
 
 ## 更新订阅
 
-可以使用 `ALTER SUBCRIPTION`更新订阅
+可以使用 `ALTER SUBCRIPTION` 更新订阅。
 
 ### 语法
 
@@ -53,7 +53,7 @@ ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<hos
 ALTER SUBCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913"
 ```
 
-可以通过这种方法来修改 host_name，需要注意的是，通过`ALTER SUBSCRIPTION`进行修改是直接覆盖，如果不希望删除之前的 host_name，`DESTINATIONS ALL`后需要添加之前的所有 host_name。
+可以通过这种方法来修改 host_name，需要注意的是，通过 `ALTER SUBSCRIPTION` 进行修改是直接覆盖，如果不希望删除之前的 host_name，`DESTINATIONS ALL` 后需要添加之前的所有 host_name。
 
 ## 显示订阅
 
@@ -73,7 +73,7 @@ SHOW SUBCRIPTION ON public
 
 ```
 Subscription,DESTINATIONS,Concurrency
-test,"127.0.0.1:31001,127.0.0.1:31002",ALL
+test,"127.0.0.1:8902,127.0.0.1:31002",ALL
 ```
 
 ## 删除订阅

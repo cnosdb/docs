@@ -23,19 +23,19 @@ basic64(user_name + ":" + password)
 
 - db：name of database (optional, default database is public)
 - tenant: name of tenant (optional, if not specified, the default tenant cnosdb will be used)
+- precision: time precision (optional, `ms`/`us`/`ns` can be used)
 
 **Request Body**
 
-- Line agreement: The details of the line agreement can be seen[here](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/)
-
+- Line agreement: The details of the line agreement can be seen [here](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/).
 
 **Request Example**
 
 ```shell
-curl -i -u "username:password" -XPOST "http://localhost:31007/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
+curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=example" -d 't1,foo=a,bar=b v=1 3'
 ```
 
-**Request succeeded**
+**Request Succeeded**
 
 ```shell
 HTTP/1.1 200 OK
@@ -43,7 +43,7 @@ content-length: 0
 date: Sat, 08 Oct 2022 06:59:38 GMT
 ```
 
-**Request failed**
+**Request Failed**
 
 > A failed request will return 4xx or 5xx.
 ```
@@ -53,7 +53,6 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 ... ...
 ```
 :::
-
 
 ::: details /api/v1/sql
 
@@ -71,7 +70,7 @@ basic64(user_name + ":" + password)
 
 - Accept-Encoding: identity | gzip | compress | deflate | br | *
 
-**Request parameter**
+**Request Parameter**
 
 - db : name of database (optional, default database is public)
   Default database based on the current request context.
@@ -82,10 +81,10 @@ basic64(user_name + ":" + password)
 **Request Example**
 
 ```shell
-curl -i -u "username:password" -H "Accept: application/json" -XPOST "http://localhost:31007/api/v1/sql?db=example" -d 'SELECT * from t1'
+curl -i -u "username:password" -H "Accept: application/json" -XPOST "http://localhost:8902/api/v1/sql?db=example" -d 'SELECT * from t1'
 ```
 
-**Request succeeded**
+**Request Succeeded**
 
 ```shell
 HTTP/1.1 200 OK
@@ -95,7 +94,7 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 ... ...
 ```
 
-**Request failed**
+**Request Failed**
 
 > A failed request will return 4xx or 5xx.
 > 
@@ -118,10 +117,10 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 **Request Example**
 
 ```shell
-curl -G 'http://localhost:31007/api/v1/ping'
+curl -G 'http://localhost:8902/api/v1/ping'
 ```
 
-**Request succeeded**
+**Request Succeeded**
 
 ```json
 {
@@ -129,9 +128,58 @@ curl -G 'http://localhost:31007/api/v1/ping'
 "status":"healthy"
 }
 ```
-**Request failed**
+**Request Failed**
 
 > No result will be returned.
+:::
+
+::: details /api/v1/opentsdb/write
+
+****
+
+- POST
+
+**Request Head**
+
+Authorization: BASIC
+
+    basic64(user_name + ":" + password)
+
+**Request Parameter**
+
+- db：name of database (optional, default database is public)
+- tenant: name of tenant (optional, if not specified, the default tenant cnosdb will be used)
+- precision: time precision (optional, `ms`/`us`/`ns` can be used)
+
+**Request Body**
+
+```
+<metric> <timestamp> <value> <tagk_1>=<tagv_1>[ <tagk_n>=<tagv_n>]
+```
+
+**Request Example**
+
+```shell
+curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/opentsdb/write?db=example" -d 'sys.if.bytes.out 1666165200290401000 1 host=web01 interface=eth0'
+```
+
+**Request Succeed**
+
+```shell
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
+```
+
+**Request Failed**
+
+> A failed request will return 4xx or 5xx.
+```shell
+HTTP/1.1 500 Internal Server Error
+content-length: 0
+date: Sat, 08 Oct 2022 07:03:33 GMT
+... ...
+```
 :::
 
 ## Status Code

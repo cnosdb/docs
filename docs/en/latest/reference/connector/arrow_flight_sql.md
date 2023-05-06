@@ -96,7 +96,7 @@ The flow chart is as follows:
 
    ```c++
     arrow::Result <std::unique_ptr<FlightClient>> get_location() {
-        ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004));
+        ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 8904));
         ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
     }
    ```
@@ -118,7 +118,7 @@ The flow chart is as follows:
 - #### Verify identity to obtain a token and create a FlightSqlClient
 
    ```c++
-   ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
+   ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 8904))
    ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
    auto user = "root";
    auto password = "";
@@ -172,7 +172,7 @@ The flow chart is as follows:
    int main() {
 
        auto fun = []() {
-           ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 31004))
+           ARROW_ASSIGN_OR_RAISE(auto location, Location::ForGrpcTcp("localhost", 8904))
            ARROW_ASSIGN_OR_RAISE(auto client, FlightClient::Connect(location))
 
            auto user = "root";
@@ -227,7 +227,7 @@ The flow chart is as follows:
 - #### Build Flight SQL Client
 
    ```go
-   addr := "127.0.0.1:31004"
+   addr := "127.0.0.1:8904"
    var dialOpts = []grpc.DialOption{
      grpc.WithTransportCredentials(insecure.NewCredentials()),
    }
@@ -367,7 +367,7 @@ The flow chart is as follows:
 
    ```java
    BufferAllocator allocator = new RootAllocator(Integer.MAX_VALUE);
-   final Location clientLocation = Location.forGrpcInsecure("localhost", 31004);
+   final Location clientLocation = Location.forGrpcInsecure("localhost", 8904);
    
    FlightClient client = FlightClient.builder(allocator, clientLocation).build();
    FlightSqlClient sqlClinet = new FlightSqlClient(client);
@@ -436,7 +436,7 @@ The flow chart is as follows:
    public class Main {
      public static void main(String[] args) {
        BufferAllocator allocator = new RootAllocator(Integer.MAX_VALUE);
-       final Location clientLocation = Location.forGrpcInsecure("localhost", 31004);
+       final Location clientLocation = Location.forGrpcInsecure("localhost", 8904);
    
        FlightClient client = FlightClient.builder(allocator, clientLocation).build();
        FlightSqlClient sqlClinet = new FlightSqlClient(client);
@@ -492,7 +492,7 @@ The code runs in an asynchronous environment.
 - #### Creative Flight ServerClient
 
    ```rust
-   let mut client = FlightServiceClient::connect("http://localhost:31004")
+   let mut client = FlightServiceClient::connect("http://localhost:8904")
    .await
    .expect("connect faile");
    ```
@@ -618,7 +618,7 @@ The code runs in an asynchronous environment.
    #[tokio::main]
    async fn main() {
    
-     let mut client = FlightServiceClient::connect("http://localhost:31004")
+     let mut client = FlightServiceClient::connect("http://localhost:8904")
      .await
      .expect("connect");
    
@@ -761,7 +761,7 @@ The code runs in an asynchronous environment.
        properties.put("useEncryption", false);
        try (
          Connection connection = DriverManager.getConnection(
-           "jdbc:arrow-flight-sql://localhost:31004", properties
+           "jdbc:arrow-flight-sql://localhost:8904", properties
          );
          Statement statement = connection.createStatement())
        {
@@ -797,7 +797,7 @@ The code runs in an asynchronous environment.
        properties.put("useEncryption", false);
        try (
          Connection connection = DriverManager.getConnection(
-           "jdbc:arrow-flight-sql://localhost:31004", properties
+           "jdbc:arrow-flight-sql://localhost:8904", properties
          );
          Statement statement = connection.createStatement())
        {
@@ -864,7 +864,7 @@ The following steps are based on Centos7.
    Description=ODBC Driver DSN for Arrow Flight SQL developed by Dremio
    Driver=Arrow Flight SQL ODBC Driver
    Host=localhost
-   Port=31004  
+   Port=8904  
    UID=root
    PWD=
    Database=public

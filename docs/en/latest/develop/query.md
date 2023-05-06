@@ -24,7 +24,7 @@ curl -i -u "<username>:<password>" -H "Accept: application/json" \
 
 ```shell
 curl -i -u "cnosdb:" -H "Accept: application/json" \
--XPOST "http://127.0.0.1:31007/api/v1/sql?db=oceanic_station" \
+-XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 

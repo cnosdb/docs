@@ -1,7 +1,7 @@
 ---
 title: Get Started
 index: false
-order: -6
+order: -8
 ---
 
 # Get Started

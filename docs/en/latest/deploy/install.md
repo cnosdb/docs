@@ -32,15 +32,15 @@ This page provides some instructions for installing, starting, and configuring C
 **v2.0.1**
 
 ```bash
-docker run -d -p 31007:31007 cnosdb/cnosdb:2.0.1
+docker run -d -p 8902:8902 cnosdb/cnosdb:2.0.1
 ```
 
 **v2.2.0**
 
 ```bash
 If you want to map ports to hosts,
-## You can modify http_listen_addr in /etc/cnosdb/cnosdb.conf to 0.0.0.0:31007.
-## and add the '-p 31007:31007' argument to the 'docker run' command.
+## You can modify http_listen_addr in /etc/cnosdb/cnosdb.conf to 0.0.0.0:8902.
+## and add the '-p 8902:8902' argument to the 'docker run' command.
 docker run --name cnosdb -d cnosdb/cnosdb:v2.2.0 cnosdb run -M singleton --config /etc/cnosdb/cnosdb.conf
 ```
 

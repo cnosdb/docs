@@ -5,7 +5,7 @@ order: 3
 
 # 节点迁移
 
-Cnosdb 可以通过使用 SQL `MOVE VNODE` 把数据从一个节点转移到另一个节点。
+CnosDB 可以通过使用 SQL `MOVE VNODE` 把数据从一个节点转移到另一个节点。
 
 ### 语法
 
@@ -58,5 +58,7 @@ DROP VNODE 13;
 ```
 
 - #### 压缩Vnode
+```sql
 COMPACT VNODE  7 10 11 12;
+```
 

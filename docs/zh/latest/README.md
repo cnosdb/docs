@@ -2,7 +2,7 @@
 title: 主页
 icon: home
 index: false
-order: -8
+order: -9
 ---
 
 # 主页
