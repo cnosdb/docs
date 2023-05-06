@@ -5,10 +5,23 @@ index: true
 
 ## 介绍
 
-Enterprise Web 是 CnosDB 的后台管理平台，基于 gin、gorm、Casbin, Vue, Element UI 实现；Enterprise Web 分为两个项目 go-admin 和 go-admin-ui，go-admin 是 api 服务，go-admin-ui 是 web 端服务。
+Enterprise Ui 是CnosDB 专属的数据库应用程序，功能如下：
 
-> 这里需要添加一个架构图
+- 支持 CnosDB 文档内租户和权限的所有操作
+- 支持 meta 拓扑关系的查看(node、vnode、database 等之间的关联关系)，
+- 支持 SQL 简单的编辑，支持SQL 慢 查询处理，支持资源查看(依赖 grafana)
+- 支持日志管理(telegraf)等，是为 CnosDB 量身定制图形化操作工具。
 
+
+安装 Enterprise Ui 包含两个部分，前端部分和后端部分，前端部分是一个静态页面，后端部分是一个 API 程序，前端部分通过 API 程序来访问 CnosDB 数据库。
+
+部署架构图如下：
+
+![](/_static/img/enterprise-ui/deploy_arch.png)
+
+
+
+## 部署静态页面
 
 ### 下载
 
@@ -18,7 +31,7 @@ wget https://dl.cnosdb.com/ui/cnosdb-enterprise-ui.zip
 
 ### 解压并编译代码：
 
-> 编译前端代码
+> 编译前端代码，其中 VUE_APP_BASE_API 为后端 API 地址，即 cnosdb-enterprise-api 的地址
 
 ```
 unzip cnosdb-enterprise-ui.zip
@@ -55,12 +68,14 @@ server {
 }
 ```
 
-### 启动后端 API 程序
+### 部署后端 API 程序
 
-> 点击这里下载 cnosdb-enterprise-api 压缩包：
+> 点击这里下载 cnosdb-enterprise-api 安装包：
 
-[cnosdb-enterprise-api-darwin-aarch64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-darwin-aarch64.tar.gz)\
-[cnosdb-enterprise-api-linux-amd64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-linux-amd64.tar.gz)
+[cnosdb-enterprise-api-linux-amd64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-linux-amd64.tar.gz)\
+[cnosdb-enterprise-api-linux-arm64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-linux-arm64.tar.gz)\
+[cnosdb-enterprise-api-darwin-amd64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-darwin-amd64.tar.gz)\
+[cnosdb-enterprise-api-darwin-arm64.tar.gz](https://dl.cnosdb.com/ui/cnosdb-enterprise-api-darwin-arm64.tar.gz)
 
 > 解压后目录结构如下：
 
@@ -74,14 +89,15 @@ server {
 
 
 1、初始化 MySQL 数据
+> 这里省略安装MySQL的步骤。
+> MySQL 的初始化数据在cnosdb-enterprise-api 压缩包的 mysql 文件夹下，在安装好 MySQL 后，直接导入即可
 
-MySQL 的初始化数据在cnosdb-enterprise-api 压缩包的 mysql 文件夹下，在安装好 MySQL 后，直接导入即可
 ```
 cd cnosdb-enterprise-api
 mysql -u root -p < mysql/init.sql
 ```
 
-2、执行 restart.sh 运行 api
+2、执行 `restart.sh` 运行 api
 ```
 chmod +x restart.sh
 ./restart.sh
@@ -168,7 +184,9 @@ CnosDB 实例启动的时候，会默认创建一个租户 cnosdb 和一个用�
 
 2、添加租户
 
-添加、编辑租户目前支持JSON 字符串的方式 对数据进行修改；点击展开按钮，可查看每个字段的描述信息及取值区间![image](/_static/img/enterprise-ui/3561351932124d64ba66aa21759722f12072.png)
+添加、编辑租户目前支持JSON 字符串的方式 对数据进行修改；点击展开按钮，可查看每个字段的描述信息及取值区间
+
+![image](/_static/img/enterprise-ui/3561351932124d64ba66aa21759722f12072.png)
 
 ![image](/_static/img/enterprise-ui/b72e1a2db7254c7080ffa7ad5164a6d62072.png)
 
@@ -287,9 +305,31 @@ all      对数据库增删改查的权限
 
 通过 `telegraf` `[[inputs.tail]]` 获取 CnosDB
 
-`/tmp/cnosdb/logs/data/_node.1001.log`
+`/var/log/cnosdb/logs/data/_node.1001.log`
 
-`/tmp/cnosdb/logs/data/_node.2001.log` 里面的日志，
+`/var/log/cnosdb/logs/data/_node.2001.log` 里面的日志，
+
+telegraf 示例配置：
+
+```toml
+[[inputs.tail]]
+    files = ["/var/log/cnosdb/data_node.2001.log", "/var/log/cnosdb/data_node.2001.log"]
+    from_beginning = true
+    data_format = "grok"
+    watch_method = "FSEvents"
+    name_override = "syslog"
+    grok_patterns = ['%{LOGLEVEL:loglevel} %{DATA:module}: %{GREEDYDATA:message}']
+[[outputs.http]]
+    url = "http://127.0.0.1:8902/api/v1/write?db=oceanic_station"
+    timeout = "5s"
+    method = "POST"
+    username = "root"
+    password = ""
+    data_format = "influx"
+    use_batch_format = true
+    content_encoding = "identity"
+    idle_conn_timeout = 10
+```
 
 通过`[[outputs.http]]` [http://127.0.0.1:8902/api/v1/write?db=](http://127.0.0.1:8902/api/v1/write?db=)xxx 来将分析好的日志数据写到 CnosDB，在 Web 中展示在日志管理模块
 
