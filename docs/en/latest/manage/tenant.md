@@ -343,7 +343,7 @@ TENANT tenant_name ADD USER user_name AS role_name;
 CREATE
 USER user_a;
 ALTER
-TENANT cnosdb ADD USER user_a AS ROLE rrr;
+TENANT cnosdb ADD USER user_a AS rrr;
 ```
 
 #### Alter the User Out of the Role Under the Tenant
