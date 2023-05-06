@@ -339,7 +339,7 @@ TENANT tenant_name ADD USER user_name AS role_name;
 CREATE
 USER user_a;
 ALTER
-TENANT cnosdb ADD USER user_a AS ROLE rrr;
+TENANT cnosdb ADD USER user_a AS rrr;
 ```
 
 - #### 让用户不在担任租户下的角色
