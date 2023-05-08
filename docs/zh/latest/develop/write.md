@@ -101,7 +101,7 @@ curl -i -u "<username>:<password>" -H "Accept: application/json" \
 #### 示例
 
 ```shell
-wget https://dl.cnosdb.com/sample/oceanic_station.txt &&
+curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt &&
 curl -i -u "cnosdb:" -H "Accept: application/json" \
 -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
 --data-binary @./oceanic_station.txt
