@@ -48,7 +48,7 @@ export const enSidebar = sidebar({
         prefix: "enterprise/",
         children: 'structure',
         link: "enterprise/README.md",
-        icon: "leaf",
+        icon: "categoryselected",
         collapsible: true,
       },
       {
