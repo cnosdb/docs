@@ -760,7 +760,7 @@ FROM tb_name [AS] alias_name
 
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a JOIN sea s ON a.temperature = s.temperature;
+FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 ```
     +------------+-------------+
     | visibility | temperature |
