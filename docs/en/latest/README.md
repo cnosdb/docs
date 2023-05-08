@@ -78,11 +78,11 @@ This chapter introduces the implementation principles of CnosDB, including stora
 
 This paragraph introduces the ecosystem integration of CnosDB, including examples of how some commonly used open-source components can be combined with CnosDB.
 
-- [Eco-integration](./eco)
-    - [Telegraf](./eco/telegraf.md)
-    - [Grafana](./eco/grafana.md)
-    - [Prometheus](./eco/prometheus.md)
-    - [TensorFlow](./eco/tensorflow.md)
+- [Eco-integration](./versatility)
+    - [Telegraf](./versatility/collect/telegraf.md)
+    - [Grafana](./versatility/visualization/grafana.md)
+    - [Prometheus](./versatility/collect/prometheus.md)
+    - [TensorFlow](./versatility/ml/tensorflow.md)
 
 ## Releases
 

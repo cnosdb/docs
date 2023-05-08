@@ -53,9 +53,9 @@ export const enSidebar = sidebar({
       },
       {
       text: "Eco-integration",
-      prefix: "eco/",
+      prefix: "versatility/",
       children: 'structure',
-      link: "eco/README.md",
+      link: "versatility/README.md",
       icon: "leaf",
       collapsible: true,
     },

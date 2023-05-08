@@ -72,11 +72,11 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 
 本段介绍了 CnosDB 的生态集成，包括一些开源常用的的组件如何与 CnosDB 结合的一些示例。
 
-- [生态集成](./eco)
-  - [Telegraf](./eco/telegraf.md)
-  - [Grafana](./eco/grafana.md)
-  - [Prometheus](./eco/prometheus.md)
-  - [TensorFlow](./eco/tensorflow.md)
+- [生态集成](./versatility)
+  - [Telegraf](./versatility/collect/telegraf.md)
+  - [Grafana](./versatility/visualization/grafana.md)
+  - [Prometheus](./versatility/collect/prometheus.md)
+  - [TensorFlow](./versatility/ml/tensorflow.md)
 
 ## 版本发布
 

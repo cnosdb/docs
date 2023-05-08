@@ -52,10 +52,10 @@ export const zhSidebar = sidebar({
       collapsible: true,
     },
     {
-      text: "生态",
-      prefix: "eco/",
+      text: "通用性",
+      prefix: "versatility/",
       children: 'structure',
-      link: "eco/README.md",
+      link: "versatility/README.md",
       icon: "leaf",
       collapsible: true,
     },
