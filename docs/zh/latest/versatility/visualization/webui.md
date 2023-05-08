@@ -23,10 +23,6 @@ CnosDB Web UI 是CnosDB 专属的数据库应用程序，功能如下：
 
 ![](/_static/img/enterprise-ui/deploy_arch.png)
 
-:::tip
-以下所有使用到的安装程序请联系 <a class="color-fg-default" itemprop="email" href="mailto:contact@cnosdb.com">contact@cnosdb.com</a> 获取
-:::
-
 ## 部署静态页面
 
 ### 解压并编译代码：
