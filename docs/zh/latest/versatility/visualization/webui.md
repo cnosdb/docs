@@ -1,11 +1,15 @@
 ---
-title: Enterprise UI
+title: CnosDB Web UI
 index: true
 ---
 
 ## 介绍
 
-Enterprise Ui 是CnosDB 专属的数据库应用程序，功能如下：
+:::tip
+仅企业版支持
+:::
+
+CnosDB Web UI 是CnosDB 专属的数据库应用程序，功能如下：
 
 - 支持 CnosDB 文档内租户和权限的所有操作
 - 支持 meta 拓扑关系的查看(node、vnode、database 等之间的关联关系)，
@@ -13,7 +17,7 @@ Enterprise Ui 是CnosDB 专属的数据库应用程序，功能如下：
 - 支持日志管理(telegraf)等，是为 CnosDB 量身定制图形化操作工具。
 
 
-安装 Enterprise Ui 包含两个部分，前端部分和后端部分，前端部分是一个静态页面，后端部分是一个 API 程序，前端部分通过 API 程序来访问 CnosDB 数据库。
+安装 CnosDB Web UI 包含两个部分，前端部分和后端部分，前端部分是一个静态页面，后端部分是一个 API 程序，前端部分通过 API 程序来访问 CnosDB 数据库。
 
 部署架构图如下：
 
