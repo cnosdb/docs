@@ -48,7 +48,7 @@ After data is cooled, the `migrate` thread in meta will migrate data from hot no
 - Users change the db cool downtime. The change may migrate data from a cold node to a hot node.
 
 
-# 多盘存储
+# Multi-drive storage
     In the case of multiple disks on a node, the CnosDB tskv instance does not make any sense.
     In CnosDB Enterprise Edition we provide scripts for disk processing and scripts for deployment.
 1. Assemble a RAID array to maximize the capabilities of the hardware system.

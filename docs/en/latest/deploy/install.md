@@ -29,19 +29,8 @@ This page provides some instructions for installing, starting, and configuring C
 
 @tab Docker
 
-**v2.0.1**
-
 ```bash
-docker run -d -p 8902:8902 cnosdb/cnosdb:2.0.1
-```
-
-**v2.2.0**
-
-```bash
-If you want to map ports to hosts,
-## You can modify http_listen_addr in /etc/cnosdb/cnosdb.conf to 0.0.0.0:8902.
-## and add the '-p 8902:8902' argument to the 'docker run' command.
-docker run --name cnosdb -d cnosdb/cnosdb:v2.2.0 cnosdb run -M singleton --config /etc/cnosdb/cnosdb.conf
+docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
 ```
 
 @tab Ubuntu & Debian
@@ -158,13 +147,8 @@ make build
 
 **Run**
 
-v2.1
 ```shell
-./target/debug/cnosdb singleton --cpu 4 --memory 64
-```
-v2.2
-```shell
-./target/debug/cnosdb run --deployment-mode singleton --cpu 4 --memory 64
+./target/debug/cnosdb run --deployment-mode singleton
 ```
 
 #### **Run CLI**
@@ -172,7 +156,7 @@ v2.2
 In another terminal, run the following command in the same directory:
 
 ```shell
-cargo run --package client --bin client
+./target/debug/cnosdb-cli
 ```
 **Notice**：Please refer to [cnosdb-cli](../reference/tools.md#client-cli) to view cli usage and pay attention to the IP address and port number.
 
@@ -625,25 +609,7 @@ make build
 
 **Run the distributed storage separation database service**
 
-v2.1
-```shell
-## single meta, data, query node
-./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
-./target/debug/cnosdb tskv --cpu 4 --memory 64
-./target/debug/cnosdb query --cpu 4 --memory 64
 ```
-v2.2
-```shell
-./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
-./target/debug/cnosdb run --deployment-mode tskv --cpu 4 --memory 64
-./target/debug/cnosdb run --deployment-mode query --cpu 4 --memory 64
+./target/debug/cnosdb
 ```
-
-**Run distributed storage and computing integrated database service**
-```shell
-## single meta, cnosdb node
-./target/debug/cnosdb-meta --config ./meta/config/config_21001.toml
-./target/debug/cnosdb run --cpu 4 --memory 64
-```
-
 :::

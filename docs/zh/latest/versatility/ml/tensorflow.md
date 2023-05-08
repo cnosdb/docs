@@ -107,7 +107,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 (base) root@ecs-django-dev:~# docker exec -it cnosdb sh sh
 # cnosdb-cli
 CnosDB CLI v2.0.0
-Input arguments: Args { host: "0.0.0.0", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
+Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
 ```
 
 为了简化分析，我们只需存储数据集中观测时间和太阳黑子数。因此，我们将年（Col 0）和月（Col 1）拼接作为观测时间（date, 字符串类型），月均太阳黑子数（Col 3）可以不作处理直接存储。
