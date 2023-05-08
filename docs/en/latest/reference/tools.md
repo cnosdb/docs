@@ -10,13 +10,13 @@ order: 7
 Run the following command to start the CLI program in the root directory of CnosDB source code.
 
 ```
-    cargo run --package client --bin client
+    cnosdb-cli
 ```
 
 The parameters of CLI program are as follows:
 
 ```
-    -h --host CnosDB            Host of the service. The default is "0.0.0.0".
+    -h --host CnosDB            Host of the service. The default is "localhost".
     -p --port CnosDB            Port of the service. The default is 8902.
     -u --user                   Username. The default value is "CnosDB".
     -p --password               Password. None by default.

@@ -29,25 +29,8 @@ index: true
 
 @tab Docker
 
-**community-latest**
-
 ```bash
-docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
-```
-
-**v2.0.1**
-
-```bash
-docker run -d -p 8902:8902 cnosdb/cnosdb:2.0.1
-```
-
-**v2.2.0**
-
-```bash
-## 如果你想把端口映射到宿主机上，
-## 可以修改 `/etc/cnosdb/cnosdb.conf` 中的配置 `http_listen_addr` 为 `0.0.0.0:8902`。
-## 并且将 `docker run` 命令中的 加上 `-p 8902:8902` 参数。
-docker run --name cnosdb -d cnosdb/cnosdb:v2.2.0 cnosdb run -M singleton --config /etc/cnosdb/cnosdb.conf
+docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
 ```
 
 @tab Ubuntu & Debian
@@ -161,20 +144,15 @@ make build
 
 **运行**
 
-v2.1
 ```shell
-./target/debug/cnosdb singleton --cpu 4 --memory 64
-```
-v2.2
-```shell
-./target/debug/cnosdb run --deployment-mode singleton --cpu 4 --memory 64
+./target/debug/cnosdb run --deployment-mode singleton
 ```
 
 #### **运行CLI**
 在另一个终端，相同目录下运行如下命令
 
 ```shell
-cargo run --package client --bin client
+./target/debug/cnosdb-cli
 ```
 **注意**：请参考[cnosdb-cli手册](../reference/tools.md#客户端cli) 查看cli用法，并注意IP地址端口号
 

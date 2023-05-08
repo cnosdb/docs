@@ -15,7 +15,7 @@ order: 2
 
 2. 使用 Docker 启动容器
   ```shell
-    docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+    docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
   ```
 
 3. 进入容器
@@ -29,7 +29,7 @@ order: 2
 会显示如下：
 ```
 CnosDB CLI v2.2.0
-Input arguments: Args { host: "0.0.0.0", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
+Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
 public ❯
 ```
 

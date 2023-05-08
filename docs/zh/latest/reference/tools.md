@@ -7,16 +7,14 @@ order: 7
 
 ## 客户端CLI
 
-在CnosDB源码的根目录下，运行如下命令启动CLI程序：
-
 ```shell
-cargo run --package client --bin cnosdb-cli
+cnosdb-cli
 ```
 
 **程序的参数如下：**
 
 ```
--h --host CnosDB            服务的host，默认为"0.0.0.0"
+-h --host CnosDB            服务的host，默认为"localhost"
 -p --port CnosDB            服务的端口，默认为8902
 -u --user                   用户名，默认为"root"
 -p --password               密码，默认没有

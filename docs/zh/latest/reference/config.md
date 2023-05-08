@@ -11,16 +11,16 @@ CnosDB 的配置文件为 TOML 格式。
 
 > TOML 语法参考：[https://toml.io](https://toml.io/cn/v1.0.0)
 
-你可以使用 `cnosdb config` 命令来创建一个默认的配置文件 (v2.2.0)，如：
+你可以使用 `cnosdb config` 命令来创建一个默认的配置文件，如：
 
 ```shell
-cnosdb config > /tmp/config.toml
+cnosdb config > ./config.toml
 ```
 
-你可以使用 `cnosdb check server-config <path>` 命令来检查一个配置文件 (v2.2.0)，如：
+你可以使用 `cnosdb check server-config <path>` 命令来检查一个配置文件，如：
 
 ```shell
-cnosdb check server-config /tmp/config.toml
+cnosdb check server-config ./config.toml
 ```
 
 配置文件由数个 TOML 键值对与表所组成，如下所示：
@@ -32,7 +32,7 @@ cnosdb check server-config /tmp/config.toml
 
 **TOML 表**
 
-- `[deployment]` 启动配置 (v2.2.0)
+- `[deployment]` 启动配置
 - `[query]` 查询接口配置
 - `[storage]` 存储配置
 - `[wal]` 写前日志配置
@@ -40,8 +40,8 @@ cnosdb check server-config /tmp/config.toml
 - `[log]` 运行日志配置
 - `[security]` 安全配置
 - `[cluster]` 集群配置
-- `[heartbeat]` 心跳配置 (v2.3.0)
-- `[node_basic]` 节点配置 (v2.3.0)
+- `[heartbeat]` 心跳配置
+- `[node_basic]` 节点配置
 - `[hintedoff]` HintedOff 配置
 
 详细的配置文件说明如下所示：
