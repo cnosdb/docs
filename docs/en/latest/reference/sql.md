@@ -558,7 +558,7 @@ If in cnosdb cli, enter`\q`to exit.
 Executing the following command in the shell will generate a local data file named oceanic_station in Line Protocol format.
 
 ```shell
-wget https://dl.cnosdb.com/sample/oceanic_station.txt
+curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
 ### Import Data
@@ -740,7 +740,7 @@ FROM tb_name [AS] alias_name
 
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a JOIN sea s ON a.temperature = s.temperature;
+FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 ```
     +------------+-------------+
     | visibility | temperature |

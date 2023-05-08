@@ -572,7 +572,7 @@ CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/u
 在shell中执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
 
 ```shell
-wget https://dl.cnosdb.com/sample/oceanic_station.txt
+curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
 ### 导入数据
@@ -760,7 +760,7 @@ FROM tb_name [AS] alias_name
 
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a JOIN sea s ON a.temperature = s.temperature;
+FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 ```
     +------------+-------------+
     | visibility | temperature |
