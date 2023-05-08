@@ -9,10 +9,4 @@ export const zhNavbar = navbar([
             { text: 'v2.3', link: '/zh/v2.3/' },
         ]
     },
-
-    {
-        text: 'Enterprise UI',
-        link: '/zh/enterprise-ui/' ,
-    },
-
 ]);

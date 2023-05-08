@@ -11,3 +11,5 @@ index: false
 - [多级存储](../manage/tiered_storage.md)
 
 - [订阅管理](../manage/subscriptions.md)
+
+- [CnosDB Web UI](../versatility/visualization/webui.md)
