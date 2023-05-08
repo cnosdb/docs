@@ -16,7 +16,7 @@ export const zhSidebar = sidebar({
       prefix: "deploy/",
       children: 'structure',
       link: "deploy/README.md",
-      icon: "creative",
+      icon: "stack",
       collapsible: true,
     },
     {
@@ -48,7 +48,7 @@ export const zhSidebar = sidebar({
       prefix: "enterprise/",
       children: 'structure',
       link: "enterprise/README.md",
-      icon: "leaf",
+      icon: "categoryselected",
       collapsible: true,
     },
     {
