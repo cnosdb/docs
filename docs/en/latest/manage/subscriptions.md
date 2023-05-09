@@ -44,7 +44,7 @@ We can use `ALTER SUBCRIPTION` to alter the subscription.
 ### Syntax
 
 ```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_nmae>" ["<host_name>"]。
+ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]。
 ```
 
 ### Example

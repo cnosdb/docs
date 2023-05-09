@@ -48,7 +48,7 @@ CREATE SUBCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903"
 ### 语法
 
 ```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_nmae>" ["<host_name>"]。
+ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]。
 ```
 
 ### 示例
