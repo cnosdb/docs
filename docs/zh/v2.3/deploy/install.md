@@ -68,14 +68,14 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
     ```
 3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
 
-    修改`[deployment].mode` 为 `singleton`。
+   修改`[deployment].mode` 为 `singleton`。
 
 4. 启动 CnosDB 服务
 
     ```bash
     systemctl start cnosdb
     ```
-    在 CentOS 7 或 RHEL 7 之前的版本，使用以下命令启动。
+   在 CentOS 7 或 RHEL 7 之前的版本，使用以下命令启动。
 
     ```bash
     service cnosdb start
@@ -224,17 +224,17 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     dpkg -i cnosdb-meta_2.3-community-1_amd64.deb
     ```
 3. 修改配置文件
-    > Meta 服务的配置文件位于 `/etc/cnosdb/cnosdb-meta.conf`。
+   > Meta 服务的配置文件位于 `/etc/cnosdb/cnosdb-meta.conf`。
 
-    将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
+   将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
     ```toml
     host = meta<n>.cnosdb.com
     ```
-    分配 node_id 给每个 Meta 服务，id 不能重复。
+   分配 node_id 给每个 Meta 服务，id 不能重复。
     ```toml
     id = n
     ```
-    配置完成后的配置文件示例如下：
+   配置完成后的配置文件示例如下：
     ```toml
     id = n
     host = "meta<n>.cnosdb.com"
@@ -244,7 +244,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```bash
     systemctl start cnosdb-meta
     ```
-    在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
+   在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
 
     ```bash
     service cnosdb-meta start
@@ -267,9 +267,9 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 8. 查看集群状态
    > 分别指定不同的节点，执行以下命令，查看集群状态。
 
-    如果集群安装成功，则应该返回以下内容：
+   如果集群安装成功，则应该返回以下内容：
 
-    `curl http://meta1.cnosdb.com:8901/metrics | jq`
+   `curl http://meta1.cnosdb.com:8901/metrics | jq`
     ```json
     {
       "Ok": {
@@ -282,8 +282,8 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
       ... ...
     }
     ```
-    
-    `curl http://meta2.cnosdb.com:8901/metrics | jq`
+
+   `curl http://meta2.cnosdb.com:8901/metrics | jq`
     ```json
     {
       "Ok": {
@@ -297,7 +297,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     }
     ```
 
-    `curl http://meta3.cnosdb.com:8901/metrics | jq`
+   `curl http://meta3.cnosdb.com:8901/metrics | jq`
     ```json
     {
       "Ok": {
@@ -325,8 +325,8 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```
 
 3. 修改配置文件
-    > CnosDB 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
-   
+   > CnosDB 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
+
    将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 CnosDB 服务。
    ```toml
    host = "query_tskv<n>.cnosdb.com"
@@ -337,7 +337,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     [deployment]
     mode = "query_tskv"
    ```
-   
+
    修改 node_id，node_id 不能重复。
    ```toml
     [node_basic]
@@ -369,7 +369,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```bash
     systemctl start cnosdb
     ```
-    在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
+   在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
 
     ```bash
     service cnosdb start
@@ -399,17 +399,17 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     yum localinstall cnosdb-meta_2.3-community-1_amd64.rpm
     ```
 3. 修改配置文件
-    > Meta 服务的配置文件位于 `/etc/cnosdb-meta/cnosdb-meta.conf`。
+   > Meta 服务的配置文件位于 `/etc/cnosdb-meta/cnosdb-meta.conf`。
 
-    将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
+   将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
     ```toml
     host = meta<n>.cnosdb.com
     ```
-    分配 node_id 给每个 Meta 服务，id 不能重复。
+   分配 node_id 给每个 Meta 服务，id 不能重复。
     ```toml
     id = n
     ```
-    配置完成后的配置文件示例如下：
+   配置完成后的配置文件示例如下：
     ```toml
     id = n
     host = "meta<n>.cnosdb.com"
@@ -419,7 +419,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```bash
     systemctl start cnosdb-meta
     ```
-    在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
+   在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
 
     ```bash
     service cnosdb-meta start
@@ -442,9 +442,9 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 8. 查看集群状态
    > 分别指定不同的节点，执行以下命令，查看集群状态。
 
-    如果集群安装成功，则应该返回以下内容：
+   如果集群安装成功，则应该返回以下内容：
 
-    `curl http://meta1.cnosdb.com:8901/metrics | jq`
+   `curl http://meta1.cnosdb.com:8901/metrics | jq`
     ```json
     {
       "Ok": {
@@ -457,8 +457,8 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
       ... ...
     }
     ```
-    
-    `curl http://meta2.cnosdb.com:8901/metrics | jq`
+
+   `curl http://meta2.cnosdb.com:8901/metrics | jq`
     ```json
     {
       "Ok": {
@@ -472,7 +472,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     }
     ```
 
-    `curl http://meta3.cnosdb.com:8901/metrics | jq`
+   `curl http://meta3.cnosdb.com:8901/metrics | jq`
     ```json
     {
       "Ok": {
@@ -500,8 +500,8 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```
 
 3. 修改配置文件
-    > CnosDB 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
-   
+   > CnosDB 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
+
    将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 CnosDB 服务。
    ```toml
    host = "query_tskv<n>.cnosdb.com"
@@ -512,7 +512,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     [deployment]
     mode = "query_tskv"
    ```
-   
+
    修改 node_id，node_id 不能重复。
    ```toml
     [node_basic]
@@ -545,7 +545,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ```bash
     systemctl start cnosdb
     ```
-    在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
+   在 Ubuntu 14.04 以及之前的版本 和 Debina 9 之前的版本，使用以下命令启动。
 
     ```bash
     service cnosdb start
