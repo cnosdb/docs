@@ -15,5 +15,3 @@ To try out the Enterprise features, please contact <a class="color-fg-default" i
 - [Tiered Storage](../manage/tiered_storage.md)
 
 - [Subscription](../manage/subscriptions.md)
-
-- [CnosDB Web UI](/zh/latest/versatility/visualization/webui.md)
