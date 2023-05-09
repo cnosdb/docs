@@ -61,11 +61,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 1. **Download**
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3-community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
     ```
 2. **Install CnosDB Service**
     ```bash
-    yum localinstall cnosdb-2.3-community-1.x86_64.rpm
+    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
     ```
 3. edit config file `/etc/cnosdb/cnosdb.conf`
 
@@ -397,15 +397,15 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 1. Download CnosDB Meta Service
 
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta_2.3-community-1_amd64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 2. Install CnosDB Meta Service
 
     ```bash
-    yum localinstall cnosdb-meta_2.3-community-1_amd64.rpm
+    yum localinstall cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 3. Edit Configuration File
-   > The Meta service configuration file is located `/etc/cnosdb-meta/cnosdb-meta.conf`。
+   > The Meta service configuration file is located `/etc/cnosdb/cnosdb-meta.conf`。
 
    Add the records added to the DNS server to the configuration file and assign different records to different Meta services.
     ```toml

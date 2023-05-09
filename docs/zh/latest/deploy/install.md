@@ -60,11 +60,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 1. **下载**
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3-community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
     ```
 2. **安装 CnosDB 程序**
     ```bash
-    yum localinstall cnosdb-2.3-community-1.x86_64.rpm
+    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
     ```
 3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
 
@@ -390,16 +390,16 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB Meta 程序
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta_2.3-community-1_amd64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 
 2. 安装 CnosDB Meta 程序
 
     ```bash
-    yum localinstall cnosdb-meta_2.3-community-1_amd64.rpm
+    yum localinstall cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 3. 修改配置文件
-    > Meta 服务的配置文件位于 `/etc/cnosdb-meta/cnosdb-meta.conf`。
+    > Meta 服务的配置文件位于 `/etc/cnosdb/cnosdb-meta.conf`。
 
     将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
     ```toml
