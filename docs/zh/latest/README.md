@@ -47,10 +47,8 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章节介绍了 CnosDB 单机版与集群版的管理与监控。
 
 - [管理](./manage)
-  - [节点升级](./manage/upgrade.md)
   - [节点迁移](./manage/migration.md)
   - [集群扩容](./manage/cluster_expansion.md)
-  - [集群缩容](./manage/cluster_shrink.md)
   - [备份与还原](./manage/backup.md)
   - [监控](./manage/monitor.md)
   - [租户和权限](./manage/tenant.md)
