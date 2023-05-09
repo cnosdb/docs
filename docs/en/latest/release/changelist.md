@@ -5,6 +5,27 @@ order: 2
 
 # Change List
 
+## V2.3
+
+On May 09, 2023, CnosDB released version 2.3. This version mainly adds stream computing capabilities and some enterprise features. The main modifications of this version include:
+
+- The query functionality has been strengthened to support scrolling windows, sliding windows, and stream computing.
+
+- Support for the frequently used time series processing function "filling" has been added.
+
+- Query iterators have been parallelized, resulting in greatly improved query performance.
+
+- New techniques for problem localization have been introduced, including using cpu/memory pprof and asynchronous call stack printing.
+
+- The test case system has been further improved, including enhancing checklist gatekeeper test cases and adding support for sqllogictest.
+
+- The opentsdb write protocol is now natively supported.
+
+- HTTP requests now support streaming processing, effectively reducing database memory usage.
+
+- In the enterprise version, we have added support for subscription and hierarchical storage. Please feel free to contact us for more information.
+
+Additionally, a series of bugs have been fixed.
 
 ## V2.2.0
 
