@@ -39,7 +39,7 @@ grpc_listen_port = 8903
 则在当前 CnosDB 创建订阅的 SQL 如下：
 
 ```
-CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903"
+CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903";
 ```
 
 此时若有数据写入当前 CnosDB 节点，则数据将同步复制转发到`127.0.0.1:8903`。
@@ -57,7 +57,7 @@ ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<hos
 ### 示例
 
 ```
-ALTER SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913"
+ALTER SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913";
 ```
 
 可以通过这种方法来修改 host_name，需要注意的是，通过 `ALTER SUBSCRIPTION` 进行修改是直接覆盖，如果不希望删除之前的 host_name，`DESTINATIONS ALL` 后需要添加之前的所有 host_name。
@@ -75,13 +75,13 @@ SHOW SUBSCRIPTION ON <database_name>
 ### 示例
 
 ```
-SHOW SUBSCRIPTION ON public
+SHOW SUBSCRIPTION ON public;
 ```
+输出结果：
 
-```
-SUBSCRIPTION,DESTINATIONS,MODE
-test,"127.0.0.1:8902,127.0.0.1:8903",ALL
-```
+    SUBSCRIPTION,DESTINATIONS,MODE
+    test,"127.0.0.1:8902,127.0.0.1:8903",ALL
+
 
 ## 删除订阅
 
@@ -96,7 +96,7 @@ DROP SUBSCRIPTION <subscription_name> ON <database_name>
 ### 示例
 
 ```
-DROP SUBSCRIPTION test ON public
+DROP SUBSCRIPTION test ON public;
 ```
 
 ## 通过 Telegraf 实现异构数据同步
