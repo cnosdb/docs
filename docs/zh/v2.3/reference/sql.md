@@ -5564,15 +5564,14 @@ CREATE TABLE air(pressure DOUBLE, temperature DOUBLE, visibility DOUBLE, TAGS(st
 创建流表
 ```sql
 CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
-    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time_column')
+    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time')
     engine = tskv;
 ```
 
 
 ### 删除流表
 
-与删除普通表语法相同
-
+> 与删除普通表语法相同，请参考[删除表](#删除表)
 
 ### 流查询
 
