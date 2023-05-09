@@ -19,9 +19,11 @@ order: 9
 CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]
 ```
 
-注： 
-1. host_name 为订阅此节点的 CnosDB 节点的 grpc 服务的host_name。
+
+1. host_name 为订阅此节点的 CnosDB 节点的 grpc 服务的 host_name。
+
 所有写入 CnosDB 指定 database 的数据，都将被复制并分发到host节点。
+
 1. ALL 表示数据复制的模式，目前仅支持 ALL。
 
 ### 示例
@@ -38,7 +40,7 @@ grpc_listen_port = 8903
 则在当前 CnosDB 创建订阅的SQL如下：
 
 ```
-CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903"
+CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903";
 ```
 
 此时若有数据写入当前 CnosDB 节点，则数据将同步复制转发到`127.0.0.1:8903`。
@@ -56,7 +58,7 @@ ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<hos
 ### 示例
 
 ```
-ALTER SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913"
+ALTER SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913";
 ```
 
 可以通过这种方法来修改 host_name，需要注意的是，通过 `ALTER SUBSCRIPTION` 进行修改是直接覆盖，如果不希望删除之前的 host_name，`DESTINATIONS ALL` 后需要添加之前的所有 host_name。
@@ -74,13 +76,13 @@ SHOW SUBSCRIPTION ON <database_name>
 ### 示例
 
 ```
-SHOW SUBSCRIPTION ON public
+SHOW SUBSCRIPTION ON public;
 ```
+输出结果：
 
-```
-SUBSCRIPTION,DESTINATIONS,MODE
-test,"127.0.0.1:8902,127.0.0.1:8903",ALL
-```
+    SUBSCRIPTION,DESTINATIONS,MODE
+    test,"127.0.0.1:8902,127.0.0.1:8903",ALL
+
 
 ## 删除订阅
 
@@ -95,7 +97,7 @@ DROP SUBSCRIPTION <subscription_name> ON <database_name>
 ### 示例
 
 ```
-DROP SUBSCRIPTION test ON public
+DROP SUBSCRIPTION test ON public;
 ```
 
 ## 通过 Telegraf 实现订阅分发
