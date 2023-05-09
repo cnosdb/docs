@@ -5598,7 +5598,7 @@ Create stream table
 
 ```sql
 CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
-    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time_column')
+    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time')
     engine = tskv;
 ```
 
