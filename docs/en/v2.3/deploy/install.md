@@ -354,7 +354,7 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
    ```toml
     [cluster]
     name = "cluster_xxx"
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
 
    The following is an example of the configuration file:
@@ -366,7 +366,7 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
     ... ...
     [cluster]
     name = 'cluster_xxx'
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
     [node_basic]
     node_id = <n>
     ... ...

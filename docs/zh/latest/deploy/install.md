@@ -348,7 +348,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
    ```toml
     [cluster]
     name = "cluster_xxx"
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
 
    配置完成后的配置文件示例如下：
@@ -360,7 +360,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ... ...
     [cluster]
     name = 'cluster_xxx'
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
     [node_basic]
     node_id = <n>
     ... ...
