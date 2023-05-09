@@ -99,15 +99,17 @@ DROP SUBSCRIPTION <subscription_name> ON <database_name>
 DROP SUBSCRIPTION test ON public
 ```
 
-## 通过 Telegraf 实现异构数据迁移
+## 通过 Telegraf 实现异构数据同步
 
 ### Telegraf 安装
 
 关于 Telegraf 的使用方法，以及如何安装 Telegraf，见 [Telegraf 章节](../versatility/collect/telegraf.md#cnos-telegraf)。
 
-### 将数据迁移至 InfluxDB
+### 将数据发送至 InfluxDB
 
 > 本例中的 InfluxDB 版本为 1.8.10 。
+>
+> Telegraf 安装在本地（可以通过 127.0.0.1 进行访问）。
 
 假设我们已经启动了 CnosDB，并在 Database `public` 上创建了订阅，将 `DESTINATIONS` 设置为 `127.0.0.1:8803`：
 
@@ -142,4 +144,38 @@ content_encoding = "identity"
 idle_conn_timeout = 10
 ```
 
-接下来，在 CnosDB 上执行写入操作，数据将被转发至 InfluxDB 的 `test_db` 上。
+接下来，在 CnosDB 上执行写入操作，数据将被转发至 InfluxDB 的 Database `test_db` 上。
+
+首先在 CnosDB 命令行客户端 `cnosdb-cli` 中执行：
+
+```
+CREATE TABLE air (
+    visibility DOUBLE,
+    temperature DOUBLE,
+    pressure DOUBLE,
+    TAGS(station)
+);
+
+INSERT INTO air (time, station, visibility, temperature, pressure) VALUES('2023-01-01 01:10:00', 'XiaoMaiDao', 79, 80, 63);
+INSERT INTO air (time, station, visibility, temperature, pressure) VALUES('2023-01-01 01:20:00', 'XiaoMaiDao', 80, 60, 63);
+INSERT INTO air (time, station, visibility, temperature, pressure) VALUES('2023-01-01 01:30:00', 'XiaoMaiDao', 81, 70, 61);
+```
+
+然后在 InfluxDB 命令行客户端 `influx` 中执行：
+
+```
+use test_db;
+
+SELECT * FROM air;
+```
+
+得到结果：
+
+```
+name: air
+time                host        pressure station    temperature visibility
+----                ----        -------- -------    ----------- ----------
+1683643874641792000 devpc.local 63       XiaoMaiDao 80          79
+1683643877346013000 devpc.local 63       XiaoMaiDao 60          80
+1683643880454956000 devpc.local 61       XiaoMaiDao 70          81
+```
