@@ -140,3 +140,43 @@ use_batch_format = true
 content_encoding = "identity"
 idle_conn_timeout = 10
 ```
+## 通过 Telegraf 实现订阅分发
+
+### Telegraf 安装
+
+关于 Telegraf 的使用方法，以及如何安装 Telegraf，见 [Telegraf 章节](../versatility/collect/telegraf.md#cnos-telegraf)。
+
+### Telegraf 配置
+
+假设我们已经启动了 CnosDB，并创建了订阅，将 `DESTINATIONS` 设置为 `127.0.0.1:8803`：
+
+```sh
+> SHOW SUBSCRIPTION ON public;
++--------------+----------------+-------------+
+| Subscription | DESTINATIONS   | Concurrency |
++--------------+----------------+-------------+
+| sub_tr_1003  | 127.0.0.1:8803 | ALL         |
++--------------+----------------+-------------+
+```
+
+在 Telegraf 的配置文件中增加输入插件 `cnosdb`，并配置监听的地址与端口号，如下：
+
+```toml
+[[inputs.cnosdb]]
+service_address = ":8803"
+```
+
+配置输出插件 `http` 来实现分发消息。如果有另一个 CnosDB 实例，其 HTTP 监听端口号为 `127.0.0.1:8912`，那么我们可以通过以下配置来将订阅消息转发到该 CnosDB 示例。
+
+```toml
+[[outputs.http]]
+url = "http://127.0.0.1:8912/api/v1/write?db=destination"
+timeout = "5s"
+method = "POST"
+username = "admin"
+password = "admin"
+data_format = "influx"
+use_batch_format = true
+content_encoding = "identity"
+idle_conn_timeout = 10
+```
