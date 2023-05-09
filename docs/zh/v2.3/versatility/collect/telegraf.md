@@ -53,7 +53,7 @@ telegraf --sample-config > telegraf.conf
 
 - **使用 `vim` 等文本编辑器修改配置文件**
 
-为实现将指标数据输出至 CnosDB，我们需要配置 Telegraf 的输出插件 `http`，来将行协议数据输出至 CnosDB 的写如接口。
+为实现将指标数据输出至 CnosDB，我们需要配置 Telegraf 的输出插件 `http`，来将行协议数据输出至 CnosDB 的写入接口。
 
 在配置文件中找到 `[[outputs.http]]`，将其内容修改如下：
 
