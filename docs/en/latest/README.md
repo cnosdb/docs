@@ -53,10 +53,8 @@ This section describes how to install and run the single or cluster CnosDB, as w
 This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition。
 
 - [Manage](./manage)
-    - [Upgrade](./manage/upgrade.md)
     - [Node Migration](./manage/migration.md)
     - [Cluster Expansion](./manage/cluster_expansion.md)
-    - [Cluster Shrink](./manage/cluster_shrink.md)
     - [Backup and Restore](./manage/backup.md)
     - [Monitor](./manage/monitor.md)
     - [Tenants and Permissions](./manage/tenant.md)
