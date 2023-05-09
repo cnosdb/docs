@@ -344,7 +344,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     node_id = <n>
    ``` 
    修改 meta 节点地址。
-   [cluster].name 需要与 cnosdb-meta 配置中的[meta_init].cluster_name 相同
+   [cluster].name 需要与 cnosdb-meta 配置中的[meta_init].cluster_name 相同。
    ```toml
     [cluster]
     name = "cluster_xxx"
@@ -378,13 +378,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 @tab CentOS & RedHat
 >请将以下记录添加到您的 DNS 解析服务器中，以便于CnosDB集群中的实例之间进行通信。必要时需要联系您的网络管理员。
 
-| 记录类型      | 主机名 | 主机IP |
-| ----------- | ----------- | -----------|
-| A           | `meta1.cnosdb.com`       |  <meta1_ip>          |
-| A           | `meta2.cnosdb.com`       |  <meta2_ip>          |
-| A           | `meta3.cnosdb.com`       |  <meta3_ip>          |
-| A           | `query_tskv1.cnosdb.com` |  <query_tskv1_ip>    |
-| A           | `query_tskv2.cnosdb.com` |  <query_tskv2_ip>    |
+| 记录类型 | 主机名                      | 主机IP             |
+|------|--------------------------|------------------|
+| A    | `meta1.cnosdb.com`       | <meta1_ip>       |
+| A    | `meta2.cnosdb.com`       | <meta2_ip>       |
+| A    | `meta3.cnosdb.com`       | <meta3_ip>       |
+| A    | `query_tskv1.cnosdb.com` | <query_tskv1_ip> |
+| A    | `query_tskv2.cnosdb.com` | <query_tskv2_ip> |
 
 #### **安装 CnosDB Meta**
 
@@ -519,7 +519,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     node_id = <n>
    ``` 
    修改 meta 节点地址。
-   [cluster].name 需要与 cnosdb-meta 配置中的[meta_init].cluster_name 相同
+   [cluster].name 需要与 cnosdb-meta 配置中的[meta_init].cluster_name 相同。
    ```toml
     [cluster]
     node_id = n
@@ -614,7 +614,7 @@ make build
 ./target/debug/cnosdb-meta --config ./meta/config/config.toml
 ```
 
-**启动 CnosDB
+**启动 CnosDB**
 ```shell
 ./target/debug/cnosdb-meta --config ./meta/config/config.toml
 ./target/debug/cnosdb run -M <deployment>
