@@ -19,9 +19,11 @@ order: 9
 CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]
 ```
 
-注：
-1. host_name 为订阅此节点的 CnosDB 节点的 grpc 服务的host_name。
+
+1. host_name 为订阅此节点的 CnosDB 节点的 grpc 服务的 host_name。
+
 所有写入 CnosDB 指定 database 的数据，都将被复制并分发到host节点。
+
 1. ALL 表示数据复制的模式，目前仅支持 ALL。
 
 ### 示例

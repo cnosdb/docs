@@ -36,16 +36,15 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 @tab Ubuntu & Debian
 1. **Download**
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb_latest-1_amd64.deb
+   wget https://dl.cnosdb.com/packages/deb/cnosdb_2.3-community-1_amd64.deb
     ```
 2. **Install CnosDB Service**
     ```bash
-    dpkg -i cnosdb_latest-1_amd64.deb
+    dpkg -i cnosdb_2.3-community-1_amd64.deb
     ```
 3. edit config file `/etc/cnosdb/cnosdb.conf`
 
-   change `[deployment].mode` to `singleton`. \
-   change `[cluster].*listen_addr` to your own IP address.
+   change `[deployment].mode` to `singleton`.
 
 4. Start CnosDB Service
 
@@ -62,16 +61,15 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 1. **Download**
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-latest-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3-community-1.x86_64.rpm
     ```
 2. **Install CnosDB Service**
     ```bash
-    yum localinstall cnosdb-latest-1.x86_64.rpm
+    yum localinstall cnosdb-2.3-community-1.x86_64.rpm
     ```
 3. edit config file `/etc/cnosdb/cnosdb.conf`
 
-   change `[deployment].mode` to `singleton`. \
-   change `[cluster].*listen_addr` to your own IP address.
+   change `[deployment].mode` to `singleton`.
 
 4. Start CnosDB Service
 
@@ -221,20 +219,20 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 
 1. Download CnosDB Meta Service
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_latest-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_2.3-community-1_amd64.deb
     ```
 
 2. Install CnosDB Meta 
 
     ```bash
-    dpkg -i cnosdb-meta_latest-1_amd64.deb
+    dpkg -i cnosdb-meta_2.3-community-1_amd64.deb
     ```
 3. Edit  Configuration File
-   > The Meta service configuration file is located `/etc/cnosdb-meta/cnosdb-meta.conf`。
+   > The Meta service configuration file is located `/etc/cnosdb/cnosdb-meta.conf`。
 
    Add the records added to the DNS server to the configuration file and assign different records to different Meta services.
     ```toml
-    http_addr = meta<n>.cnosdb.com:8901
+    host = meta<n>.cnosdb.com
     ```
    Assign node_id to each Meta service. Ids must be unique.
     ```toml
@@ -243,7 +241,8 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
    The following is an example of the configuration file:
     ```toml
     id = n
-    http_addr = meta<n>.cnosdb.com:8901"
+    host = "meta<n>.cnosdb.com"
+    port = 8901
     ... ...
 4. Start CnosDB Meta Service
     ```bash
@@ -320,51 +319,56 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 
 1. Download CnosDB Service
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb_latest-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.3-community-1_amd64.deb
     ```
 
 2. Install CnosDB Service
 
     ```bash
-    dpkg -i cnosdb_latest-1_amd64.deb
+    dpkg -i cnosdb_2.3-community-1_amd64.deb
     ```
 
 3. Edit Configuration File
    > CnosDB configuration is located to `/etc/cnosdb/cnosdb.conf`.
+
+   Add the records added to the DNS server to the configuration file, and assign the different records to a different CnosDB service.
+   
+   ```toml
+   host = "query_tskv<n>.cnosdb.com"
+   ```
    change [deployment].mode to `query_tskv` .
+
    ```toml
     [deployment]
     mode = "query_tskv"
    ```
-   Edit meta node address. \
-   Edit the node_id, node_id must be unique. \
+   
+   Edit the node_id, node_id must be unique. 
+
+   ```toml
+    [node_basic]
+    node_id = <n>
+   ``` 
+   Edit the meta cluster address.
    [cluster].name must be the same as [meta_init].cluster_name in the cnosdb-meta configuration.
    ```toml
     [cluster]
-    node_id = n
     name = "cluster_xxx"
-    http_addr = "meta<n>.cnosdb.com:8901" # Refers to any meta address
+    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
-   Add the records added to the DNS server to the configuration file, and assign the different records to a different CnosDB service.
-   ```toml
-    [cluster]
-    http_listen_addr = 'query_tskv<n>.cnosdb.com:8902'
-    grpc_listen_addr = 'query_tskv<n>.cnosdb.com:8903'
-    flight_rpc_listen_addr = 'query_tskv<n>.cnosdb.com:8904'
-    tcp_listen_addr = 'query_tskv<n>.cnosdb.com:8905'
-   ```
+
    The following is an example of the configuration file:
    ```toml
     ... ...
+    host = "query_tskv<n>.cnosdb.com"
+    [deployment]
+    mode = 'query_tskv'
+    ... ...
     [cluster]
-    node_id = n
-    name = "cluster_xxx"
-    meta_service_addr = 'meta<n>.cnosdb.com:8901'
-
-    http_listen_addr = 'query_tskv<n>.cnosdb.com:8902'
-    grpc_listen_addr = 'query_tskv<n>.cnosdb.com:8903'
-    flight_rpc_listen_addr = 'query_tskv<n>.cnosdb.com:8904'
-    tcp_listen_addr = 'query_tskv<n>.cnosdb.com:8905'
+    name = 'cluster_xxx'
+    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    [node_basic]
+    node_id = <n>
     ... ...
    ```
 4. Start CnosDB Service
@@ -390,22 +394,22 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 
 #### **Install CnosDB Meta**
 
-1. Download
+1. Download CnosDB Meta Service
 
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-latest-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta_2.3-community-1_amd64.rpm
     ```
 2. Install CnosDB Meta Service
 
     ```bash
-    yum localinstall cnosdb-meta_latest-1_amd64.deb
+    yum localinstall cnosdb-meta_2.3-community-1_amd64.rpm
     ```
 3. Edit Configuration File
    > The Meta service configuration file is located `/etc/cnosdb-meta/cnosdb-meta.conf`。
 
    Add the records added to the DNS server to the configuration file and assign different records to different Meta services.
     ```toml
-    http_addr = meta<n>.cnosdb.com:8901
+    host = meta<n>.cnosdb.com
     ```
    Assign node_id to each Meta service. Ids must be unique.
     ```toml
@@ -414,13 +418,14 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
    The following is an example of the configuration file:
     ```toml
     id = n
-    http_addr = meta<n>.cnosdb.com:8901"
+    host = "meta<n>.cnosdb.com"
+    port = 8901
     ... ...
 4. Start CnosDB Meta Service
     ```bash
     systemctl start cnosdb-meta
     ```
-   In CentOS 7 or previous version of RHEL 7, use the following command to start. 
+   In Ubuntu 14.04 or previous version of Debina 9, use the following command to start. 
 
     ```bash
     service cnosdb-meta start
@@ -488,53 +493,58 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
     ```
 
 #### **Install CnosDB**
-1. Download
+1. Download CnosDB Service
 
    ```bash
-   wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.2.0-1.x86_64.rpm
+   yum localinstall https://dl.cnosdb.com/packages/rpm/cnosdb_2.3-community-1_amd64.rpm
    ```
 2. Install CnosDB Service
 
     ```bash
-    dpkg -i cnosdb_latest-1_amd64.deb
+    yum localinstall cnosdb_2.3-community-1_amd64.rpm
     ```
 
 3. Edit Configuration File
    > CnosDB configuration is located to `/etc/cnosdb/cnosdb.conf`.
+
+   Add the records added to the DNS server to the configuration file, and assign the different records to a different CnosDB service.
+
+   ```toml
+   host = "query_tskv<n>.cnosdb.com"
+   ```
    change [deployment].mode to `query_tskv` .
+
    ```toml
     [deployment]
     mode = "query_tskv"
    ```
-   Edit meta node address. \
-   Edit the node_id, node_id must be unique. \
+
+   Edit the node_id, node_id must be unique.
+
+   ```toml
+    [node_basic]
+    node_id = <n>
+   ``` 
+   Edit the meta cluster address.
    [cluster].name must be the same as [meta_init].cluster_name in the cnosdb-meta configuration.
    ```toml
     [cluster]
-    node_id = n
     name = "cluster_xxx"
-    http_addr = "meta<n>.cnosdb.com:8901" # Refers to any meta address
+    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
-   Add the records added to the DNS server to the configuration file, and assign the different records to a different CnosDB service.
-   ```toml
-    [cluster]
-    http_listen_addr = 'query_tskv<n>.cnosdb.com:8902'
-    grpc_listen_addr = 'query_tskv<n>.cnosdb.com:8903'
-    flight_rpc_listen_addr = 'query_tskv<n>.cnosdb.com:8904'
-    tcp_listen_addr = 'query_tskv<n>.cnosdb.com:8905'
-   ```
+
    The following is an example of the configuration file:
    ```toml
     ... ...
+    host = "query_tskv<n>.cnosdb.com"
+    [deployment]
+    mode = 'query_tskv'
+    ... ...
     [cluster]
-    node_id = n
-    name = "cluster_xxx"
-    meta_service_addr = 'meta<n>.cnosdb.com:8901'
-
-    http_listen_addr = 'query_tskv<n>.cnosdb.com:8902'
-    grpc_listen_addr = 'query_tskv<n>.cnosdb.com:8903'
-    flight_rpc_listen_addr = 'query_tskv<n>.cnosdb.com:8904'
-    tcp_listen_addr = 'query_tskv<n>.cnosdb.com:8905'
+    name = 'cluster_xxx'
+    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    [node_basic]
+    node_id = <n>
     ... ...
    ```
 4. Start CnosDB Service
@@ -607,9 +617,15 @@ git clone https://github.com/cnosdb/cnosdb.git && cd cnosdb
 make build
 ```
 
-**Run the distributed storage separation database service**
+**Run CnosDB Meta**
+```shell
+./target/debug/cnosdb-meta --config ./meta/config/config.toml
+```
 
+**Run CnosDB**
+```shell
+./target/debug/cnosdb-meta --config ./meta/config/config.toml
+./target/debug/cnosdb run -M <deployment>
 ```
-./target/debug/cnosdb
-```
+
 :::

@@ -3,7 +3,11 @@ title: Subscriptions
 order: 9
 ---
 
-CnosDB can manage subscriptions by SQL.
+:::tip
+Only Enterprise Edition supports
+:::
+
+The data can be replicated to another CnosDB cluster by subscription, and the data replication will help to improve the fault tolerance and reliability of the whole system. CnosDB supports managing subscriptions through SQL, and CnosDB supports subscribing through Telegraf or another CnosDB cluster.
 
 ## Create Subscription
 
@@ -15,8 +19,10 @@ We can use `CREATE SUBSCRIPTION` to create a subscription.
 CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_nmae>" ["<host_name>"]
 ```
 
-Note: host_name is the host_name of the grpc service of the CnosDB node subscribed to this node.
-All the data written to CnosDB will be copied and distributed to all the remote or local CnosDB nodes that are recorded.
+Note:
+1. `host_name` indicates the `host_name` of the grpc service of the CnosDB node that subscribing to this node.
+   All the data written to the specified database, CnosDB, will be copied and distributed to the host node.
+1. `ALL` Indicates the data replication mode. Currently, only `ALL` is supported.
 
 ### Example
 
@@ -44,7 +50,7 @@ We can use `ALTER SUBCRIPTION` to alter the subscription.
 ### Syntax
 
 ```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_nmae>" ["<host_name>"]。
+ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]。
 ```
 
 ### Example
@@ -72,8 +78,8 @@ SHOW SUBCRIPTION ON public
 ```
 
 ```
-Subscription,DESTINATIONS,Concurrency
-test,"127.0.0.1:8902,127.0.0.1:31002",ALL
+SUBSCRIPTION,DESTINATIONS,MODE
+test,"127.0.0.1:8902,127.0.0.1:8903",ALL
 ```
 
 ## Drop Subscription

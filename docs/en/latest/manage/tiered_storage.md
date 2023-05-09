@@ -5,6 +5,10 @@ order: 5
 
 ---
 
+:::tip
+Only Enterprise Edition supports
+:::
+
 In the actual service scenario, there are multiple data disks on one machine at the same time. Therefore, it is necessary to give full play to the capabilities of these disks to improve the throughput of the system.
 Another scenario is that multiple data disks on the same or multiple machines use different storage media, and customers want to store cold data that is not frequently accessed move to cheap storage media to reduce the cost of enterprise storage.
 In CnosDB, we solve these two scenarios through the following solutions:
