@@ -257,7 +257,7 @@ field_codec_type:
 CREATE TABLE air (
    visibility DOUBLE,
    temperature DOUBLE,
-   presssure DOUBLE,
+   pressure DOUBLE,
    TAGS(station)
 );
 ```
