@@ -249,7 +249,7 @@ For more information about the compression algorithm, see the details of the [co
 CREATE TABLE air (
    visibility DOUBLE,
    temperature DOUBLE,
-   presssure DOUBLE,
+   pressure DOUBLE,
    TAGS(station)
 );
 ```
