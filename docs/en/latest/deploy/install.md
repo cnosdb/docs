@@ -196,12 +196,14 @@ The cluster in this article is based on a 3 + 2 cluster distributed cluster, nam
 The engineers are actively developing the Sandbox and it is not guaranteed to work at this stage.
 
 1. Clone the repository
-    ```bash
+    ```shell
     git clone https://github.com/cnosdb/distributed-sandbox.git
     ```
 2. Start the cluster
-    ```bash
-    docker-compose up -d
+    ```shell
+    cd distributed-sandbox
+    chmod +x ./setup.sh
+    ./setup.sh
     ```
 
 @tab Ubuntu & Debian
