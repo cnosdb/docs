@@ -187,17 +187,16 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 @tab Docker
 
-:::tip
-
-工程师正在积极开发这个 Sandbox ，现阶段不能保证可以运行。
-
 1. 克隆仓库
-    ```bash
+
+    ```shell
     git clone https://github.com/cnosdb/distributed-sandbox.git
     ```
 2. 启动集群
-    ```bash
-    docker-compose up -d
+    ```shell
+    cd distributed-sandbox
+    chmod +x ./setup.sh
+    ./setup.sh
     ```
 
 @tab Ubuntu & Debian
