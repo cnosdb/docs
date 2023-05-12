@@ -28,7 +28,7 @@ order: 2
   ```
 会显示如下：
 ```
-CnosDB CLI v2.2.0
+CnosDB CLI v2.3.0
 Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
 public ❯
 ```

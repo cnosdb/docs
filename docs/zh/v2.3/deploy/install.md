@@ -489,13 +489,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB 程序
     ```bash
-    yum localinstall https://dl.cnosdb.com/packages/rpm/cnosdb_2.3-community-1_amd64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
     ```
 
 2. 安装 CnosDB 程序
 
     ```bash
-    yum localinstall cnosdb_2.3-community-1_amd64.rpm
+    yum localinstall localinstall cnosdb-2.3_community-1_amd64.rpm
     ```
 
 3. 修改配置文件

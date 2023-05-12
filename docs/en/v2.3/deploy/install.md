@@ -494,12 +494,12 @@ The cluster in this article is based on a 3 + 2 cluster distributed cluster, nam
 1. Download CnosDB Service
 
    ```bash
-   yum localinstall https://dl.cnosdb.com/packages/rpm/cnosdb_2.3-community-1_amd64.rpm
+   wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
    ```
 2. Install CnosDB Service
 
     ```bash
-    yum localinstall cnosdb_2.3-community-1_amd64.rpm
+    yum localinstall localinstall cnosdb-2.3_community-1_amd64.rpm
     ```
 
 3. Edit Configuration File
