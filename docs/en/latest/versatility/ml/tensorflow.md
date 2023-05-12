@@ -106,7 +106,7 @@ Use Docker to start CnosDB service in command line, enter the container and use 
 
 (base) root@ecs-django-dev:~# docker exec -it cnosdb sh sh
 # cnosdb-cli
-CnosDB CLI v2.0.0
+CnosDB CLI v2.3.0
 Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
 ```
 
