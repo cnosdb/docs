@@ -49,7 +49,7 @@ db_option: {
 
 `COOLING_DURATION` 必须是 `VNODE_DURATION` 的整数倍。 `COOLING_DURATION` 字段可以通过 `alter database` 进行修改。
 
-数据冷却后，meta中的 `migrate` 线程会将数据从热节点迁移至冷节点。
+数据冷却后，meta中的 `migrate` 线程会将数据从热节点迁移至冷节点，`migrate` 线程会定时检测是否有数据需要迁移，定时时间可以通过meta配置文件中的 `auto_migrate_vnodes_duration` 配置项来修改，该配置项单位是秒，默认为0，表示不开启多级存储功能；可以根据实际需要设置定时检测的时间，建议最小检测时间为1800秒，即 `auto_migrate_vnodes_duration = 1800`。
 
 **需要注意**
 
