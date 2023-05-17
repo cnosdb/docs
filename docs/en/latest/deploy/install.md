@@ -503,7 +503,7 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 2. Install CnosDB Service
 
     ```bash
-    yum localinstall localinstall cnosdb-2.3_community-1_amd64.rpm
+    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
     ```
 
 3. Edit Configuration File
@@ -532,7 +532,7 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
    ```toml
     [cluster]
     name = "cluster_xxx"
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
 
    The following is an example of the configuration file:
@@ -544,7 +544,7 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
     ... ...
     [cluster]
     name = 'cluster_xxx'
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
     [node_basic]
     node_id = <n>
     ... ...
