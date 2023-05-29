@@ -1270,14 +1270,6 @@ FROM AIR;
     | 55       |
     +----------+
 
-### Window Functions
-
-You can refer to [Window Functions](#window-functions)
-
-### Aggregate Functions
-
-You can refer to [Aggregate Functions](#aggregate-function)
-
 ### Operator Precedence
 
 If a complex expression has more than one operator, operator precedence determines the sequence of operations. The order of execution may have a noticeable effect on the resulting value.
