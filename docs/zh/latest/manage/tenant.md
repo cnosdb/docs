@@ -171,6 +171,57 @@ DROP
 USER IF EXISTS tester;
 ```
 
+## Admin权限
+
+- admin 权限分为两种
+  * 初始的 admin 权限
+  * 被授予的 admin 权限
+- 支持拥有 admin 权限的人将 admin 权限授予其他人
+- 系统表 cluster_schema.users 中 is_admin 字段标记是否拥有 admin 权限（包括初始的和被授予的）
+- 系统表 cluster_schema.users 中的 user_options 的 granted_admin 为 true，表示被授予的 admin 权限
+- 拥有 admin 权限的人可以回收其他人被赋予的 admin 权限
+- 初始的 admin 权限不支持被回收（即 root 用户拥有的 admin 权限）
+
+### 授予 admin 权限
+
+**语法**
+
+```sql
+alter user <user_name> set granted_admin = true
+```
+
+**示例**
+
+```sql
+create user dev;
+alter user dev set granted_admin = true;
+```
+
+### 撤销 admin 权限
+
+**语法**
+
+```sql
+alter user <user_name> set granted_admin = false
+```
+
+**示例**
+```sql
+alter user dev set granted_admin = false;
+```
+
+### 查看 admin 权限
+
+**示例**
+```sql
+select * from cluster_schema.users where user_name = 'dev';
+```
+
+    +-----------+----------+------------------------------------------------------------------------+
+    | user_name | is_admin | user_options                                                           |
+    +-----------+----------+------------------------------------------------------------------------+
+    | dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
+    +-----------+----------+------------------------------------------------------------------------+
 
 ## 租户角色
 
