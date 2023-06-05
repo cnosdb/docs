@@ -19,14 +19,14 @@ The basic unit of data migration in a CnosDB cluster is Vnode. The enterprise ed
 
 ```SQL
 SHOW DATANODES;                          // Show all nodes in the cluster
-+-----------+-------+
-| DataNodes | STATE |
-+-----------+-------+
-| 2001      | HOT   |
-| 1001      | HOT   |
-+-----------+-------+
++---------+------------------------+-----------+---------+-----------+---------------------+
+| NODE_ID | HOST                   | ATTRIBUTE | STATUS  | DISK_FREE | LAST_UPDATED_TIME   |
++---------+------------------------+-----------+---------+-----------+---------------------+
+| 1001    | query_tskv1.cnosdb.com | HOT       | HEALTHY | 5.18 GB   | 2023-06-05 02:30:22 |
+| 1002    | query_tskv2.cnosdb.com | HOT       | HEALTHY | 93.71 GB  | 2023-06-05 02:30:19 |
++---------+------------------------+-----------+---------+-----------+---------------------+
 
-ALTER NODE [node_id] STATUS [HOT/COLD];  // Modify the status of the node
+ALTER NODE [node_id] ATTRIBUTE [HOT/COLD];  // Modify the attribute of the node
 ```
 
 ```SQL
@@ -58,7 +58,7 @@ After data is cooled, the `migrate` thread in meta will migrate data from hot no
 - Users change the db cool downtime. The change may migrate data from a cold node to a hot node, for example:
 When starting the cluster through ./run_cluster.sh with default configuration, there are two data nodes in the cluster: 1001 and 2001, and both are hot nodes by default.
 ```SQL
-ALTER NODE 2001 STATUS COLD;  // Change data node 2001 to a cold node
+ALTER NODE 2001 ATTRIBUTE COLD;  // Change data node 2001 to a cold node
 CREATE DATABASE db1 with VNODE_DURATION '1m' COOLING_DURATION '1m';  // Create a database named "db1" on node 1001 with VNODE_DURATION and COOLING_DURATION both set to 1 minute
 ```
 Then create a table and write data in the "db1" database, wait for a period of time until the data is cooled and migrated from hot node 1001 to cold node 2001. At this point, execute the SQL statement:
