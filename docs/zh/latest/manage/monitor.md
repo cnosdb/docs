@@ -59,6 +59,51 @@ vnode 占据的内存大小。
 | VNODE_ID | vnode 的 ID          |
 | VALUE    | vnode 所占内存大小，单位Byte |
 
+### WRITE_DATA_IN
+
+#### 名称
+
+write_data_in
+
+#### 种类
+Count
+#### 描述
+通过http协议写入的数据流量，不包括SQL
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 统计data_in的时间     |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 写入流量的总大小,单位Byte  |
+
+### SQL_DATA_IN
+
+#### 名称
+
+sql_data_in
+
+#### 种类
+Count
+
+#### 描述
+
+通过sql写入的数据流量，包括INSERT，COPY 语句
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 统计data_in的时间     |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 写入流量的总大小,单位Byte  |
+
+
 ### COORD_DATA_IN
 
 #### 名称
