@@ -8,7 +8,7 @@ order: 9
 为了更直观的呈现 CnosDB 的性能，我们使用 [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) 测试工具，在[CnosDB 2.3.0](https://github.com/cnosdb/cnosdb) 和 [InfluxDB 1.8.10](https://github.com/influxdata/influxdb) 之间做了写入性能测试的对比，下面是测试结论和测试细节信息。
 ## 测试结论
 
-在保持同等batch-size大小，提高导入并发（可至30）；保持同等导入并发，提高batch-size大小（可至2w）；两种测试条件下，测试结果显示CnosDB的导入性能均要略优于InfluxDB。
+在保持同等batch-size大小，提高导入并发（至30）；保持同等导入并发，提高batch-size大小（至2w）；两种测试条件下，测试结果显示CnosDB的导入性能均要略优于InfluxDB。
 
 ## 测试前期
 ### 1.测试环境准备
