@@ -68,13 +68,21 @@ generate_data --use-case="iot" --seed=123 --scale=4000 --timestamp-start="2022-0
 ```shell
 generate_data --use-case="iot" --seed=123 --scale=4000 --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2022-02-01T00:00:00Z" --log-interval="10s" --format="influxdb" ｜ gzip > /tmp/influxdb-data.gz
 ```
-3. 执行load到CnosDB：
+3. 启动CnosDB
+```shell
+docker run --name cnosdb -p 8902:8902 -d --cpus=8 --memory=32g cnosdb/cnosdb:community-latest cnosdb run -M singleton
+```
+4. 启动InfluxDB
+```shell
+docker run --name influxdb -p 8086:8086 -d --cpus=8 --memory=32g influxdb
+```
+5. 执行load到CnosDB：
 ```shell
 cd tsdb-comparisons/cmd/load_cnosdb
 go build
 ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
 ```
-4. 执行load到InFluxDB：
+6. 执行load到InFluxDB：
 ```shell
 cd tsdb-comparisons/cmd/load_cnosdb
 go build
