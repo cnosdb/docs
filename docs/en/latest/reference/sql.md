@@ -2331,6 +2331,12 @@ GROUP BY CUBE (station, visibility);
 
 Contain the DISTINCT keyword, which counts the results after deduplication.
 
+> COUNT(*) and COUNT(literal value) are equivalent, and if the sql projection contains only '*/literal value', the sql is rewritten as COUNT(time).
+
+> COUNT(tag) and COUNT(DISTINCT tag) are equivalent.
+
+> COUNT(field) Returns the number of non-null values.
+
 **Parameter Type**：any type
 
 **Return Type**：BIGINT
@@ -4949,6 +4955,158 @@ FROM air;
     +-------------+-------------+-------------------------------------+
 
 ----------------
+
+## Advanced Functions
+
+### Interpolation Function
+
+In databases, interpolation is a technique used to deal with missing values in data. When there are missing values in the data, these techniques can help us estimate or speculate on those missing values, thus filling in the gaps in the data.
+
+### **time_window_gapfill**
+
+The time_window_gapfill is similar to time_window, but has the ability to fill in missing data. Interpolate and locf must be used in conjunction with time_window_gapfill, which controls how missing values are treated.
+
+The time_window_gapfill must be used as a top-level expression in a query or subquery. For example, you cannot nest time_window_gapfill in another function, such as sum(time_window_gapfill(xxx)).
+
+#### Grammar
+
+- time_window_gapfill
+```sql
+time_window_gapfill(<time column>, <window interval>[, <sliding interval>[, <start time>]]): <time window struct>
+```
+
+#### Policy
+- interpolate
+
+The core idea of linear interpolation is to assume that the relationship between the known data points is linear, and then estimate the value of the unknown data points according to the linear relationship between the known data points. Specifically, linear interpolation deduces the ordinates of unknown data points by using the linear rate of change between the ordinates of known data points.
+
+Linear interpolation is suitable for estimation of continuous variables, such as filling in missing values in time series or interpolating in spatial data. However, the accuracy and applicability of linear interpolation depends on the characteristics of the data and the actual situation. In some cases, the data may have non-linear relationships, or other interpolation methods may be more suitable. Therefore, before applying linear interpolation, it is necessary to carefully consider the nature of the data and the purpose of the interpolation to ensure that the interpolation results are reasonable and accurate.
+
+```sql
+interpolate(<expr>)
+```
+
+- locf
+
+This function is used to perform Gap filling within the time window and to fillin the missing values using the "Last Observation Carried Forward" (LOCF) operation.
+
+Last Observation Carried Forward (LOCF) is a method for filling in missing values using the most recent observable values. The specific treatment is as follows:
+
+
+
+1. Find the most recent non-missing value before the missing value.
+2. Copies the value of the non-missing value to the location of the missing value.
+3. Continue traversing backwards until the next non-missing value is encountered.
+4. If the next non-missing value is encountered, steps 1 and 2 are repeated to copy the value of that non-missing value to the missing value location.
+5. If there are still missing values at the end of the data series, the last non-missing value is copied until all missing values are filled in.
+
+In short, the LOCF method populates the missing value by copying the most recent observable value to the missing value location, making the data continuous in time. This method assumes that the data after the missing value is the same or very close to the last observed value. 
+ 
+It is important to note that the LOCF method can introduce certain biases, especially when the data after the missing value changes drastically. Therefore, when using LOCF to fill in missing values, it is necessary to carefully consider the characteristics of the data and the purpose of the analysis to ensure that the filled values can reasonably reflect the actual situation.
+
+```sql
+locf(<expr>)
+```
+
+**Examples：**
+```sql
+---- Prepare data
+
+DROP DATABASE IF EXISTS gapfill_db;
+CREATE DATABASE gapfill_db WITH TTL '1000000d';
+CREATE TABLE gapfill_db.m2(f0 BIGINT, f1 DOUBLE, TAGS(t0, t1, t2));
+
+INSERT gapfill_db.m2(TIME, f0, f1, t0, t1)
+VALUES
+    ('1999-12-31 00:00:00.000', 111, 444, 'tag11', 'tag21'),
+    ('1999-12-31 00:00:00.005', 222, 333, 'tag12', 'tag22'),
+    ('1999-12-31 00:00:00.010', 333, 222, 'tag13', 'tag23'),
+    ('1999-12-31 00:00:00.015', 444, 111, 'tag14', 'tag24'),
+    ('1999-12-31 00:00:00.020', 222, 555, 'tag11', 'tag21'),
+    ('1999-12-31 00:00:00.025', 333, 444, 'tag12', 'tag22'),
+    ('1999-12-31 00:00:00.030', 444, 333, 'tag13', 'tag23'),
+    ('1999-12-31 00:00:00.035', 555, 222, 'tag14', 'tag24');
+```
+
+```sql
+---- interpolate
+SELECT
+  t0,
+  time_window_gapfill(time, interval '10 milliseconds') as minute,
+  interpolate(avg(f1))
+from gapfill_db.m2
+where time between timestamp '1999-12-31T00:00:00.000Z' and timestamp '1999-12-31T00:00:00.055Z'
+group by t0, minute;
+```
+
+    +-------+-------------------------+-----------------------+
+    | t0    | minute                  | AVG(gapfill_db.m2.f1) |
+    +-------+-------------------------+-----------------------+
+    | tag11 | 1999-12-31T00:00:00     | 444.0                 |
+    | tag11 | 1999-12-31T00:00:00.010 | 499.5                 |
+    | tag11 | 1999-12-31T00:00:00.020 | 555.0                 |
+    | tag11 | 1999-12-31T00:00:00.030 |                       |
+    | tag11 | 1999-12-31T00:00:00.040 |                       |
+    | tag11 | 1999-12-31T00:00:00.050 |                       |
+    | tag12 | 1999-12-31T00:00:00     | 333.0                 |
+    | tag12 | 1999-12-31T00:00:00.010 | 388.5                 |
+    | tag12 | 1999-12-31T00:00:00.020 | 444.0                 |
+    | tag12 | 1999-12-31T00:00:00.030 |                       |
+    | tag12 | 1999-12-31T00:00:00.040 |                       |
+    | tag12 | 1999-12-31T00:00:00.050 |                       |
+    | tag13 | 1999-12-31T00:00:00     |                       |
+    | tag13 | 1999-12-31T00:00:00.010 | 222.0                 |
+    | tag13 | 1999-12-31T00:00:00.020 | 277.5                 |
+    | tag13 | 1999-12-31T00:00:00.030 | 333.0                 |
+    | tag13 | 1999-12-31T00:00:00.040 |                       |
+    | tag13 | 1999-12-31T00:00:00.050 |                       |
+    | tag14 | 1999-12-31T00:00:00     |                       |
+    | tag14 | 1999-12-31T00:00:00.010 | 111.0                 |
+    | tag14 | 1999-12-31T00:00:00.020 | 166.5                 |
+    | tag14 | 1999-12-31T00:00:00.030 | 222.0                 |
+    | tag14 | 1999-12-31T00:00:00.040 |                       |
+    | tag14 | 1999-12-31T00:00:00.050 |                       |
+    +-------+-------------------------+-----------------------+
+
+```sql
+---- locf
+SELECT
+  t0,
+  time_window_gapfill(time, interval '10 milliseconds') as minute,
+  locf(avg(f1))
+from gapfill_db.m2
+where time between timestamp '1999-12-31T00:00:00.000Z' and timestamp '1999-12-31T00:00:00.055Z'
+group by t0, minute;
+```
+
+    +-------+-------------------------+-----------------------+
+    | t0    | minute                  | AVG(gapfill_db.m2.f1) |
+    +-------+-------------------------+-----------------------+
+    | tag11 | 1999-12-31T00:00:00     | 444.0                 |
+    | tag11 | 1999-12-31T00:00:00.010 | 444.0                 |
+    | tag11 | 1999-12-31T00:00:00.020 | 555.0                 |
+    | tag11 | 1999-12-31T00:00:00.030 | 555.0                 |
+    | tag11 | 1999-12-31T00:00:00.040 | 555.0                 |
+    | tag11 | 1999-12-31T00:00:00.050 | 555.0                 |
+    | tag12 | 1999-12-31T00:00:00     | 333.0                 |
+    | tag12 | 1999-12-31T00:00:00.010 | 333.0                 |
+    | tag12 | 1999-12-31T00:00:00.020 | 444.0                 |
+    | tag12 | 1999-12-31T00:00:00.030 | 444.0                 |
+    | tag12 | 1999-12-31T00:00:00.040 | 444.0                 |
+    | tag12 | 1999-12-31T00:00:00.050 | 444.0                 |
+    | tag13 | 1999-12-31T00:00:00     |                       |
+    | tag13 | 1999-12-31T00:00:00.010 | 222.0                 |
+    | tag13 | 1999-12-31T00:00:00.020 | 222.0                 |
+    | tag13 | 1999-12-31T00:00:00.030 | 333.0                 |
+    | tag13 | 1999-12-31T00:00:00.040 | 333.0                 |
+    | tag13 | 1999-12-31T00:00:00.050 | 333.0                 |
+    | tag14 | 1999-12-31T00:00:00     |                       |
+    | tag14 | 1999-12-31T00:00:00.010 | 111.0                 |
+    | tag14 | 1999-12-31T00:00:00.020 | 111.0                 |
+    | tag14 | 1999-12-31T00:00:00.030 | 222.0                 |
+    | tag14 | 1999-12-31T00:00:00.040 | 222.0                 |
+    | tag14 | 1999-12-31T00:00:00.050 | 222.0                 |
+    +-------+-------------------------+-----------------------+
 
 ## System Schema
 

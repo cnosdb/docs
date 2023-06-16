@@ -174,6 +174,61 @@ DROP
 USER IF EXISTS tester;
 ```
 
+## Admin Permission
+
+There are two types of admin permissons:
+1. Initial admin permission
+2. Admin permission granted
+
+Note:
+* Support people who have admin permissions to grant admin permissions to others.
+* Whether the is_admin field in the system table cluster_schema.users has admin permissions(both initial and granted).
+* If granted_admin is set to true for user_options in the cluster_schema.users system table, the admin permission is granted.
+* A person with admin permission can reclaim admin permission granted to someone else.
+* The initial admin permission cannot be reclaimed (that is, the admin permission of the root user).
+### Grant Admin Permission
+
+**Grammar**
+
+```sql
+alter user <user_name> set granted_admin = true
+```
+
+**Examples**
+
+```sql
+create user dev;
+alter user dev set granted_admin = true;
+```
+
+### Revoke admin Permission
+
+**Grammar**
+
+```sql
+alter user <user_name> set granted_admin = false
+```
+
+**Examples**
+
+```sql
+alter user dev set granted_admin = false;
+```
+
+### View Admin Permission
+
+**Examples**
+
+```sql
+select * from cluster_schema.users where user_name = 'dev';
+```
+
+
+    +-----------+----------+------------------------------------------------------------------------+
+    | user_name | is_admin | user_options                                                           |
+    +-----------+----------+------------------------------------------------------------------------+
+    | dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
+    +-----------+----------+------------------------------------------------------------------------+
 
 ## Role of Tenant
 
