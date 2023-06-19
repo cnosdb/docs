@@ -35,6 +35,51 @@ The disk that the Vnode occupies.
 | VNODE_ID | ID of Vnode                           |
 | VALUE    | Disk that the Vnode occupies in bytes |
 
+### WRITE_DATA_IN
+
+#### NAME
+
+write_data_in
+
+#### Category
+
+Count
+#### Description
+
+Data traffic written over http, excluding SQL.
+
+#### Tag
+
+| Field    | Description                         |
+|----------|-------------------------------------|
+| TIME     | Time of data_in                     |
+| DATABASE | DatabaseName                        |
+| NODE_ID  | ID of data node                     |
+| TENANT   | Tenant name the database belongs to |
+| VALUE    | The total write traffic in Bytes    |
+
+### SQL_DATA_IN
+
+#### Name
+
+sql_data_in
+
+#### Category
+Count
+
+#### Description
+
+Data traffic written by sql, including INSERT, COPY statements.
+
+#### Tag
+
+| Field    | Description                         |
+|----------|-------------------------------------|
+| TIME     | Time of data_in                     |
+| DATABASE | DatabaseName                        |
+| NODE_ID  | ID of data node                     |
+| TENANT   | Tenant name the database belongs to |
+| VALUE    | The total write traffic in Bytes    |
 
 ### VNODE_CACHE_SIZE
 
