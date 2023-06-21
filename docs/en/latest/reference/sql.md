@@ -2771,15 +2771,40 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 [//]: # (----------------)
 [//]: # (### **GROUPING**&#40;x&#41;)
 [//]: # (    GROUPING&#40;x&#41;)
-[//]: # (**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。)
-[//]: # (**参数类型**：数值类型)
-[//]: # (**返回类型** BIGINT)
+[//]: # (**Function**： The function takes a single argument, which must be an expression for the dimension column specified in the expression list extended BY the ROLLUP, CUBE, or GROUPING SETS of the GROUP BY clause.)
+[//]: # (**Parameter Type**：VALUE TYPE)
+[//]: # (**Return Type** BIGINT)
 
 ## Functions
 
 ### **Mathematical Functions**
 
 ### **abs(x)**
+
+### **SAMPLE**
+
+#### Grammar
+
+    SAMPLE(<column_key>, <N>)
+**Function**： Select N records at random from the given column column_key
+
+**Column Type**：
+- column_key：Arbitrary Type
+- N：INTEGER
+
+**Return type**：ARRAY
+
+**Examples**
+
+```sql
+select sample(visibility, 5) from air;
+```
+    +--------------------------------------+
+    | sample(air.visibility,Int64(5))      |
+    +--------------------------------------+
+    | [65.0, 74.0, 76.0, 77.0, 72.0, 77.0] |
+    +--------------------------------------+
+
 
 **Function**：Return the absolute value of x.
 
