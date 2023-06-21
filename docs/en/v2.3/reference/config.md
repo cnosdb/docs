@@ -43,8 +43,9 @@ The configuration file consists of several TOML key-value pairs and tables, as s
 - `[heartbeat]` heartbeat configuration (v2.3.0)
 - `[node_basic]` node configuration (v2.3.0)
 - `[hintedoff]` hintedOff configuration
+- `[trace]` Full link tracing configuration
 
-详细的配置文件说明如下所示：
+The detailed configuration file description is as follows:
 
 ## \[deployment]
 
@@ -187,6 +188,26 @@ reporting_disabled = true
 | cache       | cache size (bit) before sending and forwarding, default: 1028      |
 | concurrency | number of concurrent requests processed for forwarding, default: 8 |
 | timeout     | timeout period for forwarding requests (seconds), default: 300     |
+
+## \[trace]
+
+| Parameter                | Description                                               |
+|--------------------|---------------------------------------------------|
+| auto_generate_span | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
+
+### \[trace.log] (optional)
+
+| Parameter                | Description                                               |
+|--------------------|---------------------------------------------------|
+| path | trace log file path |
+
+### \[trace.jaeger] (optional)
+
+| Parameter                 | Description                                               |
+|--------------------|---------------------------------------------------|
+| jaeger_agent_endpoint | the Jaeger agent endpoint。eg：http://localhost:14268/api/traces |
+| max_concurrent_exports | trace parallelism of the reporter, default value is 2 |
+| max_queue_size | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096 |
 
 # CnosDB Meta Configuration
 
