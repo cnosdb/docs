@@ -45,7 +45,7 @@ db_option: {
 }
 ```
 
-在 `CREATE DATABASE` 的语句中增加 `COOLING_DURATION value` 增加一个冷却时间的字段。 `option` 表示数据冷却的间隔， `COOLING_DURATION` 默认是0， 表示无限长。 
+在 `CREATE DATABASE` 的语句中增加 `COOLING_DURATION value` 增加一个冷却时间的字段。 `option` 表示数据冷却的间隔， `COOLING_DURATION` 默认是0， 表示停止数据迁移。 
 
 `COOLING_DURATION` 必须是 `VNODE_DURATION` 的整数倍。 `COOLING_DURATION` 字段可以通过 `alter database` 进行修改。
 
