@@ -88,7 +88,18 @@ See detailed operation please click the link : [ Deploy CnosDB ](../start/quick_
 | timeIndex | the time field corresponds to the serial number of the input column | No | http://127.0.0.1:8902/api/v1/write |  |
 | batchSize | the maximum number of CnosDB rows written in each batch, if modified, is based on the configured value | No | 1000 |  |
 | bufferSize | the maximum number of CnosDB bytes written in each batch is an unsigned integer. If modified, the configured value prevails | No | 1024 * 1024 * 8 |  |
-
+#### Type conversion specification
+The following table lists the CnosDB data types corresponding to the internal types of DataX.
+| DATAX Type    | CNOSDB Data Type        |
+|-------------------|-----------------------|
+| Date （time column）  | TIMESTAMP(NANOSECOND) |
+| Date （ Nontime column ）| BIGINT                |
+| Long              | BIGINT                |
+| Double            | DOUBLE                |
+| Bytes             | Not support                |
+| String            | STRING                |
+| Bool              | BOOLEAN               |
+> Restriction: When a table is created, columns of the TIMESTAMP type are automatically created and the column name is time. Users cannot create additional columns of the TIMESTAMP type. The Datax DATE type for a non-time column is converted to the CnosDB BIGINT type.
 ### Start the import task：
 Run the following command to start the task：
 ``` shell
