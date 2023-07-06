@@ -11,7 +11,7 @@ This article mainly introduces how to use DataX based on the cnosdbwriter plugin
 
 * Supports the row protocol in JSON format for OpenTSDB and writes in a schemaless manner.
 
-* Supports micro-batch data import with default batch size of maximum 1000 rows and buffer size of maximum 8MB.
+* Supports batch data import with default batch size of 1000 rows and buffer size of  8MB.
 
 ## Practical operation
 

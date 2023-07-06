@@ -10,7 +10,7 @@ order: 10
 ## cnosdbwriter 插件功能介绍
 
 * 支持 OpenTSDB 的 json 格式的行协议 ，以 schemaless 方式写入
-* 支持 batchSize 默认最大1000行、bufferSize  默认最大8M的微批数据导入
+* 支持 batchSize 默认 1000 行、bufferSize  默认最大 8M 的批量数据导入
 
 ## 实操
 
