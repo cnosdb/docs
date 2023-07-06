@@ -86,7 +86,18 @@ order: 10
 | timeIndex | 时间字段对应输入列的序号 | 否 | http://127.0.0.1:8902/api/v1/write | 无 |
 | batchSize | 每批次写入 CnosDB的最大行数，若修改则以配置后的值为准 | 否 | 1000 | 无 |
 | bufferSize | 每批次写入 CnosDB 的最大字节数，无符号整数，若修改则以配置后的值为准 | 否 | 1024 * 1024 * 8 | 无 |
-
+#### 类型转换说明
+下表列出 DataX 的内部类型对应的 CnosDB 数据类型。
+| DATAX 内部类型    | CNOSDB 数据类型        |
+|-------------------|-----------------------|
+| Date （time 列）  | TIMESTAMP(NANOSECOND) |
+| Date （非 time 列）| BIGINT                |
+| Long              | BIGINT                |
+| Double            | DOUBLE                |
+| Bytes             | 不支持                |
+| String            | STRING                |
+| Bool              | BOOLEAN               |
+> 约束限制：创建表时，TIMESTAMP 类型的列会被自动创建，列名为 time，用户无法创建额外的 TIMESTAMP 类型的列。非 time 列的 Datax DATE 类型会被转换为 CnosDB BIGINT 类型。
 ### 启动导入任务：
 执行以下命令启动任务：
 ``` shell
