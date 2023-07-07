@@ -5,7 +5,7 @@ order: 3
 
 # CnosDB 2.4 RoadMap
 
-## Design Objectives of CnosDB
+## Design Objectives of CnosDB 2.4
 
 To design and develop a high performance, high compression ratio, highly available, distributed cloud native time series
 database, which meets the following objectives.
