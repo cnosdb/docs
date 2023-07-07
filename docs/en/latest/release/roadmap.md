@@ -7,8 +7,7 @@ order: 3
 
 ## Design Objectives of CnosDB 2.4
 
-To design and develop a high performance, high compression ratio, highly available, distributed cloud native time series
-database, which meets the following objectives.
+CnosDB is designed to develop a high-performance, high-compression ratio, high-availability, distributed cloud-native temporal database, and CnosDB 2.4 will achieve the following goals.
 ### Functions
 Common functions (first, last, max, min), date conversion class, monitoring class (gauges calculation).
 ### Lossy Compression
