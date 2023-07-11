@@ -16,14 +16,15 @@ order: 9
 ### 语法
 
 ```
-CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]
+CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS <ALL|ANY> "<host_name>" ["<host_name>"]
 ```
 
 1. host_name 为订阅此节点的 CnosDB 节点的 grpc 服务的 host_name。
 
 所有写入 CnosDB 指定 database 的数据，都将被复制并分发到 host 节点。
 
-1. ALL 表示数据复制的模式，目前仅支持 ALL。
+1. ALL 将数据写入所有指定的host。
+2. ANY 在不同的host之间循环写入
 
 ### 示例
 
@@ -51,7 +52,7 @@ CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903";
 ### 语法
 
 ```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]。
+ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS <ALL|ANY> "<host_name>" ["<host_name>"]。
 ```
 
 ### 示例
