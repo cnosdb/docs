@@ -20,7 +20,7 @@ The main value of LangChain is:
 The ready-made chain structure makes getting started easy. For more complex applications and careful use cases, components make it easy to customize existing chain structures or build new ones.
 
 ### Implementation architecture
-![Implementation architecture figure](/static/img/Langchain.png)
+![Implementation architecture figure](/_static/img/Langchain.png)
 
 It can be seen from the architecture figure that by using LangChain components and ready-made chains, users do not need to learn how to use SQL scripts to interact with the database in advance, saving a lot of time and energy. Using the power of LangChain, SQLDatabase, SQL Agent, and the large OpenAI language model, we have been able to create applications that allow users to communicate with CnosDB in natural language.
 
