@@ -20,7 +20,7 @@ LangChain 的主要价值在于：
 现成的链式结构使得入门变得容易。对于更复杂的应用程序和细致的使用情况，组件使得自定义现有链式结构或构建新的链式结构变得容易。
 
 ### 实现架构
-![实现架构图](/static/img/Langchain.png)
+![实现架构图](/_static/img/Langchain.png)
 
 通过架构图可以看出：通过利用 LangChain 的组件与现成的链，使得用户不需要提前去学习如何使用 SQL 脚本与数据库交互，节省了大量的时间与精力。利用 LangChain 、SQLDatabase、SQL Agent 以及 OpenAI 大型语言模型的强大功能，我们已经可以做到创建应用程序，实现让用户使用自然语言与 CnosDB 交流。
 
