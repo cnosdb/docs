@@ -33,7 +33,7 @@ Cnosdb 中对于数据的管理采用的是 **DB+Time_range** 分片规则，通
 
 ![数据分片](/_static/img/buket.jpg)
 
-**Bucket**：bucket 是一个逻辑单元，建库时指定，每个 bucket 都包含以下主要的属性 ：< db , shardid，time_range, create_time,  end_time,  List<Vnode> >。
+**Bucket**：bucket 是一个逻辑单元，建库时指定，每个 bucket 都包含以下主要的属性 ：< db , shardid，time_range, create_time,  end_time,  List< Vnode > >。
 
 **Vnode**：Vnode 是一个逻辑计算单元，分布到一个具体的 Node 上面，它也是数据复制的最小单元。 
 
