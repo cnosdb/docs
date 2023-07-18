@@ -32,7 +32,7 @@ In Cnosdb, the data management adopts the **DB+Time_range** shard rule. The numb
 
 ![Bucket](/_static/img/buket.jpg)
 
-**Bucket** : A bucket is a logical unit, specified when the library is created. Each bucket contains the following main properties: < db, shardid, time_range, create_time, end_time, List<Vnode> >. 
+**Bucket** : A bucket is a logical unit, specified when the library is created. Each bucket contains the following main properties: < db, shardid, time_range, create_time, end_time, List< Vnode > >. 
 
 **Vnode** : A Vnode is a logical computing unit distributed to a specific Node, and it is also the smallest unit for data replication. 
 
