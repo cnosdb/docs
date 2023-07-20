@@ -11,7 +11,7 @@ The following figure shows the architecture of CnosDB.
 
 ![Arch](/_static/img/arch.png)
 
-### ### CnosDB meta 
+### CnosDB meta 
 **CnosDB meta** ,the corresponding program named cnosdb-meta, the role is to maintain the consistency of the cluster. It stores metadata in the cluster, including information about the topology of the cluster, the distribution of replicas, and the distribution of data.
 
 **cnosdb-meta** ,there are two roles: the cnosdb-meta leader and the cnosdb-meta follower, in which one cnosdb-meta is elected to be the leader through raft consistency protocol. The leader election requires more than half of the follower nodes to survive. Therefore, in a distributed cluster service, it is recommended to deploy **2n+1** cnosdb-meta services to ensure the high availability of the cluster.
