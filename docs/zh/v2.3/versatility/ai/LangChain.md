@@ -84,6 +84,7 @@ db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True)
 
 db_chain.run(
     "What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and October 20, 2022?"
+)
 ```
 ```python
 > Entering new  chain...
