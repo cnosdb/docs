@@ -52,8 +52,8 @@ cnosdb check server-config ./config.toml
 | 参数     | 说明                                                                   |
 |--------|----------------------------------------------------------------------|
 | mode   | 部署模式，可选项为 `tskv`, `query`, `query_tskv`, `singleton`，默认：`query_tskv` |
-| cpu    | 节点运行所使用的 cpu 核数，默认：10                                                |
-| memory | 节点运行所使用的最大内存（G），默认：16                                                |
+| cpu    | 节点运行所使用的 cpu 核数，默认：系统核数                                                |
+| memory | 节点运行所使用的最大内存（G），默认：系统内存                                                |
 
 参数 **mode** 的可选项说明：
 
@@ -93,6 +93,10 @@ reporting_disabled = true
 | query_sql_limit        | 每个 SQL 查询请求的最大字节数，默认：16777216            |
 | write_sql_limit        | 每个 Line Protocol 写入请求的最大字节数，默认：167772160 |
 | auth_enabled           | 是否检查用户的权限，默认：false                       |
+| read_timeout_ms        | 读取超时时间，默认：3000 ms                      |
+| write_timeout_ms       | 写入超时时间，默认：3000 ms                       |
+| stream_trigger_cpu     | 流处理触发CPU数量，默认：1                       |
+| stream_executor_cpu    | 流处理执行CPU数量，默认：2                       |
 
 ## \[storage]
 
@@ -127,6 +131,7 @@ reporting_disabled = true
 |----------------------|-------------------|
 | max_buffer_size      | 最大的活跃缓存大小，默认：128M |
 | max_immutable_number | 最大的非活跃缓存数量, 默认：4  |
+| partition | 缓存的分片数, 默认：16  |
 
 ## \[log]
 
@@ -134,6 +139,7 @@ reporting_disabled = true
 |-------|-------------------------------------|
 | level | 日志等级（debug、info、error、warn），默认：info |
 | path  | 日志存储目录，默认：`data/log`                |
+| tokio_trace  | tokio console 的地址“127.0.0.1:6669”                |
 
 ## \[security]
 
