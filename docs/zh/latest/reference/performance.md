@@ -21,7 +21,7 @@ order: 9
 | CPU        | 32核 Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz | 32核 Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz | 
 | 内存        | 256G                                         |  256G                                         | 
 | 磁盘        | 1块SSD盘(1T)                                  |  1块SSD盘(1T)                                  | 
->注：CnosDB和IfluxDB均为容器内部署，cpu核数为8，内存限制为32G。
+>注：CnosDB和InfluxDB均为容器内部署，CPU核数为8，内存限制为32G。
 
 ### 2.测试实例准备
 
@@ -37,7 +37,7 @@ order: 9
 
 ### 3.配置项检查及修改
 
-     CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其于均保持默认，此处不做赘述。
+     CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
 
 ### 4.数据集准备
 
@@ -82,7 +82,7 @@ cd tsdb-comparisons/cmd/load_cnosdb
 go build
 ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
 ```
-6. 执行load到InFluxDB：
+6. 执行load到InfluxDB：
 ```shell
 cd tsdb-comparisons/cmd/load_cnosdb
 go build
