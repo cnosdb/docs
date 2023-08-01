@@ -43,8 +43,9 @@ The configuration file consists of several TOML key-value pairs and tables, as s
 - `[heartbeat]` heartbeat configuration (v2.3.0)
 - `[node_basic]` node configuration (v2.3.0)
 - `[hintedoff]` hintedOff configuration
+- `[trace]` Full link tracing configuration
 
-详细的配置文件说明如下所示：
+The detailed configuration file description is as follows:
 
 ## \[deployment]
 
@@ -187,3 +188,68 @@ reporting_disabled = true
 | cache       | cache size (bit) before sending and forwarding, default: 1028      |
 | concurrency | number of concurrent requests processed for forwarding, default: 8 |
 | timeout     | timeout period for forwarding requests (seconds), default: 300     |
+
+## \[trace]
+
+| Parameter                | Description                                               |
+|--------------------|---------------------------------------------------|
+| auto_generate_span | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
+
+### \[trace.log] (optional)
+
+| Parameter                | Description                                               |
+|--------------------|---------------------------------------------------|
+| path | trace log file path |
+
+### \[trace.jaeger] (optional)
+
+| Parameter                 | Description                                               |
+|--------------------|---------------------------------------------------|
+| jaeger_agent_endpoint | the Jaeger agent endpoint。eg：http://localhost:14268/api/traces |
+| max_concurrent_exports | trace parallelism of the reporter, default value is 2 |
+| max_queue_size | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096 |
+
+# CnosDB Meta Configuration
+
+The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows:
+
+**TOML KEY**
+
+- `id` : id of Meta node, the value must be unique in the cluster
+- `host`: host of Meta node
+- `port`: port of Meta node
+- `snapshot_path`: snapshot storage path of Meta node
+- `journal_path`: journal storage path of Meta node
+- `snapshot_per_events`: The Meta node does a snapshot interval
+
+**TOML TABLE**
+
+- `[log]`: run log configuration
+- `[meta_init]`: example  initialize related configuration information of Meta node
+- `[heartbeat]` check CnosDB node status configurations periodically
+
+The detailed configuration file description is as follows:
+
+## \[log]
+
+| Parameter | Description                                        |
+|-----------|----------------------------------------------------|
+| level     | Log leverl（debug、info、error、warn），defult：info |
+| path      | log storage path，default：`data/log`              |
+
+
+## \[meta_init]
+
+| Parameter        | Description                           |
+|----------------- |-------------------------------------- |
+| cluster_name     | ClusterName                           |
+| admin_user       | User name of the system administrator |
+| system_tenant    | Name of the default tenant            |
+| default_database | Default database created              |
+
+## \[heartbeat]
+
+| Parameter                  | Description                                          |
+|----------------------------|----------------------------------------------------- |
+| heartbeat_recheck_interval | Interval for checking the heartbeat status of a node |
+| heartbeat_expired_interval | Interval for checking whether a node is abnormal     |

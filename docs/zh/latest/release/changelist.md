@@ -5,20 +5,69 @@ order: 2
 
 # 版本发布历史
 
-## v2.3
+## v2.3.1
 
-2023年05月09日，CnosDB 发布 V2.3 版。该版本主要增加了流计算能力以及一些企业版功能。这个版本的主要修改还包括：
+发布日期：2023年6月21日
 
-- 加强了查询功能，现在支持滚动窗口、滑动窗口和流计算。
-- 增加了常用时序处理函数 filling 的支持。
+### 新增特性
+- 新增trace [#1272](https://github.com/cnosdb/cnosdb/issues/1272)
+- 支持滑动窗口的gap fill [#1171](https://github.com/cnosdb/cnosdb/pull/1171)
+- 支持flight sql的元数据api [#1173](https://github.com/cnosdb/cnosdb/pull/1173)
+- 支持授予admin权限 [#1929](https://github.com/cnosdb/cnosdb/pull/1219)
+- 实现了sample函数 [#1228](https://github.com/cnosdb/cnosdb/pull/1228)
+- client端支持https链接 [#1225](https://github.com/cnosdb/cnosdb/pull/1225)
+### 功能优化
+- 提前释放缓存分区的rwlock [#1181](https://github.com/cnosdb/cnosdb/pull/1181)
+- 系统表实现查看库表功能 [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
+- grpc server端去掉TLS协议链接的支持 [#1216](https://github.com/cnosdb/cnosdb/pull/1216)
+- 修改bucket起始时间精度为ms [#1215](https://github.com/cnosdb/cnosdb/pull/1215)
+- 支持多线程写hinted handoff [#1230](https://github.com/cnosdb/cnosdb/pull/1230)
+- TskvExec分区读取策略 [#1200](https://github.com/cnosdb/cnosdb/pull/1200)
+- 新增修复损坏的索引文件工具 [#1238](https://github.com/cnosdb/cnosdb/pull/1238)
+- Compaction消耗过多内存 [#1237](https://github.com/cnosdb/cnosdb/pull/1237)
+- 在查询metrics加入host信息 [#1202](https://github.com/cnosdb/cnosdb/pull/1202)
+- 添加write_data_in和sql_data_in的metrics信息 [#1241](https://github.com/cnosdb/cnosdb/pull/1241)
+- 过期的WAL文件有时不会被自动删除 [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- 当某些Vnode较“冷”(很少进行写入)时，过期的WAL文件不会被自动删除 [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- 当Cache刷入磁盘时，检查WAL是否过期并删除过期的WAL [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- 优化FileManager中的一些方法 [#1268](https://github.com/cnosdb/cnosdb/pull/1268)
+### 问题修复
+- 迁移Vnode时复制目标Vnode导致数据丢失 [#1151](https://github.com/cnosdb/cnosdb/issues/1151)
+- 元数据验证失败导致写数据失败 [#1184](https://github.com/cnosdb/cnosdb/issues/1184)
+- 删除不存在的表返回状态不符合预期 [#1218](https://github.com/cnosdb/cnosdb/issues/1218)
+- VNODE_DISK_STORAGE和VNODE_CACHE_SIZE监控指标统计不准确 [#1197](https://github.com/cnosdb/cnosdb/issues/1197)
+- 系统表查询不到正在执行的sql [#1188](https://github.com/cnosdb/cnosdb/issues/1188)
+- 导出数据时生成许多只有列名信息的空文件 [#1211](https://github.com/cnosdb/cnosdb/issues/1211)
+- 更新表时未检查列编码 [#1148](https://github.com/cnosdb/cnosdb/issues/1148)
+- Vnode损坏导致数据查询结果不一致 [#1192](https://github.com/cnosdb/cnosdb/issues/1192)
+- 数据写入失败返回结果为success [#1084](https://github.com/cnosdb/cnosdb/issues/1084)
+- 写数据时，大量标记为已删除的文件句柄，导致磁盘空间持续增长 [#1242](https://github.com/cnosdb/cnosdb/issues/1242)
+- 写数据时，连接建立过多 [#1251](https://github.com/cnosdb/cnosdb/issues/1251)
+- 在Docker环境中编译CnosDB元组件时发生错误 [#1266](https://github.com/cnosdb/cnosdb/issues/1266)
+- 修复prom remote_read 没有返回数据的问题 [#1273](https://github.com/cnosdb/cnosdb/issues/1273)
+- 导出数据时内存耗尽 [#955](https://github.com/cnosdb/cnosdb/issues/955)
+- 查询数据结果不一致、结果不准确 [#1283](https://github.com/cnosdb/cnosdb/pull/1283)
+- 升级版本后，DB recovery非常慢 [#1180](https://github.com/cnosdb/cnosdb/issues/1180)
+- describle tables/databases 语法解析错误 [#1160](https://github.com/cnosdb/cnosdb/issues/1160)
+- 数据导入内存占用过高导致OOM，最终数据写入失败 [#1141](https://github.com/cnosdb/cnosdb/issues/1141)
+- 移动Vnode时，设置了错误的seq_no参数 [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- sql执行报"Not a field name" [#1033](https://github.com/cnosdb/cnosdb/issues/1033)
+- 外部表数据导入进来会覆盖原表数据 [#1131](https://github.com/cnosdb/cnosdb/issues/1131)
+### 行为变更
+- show tables结果显示的Table变更为table_name [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
+## v2.3.0
+
+2023年05月09日，CnosDB 发布 V2.3.0 版。该版本主要增加了流计算能力以及一些企业版功能。这个版本的主要修改还包括：
+
+- 增强了查询功能，现在支持滚动窗口、滑动窗口以及流式计算。
 - 对查询迭代器进行了并行化处理，从而极大提升了查询性能。
-- 新增了一些问题定位的手段，包括使用cpu/memory pprof和异步调用栈打印等方法。
-- 进一步完善了用例系统，包括完善checklist门禁用例和增加对支持sqllogictest的支持。
-- 原生支持OpenTSDB写入协议。
-- HTTP请求现在支持流式处理，有效减少了数据库的内存占用。
-- 在企业版本中，我们增加了订阅和分级存储的支持，欢迎与我们联系。
+- 新增了一些问题定位的工具，包括使用 CPU/Memory pprof和异步调用堆栈打印。
+- 进一步完善了测试用例系统，包括完善门禁测试用例和增加对SQLLogicTest 的支持。
+- 支持 OpenTSDB 写入协议。
+- HTTP请求现在支持流式处理方式，有效减少了数据库的内存占用。
+- 在企业版本中，增加了订阅和分级存储的支持。欢迎与我们联系。
 
-此外，还有一系列bug修复。
+此外，还修复了一些 bug。
 
 ## v2.2.0
 

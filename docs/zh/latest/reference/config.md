@@ -3,7 +3,7 @@ title: 配置
 order: 6
 ---
 
-# 配置
+# CnosDB配置
 
 ## 介绍
 
@@ -43,6 +43,7 @@ cnosdb check server-config ./config.toml
 - `[heartbeat]` 心跳配置
 - `[node_basic]` 节点配置
 - `[hintedoff]` HintedOff 配置
+- `[trace]` 全链路追踪配置
 
 详细的配置文件说明如下所示：
 
@@ -186,3 +187,69 @@ reporting_disabled = true
 | cache       | 发送转发前写入cache的大小(bit)，默认：1028 |
 | concurrency | 处理转发请求的并发数，默认：8              |
 | timeout     | 转发请求的超时时间（秒），默认：300          |
+
+## \[trace]
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| auto_generate_span | 是否自动生成root span，当客户端未携带span context时有效 |
+
+### \[trace.log] (可选)
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| path | trace 日志文件路径 |
+
+### \[trace.jaeger] (可选)
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| jaeger_agent_endpoint | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
+| max_concurrent_exports | trace 上报器的并行度。默认值为 2 |
+| max_queue_size | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。 默认值为 4096 |
+
+# CnosDB Meta配置
+
+Meta节点的配置文件格式同Data节点，由数个 TOML 键值对与表所组成，如下所示：
+
+**TOML 键**
+
+- `id` Meta节点的id，要求集群内唯一
+- `host` 节点的 host
+- `port` 节点的 port
+- `snapshot_path` Meta节点snapshot存储路径
+- `journal_path` Meta节点journal存储路径
+- `snapshot_per_events` Meta节点多久做一次snapshot
+
+**TOML 表**
+
+- `[log]` 运行日志配置
+- `[meta_init]` Meta初始化相关配置信息
+- `[heartbeat]` 定时检查CnosDB节点状态相关配置
+
+详细的配置文件说明如下所示：
+
+## \[log]
+
+| 参数    | 说明                                  |
+|-------|-------------------------------------|
+| level | 日志等级（debug、info、error、warn），默认：info |
+| path  | 日志存储目录，默认：`data/log`                |
+
+
+## \[meta_init]
+
+| 参数    | 说明                                  |
+|-------|-------------------------------------|
+| cluster_name | 集群名字 |
+| admin_user  | 系统管理员用户名               |
+| system_tenant  | 系统默认租户名字               |
+| default_database  | 默认创建的数据库              |
+
+## \[heartbeat]
+
+| 参数                       | 说明                                     |
+|--------------------------|----------------------------------------|
+| heartbeat_recheck_interval | 多久检查一次CnosDB节点的状态 |
+| heartbeat_expired_interval | CnosDB节点多久未上报心跳认定异常 |
+

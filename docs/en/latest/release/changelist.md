@@ -5,27 +5,76 @@ order: 2
 
 # Change List
 
-## V2.3
+## v2.3.1
 
-On May 09, 2023, CnosDB released version 2.3. This version mainly adds stream computing capabilities and some enterprise features. The main modifications of this version include:
+Release date：June 21,2023
 
-- The query functionality has been strengthened to support scrolling windows, sliding windows, and stream computing.
+### New Features
+- Added trace [#1272](https://github.com/cnosdb/cnosdb/issues/1272)
+- Support sliding window gap fill [#1171](https://github.com/cnosdb/cnosdb/pull/1171)
+- Support metadata API for Flight SQL [#1173](https://github.com/cnosdb/cnosdb/pull/1173)
+- Support granting admin privileges [#1929](https://github.com/cnosdb/cnosdb/pull/1219)
+- Implemented sample function [#1228](https://github.com/cnosdb/cnosdb/pull/1228)
+- Client-side supports HTTPS connection [#1225](https://github.com/cnosdb/cnosdb/pull/1225)
+### Improvements
+- Early release of rwlock for cached partitions [#1181](https://github.com/cnosdb/cnosdb/pull/1181)
+- Implementation of viewing database and table functionality for system tables [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
+- Remove support for TLS protocol connection on grpc server side [#1216](https://github.com/cnosdb/cnosdb/pull/1216)
+- Modify the starting time precision of buckets to ms [#1215](https://github.com/cnosdb/cnosdb/pull/1215)
+- Support multi-threaded write hinted handoff [#1230](https://github.com/cnosdb/cnosdb/pull/1230)
+- TskvExec partition read strategy [#1200](https://github.com/cnosdb/cnosdb/pull/1200)
+- Added a tool to repair corrupted index files [#1238](https://github.com/cnosdb/cnosdb/pull/1238)
+- Compaction consumes too much memory [#1237](https://github.com/cnosdb/cnosdb/pull/1237)
+- Add host information when querying metrics [#1202](https://github.com/cnosdb/cnosdb/pull/1202)
+- Added metrics information for write_data_in and sql_data_in [#1241](https://github.com/cnosdb/cnosdb/pull/1241)
+- Expired WAL files are not always automatically deleted [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- Expired WAL files are not automatically deleted when some Vnodes are "cold" (rarely written to) [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- Check for expired WALs and delete them when the cache is flushed to disk [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- Optimization of some methods in FileManager [#1268](https://github.com/cnosdb/cnosdb/pull/1268)
+### Bug Fixes
+- Data loss caused by copying the target Vnode during Vnode migration [#1151](https://github.com/cnosdb/cnosdb/issues/1151)
+- Failed to write data due to metadata verification failure [#1184](https://github.com/cnosdb/cnosdb/issues/1184)
+- Deleting a nonexistent table returns an unexpected status [#1218](https://github.com/cnosdb/cnosdb/issues/1218)
+- Inaccurate monitoring indicators for VNODE_DISK_STORAGE and VNODE_CACHE_SIZE [#1197](https://github.com/cnosdb/cnosdb/issues/1197)
+- System tables cannot query currently executing SQL statements [#1188](https://github.com/cnosdb/cnosdb/issues/1188)
+- Exporting data generates many empty files with only column name information [#1211](https://github.com/cnosdb/cnosdb/issues/1211)
+- Column encoding is not checked when updating tables [#1148](https://github.com/cnosdb/cnosdb/issues/1148)
+- Inconsistent data query results caused by damaged Vnodes [#1192](https://github.com/cnosdb/cnosdb/issues/1192)
+- Writing data fails but still returns success result [#1084](https://github.com/cnosdb/cnosdb/issues/1084)
+- When writing data, a large number of file handles marked as deleted cause continuous disk space growth [#1242](https://github.com/cnosdb/cnosdb/issues/1242)
+- Multiple connections are established when writing data [#1251](https://github.com/cnosdb/cnosdb/issues/1251)
+- Compilation error in CnosDB tuple component in Docker environment [#1266](https://github.com/cnosdb/cnosdb/issues/1266)
+- Fix issue where prom remote_read doesn't return data [#1273](https://github.com/cnosdb/cnosdb/issues/1273)
+- Memory exhaustion when exporting data [#955](https://github.com/cnosdb/cnosdb/issues/955)
+- Inconsistent or inaccurate query results [#1283](https://github.com/cnosdb/cnosdb/pull/1283)
+- Slow DB recovery after version upgrade [#1180](https://github.com/cnosdb/cnosdb/issues/1180)
+- Syntax parsing error for describe tables and describe databases command [#1160](https://github.com/cnosdb/cnosdb/issues/1160)
+- High memory consumption during data import resulting in OOM and failed data writes [#1141](https://github.com/cnosdb/cnosdb/issues/1141)
+- Incorrect seq_no parameter set during Vnode movement [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- SQL execution error "Not a field name"  [#1033](https://github.com/cnosdb/cnosdb/issues/1033)
+- External table data import overrides original table data [#1131](https://github.com/cnosdb/cnosdb/issues/1131)
+### Behavior Change
+- Change the "Table" displayed in the result of show tables to "table_name" [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
 
-- Support for the frequently used time series processing function "filling" has been added.
+## V2.3.0
 
-- Query iterators have been parallelized, resulting in greatly improved query performance.
+On May 09, 2023, CnosDB released version 2.3.0. This version mainly adds stream computing capabilities and some enterprise features. The main modifications of this version include:
 
-- New techniques for problem localization have been introduced, including using cpu/memory pprof and asynchronous call stack printing.
+- Enhanced query functionality now supports scrolling windows, sliding windows, and streaming calculations.
 
-- The test case system has been further improved, including enhancing checklist gatekeeper test cases and adding support for sqllogictest.
+- Parallel processing has been applied to query iterators, greatly improving query performance.
 
-- The opentsdb write protocol is now natively supported.
+- Added some tools for problem localization, including the use of CPU/Memory pprof and asynchronous call stack printing.
+
+- Further improved the test case system, including improving access control test cases and adding support for SQLLogicTest.
+
+- Added support for the OpenTSDB write protocol.
 
 - HTTP requests now support streaming processing, effectively reducing database memory usage.
 
-- In the enterprise version, we have added support for subscription and hierarchical storage. Please feel free to contact us for more information.
+- In the enterprise version, support for subscription and tiered storage has been added. Please contact us for more information.
 
-Additionally, a series of bugs have been fixed.
+Addition, there are a series of bug fixes.
 
 ## V2.2.0
 
@@ -47,7 +96,7 @@ On March 01, 2023, CnosDB released version V2.2.0. This version mainly adds the 
 
 - Add multi-threaded flush, reduce memory copy during writes, optimize the use of some locks and improve write performance.
 
-addition, there are a series of bug fixes.
+Addition, there are a series of bug fixes.
 
 ## V2.1.0
 

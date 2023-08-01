@@ -60,11 +60,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 1. **下载**
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3-community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
     ```
 2. **安装 CnosDB 程序**
     ```bash
-    yum localinstall cnosdb-2.3-community-1.x86_64.rpm
+    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
     ```
 3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
 
@@ -187,17 +187,15 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 @tab Docker
 
-:::tip
-
-工程师正在积极开发这个 Sandbox ，现阶段不能保证可以运行。
-
 1. 克隆仓库
-    ```bash
+    ```shell
     git clone https://github.com/cnosdb/distributed-sandbox.git
     ```
 2. 启动集群
-    ```bash
-    docker-compose up -d
+    ```shell
+    cd distributed-sandbox
+    chmod +x ./setup.sh
+    ./setup.sh
     ```
 
 @tab Ubuntu & Debian
@@ -348,7 +346,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
    ```toml
     [cluster]
     name = "cluster_xxx"
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
 
    配置完成后的配置文件示例如下：
@@ -360,7 +358,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ... ...
     [cluster]
     name = 'cluster_xxx'
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
     [node_basic]
     node_id = <n>
     ... ...
@@ -390,16 +388,16 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB Meta 程序
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta_2.3-community-1_amd64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 
 2. 安装 CnosDB Meta 程序
 
     ```bash
-    yum localinstall cnosdb-meta_2.3-community-1_amd64.rpm
+    yum localinstall cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 3. 修改配置文件
-    > Meta 服务的配置文件位于 `/etc/cnosdb-meta/cnosdb-meta.conf`。
+    > Meta 服务的配置文件位于 `/etc/cnosdb/cnosdb-meta.conf`。
 
     将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 Meta 服务。
     ```toml
@@ -490,13 +488,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB 程序
     ```bash
-    yum localinstall https://dl.cnosdb.com/packages/rpm/cnosdb_2.3-community-1_amd64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
     ```
 
 2. 安装 CnosDB 程序
 
     ```bash
-    yum localinstall cnosdb_2.3-community-1_amd64.rpm
+    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
     ```
 
 3. 修改配置文件
@@ -524,7 +522,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     [cluster]
     node_id = n
     name = "cluster_xxx"
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
    ```
 
    配置完成后的配置文件示例如下：
@@ -536,7 +534,7 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
     ... ...
     [cluster]
     name = 'cluster_xxx'
-    http_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
+    meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
     [node_basic]
     node_id = <n>
     ... ...

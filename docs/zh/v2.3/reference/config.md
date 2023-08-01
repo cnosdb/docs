@@ -3,7 +3,7 @@ title: 配置
 order: 6
 ---
 
-# 配置
+# CnosDB配置
 
 ## 介绍
 
@@ -43,6 +43,7 @@ cnosdb check server-config ./config.toml
 - `[heartbeat]` 心跳配置
 - `[node_basic]` 节点配置
 - `[hintedoff]` HintedOff 配置
+- `[trace]` 全链路追踪配置
 
 详细的配置文件说明如下所示：
 
@@ -51,8 +52,8 @@ cnosdb check server-config ./config.toml
 | 参数     | 说明                                                                   |
 |--------|----------------------------------------------------------------------|
 | mode   | 部署模式，可选项为 `tskv`, `query`, `query_tskv`, `singleton`，默认：`query_tskv` |
-| cpu    | 节点运行所使用的 cpu 核数，默认：10                                                |
-| memory | 节点运行所使用的最大内存（G），默认：16                                                |
+| cpu    | 节点运行所使用的 cpu 核数，默认：系统核数                                                |
+| memory | 节点运行所使用的最大内存（G），默认：系统内存                                                |
 
 参数 **mode** 的可选项说明：
 
@@ -92,6 +93,10 @@ reporting_disabled = true
 | query_sql_limit        | 每个 SQL 查询请求的最大字节数，默认：16777216            |
 | write_sql_limit        | 每个 Line Protocol 写入请求的最大字节数，默认：167772160 |
 | auth_enabled           | 是否检查用户的权限，默认：false                       |
+| read_timeout_ms        | 读取超时时间，默认：3000 ms                      |
+| write_timeout_ms       | 写入超时时间，默认：3000 ms                       |
+| stream_trigger_cpu     | 流处理触发CPU数量，默认：1                       |
+| stream_executor_cpu    | 流处理执行CPU数量，默认：2                       |
 
 ## \[storage]
 
@@ -126,6 +131,7 @@ reporting_disabled = true
 |----------------------|-------------------|
 | max_buffer_size      | 最大的活跃缓存大小，默认：128M |
 | max_immutable_number | 最大的非活跃缓存数量, 默认：4  |
+| partition | 缓存的分片数, 默认：16  |
 
 ## \[log]
 
@@ -133,6 +139,7 @@ reporting_disabled = true
 |-------|-------------------------------------|
 | level | 日志等级（debug、info、error、warn），默认：info |
 | path  | 日志存储目录，默认：`data/log`                |
+| tokio_trace  | tokio console 的地址“127.0.0.1:6669”                |
 
 ## \[security]
 
@@ -186,3 +193,69 @@ reporting_disabled = true
 | cache       | 发送转发前写入cache的大小(bit)，默认：1028 |
 | concurrency | 处理转发请求的并发数，默认：8              |
 | timeout     | 转发请求的超时时间（秒），默认：300          |
+
+## \[trace]
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| auto_generate_span | 是否自动生成root span，当客户端未携带span context时有效 |
+
+### \[trace.log] (可选)
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| path | trace 日志文件路径 |
+
+### \[trace.jaeger] (可选)
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| jaeger_agent_endpoint | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
+| max_concurrent_exports | trace 上报器的并行度。默认值为 2 |
+| max_queue_size | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。 默认值为 4096 |
+
+# CnosDB Meta配置
+
+Meta节点的配置文件格式同Data节点，由数个 TOML 键值对与表所组成，如下所示：
+
+**TOML 键**
+
+- `id` Meta节点的id，要求集群内唯一
+- `host` 节点的 host
+- `port` 节点的 port
+- `snapshot_path` Meta节点snapshot存储路径
+- `journal_path` Meta节点journal存储路径
+- `snapshot_per_events` Meta节点多久做一次snapshot
+
+**TOML 表**
+
+- `[log]` 运行日志配置
+- `[meta_init]` Meta初始化相关配置信息
+- `[heartbeat]` 定时检查CnosDB节点状态相关配置
+
+详细的配置文件说明如下所示：
+
+## \[log]
+
+| 参数    | 说明                                  |
+|-------|-------------------------------------|
+| level | 日志等级（debug、info、error、warn），默认：info |
+| path  | 日志存储目录，默认：`data/log`                |
+
+
+## \[meta_init]
+
+| 参数    | 说明                                  |
+|-------|-------------------------------------|
+| cluster_name | 集群名字 |
+| admin_user  | 系统管理员用户名               |
+| system_tenant  | 系统默认租户名字               |
+| default_database  | 默认创建的数据库              |
+
+## \[heartbeat]
+
+| 参数                       | 说明                                     |
+|--------------------------|----------------------------------------|
+| heartbeat_recheck_interval | 多久检查一次CnosDB节点的状态 |
+| heartbeat_expired_interval | CnosDB节点多久未上报心跳认定异常 |
+
