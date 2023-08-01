@@ -36,7 +36,7 @@ order: 4
 
 ### CnosDB 数据导入
 
-将 MSSN 数据 csv 格式文件`SN_m_tot_V2.0.csv`（https://www.sidc.be/silso/infosnmtot） 下载到本地。
+将 MSSN 数据 csv 格式文件`SN_m_tot_V2.0.csv`（https://www.sidc.be/SILSO/INFO/snmtotcsv.php） 下载到本地。
 
 以下是官方提供的CSV文件描述：
 
