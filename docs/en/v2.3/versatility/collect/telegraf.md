@@ -20,7 +20,7 @@ order: 1
 1. **Input:** Collects metrics data from systems, services, or third-party APIs.
 2. **Process:** Process and trim the metrics data before sending them to maintain data cleanliness.
 3. **Aggregate:** Generate aggregated metrics, such as average, minimum, and maximum values of metric data.
-4. **Output:** Writing data to a data store, service or message queue such as InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ, etc.
+4. **Output:** Writing data to a data store, service or message queue such as CnosDB, InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ, etc.
 
 In the following, we will describe how to install and configure Telegraf for collecting system metrics data and storing it in CnosDB.
 

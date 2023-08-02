@@ -20,7 +20,7 @@ order: 1
 1. **输入**: 收集来自系统、服务或第三方 API 的指标数据。
 2. **处理**: 在发送指标数据前对数据进行处理、修饰，以维持数据整洁。
 3. **聚合**: 生成聚合指标，如指标数据的平均值、最小值、最大值等。
-4. **输出**: 将数据写入数据存储、服务或消息队列，如 InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ 等。
+4. **输出**: 将数据写入数据存储、服务或消息队列，如 CnosDB, InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ 等。
 
 在下文中，我们将介绍如何安装、配置 Telegraf，以实现采集系统指标数据，并存储在 CnosDB 中。
 
