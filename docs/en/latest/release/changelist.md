@@ -5,6 +5,35 @@ order: 2
 
 # Change List
 
+Release date：Aug 02,2023
+
+### New Features:
+- Add monitoring metric 'http_data_out' [#1304](https://github.com/cnosdb/cnosdb/issues/1304)
+- Added chunked mode in the client [#1357](https://github.com/cnosdb/cnosdb/issues/1357)
+- Added new log types to the WAL: DROP VNODE and DROP TABLE [#1340](https://github.com/cnosdb/cnosdb/issues/1340)
+### Improvements:
+- Improved flight-sql implementation, added implementation for the do_put_prepared_statement_update interface [#1329](https://github.com/cnosdb/cnosdb/issues/1329)
+- Enhanced meta watch and optimized interaction between queries [#1314](https://github.com/cnosdb/cnosdb/issues/1314)
+- Upgraded datafusion version to 27.0.0 [#1323](https://github.com/cnosdb/cnosdb/issues/1323)
+- Added additional methods to the flatbuffers model [#1361](https://github.com/cnosdb/cnosdb/issues/1361)
+### Bug Fixes:
+- Fixed the issue of generating duplicate series IDs [#1301](https://github.com/cnosdb/cnosdb/issues/1301)
+- Fixed the problem with the sample function returning errors [#1296](https://github.com/cnosdb/cnosdb/issues/1296)
+- Fixed panic when writing to binlog [#1309](https://github.com/cnosdb/cnosdb/issues/1309)
+- Fixed schema error in logical plan [#1332](https://github.com/cnosdb/cnosdb/issues/1332)
+- Fixed parsing error in CREATE TABLE [#1318](https://github.com/cnosdb/cnosdb/issues/1318)
+- Fixed json deserialization issue in raft_bucket [#1347](https://github.com/cnosdb/cnosdb/issues/1347)
+- Fixed handshake failure for arrow-flight-sql odbc [#1336](https://github.com/cnosdb/cnosdb/issues/1336)
+- Fixed out-of-memory issue when importing Line Protocol data [#1319](https://github.com/cnosdb/cnosdb/issues/1319)
+- Fixed errors in data node health check [#1352](https://github.com/cnosdb/cnosdb/issues/1352)
+- Fixed unintended deletion of irrelevant columns when deleting a table [#1363](https://github.com/cnosdb/cnosdb/issues/1363)
+- Fixed client connection issue using ca.crt [#1369](https://github.com/cnosdb/cnosdb/issues/1369)
+- Fixed tokio trace filtering [#1372](https://github.com/cnosdb/cnosdb/issues/1372)
+- Fixed errors in inserting line protocol data [#1366](https://github.com/cnosdb/cnosdb/issues/1366)
+### Behavior Change:
+- Configuration changes [#1372](https://github.com/cnosdb/cnosdb/issues/1372)
+- Default TTL set to infinite when creating a database [#1354](https://github.com/cnosdb/cnosdb/issues/1354)
+
 ## v2.3.1
 
 Release date：June 21,2023
