@@ -36,7 +36,7 @@ We mainly analyze and explore the changes of the monthly mean sunspot number (MS
 
 ### Import Data to CnosDB
 
-Download MSSN data `SN_m_tot_V2.0.csv`（https://www.sidc.be/silso/infosnmtot）.
+Download MSSN data `SN_m_tot_V2.0.csv`（https://www.sidc.be/SILSO/INFO/snmtotcsv.php）.
 
 Here is the official description of the CSV file:
 
