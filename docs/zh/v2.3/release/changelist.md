@@ -3,7 +3,39 @@ title: 版本发布
 order: 2
 ---
 
-# 版本发布历史 
+# 版本发布历史
+
+## v2.3.2
+
+发布日期：2023年8月2日
+
+### 新增特性
+- 增加监控指标 'http_data_out' [#1304](https://github.com/cnosdb/cnosdb/pull/1304)
+- client 中添加 chunked 模式 [#1357](https://github.com/cnosdb/cnosdb/pull/1357)
+- WAL 增加日志种类：DROP VNODE 和 DROP TABLE [#1340](https://github.com/cnosdb/cnosdb/pull/1340)
+### 功能优化
+- 改进 flight-sql 实现, 增加其中 do_put_prepared_statement_update 接口的实现 [#1329](https://github.com/cnosdb/cnosdb/pull/1329)
+- 改进 meta watch 并且优化查询之间的交互过程 [#1314](https://github.com/cnosdb/cnosdb/pull/1314)
+- 升级 datafusion 版本到 27.0.0 [#1323](https://github.com/cnosdb/cnosdb/pull/1323)
+- 为 flatbuffers  模型添加一些额外的方法 [#1361](https://github.com/cnosdb/cnosdb/pull/1361)
+### 问题修复
+- 修复生成重复 series id 的问题 [#1301](https://github.com/cnosdb/cnosdb/pull/1301)
+- 修复 sample 函数返回错误的问题 [#1296](https://github.com/cnosdb/cnosdb/pull/1296)
+- 修复写入 binlog 时出现 panic 的问题 [#1309](https://github.com/cnosdb/cnosdb/pull/1309)
+- 修复逻辑计划错误的 schema [#1332](https://github.com/cnosdb/cnosdb/pull/1332)
+- 修复 CREATE TABLE 解析错误的问题 [#1318](https://github.com/cnosdb/cnosdb/pull/1318)
+- 修复 raft_bucket json 反序列化问题 [#1347](https://github.com/cnosdb/cnosdb/pull/1347)
+- 修复 arrow-flight-sql odbc 握手失败的问题 [#1336](https://github.com/cnosdb/cnosdb/pull/1336)
+- 修复导入 Line Prototol 数据时提示内存不足的问题  [#1319](https://github.com/cnosdb/cnosdb/pull/1319)
+- 修复 data 节点健康检查有错误的问题 [#1352](https://github.com/cnosdb/cnosdb/pull/1352)
+- 修复删除表时意外删除无关列的问题 [#1363](https://github.com/cnosdb/cnosdb/pull/1363)
+- 修复 client 不能通过 ca.crt 连接到 server 的问题 [#1369](https://github.com/cnosdb/cnosdb/pull/1369)
+- 修复 tokio trace 过滤 [#1372](https://github.com/cnosdb/cnosdb/pull/1372)
+- 修复插入 line protocol 的错误 [#1366](https://github.com/cnosdb/cnosdb/pull/1366)
+### 行为变更
+- 配置变更 [#1372](https://github.com/cnosdb/cnosdb/pull/1372)
+- 创建数据库时默认 TTL 设置为无限长 [#1354](https://github.com/cnosdb/cnosdb/pull/1354)
+
 ## v2.3.1
 
 发布日期：2023年6月21日
