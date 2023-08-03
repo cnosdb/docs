@@ -5,6 +5,9 @@ order: 2
 
 # Change List
 
+
+## v2.3.2
+
 Release date：Aug 02,2023
 
 ### New Features:
