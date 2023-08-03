@@ -168,5 +168,11 @@ export const enSidebar = sidebar({
       icon: "leaf",
       collapsible: true,
     },
+    {
+      text: "Alerts",
+      link: "alerts.md",
+      icon: "notice",
+      collapsible: true,
+    },
   ],
 });
