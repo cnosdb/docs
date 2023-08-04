@@ -5,7 +5,7 @@ order: 2
 
 # Change List
 
-## v2.3.2
+## v2.3.2 Andromeda
 
 Release date：Aug 02,2023
 
