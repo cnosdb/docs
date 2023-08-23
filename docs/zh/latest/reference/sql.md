@@ -3044,6 +3044,351 @@ select sample(visibility, 5) from air;
     | [65.0, 74.0, 76.0, 77.0, 72.0, 77.0] |
     +--------------------------------------+
 
+## 两阶段聚合函数
+
+### stats_agg
+
+stats_agg 提供了与sum, count, corr, covar_pop 等聚合函数相同的功能，
+适用于一条SQL中，包含多个分析函数的场景，两列都不为NULL时才纳入聚合。
+
+#### stats_agg
+
+    stats_agg(y, x)
+
+**功能**：进行统计聚合
+
+**参数类型**：
+
+- y: double 类型
+- x: double 类型
+
+**返回类型**：结构体类型
+
+```
+{ 
+  n: bigint,   -- count 
+  sx: double,  -- sum(x)- sum(x)
+  sx2: double, -- sum((x-sx/n)^2) (sum of squares)
+  sx3: double, -- sum((x-sx/n)^3)
+  sx4: double, -- sum((x-sx/n)^4)
+  sy: double,  -- sum(y)
+  sy2: double, -- sum((y-sy/n)^2) (sum of squares)
+  sy3: double, -- sum((y-sy/n)^3)
+  sy4: double, -- sum((y-sy/n)^4)
+  sxy: double, -- sum((x-sx/n)*(y-sy/n)) (sum of products) 
+}
+```
+
+**示例**
+
+```sql
+create table if not exists test_stats(x bigint, y bigint);
+alter database public set ttl '1000000d';
+insert into test_stats(time, x, y) values
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 2, 1),
+(7, 2, 2),
+(8, 2, 3),
+(9, 2, 4),
+(10, 2, 5);
+```
+
+```sql
+select stats_agg(y, x) from test_stats;
+```
+
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | stats_agg(test_stats.y,test_stats.x)                                                                                                                       |
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {n: 10, sx: 15.0, sx2: 2.5, sx3: -2.7755575615628914e-16, sx4: 0.6249999999999999, sy: 30.0, sy2: 20.0, sy3: -1.7763568394002505e-15, sy4: 68.0, sxy: 0.0} |
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### num_vals
+
+计算二维统计聚合后的数据行数
+
+**返回类型**：BIGINT UNSIGNED
+
+```sql
+select num_vals(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------+
+    | num_vals(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------+
+    | 10                                             |
+    +------------------------------------------------+
+
+#### average_y, average_x
+
+计算二维统计聚合后指定维度的平均值
+
+**返回类型**：DOUBLE
+
+```sql
+select average_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------+
+    | average_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------+
+    | 1.5                                             |
+    +-------------------------------------------------+
+
+#### sum_y, sum_x
+
+计算二维统计聚合后指定维度的和，方式为 population
+
+**返回类型**：DOUBLE
+
+```sql
+select sum_x(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------+
+    | sum_x(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------+
+    | 15.0                                        |
+    +---------------------------------------------+
+
+#### stddev_samp_y, stddev_samp_x
+
+计算二维统计聚合后指定维度的标准差，方式为 sample
+
+**返回类型**：DOUBLE
+
+```sql
+select stddev_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-----------------------------------------------------+
+    | stddev_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-----------------------------------------------------+
+    | 0.5270462766947299                                  |
+    +-----------------------------------------------------+
+
+#### stddev_pop_y, stddev_pop_x
+
+计算二维统计聚合后指定维度的标准差，方式为 population
+
+**返回类型**：DOUBLE
+
+```sql
+select stddev_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +----------------------------------------------------+
+    | stddev_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +----------------------------------------------------+
+    | 0.5                                                |
+    +----------------------------------------------------+
+
+#### var_samp_y, var_samp_x
+
+计算二维统计聚合后指定维度的方差，方式为 sample
+
+**返回类型**：DOUBLE
+
+```sql
+select var_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +--------------------------------------------------+
+    | var_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +--------------------------------------------------+
+    | 0.2777777777777778                               |
+    +--------------------------------------------------+
+
+#### var_pop_y, var_pop_x
+
+计算二维统计聚合后指定维度的方差，方式为 population
+
+**返回类型**：DOUBLE
+
+```sql
+select var_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------+
+    | var_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------+
+    | 0.25                                            |
+    +-------------------------------------------------+
+
+#### skewness_samp_y, skewness_samp_x
+
+计算二维统计聚合后指定维度的偏度值，方式为 sample
+
+**返回类型**：DOUBLE
+
+```sql
+select skewness_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------------+
+    | skewness_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------------+
+    | -2.1065000811460203e-16                               |
+    +-------------------------------------------------------+
+
+#### skewness_pop_y, skewness_pop_x
+
+计算二维统计聚合后指定维度的偏度值，方式为 population
+
+**返回类型**：DOUBLE
+
+```sql
+select skewness_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------------+
+    | skewness_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------------+
+    | -2.220446049250313e-16                               |
+    +------------------------------------------------------+
+
+#### kurtosis_samp_y, kurtosis_samp_x
+
+计算二维统计聚合后指定维度的峰度值，方式为 sample
+
+**返回类型**：DOUBLE
+
+```sql
+select kurtosis_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------------+
+    | kurtosis_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------------+
+    | 0.8999999999999998                                    |
+    +-------------------------------------------------------+
+
+#### kurtosis_pop_y, kurtosis_pop_x
+
+计算二维统计聚合后指定维度的峰度值，方式为 population
+
+**返回类型**：DOUBLE
+
+```sql
+select kurtosis_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------------+
+    | kurtosis_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------------+
+    | 0.9999999999999998                                   |
+    +------------------------------------------------------+
+
+#### correlation
+
+计算二维统计聚合后的相关
+
+**返回类型**：DOUBLE
+
+```sql
+select correlation(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------------+
+    | correlation(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------------+
+    | 0.0                                               |
+    +---------------------------------------------------+
+
+#### covariance_samp, covariance_pop
+
+计算二维统计聚合后的协方差
+
+**返回类型**：DOUBLE
+
+```sql
+select covariance_samp(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------------+
+    | covariance_samp(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------------+
+    | 0.0                                                   |
+    +-------------------------------------------------------+
+
+```sql
+select covariance_pop(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------------+
+    | covariance_pop(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------------+
+    | 0.0                                                  |
+    +------------------------------------------------------+
+
+#### determination_coeff
+
+计算二维统计聚合后的决定系数
+
+**返回类型**：DOUBLE
+
+```sql
+select determination_coeff(stats_agg(y, x)) from test_stats;
+```
+
+    +-----------------------------------------------------------+
+    | determination_coeff(stats_agg(test_stats.y,test_stats.x)) |
+    +-----------------------------------------------------------+
+    | 0.0                                                       |
+    +-----------------------------------------------------------+
+
+#### slope
+
+根据二维统计聚合，计算线性拟合线的斜率
+
+**返回类型**：DOUBLE
+
+```sql
+select slope(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------+
+    | slope(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------+
+    | 0.0                                         |
+    +---------------------------------------------+
+
+#### intercept
+
+计算二维统计聚合后y的截距
+
+**返回类型**：DOUBLE
+
+```sql
+select intercept(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------+
+    | intercept(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------+
+    | 3.0                                             |
+    +-------------------------------------------------+
+
+#### x_intercept
+
+计算二维统计聚合后x的截距
+
+**返回类型**：DOUBLE
+
+```sql
+select x_intercept(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------------+
+    | x_intercept(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------------+
+    | -inf                                              |
+    +---------------------------------------------------+
+
 ## 函数
 
 ### **数学函数**
