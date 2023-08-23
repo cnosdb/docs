@@ -573,6 +573,82 @@ SELECT * FROM air_visibility;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         |
     +----------------------------+------------+------------+
 
+### 关于插入重复数据
+
+[//]: # (2.3)
+
+CnosDB的存储引擎可以看成一种KV存储，其中Timestamp 和 Tags 构成了 KEY，Fields 构成了一系列Value。
+
+```
+CREATE TABLE air (
+    visibility DOUBLE,
+    temperature DOUBLE,
+    pressure DOUBLE,
+    TAGS(station)
+);
+INSERT INTO air (TIME, station, visibility, temperature) VALUES
+(1666165200290401000, 'XiaoMaiDao', 56, 69);
+```
+
+上面语句相当于插入了如下k-v对
+
+| key                                 | visibility-value | temperature-value | pressure-value |
+|-------------------------------------|------------------|-------------------|----------------|
+| (1666165200290401000, 'XiaoMaiDao') | 56               |                   |                |
+| (1666165200290401000, 'XiaoMaiDao') |                  | 69                |                |
+
+结果为
+
+    select * from air;
+    ----
+    +----------------------------+------------+------------+-------------+----------+
+    | time                       | station    | visibility | temperature | pressure |
+    +----------------------------+------------+------------+-------------+----------+
+    | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 56.0       | 69.0        |          |
+    +----------------------------+------------+------------+-------------+----------+
+
+当同一field字段出现重复的k-v 对时，会发生覆盖。
+
+```sql
+INSERT INTO air (TIME, station, visibility) VALUES
+(1666165200290401000, 'XiaoMaiDao', 66);
+```
+
+相当于插入
+
+| key                                 | visibility-value | temperature-value | pressure-value |
+|-------------------------------------|------------------|-------------------|----------------|
+| (1666165200290401000, 'XiaoMaiDao') | 66               |                   |                |
+
+key 为 (1666165200290401000, 'XiaoMaiDao') 的 visibility-value 发生变化，变为 66
+
+    select * from air;
+    ----
+    +----------------------------+------------+------------+-------------+----------+
+    | time                       | station    | visibility | temperature | pressure |
+    +----------------------------+------------+------------+-------------+----------+
+    | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        |          |
+    +----------------------------+------------+------------+-------------+----------+
+
+```sql
+INSERT INTO air (TIME, station, pressure) VALUES
+(1666165200290401000, 'XiaoMaiDao', 77);
+```
+
+相当于插入
+
+| key                                 | visibility-value | temperature-value | pressure-value |
+|-------------------------------------|------------------|-------------------|----------------|
+| (1666165200290401000, 'XiaoMaiDao') |                  |                   | 77             |
+
+    select * from air;
+    ----
+    +----------------------------+------------+------------+-------------+----------+
+    | time                       | station    | visibility | temperature | pressure |
+    +----------------------------+------------+------------+-------------+----------+
+    | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        | 77.0     |
+    +----------------------------+------------+------------+-------------+----------+
+
 ## 查询数据
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)
