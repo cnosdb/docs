@@ -3545,6 +3545,121 @@ select x_intercept(stats_agg(y, x)) from test_stats;
 
 ### gauge_agg
 
+分析Gauge数据。与Counter不同，Gauge可以减少也可以增加。
+
+#### gauge_agg
+
+    gauge_agg(time, value)
+
+这是分析 Gauge 数据的第一步。使用 gauge_agg 创建中间聚合数据，
+接下来其他函数使用中间聚合数据进行计算。
+
+**参数**：
+
+time: Timestamp
+
+value: DOUBLE
+
+**返回值**：
+
+```
+Struct {
+  first: Struct { 
+    ts: Timestamp,
+    value: Double
+  },
+  second: Struct { 
+    ts: Timestamp,
+    value: Double
+  }, 
+  penultimate: Struct {
+    ts: Timestamp, 
+    val: Double
+  }, 
+  last: Struct {
+    ts: Timestamp, 
+    val: Double
+  }, 
+  num_elements: Bigint Unsingned 
+}
+```
+
+**示例**：
+
+```sql
+select gauge_agg(time, pressure) from air group by date_trunc('month', time);
+```
+
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | gauge_agg(air.time,air.pressure)                                                                                                                                                                                |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {first: {ts: 2023-03-01T00:00:00, val: 54.0}, second: {ts: 2023-03-01T00:00:00, val: 59.0}, penultimate: {ts: 2023-03-14T16:00:00, val: 55.0}, last: {ts: 2023-03-14T16:00:00, val: 80.0}, num_elements: 13122} |
+    | {first: {ts: 2023-01-14T16:00:00, val: 63.0}, second: {ts: 2023-01-14T16:00:00, val: 68.0}, penultimate: {ts: 2023-01-31T23:57:00, val: 77.0}, last: {ts: 2023-01-31T23:57:00, val: 54.0}, num_elements: 16640} |
+    | {first: {ts: 2023-02-01T00:00:00, val: 54.0}, second: {ts: 2023-02-01T00:00:00, val: 60.0}, penultimate: {ts: 2023-02-28T23:57:00, val: 74.0}, last: {ts: 2023-02-28T23:57:00, val: 59.0}, num_elements: 26880} |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### delta
+
+获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。
+
+**返回值:** Double
+
+```sql
+select delta(gauge_agg(time, pressure)) from air group by date_trunc('month', time);
+```
+
+    +-----------------------------------------+
+    | delta(gauge_agg(air.time,air.pressure)) |
+    +-----------------------------------------+
+    | 26.0                                    |
+    | -9.0                                    |
+    | 5.0                                     |
+    +-----------------------------------------+
+
+#### time_delta
+
+获取持续时间，最后一个Gauge的时间减去第一个Gauge的时间
+
+**返回值**： INTERVAL
+
+```sql
+select time_delta(gauge_agg(time, pressure)) from air group by date_trunc('month', time);
+```
+
+    +----------------------------------------------------------+
+    | time_delta(gauge_agg(air.time,air.pressure))             |
+    +----------------------------------------------------------+
+    | 0 years 0 mons 13 days 16 hours 0 mins 0.000000000 secs  |
+    | 0 years 0 mons 17 days 7 hours 57 mins 0.000000000 secs  |
+    | 0 years 0 mons 27 days 23 hours 57 mins 0.000000000 secs |
+    +----------------------------------------------------------+
+
+#### rate
+
+计算Gauge变化和时间变化的比率。
+
+**返回值**: Double
+
+单位：
+
+时间单位是ns时，比率单位是 /ns，
+
+时间单位是ms时，比率单位就是 /ms
+
+时间单位是s时，比率单位就是 /s
+
+```sql
+select rate(gauge_agg(time, pressure)) from air group by date_trunc('month', time);
+```
+
+    +----------------------------------------+
+    | rate(gauge_agg(air.time,air.pressure)) |
+    +----------------------------------------+
+    | 2.2018970189701897e-14                 |
+    | 9.349414325974008e-15                  |
+    | -4.133905465849807e-16                 |
+    +----------------------------------------+
+
 ### compact_state_agg
 
 给定一个在离散状态之间切换的系统或值，
