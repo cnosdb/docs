@@ -2796,6 +2796,80 @@ SELECT ARRAY_AGG(temperature) from air;
 
 **注意**：该聚合函数结果，无法以CSV格式返回
 
+### FIRST
+
+    first(time,  value)
+
+获取一列按另一列排序的第一个值
+
+**参数**:
+
+time: Timestamp
+
+value: any
+
+**返回值**: 同value类型相同
+
+**示例**：
+
+```sql
+select first(time, pressure) from air;
+```
+
+    +------------------------------+
+    | first(air.time,air.pressure) |
+    +------------------------------+
+    | 63.0                         |
+    +------------------------------+
+
+### LAST
+
+    last(time,  value)
+
+获取一列按另一列排序的最后一个值
+
+**参数**:
+
+time: Timestamp
+
+value: any
+
+**返回值**: 同value类型相同
+
+**示例**：
+
+```sql
+select last(time, pressure) from air;
+```
+
+    +-----------------------------+
+    | last(air.time,air.pressure) |
+    +-----------------------------+
+    | 55.0                        |
+    +-----------------------------+
+
+### MODE
+
+    mode(value)
+
+计算一列的众数
+
+**参数**: value: any
+
+**返回值**: 同value类型相同
+
+**示例**：
+
+```sql
+select mode(pressure) from air;
+```
+
+    +--------------------+
+    | mode(air.pressure) |
+    +--------------------+
+    | 69.0               |
+    +--------------------+
+
 ### 统计聚合函数
 
 ### VAR | VAR_SAMP
@@ -3468,6 +3542,8 @@ select x_intercept(stats_agg(y, x)) from test_stats;
     +---------------------------------------------------+
     | -inf                                              |
     +---------------------------------------------------+
+
+### gauge_agg
 
 ### compact_state_agg
 
