@@ -3883,6 +3883,284 @@ select state_at(state_agg(time, state), Timestamp '2020-01-01 10:30:00') from st
     | running                                                                   |
     +---------------------------------------------------------------------------+
 
+### candlestick_agg
+
+进行金融资产数据分析。该功能使编写涉及 candlestick 财务分析查询变得更容易。
+
+candlestick_agg 能得到股票的开盘价和收盘价，何时最高价
+
+candlestick_agg 从原始报价数据生成中间聚合数据CandleStackData ，
+
+然后可以对此中间聚合数据使用访问函数和汇总函数。
+
+#### candlestick_agg
+
+    candlestick_agg(time, price, volume)
+
+从原始报价查询生成中间聚合数据 CandleStackData 。
+
+**参数：**
+
+time: Timestamp
+
+price: Double 价格
+
+volume: Double 交易量
+
+**返回值：** CandleStackData
+
+```
+Struct {
+  open: Struct {
+    ts:  Timestamp,
+    val: Double, 
+  },
+  close: Struct {
+    ts: Timestamp,
+    val: Double,
+  },   
+  high: Struct {
+    ts: Timestamp,
+    val: Double,
+  },
+  low: Struct {
+    ts: Timestamp,
+    val: Double
+  },
+  volume: Struct {
+    vol: Double,
+    vwap: Double,
+  }
+}
+```
+
+**示例：**
+
+```sql
+alter database public set ttl '1000000d';
+create table if not exists tick(price bigint ,volume bigint);
+insert tick(time, price, volume)
+values
+    ('1999-12-31 00:00:00.000', 111, 444),
+    ('1999-12-31 00:00:00.005', 222, 444),
+    ('1999-12-31 00:00:00.010', 333, 222),
+    ('1999-12-31 00:00:10.015', 444, 111),
+    ('1999-12-31 00:00:10.020', 222, 555),
+    ('1999-12-31 00:10:00.025', 333, 555),
+    ('1999-12-31 00:10:00.030', 444, 333),
+    ('1999-12-31 01:00:00.035', 555, 222);
+```
+
+```sql
+select candlestick_agg(time, price, volume) from tick;
+```
+
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | candlestick_agg(tick.time,tick.price,tick.volume)                                                                                                                                                                                   |
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {open: {ts: 1999-12-31T00:00:00, val: 111.0}, close: {ts: 1999-12-31T01:00:00.035, val: 555.0}, low: {ts: 1999-12-31T00:00:00, val: 111.0}, high: {ts: 1999-12-31T01:00:00.035, val: 555.0}, volume: {vol: 2886.0, vwap: 850149.0}} |
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### close
+
+    close(candlestick_agg_data)
+
+获取收盘价
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```sql
+select close(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +----------------------------------------------------------+
+    | close(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +----------------------------------------------------------+
+    | 555.0                                                    |
+    +----------------------------------------------------------+
+
+#### close_time
+
+    close_time(candlestick_agg_data)
+
+获取收盘时间
+
+**返回值：** Timestamp
+
+**示例：**
+
+```sql
+select close_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------------+
+    | close_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------------+
+    | 1999-12-31T01:00:00.035                                       |
+    +---------------------------------------------------------------+
+
+#### high
+
+    high(candlestick_agg_data)
+
+获取最高价
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```
+select high(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------+
+    | high(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------+
+    | 555.0                                                   |
+    +---------------------------------------------------------+
+
+#### high_time
+
+    high_time(candlestick_agg_data)
+
+获取最高价所在的时间
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```sql
+select high_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +--------------------------------------------------------------+
+    | high_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +--------------------------------------------------------------+
+    | 1999-12-31T01:00:00.035                                      |
+    +--------------------------------------------------------------+
+
+#### low
+
+    low(candlestick_agg_data)
+
+获取最低价
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```sql
+select low(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +--------------------------------------------------------+
+    | low(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +--------------------------------------------------------+
+    | 111.0                                                  |
+    +--------------------------------------------------------+
+
+#### low_time
+
+    low_time(candlestick_agg_data)
+
+获取最低价所在的时间
+
+**返回值：** Timestamp
+
+**示例：**
+
+```sql
+select low_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +-------------------------------------------------------------+
+    | low_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +-------------------------------------------------------------+
+    | 1999-12-31T00:00:00                                         |
+    +-------------------------------------------------------------+
+
+#### open
+
+    open(candlestick_agg_data)
+
+获取最低价
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```sql
+select open(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------+
+    | open(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------+
+    | 111.0                                                   |
+    +---------------------------------------------------------+
+
+#### open_time
+
+    open_time(candlestick_agg_data)
+
+获取最低价所在的时间
+
+**返回值：** Timestamp
+
+**示例：**
+
+```sql
+select open_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +--------------------------------------------------------------+
+    | open_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +--------------------------------------------------------------+
+    | 1999-12-31T00:00:00                                          |
+    +--------------------------------------------------------------+
+
+#### volume
+
+    volume(candlestick_agg_data)
+
+获取总共交易量
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```sql
+select volume(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +-----------------------------------------------------------+
+    | volume(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +-----------------------------------------------------------+
+    | 2886.0                                                    |
+    +-----------------------------------------------------------+
+
+#### vwap
+
+    vwap(candlestick_agg_data)
+
+获取成交量加权平均价格。
+
+**返回值：** DOUBLE
+
+**示例：**
+
+```sql
+select vwap(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------+
+    | vwap(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------+
+    | 294.5769230769231                                       |
+    +---------------------------------------------------------+
+
 ## 函数
 
 ### **数学函数**
