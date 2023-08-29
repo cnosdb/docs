@@ -68,7 +68,8 @@ export const enSidebar = sidebar({
       collapsible: true,
     },
   ],
-  "/en/v2.3/": ["README.md",
+  "/en/v2.3/": [
+      "README.md",
     {
       text: "Get Started",
       prefix: "start/",
@@ -119,17 +120,17 @@ export const enSidebar = sidebar({
     },
     {
       text: "Eco-integration",
-      prefix: "versatility/",
+      prefix: "/en/latest/versatility/",
       children: 'structure',
-      link: "versatility/README.md",
+      link: "/en/latest/versatility/README.md",
       icon: "leaf",
       collapsible: true,
     },
     {
       text: "Release",
-      prefix: "release/",
+      prefix: "/en/latest/release/",
       children: 'structure',
-      link: "release/README.md",
+      link: "/en/latest/release/README.md",
       icon: "copy",
       collapsible: true,
     },
