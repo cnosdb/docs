@@ -97,7 +97,7 @@ INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天
 
 ### 创建数据库
 
-**语法**
+#### 语法
 
 ```sql
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options];
@@ -123,7 +123,7 @@ db_option: {
 4. REPLICA： 表示数据在集群中的副本数，默认为1（副本数不大于分布式数据节点的数量）。
 5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒。
 
-**示例**
+#### 示例
 
 ```sql
 > CREATE DATABASE oceanic_station;
@@ -132,13 +132,13 @@ Query took 0.062 seconds.
 
 ### 查看数据库
 
-**语法**
+#### 语法
 
 ```sql
 SHOW DATABASES;
 ```
 
-**示例**
+#### 示例
 
     +-----------------+
     | Database        |
@@ -163,7 +163,7 @@ SHOW DATABASES;
 
 ### 删除数据库
 
-**语法**
+#### 语法
 
 ```sql
 DROP DATABASE [IF EXISTS] db_name;
@@ -171,7 +171,7 @@ DROP DATABASE [IF EXISTS] db_name;
 
 删除数据库会将指定database的所有table数据及元数据全部删除。
 
-**示例**
+#### 示例
 
 ```sql
 DROP DATABASE oceanic_station;
@@ -181,7 +181,7 @@ DROP DATABASE oceanic_station;
 
 ### 修改数据库参数
 
-**语法**
+#### 语法
 
 ```sql
 ALTER DATABASE db_name [alter_db_options]
@@ -197,7 +197,7 @@ db_option: {
 }
 ```
 
-**示例**
+#### 示例
 
 ```sql
 ALTER DATABASE oceanic_station SET TTL '30d';
@@ -205,13 +205,13 @@ ALTER DATABASE oceanic_station SET TTL '30d';
 
 ### 查看数据库参数
 
-**语法**
+#### 语法
 
 ```sql
 DESCRIBE DATABASE dbname;
 ```
 
-**示例**
+#### 示例
 
 ```sql
 DESCRIBE DATABASE oceanic_station;
@@ -233,7 +233,7 @@ CnosDB 支持创建普通表和外部表。
 
 ### 创建普通(TSKV)表
 
-**语法**
+#### 语法
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
@@ -260,7 +260,7 @@ field_codec_type:
 
 想了解更多有关压缩算法的内容可以看[压缩算法详情](./concept_design/compress.md#压缩算法)。
 
-**示例**
+#### 示例
 
 ```sql
 CREATE TABLE air (
@@ -275,7 +275,7 @@ CREATE TABLE air (
 
 ### 创建外部表
 
-**语法**
+#### 语法
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
@@ -308,7 +308,7 @@ tb_option: {
 4. PARTITIONED BY：使用创建表时指定的列来进行分区。
 5. LOCATION：表示关联的文件的位置。
 
-**示例**
+#### 示例
 
 ```sql
 CREATE EXTERNAL TABLE cpu (
@@ -327,13 +327,13 @@ LOCATION 'tests/data/csv/cpu.csv';
 
 ### 删除表
 
-**语法**
+#### 语法
 
 ```sql
 DROP TABLE [ IF EXISTS ] tb_name;
 ```
 
-**示例**
+#### 示例
 
 ```sql
 DROP TABLE IF EXISTS air;
@@ -343,13 +343,13 @@ DROP TABLE IF EXISTS air;
 
 ### 显示当前数据库所有表
 
-**语法**
+#### 语法
 
 ```sql
 SHOW TABLES;
 ```
 
-**示例**
+#### 示例
 
 ```sql
 SHOW TABLES;
@@ -367,13 +367,13 @@ SHOW TABLES;
 
 外部表和普通表的模式都可以使用该语句查看。
 
-**语法**
+#### 语法
 
 ```sql
 DESCRIBE DATABASE table_name;
 ```
 
-**示例**
+#### 示例
 
 ```sql
 DESCRIBE TABLE air;
@@ -399,7 +399,7 @@ DESCRIBE TABLE air;
 2. 删除列：删除 field 列，当删除列导致删除某一行的最后一个 field 值时，我们认为这一行没有值，SELECT 时将不显示这一行。
 3. 修改列：修改列定义，目前支持修改列的压缩算法。
 
-**语法**
+#### 语法
 
 ```sql
 ALTER TABLE tb_name alter_table_option;
@@ -412,7 +412,7 @@ alter_table_option: {
 }
 ```
 
-**示例**
+#### 示例
 
 ```sql
 ALTER TABLE air ADD TAG height;
@@ -453,7 +453,7 @@ CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[
 
 TIME 列的数据既可以用时间字符串表示，也可以用数字类型的时间戳表示，请注意。
 
-**示例**
+#### 示例
 
 ```sql
 CREATE TABLE air (
@@ -541,7 +541,7 @@ SELECT * FROM air;
 
 你还可以使用 `INSERT SELECT`语法，向表中插入查询的数据。
 
-**示例**
+#### 示例
 
 ```sql
 CREATE TABLE air_visibility (
@@ -695,6 +695,8 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
     \w oceanic_station.txt
     ```
 
+## SQL 语法
+
 #### 语法
 
 ```sql
@@ -727,15 +729,13 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
     ()
 ```
 
-## SQL 语法
-
 ### SELECT 子句
 
 ### SELECT \*
 
 通配符 * 可以用于代指全部列。
 
-**示例**
+#### 示例
 
 ```
 SELECT * FROM air;
@@ -855,13 +855,13 @@ SELECT station s, visibility AS v FROM air;
 
 你也可以用关键字`AS`为表取别名。
 
-**语法**
+#### 语法
 
 ```sql
 FROM tb_name [AS] alias_name
 ```
 
-**示例**
+#### 示例
 
 ```sql
 SELECT a.visibility, s.temperature
@@ -881,7 +881,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 
 - 如果SELECT子句仅包含Tag列，相当于 SELECT DISTINCT Tag列
 
-  **示例**
+  #### 示例
 
   ```sql
   -- station是Tag列，temperature是Field列
@@ -918,15 +918,15 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 
 ### LIMIT 子句
 
-**语法**
+#### 语法
 
 ```sql
 LIMIT n
 ```
 
-限制返回结果集的行数为n，n必须非负/
+限制返回结果集的行数为n，n必须非负。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT *
@@ -950,7 +950,7 @@ FROM air LIMIT 10;
 
 ### OFFSET 子句
 
-**语法**
+#### 语法
 
 ```sql
 OFFSET m
@@ -958,7 +958,7 @@ OFFSET m
 
 返回的结果集跳过 m 条记录, 默认 m=0。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT *
@@ -974,10 +974,10 @@ FROM air OFFSET 10;
     +---------------------+-------------+------------+-------------+----------+
 
 `OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`。
-其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
+其中：`LIMIT n`控制输出m行数据，`OFFSET m`表示在开始返回数据之前跳过的行数。
 OFFSET 0与省略OFFSET子句效果相同。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT *
@@ -994,7 +994,7 @@ FROM air LIMIT 3 OFFSET 3;
 
 ### WITH 子句
 
-**语法**
+#### 语法
 
 ```sql
 WITH cte AS cte_query_definiton [, ...] query
@@ -1007,7 +1007,7 @@ CTE充当当前运行环境中的临时表，您可以在之后的查询中引�
 - 在WITH子句中定义的CTE仅对在其后定义的同一WITH子句中的其他CTE可以使用。
   假设A是子句中的第一个CTE，B是子句中的第二个CTE：
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, avg 
@@ -1041,7 +1041,7 @@ FROM x;
 
 UNION 子句用于合并多个 SELECT 语句的分析结果。
 
-**语法**
+#### 语法
 
 ```
 select_clause_set_left
@@ -1050,114 +1050,114 @@ select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
 
-`UNION`会对合并的结果集去重，
-`UNION ALL`保留合并的结果集中相同的数据
-`EXCEPT` 会作两个结果集的差，从左查询中返回右查询没有找到的所有非重复值
+`UNION` 会对合并的结果集去重。
+`UNION ALL` 保留合并的结果集中相同的数据。
+`EXCEPT` 会作两个结果集的差，从左查询中返回右查询没有找到的所有非重复值。
 `INTERSECT` 返回两个结果集的交集（即两个查询都返回的所有非重复值）。
 
 **注意**
 
 UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据类型相同。
 
-**示例**
+#### 示例
 
-**UNION ALL**
+- **UNION ALL**
 
-```sql
-SELECT visibility FROM air WHERE temperature < 60
-UNION ALL
-SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
-```
+  ```sql
+  SELECT visibility FROM air WHERE temperature < 60
+  UNION ALL
+  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
+  ```
+  
+      +------------+
+      | visibility |
+      +------------+
+      | 53         |
+      | 56         |
+      | 50         |
+      | 67         |
+      | 65         |
+      | 53         |
+      | 74         |
+      | 71         |
+      | 78         |
+      | 79         |
+      +------------+
 
-    +------------+
-    | visibility |
-    +------------+
-    | 53         |
-    | 56         |
-    | 50         |
-    | 67         |
-    | 65         |
-    | 53         |
-    | 74         |
-    | 71         |
-    | 78         |
-    | 79         |
-    +------------+
+- **UNION**
 
-**UNION**
+  ```sql
+  SELECT visibility FROM air WHERE temperature < 60
+  UNION
+  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
+  ```
+  
+      +------------+
+      | visibility |
+      +------------+
+      | 53         |
+      | 56         |
+      | 50         |
+      | 67         |
+      | 65         |
+      | 74         |
+      | 71         |
+      | 78         |
+      | 79         |
+      | 59         |
+      +------------+
 
-```sql
-SELECT visibility FROM air WHERE temperature < 60
-UNION
-SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
-```
+- **EXCEPT**
 
-    +------------+
-    | visibility |
-    +------------+
-    | 53         |
-    | 56         |
-    | 50         |
-    | 67         |
-    | 65         |
-    | 74         |
-    | 71         |
-    | 78         |
-    | 79         |
-    | 59         |
-    +------------+
+  ```sql
+  SELECT visibility FROM air
+  EXCEPT
+  SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
+  ```
+  
+      +------------+
+      | visibility |
+      +------------+
+      | 56         |
+      | 50         |
+      | 67         |
+      | 65         |
+      | 53         |
+      | 74         |
+      | 71         |
+      | 78         |
+      | 79         |
+      | 59         |
+      +------------+
 
-**EXCEPT**
+- **INTERSECT**
 
-```sql
-SELECT visibility FROM air
-EXCEPT
-SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
-```
-
-    +------------+
-    | visibility |
-    +------------+
-    | 56         |
-    | 50         |
-    | 67         |
-    | 65         |
-    | 53         |
-    | 74         |
-    | 71         |
-    | 78         |
-    | 79         |
-    | 59         |
-    +------------+
-
-**INTERSECT**
-
-```sql
-SELECT visibility FROM air
-INTERSECT
-SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
-```
-
-    +------------+
-    | visibility |
-    +------------+
-    | 56         |
-    | 50         |
-    | 67         |
-    | 65         |
-    | 53         |
-    | 74         |
-    | 71         |
-    | 78         |
-    | 79         |
-    | 59         |
-    +------------+
+  ```sql
+  SELECT visibility FROM air
+  INTERSECT
+  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
+  ```
+  
+      +------------+
+      | visibility |
+      +------------+
+      | 56         |
+      | 50         |
+      | 67         |
+      | 65         |
+      | 53         |
+      | 74         |
+      | 71         |
+      | 78         |
+      | 79         |
+      | 59         |
+      +------------+
 
 ### ORDER BY 子句
 
 按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM air ORDER BY temperature;
@@ -1231,7 +1231,7 @@ SELECT * FROM air ORDER BY station, temperature;
 简单表达式可以是一个常量、变量、列或标量函数。
 可以用运算符将两个或更多的简单表达式联接起来组成复杂表达式。
 
-**语法**
+#### 语法
 
 ```sql
 <expresion> :: = { 
@@ -1250,7 +1250,7 @@ SELECT * FROM air ORDER BY station, temperature;
 表示单个特定数据值的符号。
 详细内容请阅览[常量](#常量)。
 
-**示例**
+#### 示例
 
 ```sql
 select 1;
@@ -1300,13 +1300,13 @@ select 1;
 
 ### `BETWEEN AND` 表达式
 
-**语法**
+#### 语法
 
 ```sql
 expr BETWEEN expr AND expr
 ```
 
-**示例**
+#### 示例
 
 ```sql
 SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
@@ -1328,13 +1328,13 @@ SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
     | 55       |
     +----------+
 
-注意: BETWEEN x AND y 会列出x和y之间的数，包括x和y
+注意：`BETWEEN x AND y` 会列出x和y之间的数，包括x和y
 
 ### `IN` 表达式
 
 IN 操作符判断列表中是否有值与表达式相等。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
@@ -1355,7 +1355,7 @@ IN 列表暂时只支持常量
 
 当表达式需要按照不同情况得不同的值时，可以使用`CASE WHEN`表达式。
 
-**语法**：
+#### 语法
 
 ```sql
 CASE
@@ -1364,7 +1364,7 @@ CASE
 END;
 ```
 
-**示例**：
+#### 示例
 
 ```sql
 SELECT DISTINCT 
@@ -1406,7 +1406,7 @@ FROM AIR;
 
 ### SHOW
 
-**语法**
+#### 语法
 
 ```sql
 SHOW {DATABASES | TABLES | QUERIES}
@@ -1414,7 +1414,7 @@ SHOW {DATABASES | TABLES | QUERIES}
 
 显示所有数据库，或显示所有表, 或正在执行的SQL。
 
-**示例**
+#### 示例
 
 ```sql
 SHOW DATABASES;
@@ -1454,13 +1454,13 @@ SHOW QUERIES;
 
 返回指定表的series
 
-**语法**
+#### 语法
 
 ```sql
 SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
 ```
 
-**示例**
+#### 示例
 
 ```sql
 SHOW SERIES FROM air WHERE station = 'XiaoMaiDao' ORDER BY key LIMIT 1;
@@ -1473,19 +1473,20 @@ SHOW SERIES FROM air WHERE station = 'XiaoMaiDao' ORDER BY key LIMIT 1;
     +------------------------+
 
 **注意**
+
 WEHER子句中的表达式列，只能是tag列或time列，ORDER BY 子句的表达式只能是 key
 
 #### SHOW TAG VALUES
 
-**语法**
+#### 语法
 
 ```sql
 SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
 ```
 
-operator 包括 `=`, `!=`
+operator 包括 `=`, `!=`。
 
-**示例**
+#### 示例
 
 ```sql
 SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER BY key, value LIMIT 1;
@@ -1510,7 +1511,7 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
 
 ### EXPLAIN
 
-**语法**
+#### 语法
 
 ```sql
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
@@ -1524,7 +1525,7 @@ EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 
 `EXPLAIN ANALYZE VERBOSE` 执行查询，并显示更详细的执行计划，包括读取的行数等。
 
-**示例**
+#### 示例
 
 ```sql
 EXPLAIN SELECT station, temperature, visibility FROM air;
@@ -1583,7 +1584,7 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
 
 ### DESCRIBE
 
-**语法**
+#### 语法
 
 ```sql
 DESCRIBE {DATABASE db_name | TABLE tb_name};
@@ -1591,7 +1592,7 @@ DESCRIBE {DATABASE db_name | TABLE tb_name};
 
 描述数据库的参数，描述表的模式。
 
-**示例**
+#### 示例
 
 ```sql
 DESCRIBE TABLE air;
@@ -1691,13 +1692,13 @@ DESCRIBE DATABASE public;
 
 ### Join 子句
 
-CnosDB支持`INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`。
+CnosDB支持 `INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`。
 
-目前暂不支持`CROSS JOIN`。
+目前暂不支持 `CROSS JOIN`。
 
 ### INNER JOIN
 
-关键字`JOIN`或`INNER JOIN`定义了一个只显示两个表中匹配的行的连接。
+关键字 `JOIN` 或 `INNER JOIN` 定义了一个只显示两个表中匹配的行的连接。
 
 #### 示例
 
@@ -1716,7 +1717,7 @@ SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
 
 ### LEFT JOIN
 
-用关键字`LEFT JOIN`或`LEFT OUTER JOIN`定义一个左连接。该连接包括左表中的所有行，如果右表没有匹配行，则连接的右侧为空值。
+用关键字 `LEFT JOIN` 或 `LEFT OUTER JOIN` 定义一个左连接。该连接包括左表中的所有行，如果右表没有匹配行，则连接的右侧为空值。
 
 #### 示例
 
@@ -1745,7 +1746,7 @@ SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
 
 ### RIGHT JOIN
 
-用关键字`RIGHT JOIN`或`RIGHT OUTER JOIN`定义一个右连接。该连接包括右表中的所有行，如果左表没有匹配行，则连接的左侧为空值。
+用关键字 `RIGHT JOIN` 或 `RIGHT OUTER JOIN` 定义一个右连接。该连接包括右表中的所有行，如果左表没有匹配行，则连接的左侧为空值。
 
 #### 示例
 
@@ -1774,7 +1775,7 @@ SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
 
 ### FULL JOIN
 
-关键字`FULL JOIN`或`FULL OUTER JOIN`定义了一个全连接，实际上它是 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 的联合。
+关键字 `FULL JOIN` 或 `FULL OUTER JOIN` 定义了一个全连接，实际上它是 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 的联合。
 它会显示连接左侧和右侧的所有行，并将在连接的任一侧不匹配的地方产生空值。
 
 #### 示例
@@ -2219,7 +2220,7 @@ GROUP BY station;
 
 ### HAVING 子句
 
-**语法**
+#### 语法
 
 ```sql
 group_by_clause 
@@ -2234,7 +2235,7 @@ HAVING 在 GROUP BY 子句之后使你能够指定过滤条件，从而控制查
 
 WHERE 在 GROUP BY 子句之前对被选择的列施加条件，而 HAVING 子句则对 GROUP BY 子句所产生的组施加条件。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, AVG(temperature)  AS avg_t 
@@ -2251,7 +2252,7 @@ HAVING avg_t > 70;
 
 ### 复杂的分组操作
 
-CnosDB 提供了 `ROLLUP`，`CUBE`等复杂分组操作，使您能以不同的方式操作查询结果
+CnosDB 提供了 `ROLLUP`，`CUBE` 等复杂分组操作，使您能以不同的方式操作查询结果
 
 [//]: # (### **GROUPING SETS**)
 
@@ -2360,6 +2361,8 @@ ROLLUP 假定输入列之间存在层次结构。
 
 如果你的group by 子句是：
 
+#### 语法
+
 ```sql
 SELECT ...
 FROM ...
@@ -2367,6 +2370,8 @@ GROUP BY ROLLUP(column_1,column_2);
 ```
 
 它与如下的语句等同：
+
+#### 语法
 
 ```sql
 SELECT ...
@@ -2402,7 +2407,7 @@ ROLLUP 生成在此层次结构中有意义的所有分组集。 每次 column_1
 
 因此，我们经常在报告中使用 ROLLUP 来生成小计和总计。 ROLLUP 中列的顺序非常重要。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, visibility, avg(temperature) 
@@ -2471,7 +2476,7 @@ FROM ...
 ;
 ```
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, visibility, avg(temperature) 
@@ -2588,7 +2593,7 @@ GROUP BY CUBE (station, visibility);
 
     COUNT(x)
 
-**功能**： 返回选定元素中检索过的行的数目。
+**功能**：返回选定元素中检索过的行的数目。
 
 包含DISTINCT关键字，会对去重后的结果计数。
 
@@ -2602,9 +2607,9 @@ GROUP BY CUBE (station, visibility);
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT COUNT(*) FROM air;
 ```
 
@@ -2642,13 +2647,13 @@ SELECT COUNT(DISTINCT temperature) FROM air;
 
     SUM(NUMERICS)
 
-**功能**： 返回从选定元素计算出的总和值。
+**功能**：返回从选定元素计算出的总和值。
 
 **参数类型**：数值类型。
 
 **返回类型**：与参数类型相同。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT SUM(temperature) FROM air;
@@ -2668,13 +2673,13 @@ SELECT SUM(temperature) FROM air;
 
     MIN(STRING | NUMERICS | TIMESTAMP)
 
-**功能**： 返回选定元素中最小值。
+**功能**：返回选定元素中最小值。
 
 **参数类型**：数值类型或STRING或TIMESTAMP。
 
 **返回类型**：与参数类型相同。
 
-**示例**
+#### 示例
 
 ```sql
  SELECT MIN(time), MIN(station), MIN(temperature) FROM air;
@@ -2694,15 +2699,15 @@ SELECT SUM(temperature) FROM air;
 
     MAX(STRINGS | NUMERICS | TIMESTAMPS)
 
-**功能**： 返回选定元素中最大值。
+**功能**：返回选定元素中最大值。
 
 **参数类型**：数值类型或STRING或TIMESTAMP。
 
 **返回类型**：与参数类型相同。
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
 ```
 
@@ -2720,15 +2725,15 @@ SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
 
     AVG(NUMERICS)
 
-**功能**： 返回选定元素的平均值。
+**功能**：返回选定元素的平均值。
 
 **参数类型**：数值类型。
 
 **返回类型**：数值类型。
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT AVG(temperature) FROM air;
 ```
 
@@ -2746,13 +2751,13 @@ SELECT AVG(temperature) FROM air;
 
     ARRAY_AGG(expr)
 
-**功能**： 返回一个数组，该数组由选定元素的所有值组成，元素类型必须相同。
+**功能**：返回一个数组，该数组由选定元素的所有值组成，元素类型必须相同。
 
 **参数类型**：任意。
 
 **返回类型**：参数类型的数组。
 
-**示例**
+#### 示例
 
 ```sql
 SELECT ARRAY_AGG(temperature) from air;
@@ -2780,7 +2785,7 @@ SELECT ARRAY_AGG(temperature) from air;
 
 **返回值**: 同value类型相同
 
-**示例**：
+#### 示例
 
 ```sql
 select first(time, pressure) from air;
@@ -2806,7 +2811,7 @@ select first(time, pressure) from air;
 
 **返回值**: 同value类型相同
 
-**示例**：
+#### 示例
 
 ```sql
 select last(time, pressure) from air;
@@ -2828,7 +2833,7 @@ select last(time, pressure) from air;
 
 **返回值**: 同value类型相同
 
-**示例**：
+#### 示例
 
 ```sql
 select mode(pressure) from air;
@@ -2848,13 +2853,13 @@ select mode(pressure) from air;
 
     VAR(NUMERICS)
 
-**功能**： 计算给定样本的方差
+**功能**：计算给定样本的方差
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT VAR(temperature) FROM air;
@@ -2874,13 +2879,13 @@ SELECT VAR(temperature) FROM air;
 
     VAR_POP(NUMERICS)
 
-**功能**： 计算总体方差。
+**功能**：计算总体方差。
 
 **参数类型**：数值类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```
 SELECT VAR_POP(temperature) FROM air;
@@ -2898,15 +2903,15 @@ SELECT VAR_POP(temperature) FROM air;
 
     STDDEV(NUMERICS)
 
-**功能**： 计算样本标准差。
+**功能**：计算样本标准差。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT STDDEV(temperature) FROM air;
 ```
 
@@ -2924,15 +2929,15 @@ SELECT STDDEV(temperature) FROM air;
 
     STDDEV_POP(NUMERICS)
 
-**功能**： 计算出的总体标准差。
+**功能**：计算出的总体标准差。
 
 **参数类型**：数值类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT STDDEV_POP(temperature) FROM air;
 ```
 
@@ -2950,15 +2955,15 @@ SELECT STDDEV_POP(temperature) FROM air;
 
     COVAR(NUMERICS, NUMERICS)
 
-**功能**： 返回样本的协方差。
+**功能**：返回样本的协方差。
 
 **参数类型**：数值类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT COVAR(temperature, pressure) FROM air;
 ```
 
@@ -2976,15 +2981,15 @@ SELECT COVAR(temperature, pressure) FROM air;
 
     COVAR_POP(NUMERICS, NUMERICS)
 
-**功能**： 返回组中数字对的总体协方差。
+**功能**：返回组中数字对的总体协方差。
 
 **参数类型**：数值类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
-```
+```sql
 SELECT COVAR_POP(temperature, pressure) FROM air;
 ```
 
@@ -3002,13 +3007,13 @@ SELECT COVAR_POP(temperature, pressure) FROM air;
 
     CORR**(NUMERICS, NUMERICS)
 
-**功能**： 返回表示一组数字对之间的关联情况的皮尔逊系数。
+**功能**：返回表示一组数字对之间的关联情况的皮尔逊系数。
 
 **参数类型**：数值类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT CORR(temperature, pressure) FROM air;
@@ -3028,13 +3033,13 @@ SELECT CORR(temperature, pressure) FROM air;
 
     APPROX_DISTINCT(x)
 
-**功能**： 返回不同输入值的近似值(HyperLogLog)。
+**功能**：返回不同输入值的近似值(HyperLogLog)。
 
 **参数类型**：STRING
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT APPROX_DISTINCT(station) FROM air;
@@ -3054,13 +3059,13 @@ SELECT APPROX_DISTINCT(station) FROM air;
 
     APPROX_PERCENTILE_CONT(x, p)  
 
-**功能**： 返回输入值x的近似百分位(TDigest)，p是百分位，是0到1(包括1)之间的64位浮点数。
+**功能**：返回输入值x的近似百分位(TDigest)，p是百分位，是0到1(包括1)之间的64位浮点数。
 
 **参数类型**：x为数值类型，p为DOUBLE类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
@@ -3080,14 +3085,15 @@ SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 
     APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, w, p)  
 
-**功能**： x返回带权重的输入值的近似百分比(TDigest)，其中w是权重列表达式，p是0到1(包括)之间的浮点64。
+**功能**：x返回带权重的输入值的近似百分比(TDigest)，其中w是权重列表达式，p是0到1(包括)之间的浮点64。
 
 APPROX_PERCENTILE_CONT(x, p) 相当于 APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, 1, p)。
+
 **参数类型**：x,w为数值类型，p为DOUBLE类型。
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
@@ -3107,13 +3113,13 @@ SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
 
     APPROX_MEDIAN(NUMERICS)
 
-**功能**： 返回输入值的近似中值。
+**功能**：返回输入值的近似中值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT APPROX_MEDIAN(temperature) FROM air;
@@ -3131,7 +3137,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 [//]: # (    GROUPING&#40;x&#41;)
 
-[//]: # (**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。)
+[//]: # (**功能**：函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。)
 
 [//]: # (**参数类型**：数值类型)
 
@@ -3143,7 +3149,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
     SAMPLE(<column_key>, <N>)
 
-**功能**： 从给定的列 column_key 中随机选择 N 条记录。
+**功能**：从给定的列 column_key 中随机选择 N 条记录。
 
 **参数类型**：
 
@@ -3152,7 +3158,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 **返回类型**：数组
 
-**示例**
+#### 示例
 
 ```sql
 select sample(visibility, 5) from air;
@@ -3189,7 +3195,7 @@ Struct {
 }
 ```
 
-**示例：**
+#### 示例
 
 ```sql
 select asap_smooth(time, pressure, 10) from air group by date_trunc('month', time);
@@ -3242,7 +3248,7 @@ stats_agg 提供了与sum, count, corr, covar_pop 等聚合函数相同的功能
 }
 ```
 
-**示例**
+#### 示例
 
 ```sql
 create table if not exists test_stats(x bigint, y bigint);
@@ -3593,7 +3599,7 @@ Struct {
 }
 ```
 
-**示例**：
+#### 示例：
 
 ```sql
 select gauge_agg(time, pressure) from air group by date_trunc('month', time);
@@ -3721,7 +3727,7 @@ Struct {
 
 ```
 
-**示例**：
+#### 示例：
 
 ```sql
 alter database public set ttl '1000000d';
@@ -3765,7 +3771,7 @@ interval_time: 可选，指定时间段的持续时间，不指定时，时间�
 
 **返回值**： INTERVAL 类型
 
-**示例**：
+#### 示例：
 
 ```sql
 select duration_in(compact_state_agg(time, state), 'running') from states;
@@ -3829,7 +3835,7 @@ interval_time: 可选，指定时间段的持续时间，不指定时，时间�
 
 **返回值**： INTERVAL 类型
 
-**示例**：
+#### 示例：
 
 统计 'running' 状态的持续时间。
 
@@ -4177,13 +4183,13 @@ select vwap(candlestick_agg(time, price, volume)) from tick;
 
 ### **abs(x)**
 
-**功能**： 返回x的绝对值。
+**功能**：返回x的绝对值。
 
 **参数类型**：数值类型
 
 **返回类型**：与函数参数类型一致
 
-**示例**
+#### 示例
 
 ```sql
 SELECT abs(-1);
@@ -4199,13 +4205,13 @@ SELECT abs(-1);
 
 ### **acos(x)**
 
-**功能**： 返回x的反余弦值。
+**功能**：返回x的反余弦值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT acos(3);
@@ -4231,13 +4237,13 @@ SELECT acos(0.5);
 
 ### **asin(x)**
 
-**功能**： 返回x的反正弦值。
+**功能**：返回x的反正弦值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT asin(0.5);
@@ -4263,13 +4269,13 @@ SELECT asin(5);
 
 ### **atan(x)**
 
-**功能**： 返回x的反正切值。
+**功能**：返回x的反正切值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT atan(5);
@@ -4285,13 +4291,13 @@ SELECT atan(5);
 
 ### **atan2(y,x)**
 
-**功能**： 返回y/x的反正切值。
+**功能**：返回y/x的反正切值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT atan2(10, 2);
@@ -4307,13 +4313,13 @@ SELECT atan2(10, 2);
 
 ### **ceil(x)**
 
-**功能**： 向上取整。
+**功能**：向上取整。
 
 **参数类型**：数值类型
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT ceil(1.6);
@@ -4329,13 +4335,13 @@ SELECT ceil(1.6);
 
 ### **floor(x)**
 
-**功能**： 向下取整
+**功能**：向下取整
 
 **参数类型**：数值类型
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT floor(-3.1);
@@ -4351,13 +4357,13 @@ SELECT floor(-3.1);
 
 ### **cos(x)**
 
-**功能**： 返回x的余弦值。
+**功能**：返回x的余弦值。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT cos(1);
@@ -4373,13 +4379,13 @@ SELECT cos(1);
 
 ### **sin(x)**
 
-**功能**： x的正弦值
+**功能**：x的正弦值
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT sin(5);
@@ -4395,13 +4401,13 @@ SELECT sin(5);
 
 ### **exp(x)**
 
-**功能**： 返回e的x次方。
+**功能**：返回e的x次方。
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT exp(1);
@@ -4417,13 +4423,13 @@ SELECT exp(1);
 
 ### **ln(x)**
 
-**功能**： 自然对数
+**功能**：自然对数
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT ln(2.718281828459045);
@@ -4439,13 +4445,13 @@ SELECT ln(2.718281828459045);
 
 ### **log(x) | log10(x)**
 
-**功能**： 以10为底的对数
+**功能**：以10为底的对数
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT log(10);
@@ -4471,13 +4477,13 @@ SELECT log10(10);
 
 ### **log2(x)**
 
-**功能**： 以 2 为底的对数
+**功能**：以 2 为底的对数
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT log2(4);
@@ -4493,13 +4499,13 @@ SELECT log2(4);
 
 ### **power(x,y) | pow(x,y)**
 
-**功能**： x的y次方
+**功能**：x的y次方
 
 **参数类型**：数值类型
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT power(2, 3);
@@ -4515,13 +4521,13 @@ SELECT power(2, 3);
 
 ### **round(x)**
 
-**功能**： 四舍五入到最接近的整数
+**功能**：四舍五入到最接近的整数
 
 **参数类型**：数值类型
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT round(3.5);
@@ -4537,13 +4543,13 @@ SELECT round(3.5);
 
 ### **signum(x)**
 
-**功能**： 参数的符号 (-1, 0, +1)
+**功能**：参数的符号 (-1, 0, +1)
 
 **参数类型**：数值类型
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT signum(-3);
@@ -4559,13 +4565,13 @@ SELECT signum(-3);
 
 ### **sqrt(x)**
 
-**功能**： x的平方根
+**功能**：x的平方根
 
 **参数类型**：数值类型
 
 **返回类型**：与函数参数类型一致
 
-**示例**
+#### 示例
 
 ```sql
 SELECT sqrt(4);
@@ -4581,13 +4587,13 @@ SELECT sqrt(4);
 
 ### **tan(x)**
 
-**功能**： x的正切值
+**功能**：x的正切值
 
 **参数类型**：数值类型
 
-**返回类型**： DOUBLE
+**返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT tan(1);
@@ -4609,7 +4615,7 @@ SELECT tan(1);
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT trunc(-3.9);
@@ -4651,7 +4657,7 @@ SELECT trunc(-3.9);
 
 **返回类型**：第一个不为null的参数类型
 
-**示例**
+#### 示例
 
 ```sql
 SELECT coalesce(temperature, null, station) FROM air;
@@ -4685,11 +4691,11 @@ SELECT coalesce(temperature, null, station) FROM air;
 
 **功能**：如果 expr1 等于 expr2，则返回 NULL；否则返回 expr1。
 
-**参数类型**：expr1,expr2为数值类型，且为带列值的表达式
+**参数类型**：expr1，expr2为数值类型，且为带列值的表达式
 
 **返回类型**：expr1的类型或NULL
 
-**示例**
+#### 示例
 
 ```sql
 SELECT nullif(temperature, 70) FROM air;
@@ -4733,7 +4739,7 @@ SELECT nullif(temperature, 70) FROM air;
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT ascii('abc');
@@ -4769,7 +4775,7 @@ SELECT ascii('a');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT bit_length('abc');
@@ -4795,7 +4801,7 @@ SELECT bit_length('abc');
 
 **返回类型**: STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT btrim('     abc                  ');
@@ -4845,7 +4851,7 @@ SELECT btrim('111abc111','1');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT char_length('你好');
@@ -4871,7 +4877,7 @@ SELECT char_length('你好');
 
 **返回类型**: STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT chr(20005);
@@ -4897,7 +4903,7 @@ SELECT chr(20005);
 
 **返回类型**: STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT concat('a', 'b', 'c');
@@ -4923,7 +4929,7 @@ SELECT concat('a', 'b', 'c');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT concat_ws(' ', 'a', 'b', 'c');
@@ -4949,7 +4955,7 @@ SELECT concat_ws(' ', 'a', 'b', 'c');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT initcap('hello world');
@@ -4975,7 +4981,7 @@ SELECT initcap('hello world');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT left('abcde', 3);
@@ -5003,7 +5009,7 @@ SELECT left('abcde', 3);
 
 当len为负数时，len表现为0，当len过大，函数执行失败
 
-**示例**
+#### 示例
 
 ```sql
 SELECT lpad('abc', 10, '1');
@@ -5029,7 +5035,7 @@ SELECT lpad('abc', 10, '1');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT rpad('aaa', 10, 'b');
@@ -5055,7 +5061,7 @@ SELECT rpad('aaa', 10, 'b');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT lower('ABC');
@@ -5095,7 +5101,7 @@ SELECT lower('ABC');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT ltrim('   abc');
@@ -5121,7 +5127,7 @@ SELECT ltrim('   abc');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT md5('abc');
@@ -5147,7 +5153,7 @@ SELECT md5('abc');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT octet_length('你好');
@@ -5173,7 +5179,7 @@ SELECT octet_length('你好');
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT random();
@@ -5209,7 +5215,7 @@ SELECT random();
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT repeat('a', 5);
@@ -5235,7 +5241,7 @@ SELECT repeat('a', 5);
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT replace('aaa', 'a', 'b');
@@ -5261,7 +5267,7 @@ SELECT replace('aaa', 'a', 'b');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT reverse('你好');
@@ -5287,7 +5293,7 @@ SELECT reverse('你好');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
  SELECT right('aaabbb', 3);
@@ -5315,7 +5321,7 @@ algorithm指定计算散列的算法，仅支持 md5, sha224, sha256, sha384, sh
 
 **返回类型**：BINARY
 
-**示例**
+#### 示例
 
 ```sql
 SELECT digest('abc', 'md5');
@@ -5341,7 +5347,7 @@ SELECT digest('abc', 'md5');
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT rtrim('aaabbb', 'b');
@@ -5367,7 +5373,7 @@ SELECT rtrim('aaabbb', 'b');
 
 **参数类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
  SELECT sha224('abc');
@@ -5387,13 +5393,13 @@ SELECT rtrim('aaabbb', 'b');
 
     sha256(str)
 
-**功能**： 计算字符串的 sha256 散列值
+**功能**：计算字符串的 sha256 散列值
 
 **返回类型**：BINARY
 
 **参数类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT sha256('abc');
@@ -5413,13 +5419,13 @@ SELECT sha256('abc');
 
     sha384(str)
 
-**功能**： 计算字符串的 sha384 散列值
+**功能**：计算字符串的 sha384 散列值
 
 **返回类型**：BINARY
 
 **参数类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT sha384('abc');
@@ -5439,7 +5445,7 @@ SELECT sha384('abc');
 
     sha512(str)
 
-**功能**： 计算字符串的 sha512 散列值
+**功能**：计算字符串的 sha512 散列值
 
 **返回类型**：BINARY
 
@@ -5453,13 +5459,13 @@ SELECT sha384('abc');
 
     split_part(str, delim, n) 
 
-**功能**： 将 str 按照 delim 做拆分，返回第n部分。
+**功能**：将 str 按照 delim 做拆分，返回第n部分。
 
 **参数类型**：str，delim类型为STRING，partNum类型为BIGINT
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT split_part('abc|def|ghi', '|', 2);
@@ -5479,13 +5485,13 @@ SELECT split_part('abc|def|ghi', '|', 2);
 
     starts_with(expr, startExpr) 
 
-**功能**： 如果 expr 以 startExpr 开头，则返回 true。
+**功能**：如果 expr 以 startExpr 开头，则返回 true。
 
 **参数类型**：STRING
 
 **返回类型**：BOOLEAN
 
-**示例**
+#### 示例
 
 ```sql
 SELECT starts_with('abcdefg', 'abc');
@@ -5511,7 +5517,7 @@ SELECT starts_with('abcdefg', 'abc');
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT strpos('abcdef', 'def');
@@ -5531,13 +5537,13 @@ SELECT strpos('abcdef', 'def');
 
     substr(expr, pos [, len] ) 
 
-**功能**： 返回 expr 的子字符串（从 pos 开始，长度为 len）。
+**功能**：返回 expr 的子字符串（从 pos 开始，长度为 len）。
 
 **参数类型**：expr 类型为STRING，pos，len类型为BIGINT
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT substr('abcdef', 4, 3);
@@ -5557,13 +5563,13 @@ SELECT substr('abcdef', 4, 3);
 
     to_hex(value)
 
-**功能**： 将十进制数字转换为十六进制表示形式。
+**功能**：将十进制数字转换为十六进制表示形式。
 
 **参数类型**：BIGINT
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT to_hex(100);
@@ -5583,13 +5589,13 @@ SELECT to_hex(100);
 
     translate(expr, from, to) 
 
-**功能**： 返回一个 expr，其中 from 中的所有字符都替换为 to 中的字符。
+**功能**：返回一个 expr，其中 from 中的所有字符都替换为 to 中的字符。
 
 **参数类型**：STRING
 
 **返回类型**：STRING
 
-**示例**
+#### 示例
 
 ```sql
 SELECT translate('aaabbb', 'bbb', 'ccc');
@@ -5622,7 +5628,7 @@ expr 类型为 TIMESTAMP
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT date_part('hour', TIMESTAMP '2022-11-21T09:18:17');
@@ -5649,7 +5655,7 @@ second')中的一种。
 
 expr 类型为TIMESTAMP
 
-**示例**
+#### 示例
 
 ```sql
 SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
@@ -5669,7 +5675,7 @@ SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 
     date_bin(interval, source, origin)
 
-**功能**： 从origin开始，按interval切分bucket，返回source所在的bucket timestamp
+**功能**：从origin开始，按interval切分bucket，返回source所在的bucket timestamp
 
 **参数类型**：
 
@@ -5679,7 +5685,7 @@ source, origin 是 TIMESTAMP 类型。
 
 **返回类型**：TIMESTAMP
 
-**示例**
+#### 示例
 
 ```sql
 SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '2022-11-01T00:00:00');
@@ -5705,7 +5711,7 @@ SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '20
 
 **返回类型**：TIMESTAMP类型，精度随参数确定，BIGINT类型的参数，返回的是纳秒级的TIMESTAMP
 
-**示例**
+#### 示例
 
 ```sql
 SELECT to_timestamp('1970-01-01T00:00:00');
@@ -5741,7 +5747,7 @@ SELECT to_timestamp(1);
 
 **返回类型**：毫秒级的TIMESTAMP
 
-**示例**
+#### 示例
 
 ```sql
 SELECT to_timestamp_millis('1970-01-01T00:00:00.00301');
@@ -5777,7 +5783,7 @@ SELECT to_timestamp_millis(1);
 
 **返回类型**： 微秒精度的TIMESTAMP
 
-**示例**
+#### 示例
 
 ```sql
 SELECT to_timestamp_micros(1)
@@ -5803,7 +5809,7 @@ SELECT to_timestamp_micros(1)
 
 **返回类型**：秒精度的TIMESTAMP
 
-**示例**
+#### 示例
 
 ```
 SELECT to_timestamp_seconds(1);
@@ -5829,7 +5835,7 @@ SELECT to_timestamp_seconds(1);
 
 **返回类型**： unix时间，秒级
 
-**示例**
+#### 示例
 
 ```
 SELECT from_unixtime(1);
@@ -5853,7 +5859,7 @@ SELECT from_unixtime(1);
 
 **返回类型**：TIMESTAMP
 
-**示例**
+#### 示例
 
 ```
 SELECT now();
@@ -5892,7 +5898,7 @@ time - n * slide_duration, time + window_duration - n * slide_duration
 
 且窗口满足 start <= time < end
 
-**示例：**
+#### 示例
 
 ```sql
 CREATE TABLE test(a BIGINT, TAGS(b));
@@ -5931,7 +5937,7 @@ SELECT time_window(time, interval '5 day', interval '3 day') FROM test;
 
 ### 语法
 
-```
+```sql
 function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr] [window_frame]);
 
 function: {aggregate_function | analytic_function}
@@ -6017,7 +6023,7 @@ frame 是当前分区的一个子集，在分区里进一步细分窗口
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT temperature, station, 
@@ -6057,7 +6063,7 @@ FROM air;
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6097,7 +6103,7 @@ FROM air;
 
 **返回类型**：BIGINT
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6131,13 +6137,13 @@ FROM air;
 
     PERCENT_RANK() OVER([partition_clause] [orderby_clause])
 
-**功能**： 计算分区中某个值的百分比排名。
+**功能**：计算分区中某个值的百分比排名。
 
 **参数类型**：无
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
  SELECT station, temperature, 
@@ -6177,7 +6183,7 @@ FROM air;
 
 **返回类型**：DOUBLE
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6243,7 +6249,7 @@ default 需要与expr对应的数据类型相同,默认为NULL
 
 **返回类型**：与expr相同的类型
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6287,7 +6293,7 @@ default需要与expr类型相同，默认是NULL
 
 **返回类型**：与expr类型相同
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6321,13 +6327,13 @@ FROM air;
 
     FIRST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
-**功能**： 返回一组值(该组通常是有序集合)中的第一个值。
+**功能**：返回一组值(该组通常是有序集合)中的第一个值。
 
 **参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
 
 **返回类型**：与expr类型相同
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6361,13 +6367,13 @@ FROM air;
 
     LAST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
-**功能**： 返回当前窗口中的最后一个值。
+**功能**：返回当前窗口中的最后一个值。
 
 **参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
 
 **返回类型**：与expr类型相同
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6401,13 +6407,13 @@ FROM air;
 
     NTH_VALUE(expr, number) OVER ([partition_clause] [orderby_clause])
 
-**功能**： 返回相对于窗口的第一行的窗口框架的指定行的表达式值。
+**功能**：返回相对于窗口的第一行的窗口框架的指定行的表达式值。
 
 **参数类型**：expr为任意类型，number为BIGINT
 
 **返回类型**：与expr类型相同
 
-**示例**
+#### 示例
 
 ```sql
 SELECT station, temperature, 
@@ -6488,7 +6494,7 @@ interpolate(<expr>)
 locf(<expr>)
 ```
 
-**示例：**
+**示例**
 
 ```sql
 ---- 准备数据
@@ -6614,7 +6620,7 @@ CnosDB 提供了系统视图用来查看集群状态和集群Schema信息。
 | TENANT_NAME    | STRING | 租户名称            |
 | TENANT_OPTIONS | STRING | 租户配置，json形式的字符串 |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM cluster_schema.tenants;
@@ -6638,7 +6644,7 @@ SELECT * FROM cluster_schema.tenants;
 | IS_ADMIN     | BOOLEAN | 是否为系统管理员        |
 | USER_OPTIONS | STRING  | 用户配置，JSON形式的字符串 |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM cluster_schema.users;
@@ -6670,7 +6676,7 @@ SELECT * FROM cluster_schema.users;
 | PREPLICA       | BIGINT UNSIGNED | 表示数据在集群中的副本数     |
 | PERCISION      | STRING          | 表示数据库的时间精度       |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM information_schema.databases;
@@ -6697,7 +6703,7 @@ SELECT * FROM information_schema.databases;
 | TABLE_ENGINE   | STRING | 表存储引擎，目前支持外部表和内部tskv表 |
 | TABLE_OPTION   | STRING | 内容为JSON字符串，记录表的所有参数   |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM information_schema.tables;
@@ -6729,7 +6735,7 @@ SELECT * FROM information_schema.tables;
 | DATA_TYPE         | STRING | 列的数据类型                                       |
 | COMPRESSION_CODEC | STRING | 列使用的压缩算法                                     |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM information_schema.columns;
@@ -6787,7 +6793,7 @@ SELECT * FROM information_schema.enabled_roles;
 | ROLE_TYPE    | STRING | 角色类型，自定义角色或系统角色              |
 | INHERIT_ROLE | STRING | 自定义角色继承的系统角色名称，如果是系统角色则为NULL |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM information_schema.roles;
@@ -6815,7 +6821,7 @@ SELECT * FROM information_schema.roles;
 | PRIVILEGE_TYPE | STRING | 被授予的权限类型，READ/WRITE/ALL |
 | ROLE_NAME      | STRING | 被授予权限的角色名称              |
 
-**示例**
+#### 示例
 
 ```sql
 CREATE ROLE rrr INHERIT member;
@@ -6842,7 +6848,7 @@ SELECT * FROM information_schema.database_privileges;
 | USER_NAME | STRING | 租户下的用户成员名称 |
 | ROLE_NAME | STRING | 成员的角色名称    |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM information_schema.members;
@@ -6875,7 +6881,7 @@ SELECT * FROM information_schema.members;
 | STATE       | STRING          | 语句的运行状态，分为ACCEPTING，DISPATCHING，ANALYZING，OPTMIZING，SCHEDULING |
 | DURATION    | BIGINT UNSIGNED | 语句持续运行的时间                                                      |
 
-**示例**
+#### 示例
 
 ```sql
 SELECT * FROM information_schema.queries;
@@ -6889,9 +6895,9 @@ SELECT * FROM information_schema.queries;
 
 #### SHOW QUERIES
 
-你还可以使用`SHOW QUERIES`语句来查看正在执行的SQL语句, 该语句这是对QUERIES视图的包装。
+你还可以使用 `SHOW QUERIES` 语句来查看正在执行的SQL语句, 该语句这是对QUERIES视图的包装。
 
-**示例**
+#### 示例
 
 ```sql
 SHOW QUERIES;
@@ -7124,7 +7130,7 @@ select * from usage_schema.queries order by time desc limit 2;
 
 该视图记录用户写入DB的次数。
 
-注意，该视图目前只会在通过[lineprotocol](./rest_api.md#接口列表)/[prometheus remote write](../eco/prometheus#remote-write)
+注意，该视图目前只会在通过[line protocol](./rest_api.md#接口列表)/[prometheus remote write](../versatility/collect/prometheus#remote-write)
 接口写入成功时创建。
 
 #### 视图定义
@@ -7234,11 +7240,12 @@ CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, 
 
 写入数据到源表时，触发流式查询。
 
-流查询的 SELECT 子句不支持 JOIN
+流查询的 SELECT 子句不支持 JOIN。
 
 流查询的语句会持久化运行，通过[KILL QUERY](#kill-query) 取消执行
 
-**示例：**
+#### 示例
+
 以流式降采样场景为示例，source表时间间隔为一分钟，降采样时间区间为1小时
 
 创建流查询的目标表

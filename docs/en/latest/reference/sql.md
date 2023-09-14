@@ -50,7 +50,7 @@ Z represents zero time zone
 
 +08:00 represents the East 8th District
 
-as follows：
+as follows:
 
 - `1997-01-31T09:26:56.123Z` # Standard RCF3339, UTC time zone
 - `1997-01-31T09:26:56.123+08:00` # Standard RCF3339, East 8th District
@@ -59,7 +59,7 @@ as follows：
 - `1997-01-31 09:26:56.123` # Close to RCF3339, replace T by space, and no time zone is specified
 - `1997-01-31 09:26:56`     # Close to RCF3339, replace T by space, and no time zone is specified, the accuracy is on the order of seconds
 
-**Note**：`CAST (BIGINT AS TIMESTAMP)` is a timestamp converted to nanosecond, as follows:
+**Note**:`CAST (BIGINT AS TIMESTAMP)` is a timestamp converted to nanosecond, as follows:
 
 ```sql
 SELECT CAST (1 AS TIMESTAMP);
@@ -72,7 +72,7 @@ SELECT CAST (1 AS TIMESTAMP);
 
 #### INTERVAL Constant 
 
-**Example：**
+#### Example
 
 1. `INTERVAL '1'` One second
 2. `INTERVAL '1 SECONDE'` One second
@@ -115,13 +115,13 @@ db_option: {
 
 #### Parameters Description
 
-1. TTL： represents the saving time of the data file, defaults to 365 days, expressed in data with units. It supports day（d），hour（h），minute（m），such as TTL 10d，TTL 50h，TTL 100m.When no unit, the default is day, such as TTL 30.
-2. SHARD：represents the number of data partitions，defaults to 1.
-3. VNODE_DURATION：represents the time range of data in the shard，defaults to 365 days，and also expressed by data with units.Its data meaning is consistent with the value of TTL.
-4. REPLICA：represents the number of replicas of data in the cluster，defaults to 1 (the number of replicas is not larger than the number of distributed data nodes).
-5. PRECISION：The timestamp accuracy of the database. ms represents milliseconds, us represents microseconds, ns represents nanoseconds,defaults to ns.
+1. TTL: represents the saving time of the data file, defaults to 365 days, expressed in data with units. It supports day（d）, hour（h）, minute（m）, such as TTL 10d, TTL 50h, TTL 100m.When no unit, the default is day, such as TTL 30.
+2. SHARD: represents the number of data partitions, defaults to 1.
+3. VNODE_DURATION: represents the time range of data in the shard, defaults to 365 days, and also expressed by data with units.Its data meaning is consistent with the value of TTL.
+4. REPLICA: represents the number of replicas of data in the cluster, defaults to 1 (the number of replicas is not larger than the number of distributed data nodes).
+5. PRECISION: The timestamp accuracy of the database. ms represents milliseconds, us represents microseconds, ns represents nanoseconds,defaults to ns.
 
-**Example**
+#### Example
 
 ```sql
 > CREATE DATABASE oceanic_station;
@@ -130,13 +130,13 @@ Query took 0.062 seconds.
 
 ### Show All Databases
 
-**Syntax**
+#### Syntax
 
 ```sql
 SHOW DATABASES;
 ```
 
-**Example**
+#### Example
 
 ```sql
 SHOW DATABASES;
@@ -170,7 +170,7 @@ DROP DATABASE [IF EXISTS] db_name;
 
 If dropping database, all table data and metadata of the specified database will be removed.
 
-**Example**
+#### Example
 
 ```sql
 DROP DATABASE oceanic_station;
@@ -196,7 +196,7 @@ db_option: {
 }
 ```
 
-**Example**
+#### Example
 
 ```sql
 ALTER DATABASE oceanic_station SET TTL '30d';
@@ -210,7 +210,7 @@ ALTER DATABASE oceanic_station SET TTL '30d';
 DESCRIBE DATABASE dbname;
 ```
 
-**Example**
+#### Example
 
 ```sql
 DESCRIBE DATABASE oceanic_station;
@@ -253,14 +253,14 @@ field_codec_type:
 3. If the compression algorithm is not specified when creating a table, the system default compression algorithm is used.
 4. At present, the compression algorithms supported by various types are as follows. The first one of each type is the default specified algorithm. NULL means no compression algorithm is used.
 
-  * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
-  * DOUBLE：GORILLA，QUANTILE，NULL
-  * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
-  * BOOLEAN：BITPACK，NULL
+  * BIGINT/BIGINT UNSIGNED: DELTA, QUANTILE, NULL
+  * DOUBLE: GORILLA, QUANTILE, NULL
+  * STRING: SNAPPY, ZSTD, GZIP, BZIP, ZLIB, NULL
+  * BOOLEAN: BITPACK, NULL
 
 For more information about the compression algorithm, see the details of the [compression algorithm](./concept_design/compress.md#compression-algorithm).
 
-**Example**
+#### Example
 
 ```sql
 CREATE TABLE air (
@@ -302,13 +302,13 @@ tb_option: {
 
 #### Parameter Description
 
-1. STORED AS：represents the format in which the file is stored. Currently, PARQUET, JSON, CSV and AVRO formats are supported.
-2. WITH HEADER ROW：Effective only in csv file format, representing with csv header.
-3. DELIMITER：only effective in csv format, representing the delimiter of column data.
-4. PARTITIONED BY：use the column specified when creating the table to partition.
-5. LOCATION：represents the location of the associated file.
+1. STORED AS: represents the format in which the file is stored. Currently, PARQUET, JSON, CSV and AVRO formats are supported.
+2. WITH HEADER ROW: Effective only in csv file format, representing with csv header.
+3. DELIMITER: only effective in csv format, representing the delimiter of column data.
+4. PARTITIONED BY: use the column specified when creating the table to partition.
+5. LOCATION: represents the location of the associated file.
 
-**Example**
+#### Example
 
 ```sql
 CREATE EXTERNAL TABLE cpu (
@@ -333,7 +333,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 DROP TABLE [ IF EXISTS ] tb_name;
 ```
 
-**Example**
+#### Example
 
 ```sql
 DROP TABLE IF EXISTS air;
@@ -366,7 +366,7 @@ You can use `DESCRIBE TABLE` to view the table structure.
 DESCRIBE DATABASE table_name;
 ```
 
-**Example**
+#### Example
 
 ```sql
 DESCRIBE TABLE air;
@@ -404,7 +404,7 @@ alter_table_option: {
 }
 ```
 
-**Example**
+#### Example
 
 ```sql
 ALTER TABLE air ADD TAG height;
@@ -452,7 +452,7 @@ If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.
 
 Please note that data in the TIME column can be represented by either a time string or a numeric timestamp.
 
-**Example**
+#### Example
 
 ```sql
 CREATE TABLE air (
@@ -508,7 +508,7 @@ For more information about timezone, please refer to [Timestamp](#timestamp-cons
 
 The keyword `VALUES` can be followed by multiple lists separated by `,`.
 
-**Example**
+#### Example
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
@@ -540,7 +540,7 @@ SELECT * FROM air;
 
 You can also use `INSERT SELECT` to insert query data into the table.
 
-**Example**
+#### Example
 
 ```sql
 CREATE TABLE air_visibility (
@@ -655,16 +655,17 @@ This is equivalent to inserting the following k-v pairs into the database.
 
 ## Data Query
 
-CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，We support most of the SQL syntax of DataFusion.
+CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html), We support most of the SQL syntax of DataFusion.
 
-**Note**：In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
+**Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
 
 ### Sample Data
+
 To further study CnosDB, this section will provide sample data for you to download and teach you how to import data into the database. The data sources referenced in the following chapters are all from this sample data.
 
 ### Download Data
 
-If in cnosdb cli, enter`\q`to exit.
+If in cnosdb cli, enter `\q` to exit.
 
 Executing the following command in the shell will generate a local data file named oceanic_station in Line Protocol format.
 
@@ -679,10 +680,10 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
     cnosdb-cli
     ```
 - **Create the database**
--
-```shell
-create database oceanic_station;
-```
+
+  ```shell
+  create database oceanic_station;
+  ```
 - **Switch to the specified database**
 
     ```shell
@@ -697,6 +698,8 @@ create database oceanic_station;
   ```
 
 ## **SQL Syntax**
+
+#### Syntax
 
 ```sql
 [ WITH with_query [, ...] ]
@@ -727,12 +730,14 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 -- grouping_element
     ()
 ```
+
 ### **SELECT Clause**
 
 ### SELECT \*
+
 The wildcard * can be used to refer to all columns.
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM air;
@@ -758,15 +763,18 @@ SELECT * FROM air;
 ### ALL/DISTINCT
 
 #### Syntax
+
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
-After the keyword `SELECT`, you can use `DISTINCT`to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`。
+After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`.
 
-**Example**
+#### Example
+
 ```sql
 SELECT DISTINCT station, visibility FROM air;
 ```
+
     +-------------+------------+
     | station     | visibility |
     +-------------+------------+
@@ -787,6 +795,7 @@ SELECT DISTINCT station, visibility FROM air;
 ```sql
 SELECT station, visibility FROM air;
 ```
+
     +-------------+------------+
     | station     | visibility |
     +-------------+------------+
@@ -813,14 +822,17 @@ You can use the keyword `AS` to alias a column expression or table.
 ### Alias Column Expression
 
 #### Syntax
+
 ```sql
 expression [ [ AS ] column_alias ]
 ```
 
-**Example**
+#### Example
+
 ```sql
 SELECT station s, visibility AS v FROM air;
 ```
+
     +-------------+----+
     | s           | v  |
     +-------------+----+
@@ -840,19 +852,22 @@ SELECT station s, visibility AS v FROM air;
     +-------------+----+
 
 ### Alias Table
-You can also use the keyword AS to alias the table.
+
+You can also use the keyword `AS` to alias the table.
 
 #### Syntax
+
 ```sql
 FROM tb_name [AS] alias_name
 ```
 
-**Example**
+#### Example
 
 ```sql
 SELECT a.visibility, s.temperature
 FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 ```
+
     +------------+-------------+
     | visibility | temperature |
     +------------+-------------+
@@ -866,9 +881,9 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 
 - If the SELECT clause contains only the Tag column, it is equivalent to the SELECT DISTINCT Tag column.
 
-  **Example**
+  #### Example
   ```sql
-  -- station is a Tag column，temperature is a Field Namecolumn.
+  -- station is a Tag column, temperature is a Field Namecolumn.
   SELECT station, temperature FROM air;
   ```
       +-------------+-------------+
@@ -907,13 +922,16 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 ```sql
 LIMIT n
 ```
+
 Limit the number of rows returned from the result set to n, and n must be non-negative.
 
-**Example**
+#### Example
+
 ```sql
 SELECT *
 FROM air LIMIT 10;
 ```
+
     +---------------------+-------------+------------+-------------+----------+
     | time                | station     | visibility | temperature | pressure |
     +---------------------+-------------+------------+-------------+----------+
@@ -932,17 +950,20 @@ FROM air LIMIT 10;
 ### **OFFSET Clause**
 
 #### Syntax
+
 ```sql
 OFFSET m
 ```
 
 The returned result set skips m records. default m=0.
 
-**Example**
+#### Example
+
 ```sql
 SELECT *
 FROM air OFFSET 10;
 ```
+
     +---------------------+-------------+------------+-------------+----------+
     | time                | station     | visibility | temperature | pressure |
     +---------------------+-------------+------------+-------------+----------+
@@ -951,14 +972,16 @@ FROM air OFFSET 10;
     | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
     +---------------------+-------------+------------+-------------+----------+
 
-`OFFSET`can be used with the`LIMIT`statement to specify the number of lines to skip.The format is `LIMIT n OFFSET m`，or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
+`OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip. The format is `LIMIT n OFFSET m`.
+`LIMIT n` controls the output of n rows of data, and `OFFSET m` indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
 
-**Example**
+#### Example
 
 ```sql
 SELECT *
 FROM air LIMIT 3 OFFSET 3;
 ```
+
     +---------------------+------------+------------+-------------+----------+
     | time                | station    | visibility | temperature | pressure |
     +---------------------+------------+------------+-------------+----------+
@@ -975,11 +998,14 @@ FROM air LIMIT 3 OFFSET 3;
 WITH cte AS cte_query_definiton [, ...] query
 ```
 
-Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows：
-- CTE in the same WITH clause must have a unique name.
-- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause：
+Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). 
+CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows:
 
-**Example**
+- CTE in the same WITH clause must have a unique name.
+- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. 
+  Suppose A is the first CTE in the clause and B is the second CTE in the clause:
+
+#### Example
 
 ```sql
 SELECT station, avg 
@@ -987,6 +1013,7 @@ FROM (  SELECT station, AVG(visibility) AS avg
         FROM air 
         GROUP BY station) AS x;
 ```
+
     +-------------+--------------------+
     | station     | avg                |
     +-------------+--------------------+
@@ -1000,6 +1027,7 @@ WITH x AS
 SELECT station, avg
 FROM x;
 ```
+
     +-------------+--------------------+
     | station     | avg                |
     +-------------+--------------------+
@@ -1021,8 +1049,8 @@ select_clause_set_right
 [sort_list_columns] [limit_clause]
 ```
 
-`UNION`will de-duplicate the merged result set.
-`UNION ALL`will retain the same data in the merged result set.
+`UNION` will de-duplicate the merged result set.
+`UNION ALL` will retain the same data in the merged result set.
 `EXCEPT` will make the difference between the two result sets, return all non-duplicate values not found in the right query from the left query.
 `INTERSECT` returns the intersection of the two result sets (that means, all non-duplicate values are returned by both queries).
 
@@ -1033,11 +1061,13 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
 **Examples**
 
 - **UNION ALL**
+
   ```sql
   SELECT visibility FROM air WHERE temperature < 60
   UNION ALL
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
+  
       +------------+
       | visibility |
       +------------+
@@ -1074,6 +1104,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
       | 79         |
       | 59         |
       +------------+
+
 - **EXCEPT**
 
   ```sql
@@ -1081,6 +1112,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
   EXCEPT
   SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
   ```
+  
       +------------+
       | visibility |
       +------------+
@@ -1122,11 +1154,12 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
 
 Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM air ORDER BY temperature;
 ```
+
     +---------------------+-------------+------------+-------------+----------+
     | time                | station     | visibility | temperature | pressure |
     +---------------------+-------------+------------+-------------+----------+
@@ -1149,6 +1182,7 @@ SELECT * FROM air ORDER BY temperature;
 ```sql
 SELECT * FROM air ORDER BY temperature DESC;
 ```
+
     +---------------------+-------------+------------+-------------+----------+
     | time                | station     | visibility | temperature | pressure |
     +---------------------+-------------+------------+-------------+----------+
@@ -1170,6 +1204,7 @@ SELECT * FROM air ORDER BY temperature DESC;
 ```sql
 SELECT * FROM air ORDER BY station, temperature;
 ```
+
     +---------------------+-------------+------------+-------------+----------+
     | time                | station     | visibility | temperature | pressure |
     +---------------------+-------------+------------+-------------+----------+
@@ -1213,7 +1248,7 @@ Complex expressions can be formed by concatenating two or more simple expression
 A symbol representing a single specific data value.
 You can refer to [constant](#constant).
 
-**Example**
+#### Example
 
 ```sql
 select 1;
@@ -1268,10 +1303,12 @@ Binary operators supported now:
 expr BETWEEN expr AND expr
 ```
 
-**Example**
+#### Example
+
 ```sql
 SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
 ```
+
     +----------+
     | pressure |
     +----------+
@@ -1288,17 +1325,18 @@ SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
     | 55       |
     +----------+
 
-Note: `BETWEEN x AND y` lists the numbers between x and y, including x and y
+Note: `BETWEEN x AND y` lists the numbers between x and y, including x and y.
 
 ### `IN` 表达式
 
 The IN operator determines whether any value in the list is equal to the expression.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 ```
+
     +-------------+-------------+------------+
     | station     | temperature | visibility |
     +-------------+-------------+------------+
@@ -1306,7 +1344,7 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
     | LianYunGang | 69          | 78         |
     +-------------+-------------+------------+
 
-**Note**：
+**Note**:
 
 IN only supports a list of constants, not a list of expressions.
 
@@ -1315,6 +1353,7 @@ IN only supports a list of constants, not a list of expressions.
 The `CASE WHEN` expression is used when the expression needs different values depending on the situation.
 
 #### Syntax
+
 ```sql
 CASE
     ( WHEN expression THEN result1 [, ...] )
@@ -1322,7 +1361,7 @@ CASE
 END;
 ```
 
-**Example**
+#### Example
 
 ```sql
 SELECT DISTINCT 
@@ -1331,6 +1370,7 @@ SELECT DISTINCT
     END PRESSURE 
 FROM AIR;
 ```
+
     +----------+
     | pressure |
     +----------+
@@ -1368,15 +1408,17 @@ The precedence levels of the operators are given in the following table. Operato
 #### Syntax
 
 ```sql
-SHOW {DATABASES | TABLES}
+SHOW {DATABASES | TABLES | QUERIES}
 ```
-Show all databases or all tables.
 
-**Example**
+Show all databases or all tables or SQL in progress.
+
+#### Example
 
 ```sql
 SHOW DATABASES;
 ```
+
     +----------+
     | Database |
     +----------+
@@ -1386,6 +1428,7 @@ SHOW DATABASES;
 ```sql
 SHOW TABLES;
 ```
+
     +-------+
     | Table |
     +-------+
@@ -1397,6 +1440,7 @@ SHOW TABLES;
 ```sql
 SHOW QUERIES;
 ```
+
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
     | query_id | query_text                                                       | user_id                                 | user_name | tenant_id                              | tenant_name | state      | duration     |
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
@@ -1416,7 +1460,7 @@ Return the series in the specified table.
 SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
 ```
 
-**Example**
+#### Example
 
 ```sql
 SHOW SERIES FROM air WHERE station = 'XiaoMaiDao' ORDER BY key LIMIT 1;
@@ -1440,11 +1484,12 @@ SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_ke
 ```
 operator include `=`, `!=`.
 
-**Example**
+#### Example
 
 ```sql
 SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER BY key, value LIMIT 1;
 ```
+
     +---------+------------+
     | key     | value      |
     +---------+------------+
@@ -1454,6 +1499,7 @@ SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER
 ```sql
 SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
 ```
+
     +---------+-------------+
     | key     | value       |
     +---------+-------------+
@@ -1461,13 +1507,14 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
     | station | LianYunGang |
     +---------+-------------+
 
-### **EXPLAIN**
+### EXPLAIN
 
 #### Syntax
 
 ```sql
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
+
 **Explanation**
 
 `EXPLAIN` is only used to display the execution plan of a query, and does not execute the query.
@@ -1476,10 +1523,12 @@ EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 
 `EXPLAIN ANALYZE VERBOSE` executes the query and displays a more detailed execution plan, including the number of rows read.
 
-**Example**
+#### Example
+
 ```sql
 EXPLAIN SELECT station, temperature, visibility FROM air;
 ```
+
     +---------------+-----------------------------------------------------------------------------------------------------------------------------+
     | plan_type     | plan                                                                                                                        |
     +---------------+-----------------------------------------------------------------------------------------------------------------------------+
@@ -1493,6 +1542,7 @@ EXPLAIN SELECT station, temperature, visibility FROM air;
 ```sql
 EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```
+
     +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
     | plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
     +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1504,6 +1554,7 @@ EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```sql
 EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```
+
     +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
     | plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
     +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1515,6 +1566,7 @@ EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```sql
 EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
 ```
+
     +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
     | plan_type              | plan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
     +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1528,18 +1580,22 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
     | Duration               | 13.307708ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
     +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-### **DESCRIBE**
+### DESCRIBE
 
 #### Syntax
+
 ```sql
 DESCRIBE {DATABASE db_name | TABLE tb_name};
 ```
+
 Describe the parameters of the database and the pattern of the table.
 
-**Example**
+#### Example
+
 ```sql
 DESCRIBE TABLE air;
 ```
+
     +-------------+-----------+-------+-------------+
     | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
     +-------------+-----------+-------+-------------+
@@ -1553,6 +1609,7 @@ DESCRIBE TABLE air;
 ```sql
 DESCRIBE DATABASE public;
 ```
+
     +----------+-------+----------------+---------+-----------+
     | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
     +----------+-------+----------------+---------+-----------+
@@ -1561,7 +1618,7 @@ DESCRIBE DATABASE public;
 
 [//]: # (## **EXISTS**)
 [//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
-[//]: # (Example：)
+[//]: # (Example:)
 [//]: # (```sql)
 [//]: # (SELECT id  FROM date)
 [//]: # (WHERE EXISTS &#40;SELECT 1 FROM shop)
@@ -1596,23 +1653,24 @@ DESCRIBE DATABASE public;
 [//]: # (SHOW CREATE TABLE table_name)
 [//]: # (```)
 
-### **Join Clause**
+### Join Clause
 
 ### Join Operation
 
-CnosDB supports`INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`。
+CnosDB supports `INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`.
 
-`CROSS JOIN`is not supported currently.
+`CROSS JOIN` is not supported currently.
 
 ### INNER JOIN
 
-The keyword`JOIN`or`INNER JOIN`defines a join that only displays matching rows in two tables.
+The keyword `JOIN` or `INNER JOIN` defines a join that only displays matching rows in two tables.
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
 ```
+
     +---------------------+------------+------------+-------------+----------+---------------------+-------------+-------------+
     | time                | station    | visibility | temperature | pressure | time                | station     | temperature |
     +---------------------+------------+------------+-------------+----------+---------------------+-------------+-------------+
@@ -1624,13 +1682,14 @@ SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
 
 ### LEFT JOIN
 
-Define a left join with the keyword`LEFT JOIN`or`LEFT OUTER JOIN`.This join includes all the rows in the left table. If there are no matching rows in the right table, the right side of the join is null.
+Define a left join with the keyword `LEFT JOIN` or `LEFT OUTER JOIN` . This join includes all the rows in the left table. If there are no matching rows in the right table, the right side of the join is null.
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
 ```
+
     +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+
     | time                | station     | visibility | temperature | pressure | time                | station     | temperature |
     +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+
@@ -1652,13 +1711,14 @@ SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
 
 ### RIGHT JOIN
 
-Define a right join with the keyword `RIGHT JOIN`or`RIGHT OUTER JOIN`. This join includes all the rows in the right table. If there are no matching rows in the left table, the left side of the join is null.
+Define a right join with the keyword `RIGHT JOIN` or `RIGHT OUTER JOIN` . This join includes all the rows in the right table. If there are no matching rows in the left table, the left side of the join is null.
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
 ```
+
     +---------------------+------------+------------+-------------+----------+---------------------+-------------+-------------+
     | time                | station    | visibility | temperature | pressure | time                | station     | temperature |
     +---------------------+------------+------------+-------------+----------+---------------------+-------------+-------------+
@@ -1680,13 +1740,14 @@ SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
 
 ### FULL JOIN
 
-The keyword`FULL JOIN`or`FULL OUTER JOIN`defines a full connection, which is actually the union of LEFT OUTER JOIN and RIGHT OUTER JOIN. It will display all the rows on the left and right of the join, and will generate null values where either side of the join does not match.
+The keyword `FULL JOIN` or `FULL OUTER JOIN` defines a full connection, which is actually the union of LEFT OUTER JOIN and RIGHT OUTER JOIN. It will display all the rows on the left and right of the join, and will generate null values where either side of the join does not match.
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 ```
+
     +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+
     | time                | station     | visibility | temperature | pressure | time                | station     | temperature |
     +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+
@@ -2102,15 +2163,16 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 ### GROUP BY Clause
 
-The GROUP BY clause must be after the condition of the WHERE clause and before the ORDER BY clause (if any).
+The GROUP BY clause must be after the condition of the WHERE clause (if there is one) and before the ORDER BY clause (if there is one).
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, AVG(temperature) 
 FROM air 
 GROUP BY station;
 ```
+
     +-------------+----------------------+
     | station     | AVG(air.temperature) |
     +-------------+----------------------+
@@ -2126,15 +2188,16 @@ GROUP BY station;
 group_by_clause 
 [ HAVING condition ];
 ```
-In the SELECT query, the HAVING clause must follow the GROUP BY clause and appear before the ORDER BY clause (if any).
 
-**Differences between HAVING and WHERE**：
+In the SELECT query, the HAVING clause must follow the GROUP BY clause and appear before the ORDER BY clause (if there is one).
+
+**Differences between HAVING and WHERE**
 
 HAVING enables you to specify filter conditions after the GROUP BY clause, so as to control which groups in the query results can appear in the final results.
 
 WHERE sets conditions on the selected column before the GROUP BY clause, while HAVING clause sets conditions on the group generated by the GROUP BY clause.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, AVG(temperature)  AS avg_t 
@@ -2142,6 +2205,7 @@ FROM air
 GROUP BY station 
 HAVING avg_t > 70;
 ```
+
     +-------------+-------------------+
     | station     | avg_t             |
     +-------------+-------------------+
@@ -2150,7 +2214,7 @@ HAVING avg_t > 70;
 
 ## **Complex Grouping Operation**
 
-CnosDB provides `ROLLUP`，`CUBE`and other complex grouping operations, enabling you to operate query results in different ways.
+CnosDB provides `ROLLUP`, `CUBE` and other complex grouping operations, enabling you to operate query results in different ways.
 
 [//]: # (### **GROUPING SETS**)
 [//]: # (GROUPING SETS 是可以将行分组在一起的一组或一组列。)
@@ -2209,7 +2273,7 @@ You can use the ROLLUP option in a single query to generate multiple group sets.
 
 ROLLUP assumes a hierarchy between input columns.
 
-If you GRUOP BY Clause is as follows,
+If you GRUOP BY Clause is as follows:
 
 #### Syntax
 
@@ -2219,7 +2283,7 @@ FROM ...
 GROUP BY ROLLUP(column_1,column_2);
 ```
 
-t is equivalent to the following statement.
+It is equivalent to the following statement:
 
 #### Syntax
 
@@ -2249,17 +2313,18 @@ column_1, column2;
 [//]: # (    &#40;&#41;)
 [//]: # (&#41;)
 
-ROLLUP generates all grouping sets that are meaningful in this hierarchy. Whenever the value of column_1 changes，it will generate a subtotal line；
+ROLLUP generates all grouping sets that are meaningful in this hierarchy. Whenever the value of column_1 changes, it will generate a subtotal line;
 
 Therefore, we often use ROLLUP in reports to generate subtotals and totals. The order of columns in ROLLUP is very important.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, visibility, avg(temperature) 
 FROM air 
 GROUP BY ROLLUP (station, visibility);
 ```
+
     +-------------+------------+----------------------+
     | station     | visibility | AVG(air.temperature) |
     +-------------+------------+----------------------+
@@ -2281,6 +2346,7 @@ GROUP BY ROLLUP (station, visibility);
     +-------------+------------+----------------------+
 
 ### **CUBE**
+
 Similar to ROLLUP, CUBE is an extension of the GROUP BY clause. It allows you to generate subtotals for all combinations of grouping columns specified in the GROUP BY clause.
 
 [//]: # (CUBE 就像结合了 GROUPING SETS 和 ROLLUP。)
@@ -2294,7 +2360,7 @@ FROM ...
 GROUP BY CUBE (column1, column2);
 ```
 
-Equivalent to
+Equivalent to:
 
 ```sql
 SELECT ...
@@ -2320,12 +2386,14 @@ FROM ...
 ;
 ```
 
-**Example**
+#### Example
+
 ```sql
 SELECT station, visibility, avg(temperature) 
 FROM air 
 GROUP BY CUBE (station, visibility);
 ```
+
     +-------------+------------+----------------------+
     | station     | visibility | AVG(air.temperature) |
     +-------------+------------+----------------------+
@@ -2360,7 +2428,7 @@ GROUP BY CUBE (station, visibility);
 
 [//]: # (### **GROUPING**)
 [//]: # (    GROUPING&#40;column_expression&#41;)
-[//]: # (**说明**：GROUPING函数只能用于有GROUP BY 子句的表达式)
+[//]: # (**说明**:GROUPING函数只能用于有GROUP BY 子句的表达式)
 [//]: # (当指定`GROUP BY`时，只能在 SELECT 列表、HAVING 和 ORDER BY 子句中使用 GROUPING。)
 [//]: # (**Parameter Type**:  只能是GROUP BY 子句中的表达式)
 [//]: # (```sql)
@@ -2403,7 +2471,7 @@ GROUP BY CUBE (station, visibility);
 
     COUNT(x)
 
-**Function**： Return the number of rows retrieved in the selected element.
+**Function**: Return the number of rows retrieved in the selected element.
 
 Contain the DISTINCT keyword, which counts the results after deduplication.
 
@@ -2413,15 +2481,16 @@ Contain the DISTINCT keyword, which counts the results after deduplication.
 
 > COUNT(field) Returns the number of non-null values.
 
-**Parameter Type**：Any type
+**Parameter Type**:Any type
 
-**Return Type**：BIGINT
+**Return Type**:BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT COUNT(*) FROM air;
 ```
+
     +-----------------+
     | COUNT(UInt8(1)) |
     +-----------------+
@@ -2431,6 +2500,7 @@ SELECT COUNT(*) FROM air;
 ```sql
 SELECT COUNT(temperature) FROM air;
 ```
+
     +------------------------+
     | COUNT(air.temperature) |
     +------------------------+
@@ -2440,6 +2510,7 @@ SELECT COUNT(temperature) FROM air;
 ```sql
 SELECT COUNT(DISTINCT temperature) FROM air;
 ```
+
     +---------------------------------+
     | COUNT(DISTINCT air.temperature) |
     +---------------------------------+
@@ -2448,23 +2519,24 @@ SELECT COUNT(DISTINCT temperature) FROM air;
 
 ----------------
 
-### **SUM**
+### SUM
 
 #### Syntax
 
     SUM(NUMERICS)
 
-**Function**： Return the sum calculated from the selected element
+**Function**: Return the sum calculated from the selected element.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：Consistent with parameter type.
+**Return Type**: Consistent with parameter type.
 
-**Example**
+#### Example
 
 ```sql
 SELECT SUM(temperature) FROM air;
 ```
+
     +----------------------+
     | SUM(air.temperature) |
     +----------------------+
@@ -2472,23 +2544,24 @@ SELECT SUM(temperature) FROM air;
     +----------------------+
 ----------------
 
-### **MIN**
+### MIN
 
 #### Syntax
 
     MIN(STRING | NUMERICS | TIMESTAMP)
 
-**Function**： Return the minimum value of the selected element.
+**Function**: Return the minimum value of the selected element.
 
-**Parameter Type**：Numeric type or STRING or TIMESTAMP
+**Parameter Type**: Numeric type or STRING or TIMESTAMP
 
-**Return Type**：Consistent with parameter type.
+**Return Type**: Consistent with parameter type.
 
-**Example**
+#### Example
 
 ```sql
  SELECT MIN(time), MIN(station), MIN(temperature) FROM air;
 ```
+
     +---------------------+------------------+----------------------+
     | MIN(air.time)       | MIN(air.station) | MIN(air.temperature) |
     +---------------------+------------------+----------------------+
@@ -2497,23 +2570,24 @@ SELECT SUM(temperature) FROM air;
 
 ----------------
 
-### **MAX**
+### MAX
 
 #### Syntax
 
     MAX(STRINGS | NUMERICS | TIMESTAMPS)
 
-**Function**： Return the maximum value in the selected element.
+**Function**: Return the maximum value in the selected element.
 
-**Parameter Type**：Numeric type or STRING or TIMESTAMP.
+**Parameter Type**: Numeric type or STRING or TIMESTAMP.
 
-**Return Type**：Consistent with parameter type.
+**Return Type**: Consistent with parameter type.
 
-**Example**
+#### Example
 
 ```sql
 SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
 ```
+
     +---------------------+------------------+----------------------+
     | MAX(air.time)       | MAX(air.station) | MAX(air.temperature) |
     +---------------------+------------------+----------------------+
@@ -2521,23 +2595,24 @@ SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
     +---------------------+------------------+----------------------+
 ----------------
 
-### **AVG**
+### AVG
 
 #### Syntax
 
     AVG(NUMERICS)
 
-**Function**： Return the average value of the selected element.
+**Function**: Return the average value of the selected element.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type：**：Numeric type
+**Return Type**: Numeric type
 
-**Example**
+#### Example
 
 ```sql
 SELECT AVG(temperature) FROM air;
 ```
+
     +----------------------+
     | AVG(air.temperature) |
     +----------------------+
@@ -2551,23 +2626,24 @@ SELECT AVG(temperature) FROM air;
 
     ARRAY_AGG(expr)
 
-**Function**： Return an array consisting of all the values of the selected element. The element types must be the same.
+**Function**: Return an array consisting of all the values of the selected element. The element types must be the same.
 
-**Parameter Type**：any type
+**Parameter Type**: any type
 
-**Return Type**：Array of parameter type
+**Return Type**: Array of parameter type
 
-**Example**
+#### Example
 
 ```sql
 SELECT ARRAY_AGG(temperature) from air;
 ```
+
     +------------------------------------------------------+
     | ARRAYAGG(air.temperature)                            |
     +------------------------------------------------------+
     | [69, 78, 62, 79, 53, 72, 71, 69, 80, 74, 70, 70, 70] |
     +------------------------------------------------------+
-**Note**：The aggregate function result cannot be returned in CSV format.
+**Note**: The aggregate function result cannot be returned in CSV format.
 
 ### FIRST
 
@@ -2583,7 +2659,7 @@ Gets the first value of one column sorted by another.
 
 **Return Type**: Same as value type.
 
-**Example**: 
+#### Example
 
 ```sql
 select first(time, pressure) from air;
@@ -2609,7 +2685,7 @@ Gets the last value of one column sorted by another.
 
 **Return Type**: Same as value type.
 
-**Example**: 
+#### Example:
 
 ```sql
 select last(time, pressure) from air;
@@ -2627,11 +2703,11 @@ select last(time, pressure) from air;
 
 Calculate the mode of a column.
 
-**Parameter Type**:  value: any
+**Parameter Type**: value: any
 
 **Return Type**: Same as value type.
 
-**Example**: 
+#### Example
 
 ```sql
 select mode(pressure) from air;
@@ -2654,17 +2730,18 @@ select mode(pressure) from air;
 
     VAR(NUMERICS)
 
-**Function**： Calculate the variance of a given sample
+**Function**: Calculate the variance of a given sample
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT VAR(temperature) FROM air;
 ```
+
     +---------------------------+
     | VARIANCE(air.temperature) |
     +---------------------------+
@@ -2678,17 +2755,18 @@ SELECT VAR(temperature) FROM air;
 
     VAR_POP(NUMERICS)
 
-**Function**： Calculate the variance of population.
+**Function**: Calculate the variance of population.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT VAR_POP(temperature) FROM air;
 ```
+
     +------------------------------+
     | VARIANCEPOP(air.temperature) |
     +------------------------------+
@@ -2702,17 +2780,18 @@ SELECT VAR_POP(temperature) FROM air;
 
     STDDEV(NUMERICS)
 
-**Function**： Calculate the standard deviation of the sample.
+**Function**: Calculate the standard deviation of the sample.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT STDDEV(temperature) FROM air;
 ```
+
     +-------------------------+
     | STDDEV(air.temperature) |
     +-------------------------+
@@ -2726,17 +2805,19 @@ SELECT STDDEV(temperature) FROM air;
 #### Syntax
 
     STDDEV_POP(NUMERICS)
-**Function**： Calculate the standard deviation of population.
 
-**Parameter Type**：Numeric type
+**Function**: Calculate the standard deviation of population.
 
-**Return Type**：DOUBLE
+**Parameter Type**: Numeric type
 
-**Example**
+**Return Type**: DOUBLE
+
+#### Example
 
 ```sql
 SELECT STDDEV_POP(temperature) FROM air;
 ```
+
     +----------------------------+
     | STDDEVPOP(air.temperature) |
     +----------------------------+
@@ -2750,17 +2831,18 @@ SELECT STDDEV_POP(temperature) FROM air;
 
     COVAR(NUMERICS, NUMERICS)
 
-**Function**： Return the covariance of the sample.
+**Function**: Return the covariance of the sample.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Numeric type**：DOUBLE
+**Numeric type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT COVAR(temperature, pressure) FROM air;
 ```
+
     +------------------------------------------+
     | COVARIANCE(air.temperature,air.pressure) |
     +------------------------------------------+
@@ -2777,13 +2859,13 @@ SELECT COVAR(temperature, pressure) FROM air;
 
     COVAR_POP(NUMERICS, NUMERICS)
 
-**Function**： Return the overall covariance of number pairs in a group.
+**Function**: Return the overall covariance of number pairs in a group.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT COVAR_POP(temperature, pressure) FROM air;
@@ -2802,17 +2884,18 @@ SELECT COVAR_POP(temperature, pressure) FROM air;
 
     CORR**(NUMERICS, NUMERICS)
 
-**Function**： Return the Pearson coefficient representing the association between a set of number pairs.
+**Function**: Return the Pearson coefficient representing the association between a set of number pairs.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT CORR(temperature, pressure) FROM air;
 ```
+
     +-------------------------------------------+
     | CORRELATION(air.temperature,air.pressure) |
     +-------------------------------------------+
@@ -2829,17 +2912,18 @@ SELECT CORR(temperature, pressure) FROM air;
 
     APPROX_DISTINCT(x)
 
-**Function**： Return approximations of different input values (HyperLogLog).
+**Function**: Return approximations of different input values (HyperLogLog).
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT APPROX_DISTINCT(station) FROM air;
 ```
+
     +-----------------------------+
     | APPROXDISTINCT(air.station) |
     +-----------------------------+
@@ -2853,17 +2937,18 @@ SELECT APPROX_DISTINCT(station) FROM air;
 
     APPROX_PERCENTILE_CONT(x, p)  
 
-**Function**： Returns the approximate percentile (TDigest) of the input value x, where p is the percentile and is a 64 bit floating point number between 0 and 1 (including 1).
+**Function**: Returns the approximate percentile (TDigest) of the input value x, where p is the percentile and is a 64 bit floating point number between 0 and 1 (including 1).
 
-**Parameter Type**：x is numeric type, p is DOUBLE type
+**Parameter Type**: x is numeric type, p is DOUBLE type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 ```
+
     +----------------------------------------------------+
     | APPROXPERCENTILECONT(air.temperature,Float64(0.1)) |
     +----------------------------------------------------+
@@ -2878,18 +2963,20 @@ SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 
     APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, w, p)  
 
-**Function**： x returns the approximate percentage (TDigest) of the weighted input value, where w is the weight column expression and p is a floating point 64 between 0 and 1 inclusive.
+**Function**: x returns the approximate percentage (TDigest) of the weighted input value, where w is the weight column expression and p is a floating point 64 between 0 and 1 inclusive.
 
 APPROX_PERCENTILE_CONT(x, p) is equivalent to APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, 1, p)
-**Parameter Type**：x. w is numeric type, p is DOUBLE type.
 
-**Return Type**：DOUBLE
+**Parameter Type**: x. w is numeric type, p is DOUBLE type.
 
-**Example**
+**Return Type**: DOUBLE
+
+#### Example
 
 ```sql
 SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
 ```
+
     +-----------------------------------------------------------------------+
     | APPROXPERCENTILECONTWITHWEIGHT(air.temperature,Int64(2),Float64(0.1)) |
     +-----------------------------------------------------------------------+
@@ -2902,17 +2989,19 @@ SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
 #### Syntax
 
     APPROX_MEDIAN(NUMERICS)
-**Function**： Return the approximate median of the input value.
 
-**Parameter Type**：Numeric type
+**Function**: Return the approximate median of the input value.
 
-**Return Type**：DOUBLE
+**Parameter Type**: Numeric type
 
-**Example**
+**Return Type**: DOUBLE
+
+#### Example
 
 ```sql
 SELECT APPROX_MEDIAN(temperature) FROM air;
 ```
+
     +-------------------------------+
     | APPROXMEDIAN(air.temperature) |
     +-------------------------------+
@@ -2922,8 +3011,8 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 [//]: # (----------------)
 [//]: # (### **GROUPING**&#40;x&#41;)
 [//]: # (    GROUPING&#40;x&#41;)
-[//]: # (**Function**： The function takes a single argument, which must be an expression for the dimension column specified in the expression list extended BY the ROLLUP, CUBE, or GROUPING SETS of the GROUP BY clause.)
-[//]: # (**Parameter Type**：VALUE TYPE)
+[//]: # (**Function**: The function takes a single argument, which must be an expression for the dimension column specified in the expression list extended BY the ROLLUP, CUBE, or GROUPING SETS of the GROUP BY clause.)
+[//]: # (**Parameter Type**:VALUE TYPE)
 [//]: # (**Return Type** BIGINT)
 
 ### **SAMPLE**
@@ -2932,7 +3021,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
     SAMPLE(<column_key>, <N>)
 
-**Function**:  Randomly select N records from the given column_key.
+**Function**: Randomly select N records from the given column_key.
 
 **Parameter Type**: 
 
@@ -2941,7 +3030,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 **Return Type**: Array
 
-**Example**: 
+#### Example: 
 
 ```sql
 select sample(visibility, 5) from air;
@@ -2978,7 +3067,7 @@ Struct {
 }
 ```
 
-**Example**: 
+#### Example 
 
 ```sql
 select asap_smooth(time, pressure, 10) from air group by date_trunc('month', time);
@@ -3032,7 +3121,7 @@ Suitable for use with multiple analysis functions in a single SQL.
 }
 ```
 
-**Example**: 
+#### Example
 
 ```sql
 create table if not exists test_stats(x bigint, y bigint);
@@ -3383,7 +3472,7 @@ Struct {
 }
 ```
 
-**Example**: ：
+#### Example: 
 
 ```sql
 select gauge_agg(time, pressure) from air group by date_trunc('month', time);
@@ -3514,7 +3603,7 @@ Struct {
 
 ```
 
-**Example**: 
+#### Example: 
 
 ```sql
 alter database public set ttl '1000000d';
@@ -3558,7 +3647,7 @@ Count the duration of a state, or count the duration of a state in a certain per
 
 **Return Type**: INTERVAL 类型
 
-**Example**: 
+#### Example: 
 
 ```sql
 select duration_in(compact_state_agg(time, state), 'running') from states;
@@ -3622,7 +3711,7 @@ Count the duration of a state, or count the duration of a state in a certain per
 
 **Return Type**: INTERVAL 
 
-**Example**: 
+#### Example: 
 
 Count the time of 'running' status.
 
@@ -3737,7 +3826,7 @@ Struct {
 }
 ```
 
-**Example**: 
+#### Example: 
 
 ```sql
 alter database public set ttl '1000000d';
@@ -3772,7 +3861,7 @@ Get the closing price.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```sql
 select close(candlestick_agg(time, price, volume)) from tick;
@@ -3792,7 +3881,7 @@ Get the closing time.
 
 **Return Type**: Timestamp
 
-**Example**: 
+#### Example: 
 
 ```sql
 select close_time(candlestick_agg(time, price, volume)) from tick;
@@ -3812,7 +3901,7 @@ Get the highest price.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```
 select high(candlestick_agg(time, price, volume)) from tick;
@@ -3832,7 +3921,7 @@ Get the time of the highest price.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```sql
 select high_time(candlestick_agg(time, price, volume)) from tick;
@@ -3852,7 +3941,7 @@ Get the lowest price.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```sql
 select low(candlestick_agg(time, price, volume)) from tick;
@@ -3872,7 +3961,7 @@ Get the time of the lowest price.
 
 **Return Type**: Timestamp
 
-**Example**: 
+#### Example: 
 
 ```sql
 select low_time(candlestick_agg(time, price, volume)) from tick;
@@ -3892,7 +3981,7 @@ Get the opening price.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```sql
 select open(candlestick_agg(time, price, volume)) from tick;
@@ -3912,7 +4001,7 @@ Get the time of the opening price.
 
 **Return Type**: Timestamp
 
-**Example**: 
+#### Example: 
 
 ```sql
 select open_time(candlestick_agg(time, price, volume)) from tick;
@@ -3932,7 +4021,7 @@ Get the total volume.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```sql
 select volume(candlestick_agg(time, price, volume)) from tick;
@@ -3952,7 +4041,7 @@ Get the volume weighted average price.
 
 **Return Type**: DOUBLE
 
-**Example**: 
+#### Example: 
 
 ```sql
 select vwap(candlestick_agg(time, price, volume)) from tick;
@@ -3971,39 +4060,13 @@ select vwap(candlestick_agg(time, price, volume)) from tick;
 
 ### **abs(x)**
 
-### **SAMPLE**
+**Function**:Return the absolute value of x.
 
-#### Syntax
+**Parameter Type**: Numeric type.
 
-    SAMPLE(<column_key>, <N>)
+**Return Type**: Consistent with function parameter type.
 
-**Function**： Select N records at random from the given column column_key
-
-**Column Type**：
-- column_key：Arbitrary Type
-- N：INTEGER
-
-**Return type**：ARRAY
-
-**Examples**
-
-```sql
-select sample(visibility, 5) from air;
-```
-    +--------------------------------------+
-    | sample(air.visibility,Int64(5))      |
-    +--------------------------------------+
-    | [65.0, 74.0, 76.0, 77.0, 72.0, 77.0] |
-    +--------------------------------------+
-
-
-**Function**：Return the absolute value of x.
-
-**Parameter Type**：Numeric type.
-
-**Return Type**：Consistent with function parameter type.
-
-**Example**
+#### Example
 
 ```sql
 SELECT abs(-1);
@@ -4019,13 +4082,13 @@ SELECT abs(-1);
 
 ### **acos(x)**
 
-**Function**：Return the arccosine of x.
+**Function**: Return the arccosine of x.
 
-**Parameter Type**：Numeric type.
+**Parameter Type**: Numeric type.
 
-**Return Type**：DOUBLE.
+**Return Type**: DOUBLE.
 
-**Example**
+#### Example
 
 ```sql
 SELECT acos(3);
@@ -4051,17 +4114,18 @@ SELECT acos(0.5);
 
 ### **asin(x)**
 
-**Function**:  Return the arcsine of x.
+**Function**: Return the arcsine of x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT asin(0.5);
 ```
+
     +--------------------+
     | asin(Float64(0.5)) |
     +--------------------+
@@ -4071,6 +4135,7 @@ SELECT asin(0.5);
 ```sql
 SELECT asin(5);
 ```
+
     +----------------+
     | asin(Int64(5)) |
     +----------------+
@@ -4081,13 +4146,13 @@ SELECT asin(5);
 
 ### **atan(x)**
 
-**Function**：Return the arctangent of x.
+**Function**:Return the arctangent of x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT atan(5);
@@ -4103,13 +4168,13 @@ SELECT atan(5);
 
 ### **atan2(y,x)**
 
-**Function**：Return the arctangent of y/x.
+**Function**:Return the arctangent of y/x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT atan2(10, 2);
@@ -4125,17 +4190,18 @@ SELECT atan2(10, 2);
 
 ### **ceil(x)**
 
-**Function**： Round up.
+**Function**: Round up.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT ceil(1.6);
 ```
+
     +--------------------+
     | ceil(Float64(1.6)) |
     +--------------------+
@@ -4149,15 +4215,16 @@ SELECT ceil(1.6);
 
 **Function**: Round down.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT floor(-3.1);
 ```
+
     +----------------------+
     | floor(Float64(-3.1)) |
     +----------------------+
@@ -4168,17 +4235,18 @@ SELECT floor(-3.1);
 
 ### **cos(x)**
 
-**Function**:  Return the cosine of x.
+**Function**: Return the cosine of x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT cos(1);
 ```
+
     +--------------------+
     | cos(Int64(1))      |
     +--------------------+
@@ -4189,17 +4257,18 @@ SELECT cos(1);
 
 ### **sin(x)**
 
-**Function**:  Return the sine of x.
+**Function**: Return the sine of x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT sin(5);
 ```
+
     +---------------------+
     | sin(Int64(5))       |
     +---------------------+
@@ -4211,15 +4280,16 @@ SELECT sin(5);
 
 **Function**: Return e to the x power.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT exp(1);
 ```
+
     +-------------------+
     | exp(Int64(1))     |
     +-------------------+
@@ -4230,17 +4300,18 @@ SELECT exp(1);
 
 ### **ln(x)**
 
-**Function**:  Natural logarithm.
+**Function**: Natural logarithm.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT ln(2.718281828459045);
 ```
+
     +--------------------------------+
     | ln(Float64(2.718281828459045)) |
     +--------------------------------+
@@ -4255,15 +4326,16 @@ SELECT ln(2.718281828459045);
 
 **Function**: Base 10 logarithm.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT log(10);
 ```
+
     +----------------+
     | log(Int64(10)) |
     +----------------+
@@ -4286,11 +4358,11 @@ SELECT log10(10);
 
 **Function**: Base 2 logarithm.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT log2(4);
@@ -4307,15 +4379,16 @@ SELECT log2(4);
 
 **Function**: x to the y power.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT power(2, 3);
 ```
+
     +--------------------------+
     | power(Int64(2),Int64(3)) |
     +--------------------------+
@@ -4325,17 +4398,18 @@ SELECT power(2, 3);
 
 ### **round(x)**
 
-**Function**:  Rounded to the nearest whole number.
+**Function**: Rounded to the nearest whole number.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT round(3.5);
 ```
+
     +---------------------+
     | round(Float64(3.5)) |
     +---------------------+
@@ -4346,13 +4420,13 @@ SELECT round(3.5);
 
 ### **signum(x)**
 
-**Function**:  Signs of parameter (-1,0,+1).
+**Function**: Signs of parameter (-1,0,+1).
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT signum(-3);
@@ -4368,17 +4442,18 @@ SELECT signum(-3);
 
 ### **sqrt(x)**
 
-**Function**:  Square root of x.
+**Function**: Square root of x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：Consistent with function parameter type.
+**Return Type**: Consistent with function parameter type.
 
-**Example**
+#### Example
 
 ```sql
 SELECT sqrt(4);
 ```
+
     +----------------+
     | sqrt(Int64(4)) |
     +----------------+
@@ -4389,13 +4464,13 @@ SELECT sqrt(4);
 
 ### **tan(x)**
 
-**Function**:   Tangent value of x.
+**Function**: Tangent value of x.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**： DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT tan(1);
@@ -4410,13 +4485,13 @@ SELECT tan(1);
 
 ### **trunc(x)**
 
-**Function**：Round to zero.
+**Function**: Round to zero.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT trunc(-3.9);
@@ -4435,11 +4510,11 @@ SELECT trunc(-3.9);
 
     struct(expr1 [, ...] ) 
 
-**Function**：Create a STRUCT with the specified field value.
+**Function**: Create a STRUCT with the specified field value.
 
-**Parameter Type**：Numeric type
+**Parameter Type**: Numeric type
 
-**Note**：Function struct is not perfect at present.
+**Note**: Function struct is not perfect at present.
 
 --------------------------
 
@@ -4451,17 +4526,18 @@ SELECT trunc(-3.9);
 
     coalesce(expr[,...exp])
 
-**Function**：Return its first non null parameter. Null is returned only when all parameters are null. When retrieving data for display, it is often used to replace the default value with a null value.
+**Function**: Return its first non null parameter. Null is returned only when all parameters are null. When retrieving data for display, it is often used to replace the default value with a null value.
 
-**Parameter Type**：Any type
+**Parameter Type**: Any type
 
-**Return Type**：First non null parameter type
+**Return Type**: First non null parameter type
 
-**Example**
+#### Example
 
 ```sql
 SELECT coalesce(temperature, null, station) FROM air;
 ```
+
     +--------------------------------------------+
     | coalesce(air.temperature,NULL,air.station) |
     +--------------------------------------------+
@@ -4487,17 +4563,18 @@ SELECT coalesce(temperature, null, station) FROM air;
 
     nullif(expr1, expr2) 
 
-**Function**：If expr1 is equal to expr2, NULL is returned; Otherwise, expr1 is returned.
+**Function**: If expr1 is equal to expr2, NULL is returned; Otherwise, expr1 is returned.
 
-**Parameter Type**：expr1 and expr2 are numeric expressions with column values
+**Parameter Type**: expr1 and expr2 are numeric expressions with column values
 
-**Return Type**：The type of expr1 or NULL
+**Return Type**: The type of expr1 or NULL
 
-**Example**
+#### Example
 
 ```sql
 SELECT nullif(temperature, 70) FROM air;
 ```
+
     +-----------------------------------+
     | nullif(air.temperature,Int64(70)) |
     +-----------------------------------+
@@ -4529,17 +4606,18 @@ SELECT nullif(temperature, 70) FROM air;
 
     ascii(str) 
 
-**Function**:  Convert the first character in str to its ASCII code and return it.
+**Function**: Convert the first character in str to its ASCII code and return it.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT ascii('abc');
 ```
+
     +------------------+
     | ascii(Utf8("a")) |
     +------------------+
@@ -4564,17 +4642,18 @@ SELECT ascii('a');
 
     bit_length(str) 
 
-**Function**：Returns the bit length of string data or the bit size of binary data.
+**Function**: Returns the bit length of string data or the bit size of binary data.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT bit_length('abc');
 ```
+
     +------------------------+
     | bitlength(Utf8("abc")) |
     +------------------------+
@@ -4588,17 +4667,18 @@ SELECT bit_length('abc');
 
     btrim(string [, matching_string ] ) 
 
-**Function**：The function trims a string by removing leading and trailing spaces or by removing characters that match an optional specified string.
+**Function**: The function trims a string by removing leading and trailing spaces or by removing characters that match an optional specified string.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
 **Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT btrim('     abc                  ');
 ```
+
     +-------------------------------------------+
     | btrim(Utf8("     abc                  ")) |
     +-------------------------------------------+
@@ -4608,6 +4688,7 @@ SELECT btrim('     abc                  ');
 ```sql
 SELECT btrim('111abc111','1');
 ```
+
     +------------------------------------+
     | btrim(Utf8("111abc111"),Utf8("1")) |
     +------------------------------------+
@@ -4622,11 +4703,11 @@ SELECT btrim('111abc111','1');
 
     trim(str) 
 
-**Function**：Remove blank characters at the begin and end of str.
+**Function**: Remove blank characters at the begin and end of str.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
 ---------------------
 
@@ -4636,17 +4717,18 @@ SELECT btrim('111abc111','1');
 
     char_length(expr) 
 
-**Function**：Return the length of the specified string in characters.
+**Function**: Return the length of the specified string in characters.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT char_length('你好');
 ```
+
     +-------------------------------+
     | characterlength(Utf8("你好"))  |
     +-------------------------------+
@@ -4661,17 +4743,18 @@ SELECT char_length('你好');
 
     chr(expr) 
 
-**Function**：Return the character at the provided UTF-16 code.
+**Function**: Return the character at the provided UTF-16 code.
 
 **Parameter Type**: BIGINT
 
 **Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT chr(20005);
 ```
+
     +-------------------+
     | chr(Int64(20005)) |
     +-------------------+
@@ -4680,19 +4763,19 @@ SELECT chr(20005);
 
 ----------------
 
-### **con``cat**
+### **concat**
 
 #### Syntax
 
     concat(expr1, expr2 [, ...exp] ) 
 
-**Function**：Joins two or more expressions and returns the generated expression.
+**Function**: Joins two or more expressions and returns the generated expression.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
 **Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT concat('a', 'b', 'c');
@@ -4712,13 +4795,13 @@ SELECT concat('a', 'b', 'c');
 
     concat_ws(sep , expr1 [, ...] ) 
 
-**Function**：Return a concatenated string separated by sep.
+**Function**: Return a concatenated string separated by sep.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT concat_ws(' ', 'a', 'b', 'c');
@@ -4737,13 +4820,13 @@ SELECT concat_ws(' ', 'a', 'b', 'c');
 
     initcap(expr) 
 
-**Function**：Capitalize the first letter of each word in the parameter.
+**Function**: Capitalize the first letter of each word in the parameter.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT initcap('hello world');
@@ -4762,17 +4845,18 @@ SELECT initcap('hello world');
 
     left(str, len) 
 
-**Function**：Return the leftmost len characters in str.
+**Function**: Return the leftmost len characters in str.
 
-**Parameter Type**：str is STRING type, len is BIGINT type
+**Parameter Type**: str is STRING type, len is BIGINT type
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT left('abcde', 3);
 ```
+
     +------------------------------+
     | left(Utf8("abcde"),Int64(3)) |
     +------------------------------+
@@ -4787,19 +4871,20 @@ SELECT left('abcde', 3);
 
     lpad(expr, len [, pad] ) 
 
-**Function**：Return expr filled with pad on the left. After filling, the length of the whole string is len.
+**Function**: Return expr filled with pad on the left. After filling, the length of the whole string is len.
 
-**Parameter Type**：expr, pad type is STRING, len type is BIGINT
+**Parameter Type**: expr, pad type is STRING, len type is BIGINT
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
 When len is a negative number, len represents 0. When len is too large, function execution fails.
 
-**Example**
+#### Example
 
 ```sql
 SELECT lpad('abc', 10, '1');
 ```
+
     +---------------------------------------+
     | lpad(Utf8("abc"),Int64(10),Utf8("1")) |
     +---------------------------------------+
@@ -4814,17 +4899,18 @@ SELECT lpad('abc', 10, '1');
 
     rpad(expr, len [, pad] ) 
 
-**Function**：Return expr filled with pad on the right. After filling, the length of the whole string is len.
+**Function**: Return expr filled with pad on the right. After filling, the length of the whole string is len.
 
-**Parameter Type**：expr, pad is STRING type, len is BIGINT type.
+**Parameter Type**: expr, pad is STRING type, len is BIGINT type.
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT rpad('aaa', 10, 'b');
 ```
+
     +---------------------------------------+
     | rpad(Utf8("aaa"),Int64(10),Utf8("b")) |
     +---------------------------------------+
@@ -4839,13 +4925,13 @@ SELECT rpad('aaa', 10, 'b');
 
     lower(expr) 
 
-**Function**：Return lowercase string.
+**Function**: Return lowercase string.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT lower('ABC');
@@ -4864,11 +4950,11 @@ SELECT lower('ABC');
 
     upper(expr)
 
-**Function**：Return uppercase string.
+**Function**: Return uppercase string.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
 -----------
 
@@ -4878,17 +4964,18 @@ SELECT lower('ABC');
 
     ltrim(str[, trimstr] ) 
 
-**Function**：Returns str, in which the leading characters in trimstr are deleted. The default trimestr is blank character.
+**Function**: Returns str, in which the leading characters in trimstr are deleted. The default trimestr is blank character.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT ltrim('   abc');
 ```
+
     +-----------------------+
     | ltrim(Utf8("   abc")) |
     +-----------------------+
@@ -4904,17 +4991,18 @@ SELECT ltrim('   abc');
 
     md5(expr) 
 
-**Function**：Return the MD5 128 bit checksum of expr as a hexadecimal string.
+**Function**: Return the MD5 128 bit checksum of expr as a hexadecimal string.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT md5('abc');
 ```
+
     +----------------------------------+
     | md5(Utf8("abc"))                 |
     +----------------------------------+
@@ -4928,17 +5016,18 @@ SELECT md5('abc');
 
     octet_length(expr) 
 
-**Function**：Return the byte length of string data.
+**Function**: Return the byte length of string data.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT octet_length('你好');
 ```
+
     +---------------------------+
     | octetlength(Utf8("你好")) |
     +---------------------------+
@@ -4953,17 +5042,18 @@ SELECT octet_length('你好');
 
     random( [seed] ) 
 
-**Function**：Return a random value between 0 and 1.
+**Function**: Return a random value between 0 and 1.
 
-**Parameter Type**：None
+**Parameter Type**: None
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT random();
 ```
+
     +---------------------+
     | random()            |
     +---------------------+
@@ -4972,9 +5062,9 @@ SELECT random();
 
 [//]: # (### **Regexp_Replace**)
 [//]: # (    regexp_replace&#40;str, regexp, rep [, position] &#41; )
-[//]: # (**Function**：将 str 中与 regexp 匹配的所有子字符串都替换为 rep。)
-[//]: # (**Parameter Type**：STRING)
-[//]: # (**Return Type**：BIGINT)
+[//]: # (**Function**: 将 str 中与 regexp 匹配的所有子字符串都替换为 rep。)
+[//]: # (**Parameter Type**: STRING)
+[//]: # (**Return Type**: BIGINT)
 
 ----------------
 
@@ -4984,17 +5074,18 @@ SELECT random();
 
     repeat(expr, n) 
 
-**Function**：Return a string that repeats expr n times.
+**Function**: Return a string that repeats expr n times.
 
-**Parameter Type**：Expr type is STRING, n type is BIGINT.
+**Parameter Type**: Expr type is STRING, n type is BIGINT.
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT repeat('a', 5);
 ```
+
     +----------------------------+
     | repeat(Utf8("a"),Int64(5)) |
     +----------------------------+
@@ -5009,17 +5100,18 @@ SELECT repeat('a', 5);
 
     replace(str, search, replace ) 
 
-**Function**：Replace all search items with replace.
+**Function**: Replace all search items with replace.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT replace('aaa', 'a', 'b');
 ```
+
     +------------------------------------------+
     | replace(Utf8("aaa"),Utf8("a"),Utf8("b")) |
     +------------------------------------------+
@@ -5034,17 +5126,18 @@ SELECT replace('aaa', 'a', 'b');
 
     reverse(expr) 
 
-**Function**：Return an inverted string or an array containing elements in reverse order.
+**Function**: Return an inverted string or an array containing elements in reverse order.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT reverse('你好');
 ```
+
     +-----------------------+
     | reverse(Utf8("你好")) |
     +-----------------------+
@@ -5058,17 +5151,18 @@ SELECT reverse('你好');
 
     right(str, len) 
 
-**Function**：Return the rightmost len characters in the string str.
+**Function**: Return the rightmost len characters in the string str.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
  SELECT right('aaabbb', 3);
 ```
+
     +--------------------------------+
     | right(Utf8("aaabbb"),Int64(3)) |
     +--------------------------------+
@@ -5084,19 +5178,20 @@ SELECT reverse('你好');
 
     digest(expr, algorithm)
 
-**Function**：Return the rightmost len characters in the string str.
+**Function**: Return the rightmost len characters in the string str.
 
-**Parameter Type**：expr and algorithm are both STRING
+**Parameter Type**: expr and algorithm are both STRING
 
 algorithm specifies the algorithm for computing hash. Only md5, sha224, sha256, sha384, sha512, blake2s, blake2b, blake3 are supported.
 
-**Return Type**：BINARY
+**Return Type**: BINARY
 
-**Example**
+#### Example
 
 ```sql
 SELECT digest('abc', 'md5');
 ```
+
     +----------------------------------+
     | digest(Utf8("abc"),Utf8("md5"))  |
     +----------------------------------+
@@ -5111,17 +5206,18 @@ SELECT digest('abc', 'md5');
 
     rtrim( str [, trimstr] ) 
 
-**Function**：Return the str with the trailing character trimstr deleted. trimstr is a blank character by default.
+**Function**: Return the str with the trailing character trimstr deleted. trimstr is a blank character by default.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT rtrim('aaabbb', 'b');
 ```
+
     +---------------------------------+
     | rtrim(Utf8("aaabbb"),Utf8("b")) |
     +---------------------------------+
@@ -5136,17 +5232,18 @@ SELECT rtrim('aaabbb', 'b');
 
     sha224(str)
 
-**Function**：Calculate sha224 hash value of the string str.
+**Function**: Calculate sha224 hash value of the string str.
 
-**Return Type**：BINARY
+**Return Type**: BINARY
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
  SELECT sha224('abc');
 ```
+
     +----------------------------------------------------------+
     | sha224(Utf8("abc"))                                      |
     +----------------------------------------------------------+
@@ -5160,17 +5257,18 @@ SELECT rtrim('aaabbb', 'b');
 #### Syntax
 
     sha256(str)
-**Function**:   Calculate sha256 hash value of the string str.
+**Function**:  Calculate sha256 hash value of the string str.
 
-**Return Type**：BINARY
+**Return Type**: BINARY
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT sha256('abc');
 ```
+
     +------------------------------------------------------------------+
     | sha256(Utf8("abc"))                                              |
     +------------------------------------------------------------------+
@@ -5184,17 +5282,19 @@ SELECT sha256('abc');
 #### Syntax
 
     sha384(str)
-**Function**:  Calculate sha384 hash value of the string str.
 
-**Return Type**：BINARY
+**Function**: Calculate sha384 hash value of the string str.
 
-**Parameter Type**：STRING
+**Return Type**: BINARY
 
-**Example**
+**Parameter Type**: STRING
+
+#### Example
 
 ```sql
 SELECT sha384('abc');
 ```
+
     +--------------------------------------------------------------------------------------------------+
     | sha384(Utf8("abc"))                                                                              |
     +--------------------------------------------------------------------------------------------------+
@@ -5209,11 +5309,11 @@ SELECT sha384('abc');
 
     sha512(str)
 
-**Function**： Calculate sha384 hash value of the string str.
+**Function**: Calculate sha384 hash value of the string str.
 
-**Return Type**：BINARY
+**Return Type**: BINARY
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
 ----------------
 
@@ -5223,13 +5323,13 @@ SELECT sha384('abc');
 
     split_part(str, delim, n) 
 
-**Function**： Split str according to delim, and return the nth part.
+**Function**: Split str according to delim, and return the nth part.
 
-**Parameter Type**：str, delim type is STRING, partNum type is BIGINT
+**Parameter Type**: str, delim type is STRING, partNum type is BIGINT
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT split_part('abc|def|ghi', '|', 2);
@@ -5249,17 +5349,18 @@ SELECT split_part('abc|def|ghi', '|', 2);
 
     starts_with(expr, startExpr) 
 
-**Function**： If expr starts with startExpr, it returns true.
+**Function**: If expr starts with startExpr, it returns true.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BOOLEAN
+**Return Type**: BOOLEAN
 
-**Example**
+#### Example
 
 ```sql
 SELECT starts_with('abcdefg', 'abc');
 ```
+
     +-----------------------------------------+
     | startswith(Utf8("abcdefg"),Utf8("abc")) |
     +-----------------------------------------+
@@ -5273,17 +5374,18 @@ SELECT starts_with('abcdefg', 'abc');
 
     strpos(str, substr ) 
 
-**Function**：Return the position of a substring in a specified string.
+**Function**: Return the position of a substring in a specified string.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT strpos('abcdef', 'def');
 ```
+
     +------------------------------------+
     | strpos(Utf8("abcdef"),Utf8("def")) |
     +------------------------------------+
@@ -5298,17 +5400,18 @@ SELECT strpos('abcdef', 'def');
 
     substr(expr, pos [, len] ) 
 
-**Function**： Return the substring of expr (starting from pos, length len).
+**Function**: Return the substring of expr (starting from pos, length len).
 
-**Parameter Type**：expr type is STRING, pos, len type is BIGINT
+**Parameter Type**: expr type is STRING, pos, len type is BIGINT
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT substr('abcdef', 4, 3);
 ```
+
     +------------------------------------------+
     | substr(Utf8("abcdef"),Int64(4),Int64(3)) |
     +------------------------------------------+
@@ -5322,17 +5425,18 @@ SELECT substr('abcdef', 4, 3);
 
     to_hex(value)
 
-**Function**： Convert a decimal number to a hexadecimal representation.
+**Function**: Convert a decimal number to a hexadecimal representation.
 
-**Parameter Type**：BIGINT
+**Parameter Type**: BIGINT
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT to_hex(100);
 ```
+
     +-------------------+
     | tohex(Int64(100)) |
     +-------------------+
@@ -5347,17 +5451,18 @@ SELECT to_hex(100);
 
     translate(expr, from, to) 
 
-**Function**： Return an expr, where all characters in from are replaced by characters in to.
+**Function**: Return an expr, where all characters in from are replaced by characters in to.
 
-**Parameter Type**：STRING
+**Parameter Type**: STRING
 
-**Return Type**：STRING
+**Return Type**: STRING
 
-**Example**
+#### Example
 
 ```sql
 SELECT translate('aaabbb', 'bbb', 'ccc');
 ```
+
     +---------------------------------------------------+
     | translate(Utf8("aaabbb"),Utf8("bbb"),Utf8("ccc")) |
     +---------------------------------------------------+
@@ -5376,21 +5481,22 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 
     date_part(field, expr) 
 
-**Function**：Extract partial dates from timestamps or intervals.
+**Function**: Extract partial dates from timestamps or intervals.
 
-**Parameter Type**：
+**Parameter Type**: 
 
 field type is STRING, only one of （'year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', 'second'）
 
 expr type is TIMESTAMP
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT date_part('hour', TIMESTAMP '2022-11-21T09:18:17');
 ```
+
     +----------------------------------------------------+
     | datepart(Utf8("hour"),Utf8("2022-11-21T09:18:17")) |
     +----------------------------------------------------+
@@ -5405,17 +5511,18 @@ SELECT date_part('hour', TIMESTAMP '2022-11-21T09:18:17');
 
     date_trunc(field, expr) 
 
-**Function**：Return a value truncated to the unit specified in field.
+**Function**: Return a value truncated to the unit specified in field.
 
-**Parameter Type**：field type is STRING, only one of （'year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', 'second'）
+**Parameter Type**: field type is STRING, only one of （'year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', 'second'）
 
 expr type is TIMESTAMP.
 
-**Example**
+#### Example
 
 ```sql
 SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 ```
+
     +------------------------------------------------------+
     | datetrunc(Utf8("month"),Utf8("2022-11-21T09:18:17")) |
     +------------------------------------------------------+
@@ -5428,21 +5535,22 @@ SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 #### Syntax
 
     date_bin(interval, source, origin)
-**Function**： Starting from the origin, the bucket is split by interval, and the bucket timestamp of the source is returned.
+**Function**: Starting from the origin, the bucket is split by interval, and the bucket timestamp of the source is returned.
 
-**Parameter Type**：
+**Parameter Type**: 
 
 Interval type is STRING, which will be resolved to time interval.
 
 source and origin type are TIMESTAMP.
 
-**Return Type**：TIMESTAMP
+**Return Type**: TIMESTAMP
 
-**Example**
+#### Example
 
 ```sql
 SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '2022-11-01T00:00:00');
 ```
+
     +------------------------------------------------------------------------------------------------+
     | datebin(IntervalDayTime("4294967296"),Utf8("2022-11-21T09:10:24"),Utf8("2022-11-01T00:00:00")) |
     +------------------------------------------------------------------------------------------------+
@@ -5457,25 +5565,28 @@ SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '20
 
     to_timestamp(expr) 
 
-**Function**：Return expr cast to a timestamp in a optional format.
+**Function**: Return expr cast to a timestamp in a optional format.
 
-**Parameter Type**：STRING or BIGINT
+**Parameter Type**: STRING or BIGINT
 
-**Return Type**：TIMESTAMP. The precision depends on the parameter. If parameter type is BIGINT, it returns a nanosecond TIMESTAMP.
+**Return Type**: TIMESTAMP. The precision depends on the parameter. If parameter type is BIGINT, it returns a nanosecond TIMESTAMP.
 
-**Example**
+#### Example
 
 ```sql
 SELECT to_timestamp('1970-01-01T00:00:00');
 ```
+
     +------------------------------------------+
     | totimestamp(Utf8("1970-01-01T00:00:00")) |
     +------------------------------------------+
     | 1970-01-01T00:00:00                      |
     +------------------------------------------+
+
 ```sql
 SELECT to_timestamp(1);
 ```
+
     +-------------------------------+
     | totimestamp(Int64(1))         |
     +-------------------------------+
@@ -5490,25 +5601,28 @@ SELECT to_timestamp(1);
 
     to_timestamp_millis(expr) 
 
-**Function**：Convert to a millisecond-level timestamp.
+**Function**: Convert to a millisecond-level timestamp.
 
-**Parameter Type**：BIGINT or STRING
+**Parameter Type**: BIGINT or STRING
 
-**Return Type**：Millisecond-level TIMESTAMP
+**Return Type**: Millisecond-level TIMESTAMP
 
-**Example**
+#### Example
 
 ```sql
 SELECT to_timestamp_millis('1970-01-01T00:00:00.00301');
 ```
+
     +------------------------------------------------------+
     | totimestampmillis(Utf8("1970-01-01T00:00:00.00301")) |
     +------------------------------------------------------+
     | 1970-01-01T00:00:00.003                              |
     +------------------------------------------------------+
+
 ```sql
 SELECT to_timestamp_millis(1);
 ```
+
     +-----------------------------+
     | totimestampmillis(Int64(1)) |
     +-----------------------------+
@@ -5522,17 +5636,19 @@ SELECT to_timestamp_millis(1);
 #### Syntax
 
     to_timestamp_micros(expr) 
-**Function**：Convert to a microsecond-level timestamp.
 
-**Parameter**：BIGINT or STRING
+**Function**: Convert to a microsecond-level timestamp.
 
-**Return Type**： Microsecond-level TIMESTAMP
+**Parameter**: BIGINT or STRING
 
-**Example**
+**Return Type**: Microsecond-level TIMESTAMP
+
+#### Example
 
 ```sql
 SELECT to_timestamp_micros(1)
 ```
+
     +-----------------------------+
     | totimestampmicros(Int64(1)) |
     +-----------------------------+
@@ -5546,13 +5662,13 @@ SELECT to_timestamp_micros(1)
 #### Syntax
 
     to_timestamp_seconds(expr) 
-**Function**：Convert to a second-level timestamp.
+**Function**: Convert to a second-level timestamp.
 
-**Parameter Type**：BIGINT or STRING
+**Parameter Type**: BIGINT or STRING
 
-**Return Type**：Second-level TIMESTAMP
+**Return Type**: Second-level TIMESTAMP
 
-**Example**
+#### Example
 
 ```sql
 SELECT to_timestamp_seconds(1);
@@ -5571,21 +5687,24 @@ SELECT to_timestamp_seconds(1);
 
     from_unixtime(unixTime) 
 
-**Function**：Return unixTime.
+**Function**: Return unixTime.
 
-**Parameter Type**： BIGINT
+**Parameter Type**: BIGINT
 
-**Return Type**： Unix time in second-level.
+**Return Type**: Unix time in second-level.
 
-**Example**
+#### Example
+
 ```sql
 SELECT from_unixtime(1);
 ```
+
     +------------------------+
     | fromunixtime(Int64(1)) |
     +------------------------+
     | 1970-01-01T00:00:01    |
     +------------------------+
+
 ----------------
 
 ### **now**
@@ -5594,11 +5713,11 @@ SELECT from_unixtime(1);
 
     now()
 
-**Function**：Return the current timestamp.
+**Function**: Return the current timestamp.
 
-**Return Type**：TIMESTAMP
+**Return Type**: TIMESTAMP
 
-**Example**
+#### Example
 
 ```sql
 SELECT now();
@@ -5622,6 +5741,7 @@ SELECT now();
 ```sql
 time_window(time_expr, window_duration [, slide_duration])
 ```
+
 `time_column` is Timestamp.
 
 `window_duration` is an interval, specifying the window size of the time window.
@@ -5638,9 +5758,10 @@ time - 2 * slide_duration, time + window_duration - 2 * slide_duration
 ...
 time - n * slide_duration, time + window_duration - n * slide_duration
 ```
+
 The window satisfies that: start <= time < end
 
-**Example**
+#### Example
 
 ```sql
 CREATE TABLE test(a BIGINT, TAGS(b));
@@ -5695,6 +5816,7 @@ frame_start: {UNBOUNDED PRECEDING | offset_start PRECEDING | CURRENT ROW | offse
 frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUNDED FOLLOWING}
 
 ```
+
 ###  Function Types
 
 #### Rank Functions
@@ -5716,35 +5838,39 @@ See [Aggregate Function](#aggregate-function).
 
 #### Analysis Window Functions
 
-| Function Names        | 
-|-----------------------|
-| CUME_DIST |
-| LAG                   |
-| LEAD                  |
-| NTH_VALUE             |
+| Function Names | 
+|----------------|
+| CUME_DIST      |
+| LAG            |
+| LEAD           |
+| NTH_VALUE      |
 
 ### PARTITION BY Clause
+
 One or more expressions used to specify a row partition. If there is no such clause, the partition is composed of all rows.
 
 ### ORDER BY Clause
+
 Specify the order of rows in the partition.
 
 ###  Window_frame Clause
+
 Frame is a subset of the current partition, which further subdivides windows in the partition.
 
 If ROWS is specified, the window will calculate the offset in row units.
 
 If RANGE is specified, the ORDER BY clause must be specified. The window calculates the offset in the unit of the value of the ORDER BY expression.
 
-- The first row of the partition in `UNBOUND PRECEDING`ROWS mode. The first value of the partition ORDER BY expression in RANGE mode.
-- The first offset line of the current line in the offset`offset PRECEDING` ROWS mode. The first offset value of the current value in the RANGE mode.
-- Current row in`CURRENT ROW` ROWS  mode.Current value in RANGE mode.
-- The next offset line of the current line in the`offset FOLLOWING` ROWS mode. The next offset value of the current value in the RANGE mode.
-- The last row of partition in`UNBOUND FOLLOWING` ROWS mode.The last value of ORDER BY expression in RANGE mode.
+- The first row of the partition in `UNBOUND PRECEDING` ROWS mode. The first value of the partition ORDER BY expression in RANGE mode.
+- The first offset line of the current line in the offset `offset PRECEDING` ROWS mode. The first offset value of the current value in the RANGE mode.
+- Current row in `CURRENT ROW` ROWS  mode.Current value in RANGE mode.
+- The next offset line of the current line in the `offset FOLLOWING` ROWS mode. The next offset value of the current value in the RANGE mode.
+- The last row of partition in `UNBOUND FOLLOWING` ROWS mode.The last value of ORDER BY expression in RANGE mode.
 
-### Restrictions on Usage
+#### Restrictions on Usage
+
 - Window functions can only appear in SELECT statements.
-- Window functions and aggregate functions cannot be nested in window functions.。
+- Window functions and aggregate functions cannot be nested in window functions.
 
 ## Window Function List
 
@@ -5756,19 +5882,20 @@ Include [Aggregate functions](#aggregate-function).
 
     ROW_NUMBER() OVER([partition_clause] [orderby_clause])
 
-**Function**：Assign a unique sequence number (starting from 1) to each row according to the row order in the window partition.
+**Function**: Assign a unique sequence number (starting from 1) to each row according to the row order in the window partition.
 
-**Parameter Type**：None
+**Parameter Type**: None
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT temperature, station, 
        ROW_NUMBER() OVER (PARTITION BY station) 
 FROM air;
 ```
+
     +-------------+-------------+--------------+
     | temperature | station     | ROW_NUMBER() |
     +-------------+-------------+--------------+
@@ -5796,19 +5923,20 @@ FROM air;
 
     RANK() OVER([partition_clause] [orderby_clause])
 
-**Function**：Returns the rank (jump rank) of a value relative to all values in the partition.
+**Function**: Returns the rank (jump rank) of a value relative to all values in the partition.
 
-**Parameter Type**：None
+**Parameter Type**: None
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        RANK() OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+--------+
     | station     | temperature | RANK() |
     +-------------+-------------+--------+
@@ -5835,13 +5963,13 @@ FROM air;
 
     DENSE_RANK() OVER([partition_clause] [orderby_clause])
 
-**Function**：Returns the rank (consecutive rank) of a value relative to all values in the partition.
+**Function**: Returns the rank (consecutive rank) of a value relative to all values in the partition.
 
-**Parameter Type**：None
+**Parameter Type**: None
 
-**Return Type**：BIGINT
+**Return Type**: BIGINT
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
@@ -5875,19 +6003,20 @@ FROM air;
 
     PERCENT_RANK() OVER([partition_clause] [orderby_clause])
 
-**Function**： Calculate the percentage ranking of a value in the partition.
+**Function**: Calculate the percentage ranking of a value in the partition.
 
-**Parameter Type**：None
+**Parameter Type**: None
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
  SELECT station, temperature, 
         PERCENT_RANK() OVER (PARTITION BY station ORDER BY temperature) 
  FROM air;
 ```
+
     +-------------+-------------+---------------------+
     | station     | temperature | PERCENT_RANK()      |
     +-------------+-------------+---------------------+
@@ -5913,19 +6042,20 @@ FROM air;
 
     CUME_DIST() OVER ([partition_clause] [orderby_clause])
 
-**Function**：Returns the position of a value relative to all values in the partition.
+**Function**: Returns the position of a value relative to all values in the partition.
 
-**Parameter Type**：None
+**Parameter Type**: None
 
-**Return Type**：DOUBLE
+**Return Type**: DOUBLE
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        CUME_DIST() OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+---------------------+
     | station     | temperature | CUME_DIST()         |
     +-------------+-------------+---------------------+
@@ -5953,13 +6083,13 @@ FROM air;
 [//]: # (    ntile&#40;n&#41; over&#40;[partition_clause] [order_by_clause]&#41;)
 
 [//]: #
-[//]: # (**Function**：把有序的数据集合平均分配到n个桶中,将桶号分配给每一行。)
+[//]: # (**Function**: 把有序的数据集合平均分配到n个桶中,将桶号分配给每一行。)
 
 [//]: #
-[//]: # (**Parameter Type**：BIGINT)
+[//]: # (**Parameter Type**: BIGINT)
 
 [//]: #
-[//]: # (**Return Type**：BIGINT)
+[//]: # (**Return Type**: BIGINT)
 
 ----------------
 
@@ -5969,23 +6099,24 @@ FROM air;
 
     lag( expr [, offset [, default] ] ) OVER([partition_clause] orderby_clause)
 
-**Function**：Returns the expr values of the offset rows before the current row in the partition.
+**Function**: Returns the expr values of the offset rows before the current row in the partition.
 
-**Parameter Type**：expr type is any type.
+**Parameter Type**: expr type is any type.
 
 offset type is BIGINT. When offset is negative, the values are returned from the last offset lines, defaults to 1.
 
 The type of default should be the consistent with that of expr, defaults to NULL.
 
-**Return Type**：Consistent with expr.
+**Return Type**: Consistent with expr.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        LAG(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+-------------------------------+
     | station     | temperature | LAG(air.temperature,Int64(2)) |
     +-------------+-------------+-------------------------------+
@@ -6011,23 +6142,24 @@ FROM air;
 
     lead(expr [, offset [, default] ] ) OVER ([partition_clause] orderby_clause)
 
-**Function**：Returns the expr values of the offset rows after the current row in the partition.
+**Function**: Returns the expr values of the offset rows after the current row in the partition.
 
-**Parameter Type**：expr type is any type.
+**Parameter Type**: expr type is any type.
 
 offset type is BIGINT. When offset is negative, the values are returned from the first offset lines, defaults to 1.
 
 The type of default should be the consistent with that of expr, defaults to NULL.
 
-**Return Type**：Consistent with expr.
+**Return Type**: Consistent with expr.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        LEAD(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+--------------------------------+
     | station     | temperature | LEAD(air.temperature,Int64(2)) |
     +-------------+-------------+--------------------------------+
@@ -6054,19 +6186,20 @@ FROM air;
 
     FIRST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
-**Function**： Returns the first value in a set of values, usually an ordered set.
+**Function**: Returns the first value in a set of values, usually an ordered set.
 
-**Parameter Type**：expr type is any type, ignore_ nulls type is BOOLEAN, defaults to false.
+**Parameter Type**: expr type is any type, ignore_ nulls type is BOOLEAN, defaults to false.
 
-**Return Type**：Consistent with expr.
+**Return Type**: Consistent with expr.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        FIRST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+------------------------------+
     | station     | temperature | FIRST_VALUE(air.temperature) |
     +-------------+-------------+------------------------------+
@@ -6092,19 +6225,20 @@ FROM air;
 
     LAST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
-**Function**： Returns the last value in the current window.
+**Function**: Returns the last value in the current window.
 
-**Parameter Type**：expr type is any type, ignore_ nulls type is BOOLEAN, defaults to false.
+**Parameter Type**: expr type is any type, ignore_ nulls type is BOOLEAN, defaults to false.
 
-**Return Type**：Consistent with expr.
+**Return Type**: Consistent with expr.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        LAST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+-----------------------------+
     | station     | temperature | LAST_VALUE(air.temperature) |
     +-------------+-------------+-----------------------------+
@@ -6131,19 +6265,20 @@ FROM air;
 
     NTH_VALUE(expr, number) OVER ([partition_clause] [orderby_clause])
 
-**Function**： Returns the expression value of the specified row of the window frame relative to the first row of the window.
+**Function**: Returns the expression value of the specified row of the window frame relative to the first row of the window.
 
-**Parameter Type**：expr type is any type, number type is BIGINT.
+**Parameter Type**: expr type is any type, number type is BIGINT.
 
-**Return Type**：Consistent with expr.
+**Return Type**: Consistent with expr.
 
-**Example**
+#### Example
 
 ```sql
 SELECT station, temperature, 
        NTH_VALUE(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
+
     +-------------+-------------+-------------------------------------+
     | station     | temperature | NTH_VALUE(air.temperature,Int64(2)) |
     +-------------+-------------+-------------------------------------+
@@ -6176,14 +6311,16 @@ The time_window_gapfill is similar to time_window, but has the ability to fill i
 
 The time_window_gapfill must be used as a top-level expression in a query or subquery. For example, you cannot nest time_window_gapfill in another function, such as sum(time_window_gapfill(xxx)).
 
-#### Grammar
+#### Syntax
 
 - time_window_gapfill
+
 ```sql
 time_window_gapfill(<time column>, <window interval>[, <sliding interval>[, <start time>]]): <time window struct>
 ```
 
 #### Policy
+
 - interpolate
 
 The core idea of linear interpolation is to assume that the relationship between the known data points is linear, and then estimate the value of the unknown data points according to the linear relationship between the known data points. Specifically, linear interpolation deduces the ordinates of unknown data points by using the linear rate of change between the ordinates of known data points.
@@ -6216,10 +6353,10 @@ It is important to note that the LOCF method can introduce certain biases, espec
 locf(<expr>)
 ```
 
-**Examples：**
+**Examples**
+
 ```sql
 ---- Prepare data
-
 DROP DATABASE IF EXISTS gapfill_db;
 CREATE DATABASE gapfill_db WITH TTL '1000000d';
 CREATE TABLE gapfill_db.m2(f0 BIGINT, f1 DOUBLE, TAGS(t0, t1, t2));
@@ -6320,7 +6457,7 @@ group by t0, minute;
 
 CnosDB provides the system to check the status and information of CnosDB clusters. The system schema is a read-only schema. You can query the system schema using the SQL statement.
 
-CnosDB store the shema information in two specific databases：
+CnosDB store the shema information in two specific databases: 
 
 - CLUSTER_SCHEMA : The information of the cluster.
 - INFORMATION_SCHEMA : The information of the tenant.
@@ -6343,7 +6480,7 @@ This schema can be used to query information about all tenants in the cluster.
 | TENANT_NAME    | STRING    | tenant name                 |
 | TENANT_OPTIONS | STRING    | Configure of tenant in json |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM cluster_schema.tenants;
@@ -6367,7 +6504,7 @@ This schema allows you to query information about all users in the cluster.
 | IS_ADMIN     | BOOLEAN   | Whether administrator      |
 | USER_OPTIONS | STRING    | Configure of users in json |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM cluster_schema.users;
@@ -6399,7 +6536,7 @@ This schema stores tenant database information.
 | PREPLICA       | BIGINT UNSIGNED | Number of replica           |
 | PERCISION      | STRING          | Percision of database       |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM information_schema.databases;
@@ -6426,7 +6563,7 @@ This schema stores information about all tables under the tenant.
 | TABLE_ENGINE   | STRING    | Table storage engine. External and internal tskv tables supported now |
 | TABLE_OPTION   | STRING    | A JSON string that records all parameters of the table                |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM information_schema.tables;
@@ -6458,7 +6595,7 @@ This schema stores the definitions of all columns under the tenant.
 | DATA_TYPE         | STRING    | Data type of the column                                                             |
 | COMPRESSION_CODEC | STRING    | Compression algorithm that the column uses                                          |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM information_schema.columns;
@@ -6517,7 +6654,7 @@ This schema is only visible to the Owner of the current tenant.
 | ROLE_TYPE    | STRING    | Role type, custom role or system role                                                      |
 | INHERIT_ROLE | STRING    | Name of the system role that the custom role inherits from, or NULL if it is a system role |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM information_schema.roles;
@@ -6547,7 +6684,7 @@ For non-owner elements, only the records for the corresponding role are displaye
 | PRIVILEGE_TYPE | STRING    | Type of permission granted, READ/WRITE/ALL                     |
 | ROLE_NAME      | STRING    | Name of the role granted                                       |
 
-**Example**
+#### Example
 
 ```sql
 CREATE ROLE rrr INHERIT member;
@@ -6575,7 +6712,7 @@ All records of this schema are visible to all members of the current tenant.
 | USER_NAME  | STRING    | User name under tenant |
 | ROLE_NAME  | STRING    | Role name              |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM information_schema.members;
@@ -6608,7 +6745,7 @@ For non-owner members, only the SQL submitted by the current member is displayed
 | STATE       | STRING          | Status of SQL, including: ACCEPTING,DISPATCHING,ANALYZING,OPTMIZING,SCHEDULING |
 | DURATION    | BIGINT UNSIGNED | Time that SQL costs                                                            |
 
-**Example**
+#### Example
 
 ```sql
 SELECT * FROM information_schema.queries;
@@ -6622,9 +6759,9 @@ SELECT * FROM information_schema.queries;
 
 #### SHOW QUERIES
 
-You can also see the executing SQL statements using the 'SHOW QUERIES' statement, which is a wrapper around the QUERIES schema.
+You can also see the executing SQL statements using the `SHOW QUERIES` statement, which is a wrapper around the QUERIES schema.
 
-**Example**
+#### Example
 
 ```sql
 SHOW QUERIES;
@@ -6677,13 +6814,13 @@ Common users can access only the tenant information of the current session.
 
 #### Example
 
-```sql
 
 administator:
 
 ```sql
 select * from usage_schmea.disk_storage order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+--------+----------+-------+
     | time                       | database     | node_id | tenant | vnode_id | value |
     +----------------------------+--------------+---------+--------+----------+-------+
@@ -6696,6 +6833,7 @@ common user:
 ```sql
 select * from usage_schema.disk_storage order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+----------+-------+
     | time                       | database     | node_id | vnode_id | value |
     +----------------------------+--------------+---------+----------+-------+
@@ -6711,25 +6849,25 @@ This schema records the approximate total volume of read traffic when data is wr
 
 The definition of the schema seen by the administrator:
 
-| Field Name   | Data Type       | Description                |
-|----------|-----------------|----------------------------|
-| TIME     | TIMESTAMP       | Time of writes             |
-| DATABASE | STRING          | Database name              |
-| NODE_ID  | STRING          | ID of data node            |
-| TENANT   | STRING          | The tenant of the database |
-| USER     | STRING          | User name                  |
-| VALUE    | BIGINT UNSIGNED | Total write traffic size   |
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of writes             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| USER       | STRING          | User name                  |
+| VALUE      | BIGINT UNSIGNED | Total write traffic size   |
 
 
 Common users can access only the tenant information of the current session.
 
-| Field Name   | Data Type       | Description              |
-|----------|-----------------|--------------------------|
-| TIME     | TIMESTAMP       | Time of writes           |
-| DATABASE | STRING          | Database name            |
-| NODE_ID  | STRING          | ID of data node          |
-| USER     | STRING          | User name                |
-| VALUE    | BIGINT UNSIGNED | Total write traffic size |
+| Field Name | Data Type       | Description              |
+|------------|-----------------|--------------------------|
+| TIME       | TIMESTAMP       | Time of writes           |
+| DATABASE   | STRING          | Database name            |
+| NODE_ID    | STRING          | ID of data node          |
+| USER       | STRING          | User name                |
+| VALUE      | BIGINT UNSIGNED | Total write traffic size |
 
 
 #### Example
@@ -6739,6 +6877,7 @@ administrator:
 ```sql
 select * from usage_schema.data_in order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+--------+--------+
     | time                       | database     | node_id | tenant | value  |
     +----------------------------+--------------+---------+--------+--------+
@@ -6747,9 +6886,11 @@ select * from usage_schema.data_in order by time desc limit 2;
     +----------------------------+--------------+---------+--------+--------+
 
 common user:
+
 ```sql
 select * from usage_schema.data_in order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+--------+
     | time                       | database     | node_id | value  |
     +----------------------------+--------------+---------+--------+
@@ -6765,40 +6906,43 @@ This schema records the approximate total volume of read traffic when data is qu
 
 The definition of the schema seen by the administrator:
 
-| Field Name   | Data Type       | Description                |
-|----------|-----------------|----------------------------|
-| TIME     | TIMESTAMP       | Time of writes             |
-| DATABASE | STRING          | Database name              |
-| NODE_ID  | STRING          | ID of data node            |
-| TENANT   | STRING          | The tenant of the database |
-| USER     | STRING          | User name                  |
-| VALUE    | BIGINT UNSIGNED | Total read traffic size    |
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of writes             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| USER       | STRING          | User name                  |
+| VALUE      | BIGINT UNSIGNED | Total read traffic size    |
 
 
 Common users can access only the tenant information of the current session.
 
-| Field Name   | Data Type       | Description             |
-|----------|-----------------|-------------------------|
-| TIME     | TIMESTAMP       | Time of writes          |
-| DATABASE | STRING          | Database name           |
-| NODE_ID  | STRING          | ID of data node         |
-| USER     | STRING          | User name               |
-| VALUE    | BIGINT UNSIGNED | Total read traffic size |
+| Field Name | Data Type       | Description             |
+|------------|-----------------|-------------------------|
+| TIME       | TIMESTAMP       | Time of writes          |
+| DATABASE   | STRING          | Database name           |
+| NODE_ID    | STRING          | ID of data node         |
+| USER       | STRING          | User name               |
+| VALUE      | BIGINT UNSIGNED | Total read traffic size |
 
 #### Example
 
 ```sql
 select * from usage_schema.data_out order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+--------+----------+
     | time                       | database     | node_id | tenant | value    |
     +----------------------------+--------------+---------+--------+----------+
     | 2023-02-23T06:51:16.577110 | usage_schema | 1001    | cnosdb | 15156112 |
     | 2023-02-23T06:51:06.577132 | usage_schema | 1001    | cnosdb | 15156112 |
     +----------------------------+--------------+---------+--------+----------+
+
 ```sql
 select * from usage_schema.data_out order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+----------+
     | time                       | database     | node_id | value    |
     +----------------------------+--------------+---------+----------+
@@ -6814,25 +6958,25 @@ This schema records the number of queries to the database.
 
 The definition of the schema seen by the administrator:
 
-| Field Name   | Data Type       | Description                |
-|----------|-----------------|----------------------------|
-| TIME     | TIMESTAMP       | Time of writes             |
-| DATABASE | STRING          | Database name              |
-| NODE_ID  | STRING          | ID of data node            |
-| TENANT   | STRING          | The tenant of the database |
-| USER     | STRING          | User name                  |
-| VALUE    | BIGINT UNSIGNED | User writes times          |
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of writes             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| USER       | STRING          | User name                  |
+| VALUE      | BIGINT UNSIGNED | User writes times          |
 
 
 Common users can access only the tenant information of the current session.
 
-| Field Name   | Data Type       | Description        |
-|----------|-----------------|--------------------|
-| TIME     | TIMESTAMP       | Time of writes     |
-| DATABASE | STRING          | Database name      |
-| NODE_ID  | STRING          | ID of data node    |
-| USER     | STRING          | User name          |
-| VALUE    | BIGINT UNSIGNED | User queries times |
+| Field Name | Data Type       | Description        |
+|------------|-----------------|--------------------|
+| TIME       | TIMESTAMP       | Time of writes     |
+| DATABASE   | STRING          | Database name      |
+| NODE_ID    | STRING          | ID of data node    |
+| USER       | STRING          | User name          |
+| VALUE      | BIGINT UNSIGNED | User queries times |
 
 
 #### Example
@@ -6840,6 +6984,7 @@ Common users can access only the tenant information of the current session.
 ```sql
 select * from usage_schema.queries order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+--------+-------+-------+
     | time                       | database     | node_id | tenant | user  | value |
     +----------------------------+--------------+---------+--------+-------+-------+
@@ -6850,6 +6995,7 @@ select * from usage_schema.queries order by time desc limit 2;
 ```sql
 select * from usage_schema.queries order by time desc limit 2;
 ```
+
     +----------------------------+--------------+---------+-------+-------+
     | time                       | database     | node_id | user  | value |
     +----------------------------+--------------+---------+-------+-------+
@@ -6861,32 +7007,32 @@ select * from usage_schema.queries order by time desc limit 2;
 
 This schema records the number of writes to the database.
 
-Notice: The schema will only be created when we write in [lineprotocol](./rest_api.md)/[Prometheus remote write](../eco/prometheus#remote-write) successfully.
+Notice: The schema will only be created when we write in [line-protocol](./rest_api.md)/[Prometheus remote write](../versatility/collect/prometheus#remote-write) successfully.
 
 
 #### Schema definition
 
 The definition of the schema seen by the administrator:
 
-| Field Name   | Data Type       | Description                |
-|----------|-----------------|----------------------------|
-| TIME     | TIMESTAMP       | Time of writes             |
-| DATABASE | STRING          | Database name              |
-| NODE_ID  | STRING          | ID of data node            |
-| TENANT   | STRING          | The tenant of the database |
-| USER     | STRING          | User name                  |
-| VALUE    | BIGINT UNSIGNED | User writes times          |
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of writes             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| USER       | STRING          | User name                  |
+| VALUE      | BIGINT UNSIGNED | User writes times          |
 
 
 Common users can access only the tenant information of the current session.
 
-| Field Name   | Data Type       | Description       |
-|----------|-----------------|-------------------|
-| TIME     | TIMESTAMP       | Time of writes    |
-| DATABASE | STRING          | Database name     |
-| NODE_ID  | STRING          | ID of data node   |
-| USER     | STRING          | User name         |
-| VALUE    | BIGINT UNSIGNED | User writes times |
+| Field Name | Data Type       | Description       |
+|------------|-----------------|-------------------|
+| TIME       | TIMESTAMP       | Time of writes    |
+| DATABASE   | STRING          | Database name     |
+| NODE_ID    | STRING          | ID of data node   |
+| USER       | STRING          | User name         |
+| VALUE      | BIGINT UNSIGNED | User writes times |
 
 #### Example
 
@@ -6895,6 +7041,7 @@ administrator:
 ```sql
 select * from usage_schema.writes order by time desc limit 2;
 ```
+
     +----------------------------+----------+---------+--------+------+-------+
     | time                       | database | node_id | tenant | user | value |
     +----------------------------+----------+---------+--------+------+-------+
@@ -6907,6 +7054,7 @@ common users:
 ```sql
 select * from usage_schema.writes order by time desc limit 2;
 ```
+
     +----------------------------+----------+---------+------+-------+
     | time                       | database | node_id | user | value |
     +----------------------------+----------+---------+------+-------+
@@ -6938,16 +7086,18 @@ The db and table arguments specify the source table.
 
 Currently, only common tables can be source tables. Field names and field types defined in flow table fields must belong to the source table and be the same as those defined in the source table.
 
-**Example**
+#### Example
 
 Create source table
 
 ```sql
 CREATE DATABASE oceanic_station;
 ```
+
 ```
 \c oceanic_station
 ```
+
 ```
 CREATE TABLE air(pressure DOUBLE, temperature DOUBLE, visibility DOUBLE, TAGS(station));
 ```
@@ -6965,8 +7115,7 @@ CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, 
 
 The syntax is the same as [DROP TABLE](#drop-table)
 
-
-### INSERT INTO STREAM TABLE
+### Stream Queries
 
 Stream queries support only `INSERT SELECT` statements, where the FROM clause is the stream table and is inserted into the target table.
 
@@ -6976,11 +7125,12 @@ The SELECT clause of a stream query does not support `JOIN`.
 
 Stream QUERY statements are persisted and are cancelled by [KILL QUERY](#kill-query).
 
-**Example**
+#### Example
 
 In the streaming down-sampling scenario, the source table interval is one minute, and the down-sampling interval is one hour
 
 Create source table
+
 ```sql
 CREATE TABLE air_down_sampling_1hour(max_pressure DOUBLE, avg_temperature DOUBLE, sum_temperature DOUBLE, count_pressure BIGINT, TAGS(station));
 ```
@@ -7013,6 +7163,7 @@ Show the result
 ```sql
 SELECT * FROM air_down_sampling_1hour LIMIT 10;
 ```
+
     +---------------------+------------+--------------+-----------------+-----------------+----------------+
     | time                | station    | max_pressure | avg_temperature | sum_temperature | count_pressure |
     +---------------------+------------+--------------+-----------------+-----------------+----------------+
@@ -7036,6 +7187,7 @@ SELECT * FROM air_down_sampling_1hour LIMIT 10;
 ```sql
 KILL [QUERY] query_id;
 ``` 
+
 We can get the `query_id` through [`SHOW QUERIES`](#show-queries).
 
 #### Examples
@@ -7043,6 +7195,7 @@ We can get the `query_id` through [`SHOW QUERIES`](#show-queries).
 ```sql
 SHOW QUERIES;
 ```
+
     +----------+------+------------------------------------------------------------------+------------+----------+
     | query_id | user | query                                                            | state      | duration |
     +----------+------+------------------------------------------------------------------+------------+----------+
@@ -7053,4 +7206,5 @@ SHOW QUERIES;
 ```sql
 KILL 4;
 ```
+
     Query took 0.016 seconds.
