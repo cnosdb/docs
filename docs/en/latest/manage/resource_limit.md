@@ -15,8 +15,8 @@ alter tenant <tenant_name> set _limiter '<limiter_json>';
 
 #### Parameters
 
-- tenant_name：The name of the tenant to be set.
-- limiter_json：The content of tenant resource limit, specifically classified as: object limit `object_config` and read and write limit `request_config`, content format must be json format.
+- tenant_name: The name of the tenant to be set.
+- limiter_json: The content of tenant resource limit, specifically classified as: object limit `object_config` and read and write limit `request_config`, content format must be json format.
 
 
 #### object_config, object limit, the parameters included are as follows:
@@ -42,6 +42,7 @@ alter tenant <tenant_name> set _limiter '<limiter_json>';
   "max_retention_time": 30
 },
 ```
+
 #### request_config, read and write limit, the parameters included are as follows:
 
 | Parameter name | Description                                                                                | Required | Metric |

@@ -112,9 +112,9 @@ sudo apt-get update && sudo apt-get install telegraf
 Parameters:
 > Note: Other parameters can be kept consistent with the configuration example above.
 ```
-url：CnosDB address and port
-username：username for connecting to CnosDB
-password：password for connecting to CnosDB
+url: CnosDB address and port
+username: username for connecting to CnosDB
+password: password for connecting to CnosDB
 ```
 
 4. Uncomment the following configuration in the configuration file and modify it as needed
@@ -128,10 +128,11 @@ data_format = "json"
 
 Parameters:
 > Note: Other parameters can be kept consistent with the configuration example above.
+
 ```shell
-brokers：broker list of Kafka
-topics：specify the topic to write to Kafka
-data_format：format of the written data
+brokers: broker list of Kafka
+topics: specify the topic to write to Kafka
+data_format: format of the written data
 ```
 
 5. Start Telegraf

@@ -46,7 +46,7 @@ This section describes how to install and run the single or cluster CnosDB, as w
 
 ## Manage
 
-This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition。
+This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition.
 
 - [Manage](./manage)
     - [Node Migration](./manage/migration.md)

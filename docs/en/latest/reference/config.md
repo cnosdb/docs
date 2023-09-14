@@ -9,7 +9,7 @@ order: 6
 
 The configuration adopts TOML syntax.
 
-> TOML Syntax Reference：[https://toml.io](https://toml.io/cn/v1.0.0)
+> TOML Syntax Reference: [https://toml.io](https://toml.io/cn/v1.0.0)
 
 You can use `cnosdb config` command to create a default config file (v2.2.0), for example:
 
@@ -64,7 +64,7 @@ Parameter **mode** can be selected from the following values:
 
 ## reporting_disabled
 
-**Note**：If close information collection
+**Note**: If close information collection
 
 The CnosDB collects information to better improve the product
 
@@ -83,7 +83,7 @@ reporting_disabled = true
 
 ## host
 
-**Description**：node host, used to communicate with other nodes, default: localhost.
+**Description**: node host, used to communicate with other nodes, default: localhost.
 
 ## \[query]
 
@@ -191,23 +191,23 @@ reporting_disabled = true
 
 ## \[trace]
 
-| Parameter                | Description                                               |
-|--------------------|---------------------------------------------------|
+| Parameter          | Description                                                                                                          |
+|--------------------|----------------------------------------------------------------------------------------------------------------------|
 | auto_generate_span | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
 ### \[trace.log] (optional)
 
-| Parameter                | Description                                               |
-|--------------------|---------------------------------------------------|
-| path | trace log file path |
+| Parameter | Description         |
+|-----------|---------------------|
+| path      | trace log file path |
 
 ### \[trace.jaeger] (optional)
 
-| Parameter                 | Description                                               |
-|--------------------|---------------------------------------------------|
-| jaeger_agent_endpoint | the Jaeger agent endpoint。eg：http://localhost:14268/api/traces |
-| max_concurrent_exports | trace parallelism of the reporter, default value is 2 |
-| max_queue_size | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096 |
+| Parameter              | Description                                                                                           |
+|------------------------|-------------------------------------------------------------------------------------------------------|
+| jaeger_agent_endpoint  | the Jaeger agent endpoint.eg: http://localhost:14268/api/traces                                       |
+| max_concurrent_exports | trace parallelism of the reporter, default value is 2                                                 |
+| max_queue_size         | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096 |
 
 # CnosDB Meta Configuration
 
@@ -225,23 +225,23 @@ The configuration file of the Meta node is in the same format as the Data node a
 **TOML TABLE**
 
 - `[log]`: run log configuration
-- `[meta_init]`: example  initialize related configuration information of Meta node
-- `[heartbeat]` check CnosDB node status configurations periodically
+- `[meta_init]`: example initializes related configuration information of Meta node
+- `[heartbeat]`:  check CnosDB node status configurations periodically
 
 The detailed configuration file description is as follows:
 
 ## \[log]
 
-| Parameter | Description                                        |
-|-----------|----------------------------------------------------|
-| level     | Log leverl（debug、info、error、warn），defult：info |
-| path      | log storage path，default：`data/log`              |
+| Parameter | Description                                    |
+|-----------|------------------------------------------------|
+| level     | Log level（debug、info、error、warn, default: info |
+| path      | log storage path,default:`data/log`            |
 
 
 ## \[meta_init]
 
 | Parameter        | Description                           |
-|----------------- |-------------------------------------- |
+|------------------|---------------------------------------|
 | cluster_name     | ClusterName                           |
 | admin_user       | User name of the system administrator |
 | system_tenant    | Name of the default tenant            |
@@ -250,6 +250,6 @@ The detailed configuration file description is as follows:
 ## \[heartbeat]
 
 | Parameter                  | Description                                          |
-|----------------------------|----------------------------------------------------- |
+|----------------------------|------------------------------------------------------|
 | heartbeat_recheck_interval | Interval for checking the heartbeat status of a node |
 | heartbeat_expired_interval | Interval for checking whether a node is abnormal     |

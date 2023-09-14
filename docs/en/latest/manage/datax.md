@@ -127,12 +127,12 @@ Notice:
 
 DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换). These internal types are as follows:
 
-- `Long`：Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
-- `Double`：Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
-- `String`：String type, underlying unlimited length, using the Universal character set (Unicode).
-- `Date`：Date type.
-- `Bool`：Boolean type.
-- `Bytes`：Binary, which can hold unstructured data such as MP3s.
+- `Long`:Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
+- `Double`:Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
+- `String`:String type, underlying unlimited length, using the Universal character set (Unicode).
+- `Date`:Date type.
+- `Bool`:Boolean type.
+- `Bytes`:Binary, which can hold unstructured data such as MP3s.
 
 CnosDBWriter will convert these internal types to CnosDB internal data types with the following conversion rules:
 
@@ -151,7 +151,7 @@ CnosDBWriter will convert these internal types to CnosDB internal data types wit
 ### Preparation
 
 - Install Python 2 or 3, JDK 1.8 and DataX, see [DataX Docs - Quick Start](https://github.com/alibaba/DataX/blob/master/userGuid.md#quick-start).
-- Install CnosDB，详见 [Download](../deploy/download.html) and [Install](../deploy/install.html).
+- Install CnosDB, You can refer to [Download](../deploy/download.html) and [Install](../deploy/install.html).
 
 We assume that DataX is installed in the path `{YOUR_DATAX_HOME}`.
 
@@ -369,7 +369,7 @@ SELECT * FROM cpu ORDER BY time ASC;
 +---------------------+--------+------+------------+------------+
 ```
 
-### Check the status of the import task：
+### Check the status of the import task:
 
 The log files for DataX jobs are located by default in the `{YOUR_DATAX_HOME}/log` directory. In these log files, we can view the start time, end time, status of the task, and any output and error messages. In addition, the import progress can be obtained by querying the exported table in CnosDB:
 
@@ -382,7 +382,7 @@ SELECT COUNT(usage_idle) as c FROM "cpu";
 +----+
 ```
 
-### Cancel or stop the import task：
+### Cancel or stop the import task:
 
 You can shut down the import task by terminating the DataX process:
 
