@@ -117,11 +117,11 @@ db_option: {
 #### 参数说明
 
 1. TTL： 表示数据文件保存的时间，默认无限，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL
-   100m，当不带单位时，默认为天，如TTL 30
-2. SHARD：表示数据分片个数，默认为1
-3. VNODE_DURATION：表示数据在shard中的时间范围，默认为365天，同样使用带单位的数据来表示，数据意义与TTL的value一致
-4. REPLICA： 表示数据在集群中的副本数，默认为1（副本数不大于分布式数据节点的数量）
-5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
+   100m，当不带单位时，默认为天，如TTL 30。
+2. SHARD：表示数据分片个数，默认为1。
+3. VNODE_DURATION：表示数据在shard中的时间范围，默认为365天，同样使用带单位的数据来表示，数据意义与TTL的value一致。
+4. REPLICA： 表示数据在集群中的副本数，默认为1（副本数不大于分布式数据节点的数量）。
+5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒。
 
 **示例**
 
@@ -138,6 +138,8 @@ Query took 0.062 seconds.
 SHOW DATABASES;
 ```
 
+**示例**
+
     +-----------------+
     | Database        |
     +-----------------+
@@ -148,7 +150,7 @@ SHOW DATABASES;
 ### 使用数据库
 
 如果你通过[HTTP API](./rest_api.md)来使用数据库，
-你可以在url中指定参数db=database_name 来使用数据库。
+你可以在url中指定参数 db=database_name 来使用数据库。
 
 在 CnosDB-Cli 中，可以使用如下命令切换数据库：
 
@@ -445,7 +447,7 @@ CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[
 
 例如`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
-如果 VALUES 列表需要表达式，请使用[INSERT SELECT](./sql.md#插入查询结果--insert-select-)语法。
+如果 VALUES 列表需要表达式，请使用[INSERT SELECT](./sql.md#插入查询结果insert-select)语法。
 
 ### 插入一条记录
 
@@ -506,6 +508,8 @@ SELECT * FROM air;
 ### 插入多条记录
 
 `VALUES`关键字后面可以跟多个列表，用`,`分隔开。
+
+#### 例子
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
@@ -573,7 +577,7 @@ SELECT * FROM air_visibility;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         |
     +----------------------------+------------+------------+
 
-### 关于插入重复数据
+### 插入重复数据
 
 [//]: # (2.3)
 
@@ -590,7 +594,7 @@ INSERT INTO air (TIME, station, visibility, temperature) VALUES
 (1666165200290401000, 'XiaoMaiDao', 56, 69);
 ```
 
-上面语句相当于插入了如下k-v对
+上面语句相当于插入了如下k-v对：
 
 | key                                 | visibility-value | temperature-value | pressure-value |
 |-------------------------------------|------------------|-------------------|----------------|
@@ -620,7 +624,7 @@ INSERT INTO air (TIME, station, visibility) VALUES
 |-------------------------------------|------------------|-------------------|----------------|
 | (1666165200290401000, 'XiaoMaiDao') | 66               |                   |                |
 
-key 为 (1666165200290401000, 'XiaoMaiDao') 的 visibility-value 发生变化，变为 66
+key 为 (1666165200290401000, 'XiaoMaiDao') 的 visibility-value 发生变化，变为 66。
 
     select * from air;
     ----

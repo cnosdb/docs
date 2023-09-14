@@ -22,11 +22,11 @@ order: 5
 
 The following data types can't be stored directly, but can appear in SQL expressions.
 
-| Type | Description | Remarks                                         |
-|----------|-------------|--------------------------------------------|
-| BINARY | Binary data,can be converted to STRING using Cast clause. | The return values of functions sha224, sha256, sha384, sha512 belong to this type. |
-| INTERVAL | Time Interval | Required by time addition or subtraction and function data_bin's parameters.                      |
-|ARRAY | Array Type | Aggregate function array_agg's return type .                        |
+| Type     | Description                                               | Remarks                                                                            |
+|----------|-----------------------------------------------------------|------------------------------------------------------------------------------------|
+| BINARY   | Binary data,can be converted to STRING using Cast clause. | The return values of functions sha224, sha256, sha384, sha512 belong to this type. |
+| INTERVAL | Time Interval                                             | Required by time addition or subtraction and function data_bin's parameters.       |
+| ARRAY    | Array Type                                                | Aggregate function array_agg's return type .                                       |
 
 #### Constant
 
@@ -51,6 +51,7 @@ Z represents zero time zone
 +08:00 represents the East 8th District
 
 as follows：
+
 - `1997-01-31T09:26:56.123Z` # Standard RCF3339, UTC time zone
 - `1997-01-31T09:26:56.123+08:00` # Standard RCF3339, East 8th District
 - `1997-01-31 09:26:56.123+08:00` # Close to RCF3339, just replace T by space
@@ -58,7 +59,7 @@ as follows：
 - `1997-01-31 09:26:56.123` # Close to RCF3339, replace T by space, and no time zone is specified
 - `1997-01-31 09:26:56`     # Close to RCF3339, replace T by space, and no time zone is specified, the accuracy is on the order of seconds
 
-**Note**：`CAST (BIGINT AS TIMESTAMP)`is a timestamp converted to nanosecond, as follows
+**Note**：`CAST (BIGINT AS TIMESTAMP)` is a timestamp converted to nanosecond, as follows:
 
 ```sql
 SELECT CAST (1 AS TIMESTAMP);
@@ -69,8 +70,7 @@ SELECT CAST (1 AS TIMESTAMP);
     | 1970-01-01T00:00:00.000000001 |
     +-------------------------------+
 
-#### INTERVAL Constant Syntax
-
+#### INTERVAL Constant 
 
 **Example：**
 
@@ -92,7 +92,7 @@ SELECT CAST (1 AS TIMESTAMP);
 **Notice:**
 
 INTERVAL '1 YEAR' is not 365 days or 366 days, but 12-months.
-INTERVAL '1 MONTH' is not 30 days or 31 days, but 1-month.
+INTERVAL '1 MONTH' is not 29 days or 31 days, but 30 days.
 
 ### Create Database
 
@@ -130,6 +130,12 @@ Query took 0.062 seconds.
 
 ### Show All Databases
 
+**Syntax**
+
+```sql
+SHOW DATABASES;
+```
+
 **Example**
 
 ```sql
@@ -161,6 +167,7 @@ In CnosDB-Cli, you can use the following command to switch to the specified data
 ```sql
 DROP DATABASE [IF EXISTS] db_name;
 ```
+
 If dropping database, all table data and metadata of the specified database will be removed.
 
 **Example**
@@ -168,11 +175,13 @@ If dropping database, all table data and metadata of the specified database will
 ```sql
 DROP DATABASE oceanic_station;
 ```
+
     Query took 0.030 seconds.
 
 ### **Alter Database Parameters**
 
 #### Syntax
+
 ```sql
 ALTER DATABASE db_name [alter_db_options]
 
@@ -186,11 +195,13 @@ db_option: {
     | REPLICA value
 }
 ```
+
 **Example**
 
 ```sql
 ALTER DATABASE oceanic_station SET TTL '30d';
 ```
+
 ### **Describe Database Parameters**
 
 #### Syntax
@@ -265,6 +276,7 @@ CREATE TABLE air (
 ### **Create External Table**
 
 #### Syntax
+
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
@@ -282,6 +294,7 @@ tb_option: {
     | LOCATION '/path/to/file'
 }
 ```
+
 #### Instruction
 
 1. External tables do not exist in the database, but an operating system file is accessed as a common database table.
@@ -309,6 +322,7 @@ STORED AS CSV
 WITH HEADER ROW
 LOCATION 'tests/data/csv/cpu.csv';
 ```
+
     Query took 0.031 seconds.
 
 ### **Drop Table**
@@ -324,6 +338,7 @@ DROP TABLE [ IF EXISTS ] tb_name;
 ```sql
 DROP TABLE IF EXISTS air;
 ```
+
     Query took 0.033 seconds.
 
 ### **Show Tables of Current Database**
@@ -371,6 +386,7 @@ DESCRIBE TABLE air;
 **Explanation** 
 
 At present, we support altering common tables.
+
 1. Add Column: add field and tag columns.
 2. Drop Column: drop the field column. When dropping a column results in dropping the last field value of a row, we think that this row has no value, and this row will not be showed in SELECT.
 3. Alter Column: alter the column definition. Currently, the compression algorithm for altering columns is supported.
@@ -389,6 +405,7 @@ alter_table_option: {
 ```
 
 **Example**
+
 ```sql
 ALTER TABLE air ADD TAG height;
 ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
@@ -407,7 +424,7 @@ CnosDB supports two data inserting methods:
 one is to use the `INSERT INTO` statement,
 and the other is to use the HTTP API [write](./rest_api.md) interface to insert Line Protocol format data.
 
-This page only shows`INSERT`related syntax.
+This page only shows `INSERT` related syntax.
 
 ### INSERT
 
@@ -424,11 +441,11 @@ If a column is not selected, the value is `NULL`.
 
 **Note**
 
-The time column cannot be `NULL`, and the Tag column and Field Namecolumn can be `NULL`.
+The time column cannot be `NULL`, and the Tag column and Field column can be `NULL`.
 
 Example: `INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
-If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.md#insert-query-results--insert-select-) syntax.
+If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.md#insert-query-results-insert-select) syntax.
 
 
 ###  Insert One Record
@@ -445,6 +462,7 @@ CREATE TABLE air (
     TAGS(station)
 );
 ```
+
     Query took 0.027 seconds.
 
 ```sql
@@ -463,6 +481,7 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 06:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
+
     +------+
     | rows |
     +------+
@@ -473,6 +492,7 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
 ```sql
 SELECT * FROM air;
 ```
+
     +----------------------------+------------+------------+-------------+-----------+
     | time                       | station    | visibility | temperature | pressure |
     +----------------------------+------------+------------+-------------+-----------+
@@ -480,13 +500,13 @@ SELECT * FROM air;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
     +----------------------------+------------+------------+-------------+-----------+
 
-**Note：**
+**Note**
 
 For more information about timezone, please refer to [Timestamp](#timestamp-constant-syntax).
 
 ### Insert Multiple Records
 
-The keyword VALUES can be followed by multiple lists separated by ’,’.
+The keyword `VALUES` can be followed by multiple lists separated by `,`.
 
 **Example**
 
@@ -495,6 +515,7 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 76), 
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
+
     +------+
     | rows |
     +------+
@@ -505,6 +526,7 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
 ```sql
 SELECT * FROM air;
 ```
+
     +----------------------------+------------+------------+-------------+-----------+
     | time                       | station    | visibility | temperature | pressure |
     +----------------------------+------------+------------+-------------+-----------+
@@ -516,7 +538,7 @@ SELECT * FROM air;
 
 ### Insert Query Results (INSERT SELECT)
 
-You can also use INSERT SELECT to insert query data into the table.
+You can also use `INSERT SELECT` to insert query data into the table.
 
 **Example**
 
@@ -526,12 +548,14 @@ CREATE TABLE air_visibility (
                               TAGS(station)
 );
 ```
+
     Query took 0.027 seconds.
 
 ```sql
 INSERT air_visibility (TIME, station, visibility)
 SELECT TIME, station, visibility FROM air;
 ```
+
     +------+
     | rows |
     +------+
@@ -542,6 +566,7 @@ SELECT TIME, station, visibility FROM air;
 ```sql
 SELECT * FROM air_visibility;
 ```
+
     +----------------------------+------------+------------+
     | time                       | station    | visibility |
     +----------------------------+------------+------------+
@@ -550,6 +575,83 @@ SELECT * FROM air_visibility;
     | 2022-10-18 22:40:00        | XiaoMaiDao | 55         |
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         |
     +----------------------------+------------+------------+
+
+### Insert Duplicate Data
+
+[//]: # (2.3)
+
+The storage engine of CnosDB can be regarded as a KV storage, in which Timestamp and Tags constitute the KEY, and Fields constitute a series of values.
+
+```
+CREATE TABLE air (
+    visibility DOUBLE,
+    temperature DOUBLE,
+    pressure DOUBLE,
+    TAGS(station)
+);
+INSERT INTO air (TIME, station, visibility, temperature) VALUES
+(1666165200290401000, 'XiaoMaiDao', 56, 69);
+```
+
+The SQL statement above is equivalent to inserting the following k-v pairs into the database.
+
+| key                                 | visibility-value | temperature-value | pressure-value |
+|-------------------------------------|------------------|-------------------|----------------|
+| (1666165200290401000, 'XiaoMaiDao') | 56               |                   |                |
+| (1666165200290401000, 'XiaoMaiDao') |                  | 69                |                |
+
+The result of the query is as follows:
+
+    select * from air;
+    ----
+    +----------------------------+------------+------------+-------------+----------+
+    | time                       | station    | visibility | temperature | pressure |
+    +----------------------------+------------+------------+-------------+----------+
+    | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 56.0       | 69.0        |          |
+    +----------------------------+------------+------------+-------------+----------+
+
+Overwriting occurs when duplicate k-v pairs occur in the same field.
+
+```sql
+INSERT INTO air (TIME, station, visibility) VALUES
+(1666165200290401000, 'XiaoMaiDao', 66);
+```
+
+This is equivalent to inserting the following k-v pairs into the database.
+
+| key                                 | visibility-value | temperature-value | pressure-value |
+|-------------------------------------|------------------|-------------------|----------------|
+| (1666165200290401000, 'XiaoMaiDao') | 66               |                   |                |
+
+Key in (1666165200290401000, 'XiaoMaiDao') visibility-value has changed, change to 66.
+
+    select * from air;
+    ----
+    +----------------------------+------------+------------+-------------+----------+
+    | time                       | station    | visibility | temperature | pressure |
+    +----------------------------+------------+------------+-------------+----------+
+    | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        |          |
+    +----------------------------+------------+------------+-------------+----------+
+
+```sql
+INSERT INTO air (TIME, station, pressure) VALUES
+(1666165200290401000, 'XiaoMaiDao', 77);
+```
+
+This is equivalent to inserting the following k-v pairs into the database.
+
+| key                                 | visibility-value | temperature-value | pressure-value |
+|-------------------------------------|------------------|-------------------|----------------|
+| (1666165200290401000, 'XiaoMaiDao') |                  |                   | 77             |
+
+    select * from air;
+    ----
+    +----------------------------+------------+------------+-------------+----------+
+    | time                       | station    | visibility | temperature | pressure |
+    +----------------------------+------------+------------+-------------+----------+
+    | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        | 77.0     |
+    +----------------------------+------------+------------+-------------+----------+
+
 
 ## Data Query
 
