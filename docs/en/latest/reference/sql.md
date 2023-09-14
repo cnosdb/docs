@@ -762,41 +762,6 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 
 ### SELECT Limitation
 
-- If the SELECT clause contains a Time column, it must contain at least one Field Namecolumn.
-
-  **Example**
-  ```sql
-  -- Only the time column cannot be queried
-  SELECT time FROM air;
-  ```
-  ERROR：
-
-      "{\"error_code\":\"0100000\",\"error_message\":\"Error executiong query: Failed to do execute statement, err:Failed to do physical plan. err: External error: Invalid schema: If the projection contains the time column, it must contain the field column.\"}"
-
-  <br>
-
-  ```sql
-  -- temperature is a field column，time column accompanied by at least one field can be queried.
-  SELECT time, temperature FROM air;
-  ```
-      +---------------------+-------------+
-      | time                | temperature |
-      +---------------------+-------------+
-      | 2022-01-28T13:21:00 | 69          |
-      | 2022-01-28T13:24:00 | 78          |
-      | 2022-01-28T13:27:00 | 62          |
-      | 2022-01-28T13:30:00 | 79          |
-      | 2022-01-28T13:33:00 | 53          |
-      | 2022-01-28T13:36:00 | 72          |
-      | 2022-01-28T13:39:00 | 71          |
-      | 2022-01-28T13:21:00 | 69          |
-      | 2022-01-28T13:24:00 | 80          |
-      | 2022-01-28T13:27:00 | 74          |
-      | 2022-01-28T13:30:00 | 70          |
-      | 2022-01-28T13:33:00 | 70          |
-      | 2022-01-28T13:36:00 | 70          |
-      +---------------------+-------------+
-
 - If the SELECT clause contains only the Tag column, it is equivalent to the SELECT DISTINCT Tag column.
 
   **Example**
