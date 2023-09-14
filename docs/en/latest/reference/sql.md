@@ -5,9 +5,9 @@ order: 5
 
 # SQL Reference
 
-## Database
+## **Database**
 
-### Data Types
+### **Data Types**
 
 | Type            | Description                     | Size    |
 |-----------------|---------------------------------|---------|
@@ -59,7 +59,7 @@ as follows:
 - `1997-01-31 09:26:56.123` # Close to RCF3339, replace T by space, and no time zone is specified
 - `1997-01-31 09:26:56`     # Close to RCF3339, replace T by space, and no time zone is specified, the accuracy is on the order of seconds
 
-**Note**:`CAST (BIGINT AS TIMESTAMP)` is a timestamp converted to nanosecond, as follows:
+#### Note: `CAST (BIGINT AS TIMESTAMP)` is a timestamp converted to nanosecond, as follows:
 
 ```sql
 SELECT CAST (1 AS TIMESTAMP);
@@ -94,7 +94,7 @@ SELECT CAST (1 AS TIMESTAMP);
 INTERVAL '1 YEAR' is not 365 days or 366 days, but 12-months.
 INTERVAL '1 MONTH' is not 29 days or 31 days, but 30 days.
 
-### Create Database
+### **Create Database**
 
 #### Syntax
 
@@ -128,7 +128,7 @@ db_option: {
 Query took 0.062 seconds.
 ```
 
-### Show All Databases
+### **Show All Databases**
 
 #### Syntax
 
@@ -160,7 +160,7 @@ In CnosDB-Cli, you can use the following command to switch to the specified data
     public ❯ \c oceanic_station
     oceanic_station ❯
 
-###  Drop Database
+###  **Drop Database**
 
 #### Syntax
 
@@ -223,15 +223,15 @@ DESCRIBE DATABASE oceanic_station;
     +----------+-------+----------------+---------+-----------+
 
 
-## Table
+## **Table**
 
-###  Create Table
+###  **Create Table**
 
 You can use `CREATE TABLE`  to create tables.
 
 CnosDB supports the creation of common tables and external tables.
 
-###  Create Common (TSKV) Table
+###  **Create Common (TSKV) Table**
 
 #### Syntax
 
@@ -356,7 +356,7 @@ SHOW TABLES;
     | wind  |
     +-------+
 
-### Describe Table
+### **Describe Table**
 
 You can use `DESCRIBE TABLE` to view the table structure.
 
@@ -383,7 +383,7 @@ DESCRIBE TABLE air;
 
 ### **Alter Table**
 
-**Explanation** 
+#### Explanation 
 
 At present, we support altering common tables.
 
@@ -418,7 +418,7 @@ ALTER TABLE air DROP humidity;
 [//]: # (```)
 
 
-## INSERT
+## **INSERT**
 
 CnosDB supports two data inserting methods:
 one is to use the `INSERT INTO` statement,
@@ -426,7 +426,7 @@ and the other is to use the HTTP API [write](./rest_api.md) interface to insert 
 
 This page only shows `INSERT` related syntax.
 
-### INSERT
+### **INSERT**
 
 #### Syntax
 
@@ -434,12 +434,12 @@ This page only shows `INSERT` related syntax.
 INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, ...] | query; 
 ```
 
-**Explanation**
+#### Explanation
 
 CnosDB requires that the inserted data column must have a timestamp, and the VALUES list must be a [constant](#constant).
 If a column is not selected, the value is `NULL`.
 
-**Note**
+#### Note
 
 The time column cannot be `NULL`, and the Tag column and Field column can be `NULL`.
 
@@ -448,7 +448,7 @@ Example: `INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000
 If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.md#insert-query-results-insert-select) syntax.
 
 
-###  Insert One Record
+###  **Insert One Record**
 
 Please note that data in the TIME column can be represented by either a time string or a numeric timestamp.
 
@@ -500,11 +500,11 @@ SELECT * FROM air;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
     +----------------------------+------------+------------+-------------+-----------+
 
-**Note**
+#### Note
 
 For more information about timezone, please refer to [Timestamp](#timestamp-constant-syntax).
 
-### Insert Multiple Records
+### **Insert Multiple Records**
 
 The keyword `VALUES` can be followed by multiple lists separated by `,`.
 
@@ -536,7 +536,7 @@ SELECT * FROM air;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
     +----------------------------+------------+------------+-------------+-----------+
 
-### Insert Query Results (INSERT SELECT)
+### **Insert Query Results (INSERT SELECT)**
 
 You can also use `INSERT SELECT` to insert query data into the table.
 
@@ -576,7 +576,7 @@ SELECT * FROM air_visibility;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         |
     +----------------------------+------------+------------+
 
-### Insert Duplicate Data
+### **Insert Duplicate Data**
 
 [//]: # (2.3)
 
@@ -653,11 +653,13 @@ This is equivalent to inserting the following k-v pairs into the database.
     +----------------------------+------------+------------+-------------+----------+
 
 
-## Data Query
+## **Data Query**
 
 CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html), We support most of the SQL syntax of DataFusion.
 
-**Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
+#### Note
+
+In order to query more efficiently, the order of each row may not be the same for queries without specified sorting.
 
 ### Sample Data
 
@@ -760,13 +762,14 @@ SELECT * FROM air;
     | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
     +---------------------+-------------+------------+-------------+----------+
 
-### ALL/DISTINCT
+### **ALL/DISTINCT**
 
 #### Syntax
 
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
+
 After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`.
 
 #### Example
@@ -815,11 +818,11 @@ SELECT station, visibility FROM air;
     +-------------+------------+
 
 
-### Alias
+### **Alias**
 
 You can use the keyword `AS` to alias a column expression or table.
 
-### Alias Column Expression
+### **Alias Column Expression**
 
 #### Syntax
 
@@ -851,7 +854,7 @@ SELECT station s, visibility AS v FROM air;
     | LianYunGang | 59 |
     +-------------+----+
 
-### Alias Table
+### **Alias Table**
 
 You can also use the keyword `AS` to alias the table.
 
@@ -877,7 +880,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
     | 65         | 79          |
     +------------+-------------+
 
-### SELECT Limitation
+### **SELECT Limitation**
 
 - If the SELECT clause contains only the Tag column, it is equivalent to the SELECT DISTINCT Tag column.
 
@@ -915,7 +918,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
       | LianYunGang |
       +-------------+ 
 
-###  LIMIT Clause
+###  **LIMIT Clause**
 
 #### Syntax
 
@@ -1054,11 +1057,11 @@ select_clause_set_right
 `EXCEPT` will make the difference between the two result sets, return all non-duplicate values not found in the right query from the left query.
 `INTERSECT` returns the intersection of the two result sets (that means, all non-duplicate values are returned by both queries).
 
-**Note**
+#### Note
 
 Each SELECT clause in the UNION must have the same number of columns, and the corresponding columns have the same data type.
 
-**Examples**
+#### Example
 
 - **UNION ALL**
 
@@ -1090,6 +1093,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
   UNION
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
+  
       +------------+
       | visibility |
       +------------+
@@ -1135,6 +1139,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
   INTERSECT
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
+  
       +------------+
       | visibility |
       +------------+
@@ -1150,7 +1155,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
       | 59         |
       +------------+
 
-### ORDER BY Clause
+### **ORDER BY Clause**
 
 Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
 
@@ -1223,7 +1228,7 @@ SELECT * FROM air ORDER BY station, temperature;
     | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
     +---------------------+-------------+------------+-------------+----------+
 
-## Expression
+### **Expression**
 
 An expression is a kind of combination of symbols and operators that CnosDB will process to obtain a single data value.
 A simple expression can be a constant, variable, column, or scalar function.
@@ -1295,7 +1300,7 @@ Binary operators supported now:
 | OR           | First evaluate the left expression, and if it is false, evaluate the right expression, both false and false |
 | LIKE         | Determines whether the left expression matches the pattern of the right expression                          |
 
-### `BETWEEN AND` Expression
+### **`BETWEEN AND` Expression**
 
 #### Syntax
 
@@ -1325,9 +1330,9 @@ SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
     | 55       |
     +----------+
 
-Note: `BETWEEN x AND y` lists the numbers between x and y, including x and y.
+**Note**: `BETWEEN x AND y` lists the numbers between x and y, including x and y.
 
-### `IN` 表达式
+### **`IN` Expression**
 
 The IN operator determines whether any value in the list is equal to the expression.
 
@@ -1344,11 +1349,11 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
     | LianYunGang | 69          | 78         |
     +-------------+-------------+------------+
 
-**Note**:
+#### Note
 
 IN only supports a list of constants, not a list of expressions.
 
-### `CASE WHEN` Expression
+### **`CASE WHEN` Expression**
 
 The `CASE WHEN` expression is used when the expression needs different values depending on the situation.
 
@@ -1386,7 +1391,7 @@ FROM AIR;
     | 55       |
     +----------+
 
-### Operator Precedence
+### **Operator Precedence**
 
 If a complex expression has more than one operator, operator precedence determines the sequence of operations. The order of execution may have a noticeable effect on the resulting value.
 
@@ -1449,7 +1454,6 @@ SHOW QUERIES;
 
 For more information about SHOW QUERIES, you can reference to [SHOW QUERIES](#show-queries).
 
-
 #### SHOW SERIES
 
 Return the series in the specified table.
@@ -1507,7 +1511,7 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
     | station | LianYunGang |
     +---------+-------------+
 
-### EXPLAIN
+### **EXPLAIN**
 
 #### Syntax
 
@@ -1515,7 +1519,7 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
 
-**Explanation**
+#### Explanation
 
 `EXPLAIN` is only used to display the execution plan of a query, and does not execute the query.
 
@@ -1580,7 +1584,7 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
     | Duration               | 13.307708ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
     +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-### DESCRIBE
+### **DESCRIBE**
 
 #### Syntax
 
@@ -1653,9 +1657,9 @@ DESCRIBE DATABASE public;
 [//]: # (SHOW CREATE TABLE table_name)
 [//]: # (```)
 
-### Join Clause
+### **Join Clause**
 
-### Join Operation
+#### Join Operation
 
 CnosDB supports `INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`.
 
@@ -2161,7 +2165,7 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 [//]: # (    +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+)
 
-### GROUP BY Clause
+### **GROUP BY Clause**
 
 The GROUP BY clause must be after the condition of the WHERE clause (if there is one) and before the ORDER BY clause (if there is one).
 
@@ -2180,7 +2184,7 @@ GROUP BY station;
     | LianYunGang | 72.16666666666667    |
     +-------------+----------------------+
 
-###  HAVING Clause
+###  **HAVING Clause**
 
 #### Syntax
 
@@ -2461,9 +2465,9 @@ GROUP BY CUBE (station, visibility);
 [//]: # (作为 ROLLUP、CUBE 或 GROUPING SETS 操作的结果返回的 NULL 是 NULL 的一种特殊用途。)
 [//]: # (这充当结果集中的列占位符，表示全部。)
 
-## Aggregate Function
+## **Aggregate Function**
 
-### Common Aggregate Functions
+### **Common Aggregate Functions**
 
 ### COUNT
 
@@ -2643,7 +2647,10 @@ SELECT ARRAY_AGG(temperature) from air;
     +------------------------------------------------------+
     | [69, 78, 62, 79, 53, 72, 71, 69, 80, 74, 70, 70, 70] |
     +------------------------------------------------------+
-**Note**: The aggregate function result cannot be returned in CSV format.
+
+#### Note
+
+The aggregate function result cannot be returned in CSV format.
 
 ### FIRST
 
@@ -2685,7 +2692,7 @@ Gets the last value of one column sorted by another.
 
 **Return Type**: Same as value type.
 
-#### Example:
+#### Example
 
 ```sql
 select last(time, pressure) from air;
@@ -2904,9 +2911,9 @@ SELECT CORR(temperature, pressure) FROM air;
 
 ----------------
 
-## **Approximate Aggregate Functions**
+### **Approximate Aggregate Functions**
 
-### **APPROX_DISTINCT**
+### APPROX_DISTINCT
 
 #### Syntax
 
@@ -2931,7 +2938,7 @@ SELECT APPROX_DISTINCT(station) FROM air;
     +-----------------------------+
 ----------------
 
-### **APPROX_PERCENTILE_CONT**
+### APPROX_PERCENTILE_CONT
 
 #### Syntax
 
@@ -2957,7 +2964,7 @@ SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 
 ----------------
 
-### **APPROX_PERCENTILE_CONT_WITH_WEIGHT**
+### APPROX_PERCENTILE_CONT_WITH_WEIGHT
 
 #### Syntax
 
@@ -2984,7 +2991,7 @@ SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
     +-----------------------------------------------------------------------+
 ----------------
 
-### **APPROX_MEDIAN**(NUMERICS)
+### APPROX_MEDIAN(NUMERICS)
 
 #### Syntax
 
@@ -3015,7 +3022,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 [//]: # (**Parameter Type**:VALUE TYPE)
 [//]: # (**Return Type** BIGINT)
 
-### **SAMPLE**
+### SAMPLE
 
 #### Syntax
 
@@ -3030,7 +3037,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 **Return Type**: Array
 
-#### Example: 
+#### Example 
 
 ```sql
 select sample(visibility, 5) from air;
@@ -3081,7 +3088,7 @@ select asap_smooth(time, pressure, 10) from air group by date_trunc('month', tim
     | {time: [2023-03-01T00:00:00, 2023-03-02T12:26:40, 2023-03-04T00:53:20, 2023-03-05T13:20:00, 2023-03-07T01:46:40, 2023-03-08T14:13:20, 2023-03-10T02:40:00, 2023-03-11T15:06:40, 2023-03-13T03:33:20, 2023-03-14T16:00:00], value: [65.29115853658537, 64.58307926829268, 64.7530487804878, 64.76753048780488, 65.14405487804878, 65.4298780487805, 65.1920731707317, 65.10365853658537, 64.86356707317073, 64.83841463414635], resolution: 10} |
     +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-## Two-stage Aggregation Function
+### **Two-stage Aggregation Function**
 
 ### stats_agg
 
@@ -3472,7 +3479,7 @@ Struct {
 }
 ```
 
-#### Example: 
+#### Example 
 
 ```sql
 select gauge_agg(time, pressure) from air group by date_trunc('month', time);
@@ -3571,6 +3578,7 @@ If you need to track the activity of your system based on heartbeat signals, con
 The time spent in each state is counted and aggregated into the StateAggData type.
 
 **Parameter Type**: 
+
 -ts: Timestamp
 
 -state: Any
@@ -3600,10 +3608,9 @@ Struct {
         ......
     ]
 }
-
 ```
 
-#### Example: 
+#### Example
 
 ```sql
 alter database public set ttl '1000000d';
@@ -3647,7 +3654,7 @@ Count the duration of a state, or count the duration of a state in a certain per
 
 **Return Type**: INTERVAL 类型
 
-#### Example: 
+#### Example 
 
 ```sql
 select duration_in(compact_state_agg(time, state), 'running') from states;
@@ -3711,7 +3718,7 @@ Count the duration of a state, or count the duration of a state in a certain per
 
 **Return Type**: INTERVAL 
 
-#### Example: 
+#### Example 
 
 Count the time of 'running' status.
 
@@ -3826,7 +3833,7 @@ Struct {
 }
 ```
 
-#### Example: 
+#### Example 
 
 ```sql
 alter database public set ttl '1000000d';
@@ -3861,7 +3868,7 @@ Get the closing price.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```sql
 select close(candlestick_agg(time, price, volume)) from tick;
@@ -3881,7 +3888,7 @@ Get the closing time.
 
 **Return Type**: Timestamp
 
-#### Example: 
+#### Example 
 
 ```sql
 select close_time(candlestick_agg(time, price, volume)) from tick;
@@ -3901,7 +3908,7 @@ Get the highest price.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```
 select high(candlestick_agg(time, price, volume)) from tick;
@@ -3921,7 +3928,7 @@ Get the time of the highest price.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```sql
 select high_time(candlestick_agg(time, price, volume)) from tick;
@@ -3941,7 +3948,7 @@ Get the lowest price.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```sql
 select low(candlestick_agg(time, price, volume)) from tick;
@@ -3961,7 +3968,7 @@ Get the time of the lowest price.
 
 **Return Type**: Timestamp
 
-#### Example: 
+#### Example 
 
 ```sql
 select low_time(candlestick_agg(time, price, volume)) from tick;
@@ -3981,7 +3988,7 @@ Get the opening price.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```sql
 select open(candlestick_agg(time, price, volume)) from tick;
@@ -4001,7 +4008,7 @@ Get the time of the opening price.
 
 **Return Type**: Timestamp
 
-#### Example: 
+#### Example 
 
 ```sql
 select open_time(candlestick_agg(time, price, volume)) from tick;
@@ -4021,7 +4028,7 @@ Get the total volume.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```sql
 select volume(candlestick_agg(time, price, volume)) from tick;
@@ -4041,7 +4048,7 @@ Get the volume weighted average price.
 
 **Return Type**: DOUBLE
 
-#### Example: 
+#### Example 
 
 ```sql
 select vwap(candlestick_agg(time, price, volume)) from tick;
@@ -4514,7 +4521,9 @@ SELECT trunc(-3.9);
 
 **Parameter Type**: Numeric type
 
-**Note**: Function struct is not perfect at present.
+#### Note
+
+Function struct is not perfect at present.
 
 --------------------------
 
@@ -5796,11 +5805,11 @@ SELECT time_window(time, interval '5 day', interval '3 day') FROM test;
     | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00}                                                           |
     +------------------------------------------------------------------------------------------------------------------+
 
-### Window Functions
+### **Window Functions**
 
 You can use window functions (analysis functions) in CnosDB to flexibly analyze and process data of specified window columns. The command formats, parameter descriptions and examples of window functions supported by CnosDB are shown below to guide you to use window functions to complete development.
 
-### Syntax
+#### Syntax
 
 ```sql
 function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr] [window_frame]);
@@ -5817,16 +5826,16 @@ frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUN
 
 ```
 
-###  Function Types
+####  **Function Types**
 
 #### Rank Functions
 
 | Function Names |
-|--------------|
-| DENSE_RANK   |
-| PERCENT_RANK |
-| RANK         |
-| ROW_NUMBER   |
+|----------------|
+| DENSE_RANK     |
+| PERCENT_RANK   |
+| RANK           |
+| ROW_NUMBER     |
 
 `DENSE_RANK` | `RANK` | `PERCENT_RANK` need ORDER BY Clause.
 
@@ -5845,15 +5854,15 @@ See [Aggregate Function](#aggregate-function).
 | LEAD           |
 | NTH_VALUE      |
 
-### PARTITION BY Clause
+#### **PARTITION BY Clause**
 
 One or more expressions used to specify a row partition. If there is no such clause, the partition is composed of all rows.
 
-### ORDER BY Clause
+#### **ORDER BY Clause**
 
 Specify the order of rows in the partition.
 
-###  Window_frame Clause
+####  **Window_frame Clause**
 
 Frame is a subset of the current partition, which further subdivides windows in the partition.
 
@@ -5872,7 +5881,7 @@ If RANGE is specified, the ORDER BY clause must be specified. The window calcula
 - Window functions can only appear in SELECT statements.
 - Window functions and aggregate functions cannot be nested in window functions.
 
-## Window Function List
+## **Window Function List**
 
 Include [Aggregate functions](#aggregate-function).
 
@@ -6299,9 +6308,9 @@ FROM air;
 
 ----------------
 
-## Advanced Functions
+## **Advanced Functions**
 
-### Interpolation Function
+### **Interpolation Function**
 
 In databases, interpolation is a technique used to deal with missing values in data. When there are missing values in the data, these techniques can help us estimate or speculate on those missing values, thus filling in the gaps in the data.
 
@@ -6353,7 +6362,7 @@ It is important to note that the LOCF method can introduce certain biases, espec
 locf(<expr>)
 ```
 
-**Examples**
+#### Example
 
 ```sql
 ---- Prepare data
@@ -6453,7 +6462,7 @@ group by t0, minute;
     | tag14 | 1999-12-31T00:00:00.050 | 222.0                 |
     +-------+-------------------------+-----------------------+
 
-## System Schema
+## **System Schema**
 
 CnosDB provides the system to check the status and information of CnosDB clusters. The system schema is a read-only schema. You can query the system schema using the SQL statement.
 
@@ -6462,14 +6471,14 @@ CnosDB store the shema information in two specific databases:
 - CLUSTER_SCHEMA : The information of the cluster.
 - INFORMATION_SCHEMA : The information of the tenant.
 
-### CLUSTER_SCHEMA
+### **CLUSTER_SCHEMA**
 
 The CLUSTER_SCHEMA database belongs to the cluster, only the administrator users have the access to the database.
 
 The database contains metadata information about the cluster, such as tenant information and user information.
 
 
-### TENANTS
+### **TENANTS**
 
 This schema can be used to query information about all tenants in the cluster.
 
@@ -6492,7 +6501,7 @@ SELECT * FROM cluster_schema.tenants;
     | cnosdb      | {"comment":"system tenant","limiter_config":null} |
     +-------------+---------------------------------------------------+
 
-### USERS
+### **USERS**
 
 #### Schema Definition
 
@@ -6516,7 +6525,7 @@ SELECT * FROM cluster_schema.users;
     | root      | true     | {"password":"*****","must_change_password":true,"rsa_public_key":null,"comment":"system admin"} |
     +-----------+----------+-------------------------------------------------------------------------------------------------+
 
-### INFORMATION_SCHEMA
+### **INFORMATION_SCHEMA**
 
 The database belongs to a tenant. When a tenant is created, the database is automatically created and visible to all members under the tenant.
 
@@ -6774,7 +6783,7 @@ SHOW QUERIES;
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 
 
-## USAGE_SCHEMA
+## **USAGE_SCHEMA**
 
 This database, which belongs to a Tenant, is automatically created when a tenant is created and is visible to all members under the tenant.
 
@@ -6813,7 +6822,6 @@ Common users can access only the tenant information of the current session.
 
 
 #### Example
-
 
 administator:
 
@@ -6858,7 +6866,6 @@ The definition of the schema seen by the administrator:
 | USER       | STRING          | User name                  |
 | VALUE      | BIGINT UNSIGNED | Total write traffic size   |
 
-
 Common users can access only the tenant information of the current session.
 
 | Field Name | Data Type       | Description              |
@@ -6868,7 +6875,6 @@ Common users can access only the tenant information of the current session.
 | NODE_ID    | STRING          | ID of data node          |
 | USER       | STRING          | User name                |
 | VALUE      | BIGINT UNSIGNED | Total write traffic size |
-
 
 #### Example
 
@@ -6914,7 +6920,6 @@ The definition of the schema seen by the administrator:
 | TENANT     | STRING          | The tenant of the database |
 | USER       | STRING          | User name                  |
 | VALUE      | BIGINT UNSIGNED | Total read traffic size    |
-
 
 Common users can access only the tenant information of the current session.
 
@@ -7009,7 +7014,6 @@ This schema records the number of writes to the database.
 
 Notice: The schema will only be created when we write in [line-protocol](./rest_api.md)/[Prometheus remote write](../versatility/collect/prometheus#remote-write) successfully.
 
-
 #### Schema definition
 
 The definition of the schema seen by the administrator:
@@ -7064,7 +7068,7 @@ select * from usage_schema.writes order by time desc limit 2;
 
 
 
-## Stream 
+## **Stream**
 
 ### CREATE STREAM TABLE
 
@@ -7180,7 +7184,7 @@ SELECT * FROM air_down_sampling_1hour LIMIT 10;
     +---------------------+------------+--------------+-----------------+-----------------+----------------+
 
 
-## KILL QUERY
+## **KILL QUERY**
 
 #### Syntax
 
@@ -7190,7 +7194,7 @@ KILL [QUERY] query_id;
 
 We can get the `query_id` through [`SHOW QUERIES`](#show-queries).
 
-#### Examples
+#### Example
 
 ```sql
 SHOW QUERIES;

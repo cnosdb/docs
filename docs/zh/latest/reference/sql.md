@@ -5,9 +5,9 @@ order: 5
 
 # SQL语法参考手册
 
-## 数据库操作
+## **数据库操作**
 
-### 数据类型
+### **数据类型**
 
 | 类型              | 描述          | 大小    |
 |-----------------|-------------|-------|
@@ -73,7 +73,7 @@ SELECT CAST (1 AS TIMESTAMP);
 
 #### INTERVAL 常量
 
-**示例：**
+#### 示例
 
 1. `INTERVAL '1'` 一秒
 2. `INTERVAL '1 SECONDE'` 一秒
@@ -90,12 +90,12 @@ SELECT CAST (1 AS TIMESTAMP);
 13. `INTERVAL '1 YEAR 1 DAY 1 HOUR 1 MINUTE'` 一年零一天零一小时一分
 14. `INTERVAL '1 DECADES' ` 一个十年
 
-**注意:**
+**注意：**
 
-INTERVAL '1 YEAR' 并不是365天或366天，而是12个月
-INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天
+INTERVAL '1 YEAR' 并不是365天或366天，而是12个月。
+INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天。
 
-### 创建数据库
+### **创建数据库**
 
 #### 语法
 
@@ -116,11 +116,11 @@ db_option: {
 
 #### 参数说明
 
-1. TTL： 表示数据文件保存的时间，默认无限，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL
+1. TTL：表示数据文件保存的时间，默认无限，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL
    100m，当不带单位时，默认为天，如TTL 30。
 2. SHARD：表示数据分片个数，默认为1。
 3. VNODE_DURATION：表示数据在shard中的时间范围，默认为365天，同样使用带单位的数据来表示，数据意义与TTL的value一致。
-4. REPLICA： 表示数据在集群中的副本数，默认为1（副本数不大于分布式数据节点的数量）。
+4. REPLICA：表示数据在集群中的副本数，默认为1（副本数不大于分布式数据节点的数量）。
 5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒。
 
 #### 示例
@@ -130,7 +130,7 @@ db_option: {
 Query took 0.062 seconds.
 ```
 
-### 查看数据库
+### **查看数据库**
 
 #### 语法
 
@@ -147,7 +147,7 @@ SHOW DATABASES;
     | public          |
     +-----------------+
 
-### 使用数据库
+### **使用数据库**
 
 如果你通过[HTTP API](./rest_api.md)来使用数据库，
 你可以在url中指定参数 db=database_name 来使用数据库。
@@ -161,7 +161,7 @@ SHOW DATABASES;
     public ❯ \c oceanic_station
     oceanic_station ❯
 
-### 删除数据库
+### **删除数据库**
 
 #### 语法
 
@@ -179,7 +179,7 @@ DROP DATABASE oceanic_station;
 
     Query took 0.030 seconds.
 
-### 修改数据库参数
+### **修改数据库参数**
 
 #### 语法
 
@@ -203,7 +203,7 @@ db_option: {
 ALTER DATABASE oceanic_station SET TTL '30d';
 ```
 
-### 查看数据库参数
+### **查看数据库参数**
 
 #### 语法
 
@@ -223,15 +223,15 @@ DESCRIBE DATABASE oceanic_station;
     | 365 Days | 1     | 365 Days       | 1       | NS        |
     +----------+-------+----------------+---------+-----------+
 
-## 表操作
+## **表操作**
 
-### 创建表
+### **创建表**
 
 可以使用 `CREATE TABLE` 创建表。
 
 CnosDB 支持创建普通表和外部表。
 
-### 创建普通(TSKV)表
+### **创建普通(TSKV)表**
 
 #### 语法
 
@@ -273,7 +273,7 @@ CREATE TABLE air (
 
     Query took 0.033 seconds.
 
-### 创建外部表
+### **创建外部表**
 
 #### 语法
 
@@ -325,7 +325,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 
     Query took 0.031 seconds.
 
-### 删除表
+### **删除表**
 
 #### 语法
 
@@ -341,7 +341,7 @@ DROP TABLE IF EXISTS air;
 
     Query took 0.033 seconds.
 
-### 显示当前数据库所有表
+### **显示当前数据库所有表**
 
 #### 语法
 
@@ -363,7 +363,7 @@ SHOW TABLES;
     | wind  |
     +-------+
 
-### 查看表的模式
+### **查看表的模式**
 
 外部表和普通表的模式都可以使用该语句查看。
 
@@ -421,14 +421,14 @@ ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ALTER TABLE air DROP humidity;
 ```
 
-## 插入数据
+## **插入数据**
 
 CnosDB支持两种数据写入的方法，一种是使用`INSERT INTO`语句，另一种是使用HTTP API的[write](./rest_api.md)接口，写入Line
 Protocol格式数据。
 
 本页面只展示`INSERT`相关的语法。
 
-### INSERT
+### **INSERT**
 
 #### 语法
 
@@ -449,7 +449,7 @@ CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[
 
 如果 VALUES 列表需要表达式，请使用[INSERT SELECT](./sql.md#插入查询结果insert-select)语法。
 
-### 插入一条记录
+### **插入一条记录**
 
 TIME 列的数据既可以用时间字符串表示，也可以用数字类型的时间戳表示，请注意。
 
@@ -505,7 +505,7 @@ SELECT * FROM air;
 
 关于时区表示，请参考[Timestamp](#timestamp-常量语法)。
 
-### 插入多条记录
+### **插入多条记录**
 
 `VALUES`关键字后面可以跟多个列表，用`,`分隔开。
 
@@ -537,7 +537,7 @@ SELECT * FROM air;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         | 69          | 77        |
     +----------------------------+------------+------------+-------------+-----------+
 
-### 插入查询结果(INSERT SELECT)
+### **插入查询结果(INSERT SELECT)**
 
 你还可以使用 `INSERT SELECT`语法，向表中插入查询的数据。
 
@@ -577,7 +577,7 @@ SELECT * FROM air_visibility;
     | 2022-10-19 07:40:00.290401 | XiaoMaiDao | 56         |
     +----------------------------+------------+------------+
 
-### 插入重复数据
+### **插入重复数据**
 
 [//]: # (2.3)
 
@@ -653,7 +653,7 @@ INSERT INTO air (TIME, station, pressure) VALUES
     | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        | 77.0     |
     +----------------------------+------------+------------+-------------+----------+
 
-## 查询数据
+## **查询数据**
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)
 ，我们支持DataFusion的大部分SQL语法。
@@ -815,7 +815,7 @@ SELECT station, visibility FROM air;
     | LianYunGang | 59         |
     +-------------+------------+
 
-### 别名
+### **别名**
 
 可以用 `AS` 关键字为列表达式或表取别名。
 
@@ -877,7 +877,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
     | 65         | 79          |
     +------------+-------------+
 
-### SELECT限制
+### **SELECT限制**
 
 - 如果SELECT子句仅包含Tag列，相当于 SELECT DISTINCT Tag列
 
@@ -916,7 +916,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
       | LianYunGang |
       +-------------+ 
 
-### LIMIT 子句
+### **LIMIT 子句**
 
 #### 语法
 
@@ -948,7 +948,7 @@ FROM air LIMIT 10;
     | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
     +---------------------+-------------+------------+-------------+----------+
 
-### OFFSET 子句
+### **OFFSET 子句**
 
 #### 语法
 
@@ -992,7 +992,7 @@ FROM air LIMIT 3 OFFSET 3;
     | 2022-01-28 13:36:00 | XiaoMaiDao | 74         | 72          | 68       |
     +---------------------+------------+------------+-------------+----------+
 
-### WITH 子句
+### **WITH 子句**
 
 #### 语法
 
@@ -1037,7 +1037,7 @@ FROM x;
     | LianYunGang | 70.33333333333333  |
     +-------------+--------------------+
 
-### UNION 子句
+### **UNION 子句**
 
 UNION 子句用于合并多个 SELECT 语句的分析结果。
 
@@ -1153,7 +1153,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
       | 59         |
       +------------+
 
-### ORDER BY 子句
+### **ORDER BY 子句**
 
 按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
 
@@ -1225,7 +1225,7 @@ SELECT * FROM air ORDER BY station, temperature;
     | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
     +---------------------+-------------+------------+-------------+----------+
 
-## 表达式
+## **表达式**
 
 表达式是符号和运算符的一种组合，CnosDB 将处理该组合以获得单个数据值。
 简单表达式可以是一个常量、变量、列或标量函数。
@@ -1298,7 +1298,7 @@ select 1;
 | OR           | 先求左表达式的值，如果为false，计算右表达式的值，都为false为false |
 | LIKE         | 判断左表达式是否符合右表达式的模式                        |
 
-### `BETWEEN AND` 表达式
+### **`BETWEEN AND` 表达式**
 
 #### 语法
 
@@ -1330,7 +1330,7 @@ SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
 
 注意：`BETWEEN x AND y` 会列出x和y之间的数，包括x和y
 
-### `IN` 表达式
+### **`IN` 表达式**
 
 IN 操作符判断列表中是否有值与表达式相等。
 
@@ -1351,9 +1351,9 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 
 IN 列表暂时只支持常量
 
-### `CASE WHEN` 表达式
+### **`CASE WHEN` 表达式**
 
-当表达式需要按照不同情况得不同的值时，可以使用`CASE WHEN`表达式。
+当表达式需要按照不同情况得不同的值时，可以使用 `CASE WHEN` 表达式。
 
 #### 语法
 
@@ -1389,7 +1389,7 @@ FROM AIR;
     | 55       |
     +----------+
 
-### 运算符优先级
+### **运算符优先级**
 
 如果一个复杂表达式有多个运算符，则运算符优先级将确定操作序列。 执行顺序可能对结果值有明显的影响。
 
@@ -1404,7 +1404,7 @@ FROM AIR;
 | 5  | AND                       |
 | 6  | BETWEEN、IN、LIKE、OR        |
 
-### SHOW
+### **SHOW**
 
 #### 语法
 
@@ -1509,7 +1509,7 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
     | station | LianYunGang |
     +---------+-------------+
 
-### EXPLAIN
+### **EXPLAIN**
 
 #### 语法
 
@@ -1582,7 +1582,7 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
     | Duration               | 13.307708ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
     +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-### DESCRIBE
+### **DESCRIBE**
 
 #### 语法
 
@@ -1690,7 +1690,7 @@ DESCRIBE DATABASE public;
 
 [//]: # (```)
 
-### Join 子句
+### **Join 子句**
 
 CnosDB支持 `INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`。
 
@@ -2199,7 +2199,7 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 [//]: # (    +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+)
 
-### GROUP BY 子句
+### **GROUP BY 子句**
 
 GROUP BY 子句必须在 WHERE 子句（如果有的话）的条件之后，ORDER BY 子句（如果有的话）之前。
 
@@ -2218,7 +2218,7 @@ GROUP BY station;
     | LianYunGang | 72.16666666666667    |
     +-------------+----------------------+
 
-### HAVING 子句
+### **HAVING 子句**
 
 #### 语法
 
@@ -2250,7 +2250,7 @@ HAVING avg_t > 70;
     | LianYunGang | 72.16666666666667 |
     +-------------+-------------------+
 
-### 复杂的分组操作
+### **复杂的分组操作**
 
 CnosDB 提供了 `ROLLUP`，`CUBE` 等复杂分组操作，使您能以不同的方式操作查询结果
 
@@ -2583,9 +2583,9 @@ GROUP BY CUBE (station, visibility);
 
 [//]: # (这充当结果集中的列占位符，表示全部。)
 
-## 聚合函数
+## **聚合函数**
 
-### 一般聚合函数
+### **一般聚合函数**
 
 ### COUNT
 
@@ -2845,7 +2845,7 @@ select mode(pressure) from air;
     | 69.0               |
     +--------------------+
 
-### 统计聚合函数
+### **统计聚合函数**
 
 ### VAR | VAR_SAMP
 
@@ -2949,7 +2949,7 @@ SELECT STDDEV_POP(temperature) FROM air;
 
 ----------------
 
-### **COVAR | COVAR_SAMP**
+### COVAR | COVAR_SAMP
 
 #### 语法
 
@@ -2975,7 +2975,7 @@ SELECT COVAR(temperature, pressure) FROM air;
 
 ----------------
 
-### **COVAR_POP**
+### COVAR_POP
 
 #### 语法
 
@@ -3027,7 +3027,7 @@ SELECT CORR(temperature, pressure) FROM air;
 
 ### **近似聚合函数**
 
-### **APPROX_DISTINCT**
+### APPROX_DISTINCT
 
 #### 语法
 
@@ -3053,7 +3053,7 @@ SELECT APPROX_DISTINCT(station) FROM air;
 
 ----------------
 
-### **APPROX_PERCENTILE_CONT**
+### APPROX_PERCENTILE_CONT
 
 #### 语法
 
@@ -3079,7 +3079,7 @@ SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 
 ----------------
 
-### **APPROX_PERCENTILE_CONT_WITH_WEIGHT**
+### APPROX_PERCENTILE_CONT_WITH_WEIGHT
 
 #### 语法
 
@@ -3107,7 +3107,7 @@ SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
 
 ----------------
 
-### **APPROX_MEDIAN**(NUMERICS)
+### APPROX_MEDIAN(NUMERICS)
 
 #### 语法
 
@@ -3143,7 +3143,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 [//]: # (**返回类型** BIGINT)
 
-### **SAMPLE**
+### SAMPLE
 
 #### 语法
 
@@ -3154,6 +3154,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 **参数类型**：
 
 - column_key：任意类型
+
 - N：整数类型
 
 **返回类型**：数组
@@ -3209,7 +3210,7 @@ select asap_smooth(time, pressure, 10) from air group by date_trunc('month', tim
     | {time: [2023-03-01T00:00:00, 2023-03-02T12:26:40, 2023-03-04T00:53:20, 2023-03-05T13:20:00, 2023-03-07T01:46:40, 2023-03-08T14:13:20, 2023-03-10T02:40:00, 2023-03-11T15:06:40, 2023-03-13T03:33:20, 2023-03-14T16:00:00], value: [65.29115853658537, 64.58307926829268, 64.7530487804878, 64.76753048780488, 65.14405487804878, 65.4298780487805, 65.1920731707317, 65.10365853658537, 64.86356707317073, 64.83841463414635], resolution: 10} |
     +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-## 两阶段聚合函数
+## **两阶段聚合函数**
 
 ### stats_agg
 
@@ -3950,7 +3951,7 @@ Struct {
 }
 ```
 
-**示例：**
+#### 示例
 
 ```sql
 alter database public set ttl '1000000d';
@@ -3985,7 +3986,7 @@ select candlestick_agg(time, price, volume) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```sql
 select close(candlestick_agg(time, price, volume)) from tick;
@@ -4005,7 +4006,7 @@ select close(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** Timestamp
 
-**示例：**
+#### 示例
 
 ```sql
 select close_time(candlestick_agg(time, price, volume)) from tick;
@@ -4025,7 +4026,7 @@ select close_time(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```
 select high(candlestick_agg(time, price, volume)) from tick;
@@ -4045,7 +4046,7 @@ select high(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```sql
 select high_time(candlestick_agg(time, price, volume)) from tick;
@@ -4065,7 +4066,7 @@ select high_time(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```sql
 select low(candlestick_agg(time, price, volume)) from tick;
@@ -4085,7 +4086,7 @@ select low(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** Timestamp
 
-**示例：**
+#### 示例
 
 ```sql
 select low_time(candlestick_agg(time, price, volume)) from tick;
@@ -4105,7 +4106,7 @@ select low_time(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```sql
 select open(candlestick_agg(time, price, volume)) from tick;
@@ -4125,7 +4126,7 @@ select open(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** Timestamp
 
-**示例：**
+#### 示例
 
 ```sql
 select open_time(candlestick_agg(time, price, volume)) from tick;
@@ -4145,7 +4146,7 @@ select open_time(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```sql
 select volume(candlestick_agg(time, price, volume)) from tick;
@@ -4165,7 +4166,7 @@ select volume(candlestick_agg(time, price, volume)) from tick;
 
 **返回值：** DOUBLE
 
-**示例：**
+#### 示例
 
 ```sql
 select vwap(candlestick_agg(time, price, volume)) from tick;
@@ -5609,7 +5610,7 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 
 ----------------
 
-### 时间函数
+### **时间函数**
 
 ### **date_part**
 
@@ -5933,9 +5934,9 @@ SELECT time_window(time, interval '5 day', interval '3 day') FROM test;
     | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00}                                                           |
     +------------------------------------------------------------------------------------------------------------------+
 
-### 窗口函数
+### **窗口函数**
 
-### 语法
+#### 语法
 
 ```sql
 function([...expr] ) OVER ([PARTITION BY expr] [ORDER BY expr] [window_frame]);
@@ -5952,7 +5953,7 @@ frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUN
 
 ```
 
-### 函数类型
+#### **函数类型**
 
 #### 排名函数
 
@@ -5980,15 +5981,15 @@ frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUN
 | LEAD      |
 | NTH_VALUE |
 
-### PARTITION BY 子句
+#### **PARTITION BY 子句**
 
 一个或多个表达式，用于指定一个行分区，如果没有该子句，则分区由所有行组成
 
-### ORDER BY 子句
+#### **ORDER BY 子句**
 
 指定行在分区中的顺序
 
-### window_frame 子句
+#### **window_frame 子句**
 
 frame 是当前分区的一个子集，在分区里进一步细分窗口
 
@@ -6007,7 +6008,7 @@ frame 是当前分区的一个子集，在分区里进一步细分窗口
 - 窗口函数只能出现在SELECT语句中。
 - 窗口函数中不能嵌套使用窗口函数和聚合函数。
 
-### 窗口函数列表
+## **窗口函数列表**
 
 包括[聚合函数](./sql.md#聚合函数)
 
@@ -6439,9 +6440,9 @@ FROM air;
     | XiaoMaiDao  | 79          | 62                                  |
     +-------------+-------------+-------------------------------------+
 
-## 高级函数
+## **高级函数**
 
-### 插值函数
+### **插值函数**
 
 在数据库中，插值是用于处理数据中缺失值的技术。当数据中存在缺失值时，这些技术可以帮助我们估计或推测这些缺失值，从而填补数据的空白部分。
 
@@ -6494,7 +6495,7 @@ interpolate(<expr>)
 locf(<expr>)
 ```
 
-**示例**
+#### 示例
 
 ```sql
 ---- 准备数据
@@ -6594,7 +6595,7 @@ group by t0, minute;
     | tag14 | 1999-12-31T00:00:00.050 | 222.0                 |
     +-------+-------------------------+-----------------------+
 
-## 系统视图
+## **系统视图**
 
 CnosDB 提供了系统视图用来查看集群状态和集群Schema信息。
 
@@ -6603,13 +6604,13 @@ CnosDB 提供了系统视图用来查看集群状态和集群Schema信息。
 - CLUSTER_SCHEMA 关于数据库集群
 - INFORMATION_SCHEMA 关于租户信息
 
-### CLUSTER_SCHEMA
+### **CLUSTER_SCHEMA**
 
 该数据库属于整个集群，只有管理员可以访问。
 
 数据库中包含有关集群的元数据信息，例如租户信息，用户信息。
 
-### TENANTS
+### **TENANTS**
 
 该视图可用于查询整个集群的所有租户信息。
 
@@ -6632,7 +6633,7 @@ SELECT * FROM cluster_schema.tenants;
     | cnosdb      | {"comment":"system tenant","limiter_config":null} |
     +-------------+---------------------------------------------------+
 
-### USERS
+### **USERS**
 
 #### 视图定义
 
@@ -6656,7 +6657,7 @@ SELECT * FROM cluster_schema.users;
     | root      | true     | {"password":"*****","must_change_password":true,"rsa_public_key":null,"comment":"system admin"} |
     +-----------+----------+-------------------------------------------------------------------------------------------------+
 
-### INFORMATION_SCHEMA
+### **INFORMATION_SCHEMA**
 
 该数据库属于某个租户，在创建Tenant时，自动创建该DB，对租户下的所有成员可见。
 
@@ -6909,7 +6910,7 @@ SHOW QUERIES;
     | 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 
-## USAGE_SCHEMA
+## **USAGE_SCHEMA**
 
 该数据库，属于某个租户，在创建Tenant时，自动创建该DB，对租户下的所有成员可见。
 
@@ -7184,13 +7185,13 @@ select * from usage_schema.writes order by time desc limit 2;
     | 2023-02-23T07:06:46.547673 | public   | 1001    | root | 2     |
     +----------------------------+----------+---------+------+-------+
 
-## 流
+## **流**
 
 ### 创建流表
 
 创建流表，需要一个表作为source表，流表暂不支持 ALTER
 
-**语法：**
+#### 语法
 
 ```sql
 CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
@@ -7207,7 +7208,8 @@ event_time_column 指定事件时间列，该列数据类型必须是 TIMESTAMP 
 
 目前仅支持普通表为source表，流表字段定义的字段名和字段类型必须是属于source表，且与source表定义相同
 
-**示例:**
+#### 示例
+
 创建 source 表
 
 ```sql
@@ -7298,7 +7300,7 @@ SELECT * FROM air_down_sampling_1hour LIMIT 10;
     | 2023-01-15T01:00:00 | XiaoMaiDao | 80.0         | 69.55           | 1391.0          | 20             |
     +---------------------+------------+--------------+-----------------+-----------------+----------------+
 
-## KILL QUERY
+## **KILL QUERY**
 
 ### 语法
 
