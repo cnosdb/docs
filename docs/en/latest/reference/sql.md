@@ -4442,19 +4442,9 @@ time_window(time_expr, window_duration [, slide_duration])
 ```
 `time_column` is Timestamp.
 
-`window_duration` is a STRING, parsed as an interval, specifying the window size of the time window.
+`window_duration` is an interval, specifying the window size of the time window.
 
-`slide_duration` is a STRING, which is resolved as an interval and specifies the sliding size of the time window. If this parameter is not specified, slide_duration is the sliding size of the time window and becomes a rolling window.
-
-The expression of time interval:
-
-| Format | Description | Example |
-|--------|-------------|---------|
-| 'd'    | day         | '10d'   |
-| 'h'    | hour        | '10h'   |
-| 'm'    | minute      | '10m'   |
-| 's'    | second      | '10s'   |
-| 'ms'   | millisecond | '10ms'  |
+`slide_duration` is an interval, and specifies the sliding size of the time window. If this parameter is not specified, `slide_duration` is the sliding size of the time window and becomes a rolling window.
 
 time_window(time, window_duration, slide_duration) the window is:
 
@@ -4475,6 +4465,7 @@ CREATE TABLE test(a BIGINT, TAGS(b));
 INSERT INTO test(time, a, b) VALUES ('2023-04-23T00:00:00.000000Z', 1, 'b');
 SELECT time FROM test;
 ```
+
     +---------------------+
     | time                |
     +---------------------+
@@ -4482,24 +4473,25 @@ SELECT time FROM test;
     +---------------------+
 
 ```sql
-SELECT time_window(time, '3d') FROM test;
+SELECT time_window(time, interval '3 day') FROM test;
 ```
-    +--------------------------------------------------------+
-    | TIME_WINDOW(test.time,Utf8("3d"))                      |
-    +--------------------------------------------------------+
-    | {start: 2023-04-23T00:00:00, end: 2023-04-26T00:00:00} |
-    +--------------------------------------------------------+
+
+    +---------------------------------------------------------------------+
+    | TIME_WINDOW(test.time,IntervalMonthDayNano("55340232221128654848")) |
+    +---------------------------------------------------------------------+
+    | {start: 2023-04-23T00:00:00, end: 2023-04-26T00:00:00}              |
+    +---------------------------------------------------------------------+
 
 ```sql
-SELECT time_window(time, '5d', '3d') FROM test;
+SELECT time_window(time, interval '5 day', interval '3 day') FROM test;
 ```
 
-    +--------------------------------------------------------+
-    | TIME_WINDOW(test.time,Utf8("5d"),Utf8("3d"))           |
-    +--------------------------------------------------------+
-    | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00} |
-    | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00} |
-    +--------------------------------------------------------+ 
+    +------------------------------------------------------------------------------------------------------------------+
+    | TIME_WINDOW(test.time,IntervalMonthDayNano("92233720368547758080"),IntervalMonthDayNano("55340232221128654848")) |
+    +------------------------------------------------------------------------------------------------------------------+
+    | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00}                                                           |
+    | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00}                                                           |
+    +------------------------------------------------------------------------------------------------------------------+
 
 ### Window Functions
 
