@@ -1,5 +1,5 @@
 ---
-title: Migration
+title: Node Migration
 order: 2
 ---
 

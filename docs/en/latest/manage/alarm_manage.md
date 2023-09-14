@@ -1,11 +1,13 @@
 ---
-title: Alarm Manage
+title: Alarm Management
 order: 6
 ---
 
 :::tip
 Only Enterprise Edition supports, Please contact [CC](../enterprise/README.md) to get the alarm plugin.
 :::
+
+# Alarm Management
 
 ### Introduction
 
