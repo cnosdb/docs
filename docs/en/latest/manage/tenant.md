@@ -15,7 +15,7 @@ CnosDB provides a tenant system and a user system.
 
 - Only a user who holds the role of owner under a tenant or a user with system permissions can add a role under a tenant and give a user a role.
 
-- CnosDB instance starts with a tenant 'cnosdb' and a user 'root' by default.
+- CnosDB instance starts with a tenant `cnosdb` and a user `root` by default.
 
 ## Tenant 
 

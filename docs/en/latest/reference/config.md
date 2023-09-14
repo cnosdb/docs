@@ -49,11 +49,11 @@ The detailed configuration file description is as follows:
 
 ## \[deployment]
 
-| Parameter    | Description                                                                                          |
-|--------------|------------------------------------------------------------------------------------------------------|
-| mode         | Deployment mode, select from ['tskv ',' query ',' query_tskv ',' singleton '], defalut: `query_tskv` |
-| cpu          | Specify the number of CPU cores required for the instance, default: 10                               |
-| memory       | line_protocol request, the maximum number of bytes in the request body, default: 16                  |
+| Parameter    | Description                                                                                     |
+|--------------|-------------------------------------------------------------------------------------------------|
+| mode         | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv` |
+| cpu          | Specify the number of CPU cores required for the instance, default: 10                          |
+| memory       | line_protocol request, the maximum number of bytes in the request body, default: 16             |
 
 Parameter **mode** can be selected from the following values:
 
