@@ -2295,7 +2295,7 @@ GROUP BY CUBE (station, visibility);
 [//]: # (    GROUPING&#40;column_expression&#41;)
 [//]: # (**说明**：GROUPING函数只能用于有GROUP BY 子句的表达式)
 [//]: # (当指定`GROUP BY`时，只能在 SELECT 列表、HAVING 和 ORDER BY 子句中使用 GROUPING。)
-[//]: # (**参数**： 只能是GROUP BY 子句中的表达式)
+[//]: # (**Parameter Type**:  只能是GROUP BY 子句中的表达式)
 [//]: # (```sql)
 [//]: # (SELECT origin_state,)
 [//]: # (origin_zip,)
@@ -2322,7 +2322,7 @@ GROUP BY CUBE (station, visibility);
 [//]: # (-- NULL         | NULL       | Colorado          |     5 |     6)
 [//]: # (-- &#40;10 rows&#41;)
 [//]: # (```)
-[//]: # (**注意**： GROUPING 用于区分 ROLLUP、CUBE 或 GROUPING SETS 返回的空值与标准空值。)
+[//]: # (**Notice**:  GROUPING 用于区分 ROLLUP、CUBE 或 GROUPING SETS 返回的空值与标准空值。)
 [//]: # (作为 ROLLUP、CUBE 或 GROUPING SETS 操作的结果返回的 NULL 是 NULL 的一种特殊用途。)
 [//]: # (这充当结果集中的列占位符，表示全部。)
 
@@ -2579,9 +2579,9 @@ select mode(pressure) from air;
 
 ----------------
 
-### **Statistical Aggregate Functions**
+### Statistical Aggregate Functions
 
-### **VAR | VAR_SAMP**
+### VAR | VAR_SAMP
 
 #### Syntax
 
@@ -2605,7 +2605,7 @@ SELECT VAR(temperature) FROM air;
     +---------------------------+
 ----------------
 
-### **VAR_POP**
+### VAR_POP
 
 #### Syntax
 
@@ -2629,7 +2629,7 @@ SELECT VAR_POP(temperature) FROM air;
     +------------------------------+
 ----------------
 
-### **STDDEV | STDDEV_SAMP**
+### STDDEV | STDDEV_SAMP
 
 #### Syntax
 
@@ -2654,7 +2654,7 @@ SELECT STDDEV(temperature) FROM air;
 
 ----------------
 
-### **STDDEV_POP**
+### STDDEV_POP
 
 #### Syntax
 
@@ -2677,7 +2677,7 @@ SELECT STDDEV_POP(temperature) FROM air;
     +----------------------------+
 ----------------
 
-### **COVAR | COVAR_SAMP**
+### COVAR | COVAR_SAMP
 
 #### Syntax
 
@@ -2704,7 +2704,7 @@ SELECT COVAR(temperature, pressure) FROM air;
 ----------------
 
 
-### **COVAR_POP**
+### COVAR_POP
 
 #### Syntax
 
@@ -2729,7 +2729,7 @@ SELECT COVAR_POP(temperature, pressure) FROM air;
 
 ----------------
 
-### **CORR**
+### CORR
 
 #### Syntax
 
@@ -2858,6 +2858,1045 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 [//]: # (**Function**： The function takes a single argument, which must be an expression for the dimension column specified in the expression list extended BY the ROLLUP, CUBE, or GROUPING SETS of the GROUP BY clause.)
 [//]: # (**Parameter Type**：VALUE TYPE)
 [//]: # (**Return Type** BIGINT)
+
+### **SAMPLE**
+
+#### Syntax
+
+    SAMPLE(<column_key>, <N>)
+
+**Function**:  Randomly select N records from the given column_key.
+
+**Parameter Type**: 
+
+- column_key: Any type
+- N: Int
+
+**Return Type**: Array
+
+**Example**: 
+
+```sql
+select sample(visibility, 5) from air;
+```
+
+    +--------------------------------------+
+    | sample(air.visibility,Int64(5))      |
+    +--------------------------------------+
+    | [65.0, 74.0, 76.0, 77.0, 72.0, 77.0] |
+    +--------------------------------------+
+
+### ASAP_SMOOTH
+
+    asap_smooth(time, value, resolution order by time)
+
+The ASAP smoothing algorithm aims to create human-readable graphs that preserve the coarse shape and larger trends of the input data while minimizing the local variance between points.
+Take the (Timestamp, value) pair, normalize them to the target time interval, and return the ASAP smooth value.
+
+**Parameter Type**: 
+
+- time: Timestamp
+
+- value: Double
+
+- resolution: Bigint, the approximate number of points to return ((Timestamp, value) pair), determines the horizontal resolution of the resulting plot.
+
+**Return Type**: TimeVector
+
+```
+Struct {
+  time: List[Timestamp], -- ms
+  value: List[Double],
+  resolution: Int Unsigned,
+}
+```
+
+**Example**: 
+
+```sql
+select asap_smooth(time, pressure, 10) from air group by date_trunc('month', time);
+```
+
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | asap_smooth(air.time,air.pressure,Int64(10))                                                                                                                                                                                                                                                                                                                                                                                                   |
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {time: [2023-01-14T16:00:00, 2023-01-16T14:13:00, 2023-01-18T12:26:00, 2023-01-20T10:39:00, 2023-01-22T08:52:00, 2023-01-24T07:05:00, 2023-01-26T05:18:00, 2023-01-28T03:31:00, 2023-01-30T01:44:00, 2023-01-31T23:57:00], value: [64.79507211538461, 65.31009615384616, 65.25841346153847, 64.8485576923077, 65.09495192307692, 65.02524038461539, 64.8389423076923, 65.2421875, 65.02103365384616, 65.1141826923077], resolution: 10}        |
+    | {time: [2023-02-01T00:00:00, 2023-02-04T02:39:40, 2023-02-07T05:19:20, 2023-02-10T07:59:00, 2023-02-13T10:38:40, 2023-02-16T13:18:20, 2023-02-19T15:58:00, 2023-02-22T18:37:40, 2023-02-25T21:17:20, 2023-02-28T23:57:00], value: [65.20982142857143, 64.90625, 64.94828869047619, 64.97916666666667, 64.88504464285714, 64.8203125, 64.64434523809524, 64.88802083333333, 65.0, 64.76004464285714], resolution: 10}                           |
+    | {time: [2023-03-01T00:00:00, 2023-03-02T12:26:40, 2023-03-04T00:53:20, 2023-03-05T13:20:00, 2023-03-07T01:46:40, 2023-03-08T14:13:20, 2023-03-10T02:40:00, 2023-03-11T15:06:40, 2023-03-13T03:33:20, 2023-03-14T16:00:00], value: [65.29115853658537, 64.58307926829268, 64.7530487804878, 64.76753048780488, 65.14405487804878, 65.4298780487805, 65.1920731707317, 65.10365853658537, 64.86356707317073, 64.83841463414635], resolution: 10} |
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+## Two-stage Aggregation Function
+
+### stats_agg
+
+Perform linear regression analysis on two-dimensional data, such as calculating correlation coefficients and covariances.
+Common statistics such as mean and standard deviation can also be calculated for each dimension separately.
+stats_agg provides the same functionality as aggregation functions such as sum, count, corr, covar_pop, and so on.
+Suitable for use with multiple analysis functions in a single SQL.
+
+
+**Notice**: Neither column is included in the aggregation if it is NULL.
+
+#### stats_agg
+
+    stats_agg(y, x)
+
+**Function**: Perform statistical aggregation.
+
+**Parameter Type**: 
+
+- y: double
+- x: double 
+
+**Return Type**: Struct as follows.
+
+```
+{ 
+  n: bigint,   -- count 
+  sx: double,  -- sum(x)- sum(x)
+  sx2: double, -- sum((x-sx/n)^2) (sum of squares)
+  sx3: double, -- sum((x-sx/n)^3)
+  sx4: double, -- sum((x-sx/n)^4)
+  sy: double,  -- sum(y)
+  sy2: double, -- sum((y-sy/n)^2) (sum of squares)
+  sy3: double, -- sum((y-sy/n)^3)
+  sy4: double, -- sum((y-sy/n)^4)
+  sxy: double, -- sum((x-sx/n)*(y-sy/n)) (sum of products) 
+}
+```
+
+**Example**: 
+
+```sql
+create table if not exists test_stats(x bigint, y bigint);
+alter database public set ttl '1000000d';
+insert into test_stats(time, x, y) values
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 2, 1),
+(7, 2, 2),
+(8, 2, 3),
+(9, 2, 4),
+(10, 2, 5);
+```
+
+```sql
+select stats_agg(y, x) from test_stats;
+```
+
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | stats_agg(test_stats.y,test_stats.x)                                                                                                                       |
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {n: 10, sx: 15.0, sx2: 2.5, sx3: -2.7755575615628914e-16, sx4: 0.6249999999999999, sy: 30.0, sy2: 20.0, sy3: -1.7763568394002505e-15, sy4: 68.0, sxy: 0.0} |
+    +------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### num_vals
+
+Calculate the number of data rows after two-dimensional statistical aggregation
+
+**Return Type**: BIGINT UNSIGNED
+
+```sql
+select num_vals(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------+
+    | num_vals(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------+
+    | 10                                             |
+    +------------------------------------------------+
+
+#### average_y, average_x
+
+Calculate the average of the specified dimensions after the aggregation of 2-D statistics.
+
+**Return Type**: Double
+
+```sql
+select average_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------+
+    | average_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------+
+    | 1.5                                             |
+    +-------------------------------------------------+
+
+#### sum_y, sum_x
+
+Calculate the sum of the specified dimensions after the two-dimensional statistical aggregation, and the method is `population`.
+
+**Return Type**: DOUBLE
+
+```sql
+select sum_x(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------+
+    | sum_x(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------+
+    | 15.0                                        |
+    +---------------------------------------------+
+
+#### stddev_samp_y, stddev_samp_x
+
+Calculate the standard deviation of the specified dimension after two-dimensional statistical aggregation, and the method is `sample`.
+
+**Return Type**: DOUBLE
+
+```sql
+select stddev_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-----------------------------------------------------+
+    | stddev_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-----------------------------------------------------+
+    | 0.5270462766947299                                  |
+    +-----------------------------------------------------+
+
+#### stddev_pop_y, stddev_pop_x
+
+Calculate the standard deviation of the specified dimension after the two-dimensional statistical aggregation, and the method is `population`.
+
+**Return Type**: DOUBLE
+
+```sql
+select stddev_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +----------------------------------------------------+
+    | stddev_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +----------------------------------------------------+
+    | 0.5                                                |
+    +----------------------------------------------------+
+
+#### var_samp_y, var_samp_x
+
+Calculate the variance of the specified dimension after aggregating the two-dimensional statistics, and the method is `sample`.
+
+**Return Type**: DOUBLE
+
+```sql
+select var_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +--------------------------------------------------+
+    | var_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +--------------------------------------------------+
+    | 0.2777777777777778                               |
+    +--------------------------------------------------+
+
+#### var_pop_y, var_pop_x
+
+Calculate the variance of the specified dimension after aggregating the two-dimensional statistics, and the method is `population`.
+
+**Return Type**: DOUBLE
+
+```sql
+select var_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------+
+    | var_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------+
+    | 0.25                                            |
+    +-------------------------------------------------+
+
+#### skewness_samp_y, skewness_samp_x
+
+Calculate the skewness value of the specified dimension after two-dimensional statistical aggregation, and the method is `sample`.
+
+**Return Type**: DOUBLE
+
+```sql
+select skewness_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------------+
+    | skewness_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------------+
+    | -2.1065000811460203e-16                               |
+    +-------------------------------------------------------+
+
+#### skewness_pop_y, skewness_pop_x
+
+Calculate the skewness value of the specified dimension after the two-dimensional statistical aggregation, and the method is `population`.
+
+**Return Type**: DOUBLE
+
+```sql
+select skewness_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------------+
+    | skewness_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------------+
+    | -2.220446049250313e-16                               |
+    +------------------------------------------------------+
+
+#### kurtosis_samp_y, kurtosis_samp_x
+
+Calculate the kurtosis value of the specified dimension after two-dimensional statistical aggregation, and the method is `sample`.
+
+**Return Type**: DOUBLE
+
+```sql
+select kurtosis_samp_x(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------------+
+    | kurtosis_samp_x(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------------+
+    | 0.8999999999999998                                    |
+    +-------------------------------------------------------+
+
+#### kurtosis_pop_y, kurtosis_pop_x
+
+Calculate the kurtosis value of the specified dimension after two-dimensional statistical aggregation, and the method is `population`.
+
+**Return Type**: DOUBLE
+
+```sql
+select kurtosis_pop_x(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------------+
+    | kurtosis_pop_x(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------------+
+    | 0.9999999999999998                                   |
+    +------------------------------------------------------+
+
+#### correlation
+
+The correlation after aggregation of two-dimensional statistics is calculated.
+
+**Return Type**: DOUBLE
+
+```sql
+select correlation(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------------+
+    | correlation(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------------+
+    | 0.0                                               |
+    +---------------------------------------------------+
+
+#### covariance_samp, covariance_pop
+
+The covariance after aggregation of 2-D statistics is calculated.
+
+**Return Type**: DOUBLE
+
+```sql
+select covariance_samp(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------------+
+    | covariance_samp(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------------+
+    | 0.0                                                   |
+    +-------------------------------------------------------+
+
+```sql
+select covariance_pop(stats_agg(y, x)) from test_stats;
+```
+
+    +------------------------------------------------------+
+    | covariance_pop(stats_agg(test_stats.y,test_stats.x)) |
+    +------------------------------------------------------+
+    | 0.0                                                  |
+    +------------------------------------------------------+
+
+#### determination_coeff
+
+The coefficient of determination after 2D statistical aggregation is calculated.
+
+**Return Type**: DOUBLE
+
+```sql
+select determination_coeff(stats_agg(y, x)) from test_stats;
+```
+
+    +-----------------------------------------------------------+
+    | determination_coeff(stats_agg(test_stats.y,test_stats.x)) |
+    +-----------------------------------------------------------+
+    | 0.0                                                       |
+    +-----------------------------------------------------------+
+
+#### slope
+
+Based on the 2-D statistical aggregation, the slope of the linear fitting line is calculated.
+
+**Return Type**: DOUBLE
+
+```sql
+select slope(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------+
+    | slope(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------+
+    | 0.0                                         |
+    +---------------------------------------------+
+
+#### intercept
+
+Calculate the intercept of y after 2D statistical aggregation.
+
+**Return Type**: DOUBLE
+
+```sql
+select intercept(stats_agg(y, x)) from test_stats;
+```
+
+    +-------------------------------------------------+
+    | intercept(stats_agg(test_stats.y,test_stats.x)) |
+    +-------------------------------------------------+
+    | 3.0                                             |
+    +-------------------------------------------------+
+
+#### x_intercept
+
+Calculate the intercept of x after two-dimensional statistical aggregation.
+
+**Return Type**: DOUBLE
+
+```sql
+select x_intercept(stats_agg(y, x)) from test_stats;
+```
+
+    +---------------------------------------------------+
+    | x_intercept(stats_agg(test_stats.y,test_stats.x)) |
+    +---------------------------------------------------+
+    | -inf                                              |
+    +---------------------------------------------------+
+
+### gauge_agg
+
+Analyze Gauge data. Unlike Counter, Gauge can be decreased or increased.
+
+#### gauge_agg
+
+    gauge_agg(time, value)
+
+This is the first step in analyzing the Gauge data. Create intermediate aggregates using gauge_agg,
+The other functions then use the intermediate aggregated data for their calculations.
+
+**Parameter Type**: 
+
+- time: Timestamp
+
+- value: DOUBLE
+
+**Return Type**: 
+
+```
+Struct {
+  first: Struct { 
+    ts: Timestamp,
+    value: Double
+  },
+  second: Struct { 
+    ts: Timestamp,
+    value: Double
+  }, 
+  penultimate: Struct {
+    ts: Timestamp, 
+    val: Double
+  }, 
+  last: Struct {
+    ts: Timestamp, 
+    val: Double
+  }, 
+  num_elements: Bigint Unsingned 
+}
+```
+
+**Example**: ：
+
+```sql
+select gauge_agg(time, pressure) from air group by date_trunc('month', time);
+```
+
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | gauge_agg(air.time,air.pressure)                                                                                                                                                                                |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {first: {ts: 2023-03-01T00:00:00, val: 54.0}, second: {ts: 2023-03-01T00:00:00, val: 59.0}, penultimate: {ts: 2023-03-14T16:00:00, val: 55.0}, last: {ts: 2023-03-14T16:00:00, val: 80.0}, num_elements: 13122} |
+    | {first: {ts: 2023-01-14T16:00:00, val: 63.0}, second: {ts: 2023-01-14T16:00:00, val: 68.0}, penultimate: {ts: 2023-01-31T23:57:00, val: 77.0}, last: {ts: 2023-01-31T23:57:00, val: 54.0}, num_elements: 16640} |
+    | {first: {ts: 2023-02-01T00:00:00, val: 54.0}, second: {ts: 2023-02-01T00:00:00, val: 60.0}, penultimate: {ts: 2023-02-28T23:57:00, val: 74.0}, last: {ts: 2023-02-28T23:57:00, val: 59.0}, num_elements: 26880} |
+    +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### delta
+
+Get Gauge changes over a period of time. This is simply increment, calculated by subtracting the last value seen from the first value.
+
+**Return Type**: Double
+
+```sql
+select delta(gauge_agg(time, pressure)) from air group by date_trunc('month', time);
+```
+
+    +-----------------------------------------+
+    | delta(gauge_agg(air.time,air.pressure)) |
+    +-----------------------------------------+
+    | 26.0                                    |
+    | -9.0                                    |
+    | 5.0                                     |
+    +-----------------------------------------+
+
+#### time_delta
+
+Get the duration, the time of the last Gauge minus the time of the first Gauge.
+
+**Return Type**: INTERVAL
+
+```sql
+select time_delta(gauge_agg(time, pressure)) from air group by date_trunc('month', time);
+```
+
+    +----------------------------------------------------------+
+    | time_delta(gauge_agg(air.time,air.pressure))             |
+    +----------------------------------------------------------+
+    | 0 years 0 mons 13 days 16 hours 0 mins 0.000000000 secs  |
+    | 0 years 0 mons 17 days 7 hours 57 mins 0.000000000 secs  |
+    | 0 years 0 mons 27 days 23 hours 57 mins 0.000000000 secs |
+    +----------------------------------------------------------+
+
+#### rate
+
+Calculate the ratio of Gauge change and time change.
+
+**Return Type**: Double
+
+Unit:
+
+When the time unit is ns, the ratio unit is /ns,
+
+When the time unit is ms, the ratio unit is /ms
+
+When the time unit is s, the ratio unit is /s
+
+```sql
+select rate(gauge_agg(time, pressure)) from air group by date_trunc('month', time);
+```
+
+    +----------------------------------------+
+    | rate(gauge_agg(air.time,air.pressure)) |
+    +----------------------------------------+
+    | 2.2018970189701897e-14                 |
+    | 9.349414325974008e-15                  |
+    | -4.133905465849807e-16                 |
+    +----------------------------------------+
+
+### compact_state_agg
+
+Given a system or a value that switches between discrete states,
+
+Sum up the time taken for each state.
+
+For example, you can use the compact_state_agg function to keep track of the system.
+
+Time spent in the error, running, or start state.
+
+compact_state_agg is designed to handle a relatively small number of states. It may not perform well on datasets with too many states between rows.
+
+If you need to track the time to enter and exit each state, use the state_agg function.
+
+If you need to track the activity of your system based on heartbeat signals, consider using the heartbeat_agg function.
+
+#### compact_state_agg
+
+    compact_state_agg(ts, state)
+
+The time spent in each state is counted and aggregated into the StateAggData type.
+
+**Parameter Type**: 
+-ts: Timestamp
+
+-state: Any
+
+**Return Type**: StateAggData type
+
+```
+Struct {
+    state_duration: List[
+        Struct{
+          state: any,
+          interval: duration
+        },
+        ...
+    ]
+    state_periods: List[
+        Struct(
+            state: any,
+            periods: List[
+                Struct {
+                  start_time: timestamp, 
+                  end_time: timestamp
+                },
+                ...
+            ]
+        ),
+        ......
+    ]
+}
+
+```
+
+**Example**: 
+
+```sql
+alter database public set ttl '1000000d';
+
+create table if not exists states(state STRING);
+
+insert into states values
+('2020-01-01 10:00:00', 'starting'),
+('2020-01-01 10:30:00', 'running'),
+('2020-01-03 16:00:00', 'error'),
+('2020-01-03 18:30:00', 'starting'),
+('2020-01-03 19:30:00', 'running'),
+('2020-01-05 12:00:00', 'stopping');
+```
+
+```sql
+select compact_state_agg(time, state) from states;
+```
+
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | compact_state_agg(states.time,states.state)                                                                                                                                                                                                                                                                                                                                          |
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {state_duration: [{state: running, duration: 0 years 0 mons 3 days 22 hours 0 mins 0.000000000 secs}, {state: error, duration: 0 years 0 mons 0 days 2 hours 30 mins 0.000000000 secs}, {state: starting, duration: 0 years 0 mons 0 days 1 hours 30 mins 0.000000000 secs}, {state: stopping, duration: 0 years 0 mons 0 days 0 hours 0 mins 0.000000000 secs}], state_periods: []} |
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### duration_in
+
+    duration_in(state_agg_data, state [,begin_time, interval_time]) 
+
+Count the duration of a state, or count the duration of a state in a certain period of time.
+
+**Parameter Type**: 
+
+- state_agg_data: StateAggData
+
+- state: any The same type of state as in compact_state_agg.
+
+- begin_time: This is optional and specifies the start time of the period.
+
+- interval_time: This is optional and specifies the duration of the time interval or infinity if not specified.
+
+**Return Type**: INTERVAL 类型
+
+**Example**: 
+
+```sql
+select duration_in(compact_state_agg(time, state), 'running') from states;
+```
+
+    +--------------------------------------------------------------------------+
+    | duration_in(compact_state_agg(states.time,states.state),Utf8("running")) |
+    +--------------------------------------------------------------------------+
+    | 0 years 0 mons 3 days 22 hours 0 mins 0.000000000 secs                   |
+    +--------------------------------------------------------------------------+
+
+### state_agg
+
+Given a system or value that switches between discrete states, the transitions between states are tracked.
+
+#### state_agg
+
+    state_agg(ts, state)
+
+The time spent in each state is counted, and aggregated into the StateAggData type.
+
+```sql
+alter database public set ttl '1000000d';
+
+create table if not exists states(state STRING);
+
+insert into states values
+('2020-01-01 10:00:00', 'starting'),
+('2020-01-01 10:30:00', 'running'),
+('2020-01-03 16:00:00', 'error'),
+('2020-01-03 18:30:00', 'starting'),
+('2020-01-03 19:30:00', 'running'),
+('2020-01-05 12:00:00', 'stopping');
+```
+
+```sql
+select state_agg(time, state) from states;
+```
+
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | state_agg(states.time,states.state)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {state_duration: [{state: starting, duration: 0 years 0 mons 0 days 1 hours 30 mins 0.000000000 secs}, {state: running, duration: 0 years 0 mons 3 days 22 hours 0 mins 0.000000000 secs}, {state: stopping, duration: 0 years 0 mons 0 days 0 hours 0 mins 0.000000000 secs}, {state: error, duration: 0 years 0 mons 0 days 2 hours 30 mins 0.000000000 secs}], state_periods: [{state: starting, periods: [{start_time: 2020-01-01T10:00:00, end_time: 2020-01-01T10:30:00}, {start_time: 2020-01-03T18:30:00, end_time: 2020-01-03T19:30:00}]}, {state: error, periods: [{start_time: 2020-01-03T16:00:00, end_time: 2020-01-03T18:30:00}]}, {state: running, periods: [{start_time: 2020-01-01T10:30:00, end_time: 2020-01-03T16:00:00}, {start_time: 2020-01-03T19:30:00, end_time: 2020-01-05T12:00:00}]}]} |
+    +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### duration_in
+
+    duration_in(state_agg_data, state [,begin_time, interval_time]) 
+
+Count the duration of a state, or count the duration of a state in a certain period of time.
+
+**Parameter Type**: 
+
+- state_agg_data: StateAggData
+
+- state: any is the same type as the state of compact_state_agg.
+
+- begin_time: This is optional and specifies the start time of the period.
+
+- interval_time: This is optional; it specifies the duration of the time interval or infinity if not specified.
+
+**Return Type**: INTERVAL 
+
+**Example**: 
+
+Count the time of 'running' status.
+
+```sql
+select duration_in(state_agg(time, state), 'running') from states;
+```
+
+    +------------------------------------------------------------------+
+    | duration_in(state_agg(states.time,states.state),Utf8("running")) |
+    +------------------------------------------------------------------+
+    | 0 years 0 mons 3 days 22 hours 0 mins 0.000000000 secs           |
+    +------------------------------------------------------------------+
+
+Count the duration of the 'running' state starting 2020-01-01 11:00:00.
+
+```sql
+select duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00') 
+from states;
+```
+
+    +----------------------------------------------------------------------------------------------+
+    | duration_in(state_agg(states.time,states.state),Utf8("running"),Utf8("2020-01-01 11:00:00")) |
+    +----------------------------------------------------------------------------------------------+
+    | 0 years 0 mons 3 days 21 hours 30 mins 0.000000000 secs                                      |
+    +----------------------------------------------------------------------------------------------+
+
+Count the duration of the 'running' state for four days starting on 2020-01-01 11:00:00.
+
+```sql
+select duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00', interval '4 day')
+from states;
+```
+
+    +-------------------------------------------------------------------------------------------------------------------------------------------+
+    | duration_in(state_agg(states.time,states.state),Utf8("running"),Utf8("2020-01-01 11:00:00"),IntervalMonthDayNano("73786976294838206464")) |
+    +-------------------------------------------------------------------------------------------------------------------------------------------+
+    | 0 years 0 mons 3 days 20 hours 30 mins 0.000000000 secs                                                                                   |
+    +-------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### state_at
+
+    state_at(state_agg_data, ts)
+
+Count the state you are in at a certain time.
+
+**Parameter Type**: 
+
+- state_agg_data: StateAggData
+
+- ts: Timestamp
+
+**Return Type**: any, the same type as the state of compact_state_agg.
+
+```sql
+select state_at(state_agg(time, state), Timestamp '2020-01-01 10:30:00') from states;
+```
+
+    +---------------------------------------------------------------------------+
+    | state_at(state_agg(states.time,states.state),Utf8("2020-01-01 10:30:00")) |
+    +---------------------------------------------------------------------------+
+    | running                                                                   |
+    +---------------------------------------------------------------------------+
+
+### candlestick_agg
+
+Perform financial asset data analysis. This feature makes it easier to write financial analysis queries involving candlestick.
+
+candlestick_agg gets the open and close price of the stock and the high price.
+
+candlestick_agg generates intermediate aggregate data CandleStackData from raw quote data,
+
+You can then use access and summary functions for this intermediate aggregate data.
+
+#### candlestick_agg
+
+    candlestick_agg(time, price, volume)
+
+Generate intermediate aggregate data CandleStackData from the original quote query.
+
+**Parameter Type**: 
+
+- time: Timestamp
+
+- price: Double 
+
+- volume: Double 
+
+**Return Type**: CandleStackData
+
+```
+Struct {
+  open: Struct {
+    ts:  Timestamp,
+    val: Double, 
+  },
+  close: Struct {
+    ts: Timestamp,
+    val: Double,
+  },   
+  high: Struct {
+    ts: Timestamp,
+    val: Double,
+  },
+  low: Struct {
+    ts: Timestamp,
+    val: Double
+  },
+  volume: Struct {
+    vol: Double,
+    vwap: Double,
+  }
+}
+```
+
+**Example**: 
+
+```sql
+alter database public set ttl '1000000d';
+create table if not exists tick(price bigint ,volume bigint);
+insert tick(time, price, volume)
+values
+    ('1999-12-31 00:00:00.000', 111, 444),
+    ('1999-12-31 00:00:00.005', 222, 444),
+    ('1999-12-31 00:00:00.010', 333, 222),
+    ('1999-12-31 00:00:10.015', 444, 111),
+    ('1999-12-31 00:00:10.020', 222, 555),
+    ('1999-12-31 00:10:00.025', 333, 555),
+    ('1999-12-31 00:10:00.030', 444, 333),
+    ('1999-12-31 01:00:00.035', 555, 222);
+```
+
+```sql
+select candlestick_agg(time, price, volume) from tick;
+```
+
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | candlestick_agg(tick.time,tick.price,tick.volume)                                                                                                                                                                                   |
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | {open: {ts: 1999-12-31T00:00:00, val: 111.0}, close: {ts: 1999-12-31T01:00:00.035, val: 555.0}, low: {ts: 1999-12-31T00:00:00, val: 111.0}, high: {ts: 1999-12-31T01:00:00.035, val: 555.0}, volume: {vol: 2886.0, vwap: 850149.0}} |
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#### close
+
+    close(candlestick_agg_data)
+
+Get the closing price.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```sql
+select close(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +----------------------------------------------------------+
+    | close(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +----------------------------------------------------------+
+    | 555.0                                                    |
+    +----------------------------------------------------------+
+
+#### close_time
+
+    close_time(candlestick_agg_data)
+
+Get the closing time.
+
+**Return Type**: Timestamp
+
+**Example**: 
+
+```sql
+select close_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------------+
+    | close_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------------+
+    | 1999-12-31T01:00:00.035                                       |
+    +---------------------------------------------------------------+
+
+#### high
+
+    high(candlestick_agg_data)
+
+Get the highest price.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```
+select high(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------+
+    | high(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------+
+    | 555.0                                                   |
+    +---------------------------------------------------------+
+
+#### high_time
+
+    high_time(candlestick_agg_data)
+
+Get the time of the highest price.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```sql
+select high_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +--------------------------------------------------------------+
+    | high_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +--------------------------------------------------------------+
+    | 1999-12-31T01:00:00.035                                      |
+    +--------------------------------------------------------------+
+
+#### low
+
+    low(candlestick_agg_data)
+
+Get the lowest price.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```sql
+select low(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +--------------------------------------------------------+
+    | low(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +--------------------------------------------------------+
+    | 111.0                                                  |
+    +--------------------------------------------------------+
+
+#### low_time
+
+    low_time(candlestick_agg_data)
+
+Get the time of the lowest price.
+
+**Return Type**: Timestamp
+
+**Example**: 
+
+```sql
+select low_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +-------------------------------------------------------------+
+    | low_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +-------------------------------------------------------------+
+    | 1999-12-31T00:00:00                                         |
+    +-------------------------------------------------------------+
+
+#### open
+
+    open(candlestick_agg_data)
+
+Get the opening price.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```sql
+select open(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------+
+    | open(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------+
+    | 111.0                                                   |
+    +---------------------------------------------------------+
+
+#### open_time
+
+    open_time(candlestick_agg_data)
+
+Get the time of the opening price.
+
+**Return Type**: Timestamp
+
+**Example**: 
+
+```sql
+select open_time(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +--------------------------------------------------------------+
+    | open_time(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +--------------------------------------------------------------+
+    | 1999-12-31T00:00:00                                          |
+    +--------------------------------------------------------------+
+
+#### volume
+
+    volume(candlestick_agg_data)
+
+Get the total volume.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```sql
+select volume(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +-----------------------------------------------------------+
+    | volume(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +-----------------------------------------------------------+
+    | 2886.0                                                    |
+    +-----------------------------------------------------------+
+
+#### vwap
+
+    vwap(candlestick_agg_data)
+
+Get the volume weighted average price.
+
+**Return Type**: DOUBLE
+
+**Example**: 
+
+```sql
+select vwap(candlestick_agg(time, price, volume)) from tick;
+```
+
+    +---------------------------------------------------------+
+    | vwap(candlestick_agg(tick.time,tick.price,tick.volume)) |
+    +---------------------------------------------------------+
+    | 294.5769230769231                                       |
+    +---------------------------------------------------------+
+
 
 ## Functions
 

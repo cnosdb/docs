@@ -2992,7 +2992,7 @@ SELECT COVAR_POP(temperature, pressure) FROM air;
 
 ----------------
 
-### **CORR**
+### CORR
 
 #### 语法
 
@@ -3139,7 +3139,7 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
     SAMPLE(<column_key>, <N>)
 
-**功能**： 从给定的列 column_key 中随机选择 N 条记录
+**功能**： 从给定的列 column_key 中随机选择 N 条记录。
 
 **参数类型**：
 
@@ -3169,11 +3169,11 @@ ASAP smoothing算法旨在创建人类可读的图形，保留输入数据的粗
 
 **参数：**
 
-time: Timestamp
+- time: Timestamp
 
-value: Double
+- value: Double
 
-resolution: Bigint ，要返回的大概点数（ (Timestamp, valuei) 对），确定结果图的水平分辨率。
+- resolution: Bigint ，要返回的大概点数（ (Timestamp, value) 对），确定结果图的水平分辨率。
 
 **返回值：** TimeVector
 
@@ -3214,7 +3214,7 @@ stats_agg 提供了与sum, count, corr, covar_pop 等聚合函数相同的功能
 
     stats_agg(y, x)
 
-**功能**：进行统计聚合
+**功能**：进行统计聚合。
 
 **参数类型**：
 
@@ -3268,7 +3268,7 @@ select stats_agg(y, x) from test_stats;
 
 #### num_vals
 
-计算二维统计聚合后的数据行数
+计算二维统计聚合后的数据行数。
 
 **返回类型**：BIGINT UNSIGNED
 
@@ -3284,7 +3284,7 @@ select num_vals(stats_agg(y, x)) from test_stats;
 
 #### average_y, average_x
 
-计算二维统计聚合后指定维度的平均值
+计算二维统计聚合后指定维度的平均值。
 
 **返回类型**：DOUBLE
 
@@ -3300,7 +3300,7 @@ select average_x(stats_agg(y, x)) from test_stats;
 
 #### sum_y, sum_x
 
-计算二维统计聚合后指定维度的和，方式为 population
+计算二维统计聚合后指定维度的和，方式为 population。
 
 **返回类型**：DOUBLE
 
@@ -3316,7 +3316,7 @@ select sum_x(stats_agg(y, x)) from test_stats;
 
 #### stddev_samp_y, stddev_samp_x
 
-计算二维统计聚合后指定维度的标准差，方式为 sample
+计算二维统计聚合后指定维度的标准差，方式为 sample。
 
 **返回类型**：DOUBLE
 
@@ -3332,7 +3332,7 @@ select stddev_samp_x(stats_agg(y, x)) from test_stats;
 
 #### stddev_pop_y, stddev_pop_x
 
-计算二维统计聚合后指定维度的标准差，方式为 population
+计算二维统计聚合后指定维度的标准差，方式为 population。
 
 **返回类型**：DOUBLE
 
@@ -3348,7 +3348,7 @@ select stddev_pop_x(stats_agg(y, x)) from test_stats;
 
 #### var_samp_y, var_samp_x
 
-计算二维统计聚合后指定维度的方差，方式为 sample
+计算二维统计聚合后指定维度的方差，方式为 sample。
 
 **返回类型**：DOUBLE
 
@@ -3364,7 +3364,7 @@ select var_samp_x(stats_agg(y, x)) from test_stats;
 
 #### var_pop_y, var_pop_x
 
-计算二维统计聚合后指定维度的方差，方式为 population
+计算二维统计聚合后指定维度的方差，方式为 population。
 
 **返回类型**：DOUBLE
 
@@ -3380,7 +3380,7 @@ select var_pop_x(stats_agg(y, x)) from test_stats;
 
 #### skewness_samp_y, skewness_samp_x
 
-计算二维统计聚合后指定维度的偏度值，方式为 sample
+计算二维统计聚合后指定维度的偏度值，方式为 sample。
 
 **返回类型**：DOUBLE
 
@@ -3396,7 +3396,7 @@ select skewness_samp_x(stats_agg(y, x)) from test_stats;
 
 #### skewness_pop_y, skewness_pop_x
 
-计算二维统计聚合后指定维度的偏度值，方式为 population
+计算二维统计聚合后指定维度的偏度值，方式为 population。
 
 **返回类型**：DOUBLE
 
@@ -3412,7 +3412,7 @@ select skewness_pop_x(stats_agg(y, x)) from test_stats;
 
 #### kurtosis_samp_y, kurtosis_samp_x
 
-计算二维统计聚合后指定维度的峰度值，方式为 sample
+计算二维统计聚合后指定维度的峰度值，方式为 sample。
 
 **返回类型**：DOUBLE
 
@@ -3428,7 +3428,7 @@ select kurtosis_samp_x(stats_agg(y, x)) from test_stats;
 
 #### kurtosis_pop_y, kurtosis_pop_x
 
-计算二维统计聚合后指定维度的峰度值，方式为 population
+计算二维统计聚合后指定维度的峰度值，方式为 population。
 
 **返回类型**：DOUBLE
 
@@ -3444,7 +3444,7 @@ select kurtosis_pop_x(stats_agg(y, x)) from test_stats;
 
 #### correlation
 
-计算二维统计聚合后的相关
+计算二维统计聚合后的相关。
 
 **返回类型**：DOUBLE
 
@@ -3460,7 +3460,7 @@ select correlation(stats_agg(y, x)) from test_stats;
 
 #### covariance_samp, covariance_pop
 
-计算二维统计聚合后的协方差
+计算二维统计聚合后的协方差。
 
 **返回类型**：DOUBLE
 
@@ -3486,7 +3486,7 @@ select covariance_pop(stats_agg(y, x)) from test_stats;
 
 #### determination_coeff
 
-计算二维统计聚合后的决定系数
+计算二维统计聚合后的决定系数。
 
 **返回类型**：DOUBLE
 
@@ -3502,7 +3502,7 @@ select determination_coeff(stats_agg(y, x)) from test_stats;
 
 #### slope
 
-根据二维统计聚合，计算线性拟合线的斜率
+根据二维统计聚合，计算线性拟合线的斜率。
 
 **返回类型**：DOUBLE
 
@@ -3518,7 +3518,7 @@ select slope(stats_agg(y, x)) from test_stats;
 
 #### intercept
 
-计算二维统计聚合后y的截距
+计算二维统计聚合后y的截距。
 
 **返回类型**：DOUBLE
 
@@ -3534,7 +3534,7 @@ select intercept(stats_agg(y, x)) from test_stats;
 
 #### x_intercept
 
-计算二维统计聚合后x的截距
+计算二维统计聚合后x的截距。
 
 **返回类型**：DOUBLE
 
@@ -3561,9 +3561,9 @@ select x_intercept(stats_agg(y, x)) from test_stats;
 
 **参数**：
 
-time: Timestamp
+- time: Timestamp
 
-value: DOUBLE
+- value: DOUBLE
 
 **返回值**：
 
@@ -3623,7 +3623,7 @@ select delta(gauge_agg(time, pressure)) from air group by date_trunc('month', ti
 
 #### time_delta
 
-获取持续时间，最后一个Gauge的时间减去第一个Gauge的时间
+获取持续时间，最后一个Gauge的时间减去第一个Gauge的时间。
 
 **返回值**： INTERVAL
 
@@ -3747,17 +3747,17 @@ select compact_state_agg(time, state) from states;
 
     duration_in(state_agg_data, state [,begin_time, interval_time]) 
 
-统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间
+统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间。
 
 **参数**：
 
 state_agg_data: StateAggData
 
-state: any 与compact_state_agg 的state类型相同
+state: any 与compact_state_agg 的state类型相同。
 
-begin_time: 可选，指定时间段内的开始时间
+begin_time: 可选，指定时间段内的开始时间。
 
-interval_time: 可选，指定时间段的持续时间，不指定时 时间段为无穷大
+interval_time: 可选，指定时间段的持续时间，不指定时，时间段为无穷大。
 
 **返回值**： INTERVAL 类型
 
@@ -3811,22 +3811,23 @@ select state_agg(time, state) from states;
 
     duration_in(state_agg_data, state [,begin_time, interval_time]) 
 
-统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间
+统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间。
 
 **参数**：
 
 state_agg_data: StateAggData
 
-state: any 与compact_state_agg 的state类型相同
+state: any 与compact_state_agg 的state类型相同。
 
-begin_time: 可选，指定时间段内的开始时间
+begin_time: 可选，指定时间段内的开始时间。
 
-interval_time: 可选，指定时间段的持续时间，不指定时 时间段为无穷大
+interval_time: 可选，指定时间段的持续时间，不指定时，时间段为无穷大。
 
 **返回值**： INTERVAL 类型
 
 **示例**：
-统计 'running' 状态的持续时间
+
+统计 'running' 状态的持续时间。
 
 ```sql
 select duration_in(state_agg(time, state), 'running') from states;
@@ -3838,7 +3839,7 @@ select duration_in(state_agg(time, state), 'running') from states;
     | 0 years 0 mons 3 days 22 hours 0 mins 0.000000000 secs           |
     +------------------------------------------------------------------+
 
-统计 从2020-01-01 11:00:00 开始 'running' 状态的持续时间
+统计 从2020-01-01 11:00:00 开始 'running' 状态的持续时间。
 
 ```sql
 select duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00') 
@@ -3851,7 +3852,7 @@ from states;
     | 0 years 0 mons 3 days 21 hours 30 mins 0.000000000 secs                                      |
     +----------------------------------------------------------------------------------------------+
 
-统计 从2020-01-01 11:00:00 开始的四天内 'running' 状态的持续时间
+统计 从2020-01-01 11:00:00 开始的四天内 'running' 状态的持续时间。
 
 ```sql
 select duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00', interval '4 day')
@@ -3868,15 +3869,15 @@ from states;
 
     state_at(state_agg_data, ts)
 
-统计某一时刻所处的状态
+统计某一时刻所处的状态。
 
 **参数**：
 
-state_agg_data: StateAggData
+- state_agg_data: StateAggData
 
-ts: Timestamp
+- ts: Timestamp
 
-**返回值**： any 类型，与state_agg_data 统计的状态类型相同
+**返回值**： any 类型，与state_agg_data 统计的状态类型相同。
 
 ```sql
 select state_at(state_agg(time, state), Timestamp '2020-01-01 10:30:00') from states;
@@ -3892,7 +3893,7 @@ select state_at(state_agg(time, state), Timestamp '2020-01-01 10:30:00') from st
 
 进行金融资产数据分析。该功能使编写涉及 candlestick 财务分析查询变得更容易。
 
-candlestick_agg 能得到股票的开盘价和收盘价，何时最高价
+candlestick_agg 能得到股票的开盘价和收盘价，何时最高价。
 
 candlestick_agg 从原始报价数据生成中间聚合数据CandleStackData ，
 
@@ -3906,11 +3907,11 @@ candlestick_agg 从原始报价数据生成中间聚合数据CandleStackData ，
 
 **参数：**
 
-time: Timestamp
+- time: Timestamp
 
-price: Double 价格
+- price: Double 价格
 
-volume: Double 交易量
+- volume: Double 交易量
 
 **返回值：** CandleStackData
 
@@ -3970,7 +3971,7 @@ select candlestick_agg(time, price, volume) from tick;
 
     close(candlestick_agg_data)
 
-获取收盘价
+获取收盘价。
 
 **返回值：** DOUBLE
 
@@ -3990,7 +3991,7 @@ select close(candlestick_agg(time, price, volume)) from tick;
 
     close_time(candlestick_agg_data)
 
-获取收盘时间
+获取收盘时间。
 
 **返回值：** Timestamp
 
@@ -4010,7 +4011,7 @@ select close_time(candlestick_agg(time, price, volume)) from tick;
 
     high(candlestick_agg_data)
 
-获取最高价
+获取最高价。
 
 **返回值：** DOUBLE
 
@@ -4030,7 +4031,7 @@ select high(candlestick_agg(time, price, volume)) from tick;
 
     high_time(candlestick_agg_data)
 
-获取最高价所在的时间
+获取最高价所在的时间。
 
 **返回值：** DOUBLE
 
@@ -4050,7 +4051,7 @@ select high_time(candlestick_agg(time, price, volume)) from tick;
 
     low(candlestick_agg_data)
 
-获取最低价
+获取最低价。
 
 **返回值：** DOUBLE
 
@@ -4070,7 +4071,7 @@ select low(candlestick_agg(time, price, volume)) from tick;
 
     low_time(candlestick_agg_data)
 
-获取最低价所在的时间
+获取最低价所在的时间。
 
 **返回值：** Timestamp
 
@@ -4090,7 +4091,7 @@ select low_time(candlestick_agg(time, price, volume)) from tick;
 
     open(candlestick_agg_data)
 
-获取最低价
+获取最低价。
 
 **返回值：** DOUBLE
 
@@ -4110,7 +4111,7 @@ select open(candlestick_agg(time, price, volume)) from tick;
 
     open_time(candlestick_agg_data)
 
-获取最低价所在的时间
+获取最低价所在的时间。
 
 **返回值：** Timestamp
 
@@ -4130,7 +4131,7 @@ select open_time(candlestick_agg(time, price, volume)) from tick;
 
     volume(candlestick_agg_data)
 
-获取总共交易量
+获取总共交易量。
 
 **返回值：** DOUBLE
 
