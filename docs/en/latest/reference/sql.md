@@ -56,7 +56,7 @@ as follows：
 - `1997-01-31 09:26:56.123+08:00` # Close to RCF3339, just replace T by space
 - `1997-01-31T09:26:56.123` # Close to RCF3339, no time zone is specified, defaults to UTC
 - `1997-01-31 09:26:56.123` # Close to RCF3339, replace T by space, and no time zone is specified
-- `1997-01-31 09:26:56`     # Close to RCF3339, replace T by space, and no time zone is specified
+- `1997-01-31 09:26:56`     # Close to RCF3339, replace T by space, and no time zone is specified, the accuracy is on the order of seconds
 
 **Note**：`CAST (BIGINT AS TIMESTAMP)`is a timestamp converted to nanosecond, as follows
 
@@ -144,7 +144,9 @@ SHOW DATABASES;
 
 ### **Use Database**
 
-If you use the database through [HTTP API](./rest_api.md), you can specify the parameter db=database_ name in the url to use the database.
+If you use the database through [HTTP API](./rest_api.md), you can specify the parameter db=database_name in the url to use the database.
+
+In CnosDB-Cli, you can use the following command to switch to the specified database.
 
 ```sql
 \c dbname
@@ -155,12 +157,14 @@ If you use the database through [HTTP API](./rest_api.md), you can specify the p
 ###  Drop Database
 
 **Syntax**
+
 ```sql
 DROP DATABASE [IF EXISTS] db_name;
 ```
 If dropping database, all table data and metadata of the specified database will be removed.
 
 **Example**
+
 ```sql
 DROP DATABASE oceanic_station;
 ```
@@ -190,11 +194,13 @@ ALTER DATABASE oceanic_station SET TTL '30d';
 ### **Describe Database Parameters**
 
 **Syntax**
+
 ```sql
 DESCRIBE DATABASE dbname;
 ```
 
 **Example**
+
 ```sql
 DESCRIBE DATABASE oceanic_station;
 ```
@@ -210,9 +216,9 @@ DESCRIBE DATABASE oceanic_station;
 
 ###  Create Table
 
-You can use `CREATE TABLE`  to create tables
+You can use `CREATE TABLE`  to create tables.
 
-CnosDB supports the creation of common tables and external tables
+CnosDB supports the creation of common tables and external tables.
 
 ###  Create Common (TSKV) Table
 
@@ -287,7 +293,7 @@ tb_option: {
 2. WITH HEADER ROW：Effective only in csv file format, representing with csv header.
 3. DELIMITER：only effective in csv format, representing the delimiter of column data.
 4. PARTITIONED BY：use the column specified when creating the table to partition.
-5. LOCATION：represents the location of the associated file
+5. LOCATION：represents the location of the associated file.
 
 **Example**
 
@@ -308,6 +314,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 ### **Drop Table**
 
 **Syntax**
+
 ```sql
 DROP TABLE [ IF EXISTS ] tb_name;
 ```
@@ -362,6 +369,7 @@ DESCRIBE TABLE air;
 ### **Alter Table**
 
 **Explanation** 
+
 At present, we support altering common tables.
 1. Add Column: add field and tag columns.
 2. Drop Column: drop the field column. When dropping a column results in dropping the last field value of a row, we think that this row has no value, and this row will not be showed in SELECT.
@@ -395,9 +403,13 @@ ALTER TABLE air DROP humidity;
 
 ## INSERT
 
-CnosDB supports two data inserting methods: one is to use the`INSERT INTO`statement, and the other is to use the HTTP API [write](./rest_api.md) interface to insert Line Protocol format data.
+CnosDB supports two data inserting methods:
+one is to use the `INSERT INTO` statement,
+and the other is to use the HTTP API [write](./rest_api.md) interface to insert Line Protocol format data.
 
-This page only shows`INSERT`related syntax
+This page only shows`INSERT`related syntax.
+
+### INSERT
 
 **Syntax**
 
@@ -408,13 +420,13 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 **Explanation**
 
 CnosDB requires that the inserted data column must have a timestamp, and the VALUES list must be a [constant](#constant).
-If a column is not selected, the value is`NULL`。
+If a column is not selected, the value is `NULL`.
 
 **Note**
 
-The time column cannot be`NULL`，and the Tag column and Field Namecolumn can be `NULL`。
+The time column cannot be `NULL`, and the Tag column and Field Namecolumn can be `NULL`.
 
-Example`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
+Example: `INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
 If the VALUES list requires an expression, please use the [INSERT SELECT](./sql.md#insert-query-results--insert-select-) syntax.
 
@@ -470,10 +482,7 @@ SELECT * FROM air;
 
 **Note：**
 
-The time represented by the string is considered as the local time zone and will be converted to the timestamp of UTC time zone.
-
-The time of UTC time zone will be output when outputting.
-
+For more information about timezone, please refer to [Timestamp](#timestamp-constant-syntax).
 
 ### Insert Multiple Records
 
