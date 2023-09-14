@@ -2588,8 +2588,10 @@ GROUP BY CUBE (station, visibility);
 
 包含DISTINCT关键字，会对去重后的结果计数。
 
-> COUNT(*) 和 COUNT(literal value) 是等价的，如果sql的投影中仅含有 `*/literal value`，则sql会被重写为 COUNT(time)。 \
-> COUNT(tag) 等价于 COUNT(DISTINCT tag)。 \
+> COUNT(*) 和 COUNT(literal value) 是等价的，如果sql的投影中仅含有 `*/literal value`，则sql会被重写为 COUNT(time)。 
+
+> COUNT(tag) 等价于 COUNT(DISTINCT tag)。 
+
 > COUNT(field) 返回非NULL值的个数。
 
 **参数类型**：任意
@@ -2758,19 +2760,19 @@ SELECT ARRAY_AGG(temperature) from air;
     | [69, 78, 62, 79, 53, 72, 71, 69, 80, 74, 70, 70, 70] |
     +------------------------------------------------------+
 
-**注意**：该聚合函数结果，无法以CSV格式返回
+**注意**：该聚合函数结果，无法以CSV格式返回。
 
 ### FIRST
 
     first(time,  value)
 
-获取一列按另一列排序的第一个值
+获取一列按另一列排序的第一个值。
 
 **参数**:
 
-time: Timestamp
+- time: Timestamp
 
-value: any
+- value: any
 
 **返回值**: 同value类型相同
 
@@ -2790,13 +2792,13 @@ select first(time, pressure) from air;
 
     last(time,  value)
 
-获取一列按另一列排序的最后一个值
+获取一列按另一列排序的最后一个值。
 
 **参数**:
 
-time: Timestamp
+- time: Timestamp
 
-value: any
+- value: any
 
 **返回值**: 同value类型相同
 
@@ -2816,7 +2818,7 @@ select last(time, pressure) from air;
 
     mode(value)
 
-计算一列的众数
+计算一列的众数。
 
 **参数**: value: any
 

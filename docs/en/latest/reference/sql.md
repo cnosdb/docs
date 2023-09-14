@@ -96,7 +96,7 @@ INTERVAL '1 MONTH' is not 30 days or 31 days, but 1-month.
 
 ### Create Database
 
-**Syntax**
+#### Syntax
 
 ```sql
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options];
@@ -156,7 +156,7 @@ In CnosDB-Cli, you can use the following command to switch to the specified data
 
 ###  Drop Database
 
-**Syntax**
+#### Syntax
 
 ```sql
 DROP DATABASE [IF EXISTS] db_name;
@@ -172,7 +172,7 @@ DROP DATABASE oceanic_station;
 
 ### **Alter Database Parameters**
 
-**Syntax**
+#### Syntax
 ```sql
 ALTER DATABASE db_name [alter_db_options]
 
@@ -193,7 +193,7 @@ ALTER DATABASE oceanic_station SET TTL '30d';
 ```
 ### **Describe Database Parameters**
 
-**Syntax**
+#### Syntax
 
 ```sql
 DESCRIBE DATABASE dbname;
@@ -222,7 +222,7 @@ CnosDB supports the creation of common tables and external tables.
 
 ###  Create Common (TSKV) Table
 
-**Syntax**
+#### Syntax
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
@@ -264,7 +264,7 @@ CREATE TABLE air (
 
 ### **Create External Table**
 
-**Syntax**
+#### Syntax
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
@@ -313,7 +313,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 
 ### **Drop Table**
 
-**Syntax**
+#### Syntax
 
 ```sql
 DROP TABLE [ IF EXISTS ] tb_name;
@@ -328,7 +328,7 @@ DROP TABLE IF EXISTS air;
 
 ### **Show Tables of Current Database**
 
-**Syntax**
+#### Syntax
 
 ```sql
 SHOW TABLES;
@@ -345,7 +345,7 @@ SHOW TABLES;
 
 You can use `DESCRIBE TABLE` to view the table structure.
 
-**Syntax**
+#### Syntax
 
 ```sql
 DESCRIBE DATABASE table_name;
@@ -375,7 +375,7 @@ At present, we support altering common tables.
 2. Drop Column: drop the field column. When dropping a column results in dropping the last field value of a row, we think that this row has no value, and this row will not be showed in SELECT.
 3. Alter Column: alter the column definition. Currently, the compression algorithm for altering columns is supported.
 
-**Syntax**
+#### Syntax
 
 ```sql
 ALTER TABLE tb_name alter_table_option;
@@ -411,7 +411,7 @@ This page only shows`INSERT`related syntax.
 
 ### INSERT
 
-**Syntax**
+#### Syntax
 
 ```sql
 INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, ...] | query; 
@@ -655,7 +655,7 @@ SELECT * FROM air;
 
 ### ALL/DISTINCT
 
-**Syntax**
+#### Syntax
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
@@ -710,7 +710,7 @@ You can use the keyword `AS` to alias a column expression or table.
 
 ### Alias Column Expression
 
-**Syntax**
+#### Syntax
 ```sql
 expression [ [ AS ] column_alias ]
 ```
@@ -740,7 +740,7 @@ SELECT station s, visibility AS v FROM air;
 ### Alias Table
 You can also use the keyword AS to alias the table.
 
-**Syntax**
+#### Syntax
 ```sql
 FROM tb_name [AS] alias_name
 ```
@@ -835,7 +835,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 
 ###  LIMIT Clause
 
-**Syntax**
+#### Syntax
 
 ```sql
 LIMIT n
@@ -864,7 +864,7 @@ FROM air LIMIT 10;
 
 ### **OFFSET Clause**
 
-**Syntax**
+#### Syntax
 ```sql
 OFFSET m
 ```
@@ -902,7 +902,7 @@ FROM air LIMIT 3 OFFSET 3;
 
 ### **WITH Clause**
 
-**Syntax**
+#### Syntax
 
 ```sql
 WITH cte AS cte_query_definiton [, ...] query
@@ -945,7 +945,7 @@ FROM x;
 
 The UNION clause is used to combine the analysis results of multiple SELECT statements.
 
-**Syntax**
+#### Syntax
 
 ```sql
 select_clause_set_left
@@ -1127,7 +1127,7 @@ An expression is a kind of combination of symbols and operators that CnosDB will
 A simple expression can be a constant, variable, column, or scalar function.
 Complex expressions can be formed by concatenating two or more simple expressions with operators.
 
-**Syntax**
+#### Syntax
 
 ```sql
 <expresion> :: = { 
@@ -1195,7 +1195,7 @@ Binary operators supported now:
 
 ### `BETWEEN AND` Expression
 
-**Syntax**
+#### Syntax
 
 ```sql
 expr BETWEEN expr AND expr
@@ -1247,7 +1247,7 @@ IN only supports a list of constants, not a list of expressions.
 
 The `CASE WHEN` expression is used when the expression needs different values depending on the situation.
 
-**Syntax**
+#### Syntax
 ```sql
 CASE
     ( WHEN expression THEN result1 [, ...] )
@@ -1298,7 +1298,7 @@ The precedence levels of the operators are given in the following table. Operato
 
 ### **SHOW**
 
-**Syntax**
+#### Syntax
 
 ```sql
 SHOW {DATABASES | TABLES}
@@ -1343,7 +1343,7 @@ For more information about SHOW QUERIES, you can reference to [SHOW QUERIES](#sh
 
 Return the series in the specified table.
 
-**Syntax**
+#### Syntax
 
 ```sql
 SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
@@ -1366,7 +1366,7 @@ The expression column in the WEHER clause can only be the tag column or the time
 
 #### SHOW TAG VALUES
 
-**Syntax**
+#### Syntax
 
 ```sql
 SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
@@ -1396,7 +1396,7 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
 
 ### **EXPLAIN**
 
-**Syntax**
+#### Syntax
 
 ```sql
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
@@ -1463,7 +1463,7 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
 
 ### **DESCRIBE**
 
-**Syntax**
+#### Syntax
 ```sql
 DESCRIBE {DATABASE db_name | TABLE tb_name};
 ```
@@ -2053,7 +2053,7 @@ GROUP BY station;
 
 ###  HAVING Clause
 
-**Syntax**
+#### Syntax
 
 ```sql
 group_by_clause 
@@ -2144,7 +2144,7 @@ ROLLUP assumes a hierarchy between input columns.
 
 If you GRUOP BY Clause is as follows,
 
-**Syntax**
+#### Syntax
 
 ```sql
 SELECT ...
@@ -2154,7 +2154,7 @@ GROUP BY ROLLUP(column_1,column_2);
 
 t is equivalent to the following statement.
 
-**Syntax**
+#### Syntax
 
 ```sql
 SELECT ...
@@ -2219,7 +2219,7 @@ Similar to ROLLUP, CUBE is an extension of the GROUP BY clause. It allows you to
 [//]: # (CUBE 就像结合了 GROUPING SETS 和 ROLLUP。)
 CUBE creates a grouping set for each possible combination of the specified expression set. First, GROUP BY (A, B, C), then (A, B), (A, C), (A), (B, C), (B), (C), and finally GROUP BY the entire table.
 
-**Syntax**
+#### Syntax
 
 ```sql
 SELECT ... 
@@ -2328,11 +2328,11 @@ GROUP BY CUBE (station, visibility);
 
 ## Aggregate Function
 
-### **Common Aggregate Functions**
+### Common Aggregate Functions
 
-### **COUNT**
+### COUNT
 
-**Syntax**
+#### Syntax
 
     COUNT(x)
 
@@ -2346,7 +2346,7 @@ Contain the DISTINCT keyword, which counts the results after deduplication.
 
 > COUNT(field) Returns the number of non-null values.
 
-**Parameter Type**：any type
+**Parameter Type**：Any type
 
 **Return Type**：BIGINT
 
@@ -2383,7 +2383,7 @@ SELECT COUNT(DISTINCT temperature) FROM air;
 
 ### **SUM**
 
-**Syntax**
+#### Syntax
 
     SUM(NUMERICS)
 
@@ -2407,7 +2407,7 @@ SELECT SUM(temperature) FROM air;
 
 ### **MIN**
 
-**Syntax**
+#### Syntax
 
     MIN(STRING | NUMERICS | TIMESTAMP)
 
@@ -2432,7 +2432,7 @@ SELECT SUM(temperature) FROM air;
 
 ### **MAX**
 
-**Syntax**
+#### Syntax
 
     MAX(STRINGS | NUMERICS | TIMESTAMPS)
 
@@ -2456,7 +2456,7 @@ SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
 
 ### **AVG**
 
-**Syntax**
+#### Syntax
 
     AVG(NUMERICS)
 
@@ -2478,9 +2478,9 @@ SELECT AVG(temperature) FROM air;
     +----------------------+
 ----------------
 
-### **ARRAY_AGG**
+### ARRAY_AGG
 
-**Syntax**
+#### Syntax
 
     ARRAY_AGG(expr)
 
@@ -2500,7 +2500,82 @@ SELECT ARRAY_AGG(temperature) from air;
     +------------------------------------------------------+
     | [69, 78, 62, 79, 53, 72, 71, 69, 80, 74, 70, 70, 70] |
     +------------------------------------------------------+
-**Note**：The aggregate function result cannot be returned in CSV format
+**Note**：The aggregate function result cannot be returned in CSV format.
+
+### FIRST
+
+    first(time,  value)
+
+Gets the first value of one column sorted by another.
+
+**Parameter Type**: 
+
+- time: Timestamp
+
+- value: any
+
+**Return Type**: Same as value type.
+
+**Example**: 
+
+```sql
+select first(time, pressure) from air;
+```
+
+    +------------------------------+
+    | first(air.time,air.pressure) |
+    +------------------------------+
+    | 63.0                         |
+    +------------------------------+
+
+### LAST
+
+    last(time,  value)
+
+Gets the last value of one column sorted by another.
+
+**Parameters Type**: 
+
+- time: Timestamp
+
+- value: any
+
+**Return Type**: Same as value type.
+
+**Example**: 
+
+```sql
+select last(time, pressure) from air;
+```
+
+    +-----------------------------+
+    | last(air.time,air.pressure) |
+    +-----------------------------+
+    | 55.0                        |
+    +-----------------------------+
+
+### MODE
+
+    mode(value)
+
+Calculate the mode of a column.
+
+**Parameter Type**:  value: any
+
+**Return Type**: Same as value type.
+
+**Example**: 
+
+```sql
+select mode(pressure) from air;
+```
+
+    +--------------------+
+    | mode(air.pressure) |
+    +--------------------+
+    | 69.0               |
+    +--------------------+
+
 
 ----------------
 
@@ -2508,7 +2583,7 @@ SELECT ARRAY_AGG(temperature) from air;
 
 ### **VAR | VAR_SAMP**
 
-**Syntax**
+#### Syntax
 
     VAR(NUMERICS)
 
@@ -2532,7 +2607,7 @@ SELECT VAR(temperature) FROM air;
 
 ### **VAR_POP**
 
-**Syntax**
+#### Syntax
 
     VAR_POP(NUMERICS)
 
@@ -2556,7 +2631,7 @@ SELECT VAR_POP(temperature) FROM air;
 
 ### **STDDEV | STDDEV_SAMP**
 
-**Syntax**
+#### Syntax
 
     STDDEV(NUMERICS)
 
@@ -2581,7 +2656,7 @@ SELECT STDDEV(temperature) FROM air;
 
 ### **STDDEV_POP**
 
-**Syntax**
+#### Syntax
 
     STDDEV_POP(NUMERICS)
 **Function**： Calculate the standard deviation of population.
@@ -2604,7 +2679,7 @@ SELECT STDDEV_POP(temperature) FROM air;
 
 ### **COVAR | COVAR_SAMP**
 
-**Syntax**
+#### Syntax
 
     COVAR(NUMERICS, NUMERICS)
 
@@ -2631,7 +2706,7 @@ SELECT COVAR(temperature, pressure) FROM air;
 
 ### **COVAR_POP**
 
-**Syntax**
+#### Syntax
 
     COVAR_POP(NUMERICS, NUMERICS)
 
@@ -2656,7 +2731,7 @@ SELECT COVAR_POP(temperature, pressure) FROM air;
 
 ### **CORR**
 
-**Syntax**
+#### Syntax
 
     CORR**(NUMERICS, NUMERICS)
 
@@ -2683,7 +2758,7 @@ SELECT CORR(temperature, pressure) FROM air;
 
 ### **APPROX_DISTINCT**
 
-**Syntax**
+#### Syntax
 
     APPROX_DISTINCT(x)
 
@@ -2707,7 +2782,7 @@ SELECT APPROX_DISTINCT(station) FROM air;
 
 ### **APPROX_PERCENTILE_CONT**
 
-**Syntax**
+#### Syntax
 
     APPROX_PERCENTILE_CONT(x, p)  
 
@@ -2732,7 +2807,7 @@ SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 
 ### **APPROX_PERCENTILE_CONT_WITH_WEIGHT**
 
-**Syntax**
+#### Syntax
 
     APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, w, p)  
 
@@ -2757,7 +2832,7 @@ SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
 
 ### **APPROX_MEDIAN**(NUMERICS)
 
-**Syntax**
+#### Syntax
 
     APPROX_MEDIAN(NUMERICS)
 **Function**： Return the approximate median of the input value.
@@ -2792,9 +2867,10 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 ### **SAMPLE**
 
-#### Grammar
+#### Syntax
 
     SAMPLE(<column_key>, <N>)
+
 **Function**： Select N records at random from the given column column_key
 
 **Column Type**：
@@ -3249,7 +3325,7 @@ SELECT trunc(-3.9);
 
 ### **struct**
 
-**Syntax**
+#### Syntax
 
     struct(expr1 [, ...] ) 
 
@@ -3265,7 +3341,7 @@ SELECT trunc(-3.9);
 
 ### **coalesce**
 
-**Syntax**
+#### Syntax
 
     coalesce(expr[,...exp])
 
@@ -3301,7 +3377,7 @@ SELECT coalesce(temperature, null, station) FROM air;
 
 ### **nullif**
 
-**Syntax**
+#### Syntax
 
     nullif(expr1, expr2) 
 
@@ -3343,7 +3419,7 @@ SELECT nullif(temperature, 70) FROM air;
 
 ### **ascii**
 
-**Syntax**
+#### Syntax
 
     ascii(str) 
 
@@ -3378,7 +3454,7 @@ SELECT ascii('a');
 
 ### **bit_length**
 
-**Syntax**
+#### Syntax
 
     bit_length(str) 
 
@@ -3402,7 +3478,7 @@ SELECT bit_length('abc');
 
 ### **btrim**
 
-**Syntax**
+#### Syntax
 
     btrim(string [, matching_string ] ) 
 
@@ -3436,7 +3512,7 @@ SELECT btrim('111abc111','1');
 
 ### **trim**
 
-**Syntax**
+#### Syntax
 
     trim(str) 
 
@@ -3450,7 +3526,7 @@ SELECT btrim('111abc111','1');
 
 ### **char_length | character_length**
 
-**Syntax**
+#### Syntax
 
     char_length(expr) 
 
@@ -3475,7 +3551,7 @@ SELECT char_length('你好');
 
 ### **chr**
 
-**Syntax**
+#### Syntax
 
     chr(expr) 
 
@@ -3500,7 +3576,7 @@ SELECT chr(20005);
 
 ### **con``cat**
 
-**Syntax**
+#### Syntax
 
     concat(expr1, expr2 [, ...exp] ) 
 
@@ -3526,7 +3602,7 @@ SELECT concat('a', 'b', 'c');
 
 ### **concat_ws**
 
-**Syntax**
+#### Syntax
 
     concat_ws(sep , expr1 [, ...] ) 
 
@@ -3551,7 +3627,7 @@ SELECT concat_ws(' ', 'a', 'b', 'c');
 
 ### **initcap**
 
-**Syntax**
+#### Syntax
 
     initcap(expr) 
 
@@ -3576,7 +3652,7 @@ SELECT initcap('hello world');
 
 ### **left**
 
-**Syntax**
+#### Syntax
 
     left(str, len) 
 
@@ -3601,7 +3677,7 @@ SELECT left('abcde', 3);
 
 ### **lpad**
 
-**Syntax**
+#### Syntax
 
     lpad(expr, len [, pad] ) 
 
@@ -3628,7 +3704,7 @@ SELECT lpad('abc', 10, '1');
 
 ### **rpad**
 
-**Syntax**
+#### Syntax
 
     rpad(expr, len [, pad] ) 
 
@@ -3653,7 +3729,7 @@ SELECT rpad('aaa', 10, 'b');
 
 ### **lower**
 
-**Syntax**
+#### Syntax
 
     lower(expr) 
 
@@ -3678,7 +3754,7 @@ SELECT lower('ABC');
 
 ### **upper**
 
-**Syntax**
+#### Syntax
 
     upper(expr)
 
@@ -3692,7 +3768,7 @@ SELECT lower('ABC');
 
 ### **ltrim**
 
-**Syntax**
+#### Syntax
 
     ltrim(str[, trimstr] ) 
 
@@ -3718,7 +3794,7 @@ SELECT ltrim('   abc');
 
 ### **md5**
 
-**Syntax**
+#### Syntax
 
     md5(expr) 
 
@@ -3742,7 +3818,7 @@ SELECT md5('abc');
 
 ### **octet_length**
 
-**Syntax**
+#### Syntax
 
     octet_length(expr) 
 
@@ -3767,7 +3843,7 @@ SELECT octet_length('你好');
 
 ### **random**
 
-**Syntax**
+#### Syntax
 
     random( [seed] ) 
 
@@ -3798,7 +3874,7 @@ SELECT random();
 
 ### **repeat**
 
-**Syntax**
+#### Syntax
 
     repeat(expr, n) 
 
@@ -3823,7 +3899,7 @@ SELECT repeat('a', 5);
 
 ### **replace**
 
-**Syntax**
+#### Syntax
 
     replace(str, search, replace ) 
 
@@ -3848,7 +3924,7 @@ SELECT replace('aaa', 'a', 'b');
 
 ### **reverse**
 
-**Syntax**
+#### Syntax
 
     reverse(expr) 
 
@@ -3872,7 +3948,7 @@ SELECT reverse('你好');
 
 ### **right**
 
-**Syntax**
+#### Syntax
 
     right(str, len) 
 
@@ -3898,7 +3974,7 @@ SELECT reverse('你好');
 
 ### **digest**
 
-**Syntax**
+#### Syntax
 
     digest(expr, algorithm)
 
@@ -3925,7 +4001,7 @@ SELECT digest('abc', 'md5');
 
 ### **rtrim**
 
-**Syntax**
+#### Syntax
 
     rtrim( str [, trimstr] ) 
 
@@ -3950,7 +4026,7 @@ SELECT rtrim('aaabbb', 'b');
 
 ### **sha224**
 
-**Syntax**
+#### Syntax
 
     sha224(str)
 
@@ -3975,7 +4051,7 @@ SELECT rtrim('aaabbb', 'b');
 
 ### **sha256**
 
-**Syntax**
+#### Syntax
 
     sha256(str)
 **Function**:   Calculate sha256 hash value of the string str.
@@ -3999,7 +4075,7 @@ SELECT sha256('abc');
 
 ### **sha384**
 
-**Syntax**
+#### Syntax
 
     sha384(str)
 **Function**:  Calculate sha384 hash value of the string str.
@@ -4023,7 +4099,7 @@ SELECT sha384('abc');
 
 ### **sha512**
 
-**Syntax**
+#### Syntax
 
     sha512(str)
 
@@ -4037,7 +4113,7 @@ SELECT sha384('abc');
 
 ### **split_part**
 
-**Syntax**
+#### Syntax
 
     split_part(str, delim, n) 
 
@@ -4063,7 +4139,7 @@ SELECT split_part('abc|def|ghi', '|', 2);
 
 ### **starts_with**
 
-**Syntax**
+#### Syntax
 
     starts_with(expr, startExpr) 
 
@@ -4087,7 +4163,7 @@ SELECT starts_with('abcdefg', 'abc');
 
 ### **strpos**
 
-**Syntax**
+#### Syntax
 
     strpos(str, substr ) 
 
@@ -4112,7 +4188,7 @@ SELECT strpos('abcdef', 'def');
 
 ### **substr**
 
-**Syntax**
+#### Syntax
 
     substr(expr, pos [, len] ) 
 
@@ -4136,7 +4212,7 @@ SELECT substr('abcdef', 4, 3);
 
 ### **to_hex**
 
-**Syntax**
+#### Syntax
 
     to_hex(value)
 
@@ -4161,7 +4237,7 @@ SELECT to_hex(100);
 
 ### **translate**
 
-**Syntax**
+#### Syntax
 
     translate(expr, from, to) 
 
@@ -4190,7 +4266,7 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 
 ### **date_part**
 
-**Syntax**
+#### Syntax
 
     date_part(field, expr) 
 
@@ -4219,7 +4295,7 @@ SELECT date_part('hour', TIMESTAMP '2022-11-21T09:18:17');
 
 ### **date_trunc**
 
-**Syntax**
+#### Syntax
 
     date_trunc(field, expr) 
 
@@ -4243,7 +4319,7 @@ SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 
 ### **date_bin**
 
-**Syntax**
+#### Syntax
 
     date_bin(interval, source, origin)
 **Function**： Starting from the origin, the bucket is split by interval, and the bucket timestamp of the source is returned.
@@ -4271,7 +4347,7 @@ SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '20
 
 ### **to_timestamp**
 
-**Syntax**
+#### Syntax
 
     to_timestamp(expr) 
 
@@ -4304,7 +4380,7 @@ SELECT to_timestamp(1);
 
 ### **to_timestamp_millis**
 
-**Syntax**
+#### Syntax
 
     to_timestamp_millis(expr) 
 
@@ -4337,7 +4413,7 @@ SELECT to_timestamp_millis(1);
 
 ### **to_timestamp_micros**
 
-**Syntax**
+#### Syntax
 
     to_timestamp_micros(expr) 
 **Function**：Convert to a microsecond-level timestamp.
@@ -4361,7 +4437,7 @@ SELECT to_timestamp_micros(1)
 
 ### **to_timestamp_seconds**
 
-**Syntax**
+#### Syntax
 
     to_timestamp_seconds(expr) 
 **Function**：Convert to a second-level timestamp.
@@ -4385,7 +4461,7 @@ SELECT to_timestamp_seconds(1);
 
 ### **from_unixtime**
 
-**Syntax**
+#### Syntax
 
     from_unixtime(unixTime) 
 
@@ -4408,7 +4484,7 @@ SELECT from_unixtime(1);
 
 ### **now**
 
-**Syntax**
+#### Syntax
 
     now()
 
@@ -4570,7 +4646,7 @@ Include [Aggregate functions](#aggregate-function).
 
 ### **ROW_NUMBER**
 
-**Syntax**
+#### Syntax
 
     ROW_NUMBER() OVER([partition_clause] [orderby_clause])
 
@@ -4610,7 +4686,7 @@ FROM air;
 
 ### **RANK**
 
-**Syntax**
+#### Syntax
 
     RANK() OVER([partition_clause] [orderby_clause])
 
@@ -4649,7 +4725,7 @@ FROM air;
 
 ### **DENSE_RANK**
 
-**Syntax**
+#### Syntax
 
     DENSE_RANK() OVER([partition_clause] [orderby_clause])
 
@@ -4689,7 +4765,7 @@ FROM air;
 
 ### **PERCENT_RANK**
 
-**Syntax**
+#### Syntax
 
     PERCENT_RANK() OVER([partition_clause] [orderby_clause])
 
@@ -4727,7 +4803,7 @@ FROM air;
 
 ### **CUME_DIST**
 
-**Syntax**
+#### Syntax
 
     CUME_DIST() OVER ([partition_clause] [orderby_clause])
 
@@ -4783,7 +4859,7 @@ FROM air;
 
 ### **LAG**
 
-**Syntax**
+#### Syntax
 
     lag( expr [, offset [, default] ] ) OVER([partition_clause] orderby_clause)
 
@@ -4825,7 +4901,7 @@ FROM air;
 
 ### **LEAD**
 
-**Syntax**
+#### Syntax
 
     lead(expr [, offset [, default] ] ) OVER ([partition_clause] orderby_clause)
 
@@ -4868,7 +4944,7 @@ FROM air;
 
 ### **FIRST_VALUE**
 
-**Syntax**
+#### Syntax
 
     FIRST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
@@ -4906,7 +4982,7 @@ FROM air;
 
 ### **LAST_VALUE**
 
-**Syntax**
+#### Syntax
 
     LAST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
 
@@ -4945,7 +5021,7 @@ FROM air;
 
 ### **NTH_VALUE**
 
-**Syntax**
+#### Syntax
 
     NTH_VALUE(expr, number) OVER ([partition_clause] [orderby_clause])
 
@@ -5740,7 +5816,7 @@ select * from usage_schema.writes order by time desc limit 2;
 
 To create a stream table, a source table is required. The stream table does not support `ALTER` now.
 
-**Syntax**
+#### Syntax
 
 ```sql
 CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
