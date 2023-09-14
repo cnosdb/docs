@@ -1,3 +1,8 @@
+---
+title: Flink 连接器
+order: 3
+---
+
 # Flink 连接器
 
 该连接器提供了 sink ，可以把数据发送到CnosDB。
@@ -8,7 +13,7 @@
 需要 Java 1.8 以上版本。
 
 
-首先添加依赖到您的项目中
+首先添加依赖到您的项目中：
 ```xml
 <dependency>
     <groupId>com.cnosdb</groupId>
@@ -29,7 +34,7 @@ CnosDBConfig cnosDBConfig = CnosDBConfig.builder()
                 .build();
 ```
 
-创建 CnosDBSink 并添加到 Stream 的 Sink 中
+创建 CnosDBSink 并添加到 Stream 的 Sink 中。
 
 ```java
 dataStream.addSink(new CnosDBSink(cnosDBConfig);
