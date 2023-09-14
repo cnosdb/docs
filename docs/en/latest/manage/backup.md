@@ -1,6 +1,6 @@
 ---
 title: Backup and Restore
-order: 6
+order: 1
 ---
 
 # Backup and Restore

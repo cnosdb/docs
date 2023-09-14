@@ -1,6 +1,6 @@
 ---
 title: Migration
-order: 3
+order: 2
 ---
 
 # Node Migration
