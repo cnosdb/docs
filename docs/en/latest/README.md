@@ -81,8 +81,8 @@ This paragraph introduces the ecosystem integration of CnosDB, including example
 
 - [Eco-integration](./versatility)
   - [Visualization](./versatility/visualization)
-  - [LLM](./versatility/ai)
-  - [LangChain](./versatility/collect)
+  - [Large Modeling](./versatility/ai)
+  - [Data Collection](./versatility/collect)
   - [Machine Learning](./versatility/ml)
   - [Message-oriented Middleware](./versatility/middleware)
   - [Track](./versatility/track)
