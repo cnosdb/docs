@@ -40,7 +40,7 @@ jaegertracing/all-in-one:latest
 
 1. 在请求中添加 `span context`。
 
-> 可以设置配置文件中的 `auto_generate_span = true` 自动生成，如果需要分析特定的语句，请在请求中自定义 `uber-trace-id` 值，格式如下所示（详细格式说明请参考：[Propagation Format](https://www.jaegertracing.io/docs/1.46/client-libraries/#propagation-format)）：
+> 可以设置配置文件中的 `auto_generate_span = true` 自动生成，如果需要分析特定的语句，请在请求中自定义 `uber-trace-id` 值，格式如下所示（详细格式说明请参考：[Propagation Format](https://www.jaegertracing.io/docs/1.46/client-libraries/#propagation-format)。
 
 ```bash
 uber-trace-id: 3a3a43:432e345:0:1

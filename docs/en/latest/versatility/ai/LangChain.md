@@ -50,16 +50,18 @@ def SQLDatabase.from_cnosdb(url: str = "127.0.0.1:8902",
                               tenant: str = "cnosdb",
                               database: str = "public")
 ```
-Args：
-| Parameter   | Description                                                         |
-| -------- | ------------------------------------------------------------ |
-| url      | The HTTP connection host name and port number of the CnosDB service, excluding "http://" or "https://", with a default value of "127.0.0.1:8902". |
-| user     | The username used to connect to the CnosDB service, with a default value of "root".               |
-| password | The password of the user connecting to the CnosDB service, with a default value of "".              |
-| tenant   | The name of the tenant used to connect to the CnosDB service, with a default value of "cnosdb".            |
-| database | The name of the database in the CnosDB tenant. |
+Parameters:
+
+| Parameter | Description                                                                                                                                       |
+|:----------|:--------------------------------------------------------------------------------------------------------------------------------------------------|
+| url       | The HTTP connection host name and port number of the CnosDB service, excluding "http://" or "https://", with a default value of "127.0.0.1:8902". |
+| user      | The username used to connect to the CnosDB service, with a default value of "root".                                                               |
+| password  | The password of the user connecting to the CnosDB service, with a default value of "".                                                            |
+| tenant    | The name of the tenant used to connect to the CnosDB service, with a default value of "cnosdb".                                                   |
+| database  | The name of the database in the CnosDB tenant.                                                                                                    |
 
 ### Example
+
 ```python 
 # Connect to CnosDB using SQLDatabase
 from cnosdb_connector import make_cnosdb_langchain_uri

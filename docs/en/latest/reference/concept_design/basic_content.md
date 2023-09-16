@@ -3,11 +3,13 @@ title: Concepts
 order: 1
 ---
 # Concepts
+
 ## Introduction
 
 Before going deep into CnosDB, we need to be familiar with some basic concepts in CnosDB, which will help us to learn and use CnosDB better in the future. To help you understand these concepts better, this article uses an example to show you how the various elements work together in CnosDB, and lists the meanings of each concept in the final section of the article.
 
-### Sample data：
+### Sample data
+
 ```sql
 test ❯ select * from air limit 5;
 +---------------------+-------------+----------+-------------+------------+
@@ -38,7 +40,9 @@ station = XiaoMaiDao
 station = LianYunGang
 
 ```
+
 Finally, the columns of pressure, temperature, and visibility are field columns, which are also composed of key and value columns. In this example, key is `pressure`, `temperature`, and `visibility`, which are all strings. They store metadata. value simply represents the data, which can be of string type or any other type. In this example, the value is as follows:
+
 ```text
 63.0      80.0        79.0       
 58.0      64.0        78.0       
@@ -55,7 +59,7 @@ pressure = 65.0    temperature = 79.0    visibility = 67.0
 pressure = 51.0    temperature = 75.0    visibility = 64.0       
 pressure = 60.0    temperature = 50.0    visibility = 67.0   
 ```    
->Attention：Tag columns differ from field columns in that tags are indexed, which means queries on tags are faster, while fields are not indexed. If a field value is used as a filtering criterion, all values that match other criteria must be scanned. Therefore, labels are the best choice for storing commonly used data.
+>Attention: Tag columns differ from field columns in that tags are indexed, which means queries on tags are faster, while fields are not indexed. If a field value is used as a filtering criterion, all values that match other criteria must be scanned. Therefore, labels are the best choice for storing commonly used data.
 
 ### Key concepts
 #### TimeSeries

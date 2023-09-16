@@ -1,9 +1,9 @@
 ---
-title: 链路跟踪
+title: Track
 index: false
 order: -1
 ---
 
-# 链路跟踪
+# Track
 
 - [Jaeger](./jaeger.md)

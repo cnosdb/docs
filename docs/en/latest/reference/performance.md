@@ -9,11 +9,11 @@ To present CnosDB performance more intuitively, we do performance test of CnosDB
 
 ## Basic Information
 
-|          |     CnosDB     |          InfluxDB          |
-| -------- | :------------: | :------------------------: |
-| Version     |     2.0.1      |           1.8.10           |
+|                         |     CnosDB     |          InfluxDB          |
+|-------------------------|:--------------:|:--------------------------:|
+| Version                 |     2.0.1      |           1.8.10           |
 | Implementation language |      rust      |             go             |
-| Official website     | www.cnosdb.com | https://www.influxdata.com |
+| Official website        | www.cnosdb.com | https://www.influxdata.com |
 
 ## Testing Environment
 
@@ -22,7 +22,7 @@ To avoid being affected by network bandwidth while better simulating multi- tena
 All tests run on our servers, with the following configurations:
 
 
-1. Service side server：32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz（memory：255.65 GB）
+1. Service side server:32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz（memory:255.65 GB）
 
    Virtual machine CPU allocates 16 cores.
 
@@ -100,7 +100,7 @@ InfluxDB is the default configuration except [data] and [meta]
 
 1. Install the db environment, go environment, etc. of the corresponding machine in advance, and ensure normal connection.
 
-2. Install CnosDB：
+2. Install CnosDB:
 
    Pull the code off GitHub.
 
@@ -170,7 +170,7 @@ We take the data in Benchmark when database writing levels off which is valued a
 
 When the batch-size is set to 20,000, InfluxDB returns an error on the client:
 
-`{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`，
+`{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`,
 
 So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
 

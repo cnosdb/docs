@@ -100,7 +100,7 @@ CREATE TABLE air (
 );`
 ```
 
-Construct the http request：
+Construct the http request:
 
 ```go
 func basicAuth(username, password string) string {

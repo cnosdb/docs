@@ -48,23 +48,23 @@ DataX 是阿里巴巴开源的离线数据同步工具/平台，能够实现各�
 
 ### 配置参数
 
-| 配置参数       | 描述                                                         | 是否必选 | 默认值                               |
-| -------------- | ------------------------------------------------------------ | -------- | ------------------------------------ |
-| cnosdbWriteAPI | CnosDB 写 API 的 URL，字符串                                 | 否       | `http://127.0.0.1:8902/api/v1/write` |
-| tenant         | 租户，字符串                                                 | 否       | `cnosdb`                             |
-| database       | 数据库，字符串                                               | 否       | `public`                             |
-| username       | 用户名，字符串                                               | 否       | `root`                               |
-| password       | 密码，字符串                                                 | 否       | `root`                               |
-| batchSize      | 每批次写入 CnosDB 的最大行数，无符号整数                     | 否       | `1000`                               |
-| bufferSize     | 每批次写入 CnosDB 的最大字节数，无符号整数                   | 否       | `8388608`                            |
-| format         | Reader 所使用的格式，字符串；如果 Reader 使用了特殊格式（如 opentsdbreader），那么需要提供该配置；可选值为 `datax`, `opentsdb` | 否       | `datax`                              |
-| table          | 表，字符串；当 format 为 `opentsdb` 时不需要配置。           | 是       | -                                    |
-| tags           | Map 类型，Tag 名称与对应输入列的序号（无符号整数，从 0 开始）的映射；仅当 format 为 `datax` 时生效。详细格式见下方说明 | 是       | -                                    |
-| fields         | Map 类型，Field 名称与对应输入列的序号（无符号整数，从 0 开始）的映射；仅当 format 为 `datax` 时生效。详细格式见下方说明 | 是       | -                                    |
-| timeIndex      | 时间字段对应输入列的序号，无符号整数，从 0 开始；仅当 format 为 `datax` 时生效 | 是       | -                                    |
-| precision      | 输入数据的时间戳精度，字符串；可选值为`s`,  `ms`，`us`，`ns`，分别对应秒、毫秒、微秒、纳秒 | 否       | `ms`                                 |
-| tagsExtra      | Map 类型，配置额外的 Tag，作为每一行数据的额外的列，一并导入到 CnosDB 中。详细格式见下方说明 | 否       | -                                    |
-| fieldsExtra    | Map 类型，配置来自 reader 的某些列的数据输出至 CnosDB 的哪些表、列中。仅当 format 为 `opentsdb` 时生效。详细格式见下方说明 | 否       | -                                    |
+| 配置参数           | 描述                                                                                        | 是否必选 | 默认值                                  |
+|----------------|-------------------------------------------------------------------------------------------|------|--------------------------------------|
+| cnosdbWriteAPI | CnosDB 写 API 的 URL，字符串                                                                    | 否    | `http://127.0.0.1:8902/api/v1/write` |
+| tenant         | 租户，字符串                                                                                    | 否    | `cnosdb`                             |
+| database       | 数据库，字符串                                                                                   | 否    | `public`                             |
+| username       | 用户名，字符串                                                                                   | 否    | `root`                               |
+| password       | 密码，字符串                                                                                    | 否    | `root`                               |
+| batchSize      | 每批次写入 CnosDB 的最大行数，无符号整数                                                                  | 否    | `1000`                               |
+| bufferSize     | 每批次写入 CnosDB 的最大字节数，无符号整数                                                                 | 否    | `8388608`                            |
+| format         | Reader 所使用的格式，字符串；如果 Reader 使用了特殊格式（如 opentsdbreader），那么需要提供该配置；可选值为 `datax`, `opentsdb`。 | 否    | `datax`                              |
+| table          | 表，字符串；当 format 为 `opentsdb` 时不需要配置。                                                       | 是    | -                                    |
+| tags           | Map 类型，Tag 名称与对应输入列的序号（无符号整数，从 0 开始）的映射；仅当 format 为 `datax` 时生效。详细格式见下方说明。                | 是    | -                                    |
+| fields         | Map 类型，Field 名称与对应输入列的序号（无符号整数，从 0 开始）的映射；仅当 format 为 `datax` 时生效。详细格式见下方说明。              | 是    | -                                    |
+| timeIndex      | 时间字段对应输入列的序号，无符号整数，从 0 开始；仅当 format 为 `datax` 时生效。                                        | 是    | -                                    |
+| precision      | 输入数据的时间戳精度，字符串；可选值为`s`,  `ms`，`us`，`ns`，分别对应秒、毫秒、微秒、纳秒。                                   | 否    | `ms`                                 |
+| tagsExtra      | Map 类型，配置额外的 Tag，作为每一行数据的额外的列，一并导入到 CnosDB 中。详细格式见下方说明。                                   | 否    | -                                    |
+| fieldsExtra    | Map 类型，配置来自 reader 的某些列的数据输出至 CnosDB 的哪些表、列中。仅当 format 为 `opentsdb` 时生效。详细格式见下方说明。        | 否    | -                                    |
 
 注意事项：
 
@@ -127,15 +127,15 @@ DataX 是阿里巴巴开源的离线数据同步工具/平台，能够实现各�
 
 CnosDBWriter 会将这些内部类型转换为 CnosDB 的内部数据类型，转换规则如下：
 
-| DATAX 内部类型      | CNOSDB 数据类型       |
-| ------------------- | --------------------- |
-| Date （time 列）    | TIMESTAMP(NANOSECOND) |
+| DATAX 内部类型      | CNOSDB 数据类型           |
+|-----------------|-----------------------|
+| Date （time 列）   | TIMESTAMP(NANOSECOND) |
 | Date （非 time 列） | BIGINT                |
-| Long                | BIGINT                |
-| Double              | DOUBLE                |
-| Bytes               | 不支持                |
-| String              | STRING                |
-| Bool                | BOOLEAN               |
+| Long            | BIGINT                |
+| Double          | DOUBLE                |
+| Bytes           | 不支持                   |
+| String          | STRING                |
+| Bool            | BOOLEAN               |
 
 ## 示例 - 从 OpenTSDB 导入 CnosDB
 
@@ -269,7 +269,7 @@ curl 'http://localhost:4242/api/query?start=2023/06/01-00:00:00&end=2023/06/01-0
 
 ### 开始导入
 
-1. 我们新建一个 DatraX 配置文件，并且将前面的 OpenTSDBReader 和 CnosDBWriter 配置填充到 reader 和 writer 项中，保存为 `{YOUR_DATAX_HOME}/bin/opentsdb_to_cnosdb.json`：
+1. 我们新建一个 DataX 配置文件，并且将前面的 OpenTSDBReader 和 CnosDBWriter 配置填充到 reader 和 writer 项中，保存为 `{YOUR_DATAX_HOME}/bin/opentsdb_to_cnosdb.json`：
 
 ```json
 {

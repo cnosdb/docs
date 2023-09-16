@@ -45,7 +45,7 @@ db_option: {
 }
 ```
 
-Add `COOLING_DURATION value` to the `CREATE DATABASE` statement to add a cooldown time field. `option` indicates the interval for data cooling, `COOLING_DURATION` defaults to 0, which means infinite length.
+Add `COOLING_DURATION value` to the `CREATE DATABASE` statement to add a cooldown time field. `option` indicates the interval for data cooling, `COOLING_DURATION` defaults to 0, which means stopping data migration.
 
 `COOLING_DURATION` must be a multiple of `VNODE_DURATION`. The `COOLING_DURATION` field can be modified by `alter database`.
 
@@ -65,4 +65,4 @@ Then create a table and write data in the "db1" database, wait for a period of t
 ```SQL
 ALTER DATABASE db1 SET COOLING_DURATION '1d'; // Change the cooldown time of database "db1" from 1 minute to 1 day
 ```
-At this point, due to the increase in cooldown time, the previously cooled data becomes hot again, causing the data to be migrated from cold node 2001 back to hot node 1001.
+At this point, as the cool downtime becomes larger, the cooled data above becomes hot data again, so the data is moved from cold node 2001 to hot node 1001.

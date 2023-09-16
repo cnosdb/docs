@@ -8,7 +8,7 @@ order: 2
 
 ## v2.3.2 Andromeda
 
-Release date：Aug 02,2023
+Release date: Aug 02,2023
 
 ### New Features:
 - Add monitoring metric 'http_data_out' [#1304](https://github.com/cnosdb/cnosdb/issues/1304)
@@ -39,7 +39,7 @@ Release date：Aug 02,2023
 
 ## v2.3.1
 
-Release date：June 21,2023
+Release date: June 21,2023
 
 ### New Features
 - Added trace [#1272](https://github.com/cnosdb/cnosdb/issues/1272)

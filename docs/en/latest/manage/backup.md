@@ -1,6 +1,6 @@
 ---
 title: Backup and Restore
-order: 6
+order: 1
 ---
 
 # Backup and Restore
@@ -119,7 +119,7 @@ COPY INTO [<database>.]< table_name >
     
 ```
 
-**Notice**：Before importing, make sure the target table already exists and that the column names match the column types.
+**Notice**: Before importing, make sure the target table already exists and that the column names match the column types.
 
 ### Examples
 
@@ -177,7 +177,7 @@ COPY INTO [<database>.]< table_name >
 There are four parameters in the connection options for Google Cloud Storage:
 
 - gcs_base_url
-- disable_oauth： Turn off validation switch. If `false`, `client_email`, `private_key` parameters must be specified.
+- disable_oauth: Turn off validation switch. If `false`, `client_email`, `private_key` parameters must be specified.
 - client_email
 - private_key
 
