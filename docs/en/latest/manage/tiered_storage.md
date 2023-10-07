@@ -19,12 +19,12 @@ The basic unit of data migration in a CnosDB cluster is Vnode. The enterprise ed
 
 ```SQL
 SHOW DATANODES;                          // Show all nodes in the cluster
-+---------+------------------------+-----------+---------+-----------+---------------------+
-| NODE_ID | HOST                   | ATTRIBUTE | STATUS  | DISK_FREE | LAST_UPDATED_TIME   |
-+---------+------------------------+-----------+---------+-----------+---------------------+
-| 1001    | query_tskv1.cnosdb.com | HOT       | HEALTHY | 5.18 GB   | 2023-06-05 02:30:22 |
-| 1002    | query_tskv2.cnosdb.com | HOT       | HEALTHY | 93.71 GB  | 2023-06-05 02:30:19 |
-+---------+------------------------+-----------+---------+-----------+---------------------+
++---------+------------------------+-----------+---------+-----------+------------+---------------------+
+| NODE_ID | HOST                   | ATTRIBUTE | STATUS  | DISK_FREE | DISK_TOTAL | LAST_UPDATED_TIME   |
++---------+------------------------+-----------+---------+-----------+------------+---------------------+
+| 1001    | query_tskv1.cnosdb.com | HOT       | HEALTHY | 5.18 GB   | 7.37 GB    | 2023-06-05 02:30:22 |
+| 1002    | query_tskv2.cnosdb.com | HOT       | HEALTHY | 93.71 GB  | 240.11 GB  | 2023-06-05 02:30:19 |
++---------+------------------------+-----------+---------+-----------+------------+---------------------+
 
 ALTER NODE [node_id] ATTRIBUTE [HOT/COLD];  // Modify the attribute of the node
 ```
