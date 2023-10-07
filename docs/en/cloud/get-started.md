@@ -19,7 +19,7 @@ index: false
 
     <img src="/_static/img/cloud/database_name.png" style="width:50% "/>
 
-4. Specify a time-to-live (TTL) value in minutes, hours or days for your database documents in the "TTL" field.
+4. Specify a time-to-live (TTL) value in hours or days for your database documents in the "TTL" field.
 
     <img src="/_static/img/cloud/ttl_unit.png" style="width:50% "/>
 
@@ -32,7 +32,13 @@ index: false
 8. Specify the precision for timestamp values in the "PRECISION" field.
 
 9. Click the "Create" button to create your database.
-
+10. Guide Video
+<div>
+<video width="640" height="360" controls>
+  <source src="https://cnosdbcloudpublic.s3.us-west-2.amazonaws.com/docvideo/create-db.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
 ## Create Prometheus Data Source
 
 1. Open the CnosDB web console and go to the "Data Sources" page.
@@ -60,7 +66,13 @@ index: false
     ```toml
     prometheus --config.file=prometheus.yml
     ```
-
+7. Guide Video
+<div>
+<video width="640" height="360" controls>
+  <source src="https://cnosdbcloudpublic.s3.us-west-2.amazonaws.com/docvideo/prometheus.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
 ## Create Telegraf Data Source
 
 1. Open the CnosDB web console and go to the "Data Sources" page.
