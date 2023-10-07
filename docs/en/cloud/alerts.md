@@ -89,3 +89,10 @@ When configuring the notification content format, Cloud will have a {{Time}} con
 According to the notification format supported by slack, the user only needs to select which Rule configuration parameters need to be written in the notification. SQL query results will be presented in slack in tabular form.
 
 ![](/_static/img/cloud/alert_4.2_down.png)
+
+## Guide Video
+
+<video width="640" height="360" controls>
+  <source src="https://cnosdbcloudpublic.s3.us-west-2.amazonaws.com/docvideo/cloud-alert.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
