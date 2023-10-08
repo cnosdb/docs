@@ -39,6 +39,7 @@ index: false
   Your browser does not support the video tag.
 </video>
 </div>
+
 ## Create Prometheus Data Source
 
 1. Open the CnosDB web console and go to the "Data Sources" page.
@@ -73,6 +74,7 @@ index: false
   Your browser does not support the video tag.
 </video>
 </div>
+
 ## Create Telegraf Data Source
 
 1. Open the CnosDB web console and go to the "Data Sources" page.
@@ -102,6 +104,14 @@ index: false
 7. Click the next button and you can see the usage docs.
 
     ![](/_static/img/cloud/telegraf_usage.png)
+
+8. Guide Video
+<div>
+<video width="640" height="360" controls>
+  <source src="https://cnosdbcloudpublic.s3.us-west-2.amazonaws.com/docvideo/telegraf.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
 
 ## Import Data From CSV
 
@@ -135,3 +145,11 @@ index: false
 8. Click Next. Seeing Success indicates that the file was written successfully.
 
     ![](/_static/img/cloud/csv_success.png)
+
+9. Guide Video
+<div>
+<video width="640" height="360" controls>
+  <source src="https://cnosdbcloudpublic.s3.us-west-2.amazonaws.com/docvideo/csv.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
