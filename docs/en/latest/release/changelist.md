@@ -5,6 +5,30 @@ order: 2
 
 # Change List
 
+## v2.3.3 Antlia
+
+Release date：Sep 28,2023
+
+### Improvements:
+- Optimized read performance [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- Improved the Ord implementation of DataType  [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- Added data block reader  [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- Removed field scan timer  [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+
+### Bug Fixes:
+- Fixed the issue allowing modification of the usage_schema database [#1421](https://github.com/cnosdb/cnosdb/pull/1421)
+- Resolved inconsistency issues with users and tenants on multiple metadata nodes [#1417](https://github.com/cnosdb/cnosdb/pull/1417)
+- Fixed the problem of not deleting data when deleting a tenant [#1418](https://github.com/cnosdb/cnosdb/pull/1418)
+- Resolved the issue of generating TLS lv-2 certificates without options [#1441](https://github.com/cnosdb/cnosdb/pull/1441)
+- Fixed the data loss issue when creating TSF [#1478](https://github.com/cnosdb/cnosdb/pull/1478)
+- Resolved the cancellation of queries on Tskv [#1488](https://github.com/cnosdb/cnosdb/pull/1488)
+- Fixed retry after table update conflict [#1503](https://github.com/cnosdb/cnosdb/pull/1503)
+- Fixed database modification issue [#1504](https://github.com/cnosdb/cnosdb/pull/1504)
+- Fixed issues with Arrow Flight SQL JDBC API's getCatalogs, getSchemas, and getTables [#1520](https://github.com/cnosdb/cnosdb/pull/1520)
+- Fixed the getTables API of Arrow Flight SQL [#1528](https://github.com/cnosdb/cnosdb/pull/1528)
+- Resolved the delayed reporting of NodeMetrics [#1541](https://github.com/cnosdb/cnosdb/pull/1541)
+- Fixed data loss issue due to table updates [#1542](https://github.com/cnosdb/cnosdb/pull/1542)
+- Fixed errors in parsing Line Protocol [#1539](https://github.com/cnosdb/cnosdb/pull/1539)
 
 ## v2.3.2 Andromeda
 

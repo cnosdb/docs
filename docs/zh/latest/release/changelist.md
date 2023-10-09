@@ -5,6 +5,31 @@ order: 2
 
 # 版本发布历史
 
+## v2.3.3 Antlia
+
+发布日期：2023年9月28日
+
+### 功能优化
+- 优化了读取性能 [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 优化了 DataType 的 Ord 实现 [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 添加了  data block reader [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 移除了字段扫描定时器 [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+
+### 问题修复：
+- 修复了允许修改 usage_schema 数据库的问题 [1421](https://github.com/cnosdb/cnosdb/pull/1421)
+- 修复了多个元数据节点上用户和租户的不一致性问题  [1417](https://github.com/cnosdb/cnosdb/pull/1417)
+- 修复了删除租户时不删除数据的问题 [1418](https://github.com/cnosdb/cnosdb/pull/1418)
+- 修复了生成没有选项的 TLS lv-2 证书的问题  [1441](https://github.com/cnosdb/cnosdb/pull/1441)
+- 修复了创建 TSF 时数据丢失的问题  [1478](https://github.com/cnosdb/cnosdb/pull/1478)
+- 修复了在 Tskv 上取消查询任务 [1488](https://github.com/cnosdb/cnosdb/pull/1488)
+- 修复了在更新表冲突后重试  [1503](https://github.com/cnosdb/cnosdb/pull/1503)
+- 修复了更改数据库的问题  [1504](https://github.com/cnosdb/cnosdb/pull/1504)
+- 修复了 Arrow Flight SQL JDBC API 的 getCatalogs、getSchemas 和 getTables 的问题 [1520](https://github.com/cnosdb/cnosdb/pull/1520)
+- 修复了 Arrow Flight SQL 的 getTables API    [1528](https://github.com/cnosdb/cnosdb/pull/1528)
+- 修复了未及时报告 NodeMetrics 的问题    [1541](https://github.com/cnosdb/cnosdb/pull/1541)
+- 更新表格导致数据丢失的问题    [1542](https://github.com/cnosdb/cnosdb/pull/1542)
+- 修复了解析 Line Protocol 时出现的错误    [1539](https://github.com/cnosdb/cnosdb/pull/1539)
+
 ## v2.3.2
 
 发布日期：2023年8月2日
