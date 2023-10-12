@@ -1068,7 +1068,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
   UNION ALL
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
-  
+
       +------------+
       | visibility |
       +------------+
@@ -1091,7 +1091,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
   UNION
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
-  
+
       +------------+
       | visibility |
       +------------+
@@ -1114,7 +1114,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
   EXCEPT
   SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
   ```
-  
+
       +------------+
       | visibility |
       +------------+
@@ -1137,7 +1137,7 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
   INTERSECT
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
-  
+
       +------------+
       | visibility |
       +------------+
@@ -2597,9 +2597,9 @@ GROUP BY CUBE (station, visibility);
 
 包含DISTINCT关键字，会对去重后的结果计数。
 
-> COUNT(*) 和 COUNT(literal value) 是等价的，如果sql的投影中仅含有 `*/literal value`，则sql会被重写为 COUNT(time)。 
+> COUNT(*) 和 COUNT(literal value) 是等价的，如果sql的投影中仅含有 `*/literal value`，则sql会被重写为 COUNT(time)。
 
-> COUNT(tag) 等价于 COUNT(DISTINCT tag)。 
+> COUNT(tag) 等价于 COUNT(DISTINCT tag)。
 
 > COUNT(field) 返回非NULL值的个数。
 
@@ -2845,7 +2845,58 @@ select mode(pressure) from air;
     | 69.0               |
     +--------------------+
 
-### **统计聚合函数**
+### INCREASE
+
+    increase(time, value order by time)
+
+计算 value 在时间序列中的增量
+
+**参数**: value 数字类型
+
+**返回值**: 同value类型相同
+
+**示例**：
+
+statement ok
+create database if not exists test_increase;
+
+statement ok
+alter database test_increase set ttl '100000d';
+
+```sql
+CREATE DATABASE IF NOT EXISTS TEST_INCREASE;
+ALTER DATABASE TEST_INCREASE SET TTL '100000D';
+CREATE TABLE IF NOT EXISTS test_increase.test_increase(f0 BIGINT, TAGS(t0));
+INSERT INTO test_increase.test_increase(time, t0, f0)
+VALUES
+    ('1999-12-31 00:00:00.000', 'a', 1),
+    ('1999-12-31 00:00:00.005', 'a', 2),
+    ('1999-12-31 00:00:00.010', 'a', 3),
+    ('1999-12-31 00:00:00.015', 'a', 4),
+    ('1999-12-31 00:00:00.020', 'a', 5),
+    ('1999-12-31 00:00:00.025', 'a', 6),
+    ('1999-12-31 00:00:00.030', 'a', 7),
+    ('1999-12-31 00:00:00.035', 'a', 8),
+    ('1999-12-31 00:00:00.000', 'b', 1),
+    ('1999-12-31 00:00:00.005', 'b', 2),
+    ('1999-12-31 00:00:00.010', 'b', 3),
+    ('1999-12-31 00:00:00.015', 'b', 4),
+    ('1999-12-31 00:00:00.020', 'b', 1),
+    ('1999-12-31 00:00:00.025', 'b', 2),
+    ('1999-12-31 00:00:00.030', 'b', 3),
+    ('1999-12-31 00:00:00.035', 'b', 4);
+SELECT t0, INCREASE(time, f0 ORDER BY time) AS increase
+FROM test_increase.test_increase GROUP BY t0 ORDER BY t0;
+```
+
+    +----+----------+
+    | t0 | increase |
+    +----+----------+
+    | a  | 7        |
+    | b  | 7        |
+    +----+----------+
+
+### 统计聚合函数
 
 ### VAR | VAR_SAMP
 
