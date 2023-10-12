@@ -2857,12 +2857,6 @@ select mode(pressure) from air;
 
 **示例**：
 
-statement ok
-create database if not exists test_increase;
-
-statement ok
-alter database test_increase set ttl '100000d';
-
 ```sql
 CREATE DATABASE IF NOT EXISTS TEST_INCREASE;
 ALTER DATABASE TEST_INCREASE SET TTL '100000D';
