@@ -170,10 +170,10 @@ DROP DATABASE [IF EXISTS] db_name [AFTER '7d'];
 ```
 
 删除数据库会将指定database的所有table数据及元数据全部删除。
-当不带AFTER时，会立即删除；
-当带AFTER时，为延迟删除，会在指定时间后删除，时间支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天。延迟删除期间数据库不可见不可读。
 
-在延迟删除期间取消删除，恢复数据库，可执行
+当不带AFTER时，会立即删除；
+
+当带AFTER时，为延迟删除，会在指定时间后删除，时间支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天。延迟删除期间数据库不可见不可读。
 
 #### 语法
 
@@ -181,27 +181,19 @@ DROP DATABASE [IF EXISTS] db_name [AFTER '7d'];
 RECOVER DATABASE [IF EXISTS] db_name;
 ```
 
-延迟删除取消，数据库恢复正常状态。注意：只有对延迟删除的资源，且在延迟删除期间，执行RECOVER语句才有作用。
+取消延迟删除，数据库恢复正常状态。
+
+**注意**：只有对延迟删除的资源，且在延迟删除期间，执行RECOVER语句才有作用。
 
 #### 示例
 
 ```sql
 DROP DATABASE oceanic_station AFTER ‘7d’;
-```
 
-    Query took 0.028 seconds.
-
-```sql
 RECOVER DATABASE oceanic_station;
-```
 
-    Query took 0.035 seconds.
-
-```sql
 DROP DATABASE oceanic_station;
 ```
-
-    Query took 0.030 seconds.
 
 ### **修改数据库参数**
 
