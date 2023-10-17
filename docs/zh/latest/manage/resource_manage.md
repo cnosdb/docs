@@ -8,14 +8,17 @@ order: 12
 CnosDB新增了资源管理功能，会对一些比较复杂、多步执行的资源操作进行监控，并且当操作失败时会进行重试，直到成功。
 
 目前支持的资源操作：
-    DropTenant,
-    DropDatabase,
-    DropTable,
-    DropColumn,
-    AddColumn,
-    AlterColumn,
-    RenameTagName,
-    UpdateTagValue
+
+```
+DropTenant,
+DropDatabase,
+DropTable,
+DropColumn,
+AddColumn,
+AlterColumn,
+RenameTagName,
+UpdateTagValue
+```
 
 可以通过查看RESOURCE_STATUS系统表来查看资源执行信息
 
