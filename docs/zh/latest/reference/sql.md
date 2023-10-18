@@ -32,12 +32,13 @@ order: 5
 
 | 类型              | 语法                                    | 说明                                              |
 |-----------------|---------------------------------------|-------------------------------------------------|
-| BIGINT          | \[{+\-}\]123                          |                                                 |      数值类型                |
+| BIGINT          | \[{+\-}\]123                          | 数值类型                                            |
 | BIGINT UNSIGNED | \[+]123                               | 数值类型                                            |
 | DOUBLE          | 123.45                                | 数值类型，目前暂不支持科学记数法                                |
 | BOOLEAN         | {true &#124; false &#124; t &#124; f} |                                                 |
 | STRING          | 'abc'                                 | 不支持双引号格式，引号中连续两个''转义成‘                          |
 | TIMESTAMP       | TIMESTAMP '1900-01-01T12:00:00Z'      | 时间戳，TIMESTAMP 关键字表示后面的字符串常量需要被解释为 TIMESTAMP 类型。 |
+| Geometry        | [点击跳转](#Geometry)                     | 几何类型                                            |
 | --              | NULL                                  | 空值                                              |
 
 #### TIMESTAMP 常量语法
@@ -94,6 +95,51 @@ SELECT CAST (1 AS TIMESTAMP);
 
 INTERVAL '1 YEAR' 并不是365天或366天，而是12个月。
 INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天。
+
+#### Geometry
+
+#### WKT
+
+WKT格式是一种文本格式，用于描述二维和三维几何对象的空间特征。
+WKT是“Well-Known Text”的缩写，是一种开放的国际标准。
+WKT格式包括一些基本的几何对象，例如点、线、多边形和圆形，以及一些复合对象，例如多边形集合和几何对象集合。
+
+#### 语法
+
+```
+<geometry tag> <wkt data>
+
+<geometry tag> ::= POINT | LINESTRING | POLYGON | MULTIPOINT | 
+                   MULTILINESTRING | MULTIPOLYGON | GEOMETRYCOLLECTION
+                   
+<wkt data> ::= <point> | <linestring> | <polygon> | <multipoint> | 
+               <multilinestring> | <multipolygon> | <geometrycollection>
+```
+
+| 几何对象   | 语法描述                                                                                 | 
+|--------|--------------------------------------------------------------------------------------|
+| 点      | `POINT (<x1> <y1>)`                                                                  |
+| 线      | `LINESTRING (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| 多边形    | `POLYGON ((<x1> <y1>, <x2> <y2>, ...))`                                              |
+| 多点     | `MULTIPOINT (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| 多线     | `MULTILINESTRING ((<x1> <y1>, <x2> <y2>, ...), (<x1> <y1>, <x2> <y2>, ...))`         |
+| 多多边形   | `MULTIPOLYGON (((<x1> <y1>, <x2> <y2>, ...)), ((<x1> <y1>, <x2> <y2>, ...)))`        |
+| 几何对象几何 | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
+
+#### 示例
+
+| 几何对象  | 图片                                                       | 示例                                                                                                                       | 
+|-------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| 点     | ![](/_static/img/sql/SFA_Point.svg.png)                  | POINT (30 10)                                                                                                            |
+| 线     | ![](/_static/img/sql/102px-SFA_LineString.svg.png)       | LINESTRING (30 10, 10 30, 40 40)                                                                                         |
+| 多边形   | ![](/_static/img/sql/SFA_Polygon.svg.png)                | POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))                                                                            |
+|       | ![](/_static/img/sql/SFA_Polygon_with_hole.svg.png)      | POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))                                              |
+| 多点    | ![](/_static/img/sql/SFA_MultiPoint.svg.png)             | MULTIPOINT ((10 40), (40 30), (20 20), (30 10))                                                                          |
+|       |                                                          | MULTIPOINT (10 40, 40 30, 20 20, 30 10)                                                                                  |
+| 多线    | ![](/_static/img/sql/102px-SFA_MultiLineString.svg.png)  | MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))                                                    |
+| 多面    | ![](/_static/img/sql/SFA_MultiPolygon.svg.png)           | MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))                                        |
+|       | ![](/_static/img/sql/SFA_MultiPolygon_with_hole.svg.png) | MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20))) |
+| 几何对集合 | ![](/_static/img/sql/SFA_GeometryCollection.svg.png)     | GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))             |
 
 ### **创建数据库**
 
