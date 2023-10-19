@@ -674,6 +674,55 @@ INSERT INTO air (TIME, station, pressure) VALUES
     | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        | 77.0     |
     +----------------------------+------------+------------+-------------+----------+
 
+## **更新数据**
+
+### **更新 tag 列**
+
+#### 语法
+
+```
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+
+assignment clause :
+    tag_name = value_expression
+```
+
+#### 使用说明
+
+1. CnosDB支持单独更新单个或多个 tag 列值，不支持同时更新 tag 列及 field 列。
+2. CnosDB支持更新 tag 列值为 NULL。
+3. `value_expression` 只能为编译期能确定值的表达式，如：'常量'、'1 + 2'、'CAST('1999-12-31 00:00:00.000' as timestamp)' 等。
+4. `where_clause` 中不能包含 field 列或 time 列，且不能为空，如果想更新表中所有数据，需要使用 'where true'，这代表你接受在表数据量比较大时带来的性能问题。
+5. 不支持修改成已经存在 series（所有的 tag 列值构成 series）。
+6. 避免在写入数据时执行更新 tag 操作，可能会引起 series 冲突。
+
+#### 示例
+
+```sql
+update air set station = 'ShangHai' where station = 'LianYunGang';
+```
+
+### **更新 field 列**
+
+#### 语法
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+
+assignment clause :
+    field_name = value_expression
+```
+
+#### 使用说明
+
+1. CnosDB支持单独更新单个或多个 field 列值，不支持同时更新 tag 列及 field 列。
+
+#### 示例
+
+```sql
+update air set pressure = pressure + 100 where pressure = 68 and time < '2023-01-14T16:03:00';
+```
+
 ## **查询数据**
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)
