@@ -36,7 +36,7 @@ We mainly analyze and explore the changes of the monthly mean sunspot number (MS
 
 ### Import Data to CnosDB
 
-Download MSSN data `SN_m_tot_V2.0.csv`（https://www.sidc.be/silso/infosnmtot）.
+Download MSSN data `SN_m_tot_V2.0.csv`（https://www.sidc.be/SILSO/INFO/snmtotcsv.php）.
 
 Here is the official description of the CSV file:
 
@@ -97,9 +97,9 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 - Official Website: http://www.cnosdb.com
 - Github Repo: https://github.com/cnosdb/cnosdb
 
-（Notice：We suppose the you have the ability to deploy and use CnosDB. You can get more information through https://docs.cnosdb.com/）
+Notice: We suppose the you have the ability to deploy and use CnosDB. You can get more information through https://docs.cnosdb.com/）
 
-Use Docker to start CnosDB service in command line, enter the container and use the [CnosDB CLI](../../reference/tools.md) to use CnosDB：
+Use Docker to start CnosDB service in command line, enter the container and use the [CnosDB CLI](../../reference/tools.md) to use CnosDB:
 
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2.0.2.1-beta
@@ -154,7 +154,7 @@ conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-If you are not familiar wit [CnosDB CLI](../../reference/tools.md) ，We can use Python Connector to create a data table.
+If you are not familiar with [CnosDB CLI](../../reference/tools.md), We can use Python Connector to create a data table.
 
 ```python
 
@@ -185,7 +185,7 @@ conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
 
 ### CnoDB reads the data and uses TensorFlow to reproduce the 1DConv+LSTM network to predict sunspot changes
 
-References：[程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
+References: [程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
 ](http://journal.ucas.ac.cn/CN/10.7523/j.ucas.2021.0068)
 
 ![](/_static/img/MSSN.png)

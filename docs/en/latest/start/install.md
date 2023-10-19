@@ -14,6 +14,7 @@ For other installation methods, please see [Installing CnosDB](https://www.docke
 1. Installing a [Docker](https://www.docker.com/products/docker-desktop/) environment
 
 2. Start the container with Docker
+
     ```shell
     docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
     ```
@@ -71,7 +72,8 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ## Data Query
 
 - **View all tables**
-    ```shell
+
+    ```sql
     SHOW TABLES;
     ```
     Successful execution returns the following results:
@@ -87,7 +89,8 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 
 
 - **Query data**
-    ```shell
+
+    ```sql
     SELECT * FROM air limit 10;
     ```
     Successful execution returned the following results:
@@ -112,7 +115,7 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
     ```
 
 
-> For more information about database operations, please refer to：
+> For more information about database operations, please refer to:
 >
 > [SQL](../reference/sql.md)
 >

@@ -32,7 +32,7 @@ CnosDB--data frame-->Grafana
 
 - #### **Connect CnosDB**
 
-Type `http://localhost:3000`，and the Grafana login screen will show up if running correctly. The original username and password are both admin.
+Type `http://localhost:3000`, and the Grafana login screen will show up if running correctly. The original username and password are both admin.
 
 ![](/_static/img/grafana_login_page.png)
 

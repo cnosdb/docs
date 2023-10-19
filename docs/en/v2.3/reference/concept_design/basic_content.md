@@ -2,87 +2,90 @@
 title: Concepts
 order: 1
 ---
-
 # Concepts
+## Introduction
 
-### Background
+Before going deep into CnosDB, we need to be familiar with some basic concepts in CnosDB, which will help us to learn and use CnosDB better in the future. To help you understand these concepts better, this article uses an example to show you how the various elements work together in CnosDB, and lists the meanings of each concept in the final section of the article.
 
-The twenty-first century we are living in is an era of explosive growth of data information, in which all kinds of data information are expanding, individuals and enterprises are aware of the importance of data information, and with the advent of big data era, we have new challenges and requirements for insight into this data information. Based on the above-mentioned background of massive data, the database field has segmented some data information in specific formats to obtain better storage and retrieval performance.
-Our time series data is one of the branches born in this context. This article focuses on the time series database users to carry out a basic concept of pulling together, in order to help us better navigate the time series data.
+### Sample data：
+```sql
+test ❯ select * from air limit 5;
++---------------------+-------------+----------+-------------+------------+
+| time                | station     | pressure | temperature | visibility |
++---------------------+-------------+----------+-------------+------------+
+| 2023-01-14T16:00:00 | XiaoMaiDao  | 63.0     | 80.0        | 79.0       |
+| 2023-01-14T16:03:00 | XiaoMaiDao  | 58.0     | 64.0        | 78.0       |
+| 2023-01-14T16:06:00 | XiaoMaiDao  | 65.0     | 79.0        | 67.0       |
+| 2023-01-14T16:09:00 | LianYunGang | 51.0     | 75.0        | 64.0       |
+| 2023-01-14T16:12:00 | LianYunGang | 60.0     | 50.0        | 67.0       |
++---------------------+-------------+----------+-------------+------------+
+Query took 0.027 seconds.
+```
 
-### Time Series
+This data is obtained from the air table in the `oceanic_stations` open dataset as an example. It can be seen that the table consists of five columns: The `time`, `station`, `pressure`, `tempreture`, and `visibility` columns will be analyzed in detail.
 
-In the ocean, we may monitor a variety of data indicators, used to study the environment, weather and human production, for example, a scenario: Suppose we have a detector that can record the visibility of the ocean air, we can determine whether to produce based on visibility changes. This visibility information is a time series data, in a common sense is a line graph of changes over time.
+The first thing we can make clear in this example is that the library is `oceanic_stations` and the table is `air`. CnosDB is a timing database, so for CnosDB, it starts with just that - time.
 
-![Time Series](](/_static/img/air_vis.png)
+In the above data, the first column is named time, which is present in all databases in CnosDB. time stores a timestamp that complies with the `RFC3339` standard.
 
-So let's make a summary:
+Next, `station` is listed as a tag column, which represents an entity that represents the id of the data source. In this example, the data we collected was collected from XiaoMaiDao station. Tags are composed of key and value, both of which are stored as strings and recorded in metadata. In this example, the key is station, and the value is XiaoMaiDao and LianYunGang.
 
-Time Series is a line with time on the x-axis and a state index on the y-axis, which is used to describe the state of things over a period of time.
+In the example above, the tag group is a different set of keys and values for each group, and there are two tag groups in the sample data:
 
-CnosDB is a time series database, whose application is to store data related to time series, providing efficient writing and querying.
-Therefore, CnosDB has designed the design model of time series based on the characteristics of time series data.
+```text
 
+station = XiaoMaiDao
+station = LianYunGang
 
-### Data Model
+```
+Finally, the columns of pressure, temperature, and visibility are field columns, which are also composed of key and value columns. In this example, key is `pressure`, `temperature`, and `visibility`, which are all strings. They store metadata. value simply represents the data, which can be of string type or any other type. In this example, the value is as follows:
+```text
+63.0      80.0        79.0       
+58.0      64.0        78.0       
+65.0      79.0        67.0       
+51.0      75.0        64.0       
+60.0      50.0        67.0    
+```   
+In the example above, the field group is the set of keys and values for each group, and there are five field groups in the sample data:
 
-#### TimeStamp
+```text
+pressure = 63.0    temperature = 80.0    visibility = 79.0       
+pressure = 58.0    temperature = 64.0    visibility = 78.0       
+pressure = 65.0    temperature = 79.0    visibility = 67.0       
+pressure = 51.0    temperature = 75.0    visibility = 64.0       
+pressure = 60.0    temperature = 50.0    visibility = 67.0   
+```    
+>Attention：Tag columns differ from field columns in that tags are indexed, which means queries on tags are faster, while fields are not indexed. If a field value is used as a filtering criterion, all values that match other criteria must be scanned. Therefore, labels are the best choice for storing commonly used data.
 
-A time series database requires that each piece of data written be time-stamped, indicating the moment when the data was collected.
+### Key concepts
+#### TimeSeries
 
-CnosDB supports setting the precision of the time.
+In a time series database, a time series is a sequence of data points arranged in chronological order. It contains time stamps and corresponding values or events for recording and analyzing data over time.
+#### Database
 
-#### Tag
-
-In the application scenario of temporal database, there are some data that do not change with time, such as the location of the IoT collection device, the name of the device, and the owner of the device.
-
-This data is called**Tag**and we use STRING to store Tag.
-
-In CnosDB a tag data is a key-value pair, consisting of Key and Value, Key is the tag name and Value is the tag value.
-
-Usually, for better classification, multiple Tag pairs are used to tag a time series, i.e. Tags.
-
-#### Field
-
-In a time-series database application scenario, some data changes over time, such as the data collected by IoT collection devices.
-
-For a device that detects the environment, it collects information such as room temperature, humidity, etc., which changes over time, and these data we call **Field**.
-
-The collected data is diverse, CnosDB provides `BIGINT`,`BIGINT UNSIGNED`,`DOUBLE`,`STRING`,`BOOLEAN` for storing fields, and also provides compression algorithm to store them efficiently.
-
-#### Row
-
-A timestamp, a set of tags, and a set of fields make up a row of data, which many people also call a point.
-
-A data row must contain a timestamp, at least one tag, and at least one field.
-
+A database is made up of multiple tables, similar to a relational database. Each table stores a different structure of data. Users can use SQL to manipulate different tables in the database, and can also perform table join queries.
 #### Table
 
-A Table is an organization of rows of data with the same label and fields. This is very similar to the concept of a table in a relational database.
+A table organizes rows of data with the same labels and fields. This is very similar to the concept of tables in a relational database. Timestamps, labels, and fields are the columns of a table in a relational database.
+#### Timestamp
+A timing database requires that each piece of data written to be time-stamped, indicating the time at which the piece of data was collected. CnosDB supports the precision of setting time.
+#### Tag key
 
-Timestamps, labels, and fields are equivalent to columns of tables in a relational database.
+In the application scenario of timing database, some data does not change with time, such as the location of the Internet of Things acquisition device, the name of the device, and the owner of the device. We call this data tags, and use strings to store the tags.
+#### Tag value
 
-The only difference is that the rows in CnosDB are rows of data consisting of timestamps, labels, and fields.
+The value of the tag key.
+#### Tag set
 
-We can use our familiar SQL to manipulate the tables in CnosDB database that store time series data. INSERT and most SELECT statements in SQL standard are efficiently supported by CnosDB.
+A tag group typically consists of one or more tags, each of which is a key-value pair that describes a feature or attribute of the data.
+#### Field key
 
-**Example**
-
-The following is a table storing data
-
-| Timestamp | NodeID | CPU | Memory |
-|-----------|--------|-----|--------|
-| time1     | node1  | 15% | 35%    |
-| time2     | node2  | 23% | 45%    |
-| time3     | node1  | 19% | 50%    |
-| time4     | node2  | 80% | 70%    |
-
-Where the Timestamp column is the timestamp, the NodeID column is the label, and CPU and Memory are the fields
-
-#### DataBase
-
-A database is made up of multiple tables, which is similar to a relational database. Each table stores data of different structure.
-
-Users can use SQL to manipulate different tables in the database and also perform join queries of tables.
-
-CnosDB supports setting different storage policies for a database, data retention time, number of data slices, slice setting policy, time precision, etc.
+In the application scenario of time series database, some data changes over time, such as the data collected by the Internet of Things acquisition device. For the equipment that detects the environment, the room temperature, humidity and other information it collects changes with time, and these data are called fields.
+#### Field value
+The value of the field key.
+#### Field set
+A field group usually consists of one or more fields, each of which stores a specific data value.
+#### Row
+The rows in CnosDB are data rows made up of timestamps, labels, and fields. A timestamp, a set of labels, and a set of fields make up a row of data, which can also be called a point. A data row must contain a timestamp, at least one label, and one field.
+#### Retention policy
+CnosDB supports setting up different storage policies for a database, data retention time, number of data fragments, shard setting policies, time accuracy, etc.

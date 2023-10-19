@@ -5,7 +5,7 @@
       "label": "CnosDB",
       "description": "",
       "type": "datasource",
-      "pluginId": "cnos-grafana-datasource",
+      "pluginId": "cnos-cnosdb-datasource",
       "pluginName": "CnosDB"
     }
   ],
@@ -13,7 +13,7 @@
   "__requires": [
     {
       "type": "datasource",
-      "id": "cnos-grafana-datasource",
+      "id": "cnos-cnosdb-datasource",
       "name": "CnosDB",
       "version": "1.0.0"
     },
@@ -77,7 +77,7 @@
       "panels": [
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -127,7 +127,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "groupBy": [
@@ -173,7 +173,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -231,7 +231,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -276,7 +276,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -334,7 +334,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -378,7 +378,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -428,7 +428,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -479,7 +479,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -537,7 +537,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -590,7 +590,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -648,7 +648,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -692,7 +692,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -750,7 +750,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -794,7 +794,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -844,7 +844,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -902,7 +902,7 @@
       "panels": [
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -978,7 +978,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -1106,7 +1106,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -1182,7 +1182,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -1378,7 +1378,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -1454,7 +1454,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -1540,7 +1540,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -1617,7 +1617,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -1669,7 +1669,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -1745,7 +1745,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -1903,7 +1903,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -1979,7 +1979,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2029,7 +2029,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2105,7 +2105,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2191,7 +2191,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2267,7 +2267,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2317,7 +2317,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2393,7 +2393,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2480,7 +2480,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2556,7 +2556,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2608,7 +2608,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2684,7 +2684,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2770,7 +2770,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2846,7 +2846,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -2914,7 +2914,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -2990,7 +2990,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3036,7 +3036,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3087,7 +3087,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -3163,7 +3163,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3209,7 +3209,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3260,7 +3260,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -3336,7 +3336,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3382,7 +3382,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3447,7 +3447,7 @@
       "panels": [
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -3524,7 +3524,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3570,7 +3570,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3621,7 +3621,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -3698,7 +3698,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3744,7 +3744,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -3795,7 +3795,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -3872,7 +3872,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4084,7 +4084,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -4161,7 +4161,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4207,7 +4207,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4255,7 +4255,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4302,7 +4302,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4353,7 +4353,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -4429,7 +4429,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4475,7 +4475,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4520,7 +4520,7 @@
         },
         {
           "datasource": {
-            "type": "cnos-grafana-datasource",
+            "type": "cnos-cnosdb-datasource",
             "uid": "${DS_CNOSDB}"
           },
           "fieldConfig": {
@@ -4596,7 +4596,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",
@@ -4642,7 +4642,7 @@
             },
             {
               "datasource": {
-                "type": "cnos-grafana-datasource",
+                "type": "cnos-cnosdb-datasource",
                 "uid": "${DS_CNOSDB}"
               },
               "fill": "null",

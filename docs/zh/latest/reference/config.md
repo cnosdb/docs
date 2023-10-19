@@ -43,6 +43,7 @@ cnosdb check server-config ./config.toml
 - `[heartbeat]` 心跳配置
 - `[node_basic]` 节点配置
 - `[hintedoff]` HintedOff 配置
+- `[trace]` 全链路追踪配置
 
 详细的配置文件说明如下所示：
 
@@ -188,7 +189,25 @@ reporting_disabled = true
 | concurrency | 处理转发请求的并发数，默认：8              |
 | timeout     | 转发请求的超时时间（秒），默认：300          |
 
+## \[trace]
 
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| auto_generate_span | 是否自动生成root span，当客户端未携带span context时有效 |
+
+### \[trace.log] (可选)
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| path | trace 日志文件路径 |
+
+### \[trace.jaeger] (可选)
+
+| 参数                | 说明                                               |
+|--------------------|---------------------------------------------------|
+| jaeger_agent_endpoint | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
+| max_concurrent_exports | trace 上报器的并行度。默认值为 2 |
+| max_queue_size | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。 默认值为 4096 |
 
 # CnosDB Meta配置
 

@@ -17,3 +17,4 @@ order: -2
 
 [TensorFlow](./ml/tensorflow)：是一个开源的机器学习框架，可以与 CnosDB 数据库集成，实现对大规模数据的分析和处理，提高数据挖掘和机器学习的效率和精度。
 
+[Kafka](./middleware/kafka)：是一个开源分布式的发布订阅模型的消息中间件，可以与 CnosDB 集成，实现对海量数据的传输、存储和分析。

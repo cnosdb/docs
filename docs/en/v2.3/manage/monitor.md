@@ -35,6 +35,51 @@ The disk that the Vnode occupies.
 | VNODE_ID | ID of Vnode                           |
 | VALUE    | Disk that the Vnode occupies in bytes |
 
+### WRITE_DATA_IN
+
+#### NAME
+
+write_data_in
+
+#### Category
+
+Count
+#### Description
+
+Data traffic written over http, excluding SQL.
+
+#### Tag
+
+| Field    | Description                         |
+|----------|-------------------------------------|
+| TIME     | Time of data_in                     |
+| DATABASE | DatabaseName                        |
+| NODE_ID  | ID of data node                     |
+| TENANT   | Tenant name the database belongs to |
+| VALUE    | The total write traffic in Bytes    |
+
+### SQL_DATA_IN
+
+#### Name
+
+sql_data_in
+
+#### Category
+Count
+
+#### Description
+
+Data traffic written by sql, including INSERT, COPY statements.
+
+#### Tag
+
+| Field    | Description                         |
+|----------|-------------------------------------|
+| TIME     | Time of data_in                     |
+| DATABASE | DatabaseName                        |
+| NODE_ID  | ID of data node                     |
+| TENANT   | Tenant name the database belongs to |
+| VALUE    | The total write traffic in Bytes    |
 
 ### VNODE_CACHE_SIZE
 
@@ -70,7 +115,7 @@ coord_data_in
 
 Count
 
-#### Discription
+#### Description
 
 The total size of the written traffic when data is written to the database.
 
@@ -95,7 +140,7 @@ coord_data_out
 
 Count
 
-#### Discription
+#### Description
 
 Total outflow traffic for reading data from the database.
 
@@ -109,6 +154,31 @@ Total outflow traffic for reading data from the database.
 | TENANT   | Tenant name the database belongs to         |
 | VALUE    | The total size of the read traffic in Bytes |
 
+### HTTP_DATA_OUT
+
+#### Name
+
+http_data_out
+
+#### Type
+
+Count
+
+#### Description
+
+The size of the Http returned data.
+
+#### Tag
+
+| Field    | Description                                    |
+|----------|-------------------------------------------     |
+| TIME     | Time of http_data_out                          |
+| DATABASE | Database name                                  |
+| NODE_ID  | ID of data node                                |
+| TENANT   | Tenant name the database belongs to            |
+| Database | Database name                                  |
+| User     | User name                                      |
+| VALUE    | The total size of the read traffic in Bytes    |
 ### USER_QUERIES
 
 #### Name
@@ -119,7 +189,7 @@ user_queries
 
 Count
 
-#### Discription
+#### Description
 
 The times the user queries from the database.
 
@@ -144,7 +214,7 @@ user_writes
 
 Count
 
-#### Discription
+#### Description
 
 The times the user writes to the database.
 

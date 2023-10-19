@@ -1,11 +1,11 @@
 ---
-title: Migration
-order: 3
+title: Node Migration
+order: 2
 ---
 
 # Node Migration
 
-CnosDB can MOVE data from one node to another by using SQL 'MOVE VNODE'.
+CnosDB can MOVE data from one node to another by using SQL `MOVE VNODE`.
 
 ### Syntax
 

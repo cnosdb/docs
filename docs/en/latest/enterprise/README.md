@@ -15,3 +15,7 @@ To try out the Enterprise features, please contact <a class="color-fg-default" i
 - [Tiered Storage](../manage/tiered_storage.md)
 
 - [Subscription](../manage/subscriptions.md)
+
+- [Node Manage](../manage/node_manage.md)
+
+- [Alarm Manage](../manage/alarm_manage.md)

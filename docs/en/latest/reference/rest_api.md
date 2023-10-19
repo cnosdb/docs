@@ -21,7 +21,7 @@ basic64(user_name + ":" + password)
 
 **Request Parameter**
 
-- db：name of database (optional, default database is public)
+- db: name of database (optional, default database is public)
 - tenant: name of tenant (optional, if not specified, the default tenant cnosdb will be used)
 - precision: time precision (optional, `ms`/`us`/`ns` can be used)
 
@@ -147,7 +147,7 @@ Authorization: BASIC
 
 **Request Parameter**
 
-- db：name of database (optional, default database is public)
+- db: name of database (optional, default database is public)
 - tenant: name of tenant (optional, if not specified, the default tenant cnosdb will be used)
 - precision: time precision (optional, `ms`/`us`/`ns` can be used)
 
@@ -194,6 +194,6 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 | 405                                   | Request failed because the requested path does not support the corresponding request method.             |
 | 413                                   | Request failed because the message body so large that exceeded the limit.                                |
 | 422                                   | Request failed because the operation execution failed.                                                   |
-| <span style="color: grey;">429</span> | Request failed; the database is accepting too many requests at the same time, please try again later.。   |
+| <span style="color: grey;">429</span> | Request failed; the database is accepting too many requests at the same time, please try again later.    |
 | 500                                   | Request failure because of query timeout or exception caused by external environment.                    |
 | 503                                   | Request failed; the service is unavailable.                                                              |

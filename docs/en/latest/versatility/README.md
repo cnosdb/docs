@@ -16,3 +16,5 @@ This paragraph introduces the ecosystem integration of CnosDB, including example
 
 [TensorFlow](./ml/tensorflow): is an open-source machine learning framework that can be integrated with the CnosDB database to analyze and process large-scale data, improving the efficiency and accuracy of data mining and machine learning.
 
+[Kafka](./middleware/kafka):It is an open source distributed message middleware based on publish/subscribe model. It can be integrated with CnosDB to realize the transmission, storage and analysis of massive data.
+

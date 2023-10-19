@@ -156,7 +156,7 @@ In another terminal, run the following command in the same directory:
 ```shell
 ./target/debug/cnosdb-cli
 ```
-**Notice**：Please refer to [cnosdb-cli](../reference/tools.md#client-cli) to view cli usage and pay attention to the IP address and port number.
+**Notice**: Please refer to [cnosdb-cli](../reference/tools.md#client-cli) to view cli usage and pay attention to the IP address and port number.
 
 :::
 
@@ -164,7 +164,7 @@ In another terminal, run the following command in the same directory:
 ## Start a CnosDB Cluster
 
 In CnosDB, the cnosdb program has a variety of startup modes
-- `singleton` meta, storage, and query services all reside in the same instance. Cluster mode is not supported.
+- `singleton` : meta, storage, and query services all reside in the same instance. Cluster mode is not supported.
 - `query_tskv` : provides query and storage services in cluster mode.
 - `query` : The instance provides only the query service and supports the cluster mode.
 - `tskv` : The instance provides only storage services and supports cluster mode.
@@ -230,7 +230,8 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
     dpkg -i cnosdb-meta_2.3-community-1_amd64.deb
     ```
 3. Edit  Configuration File
-   > The Meta service configuration file is located `/etc/cnosdb/cnosdb-meta.conf`。
+
+   > The Meta service configuration file is located `/etc/cnosdb/cnosdb-meta.conf`.
 
    Add the records added to the DNS server to the configuration file and assign different records to different Meta services.
     ```toml
@@ -407,7 +408,8 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
     yum localinstall cnosdb-meta-2.3_community-1.x86_64.rpm
     ```
 3. Edit Configuration File
-   > The Meta service configuration file is located `/etc/cnosdb/cnosdb-meta.conf`。
+
+   > The Meta service configuration file is located `/etc/cnosdb/cnosdb-meta.conf`.
 
    Add the records added to the DNS server to the configuration file and assign different records to different Meta services.
     ```toml

@@ -6,7 +6,7 @@ index: false
 
 # Connector
 
-
+- [Python](./python.md)
 - [Arrow Filght SQL](./arrow_flight_sql)
 - [C++](./arrow_flight_sql#different-client-usage)
 - [Go](./arrow_flight_sql#different-client-usage)
@@ -14,4 +14,4 @@ index: false
 - [Rust](./arrow_flight_sql#different-client-usage)
 - [JDBC](./arrow_flight_sql#different-client-usage)
 - [ODBC](./arrow_flight_sql#different-client-usage)
-- [Python](./python.md)
+- [Flink](./flink-connector-cnosdb)

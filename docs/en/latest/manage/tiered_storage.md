@@ -19,12 +19,12 @@ The basic unit of data migration in a CnosDB cluster is Vnode. The enterprise ed
 
 ```SQL
 SHOW DATANODES;                          // Show all nodes in the cluster
-+---------+------------------------+-----------+---------+-----------+---------------------+
-| NODE_ID | HOST                   | ATTRIBUTE | STATUS  | DISK_FREE | LAST_UPDATED_TIME   |
-+---------+------------------------+-----------+---------+-----------+---------------------+
-| 1001    | query_tskv1.cnosdb.com | HOT       | HEALTHY | 5.18 GB   | 2023-06-05 02:30:22 |
-| 1002    | query_tskv2.cnosdb.com | HOT       | HEALTHY | 93.71 GB  | 2023-06-05 02:30:19 |
-+---------+------------------------+-----------+---------+-----------+---------------------+
++---------+------------------------+-----------+---------+-----------+------------+---------------------+
+| NODE_ID | HOST                   | ATTRIBUTE | STATUS  | DISK_FREE | DISK_TOTAL | LAST_UPDATED_TIME   |
++---------+------------------------+-----------+---------+-----------+------------+---------------------+
+| 1001    | query_tskv1.cnosdb.com | HOT       | HEALTHY | 5.18 GB   | 7.37 GB    | 2023-06-05 02:30:22 |
+| 1002    | query_tskv2.cnosdb.com | HOT       | HEALTHY | 93.71 GB  | 240.11 GB  | 2023-06-05 02:30:19 |
++---------+------------------------+-----------+---------+-----------+------------+---------------------+
 
 ALTER NODE [node_id] ATTRIBUTE [HOT/COLD];  // Modify the attribute of the node
 ```
@@ -45,7 +45,7 @@ db_option: {
 }
 ```
 
-Add `COOLING_DURATION value` to the `CREATE DATABASE` statement to add a cooldown time field. `option` indicates the interval for data cooling, `COOLING_DURATION` defaults to 0, which means infinite length.
+Add `COOLING_DURATION value` to the `CREATE DATABASE` statement to add a cooldown time field. `option` indicates the interval for data cooling, `COOLING_DURATION` defaults to 0, which means stopping data migration.
 
 `COOLING_DURATION` must be a multiple of `VNODE_DURATION`. The `COOLING_DURATION` field can be modified by `alter database`.
 
@@ -65,4 +65,4 @@ Then create a table and write data in the "db1" database, wait for a period of t
 ```SQL
 ALTER DATABASE db1 SET COOLING_DURATION '1d'; // Change the cooldown time of database "db1" from 1 minute to 1 day
 ```
-At this point, due to the increase in cooldown time, the previously cooled data becomes hot again, causing the data to be migrated from cold node 2001 back to hot node 1001.
+At this point, as the cool downtime becomes larger, the cooled data above becomes hot data again, so the data is moved from cold node 2001 to hot node 1001.
