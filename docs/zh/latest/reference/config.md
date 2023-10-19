@@ -179,6 +179,7 @@ reporting_disabled = true
 |--------|------------------------------------|
 | enable | 是否开启 HIntedOff 服务，默认：true          |
 | path   | HintedOff 存储目录，默认：`/tmp/cnosdb/hh` |
+| threads  |处理hinted handoff数据的并发数，默认：3|
 
 ## \[subscription]
 
