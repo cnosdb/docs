@@ -59,98 +59,29 @@ vnode 占据的内存大小。
 | VNODE_ID | vnode 的 ID          |
 | VALUE    | vnode 所占内存大小，单位Byte |
 
-### WRITE_DATA_IN
+### HTTP_DATA_IN
 
 #### 名称
 
-write_data_in
+http_data_in
 
 #### 种类
+
 Count
+
 #### 描述
+
 通过http协议写入的数据流量，不包括SQL
 
 #### 标签
 
 | 字段       | 描述               |
 |----------|------------------|
-| TIME     | 统计data_in的时间     |
+| TIME     | 记录的时间            |
 | DATABASE | Database名称       |
 | NODE_ID  | Data节点的 ID       |
 | TENANT   | Database 所属的租户名称 |
 | VALUE    | 写入流量的总大小,单位Byte  |
-
-### SQL_DATA_IN
-
-#### 名称
-
-sql_data_in
-
-#### 种类
-Count
-
-#### 描述
-
-通过sql写入的数据流量，包括INSERT，COPY 语句
-
-#### 标签
-
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计data_in的时间     |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| VALUE    | 写入流量的总大小,单位Byte  |
-
-
-### COORD_DATA_IN
-
-#### 名称
-
-coord_data_in
-
-#### 种类
-
-Count
-
-#### 描述
-
-数据写入到数据库时，写入流量的总大小。
-
-#### 标签
-
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计data_in的时间     |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| VALUE    | 写入流量的总大小,单位Byte  |
-
-### COORD_DATA_OUT
-
-#### 名称
-
-coord_data_out
-
-#### 种类
-
-Count
-
-#### 描述
-
-从数据库读取数据的总流出流量。
-
-#### 标签
-
-| 字段       | 描述               |
-|----------|------------------|
-| TIME     | 统计data_out的时间    |
-| DATABASE | Database名称       |
-| NODE_ID  | Data节点的 ID       |
-| TENANT   | Database 所属的租户名称 |
-| VALUE    | 读取流量的总大小，单位Byte  |
 
 ### HTTP_DATA_OUT
 
@@ -168,21 +99,21 @@ Http返回数据的大小
 
 #### 标签
 
-| 字段       | 描述                 |
-|----------|--------------------|
-| TIME     | 统计http_data_out的时间 |
-| DATABASE | Database名称         |
-| NODE_ID  | Data节点的 ID         |
-| TENANT   | Database 所属的租户名称   |
-| Database | Database 名称        |
-| User     | 用户名称               |
-| VALUE    | 读取流量的总大小，单位Byte    |
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| Database | Database 名称      |
+| User     | 用户名称             |
+| VALUE    | 返回数据的总大小，单位Byte  |
 
-### USER_QUERIES
+### HTTP_QUERIES
 
 #### 名称
 
-user_queries
+http_queries
 
 #### 种类
 
@@ -190,24 +121,24 @@ Count
 
 #### 描述
 
-该指标记录用户查询DB的次数。
+该指标记录用户通过Http查询的次数。
 
 #### 标签
 
 | 字段       | 描述               |
 |----------|------------------|
-| TIME     | 统计queries的时间     |
+| TIME     | 记录的时间间           |
 | DATABASE | Database名称       |
 | NODE_ID  | Data节点的 ID       |
 | TENANT   | Database 所属的租户名称 |
 | USER     | 用户名称             |
-| VALUE    | 用户查询次数           |
+| VALUE    | 查询次数             |
 
-### USER_WRITES
+### HTTP_WRITES
 
 #### 名称
 
-user_writes
+http_writes
 
 #### 种类
 
@@ -215,18 +146,182 @@ Count
 
 #### 描述
 
-该指标记录用户写入DB的次数。
+该指标记录用户通过Http写入的次数。
 
 #### 标签
 
 | 字段       | 描述               |
 |----------|------------------|
-| TIME     | 统计writes的时间      |
+| TIME     | 记录的时间            |
 | DATABASE | Database名称       |
 | NODE_ID  | Data节点的 ID       |
 | TENANT   | Database 所属的租户名称 |
 | USER     | 用户名称             |
 | VALUE    | 用户写入次数           |
+
+### HTTP_QUERY_DURATION
+
+#### 名称
+
+http_query_duration
+
+#### 种类
+
+Histogram
+
+#### 描述
+
+通过Http接口查询的耗时
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| USER     | 用户名称             |
+| LE       | 小于此时间,单位ms       |
+| VALUE    | 次数               |
+
+### HTTP_WRITE_DURATION
+
+#### 名称
+
+http_write_duration
+
+#### 种类
+
+Histogram
+
+#### 描述
+
+通过Http接口写入的耗时
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| USER     | 用户名称             |
+| LE       | 小于此时间,单位ms       |
+| VALUE    | 次数               |
+
+### COORD_DATA_IN
+
+#### 名称
+
+coord_data_in
+
+#### 种类
+
+Count
+
+#### 描述
+
+数据写入到数据库时，Coordinator接受的数据总大小。
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 数据大小,单位Byte      |
+
+### COORD_DATA_OUT
+
+#### 名称
+
+coord_data_out
+
+#### 种类
+
+Count
+
+#### 描述
+
+数据读出数据库时，Coordinator输送的数据总大小。
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 数据大小，单位Byte      |
+
+### COORD_QUERIES
+
+#### 种类
+
+Count
+
+#### 描述
+
+查询时数据经过Coordinator的次数。
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 次数               |
+
+### COORD_WRITES
+
+#### 种类
+
+Count
+
+#### 描述
+
+写入时数据经过Coordinator的次数。
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 次数               |
+
+### SQL_DATA_IN
+
+#### 名称
+
+sql_data_in
+
+#### 种类
+
+Count
+
+#### 描述
+
+通过sql写入的数据大小，包括INSERT，COPY 语句
+
+#### 标签
+
+| 字段       | 描述               |
+|----------|------------------|
+| TIME     | 记录的时间            |
+| DATABASE | Database名称       |
+| NODE_ID  | Data节点的 ID       |
+| TENANT   | Database 所属的租户名称 |
+| VALUE    | 数据的总大小,单位Byte    |
 
 ## Prometheus 采集
 
@@ -237,12 +332,12 @@ scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'cnosdb'
     static_configs:
-      - targets: ['127.0.0.1:8902']
+      - targets: [ '127.0.0.1:8902' ]
 ```
+
 #### 参数说明
 
 `targets` 填入CnosDB Http 服务地址。
-
 
 ## 存储到 CnosDB 上
 

@@ -32,12 +32,13 @@ order: 5
 
 | 类型              | 语法                                    | 说明                                              |
 |-----------------|---------------------------------------|-------------------------------------------------|
-| BIGINT          | \[{+\-}\]123                          |                                                 |      数值类型                |
+| BIGINT          | \[{+\-}\]123                          | 数值类型                                            |
 | BIGINT UNSIGNED | \[+]123                               | 数值类型                                            |
 | DOUBLE          | 123.45                                | 数值类型，目前暂不支持科学记数法                                |
 | BOOLEAN         | {true &#124; false &#124; t &#124; f} |                                                 |
 | STRING          | 'abc'                                 | 不支持双引号格式，引号中连续两个''转义成‘                          |
 | TIMESTAMP       | TIMESTAMP '1900-01-01T12:00:00Z'      | 时间戳，TIMESTAMP 关键字表示后面的字符串常量需要被解释为 TIMESTAMP 类型。 |
+| Geometry        | [点击跳转](#Geometry)                     | 几何类型                                            |
 | --              | NULL                                  | 空值                                              |
 
 #### TIMESTAMP 常量语法
@@ -95,6 +96,51 @@ SELECT CAST (1 AS TIMESTAMP);
 INTERVAL '1 YEAR' 并不是365天或366天，而是12个月。
 INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天。
 
+#### Geometry
+
+#### WKT
+
+WKT格式是一种文本格式，用于描述二维和三维几何对象的空间特征。
+WKT是“Well-Known Text”的缩写，是一种开放的国际标准。
+WKT格式包括一些基本的几何对象，例如点、线、多边形和圆形，以及一些复合对象，例如多边形集合和几何对象集合。
+
+#### 语法
+
+```
+<geometry tag> <wkt data>
+
+<geometry tag> ::= POINT | LINESTRING | POLYGON | MULTIPOINT | 
+                   MULTILINESTRING | MULTIPOLYGON | GEOMETRYCOLLECTION
+                   
+<wkt data> ::= <point> | <linestring> | <polygon> | <multipoint> | 
+               <multilinestring> | <multipolygon> | <geometrycollection>
+```
+
+| 几何对象   | 语法描述                                                                                 | 
+|--------|--------------------------------------------------------------------------------------|
+| 点      | `POINT (<x1> <y1>)`                                                                  |
+| 线      | `LINESTRING (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| 多边形    | `POLYGON ((<x1> <y1>, <x2> <y2>, ...))`                                              |
+| 多点     | `MULTIPOINT (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| 多线     | `MULTILINESTRING ((<x1> <y1>, <x2> <y2>, ...), (<x1> <y1>, <x2> <y2>, ...))`         |
+| 多多边形   | `MULTIPOLYGON (((<x1> <y1>, <x2> <y2>, ...)), ((<x1> <y1>, <x2> <y2>, ...)))`        |
+| 几何对象几何 | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
+
+#### 示例
+
+| 几何对象  | 图片                                                       | 示例                                                                                                                       | 
+|-------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| 点     | ![](/_static/img/sql/SFA_Point.svg.png)                  | POINT (30 10)                                                                                                            |
+| 线     | ![](/_static/img/sql/102px-SFA_LineString.svg.png)       | LINESTRING (30 10, 10 30, 40 40)                                                                                         |
+| 多边形   | ![](/_static/img/sql/SFA_Polygon.svg.png)                | POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))                                                                            |
+|       | ![](/_static/img/sql/SFA_Polygon_with_hole.svg.png)      | POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))                                              |
+| 多点    | ![](/_static/img/sql/SFA_MultiPoint.svg.png)             | MULTIPOINT ((10 40), (40 30), (20 20), (30 10))                                                                          |
+|       |                                                          | MULTIPOINT (10 40, 40 30, 20 20, 30 10)                                                                                  |
+| 多线    | ![](/_static/img/sql/102px-SFA_MultiLineString.svg.png)  | MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))                                                    |
+| 多面    | ![](/_static/img/sql/SFA_MultiPolygon.svg.png)           | MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))                                        |
+|       | ![](/_static/img/sql/SFA_MultiPolygon_with_hole.svg.png) | MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20))) |
+| 几何对集合 | ![](/_static/img/sql/SFA_GeometryCollection.svg.png)     | GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))             |
+
 ### **创建数据库**
 
 #### 语法
@@ -141,7 +187,7 @@ SHOW DATABASES;
 #### 示例
 
     +-----------------+
-    | Database        |
+    | database_name   |
     +-----------------+
     | oceanic_station |
     | public          |
@@ -233,11 +279,11 @@ DESCRIBE DATABASE dbname;
 DESCRIBE DATABASE oceanic_station;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+    +-----+-------+----------------+---------+-----------+
+    | ttl | shard | vnode_duration | replica | precision |
+    +-----+-------+----------------+---------+-----------+
+    | INF | 1     | 365 Days       | 1       | NS        |
+    +-----+-------+----------------+---------+-----------+
 
 ## **表操作**
 
@@ -371,13 +417,13 @@ SHOW TABLES;
 SHOW TABLES;
 ```
 
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+    +------------+
+    | table_name |
+    +------------+
+    | air        |
+    | sea        |
+    | wind       |
+    +------------+
 
 ### **查看表的模式**
 
@@ -395,15 +441,15 @@ DESCRIBE DATABASE table_name;
 DESCRIBE TABLE air;
 ```
 
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+    +-------------+-----------------------+-------------+-------------------+
+    | column_name | data_type             | column_type | compression_codec |
+    +-------------+-----------------------+-------------+-------------------+
+    | time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+    | station     | STRING                | TAG         | DEFAULT           |
+    | pressure    | DOUBLE                | FIELD       | DEFAULT           |
+    | temperature | DOUBLE                | FIELD       | DEFAULT           |
+    | visibility  | DOUBLE                | FIELD       | DEFAULT           |
+    +-------------+-----------------------+-------------+-------------------+
 
 ### **修改表**
 
@@ -413,7 +459,7 @@ DESCRIBE TABLE air;
 
 1. 添加列：添加 field，tag 列。
 2. 删除列：删除 field 列，当删除列导致删除某一行的最后一个 field 值时，我们认为这一行没有值，SELECT 时将不显示这一行。
-3. 修改列：修改列定义，目前支持修改列的压缩算法。
+3. 修改列：修改列定义，目前支持修改列名、修改列的压缩算法。
 
 #### 语法
 
@@ -425,8 +471,12 @@ alter_table_option: {
     | ADD FIELD col_name [CODEC(code_type)]
     | ALTER col_name SET CODEC(code_type)
     | DROP col_name
+    | RENAME COLUMN col_name TO new_col_name
 }
 ```
+
+> 不支持修改 `time` 列名。
+> 避免在执行 rename tag column 时执行写入操作，可能会引起 series 冲突。
 
 #### 示例
 
@@ -435,6 +485,7 @@ ALTER TABLE air ADD TAG height;
 ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
 ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ALTER TABLE air DROP humidity;
+ALTER TABLE air RENAME COLUMN height to height_v2;
 ```
 
 ## **插入数据**
@@ -668,6 +719,55 @@ INSERT INTO air (TIME, station, pressure) VALUES
     +----------------------------+------------+------------+-------------+----------+
     | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        | 77.0     |
     +----------------------------+------------+------------+-------------+----------+
+
+## **更新数据**
+
+### **更新 tag 列**
+
+#### 语法
+
+```
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+
+assignment clause :
+    tag_name = value_expression
+```
+
+#### 使用说明
+
+1. CnosDB支持单独更新单个或多个 tag 列值，不支持同时更新 tag 列及 field 列。
+2. CnosDB支持更新 tag 列值为 NULL。
+3. `value_expression` 只能为编译期能确定值的表达式，如：'常量'、'1 + 2'、'CAST('1999-12-31 00:00:00.000' as timestamp)' 等。
+4. `where_clause` 中不能包含 field 列或 time 列，且不能为空，如果想更新表中所有数据，需要使用 'where true'，这代表你接受在表数据量比较大时带来的性能问题。
+5. 不支持修改成已经存在 series（所有的 tag 列值构成 series）。
+6. 避免在写入数据时执行更新 tag 操作，可能会引起 series 冲突。
+
+#### 示例
+
+```sql
+update air set station = 'ShangHai' where station = 'LianYunGang';
+```
+
+### **更新 field 列**
+
+#### 语法
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+
+assignment clause :
+    field_name = value_expression
+```
+
+#### 使用说明
+
+1. CnosDB支持单独更新单个或多个 field 列值，不支持同时更新 tag 列及 field 列。
+
+#### 示例
+
+```sql
+update air set pressure = pressure + 100 where pressure = 68 and time < '2023-01-14T16:03:00';
+```
 
 ## **查询数据**
 
@@ -1436,23 +1536,23 @@ SHOW {DATABASES | TABLES | QUERIES}
 SHOW DATABASES;
 ```
 
-    +----------+
-    | Database |
-    +----------+
-    | public   |
-    +----------+
+    +---------------+
+    | database_name |
+    +---------------+
+    | public        |
+    +---------------+
 
 ```sql
 SHOW TABLES;
 ```
 
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+    +------------+
+    | table_name |
+    +------------+
+    | air        |
+    | sea        |
+    | wind       |
+    +------------+
 
 ```sql
 SHOW QUERIES;
@@ -1614,25 +1714,25 @@ DESCRIBE {DATABASE db_name | TABLE tb_name};
 DESCRIBE TABLE air;
 ```
 
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+    +-------------+-----------------------+-------------+-------------------+
+    | column_name | data_type             | column_type | compression_codec |
+    +-------------+-----------------------+-------------+-------------------+
+    | time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+    | station     | STRING                | TAG         | DEFAULT           |
+    | pressure    | DOUBLE                | FIELD       | DEFAULT           |
+    | temperature | DOUBLE                | FIELD       | DEFAULT           |
+    | visibility  | DOUBLE                | FIELD       | DEFAULT           |
+    +-------------+-----------------------+-------------+-------------------+
 
 ```sql
 DESCRIBE DATABASE public;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+    +-----+-------+----------------+---------+-----------+
+    | ttl | shard | vnode_duration | replica | precision |
+    +-----+-------+----------------+---------+-----------+
+    | INF | 1     | 365 Days       | 1       | NS        |
+    +-----+-------+----------------+---------+-----------+
 
 [//]: # (## **EXISTS**)
 
@@ -5994,6 +6094,127 @@ SELECT time_window(time, interval '5 day', interval '3 day') FROM test;
     | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00}                                                           |
     | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00}                                                           |
     +------------------------------------------------------------------------------------------------------------------+
+
+### 空间函数
+
+CnosDB 提供了 ST_Geometry SQL 系列的空间函数，关于Geometry类型，请查看[Geometry](#geometry)数据类型一节
+
+#### ST_AsBinary
+
+    ST_AsBinary(geometry)
+
+把Geometry类型转为WKB格式二进制
+
+**功能**：返回当前时间戳
+
+**参数类型**：Geometry
+
+**返回类型**: Binary
+
+**示例**:
+
+```sql
+SELECT ST_AsBinary('POINT(0 3)');
+```
+
+    +--------------------------------------------+
+    | st_AsBinary(Utf8("POINT(0 3)"))            |
+    +--------------------------------------------+
+    | 010100000000000000000000000000000000000840 |
+    +--------------------------------------------+
+
+#### ST_GeomFromWKB
+
+    ST_GeomFromWKB(wkb)
+
+**功能**：把WKB格式二进制转为Geometry类型
+
+**参数类型**：Binary
+
+**返回类型**: Geometry
+
+**示例**：
+
+```sql
+SELECT ST_GeomFromWKB(ST_AsBinary('POINT(0 3)'))
+```
+
+    +-------------------------------------------------+
+    | st_GeomFromWKB(st_AsBinary(Utf8("POINT(0 3)"))) |
+    +-------------------------------------------------+
+    | POINT(0 3)                                      |
+    +-------------------------------------------------+
+
+#### ST_Distance
+
+    ST_Distance(geometry1, gemometry2)
+
+**功能**： ST_Distance 返回两个几何体的 2D 投影之间的最小欧氏距离。
+
+**参数类型**：Binary
+
+**返回类型**: Double
+
+**示例**：
+两点间距离
+
+```sql
+SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
+```
+
+    +----------------------------------------------------+
+    | st_distance(Utf8("POINT(1 0)"),Utf8("POINT(0 0)")) |
+    +----------------------------------------------------+
+    | 1.0                                                |
+    +----------------------------------------------------+
+
+点到直线距离
+
+```sql
+SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
+```
+
+    +--------------------------------------------------------------------------+
+    | st_distance(Utf8("POINT(0 0)"),Utf8("LINESTRING (30 10, 10 30, 40 40)")) |
+    +--------------------------------------------------------------------------+
+    | 28.284271247461902                                                       |
+    +--------------------------------------------------------------------------+
+
+平面和平面之间的距离
+
+```sql
+SELECT ST_Distance('POLYGON((0 2,1 1,0 -1,0 2))', 'POLYGON((-1 -3,-2 -1,0 -3,-1 -3))');
+```
+
+    +--------------------------------------------------------------------------------------------+
+    | st_distance(Utf8("POLYGON((0 2,1 1,0 -1,0 2))"),Utf8("POLYGON((-1 -3,-2 -1,0 -3,-1 -3))")) |
+    +--------------------------------------------------------------------------------------------+
+    | 1.4142135623730951                                                                         |
+    +--------------------------------------------------------------------------------------------+
+
+#### ST_Area
+
+    ST_Area(geometry)
+
+**功能**：返回几何对象 2D 投影的笛卡尔面积。面积单位与用于表示输入几何体坐标的单位相同。
+对于点、线串、多点和多线串，此函数返回 0。
+对于几何体集合，它返回集合中几何体的面积之和。
+
+**参数类型** Geometry
+
+**返回类型**: Double
+
+**示例**：
+
+```sql
+SELECT ST_Area('POLYGON ((40 40, 20 45, 45 30, 40 40))');
+```
+
++---------------------------------------------------------+
+| st_Area(Utf8("POLYGON ((40 40, 20 45, 45 30, 40 40))")) |
++---------------------------------------------------------+
+| 87.5 |
++---------------------------------------------------------+
 
 ### **窗口函数**
 
