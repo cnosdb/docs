@@ -187,7 +187,7 @@ SHOW DATABASES;
 #### 示例
 
     +-----------------+
-    | Database        |
+    | database_name   |
     +-----------------+
     | oceanic_station |
     | public          |
@@ -279,11 +279,11 @@ DESCRIBE DATABASE dbname;
 DESCRIBE DATABASE oceanic_station;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+    +-----+-------+----------------+---------+-----------+
+    | ttl | shard | vnode_duration | replica | precision |
+    +-----+-------+----------------+---------+-----------+
+    | INF | 1     | 365 Days       | 1       | NS        |
+    +-----+-------+----------------+---------+-----------+
 
 ## **表操作**
 
@@ -417,13 +417,13 @@ SHOW TABLES;
 SHOW TABLES;
 ```
 
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+    +------------+
+    | table_name |
+    +------------+
+    | air        |
+    | sea        |
+    | wind       |
+    +------------+
 
 ### **查看表的模式**
 
@@ -441,15 +441,15 @@ DESCRIBE DATABASE table_name;
 DESCRIBE TABLE air;
 ```
 
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+    +-------------+-----------------------+-------------+-------------------+
+    | column_name | data_type             | column_type | compression_codec |
+    +-------------+-----------------------+-------------+-------------------+
+    | time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+    | station     | STRING                | TAG         | DEFAULT           |
+    | pressure    | DOUBLE                | FIELD       | DEFAULT           |
+    | temperature | DOUBLE                | FIELD       | DEFAULT           |
+    | visibility  | DOUBLE                | FIELD       | DEFAULT           |
+    +-------------+-----------------------+-------------+-------------------+
 
 ### **修改表**
 
@@ -1536,23 +1536,23 @@ SHOW {DATABASES | TABLES | QUERIES}
 SHOW DATABASES;
 ```
 
-    +----------+
-    | Database |
-    +----------+
-    | public   |
-    +----------+
+    +---------------+
+    | database_name |
+    +---------------+
+    | public        |
+    +---------------+
 
 ```sql
 SHOW TABLES;
 ```
 
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+    +------------+
+    | table_name |
+    +------------+
+    | air        |
+    | sea        |
+    | wind       |
+    +------------+
 
 ```sql
 SHOW QUERIES;
@@ -1714,25 +1714,25 @@ DESCRIBE {DATABASE db_name | TABLE tb_name};
 DESCRIBE TABLE air;
 ```
 
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+    +-------------+-----------------------+-------------+-------------------+
+    | column_name | data_type             | column_type | compression_codec |
+    +-------------+-----------------------+-------------+-------------------+
+    | time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+    | station     | STRING                | TAG         | DEFAULT           |
+    | pressure    | DOUBLE                | FIELD       | DEFAULT           |
+    | temperature | DOUBLE                | FIELD       | DEFAULT           |
+    | visibility  | DOUBLE                | FIELD       | DEFAULT           |
+    +-------------+-----------------------+-------------+-------------------+
 
 ```sql
 DESCRIBE DATABASE public;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+    +-----+-------+----------------+---------+-----------+
+    | ttl | shard | vnode_duration | replica | precision |
+    +-----+-------+----------------+---------+-----------+
+    | INF | 1     | 365 Days       | 1       | NS        |
+    +-----+-------+----------------+---------+-----------+
 
 [//]: # (## **EXISTS**)
 
