@@ -29,6 +29,9 @@ cnosdb check server-config ./config.toml
 
 - `reporting_disabled` 是否关闭信息收集
 - `host` 节点的 host
+- `raft_logs_to_keep` 采用raft协议进行副本时使用；每个复制组保留多少条raft日志，以及多久做一次快照
+- `using_raft_replication` 采用raft协议进行副本复制，注意：当前还不太稳定，不建议线上使用
+
 
 **TOML 表**
 
