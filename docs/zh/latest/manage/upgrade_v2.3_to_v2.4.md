@@ -39,7 +39,6 @@ CnosDB在从V2.3升级到V2.4时，由于重构优化等带来版本间数据格
    /cluster_xxx/data_nodes/111
    /cluster_xxx/data_nodes_metrics/1001
    /cluster_xxx/tenants/xxx/yyy/zzz/buckets
-
 ```
 - #### 导入新集群：
   将过滤过的Meta导出数据文件恢复到新集群

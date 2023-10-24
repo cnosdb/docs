@@ -82,7 +82,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
     ```
 @tab Helm
 
-敬请期待！
+```bash
+helm repo add cnosdb https://cnosdb.github.io/helm-chart/
+helm repo update cnosdb
+helm install my-cnosdb cnosdb/cnosdb
+```
 
 @tab Source
 
