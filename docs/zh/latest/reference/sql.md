@@ -315,8 +315,8 @@ field_codec_type:
 3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法。
 4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法，NULL表示不使用压缩算法。
 
-    * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
-    * DOUBLE：GORILLA，QUANTILE，NULL
+    * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，SDT, DEADBAND,NULL
+    * DOUBLE：GORILLA，QUANTILE，SDT, DEADBAND,NULL
     * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
     * BOOLEAN：BITPACK，NULL
 
@@ -6877,6 +6877,110 @@ group by t0, minute;
     | tag14 | 1999-12-31T00:00:00.050 | 222.0                 |
     +-------+-------------------------+-----------------------+
 
+## **空间函数**
+
+### **ST_AsBinary**
+
+#### 语法
+
+    ST_AsBinary( geom )
+
+**功能**：将空间几何对象 Geometry 以 OGC/ISO Well-Known Binary(WKB) 格式返回。
+
+**参数类型**：geom 为 Geometry 类型。
+
+**返回类型**：Binary 类型。
+
+#### 示例
+
+```sql
+SELECT ST_AsBinary('POINT(1 2)');
+```
+
+    +--------------------------------------------+
+    | st_AsBinary(Utf8("POINT(1 2)"))            |
+    +--------------------------------------------+
+    | 0101000000000000000000f03f0000000000000040 |
+    +--------------------------------------------+
+
+
+### **ST_GeomFromWKB**
+
+#### 语法
+
+    ST_GeomFromWKB( wkb )
+
+**功能**：将 WKB 转换为 Geometry 类型。
+
+**参数类型**：wkb 为 Binary 类型。
+
+**返回类型**：Geometry 类型。
+
+#### 示例
+
+```sql
+select ST_GeomFromWKB(st_AsBinary('MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)),((15 5, 40 10, 10 20, 5 10, 15 5)))'));
+```
+
+    +-----------------------------------------------------------------------------------------------------------------------+
+    | st_GeomFromWKB(st_AsBinary(Utf8("MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)),((15 5, 40 10, 10 20, 5 10, 15 5)))"))) |
+    +-----------------------------------------------------------------------------------------------------------------------+
+    | MULTIPOLYGON(((30 20,45 40,10 40,30 20)),((15 5,40 10,10 20,5 10,15 5)))                                              |
+    +-----------------------------------------------------------------------------------------------------------------------+
+
+
+### **ST_Distance**
+
+#### 语法
+
+    ST_Distance( geom1, geom2 )
+
+**功能**：计算两个集合对象的欧式距离。
+
+**参数类型**：geom1 和 geom2 为 Geometry 类型。
+
+**返回类型**：Double 类型。
+
+#### 示例
+
+```sql
+select st_distance('POINT(0 0)', 'POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))');
+```
+
+    +---------------------------------------------------------------------------------------+
+    | st_distance(Utf8("POINT(0 0)"),Utf8("POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))")) |
+    +---------------------------------------------------------------------------------------+
+    | 22.360679774997898                                                                    |
+    +---------------------------------------------------------------------------------------+
+
+
+### **ST_Area**
+
+#### 语法
+
+    ST_Area( geom )
+
+**功能**：计算几何体的面积。
+
+**参数类型**：geom Geometry 类型。
+
+**返回类型**：Double 类型。
+
+#### 示例
+
+```sql
+select st_area('POLYGON((0 0,0 1,1 1,1 0,0 0))');
+```
+
+    +-------------------------------------------------+
+    | st_Area(Utf8("POLYGON((0 0,0 1,1 1,1 0,0 0))")) |
+    +-------------------------------------------------+
+    | 1.0                                             |
+    +-------------------------------------------------+
+
+> 部分几何图形不支持计算面积，对这些几何体计算面积会返回 0，如：Point、MultiPoint、LineString、MultiLineString、Line。
+> 如果参数内容格式非法，返回值为 NULL。
+
 ## **系统视图**
 
 CnosDB 提供了系统视图用来查看集群状态和集群Schema信息。
@@ -7200,272 +7304,177 @@ SHOW QUERIES;
 
 对于系统管理员，能看到 USAGE_SCHEMA 中表的全部。
 
-### DISK_STORAGE
+### VNODE_DISK_STORAGE
 
 该视图记录集群中各个 vnode 所占磁盘空间大小，单位Byte。
 
 #### 视图定义
 
-管理员看到的视图定义：
-
-| 字段       | 数据类型            | 描述                |
-|----------|-----------------|-------------------|
-| TIME     | TIMESTAMP       | 统计disk_storage的时间 |
-| DATABASE | STRING          | vnode 所属的数据库      |
-| NODE_ID  | STRING          | data节点的ID         |
-| TENANT   | STRING          | vnode 所属的租户名称     |
-| VNODE_ID | STRING          | vnode 的 ID        |
-| VALUE    | BIGINT UNSIGNED | vnode 所占磁盘大小      |
-
-普通用户看到的视图定义，只能访问当前会话所在的租户信息：
-
-| 字段       | 数据类型            | 描述                |
-|----------|-----------------|-------------------|
-| TIME     | TIMESTAMP       | 统计disk_storage的时间 |
-| DATABASE | STRING          | vnode 所属的数据库      |
-| NODE_ID  | STRING          | data节点的ID         |
-| TENANT   | STRING          | vnode 所属的租户名称     |
-| VNODE_ID | STRING          | vnode 的 ID        |
-| VALUE    | BIGINT UNSIGNED | vnode 所占磁盘大小      |
-
-#### 示例
-
-管理员用户
-
-```sql
-select * from usage_schmea.disk_storage order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+----------+-------+
-    | time                       | database     | node_id | tenant | vnode_id | value |
-    +----------------------------+--------------+---------+--------+----------+-------+
-    | 2023-02-23T03:57:52.566487 | usage_schema | 1001    | cnosdb | 3        | 0     |
-    | 2023-02-23T03:57:42.566642 | usage_schema | 1001    | cnosdb | 3        | 0     |
-    +----------------------------+--------------+---------+--------+----------+-------+
-
-普通用户
-
-```sql
-select * from usage_schema.disk_storage order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+----------+-------+
-    | time                       | database     | node_id | vnode_id | value |
-    +----------------------------+--------------+---------+----------+-------+
-    | 2023-02-23T06:34:36.578458 | usage_schema | 1001    | 3        | 0     |
-    | 2023-02-23T06:34:26.577871 | usage_schema | 1001    | 3        | 0     |
-    +----------------------------+--------------+---------+----------+-------+
-
-### DATA_IN
-
-该视图记录数据写入到DB时，写入流量的总大小。
-
-#### 视图定义
-
-管理员看到的视图定义：
-
-| 字段       | 数据类型            | 描述               |
-|----------|-----------------|------------------|
-| TIME     | TIMESTAMP       | 统计data_in的时间     |
-| DATABASE | STRING          | Database名称       |
-| NODE_ID  | STRING          | Data节点的 ID       |
-| TENANT   | STRING          | Database 所属的租户名称 |
-| VALUE    | BIGINT UNSIGNED | 写入流量的总大小         |
-
-普通用户看到的视图定义，只能访问当前会话所在的租户信息：
-
-| 字段       | 数据类型            | 描述           |
-|----------|-----------------|--------------|
-| TIME     | TIMESTAMP       | 统计data_in的时间 |
-| DATABASE | STRING          | Database名称   |
-| NODE_ID  | STRING          | Data节点的 ID   |
-| VALUE    | BIGINT UNSIGNED | 写入流量的总大小     |
-
-#### 示例
-
-管理员用户
-
-```sql
-select * from usage_schema.data_in order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+--------+
-    | time                       | database     | node_id | tenant | value  |
-    +----------------------------+--------------+---------+--------+--------+
-    | 2023-02-23T06:50:36.578641 | usage_schema | 1001    | cnosdb | 741552 |
-    | 2023-02-23T06:50:26.577544 | usage_schema | 1001    | cnosdb | 739612 |
-    +----------------------------+--------------+---------+--------+--------+
-
-普通用户
-
-```sql
-select * from usage_schema.data_in order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+
-    | time                       | database     | node_id | value  |
-    +----------------------------+--------------+---------+--------+
-    | 2023-02-23T06:43:46.587023 | usage_schema | 1001    | 662012 |
-    | 2023-02-23T06:43:36.586154 | usage_schema | 1001    | 660072 |
-    +----------------------------+--------------+---------+--------+
-
-### DATA_OUT
-
-该视图记录数据从DB中查询出来时，读取流量的大致总大小。
-
-#### 视图定义
-
-管理员看到的视图定义：
-
-| 字段       | 数据类型            | 描述               |
-|----------|-----------------|------------------|
-| TIME     | TIMESTAMP       | 统计data_out的时间    |
-| DATABASE | STRING          | Database名称       |
-| NODE_ID  | STRING          | Data节点的 ID       |
-| TENANT   | STRING          | Database 所属的租户名称 |
-| VALUE    | BIGINT UNSIGNED | 读取流量的总大小         |
-
-普通用户看到的视图定义，只能访问当前会话所在的租户信息。
-
 | 字段       | 数据类型            | 描述            |
 |----------|-----------------|---------------|
-| TIME     | TIMESTAMP       | 统计data_out的时间 |
-| DATABASE | STRING          | Database名称    |
-| NODE_ID  | STRING          | Data节点的 ID    |
-| VALUE    | BIGINT UNSIGNED | 读取流量的总大小      |
+| TIME     | TIMESTAMP       | 记录时间          |
+| DATABASE | STRING          | vnode 所属的数据库  |
+| NODE_ID  | STRING          | data节点的ID     |
+| TENANT   | STRING          | vnode 所属的租户名称 |
+| VNODE_ID | STRING          | vnode 的 ID    |
+| VALUE    | BIGINT UNSIGNED | vnode 所占磁盘大小  |
 
-#### 示例
+普通用户只能访问当前用户所在的租户信息。
 
-```sql
-select * from usage_schema.data_out order by time desc limit 2;
-```
+### HTTP_DATA_IN
 
-    +----------------------------+--------------+---------+--------+----------+
-    | time                       | database     | node_id | tenant | value    |
-    +----------------------------+--------------+---------+--------+----------+
-    | 2023-02-23T06:51:16.577110 | usage_schema | 1001    | cnosdb | 15156112 |
-    | 2023-02-23T06:51:06.577132 | usage_schema | 1001    | cnosdb | 15156112 |
-    +----------------------------+--------------+---------+--------+----------+
+该视图记录HTTP请求的Body大小
 
-```sql
-select * from usage_schema.data_out order by time desc limit 2;
-```
+#### 视图定义
 
-    +----------------------------+--------------+---------+----------+
-    | time                       | database     | node_id | value    |
-    +----------------------------+--------------+---------+----------+
-    | 2023-02-23T06:51:46.576451 | usage_schema | 1001    | 16173128 |
-    | 2023-02-23T06:51:36.576904 | usage_schema | 1001    | 16173128 |
-    +----------------------------+--------------+---------+----------+
+| 字段       | 数据类型            | 描述               |
+|----------|-----------------|------------------|
+| TIME     | TIMESTAMP       | 记录时间             |
+| DATABASE | STRING          | Database名称       |
+| NODE_ID  | STRING          | Data节点的 ID       |
+| TENANT   | STRING          | Database 所属的租户名称 |
+| USER     | STRING          | 用户名称             |
+| HOST     | STRING          | 服务端口             |
+| API      | STRING          | Http的API         |
+| VALUE    | BIGINT UNSIGNED | 写入流量的总大小         |
 
-### QUERIES (USAGE_SCHEMA)
+普通用户只能访问当前用户所在的租户信息。
+
+## HTTP_DATA_OUT
+
+该视图记录HTTP回应的Body总大小
+
+#### 视图定义
+
+| 字段       | 数据类型            | 描述               |
+|----------|-----------------|------------------|
+| TIME     | TIMESTAMP       | 记录时间             |
+| DATABASE | STRING          | Database名称       |
+| NODE_ID  | STRING          | Data节点的 ID       |
+| TENANT   | STRING          | Database 所属的租户名称 |
+| USER     | STRING          | 用户名称             |
+| API      | STRING          | Http的API         |
+| HOST     | STRING          | 服务端口             |
+| VALUE    | BIGINT UNSIGNED | 读取流量的总大小         |
+
+普通用户只能访问当前用户所在的租户信息。
+
+### HTTP_QUERIES
 
 该视图记录用户查询DB的次数。
 
 #### 视图定义
 
-管理员看到的视图定义：
-
 | 字段       | 数据类型            | 描述               |
 |----------|-----------------|------------------|
-| TIME     | TIMESTAMP       | 统计queries的时间     |
+| TIME     | TIMESTAMP       | 记录时间             |
 | DATABASE | STRING          | Database名称       |
 | NODE_ID  | STRING          | Data节点的 ID       |
 | TENANT   | STRING          | Database 所属的租户名称 |
 | USER     | STRING          | 用户名称             |
+| API      | STRING          | Http的API         |
+| HOST     | STRING          | 服务端口             |
 | VALUE    | BIGINT UNSIGNED | 用户查询次数           |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息。
+普通用户只能访问当前用户所在的租户信息。
 
-| 字段       | 数据类型            | 描述           |
-|----------|-----------------|--------------|
-| TIME     | TIMESTAMP       | 统计queries的时间 |
-| DATABASE | STRING          | Database名称   |
-| NODE_ID  | STRING          | Data节点的 ID   |
-| USER     | STRING          | 用户名称         |
-| VALUE    | BIGINT UNSIGNED | 用户查询次数       |
+### HTTP_WRITES
 
-#### 示例
+该视图记录用户通过HTTP写入DB的次数。
 
-```sql
-select * from usage_schema.queries order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+-------+-------+
-    | time                       | database     | node_id | tenant | user  | value |
-    +----------------------------+--------------+---------+--------+-------+-------+
-    | 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | usage | 9     |
-    | 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | root  | 17    |
-    +----------------------------+--------------+---------+--------+-------+-------+
-
-```sql
-select * from usage_schema.queries order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+-------+-------+
-    | time                       | database     | node_id | user  | value |
-    +----------------------------+--------------+---------+-------+-------+
-    | 2023-02-23T06:52:36.576098 | usage_schema | 1001    | usage | 9     |
-    | 2023-02-23T06:52:36.576097 | usage_schema | 1001    | root  | 17    |
-    +----------------------------+--------------+---------+-------+-------+
-
-### WRITES
-
-该视图记录用户写入DB的次数。
-
-注意，该视图目前只会在通过[line protocol](./rest_api.md#接口列表)/[prometheus remote write](../versatility/collect/prometheus#remote-write)
-接口写入成功时创建。
+注意，INSERT 语句是记录在(#ht)
 
 #### 视图定义
 
-管理员看到的视图定义：
-
 | 字段       | 数据类型            | 描述               |
 |----------|-----------------|------------------|
-| TIME     | TIMESTAMP       | 统计writes的时间      |
+| TIME     | TIMESTAMP       | 记录时间             |
 | DATABASE | STRING          | Database名称       |
 | NODE_ID  | STRING          | Data节点的 ID       |
 | TENANT   | STRING          | Database 所属的租户名称 |
 | USER     | STRING          | 用户名称             |
+| HOST     | STRING          | 服务端口             |
+| API      | STRING          | Http的API         |
 | VALUE    | BIGINT UNSIGNED | 用户写入次数           |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息。
+普通用户只能访问当前用户所在的租户信息。
 
-| 字段       | 数据类型            | 描述          |
-|----------|-----------------|-------------|
-| TIME     | TIMESTAMP       | 统计writes的时间 |
-| DATABASE | STRING          | Database名称  |
-| NODE_ID  | STRING          | Data节点的 ID  |
-| USER     | STRING          | 用户名称        |
-| VALUE    | BIGINT UNSIGNED | 用户写入次数      |
+### COORD_DATA_IN
 
-#### 示例
+记录通过Coordinator的接受数据大小
 
-管理员用户
+#### 视图定义
+
+| 字段       | 类型              | 描述               | 
+|----------|-----------------|------------------|
+| time     | TIMESTAMP       | 记录时间             |
+| database | STRING          | Database名称       |
+| node_id  | STRING          | Data节点的 ID       |
+| tenant   | STRING          | Database 所属的租户名称 |
+| value    | BIGINT UNSIGNED | 测量值              |
+
+普通用户只能访问当前用户所在的租户信息。
+
+### COORD_DATA_OUT
+
+记录通过Coordinator的输出数据大小
+
+#### 视图定义
+
+| 字段       | 类型              | 描述               |
+|----------|-----------------|------------------|
+| time     | TIMESTAMP       | 记录时间             |
+| database | STRING          | Database名称       |
+| node_id  | STRING          | Data节点的 ID       |
+| tenant   | STRING          | Database 所属的租户名称 |
+| value    | BIGINT UNSIGNED | 测量值              |
+
+普通用户只能访问当前用户所在的租户信息。
+
+### COORD_QUERIES
+
+记录通过Coordinator的接受数据次数
+
+#### 视图定义
+
+| 字段       | 类型              | 描述               |
+|----------|-----------------|------------------|
+| time     | TIMESTAMP       | 记录时间             |
+| database | STRING          | Database名称       |
+| node_id  | STRING          | Data节点的 ID       |
+| tenant   | STRING          | Database 所属的租户名称 |
+| value    | BIGINT UNSIGNED | 测量值              |
+
+普通用户只能访问当前用户所在的租户信息。
+
+### COORD_WRITES
+
+记录通过Coordinator的输出数据次数
+
+#### 视图定义
+
+| 字段       | 类型              | 描述               |
+|----------|-----------------|------------------|
+| time     | TIMESTAMP       | 记录时间             |
+| database | STRING          | Database名称       |
+| node_id  | STRING          | Data节点的 ID       |
+| tenant   | STRING          | Database 所属的租户名称 |
+| value    | BIGINT UNSIGNED | 测量值              |
+
+普通用户只能访问当前用户所在的租户信息。
+
+### 示例
 
 ```sql
-select * from usage_schema.writes order by time desc limit 2;
+SELECT * FROM usage_schema.http_data_in ORDER BY time DESC LIMIT 2;
 ```
 
-    +----------------------------+----------+---------+--------+------+-------+
-    | time                       | database | node_id | tenant | user | value |
-    +----------------------------+----------+---------+--------+------+-------+
-    | 2023-02-23T07:05:56.549282 | public   | 1001    | cnosdb | root | 2     |
-    | 2023-02-23T07:05:46.549188 | public   | 1001    | cnosdb | root | 2     |
-    +----------------------------+----------+---------+--------+------+-------+
-
-普通用户
-
-```sql
-select * from usage_schema.writes order by time desc limit 2;
-```
-
-    +----------------------------+----------+---------+------+-------+
-    | time                       | database | node_id | user | value |
-    +----------------------------+----------+---------+------+-------+
-    | 2023-02-23T07:06:56.547905 | public   | 1001    | root | 2     |
-    | 2023-02-23T07:06:46.547673 | public   | 1001    | root | 2     |
-    +----------------------------+----------+---------+------+-------+
+    +----------------------------+--------------+--------------+---------+--------+------+-------+-----------+
+    | time                       | api          | host         | node_id | tenant | user | value | database  |
+    +----------------------------+--------------+--------------+---------+--------+------+-------+-----------+
+    | 2023-10-18T08:41:09.948999 | api/v1/write | 0.0.0.0:8902 | 1001    | cnosdb | root | 144   | sqlancer2 |
+    | 2023-10-18T08:41:09.948995 | api/v1/write | 0.0.0.0:8902 | 1001    | cnosdb | root | 251   | sqlancer1 |
+    +----------------------------+--------------+--------------+---------+--------+------+-------+-----------+
 
 ## **流**
 

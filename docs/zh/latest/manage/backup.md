@@ -233,50 +233,45 @@ COPY INTO [<database>.]< table_name >
         FILE_FORMAT = (TYPE = 'CSV'); 
     ```
 
-## 跨集群迁移数据
-CnosDB在升级版本时，可能由于重构优化等带来版本间数据格式、通信协议不兼容，导致需要跨集群迁移数据。跨集群数据迁移可以采取上面的导入、导出方式，由于CnosDB集群还包括Meta数据也需要迁移。
+## cnosdb-imexport
 
-### 迁移meta数据
+cnosdb-imexport是一个集群数据的导入、导出、迁移工具。可以将整个集群数据（包括Meta、Data）导出到磁盘文件、对象存储系统（支持`AWS S3`, `Google Cloud Storage`, `Microsoft Azure`）；也可以将导出数据数据恢复到集群中；还可以在两个集群之间进行数据迁移。
 
-- #### 导出meta数据
-    向meta发送http请求导出meta数据
+### 集群数据导出
+将集群所有Table数据导出到指定位置，同时在运行目录下会产生两个文件（`./meta_data.src`、`./schema_data.src`）是导出数据的元信息，跟Table导出数据一起组成一个完整的集群数据备份。
 
-```shell
-   curl -XPOST http://ip:port/dump --o ./meta_dump.data  # ip:port为旧集群meta服务的地址
-```
-
-- #### 数据过滤
-1. 集群自身信息、buckets相关信息等不需要迁移到目的集群，需要人工过滤。
-2. 过滤方式：用文本编辑器打开上面导出的文件，删除相应key。
-
-```txt
-   需要过滤删除的key列表：
-   /data_version
-   /already_init_key
-   /cluster_xxx/auto_incr_id
-   /cluster_xxx/data_nodes/1001
-   /cluster_xxx/data_nodes/111
-   /cluster_xxx/data_nodes_metrics/1001
-   /cluster_xxx/tenants/xxx/yyy/zzz/buckets
-```
-- #### 导入新集群：
-  将过滤过的Meta导出数据文件恢复到新集群
+注意： 如果是备份到磁盘文件，Table备份数据是产生在接收请求的CnosDB节点。
 
 ```shell
-   curl -XPOST http://ip:port/restore --data-binary "@./meta_dump.data"  # ip:port为新集群的meta服务的地址
+./cnosdb-imexport export --src user:password@ip:port --path file:///tmp/migrate
+# --src 待导出CnosDB集群的地址，注意其中的user、password权限
+# --path 导出数据位置，用法同：导入导出
+# --conn 可选参数，如果导出位置为对象存储系统需要提供，用法同：导入导出
 ```
 
-### 迁移data数据
-迁移Data数据按照上面的导入、导出过程；遍历所有表即可。
+### 集群数据导入
 
-- #### 按照table导出数据
+将导出数据还原到CnosDB集群中，还原之前请确保集群是空闲，否则会产生覆盖写。运行之前请确保备份元信息（`./meta_data.src`、`./schema_data.src`）与工具在同一级目录。
 
-```sql
-    COPY INTO 'file:///tmp/xxx' FROM table_name FILE_FORMAT = (TYPE = 'PARQUET');
+注意：如果待导入数据是在磁盘文件，还原之前还请确保Table备份数据已经放置到接收请求的CnosDB节点，
+
+```shell
+./cnosdb-imexport -- import --dst user:password@ip:port --path file:///tmp/migrate
+# --dst 导入CnosDB集群的地址，注意其中的user、password权限
+# --path 导入数据位置，用法同：导入导出
+# --conn 可选参数，如果导入数据位置为对象存储系统需要提供，用法同：导入导出
 ```
 
-- #### 将导出数据导入新集群
+### 集群数据迁移
 
-```sql
-    COPY INTO table_name FROM 'file:///tmp/xxx/' FILE_FORMAT = (TYPE = 'PARQUET', DELIMITER = ',');
+数据迁移可以把整个集群的数据迁移到另一个CnosDB集群。
+
+注意：迁移过程中数据的暂存区是在磁盘文件，请确保cnosdb-imexport与导入、导出集群在共有机器。
+
+```shell
+./cnosdb-imexport -- migrate --src user:password@ip:port --dst user:password@ip:port --path file:///tmp/migrate
+# --src 待导出CnosDB集群的地址，注意其中的user、password权限
+# --dst 导入CnosDB集群的地址，注意其中的user、password权限
+# --path 迁移过程中数据的暂存区。
+# --conn 可选参数，如果path参数为对象存储系统需要提供，用法同：导入导出
 ```
