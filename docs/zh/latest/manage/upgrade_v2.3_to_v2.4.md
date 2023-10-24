@@ -1,6 +1,6 @@
 ---
-title: V2.3->V2.4升级升级过程
-order: 12
+title: V2.3->V2.4升级过程
+order: 14
 ---
 ## 跨集群迁移数据
 CnosDB在从V2.3升级到V2.4时，由于重构优化等带来版本间数据格式、通信协议不兼容，导致需要跨集群迁移数据。跨集群数据迁移可以采取按照Table进行导入导出的方式，由于CnosDB集群还包括Meta数据也需要迁移。
@@ -8,15 +8,27 @@ CnosDB在从V2.3升级到V2.4时，由于重构优化等带来版本间数据格
 ### 迁移meta数据
 
 - #### 导出meta数据
-    向meta发送http请求导出meta数据
+    向meta发送http请求导出meta数据。
+
+    - Meta单独部署时有提供数据导出接口：http://ip:port/dump
+    - CnosDB服务单实例运行时有提供接口：http://ip:port/debug
+    
+    上述两者导出数据一致，只是格式略有不同。需要将单实例导出数据进行规整：用文本编辑器打开，删除第一行以及最后一行数据，以及每行开头的‘* ’，Meta单独部署时忽略此步骤。
 
 ```shell
+   # Meta单独部署
    curl -XPOST http://ip:port/dump --o ./meta_dump.data  # ip:port为旧集群meta服务的地址
+
+   # CnosDB单实例运行
+   curl -XGET http://ip:port/debug --o ./meta_dump.data  # ip:port为meta服务的地址
+
 ```
 
 - #### 数据过滤
 1. 集群自身信息、buckets相关信息等不需要迁移到目的集群，需要人工过滤。
 2. 过滤方式：用文本编辑器打开上面导出的文件，删除相应key。
+
+
 
 ```txt
    需要过滤删除的key列表：
