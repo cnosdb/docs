@@ -17,7 +17,7 @@ CnosDB在从V2.3升级到V2.4时，由于重构优化等带来版本间数据格
 
 ```shell
    # Meta单独部署
-   curl -XPOST http://ip:port/dump --o ./meta_dump.data  # ip:port为旧集群meta服务的地址
+   curl -XGET http://ip:port/dump --o ./meta_dump.data  # ip:port为旧集群meta服务的地址
 
    # CnosDB单实例运行
    curl -XGET http://ip:port/debug --o ./meta_dump.data  # ip:port为meta服务的地址
@@ -26,10 +26,7 @@ CnosDB在从V2.3升级到V2.4时，由于重构优化等带来版本间数据格
 
 - #### 数据过滤
 1. 集群自身信息、buckets相关信息等不需要迁移到目的集群，需要人工过滤。
-2. 过滤方式：用文本编辑器打开上面导出的文件，删除相应key。
-
-
-
+2. 过滤方式：用文本编辑器打开上面导出的文件，删除下面列表中相应key。
 ```txt
    需要过滤删除的key列表：
    /data_version
@@ -40,6 +37,15 @@ CnosDB在从V2.3升级到V2.4时，由于重构优化等带来版本间数据格
    /cluster_xxx/data_nodes_metrics/1001
    /cluster_xxx/tenants/xxx/yyy/zzz/buckets
 ```
+
+3. 修改Database对应的schema：增加db_is_hidden字段
+```txt
+例如：
+/cluster_xxx/tenants/cnosdb/dbs/public: {"tenant":"cnosdb","database":"public","config":{"ttl":null,"shard_num":null,"vnode_duration":null,"replica":null,"precision":null}
+修改为：
+/cluster_xxx/tenants/cnosdb/dbs/public: {"tenant":"cnosdb","database":"public","config":{"ttl":null,"shard_num":null,"vnode_duration":null,"replica":null,"precision":null,"db_is_hidden":false}}
+```
+
 - #### 导入新集群：
   将过滤过的Meta导出数据文件恢复到新集群
 
