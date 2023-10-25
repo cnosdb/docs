@@ -769,6 +769,28 @@ assignment clause :
 update air set pressure = pressure + 100 where pressure = 68 and time < '2023-01-14T16:03:00';
 ```
 
+## **删除数据**
+
+[//]: # (2.4)
+
+按 tag 和 时间列过滤并删除数据。
+
+#### 语法
+
+```
+DELETE FROM table_name where_clause
+```
+
+#### 使用说明
+
+1. `where_clause` 中仅能包含 tag 列和 time 列，不能包含 field 列。
+
+#### 示例
+
+```sql
+delete from air where station = 'LianYunGang' and time < '2023-01-14T16:03:00';
+```
+
 ## **查询数据**
 
 CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)
@@ -1024,7 +1046,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
    ```sql
   -- station 是Tag列
   SELECT station FROM air;
-  ``` 
+   ```
       +-------------+
       | station     |
       +-------------+
@@ -1778,7 +1800,7 @@ DESCRIBE DATABASE public;
 
 [//]: # (## **SHOW COLUMNS**)
 
-[//]: # ()
+[//]: #
 
 [//]: # (```sql)
 
@@ -1931,11 +1953,11 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 [//]: # (### CROSS JOIN)
 
-[//]: # ()
+[//]: #
 
 [//]: # (交叉连接产生一个笛卡尔积，它将连接左侧的每一行与连接右侧的每一行相匹配。)
 
-[//]: # ()
+[//]: #
 
 [//]: # (```sql)
 
@@ -6494,23 +6516,23 @@ FROM air;
 
 [//]: # (----------------)
 
-[//]: # ()
+[//]: #
 
 [//]: # (### **NTILE**)
 
-[//]: # ()
+[//]: #
 
 [//]: # (    ntile&#40;n&#41; over&#40;[partition_clause] [order_by_clause]&#41;)
 
-[//]: # ()
+[//]: #
 
 [//]: # (**功能**：把有序的数据集合平均分配到n个桶中,将桶号分配给每一行。)
 
-[//]: # ()
+[//]: #
 
 [//]: # (**参数类型**：BIGINT)
 
-[//]: # ()
+[//]: #
 
 [//]: # (**返回类型**：BIGINT)
 
