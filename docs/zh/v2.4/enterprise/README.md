@@ -21,3 +21,17 @@ index: false
 - [节点管理](../manage/node_manage.md)
 
 - [告警管理](../manage/alarm_manage.md)
+
+- 高阶函数
+    * [金融函数](../reference/sql.md#candlestick-agg)
+    * [监控函数](../reference/sql.md#gauge-agg)
+        - time_delta
+        - first_time
+        - first_val
+        - last_time
+        - last_val
+        - num_elements
+        - idelta_left
+        - idelta_right
+    * [采样函数](../reference/sql.md#asap-smooth)
+    * [统计分析函数](../reference/sql.md#stats-agg)
