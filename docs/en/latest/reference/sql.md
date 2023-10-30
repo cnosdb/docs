@@ -311,8 +311,8 @@ field_codec_type:
 3. If the compression algorithm is not specified when creating a table, the system default compression algorithm is used.
 4. At present, the compression algorithms supported by various types are as follows. The first one of each type is the default specified algorithm. NULL means no compression algorithm is used.
 
-  * BIGINT/BIGINT UNSIGNED: DELTA, QUANTILE, NULL
-  * DOUBLE: GORILLA, QUANTILE, NULL
+  * BIGINT/BIGINT UNSIGNED: DELTA, QUANTILE, SDT, DEADBAND, NULL
+  * DOUBLE: GORILLA, QUANTILE, SDT, DEADBAND, NULL
   * STRING: SNAPPY, ZSTD, GZIP, BZIP, ZLIB, NULL
   * BOOLEAN: BITPACK, NULL
 

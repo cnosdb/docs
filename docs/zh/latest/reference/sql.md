@@ -315,10 +315,10 @@ field_codec_type:
 3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法。
 4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法，NULL表示不使用压缩算法。
 
-    * BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，SDT, DEADBAND,NULL
-    * DOUBLE：GORILLA，QUANTILE，SDT, DEADBAND,NULL
-    * STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
-    * BOOLEAN：BITPACK，NULL
+  * BIGINT/BIGINT UNSIGNED: DELTA, QUANTILE, SDT, DEADBAND, NULL
+  * DOUBLE: GORILLA, QUANTILE, SDT, DEADBAND, NULL
+  * STRING: SNAPPY, ZSTD, GZIP, BZIP, ZLIB, NULL
+  * BOOLEAN: BITPACK, NULL
 
 想了解更多有关压缩算法的内容可以看[压缩算法详情](./concept_design/compress.md#压缩算法)。
 

@@ -234,56 +234,46 @@ There four parameters in the connection options for Microsoft Azure:
         FILE_FORMAT = (TYPE = 'CSV'); 
     ```
 
-## Cross-cluster data migration
+## cnosdb-imexport
 
-When CnosDB is upgraded, data format and communication protocol may be incompatible due to refactoring and optimization, which requires cross-cluster data migration. Cross-cluster data migration can be done by importing and exporting as described above. Since the CnosDB cluster also includes Meta data that needs to be migrated.
+cnosdb-imexport is a tool for importing, exporting and migrating cluster data. Ability to export entire cluster Data (Meta, Data) to disk files, object Storage systems (`AWS S3`, `Google Cloud Storage`, `Microsoft Azure` supported); It is also possible to restore the exported data to the cluster; It is also possible to migrate data between two clusters.
 
-### Migrate meta data
+### Cluster Data Export
 
-- #### Backup meta data
+Exporting all the cluster Table data to the specified location will generate two files (`./meta_data.src`, `./schema_data.src`) in the running directory with the metadata of the exported data, together with the Table export data to form a complete backup of the cluster data.
 
-  Send an HTTP request to the meta to export meta data.
-
-```shell
-   curl -XPOST http://ip:port/dump --o ./meta_dump.data  # ip:port为旧集群meta服务的地址
-```
-
-- #### Data filtering
-
-1. Cluster-specific information, buckets-related information, etc. do not need to be migrated to the target cluster and need to be filtered manually.
-2. Filtering method: Open the exported file with a text editor and delete the corresponding key.
-
-```txt
-    Key list to be filtered and deleted:
-   /data_version
-   /already_init_key
-   /cluster_xxx/auto_incr_id
-   /cluster_xxx/data_nodes/1001
-   /cluster_xxx/data_nodes/111
-   /cluster_xxx/data_nodes_metrics/1001
-   /cluster_xxx/tenants/xxx/yyy/zzz/buckets
-```
-
-- #### Import new cluster:
-
-  Restore the filtered Meta export data file to the new cluster
+Note: If the backup is to a disk file, the Table backup data is generated at the CnosDB node receiving the request.
 
 ```shell
-   curl -XPOST http://ip:port/restore --data-binary "@./meta_dump.data"
+./cnosdb-imexport export --src user:password@ip:port --path file:///tmp/migrate
+# --src the address of the CnosDB cluster to export
+# --path export data location, same usage: import export
+# --conn optional, if the export location is required for the object storage system, use the same as: import and export
 ```
 
-#### Migrate data data
+### Cluster Data Import
 
-Migrate Data data according to the import and export process above; traverse all tables.
+Restore the exported data to the CnosDB cluster. Make sure the cluster is free before restoring, otherwise an overwrite write will occur. Make sure the backup meta information (`./meta_data.src`, `./schema_data.src`) is on the same level as the tools before running.
 
-- #### Export data according to table
+Note: If the data to be imported is a disk file, also make sure that the Table backup data is placed on the CnosDB node receiving the request before restoring.
 
-```sql
-    COPY INTO 'file:///tmp/xxx' FROM table_name FILE_FORMAT = (TYPE = 'PARQUET');
+```shell
+./cnosdb-imexport -- import --dst user:password@ip:port --path file:///tmp/migrate
+# --dst imports the address of the CnosDB cluster, note the user, password permissions
+# --path Import data location, same usage as: import export
+# --conn optional parameter, if the import data location is required for the object storage system, use the same as: import and export
 ```
 
-- #### Import the exported data into the new cluster
+### Cluster Data Migration
 
-```sql
-    COPY INTO table_name FROM 'file:///tmp/xxx/' FILE_FORMAT = (TYPE = 'PARQUET', DELIMITER = ',');
+Data migration can be used to migrate the data of an entire cluster to another CnosDB cluster.
+
+Note: During the migration process, the staging area of data is in the disk file. Please ensure that cnosdb-imexport and the import and export cluster are on the same machine.
+
+```shell
+./cnosdb-imexport -- migrate --src user:password@ip:port --dst user:password@ip:port --path file:///tmp/migrate
+# --src the address of the CnosDB cluster to export
+# --dst imports the address of the CnosDB cluster, note the user, password permissions
+# -- Staging area for data during path migration.
+# --conn optional argument, if the path argument is required for the object storage system, use the same as: import export
 ```

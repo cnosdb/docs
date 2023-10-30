@@ -238,6 +238,7 @@ COPY INTO [<database>.]< table_name >
 cnosdb-imexport是一个集群数据的导入、导出、迁移工具。可以将整个集群数据（包括Meta、Data）导出到磁盘文件、对象存储系统（支持`AWS S3`, `Google Cloud Storage`, `Microsoft Azure`）；也可以将导出数据数据恢复到集群中；还可以在两个集群之间进行数据迁移。
 
 ### 集群数据导出
+
 将集群所有Table数据导出到指定位置，同时在运行目录下会产生两个文件（`./meta_data.src`、`./schema_data.src`）是导出数据的元信息，跟Table导出数据一起组成一个完整的集群数据备份。
 
 注意： 如果是备份到磁盘文件，Table备份数据是产生在接收请求的CnosDB节点。
@@ -253,7 +254,7 @@ cnosdb-imexport是一个集群数据的导入、导出、迁移工具。可以�
 
 将导出数据还原到CnosDB集群中，还原之前请确保集群是空闲，否则会产生覆盖写。运行之前请确保备份元信息（`./meta_data.src`、`./schema_data.src`）与工具在同一级目录。
 
-注意：如果待导入数据是在磁盘文件，还原之前还请确保Table备份数据已经放置到接收请求的CnosDB节点，
+注意：如果待导入数据是在磁盘文件，还原之前还请确保Table备份数据已经放置到接收请求的CnosDB节点。
 
 ```shell
 ./cnosdb-imexport -- import --dst user:password@ip:port --path file:///tmp/migrate

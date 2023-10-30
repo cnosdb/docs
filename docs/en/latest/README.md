@@ -61,6 +61,9 @@ This chapter describes the management and monitoring of CnosDB standalone editio
   - [Subscriptions](./manage/subscriptions.md)
   - [Data Migration](./manage/datax.md)
   - [Node Management](./manage/node_manage.md)
+  - [Node Information](./manage/show_node.md)
+  - [Resource Management](./manage/resource_manage.md)
+  - [Upgrade V2.3 to V2.4](./manage/upgrade_v2.3_to_v2.4.md)
 
 # Reference
 

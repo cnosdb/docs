@@ -103,3 +103,31 @@ Gzip is similar to zlib. For files to be compressed, a variant of the LZ77 algor
 
 Compared with several other algorithms, the compression rate is higher, but the compression efficiency is lower, which can be used for scenarios that require extreme compression rate, in general less recommended.
 
+### Lossy Compression Algorithm
+
+:::tip
+Only available in the Enterprise Edition.
+:::
+
+#### SDT Compression Algorithm
+
+Mainly used for integer, unsigned integer, floating point type.
+
+The Revolving Door Trend (SDT) is an online lossy data compression algorithm traditionally used in Supervisory Control and Data Acquisition (SCADA) systems designed to store historical data of Procedural information Systems (PIMs).
+SDT has low computational complexity and uses a linear trend to represent a certain amount of data. Its most important parameter is the compression deviation, which represents the maximum difference between the current sample and the current linear trend used to represent the previously collected data.
+The idea is to look at the compression offset coverage between the current data point and the previous retained data point to decide which data to choose. If the offset coverage area can cover all points in between, the data point is not retained. If a number of points fall outside the compression offset coverage area, it is retained when
+The previous point of the previous data point and take the latest retained data point as the new starting point.
+
+##### Algorithm parameters
+
+Deviation: A positive floating point number It represents the maximum difference between the current sample and the current linear trend.
+
+#### Dead zone compression algorithm
+
+Mainly used for integer, unsigned integer, floating point type.
+
+The principle of the dead zone compression algorithm is: for the time series variable data, the variable change limit (namely dead zone, or threshold) is defined. If the deviation between the current data and the last stored data exceeds the specified dead zone, the current data will be saved, otherwise the current data will be discarded. This algorithm only needs to compare the continuous data from the time series with the previous saved data to determine whether the data needs to be saved. Because of this, it is easy to understand and implement, and most real-time databases with lossy compression provide this compression method.
+
+##### Algorithm parameters
+
+Deviation: A positive floating point number The absolute or relative value of the allowable deviation when using the algorithm, based on the last saved number. It determines the compression rate of the algorithm and the accuracy of the compressed data.
