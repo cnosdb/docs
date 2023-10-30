@@ -5,6 +5,138 @@ order: 2
 
 # Change List
 
+## v2.4.0 Milky Way
+
+Release date: Oct 24, 2023
+
+### New Features
+
+📈 No more monotone data summarization, new aggregation functions!
+
+- compact_state_agg [#1359](https://github.com/cnosdb/cnosdb/pull/1359)
+- gauge_agg [#1370](https://github.com/cnosdb/cnosdb/pull/1370)
+- first [#1395](https://github.com/cnosdb/cnosdb/pull/1395)
+- last [#1413](https://github.com/cnosdb/cnosdb/pull/1413)
+- mode [#1440](https://github.com/cnosdb/cnosdb/pull/1440)
+- increase [#1476](https://github.com/cnosdb/cnosdb/pull/1476)
+- delta [#1395](https://github.com/cnosdb/cnosdb/pull/1395)
+- time_delta [#1405](https://github.com/cnosdb/cnosdb/pull/1405)
+- rate [#1405](https://github.com/cnosdb/cnosdb/pull/1405)
+
+🌐 GIS Functions: [#1465](https://github.com/cnosdb/cnosdb/pull/1465)
+
+- ST_AsBinary
+- ST_GeomFromWKB
+- ST_Distanc
+- ST_Area
+
+💼 Change on system schema [#1461](https://github.com/cnosdb/cnosdb/pull/1461)
+
+- All lowercase, system field names are normalized.
+
+🔄 Make it easier to modify data! [#1484](https://github.com/cnosdb/cnosdb/pull/1484) [#1517](https://github.com/cnosdb/cnosdb/pull/1517) [#1623](https://github.com/cnosdb/cnosdb/pull/1623) [#1590](https://github.com/cnosdb/cnosdb/pull/1590)
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+assignment clause :
+    tag_name = value_expression
+```
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+assignment clause :
+    field_name = value_expression
+ALTER TABLE tb_name alter_table_option;
+```
+
+```sql
+alter_table_option: {
+      ADD TAG col_name
+    | ADD FIELD col_name [CODEC(code_type)]
+    | ALTER col_name SET CODEC(code_type)
+    | DROP col_name
+    | RENAME COLUMN col_name TO new_col_name
+}
+```
+
+```sql
+DELETE FROM table_name where_clause
+```
+
+Other new features are as follows:
+
+- Adapt vector. [#1380](https://github.com/cnosdb/cnosdb/pull/1380)
+- support Geometry data type. [#1463](https://github.com/cnosdb/cnosdb/pull/1463)
+- Add histogram Line Protocol export. [#1472](https://github.com/cnosdb/cnosdb/pull/1472)
+- Support duration_in function. [#1423](https://github.com/cnosdb/cnosdb/pull/1423) [#1408](https://github.com/cnosdb/cnosdb/pull/1408)
+- Support grpc compression. [#1631](https://github.com/cnosdb/cnosdb/pull/1631)
+- Add cluster data export/import/migrate tool. [#1635](https://github.com/cnosdb/cnosdb/pull/1635)
+- Added database deferred deletion. [#1510](https://github.com/cnosdb/cnosdb/pull/1510)
+
+```sql
+DROP DATABASE [IF EXISTS] <db_name> [AFTER <time_interval>]
+```
+
+### Improvements
+
+The memory usage is effectively reduced, TSKV is optimized to be more efficient, and Flatbuffers, index building and other aspects are also significantly improved. In addition, careful optimizations such as cache refactoring and fewer clones have led to even better overall performance.
+
+- Support <!=>  compare operators to data sources. [#1469](https://github.com/cnosdb/cnosdb/pull/1469)
+- Split wal by vnode. [#1454](https://github.com/cnosdb/cnosdb/pull/1454)
+- TSKV Optimizations to reduce the memory usage. [#1199](https://github.com/cnosdb/cnosdb/pull/1199)
+- Refactor DESC TABLES / DESC DATABASES。[#1397](https://github.com/cnosdb/cnosdb/pull/1397)
+- New resource management function, data delete action monitoring and failure retry. [#1616](https://github.com/cnosdb/cnosdb/pull/1616)
+- Enhance Meta Watch model. [#1586](https://github.com/cnosdb/cnosdb/pull/1586)
+- Refactor iterator and optimize performance. [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- Change big dependency 'models' to small dependency 'error_code'[#1470](https://github.com/cnosdb/cnosdb/pull/1470)
+- Optimize build index. [#1468](https://github.com/cnosdb/cnosdb/pull/1468)
+- The password is encrypted and stored to enhance security. [#1419](https://github.com/cnosdb/cnosdb/pull/1419)
+- Optomize Flatbuffers. [#1435](https://github.com/cnosdb/cnosdb/pull/1435)
+- Refactor record_file and codec in TSKV. [#1439](https://github.com/cnosdb/cnosdb/pull/1439)
+- Map vector array to string. [#1450](https://github.com/cnosdb/cnosdb/pull/1450)
+- Refactor usage_schema. [#1479](https://github.com/cnosdb/cnosdb/pull/1479)
+- Rename coordinator limiter. [#1482](https://github.com/cnosdb/cnosdb/pull/1482)
+- Add limiter manager. [#1494](https://github.com/cnosdb/cnosdb/pull/1494)
+- Clean no-use VnodeStatusListener。[#1487](https://github.com/cnosdb/cnosdb/pull/1487)
+- Decrease clone. [#1582](https://github.com/cnosdb/cnosdb/pull/1582)
+- Fixed a BUG where the number of arguments of scalar functions is not checked. [#1597](https://github.com/cnosdb/cnosdb/pull/1597)
+- Seek position before index read. [#1618](https://github.com/cnosdb/cnosdb/pull/1618)
+- Extend raft write interface. [#1620](https://github.com/cnosdb/cnosdb/pull/1620)
+- Refactor cache. [#1560](https://github.com/cnosdb/cnosdb/pull/1560)
+- When drop table, the will deleted. [#1553](https://github.com/cnosdb/cnosdb/pull/1553)
+- Disable restrictions on Tenant cnosdb. [#1617](https://github.com/cnosdb/cnosdb/pull/1617)
+- leader replication, multi raft replication group. [#1534](https://github.com/cnosdb/cnosdb/pull/1534)
+- Add testcases about function, DDL, DML. [#1588](https://github.com/cnosdb/cnosdb/pull/1588)
+- Refactor the way to scan data in the update tag plan. [#1634](https://github.com/cnosdb/cnosdb/pull/1634)
+
+### 问题修复
+
+- Fix check_writes error. [#1383](https://github.com/cnosdb/cnosdb/pull/1383)
+- Fix line protocol parser '\n' error. [#1426](https://github.com/cnosdb/cnosdb/pull/1426)
+- Fix modify the cases to be repeatable. [#1451](https://github.com/cnosdb/cnosdb/pull/1451)
+- Fix http metrics field order error. [#1506](https://github.com/cnosdb/cnosdb/pull/1506)
+- Fix tsm damaged, but query not try read. [#1453](https://github.com/cnosdb/cnosdb/pull/1453)
+- Fix stream plan not perform filter pushdown. [#1515](https://github.com/cnosdb/cnosdb/pull/1515)
+- Fix cli array out-of-bounds access. [#1531](https://github.com/cnosdb/cnosdb/pull/1531)
+- Fix restart lose data. [#1471](https://github.com/cnosdb/cnosdb/pull/1471)
+- Drop database in raft replication mode. [#1556](https://github.com/cnosdb/cnosdb/pull/1556)
+- Fix unexpectedly deleted the wal test directory. [#1558](https://github.com/cnosdb/cnosdb/pull/1558)
+- Fix password verify failed. [#1583](https://github.com/cnosdb/cnosdb/pull/1583)
+- Fix time_window function cannot handle constant cast expression. [#1578](https://github.com/cnosdb/cnosdb/pull/1578)
+- Fix rate bucket refill. [#1563](https://github.com/cnosdb/cnosdb/pull/1563)
+- Fix Confusing error message. [#1595](https://github.com/cnosdb/cnosdb/pull/1595)
+- Fix restart recover invalid data. [#1570](https://github.com/cnosdb/cnosdb/pull/1570)
+- Forbidden drop root user. [#1598](https://github.com/cnosdb/cnosdb/pull/1598)
+- Fix drop column case tskv get empty database. [#1581](https://github.com/cnosdb/cnosdb/pull/1581)
+- Fix /cluster/users/user change not notify to serve. [#1599](https://github.com/cnosdb/cnosdb/pull/1599)
+- Fix meta create duplicate data version. [#1605](https://github.com/cnosdb/cnosdb/pull/1605)
+- Add scalar args check. [#1615](https://github.com/cnosdb/cnosdb/pull/1615)
+- Fix create system database usage_schema. [#1606](https://github.com/cnosdb/cnosdb/pull/1606)
+- Fix drop tenant not drop members bug. [#1626](https://github.com/cnosdb/cnosdb/pull/1626)
+- Fix tskv iterator sometimes returns more data than expected. [#1638](https://github.com/cnosdb/cnosdb/pull/1638)
+- Fix restart get actual database schema. [#1636](https://github.com/cnosdb/cnosdb/pull/1636)
+- Fix errors in execution of DELETE FROM TABLE. [#1643](https://github.com/cnosdb/cnosdb/pull/1643)
+
 ## v2.3.3 Antlia
 
 Release date：Sep 28,2023

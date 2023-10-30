@@ -19,10 +19,10 @@ When CnosDB is upgraded from V2.3 to V2.4, the data format and communication pro
 
 ```shell
    # Meta deployed separately
-   curl -XGET http://ip:port/dump --o ./meta_dump.data  # ip:port is the address of the old meta service
+   curl -XGET http://ip:port/dump -o ./meta_dump.data  # ip:port is the address of the old meta service
 
    # CnosDB service single instance
-   curl -XGET http://ip:port/debug --o ./meta_dump.data  # ip:port is the address of meta service
+   curl -XGET http://ip:port/debug -o ./meta_dump.data  # ip:port is the address of meta service
 
 ```
 
@@ -49,6 +49,14 @@ eg:
 /cluster_xxx/tenants/cnosdb/dbs/public: {"tenant":"cnosdb","database":"public","config":{"ttl":null,"shard_num":null,"vnode_duration":null,"replica":null,"precision":null}
 modified to:
 /cluster_xxx/tenants/cnosdb/dbs/public: {"tenant":"cnosdb","database":"public","config":{"ttl":null,"shard_num":null,"vnode_duration":null,"replica":null,"precision":null,"db_is_hidden":false}}
+```
+
+4. Modify the schema of tenant by adding db_is_hidden field.
+```txt
+eg:
+/cluster_xxx/tenants/cnosdb: {"id":34967873693446849787034438314352008249,"name":"cnosdb","options":{"comment":"system tenant","limiter_config":null}}
+modified to:
+/cluster_xxx/tenants/cnosdb: {"id":34967873693446849787034438314352008249,"name":"cnosdb","options":{"comment":"system tenant","limiter_config":null,"tenant_is_hidden":false}}
 ```
 
 - #### Import to new cluster

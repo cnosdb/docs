@@ -134,7 +134,7 @@ DROP DATABASE [IF EXISTS] <db_name> [AFTER <time_interval>]
 - 修复创建系统数据库 usage_schema 的问题。[#1606](https://github.com/cnosdb/cnosdb/pull/1606)
 - 修复删除租户时不删除成员的错误。[#1626](https://github.com/cnosdb/cnosdb/pull/1626)
 - 修复 tskv 迭代器有时返回超出预期数据的问题。 [#1638](https://github.com/cnosdb/cnosdb/pull/1638)
-- 使 tskv 节点重启不受资源隐藏影响。 #[#1636](https://github.com/cnosdb/cnosdb/pull/1636)
+- 使 tskv 节点重启不受资源隐藏影响。 [#1636](https://github.com/cnosdb/cnosdb/pull/1636)
 - 执行删除时停止后台的数据文件 compaction 任务。 [#1643](https://github.com/cnosdb/cnosdb/pull/1643)
 
 ## v2.3.3 Antlia
