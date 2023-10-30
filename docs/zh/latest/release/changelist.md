@@ -5,6 +5,138 @@ order: 2
 
 # 版本发布历史
 
+## v2.4.0 Milky Way
+
+发布日期：2023年10月24日
+
+### 新增特性
+
+📈 数据汇总不再单调，新的聚合函数登场！
+
+- compact_state_agg [#1359](https://github.com/cnosdb/cnosdb/pull/1359)
+- gauge_agg [#1370](https://github.com/cnosdb/cnosdb/pull/1370)
+- first [#1395](https://github.com/cnosdb/cnosdb/pull/1395)
+- last [#1413](https://github.com/cnosdb/cnosdb/pull/1413)
+- mode [#1440](https://github.com/cnosdb/cnosdb/pull/1440)
+- increase [#1476](https://github.com/cnosdb/cnosdb/pull/1476)
+- delta [#1395](https://github.com/cnosdb/cnosdb/pull/1395)
+- time_delta [#1405](https://github.com/cnosdb/cnosdb/pull/1405)
+- rate [#1405](https://github.com/cnosdb/cnosdb/pull/1405)
+
+🌐 GIS函数集锦 [#1465](https://github.com/cnosdb/cnosdb/pull/1465)
+
+- ST_AsBinary
+- ST_GeomFromWKB
+- ST_Distanc
+- ST_Area
+
+💼 系统表大改造 [#1461](https://github.com/cnosdb/cnosdb/pull/1461)
+
+- 全都小写，系统字段名规范化，一切都走心。
+
+🔄 修改数据炸裂更新，修改数据变得so easy，你想改就改！[#1484](https://github.com/cnosdb/cnosdb/pull/1484) [#1517](https://github.com/cnosdb/cnosdb/pull/1517) [#1623](https://github.com/cnosdb/cnosdb/pull/1623) [#1590](https://github.com/cnosdb/cnosdb/pull/1590)
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+assignment clause :
+    tag_name = value_expression
+```
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+assignment clause :
+    field_name = value_expression
+ALTER TABLE tb_name alter_table_option;
+```
+
+```sql
+alter_table_option: {
+      ADD TAG col_name
+    | ADD FIELD col_name [CODEC(code_type)]
+    | ALTER col_name SET CODEC(code_type)
+    | DROP col_name
+    | RENAME COLUMN col_name TO new_col_name
+}
+```
+
+```sql
+DELETE FROM table_name where_clause
+```
+
+其他重磅功能如下：
+
+- 适配 Vector。[#1380](https://github.com/cnosdb/cnosdb/pull/1380)
+- 新增 Geometry 类型。[#1463](https://github.com/cnosdb/cnosdb/pull/1463)
+- 添加直方图导出。[#1472](https://github.com/cnosdb/cnosdb/pull/1472)
+- 支持 duration_in 函数 [#1423](https://github.com/cnosdb/cnosdb/pull/1423) [#1408](https://github.com/cnosdb/cnosdb/pull/1408)
+- 新增对 grpc 压缩的支持 [#1631](https://github.com/cnosdb/cnosdb/pull/1631)
+- 新增集群数据导入导出工具 [#1635](https://github.com/cnosdb/cnosdb/pull/1635)
+- 新增数据库延迟删除。[#1510](https://github.com/cnosdb/cnosdb/pull/1510)
+
+```sql
+DROP DATABASE [IF EXISTS] <db_name> [AFTER <time_interval>]
+```
+
+### 功能优化
+
+内存使用得到有效减少，TSKV经过优化更加高效，而Flatbuffers、构建索引等方面也得到了明显的提升。除此之外，缓存重构和减少克隆操作等细致优化，让整体性能更上一层楼。
+
+- 支持下推 <!=> 比较运算符到数据源。[#1469](https://github.com/cnosdb/cnosdb/pull/1469)
+- 按 vnode 拆分 WAL。[#1454](https://github.com/cnosdb/cnosdb/pull/1454)
+- 优化 TSKV  以减少内存使用。 [#1199](https://github.com/cnosdb/cnosdb/pull/1199)
+- 重构 DESC TABLES / DESC DATABASES。[#1397](https://github.com/cnosdb/cnosdb/pull/1397)
+- 新增资源管理功能，数据删改动作进行监控和失败重试。[#1616](https://github.com/cnosdb/cnosdb/pull/1616)
+- 改进 Meta Watch 模型。[#1586](https://github.com/cnosdb/cnosdb/pull/1586)
+- 重构迭代器并优化性能。[#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 将大依赖 'models' 更改为小依赖 'error_code'。[#1470](https://github.com/cnosdb/cnosdb/pull/1470)
+- 优化构建索引。[#1468](https://github.com/cnosdb/cnosdb/pull/1468)
+- 密码加密存储，增强安全性。 [#1419](https://github.com/cnosdb/cnosdb/pull/1419)
+- 优化 Flatbuffers。[#1435](https://github.com/cnosdb/cnosdb/pull/1435)
+- 重构 TSKV 中的 record_file 和 codec。[#1439](https://github.com/cnosdb/cnosdb/pull/1439)
+- Vector类型数组映射成字符串。[#1450](https://github.com/cnosdb/cnosdb/pull/1450)
+- 重构 usage_schema。[#1479](https://github.com/cnosdb/cnosdb/pull/1479)
+- 重命名 coordinator limiter。[#1482](https://github.com/cnosdb/cnosdb/pull/1482)
+- 添加 limiter manager。[#1494](https://github.com/cnosdb/cnosdb/pull/1494)
+- 清理无用代码 VnodeStatusListener。[#1487](https://github.com/cnosdb/cnosdb/pull/1487)
+- 减少克隆操作。[#1582](https://github.com/cnosdb/cnosdb/pull/1582)
+- 修复标量函数参数数量未见检查的BUG。[#1597](https://github.com/cnosdb/cnosdb/pull/1597)
+- 在索引读取之前寻找位置。[#1618](https://github.com/cnosdb/cnosdb/pull/1618)
+- 扩展 Raft 写接口。[#1620](https://github.com/cnosdb/cnosdb/pull/1620)
+- 重构缓存。[#1560](https://github.com/cnosdb/cnosdb/pull/1560)
+- 删除表时，相关数据将被删除。[#1553](https://github.com/cnosdb/cnosdb/pull/1553)
+- 禁用对 tenant cnosdb 的限制。[#1617](https://github.com/cnosdb/cnosdb/pull/1617)
+- Leader 复制，多 Raft 复制组。[#1534](https://github.com/cnosdb/cnosdb/pull/1534)
+- 添加关于函数、DDL、DML 的测试用例。[#1588](https://github.com/cnosdb/cnosdb/pull/1588)
+- 重构 tag plan 中扫描数据的方式 [#1634](https://github.com/cnosdb/cnosdb/pull/1634)
+
+### 问题修复
+
+- 修复 check_writes 错误。 [#1383](https://github.com/cnosdb/cnosdb/pull/1383)
+- 修复行协议解析器 '\n' 错误。[#1426](https://github.com/cnosdb/cnosdb/pull/1426)
+- 修改案例以实现可重复性。[#1451](https://github.com/cnosdb/cnosdb/pull/1451)
+- 修复 HTTP 指标字段顺序错误。[#1506](https://github.com/cnosdb/cnosdb/pull/1506)
+- 修复 TSM 损坏，但查询不尝试读取的问题。[#1453](https://github.com/cnosdb/cnosdb/pull/1453)
+- 修复流计划未执行过滤推送的问题。[#1515](https://github.com/cnosdb/cnosdb/pull/1515)
+- 修复 CLI 数组越界访问。[#1531](https://github.com/cnosdb/cnosdb/pull/1531)
+- 修复重新启动时数据丢失的问题。[#1471](https://github.com/cnosdb/cnosdb/pull/1471)
+- 在 Raft 复制模式中删除数据库。[#1556](https://github.com/cnosdb/cnosdb/pull/1556)
+- 修复意外删除了 WAL 测试目录的问题。[#1558](https://github.com/cnosdb/cnosdb/pull/1558)
+- 修复密码验证失败问题。[#1583](https://github.com/cnosdb/cnosdb/pull/1583)
+- 修复 time_window 函数无法处理常量转换表达式。[#1578](https://github.com/cnosdb/cnosdb/pull/1578)
+- 修复桶的填充率。[#1563](https://github.com/cnosdb/cnosdb/pull/1563)
+- 修复混淆的错误消息。[#1595](https://github.com/cnosdb/cnosdb/pull/1595)
+- 修复重新启动时恢复无效数据的问题。[#1570](https://github.com/cnosdb/cnosdb/pull/1570)
+- 禁止删除 root 用户。[#1598](https://github.com/cnosdb/cnosdb/pull/1598)
+- 修复在 TSKV 中删除列导致获取空数据库的问题。[#1581](https://github.com/cnosdb/cnosdb/pull/1581)
+- 修复 /cluster/users/user 变更不通知服务器的问题。[#1599](https://github.com/cnosdb/cnosdb/pull/1599)
+- 修复Meta 创建重复数据版本的问题。[#1605](https://github.com/cnosdb/cnosdb/pull/1605)
+- 增加标量函数参数检查。[#1615](https://github.com/cnosdb/cnosdb/pull/1615)
+- 修复创建系统数据库 usage_schema 的问题。[#1606](https://github.com/cnosdb/cnosdb/pull/1606)
+- 修复删除租户时不删除成员的错误。[#1626](https://github.com/cnosdb/cnosdb/pull/1626)
+- 修复 tskv 迭代器有时返回超出预期数据的问题。 [#1638](https://github.com/cnosdb/cnosdb/pull/1638)
+- 使 tskv 节点重启不受资源隐藏影响。 #[#1636](https://github.com/cnosdb/cnosdb/pull/1636)
+- 执行删除时停止后台的数据文件 compaction 任务。 [#1643](https://github.com/cnosdb/cnosdb/pull/1643)
+
 ## v2.3.3 Antlia
 
 发布日期：2023年9月28日
