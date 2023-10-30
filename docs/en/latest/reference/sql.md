@@ -761,6 +761,26 @@ assignment clause :
 update air set pressure = pressure + 100 where pressure = 68 and time < '2023-01-14T16:03:00';
 ```
 
+## **Delete Data**
+
+Filter and delete data by tag and time columns.
+
+#### Syntax
+
+```
+DELETE FROM table_name where_clause
+```
+
+#### Instructions
+
+1. `where_clause` can only contain tag and time columns, not field columns.
+
+#### Example
+
+```sql
+delete from air where station = 'LianYunGang' and time < '2023-01-14T16:03:00';
+```
+
 ## **Data Query**
 
 CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html), We support most of the SQL syntax of DataFusion.
