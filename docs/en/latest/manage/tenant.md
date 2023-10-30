@@ -87,15 +87,31 @@ ALTER TENANT test SET COMMENT = 'abc';
 **Syntax**
 
 ```sql 
-DROP
-TENANT tenant_name;
+DROP TENANT tenant_name [AFTER '7d'];
 ```
+
+When not with AFTER, it will be deleted immediately.
+
+When with AFTER, it is delayed deletion, which will be deleted after the specified time. The time supports days (d), hours (h), and minutes (m), such as 10d, 50h, 100m. When there is no unit, the default is day. The tenant is not visible and unavailable during the delayed deletion period.
+
+#### Syntax
+
+```sql
+RECOVER TENANT tenant_name;
+```
+
+Delay deletion is cancelled and the tenant returns to normal.
+
+**Notice**: Only resources that are delayed deletion and during the delayed deletion period can be recovered by executing the RECOVER statement.
 
 **Example**
 
 ```sql
-DROP
-TENANT test;
+DROP TENANT test AFTER ‘7d’;
+
+RECOVER TENANT test;
+
+DROP TENANT test;
 ```
 
 ## User

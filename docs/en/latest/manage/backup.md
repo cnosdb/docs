@@ -1,6 +1,6 @@
 ---
 title: Backup and Restore
-order: 1
+order: 6
 ---
 
 # Backup and Restore
@@ -233,3 +233,57 @@ There four parameters in the connection options for Microsoft Azure:
         )
         FILE_FORMAT = (TYPE = 'CSV'); 
     ```
+
+## Cross-cluster data migration
+
+When CnosDB is upgraded, data format and communication protocol may be incompatible due to refactoring and optimization, which requires cross-cluster data migration. Cross-cluster data migration can be done by importing and exporting as described above. Since the CnosDB cluster also includes Meta data that needs to be migrated.
+
+### Migrate meta data
+
+- #### Backup meta data
+
+  Send an HTTP request to the meta to export meta data.
+
+```shell
+   curl -XPOST http://ip:port/dump --o ./meta_dump.data  # ip:port为旧集群meta服务的地址
+```
+
+- #### Data filtering
+
+1. Cluster-specific information, buckets-related information, etc. do not need to be migrated to the target cluster and need to be filtered manually.
+2. Filtering method: Open the exported file with a text editor and delete the corresponding key.
+
+```txt
+    Key list to be filtered and deleted:
+   /data_version
+   /already_init_key
+   /cluster_xxx/auto_incr_id
+   /cluster_xxx/data_nodes/1001
+   /cluster_xxx/data_nodes/111
+   /cluster_xxx/data_nodes_metrics/1001
+   /cluster_xxx/tenants/xxx/yyy/zzz/buckets
+```
+
+- #### Import new cluster:
+
+  Restore the filtered Meta export data file to the new cluster
+
+```shell
+   curl -XPOST http://ip:port/restore --data-binary "@./meta_dump.data"
+```
+
+#### Migrate data data
+
+Migrate Data data according to the import and export process above; traverse all tables.
+
+- #### Export data according to table
+
+```sql
+    COPY INTO 'file:///tmp/xxx' FROM table_name FILE_FORMAT = (TYPE = 'PARQUET');
+```
+
+- #### Import the exported data into the new cluster
+
+```sql
+    COPY INTO table_name FROM 'file:///tmp/xxx/' FILE_FORMAT = (TYPE = 'PARQUET', DELIMITER = ',');
+```

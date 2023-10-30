@@ -32,7 +32,7 @@ The following data types can't be stored directly, but can appear in SQL express
 
 | Type            | Syntax                                | Description                                                                                                             |
 |-----------------|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| BIGINT          | \[{+\-}\]123                          |                                                                                                                         |     Numeric type                |
+| BIGINT          | \[{+\-}\]123                          | Numeric type                                                                                                            |
 | BIGINT UNSIGNED | \[+]123                               | Numeric type                                                                                                            |
 | DOUBLE          | 123.45                                | Numerical type, scientific notation is not supported at present.                                                        |
 | BOOLEAN         | {true &#124; false &#124; t &#124; f} |                                                                                                                         |
@@ -93,6 +93,50 @@ SELECT CAST (1 AS TIMESTAMP);
 
 INTERVAL '1 YEAR' is not 365 days or 366 days, but 12-months.
 INTERVAL '1 MONTH' is not 29 days or 31 days, but 30 days.
+
+#### Geometry
+
+#### WKT
+
+The WKT format is a text format used to describe the spatial characteristics of 2D and 3D geometric objects.
+WKT stands for "Well-Known Text" and is an open international standard.
+The WKT format includes some basic geometric objects, such as points, lines, polygons and circles, and some composite objects, such as collections of polygons and collections of geometric objects.
+
+#### Syntax
+
+```
+<geometry tag> <wkt data>
+<geometry tag> ::= POINT | LINESTRING | POLYGON | MULTIPOINT | 
+                   MULTILINESTRING | MULTIPOLYGON | GEOMETRYCOLLECTION
+                   
+<wkt data> ::= <point> | <linestring> | <polygon> | <multipoint> | 
+               <multilinestring> | <multipolygon> | <geometrycollection>
+```
+
+| geometry object     | syntax descriptions                                                                  | 
+|---------------------|--------------------------------------------------------------------------------------|
+| Point               | `POINT (<x1> <y1>)`                                                                  |
+| Linestring          | `LINESTRING (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| Polygon             | `POLYGON ((<x1> <y1>, <x2> <y2>, ...))`                                              |
+| Multi-point         | `MULTIPOINT (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| Multi-linestring    | `MULTILINESTRING ((<x1> <y1>, <x2> <y2>, ...), (<x1> <y1>, <x2> <y2>, ...))`         |
+| Multi-polygon       | `MULTIPOLYGON (((<x1> <y1>, <x2> <y2>, ...)), ((<x1> <y1>, <x2> <y2>, ...)))`        |
+| Geometry-collection | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
+
+#### Example
+
+| geometry object     | image                                                    | example                                                                                                                  | 
+|---------------------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Point               | ![](/_static/img/sql/SFA_Point.svg.png)                  | POINT (30 10)                                                                                                            |
+| Linestring          | ![](/_static/img/sql/102px-SFA_LineString.svg.png)       | LINESTRING (30 10, 10 30, 40 40)                                                                                         |
+| Polygon             | ![](/_static/img/sql/SFA_Polygon.svg.png)                | POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))                                                                            |
+|                     | ![](/_static/img/sql/SFA_Polygon_with_hole.svg.png)      | POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))                                              |
+| Multi-point         | ![](/_static/img/sql/SFA_MultiPoint.svg.png)             | MULTIPOINT ((10 40), (40 30), (20 20), (30 10))                                                                          |
+|                     |                                                          | MULTIPOINT (10 40, 40 30, 20 20, 30 10)                                                                                  |
+| Multi-linestring    | ![](/_static/img/sql/102px-SFA_MultiLineString.svg.png)  | MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))                                                    |
+| Multi-polygon       | ![](/_static/img/sql/SFA_MultiPolygon.svg.png)           | MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))                                        |
+|                     | ![](/_static/img/sql/SFA_MultiPolygon_with_hole.svg.png) | MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20))) |
+| Geometry-collection | ![](/_static/img/sql/SFA_GeometryCollection.svg.png)     | GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))             |
 
 ### **Create Database**
 
@@ -165,15 +209,29 @@ In CnosDB-Cli, you can use the following command to switch to the specified data
 #### Syntax
 
 ```sql
-DROP DATABASE [IF EXISTS] db_name;
+DROP DATABASE [IF EXISTS] db_name [AFTER '7d'];
 ```
 
-If dropping database, all table data and metadata of the specified database will be removed.
+When not with AFTER, it will be deleted immediately.
+
+When with AFTER, it is delayed deletion, which will be deleted after the specified time. The time supports days (d), hours (h), and minutes (m), such as 10d, 50h, 100m. When there is no unit, the default is day. The tenant is not visible and unavailable during the delayed deletion period.
+
+#### Syntax
+
+```sql
+RECOVER DATABASE [IF EXISTS] db_name;
+```
+
+Delay deletion is cancelled and the tenant returns to normal.
+
+**Notice**: Only resources that are delayed deletion and during the delayed deletion period can be recovered by executing the RECOVER statement.
 
 #### Example
 
 ```sql
-DROP DATABASE oceanic_station;
+DROP DATABASE oceanic_station AFTER ‘7d’;
+
+RECOVER DATABASE oceanic_station;
 ```
 
     Query took 0.030 seconds.
@@ -2728,6 +2786,50 @@ select mode(pressure) from air;
 
 
 ----------------
+
+### INCREASE
+
+    increase(time, value order by time)
+
+Calculate the increment of value in the time series.
+
+**Parammeter Type**: value: numeric type
+
+**Return Type**: Same as value type.
+
+#### Example
+
+```sql
+CREATE DATABASE IF NOT EXISTS TEST_INCREASE;
+ALTER DATABASE TEST_INCREASE SET TTL '100000D';
+CREATE TABLE IF NOT EXISTS test_increase.test_increase(f0 BIGINT, TAGS(t0));
+INSERT INTO test_increase.test_increase(time, t0, f0)
+VALUES
+    ('1999-12-31 00:00:00.000', 'a', 1),
+    ('1999-12-31 00:00:00.005', 'a', 2),
+    ('1999-12-31 00:00:00.010', 'a', 3),
+    ('1999-12-31 00:00:00.015', 'a', 4),
+    ('1999-12-31 00:00:00.020', 'a', 5),
+    ('1999-12-31 00:00:00.025', 'a', 6),
+    ('1999-12-31 00:00:00.030', 'a', 7),
+    ('1999-12-31 00:00:00.035', 'a', 8),
+    ('1999-12-31 00:00:00.000', 'b', 1),
+    ('1999-12-31 00:00:00.005', 'b', 2),
+    ('1999-12-31 00:00:00.010', 'b', 3),
+    ('1999-12-31 00:00:00.015', 'b', 4),
+    ('1999-12-31 00:00:00.020', 'b', 1),
+    ('1999-12-31 00:00:00.025', 'b', 2),
+    ('1999-12-31 00:00:00.030', 'b', 3),
+    ('1999-12-31 00:00:00.035', 'b', 4);
+SELECT t0, INCREASE(time, f0 ORDER BY time) AS increase
+FROM test_increase.test_increase GROUP BY t0 ORDER BY t0;
+```
+    +----+----------+
+    | t0 | increase |
+    +----+----------+
+    | a  | 7        |
+    | b  | 7        |
+    +----+----------+
 
 ### Statistical Aggregate Functions
 
