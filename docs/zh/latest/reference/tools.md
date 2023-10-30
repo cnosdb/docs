@@ -283,7 +283,7 @@ cnosdb-tool repair summary edit [OPTIONS] <PATH>
 ```
 
 - `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 带修改的数据块序号的结束值。
+- `--to <NUMBER>` - 待修改的数据块序号的结束值。
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}`。
 
 Examples:
@@ -340,7 +340,7 @@ cnosdb-tool repair wal edit [OPTIONS] <PATH>
 ```
 
 - `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 带修改的数据块序号的结束值。
+- `--to <NUMBER>` - 待修改的数据块序号的结束值。
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}.wal`
 
 Examples:
@@ -412,13 +412,13 @@ cnosdb-tool inspect tsm [OPTIONS] <PATH>
 
 - `--tombstone` - 同时也打印 tombstone 的内容。
 - `--level` - 输出的级别，可选值为：`fields`，`block`，默认值为：`block`. 
-  - `fields` - 输出所有属性信息。
-  - `block` - 输出所有属性信息与数据块信息。
+- `fields` - 输出所有属性信息。
+- `block` - 输出所有属性信息与数据块信息。
 
 Examples:
 
 ```sh
-输出一个 TSM 文件中，所有的数据块信息
+# 输出一个 TSM 文件中，所有的数据块信息
 cnosdb-tool inspect tsm --level block <PATH>
 ```
 
@@ -468,7 +468,7 @@ cnosdb-tool repair hh edit [OPTIONS] <PATH>
 Options:
 
 - `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 带修改的数据块序号的结束值。
+- `--to <NUMBER>` - 待修改的数据块序号的结束值。
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}`
 
 Examples:
@@ -521,8 +521,7 @@ cnosdb-tool repair series-binlog edit [OPTIONS] <PATH>
 Options:
 
 - `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 带修改的数据块序号的结束值。
-
+- `--to <NUMBER>` - 待修改的数据块序号的结束值。
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}.binlog`
 
 Examples:

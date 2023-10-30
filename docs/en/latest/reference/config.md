@@ -176,10 +176,11 @@ reporting_disabled = true
 
 ## \[hintedoff]
 
-| Parameter | Description                                            |
-|-----------|--------------------------------------------------------|
-| enable    | Is the HIntedOff service enabled, default: true        |
-| path      | HintedOff storage directory, default: `/tmp/cnosdb/hh` |
+| Parameter | Description                                                 |
+|-----------|-------------------------------------------------------------|
+| enable    | Is the HIntedOff service enabled, default: true             |
+| path      | HintedOff storage directory, default: `/tmp/cnosdb/hh`      |
+| threads   | Number of concurrent processing of handoff data, default: 3 |
 
 ## \[subscription]
 
