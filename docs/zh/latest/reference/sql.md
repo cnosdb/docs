@@ -38,7 +38,7 @@ order: 5
 | BOOLEAN         | {true &#124; false &#124; t &#124; f} |                                                 |
 | STRING          | 'abc'                                 | 不支持双引号格式，引号中连续两个''转义成‘                          |
 | TIMESTAMP       | TIMESTAMP '1900-01-01T12:00:00Z'      | 时间戳，TIMESTAMP 关键字表示后面的字符串常量需要被解释为 TIMESTAMP 类型。 |
-| Geometry        | [点击跳转](#Geometry)                     | 几何类型                                            |
+| Geometry        | [点击跳转](#geometry)                     | 几何类型                                            |
 | --              | NULL                                  | 空值                                              |
 
 #### TIMESTAMP 常量语法

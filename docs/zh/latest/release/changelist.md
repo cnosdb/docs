@@ -90,7 +90,6 @@ DROP DATABASE [IF EXISTS] <db_name> [AFTER <time_interval>]
 - 重构迭代器并优化性能。[#1467](https://github.com/cnosdb/cnosdb/pull/1467)
 - 将大依赖 'models' 更改为小依赖 'error_code'。[#1470](https://github.com/cnosdb/cnosdb/pull/1470)
 - 优化构建索引。[#1468](https://github.com/cnosdb/cnosdb/pull/1468)
-- 密码加密存储，增强安全性。 [#1419](https://github.com/cnosdb/cnosdb/pull/1419)
 - 优化 Flatbuffers。[#1435](https://github.com/cnosdb/cnosdb/pull/1435)
 - 重构 TSKV 中的 record_file 和 codec。[#1439](https://github.com/cnosdb/cnosdb/pull/1439)
 - Vector类型数组映射成字符串。[#1450](https://github.com/cnosdb/cnosdb/pull/1450)
