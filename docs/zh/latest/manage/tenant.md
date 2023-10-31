@@ -62,6 +62,7 @@ FROM cluster_schema.tenants;
 ### 修改租户
 
 **语法**
+
 ```sql
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     

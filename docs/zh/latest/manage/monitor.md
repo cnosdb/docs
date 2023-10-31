@@ -127,7 +127,7 @@ Count
 
 | 字段       | 描述               |
 |----------|------------------|
-| TIME     | 记录的时间间           |
+| TIME     | 记录的时间            |
 | DATABASE | Database名称       |
 | NODE_ID  | Data节点的 ID       |
 | TENANT   | Database 所属的租户名称 |
@@ -261,6 +261,10 @@ Count
 
 ### COORD_QUERIES
 
+#### 名称
+
+coord_queries
+
 #### 种类
 
 Count
@@ -280,6 +284,10 @@ Count
 | VALUE    | 次数               |
 
 ### COORD_WRITES
+
+#### 名称
+
+coord_writes
 
 #### 种类
 

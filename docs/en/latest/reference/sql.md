@@ -32,7 +32,7 @@ The following data types can't be stored directly, but can appear in SQL express
 
 | Type            | Syntax                                | Description                                                                                                             |
 |-----------------|---------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| BIGINT          | \[{+\-}\]123                          |                                                                                                                         |     Numeric type                |
+| BIGINT          | \[{+\-}\]123                          | Numeric type                                                                                                            |
 | BIGINT UNSIGNED | \[+]123                               | Numeric type                                                                                                            |
 | DOUBLE          | 123.45                                | Numerical type, scientific notation is not supported at present.                                                        |
 | BOOLEAN         | {true &#124; false &#124; t &#124; f} |                                                                                                                         |
@@ -94,6 +94,50 @@ SELECT CAST (1 AS TIMESTAMP);
 INTERVAL '1 YEAR' is not 365 days or 366 days, but 12-months.
 INTERVAL '1 MONTH' is not 29 days or 31 days, but 30 days.
 
+#### Geometry
+
+#### WKT
+
+The WKT format is a text format used to describe the spatial characteristics of 2D and 3D geometric objects.
+WKT stands for "Well-Known Text" and is an open international standard.
+The WKT format includes some basic geometric objects, such as points, lines, polygons and circles, and some composite objects, such as collections of polygons and collections of geometric objects.
+
+#### Syntax
+
+```
+<geometry tag> <wkt data>
+<geometry tag> ::= POINT | LINESTRING | POLYGON | MULTIPOINT | 
+                   MULTILINESTRING | MULTIPOLYGON | GEOMETRYCOLLECTION
+                   
+<wkt data> ::= <point> | <linestring> | <polygon> | <multipoint> | 
+               <multilinestring> | <multipolygon> | <geometrycollection>
+```
+
+| geometry object     | syntax descriptions                                                                  | 
+|---------------------|--------------------------------------------------------------------------------------|
+| Point               | `POINT (<x1> <y1>)`                                                                  |
+| Linestring          | `LINESTRING (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| Polygon             | `POLYGON ((<x1> <y1>, <x2> <y2>, ...))`                                              |
+| Multi-point         | `MULTIPOINT (<x1> <y1>, <x2> <y2>, ...)`                                             |
+| Multi-linestring    | `MULTILINESTRING ((<x1> <y1>, <x2> <y2>, ...), (<x1> <y1>, <x2> <y2>, ...))`         |
+| Multi-polygon       | `MULTIPOLYGON (((<x1> <y1>, <x2> <y2>, ...)), ((<x1> <y1>, <x2> <y2>, ...)))`        |
+| Geometry-collection | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
+
+#### Example
+
+| geometry object     | image                                                    | example                                                                                                                  | 
+|---------------------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Point               | ![](/_static/img/sql/SFA_Point.svg.png)                  | POINT (30 10)                                                                                                            |
+| Linestring          | ![](/_static/img/sql/102px-SFA_LineString.svg.png)       | LINESTRING (30 10, 10 30, 40 40)                                                                                         |
+| Polygon             | ![](/_static/img/sql/SFA_Polygon.svg.png)                | POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))                                                                            |
+|                     | ![](/_static/img/sql/SFA_Polygon_with_hole.svg.png)      | POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))                                              |
+| Multi-point         | ![](/_static/img/sql/SFA_MultiPoint.svg.png)             | MULTIPOINT ((10 40), (40 30), (20 20), (30 10))                                                                          |
+|                     |                                                          | MULTIPOINT (10 40, 40 30, 20 20, 30 10)                                                                                  |
+| Multi-linestring    | ![](/_static/img/sql/102px-SFA_MultiLineString.svg.png)  | MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))                                                    |
+| Multi-polygon       | ![](/_static/img/sql/SFA_MultiPolygon.svg.png)           | MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))                                        |
+|                     | ![](/_static/img/sql/SFA_MultiPolygon_with_hole.svg.png) | MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20))) |
+| Geometry-collection | ![](/_static/img/sql/SFA_GeometryCollection.svg.png)     | GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))             |
+
 ### **Create Database**
 
 #### Syntax
@@ -142,7 +186,7 @@ SHOW DATABASES;
 SHOW DATABASES;
 ```
     +-----------------+
-    | Database        |
+    | database_name   |
     +-----------------+
     | oceanic_station |
     | public          |
@@ -165,15 +209,29 @@ In CnosDB-Cli, you can use the following command to switch to the specified data
 #### Syntax
 
 ```sql
-DROP DATABASE [IF EXISTS] db_name;
+DROP DATABASE [IF EXISTS] db_name [AFTER '7d'];
 ```
 
-If dropping database, all table data and metadata of the specified database will be removed.
+When not with AFTER, it will be deleted immediately.
+
+When with AFTER, it is delayed deletion, which will be deleted after the specified time. The time supports days (d), hours (h), and minutes (m), such as 10d, 50h, 100m. When there is no unit, the default is day. The tenant is not visible and unavailable during the delayed deletion period.
+
+#### Syntax
+
+```sql
+RECOVER DATABASE [IF EXISTS] db_name;
+```
+
+Delay deletion is cancelled and the tenant returns to normal.
+
+**Notice**: Only resources that are delayed deletion and during the delayed deletion period can be recovered by executing the RECOVER statement.
 
 #### Example
 
 ```sql
-DROP DATABASE oceanic_station;
+DROP DATABASE oceanic_station AFTER ‘7d’;
+
+RECOVER DATABASE oceanic_station;
 ```
 
     Query took 0.030 seconds.
@@ -216,11 +274,11 @@ DESCRIBE DATABASE dbname;
 DESCRIBE DATABASE oceanic_station;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+    +-----+-------+----------------+---------+-----------+
+    | ttl | shard | vnode_duration | replica | precision |
+    +-----+-------+----------------+---------+-----------+
+    | INF | 1     | 365 Days       | 1       | NS        |
+    +-----+-------+----------------+---------+-----------+
 
 
 ## **Table**
@@ -253,8 +311,8 @@ field_codec_type:
 3. If the compression algorithm is not specified when creating a table, the system default compression algorithm is used.
 4. At present, the compression algorithms supported by various types are as follows. The first one of each type is the default specified algorithm. NULL means no compression algorithm is used.
 
-  * BIGINT/BIGINT UNSIGNED: DELTA, QUANTILE, NULL
-  * DOUBLE: GORILLA, QUANTILE, NULL
+  * BIGINT/BIGINT UNSIGNED: DELTA, QUANTILE, SDT, DEADBAND, NULL
+  * DOUBLE: GORILLA, QUANTILE, SDT, DEADBAND, NULL
   * STRING: SNAPPY, ZSTD, GZIP, BZIP, ZLIB, NULL
   * BOOLEAN: BITPACK, NULL
 
@@ -348,13 +406,13 @@ DROP TABLE IF EXISTS air;
 ```sql
 SHOW TABLES;
 ```
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+    +------------+
+    | table_name |
+    +------------+
+    | air        |
+    | sea        |
+    | wind       |
+    +------------+
 
 ### **Describe Table**
 
@@ -371,15 +429,15 @@ DESCRIBE DATABASE table_name;
 ```sql
 DESCRIBE TABLE air;
 ```
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+    +-------------+-----------------------+-------------+-------------------+
+    | column_name | data_type             | column_type | compression_codec |
+    +-------------+-----------------------+-------------+-------------------+
+    | time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+    | station     | STRING                | TAG         | DEFAULT           |
+    | pressure    | DOUBLE                | FIELD       | DEFAULT           |
+    | temperature | DOUBLE                | FIELD       | DEFAULT           |
+    | visibility  | DOUBLE                | FIELD       | DEFAULT           |
+    +-------------+-----------------------+-------------+-------------------+
 
 ### **Alter Table**
 
@@ -389,7 +447,7 @@ At present, we support altering common tables.
 
 1. Add Column: add field and tag columns.
 2. Drop Column: drop the field column. When dropping a column results in dropping the last field value of a row, we think that this row has no value, and this row will not be showed in SELECT.
-3. Alter Column: alter the column definition. Currently, the compression algorithm for altering columns is supported.
+3. Alter Column: alter the column definition. Currently supports changing column names and modifying compression algorithms for columns.
 
 #### Syntax
 
@@ -401,6 +459,7 @@ alter_table_option: {
     | ADD FIELD col_name [CODEC(code_type)]
     | ALTER col_name SET CODEC(code_type)
     | DROP col_name
+    | RENAME COLUMN col_name TO new_col_name
 }
 ```
 
@@ -411,6 +470,7 @@ ALTER TABLE air ADD TAG height;
 ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
 ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ALTER TABLE air DROP humidity;
+ALTER TABLE air RENAME COLUMN height to height_v2;
 ```
 [//]: # (```sql)
 [//]: # (todo)
@@ -652,6 +712,74 @@ This is equivalent to inserting the following k-v pairs into the database.
     | 2022-10-19T07:40:00.290401 | XiaoMaiDao | 66.0       | 69.0        | 77.0     |
     +----------------------------+------------+------------+-------------+----------+
 
+
+## **Update Data**
+
+### **Update tag column**
+
+#### Syntax
+
+```
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+assignment clause :
+    tag_name = value_expression
+```
+
+#### Instructions
+
+1. CnosDB supports updating single or multiple tag column values separately. It does not support updating tag column and field column at the same time.
+2. CnosDB supports updating the tag column value to NULL.
+3. `value_expression` can only be an expression whose value can be determined at compile time, such as `constant`, `1 + 2`, `CAST('1999-12-31 00:00:00.000` as timestamp)', and so on.
+4. The `where_clause` must not contain a field or time column, and it must not be null. If you want to update all the data in the table, you need to use `where true`, which means you accept that there will be performance problems when the table is large.
+5. Changing to an existing series is not supported (all tag column values make up series).
+6. Avoid performing update tag operations while writing data, which may cause series conflicts.
+
+#### Example
+
+```sql
+update air set station = 'ShangHai' where station = 'LianYunGang';
+```
+
+### **Update field column**
+
+#### Syntax
+
+```sql
+UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
+
+assignment clause :
+    field_name = value_expression
+```
+
+#### Instructions
+
+1. CnosDB supports updating single or multiple field column values separately. It does not support updating tag column and field column at the same time.
+
+#### Example
+
+```sql
+update air set pressure = pressure + 100 where pressure = 68 and time < '2023-01-14T16:03:00';
+```
+
+## **Delete Data**
+
+Filter and delete data by tag and time columns.
+
+#### Syntax
+
+```
+DELETE FROM table_name where_clause
+```
+
+#### Instructions
+
+1. `where_clause` can only contain tag and time columns, not field columns.
+
+#### Example
+
+```sql
+delete from air where station = 'LianYunGang' and time < '2023-01-14T16:03:00';
+```
 
 ## **Data Query**
 
@@ -1424,23 +1552,23 @@ Show all databases or all tables or SQL in progress.
 SHOW DATABASES;
 ```
 
-    +----------+
-    | Database |
-    +----------+
-    | public   |
-    +----------+
+    +---------------+
+    | database_name |
+    +---------------+
+    | public        |
+    +---------------+
 
 ```sql
 SHOW TABLES;
 ```
 
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+    +------------+
+    | table_name |
+    +------------+
+    | air        |
+    | sea        |
+    | wind       |
+    +------------+
 
 ```sql
 SHOW QUERIES;
@@ -1600,25 +1728,25 @@ Describe the parameters of the database and the pattern of the table.
 DESCRIBE TABLE air;
 ```
 
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+    +-------------+-----------------------+-------------+-------------------+
+    | column_name | data_type             | column_type | compression_codec |
+    +-------------+-----------------------+-------------+-------------------+
+    | time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+    | station     | STRING                | TAG         | DEFAULT           |
+    | pressure    | DOUBLE                | FIELD       | DEFAULT           |
+    | temperature | DOUBLE                | FIELD       | DEFAULT           |
+    | visibility  | DOUBLE                | FIELD       | DEFAULT           |
+    +-------------+-----------------------+-------------+-------------------+
 
 ```sql
 DESCRIBE DATABASE public;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+    +-----+-------+----------------+---------+-----------+
+    | ttl | shard | vnode_duration | replica | precision |
+    +-----+-------+----------------+---------+-----------+
+    | INF | 1     | 365 Days       | 1       | NS        |
+    +-----+-------+----------------+---------+-----------+
 
 [//]: # (## **EXISTS**)
 [//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
@@ -2728,6 +2856,50 @@ select mode(pressure) from air;
 
 
 ----------------
+
+### INCREASE
+
+    increase(time, value order by time)
+
+Calculate the increment of value in the time series.
+
+**Parammeter Type**: value: numeric type
+
+**Return Type**: Same as value type.
+
+#### Example
+
+```sql
+CREATE DATABASE IF NOT EXISTS TEST_INCREASE;
+ALTER DATABASE TEST_INCREASE SET TTL '100000D';
+CREATE TABLE IF NOT EXISTS test_increase.test_increase(f0 BIGINT, TAGS(t0));
+INSERT INTO test_increase.test_increase(time, t0, f0)
+VALUES
+    ('1999-12-31 00:00:00.000', 'a', 1),
+    ('1999-12-31 00:00:00.005', 'a', 2),
+    ('1999-12-31 00:00:00.010', 'a', 3),
+    ('1999-12-31 00:00:00.015', 'a', 4),
+    ('1999-12-31 00:00:00.020', 'a', 5),
+    ('1999-12-31 00:00:00.025', 'a', 6),
+    ('1999-12-31 00:00:00.030', 'a', 7),
+    ('1999-12-31 00:00:00.035', 'a', 8),
+    ('1999-12-31 00:00:00.000', 'b', 1),
+    ('1999-12-31 00:00:00.005', 'b', 2),
+    ('1999-12-31 00:00:00.010', 'b', 3),
+    ('1999-12-31 00:00:00.015', 'b', 4),
+    ('1999-12-31 00:00:00.020', 'b', 1),
+    ('1999-12-31 00:00:00.025', 'b', 2),
+    ('1999-12-31 00:00:00.030', 'b', 3),
+    ('1999-12-31 00:00:00.035', 'b', 4);
+SELECT t0, INCREASE(time, f0 ORDER BY time) AS increase
+FROM test_increase.test_increase GROUP BY t0 ORDER BY t0;
+```
+    +----+----------+
+    | t0 | increase |
+    +----+----------+
+    | a  | 7        |
+    | b  | 7        |
+    +----+----------+
 
 ### Statistical Aggregate Functions
 
@@ -5671,6 +5843,7 @@ SELECT to_timestamp_micros(1)
 #### Syntax
 
     to_timestamp_seconds(expr) 
+
 **Function**: Convert to a second-level timestamp.
 
 **Parameter Type**: BIGINT or STRING
@@ -5804,6 +5977,129 @@ SELECT time_window(time, interval '5 day', interval '3 day') FROM test;
     | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00}                                                           |
     | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00}                                                           |
     +------------------------------------------------------------------------------------------------------------------+
+
+### Geometry Functions
+
+CnosDB provides geometry functions in the ST_Geometry SQL family. For the Geometry type, see the [Geometry](#geometry) data types section.
+
+#### ST_AsBinary
+
+    ST_AsBinary(geometry)
+
+**Functions**: The Geometry object is returned in OGC/ISO Well-Known Binary(WKB) format.
+
+**Parameter Type**: Geometry
+
+**Return Type**: Binary
+
+**Example**:
+
+```sql
+SELECT ST_AsBinary('POINT(0 3)');
+```
+
+    +--------------------------------------------+
+    | st_AsBinary(Utf8("POINT(0 3)"))            |
+    +--------------------------------------------+
+    | 010100000000000000000000000000000000000840 |
+    +--------------------------------------------+
+
+#### ST_GeomFromWKB
+
+    ST_GeomFromWKB(wkb)
+
+**Functions**: Convert WKB binary to Geometry type.
+
+**Parameter Type**: Binary
+
+**Return Type**: Geometry
+
+**Example**: 
+
+```sql
+SELECT ST_GeomFromWKB(ST_AsBinary('POINT(0 3)'))
+```
+
+    +-------------------------------------------------+
+    | st_GeomFromWKB(st_AsBinary(Utf8("POINT(0 3)"))) |
+    +-------------------------------------------------+
+    | POINT(0 3)                                      |
+    +-------------------------------------------------+
+
+#### ST_Distance
+
+    ST_Distance(geometry1, gemometry2)
+
+**Functions**: ST_Distance returns the minimum Euclidean distance between the 2D projections of two geometries.
+
+**Parameter Type**: Binary
+
+**Return Type**: Double
+
+**Example**:
+
+Distance between two points.
+
+```sql
+SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
+```
+
+    +----------------------------------------------------+
+    | st_distance(Utf8("POINT(1 0)"),Utf8("POINT(0 0)")) |
+    +----------------------------------------------------+
+    | 1.0                                                |
+    +----------------------------------------------------+
+
+Point to line distance.
+
+```sql
+SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
+```
+
+    +--------------------------------------------------------------------------+
+    | st_distance(Utf8("POINT(0 0)"),Utf8("LINESTRING (30 10, 10 30, 40 40)")) |
+    +--------------------------------------------------------------------------+
+    | 28.284271247461902                                                       |
+    +--------------------------------------------------------------------------+
+
+The distance between the plane and the plane.
+
+```sql
+SELECT ST_Distance('POLYGON((0 2,1 1,0 -1,0 2))', 'POLYGON((-1 -3,-2 -1,0 -3,-1 -3))');
+```
+
+    +--------------------------------------------------------------------------------------------+
+    | st_distance(Utf8("POLYGON((0 2,1 1,0 -1,0 2))"),Utf8("POLYGON((-1 -3,-2 -1,0 -3,-1 -3))")) |
+    +--------------------------------------------------------------------------------------------+
+    | 1.4142135623730951                                                                         |
+    +--------------------------------------------------------------------------------------------+
+
+#### ST_Area
+
+    ST_Area(geometry)
+
+**Functions**: Returns the Cartesian area of the 2D projection of a geometric object. The unit of area is the same as the unit used to represent the coordinates of the input geometry.
+For point, string, multipoint, and multistring, this function returns 0.
+For a collection of geometries, it returns the sum of the areas of the geometries in the collection.
+
+**Parameter Type** Geometry
+
+**Return Type**: Double
+
+**Example**: 
+
+```sql
+SELECT ST_Area('POLYGON ((40 40, 20 45, 45 30, 40 40))');
+```
+
++---------------------------------------------------------+
+| st_Area(Utf8("POLYGON ((40 40, 20 45, 45 30, 40 40))")) |
++---------------------------------------------------------+
+| 87.5 |
++---------------------------------------------------------+
+
+> Some geometries don't support area calculation and return 0 for these geometries: Point, MultiPoint, LineString, MultiLineString, Line.
+> If the content of the argument is of an invalid format, the return value is NULL.
 
 ### **Window Functions**
 
@@ -6791,282 +7087,177 @@ For regular users, only the part of the table in USAGE_SCHEMA that belongs to th
 
 For system administrators, the entire table in USAGE_SCHEMA is visible.
 
-### DISK_STORAGE
+### VNODE_DISK_STORAGE
 
 This schema records the amount of disk space, in bytes, occupied by each vnode in the cluster.
 
 #### Schema Definition
 
-The definition of the schema seen by the administrator:
-
 | Field Name | Data Type       | Description                             |
 |------------|-----------------|-----------------------------------------|
-| TIME       | TIMESTAMP       | Count the disk storage time             |
+| TIME       | TIMESTAMP       | Time of record                          |
 | DATABASE   | STRING          | The database to which the vnode belongs |
 | NODE_ID    | STRING          | ID of data node                         |
 | TENANT     | STRING          | The tenant to which the vnode belongs   |
 | VNODE_ID   | STRING          | ID of vnode                             |
 | VALUE      | BIGINT UNSIGNED | Disk size occupied by the vnode         |
-
 
 Common users can access only the tenant information of the current session.
 
-| Field Name | Data Type       | Description                             |
-|------------|-----------------|-----------------------------------------|
-| TIME       | TIMESTAMP       | Count the disk storage time             |
-| DATABASE   | STRING          | The database to which the vnode belongs |
-| NODE_ID    | STRING          | ID of data node                         |
-| TENANT     | STRING          | The tenant to which the vnode belongs   |
-| VNODE_ID   | STRING          | ID of vnode                             |
-| VALUE      | BIGINT UNSIGNED | Disk size occupied by the vnode         |
+### HTTP_DATA_IN
 
-
-#### Example
-
-administator:
-
-```sql
-select * from usage_schmea.disk_storage order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+----------+-------+
-    | time                       | database     | node_id | tenant | vnode_id | value |
-    +----------------------------+--------------+---------+--------+----------+-------+
-    | 2023-02-23T03:57:52.566487 | usage_schema | 1001    | cnosdb | 3        | 0     |
-    | 2023-02-23T03:57:42.566642 | usage_schema | 1001    | cnosdb | 3        | 0     |
-    +----------------------------+--------------+---------+--------+----------+-------+
-
-common user:
-
-```sql
-select * from usage_schema.disk_storage order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+----------+-------+
-    | time                       | database     | node_id | vnode_id | value |
-    +----------------------------+--------------+---------+----------+-------+
-    | 2023-02-23T06:34:36.578458 | usage_schema | 1001    | 3        | 0     |
-    | 2023-02-23T06:34:26.577871 | usage_schema | 1001    | 3        | 0     |
-    +----------------------------+--------------+---------+----------+-------+
-
-### DATA_IN
-
-This schema records the approximate total volume of read traffic when data is written to the DB.
+This view records the Body size of the HTTP request.
 
 #### Schema definition
 
-The definition of the schema seen by the administrator:
-
 | Field Name | Data Type       | Description                |
 |------------|-----------------|----------------------------|
-| TIME       | TIMESTAMP       | Time of writes             |
+| TIME       | TIMESTAMP       | Time of record             |
 | DATABASE   | STRING          | Database name              |
 | NODE_ID    | STRING          | ID of data node            |
 | TENANT     | STRING          | The tenant of the database |
 | USER       | STRING          | User name                  |
+| HOST       | STRING          | Host of service            |
+| API        | STRING          | API of HTTP                |
 | VALUE      | BIGINT UNSIGNED | Total write traffic size   |
 
 Common users can access only the tenant information of the current session.
 
-| Field Name | Data Type       | Description              |
-|------------|-----------------|--------------------------|
-| TIME       | TIMESTAMP       | Time of writes           |
-| DATABASE   | STRING          | Database name            |
-| NODE_ID    | STRING          | ID of data node          |
-| USER       | STRING          | User name                |
-| VALUE      | BIGINT UNSIGNED | Total write traffic size |
+### HTTP_DATA_OUT
 
-#### Example
-
-administrator:
-
-```sql
-select * from usage_schema.data_in order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+--------+
-    | time                       | database     | node_id | tenant | value  |
-    +----------------------------+--------------+---------+--------+--------+
-    | 2023-02-23T06:50:36.578641 | usage_schema | 1001    | cnosdb | 741552 |
-    | 2023-02-23T06:50:26.577544 | usage_schema | 1001    | cnosdb | 739612 |
-    +----------------------------+--------------+---------+--------+--------+
-
-common user:
-
-```sql
-select * from usage_schema.data_in order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+
-    | time                       | database     | node_id | value  |
-    +----------------------------+--------------+---------+--------+
-    | 2023-02-23T06:43:46.587023 | usage_schema | 1001    | 662012 |
-    | 2023-02-23T06:43:36.586154 | usage_schema | 1001    | 660072 |
-    +----------------------------+--------------+---------+--------+
-
-### DATA_OUT
-
-This schema records the approximate total volume of read traffic when data is queried from the DB.
+This view keeps track of the total Body size of the HTTP response.
 
 #### Schema definition
 
-The definition of the schema seen by the administrator:
-
 | Field Name | Data Type       | Description                |
 |------------|-----------------|----------------------------|
-| TIME       | TIMESTAMP       | Time of writes             |
+| TIME       | TIMESTAMP       | Time of record             |
 | DATABASE   | STRING          | Database name              |
 | NODE_ID    | STRING          | ID of data node            |
 | TENANT     | STRING          | The tenant of the database |
 | USER       | STRING          | User name                  |
-| VALUE      | BIGINT UNSIGNED | Total read traffic size    |
+| HOST       | STRING          | Host of service            |
+| API        | STRING          | API of HTTP                |
+| VALUE      | BIGINT UNSIGNED | Total write traffic size   |
 
 Common users can access only the tenant information of the current session.
 
-| Field Name | Data Type       | Description             |
-|------------|-----------------|-------------------------|
-| TIME       | TIMESTAMP       | Time of writes          |
-| DATABASE   | STRING          | Database name           |
-| NODE_ID    | STRING          | ID of data node         |
-| USER       | STRING          | User name               |
-| VALUE      | BIGINT UNSIGNED | Total read traffic size |
+### HTTP_QUERIES
 
-#### Example
-
-```sql
-select * from usage_schema.data_out order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+----------+
-    | time                       | database     | node_id | tenant | value    |
-    +----------------------------+--------------+---------+--------+----------+
-    | 2023-02-23T06:51:16.577110 | usage_schema | 1001    | cnosdb | 15156112 |
-    | 2023-02-23T06:51:06.577132 | usage_schema | 1001    | cnosdb | 15156112 |
-    +----------------------------+--------------+---------+--------+----------+
-
-```sql
-select * from usage_schema.data_out order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+----------+
-    | time                       | database     | node_id | value    |
-    +----------------------------+--------------+---------+----------+
-    | 2023-02-23T06:51:46.576451 | usage_schema | 1001    | 16173128 |
-    | 2023-02-23T06:51:36.576904 | usage_schema | 1001    | 16173128 |
-    +----------------------------+--------------+---------+----------+
-
-### QUERIES (USAGE_SCHEMA)
-
-This schema records the number of queries to the database.
+This view records the number of times the user queries the DB.
 
 #### Schema definition
 
-The definition of the schema seen by the administrator:
-
 | Field Name | Data Type       | Description                |
 |------------|-----------------|----------------------------|
-| TIME       | TIMESTAMP       | Time of writes             |
+| TIME       | TIMESTAMP       | Time of record             |
 | DATABASE   | STRING          | Database name              |
 | NODE_ID    | STRING          | ID of data node            |
 | TENANT     | STRING          | The tenant of the database |
 | USER       | STRING          | User name                  |
-| VALUE      | BIGINT UNSIGNED | User writes times          |
-
+| HOST       | STRING          | Host of service            |
+| API        | STRING          | API of HTTP                |
+| VALUE      | BIGINT UNSIGNED | Total write traffic size   |
 
 Common users can access only the tenant information of the current session.
 
-| Field Name | Data Type       | Description        |
-|------------|-----------------|--------------------|
-| TIME       | TIMESTAMP       | Time of writes     |
-| DATABASE   | STRING          | Database name      |
-| NODE_ID    | STRING          | ID of data node    |
-| USER       | STRING          | User name          |
-| VALUE      | BIGINT UNSIGNED | User queries times |
+### HTTP_WRITES
 
+This view records the number of times the user writes to the DB over HTTP.
 
-#### Example
-
-```sql
-select * from usage_schema.queries order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+--------+-------+-------+
-    | time                       | database     | node_id | tenant | user  | value |
-    +----------------------------+--------------+---------+--------+-------+-------+
-    | 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | usage | 9     |
-    | 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | root  | 17    |
-    +----------------------------+--------------+---------+--------+-------+-------+
-
-```sql
-select * from usage_schema.queries order by time desc limit 2;
-```
-
-    +----------------------------+--------------+---------+-------+-------+
-    | time                       | database     | node_id | user  | value |
-    +----------------------------+--------------+---------+-------+-------+
-    | 2023-02-23T06:52:36.576098 | usage_schema | 1001    | usage | 9     |
-    | 2023-02-23T06:52:36.576097 | usage_schema | 1001    | root  | 17    |
-    +----------------------------+--------------+---------+-------+-------+
-
-### WRITES
-
-This schema records the number of writes to the database.
-
-Notice: The schema will only be created when we write in [line-protocol](./rest_api.md)/[Prometheus remote write](../versatility/collect/prometheus#remote-write) successfully.
+Note that the INSERT statement is recorded in (#ht).
 
 #### Schema definition
 
-The definition of the schema seen by the administrator:
-
 | Field Name | Data Type       | Description                |
 |------------|-----------------|----------------------------|
-| TIME       | TIMESTAMP       | Time of writes             |
+| TIME       | TIMESTAMP       | Time of record             |
 | DATABASE   | STRING          | Database name              |
 | NODE_ID    | STRING          | ID of data node            |
 | TENANT     | STRING          | The tenant of the database |
 | USER       | STRING          | User name                  |
-| VALUE      | BIGINT UNSIGNED | User writes times          |
-
+| HOST       | STRING          | Host of service            |
+| API        | STRING          | API of HTTP                |
+| VALUE      | BIGINT UNSIGNED | Total write traffic size   |
 
 Common users can access only the tenant information of the current session.
 
-| Field Name | Data Type       | Description       |
-|------------|-----------------|-------------------|
-| TIME       | TIMESTAMP       | Time of writes    |
-| DATABASE   | STRING          | Database name     |
-| NODE_ID    | STRING          | ID of data node   |
-| USER       | STRING          | User name         |
-| VALUE      | BIGINT UNSIGNED | User writes times |
+### COORD_DATA_IN
 
-#### Example
+Record the accepted data size through the Coordinator.
 
-administrator:
+#### Schema definition
+
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of record             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| VALUE      | BIGINT UNSIGNED | Measurement value           |
+
+Common users can access only the tenant information of the current session.
+
+### COORD_DATA_OUT
+
+Record the output data size through the Coordinator.
+
+#### Schema definition
+
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of record             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| VALUE      | BIGINT UNSIGNED | Measurement value   |
+
+Common users can access only the tenant information of the current session.
+
+### COORD_QUERIES
+
+记录通过Coordinator的接受数据次数
+
+#### Schema definition
+
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of record             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| VALUE      | BIGINT UNSIGNED | Measurement value   |
+
+Common users can access only the tenant information of the current session.
+
+### COORD_WRITES
+
+Record the number of times the output data passes through the Coordinator.
+
+#### Schema definition
+
+| Field Name | Data Type       | Description                |
+|------------|-----------------|----------------------------|
+| TIME       | TIMESTAMP       | Time of record             |
+| DATABASE   | STRING          | Database name              |
+| NODE_ID    | STRING          | ID of data node            |
+| TENANT     | STRING          | The tenant of the database |
+| VALUE      | BIGINT UNSIGNED | Measurement value          |
+
+Common users can access only the tenant information of the current session.
+
+### Example
 
 ```sql
-select * from usage_schema.writes order by time desc limit 2;
+SELECT * FROM usage_schema.http_data_in ORDER BY time DESC LIMIT 2;
 ```
 
-    +----------------------------+----------+---------+--------+------+-------+
-    | time                       | database | node_id | tenant | user | value |
-    +----------------------------+----------+---------+--------+------+-------+
-    | 2023-02-23T07:05:56.549282 | public   | 1001    | cnosdb | root | 2     |
-    | 2023-02-23T07:05:46.549188 | public   | 1001    | cnosdb | root | 2     |
-    +----------------------------+----------+---------+--------+------+-------+
-
-common users:
-
-```sql
-select * from usage_schema.writes order by time desc limit 2;
-```
-
-    +----------------------------+----------+---------+------+-------+
-    | time                       | database | node_id | user | value |
-    +----------------------------+----------+---------+------+-------+
-    | 2023-02-23T07:06:56.547905 | public   | 1001    | root | 2     |
-    | 2023-02-23T07:06:46.547673 | public   | 1001    | root | 2     |
-    +----------------------------+----------+---------+------+-------+
-
-
+    +----------------------------+--------------+--------------+---------+--------+------+-------+-----------+
+    | time                       | api          | host         | node_id | tenant | user | value | database  |
+    +----------------------------+--------------+--------------+---------+--------+------+-------+-----------+
+    | 2023-10-18T08:41:09.948999 | api/v1/write | 0.0.0.0:8902 | 1001    | cnosdb | root | 144   | sqlancer2 |
+    | 2023-10-18T08:41:09.948995 | api/v1/write | 0.0.0.0:8902 | 1001    | cnosdb | root | 251   | sqlancer1 |
+    +----------------------------+--------------+--------------+---------+--------+------+-------+-----------+
 
 ## **Stream**
 

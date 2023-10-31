@@ -29,6 +29,8 @@ The configuration file consists of several TOML key-value pairs and tables, as s
 
 - `reporting_disabled` Whether to turn off information collection.
 - `host` Node host.
+- `raft_logs_to_keep` When using raft protocol for replication; How many raft logs each replication group keeps and how often to take snapshots.
+- `using_raft_replication` Raft protocol is used for replica replication. Note: it is not stable at present, so it is not recommended for online use.
 
 **TOML Value**
 
@@ -176,10 +178,11 @@ reporting_disabled = true
 
 ## \[hintedoff]
 
-| Parameter | Description                                            |
-|-----------|--------------------------------------------------------|
-| enable    | Is the HIntedOff service enabled, default: true        |
-| path      | HintedOff storage directory, default: `/tmp/cnosdb/hh` |
+| Parameter | Description                                                 |
+|-----------|-------------------------------------------------------------|
+| enable    | Is the HIntedOff service enabled, default: true             |
+| path      | HintedOff storage directory, default: `/tmp/cnosdb/hh`      |
+| threads   | Number of concurrent processing of handoff data, default: 3 |
 
 ## \[subscription]
 

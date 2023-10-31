@@ -8,3 +8,4 @@ order: -1
 
 - [Prometheus](./prometheus.md)
 - [Telegraf](./telegraf.md)
+- [Vector](./vector.md)
