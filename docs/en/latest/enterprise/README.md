@@ -21,14 +21,7 @@ To try out the Enterprise features, please contact <a class="color-fg-default" i
 - [Alarm Manage](../manage/alarm_manage.md)
 
 - Advanced SQL
-    * [Financial functions](../reference/sql.md#candlestick-agg)
-    * [Monitor functions](../reference/sql.md#gaugeagg)
-        - [time_delta](../reference/sql.md#time-delta)
-        - [first_time](../reference/sql.md#first-time)
-        - [first_val](../reference/sql.md#first-val)
-        - [last_time](../reference/sql.md#last-time)
-        - [last_val](../reference/sql.md#last-val)
-        - [idelta_left](../reference/sql.md#idelta-left)
-        - [idelta_right](../reference/sql.md#idelta-right)
-    * [Sampling function](../reference/sql.md#asap-smooth)
-    * [Statistical analysis function](../reference/sql.md#stats-agg)
+    * [candlestick_agg](../reference/sql.md#candlestick-agg)
+    * [gauge_agg](../reference/sql.md#gauge-agg)
+    * [asap_smooth](../reference/sql.md#asap-smooth)
+    * [stats_agg](../reference/sql.md#stats-agg)
