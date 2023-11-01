@@ -6,6 +6,7 @@ export const enNavbar = navbar([
         link: 'CnosDB',
         children: [
             { text: 'latest', link: '/en/latest/' },
+            { text: 'v2.4', link: '/en/v2.4/' },
             { text: 'v2.3', link: '/en/v2.3/' },
         ],
     },
