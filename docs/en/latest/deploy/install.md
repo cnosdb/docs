@@ -36,11 +36,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 @tab Ubuntu & Debian
 1. **Download**
     ```bash
-   wget https://dl.cnosdb.com/packages/deb/cnosdb_2.3-community-1_amd64.deb
+   wget https://dl.cnosdb.com/packages/deb/cnosdb_2.4.0-community-1_amd64.deb
     ```
 2. **Install CnosDB Service**
     ```bash
-    dpkg -i cnosdb_2.3-community-1_amd64.deb
+    dpkg -i cnosdb_2.4.0-community-1_amd64.deb
     ```
 3. edit config file `/etc/cnosdb/cnosdb.conf`
 
@@ -61,11 +61,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 1. **Download**
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 2. **Install CnosDB Service**
     ```bash
-    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
+    yum localinstall cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 3. edit config file `/etc/cnosdb/cnosdb.conf`
 
@@ -237,13 +237,13 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 
 1. Download CnosDB Meta Service
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_2.3-community-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_2.4.0-community-1_amd64.deb
     ```
 
 2. Install CnosDB Meta 
 
     ```bash
-    dpkg -i cnosdb-meta_2.3-community-1_amd64.deb
+    dpkg -i cnosdb-meta_2.4.0-community-1_amd64.deb
     ```
 3. Edit  Configuration File
 
@@ -338,13 +338,13 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 
 1. Download CnosDB Service
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.3-community-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.4.0-community-1_amd64.deb
     ```
 
 2. Install CnosDB Service
 
     ```bash
-    dpkg -i cnosdb_2.3-community-1_amd64.deb
+    dpkg -i cnosdb_2.4.0-community-1_amd64.deb
     ```
 
 3. Edit Configuration File
@@ -416,12 +416,12 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 1. Download CnosDB Meta Service
 
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.3_community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.4.0_community-1.x86_64.rpm
     ```
 2. Install CnosDB Meta Service
 
     ```bash
-    yum localinstall cnosdb-meta-2.3_community-1.x86_64.rpm
+    yum localinstall cnosdb-meta-2.4.0_community-1.x86_64.rpm
     ```
 3. Edit Configuration File
 
@@ -516,12 +516,12 @@ The engineers are actively developing the Sandbox and it is not guaranteed to wo
 1. Download CnosDB Service
 
    ```bash
-   wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
+   wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.4.0_community-1.x86_64.rpm
    ```
 2. Install CnosDB Service
 
     ```bash
-    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
+    yum localinstall cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 
 3. Edit Configuration File

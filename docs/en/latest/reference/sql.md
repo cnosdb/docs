@@ -38,6 +38,7 @@ The following data types can't be stored directly, but can appear in SQL express
 | BOOLEAN         | {true &#124; false &#124; t &#124; f} |                                                                                                                         |
 | STRING          | 'abc'                                 | The double quotation mark format is not supported. Two consecutive '' in                                                |
 | TIMESTAMP       | TIMESTAMP '1900-01-01T12:00:00Z'      | Timestamp, the keyword TIMESTAMP indicates that the following string constant need to be interpreted as TIMESTAMP type. |
+| Geometry        | [Click to jump](#geometry)                     | Geometric type                                            |
 | --              | NULL                                  | Null Value                                                                                                              |
 
 #### TIMESTAMP constant syntax
@@ -3726,6 +3727,121 @@ select rate(gauge_agg(time, pressure)) from air group by date_trunc('month', tim
     | 9.349414325974008e-15                  |
     | -4.133905465849807e-16                 |
     +----------------------------------------+
+
+#### first_time
+
+Get the smallest timestamp in the gauge
+
+**返回类型**: TIMESTAMP
+
+```
+select first_time(gauge_agg(time, pressure)) from air;
+```
+    +----------------------------------------------+
+    | first_time(gauge_agg(air.time,air.pressure)) |
+    +----------------------------------------------+
+    | 2023-01-14T16:00:00                          |
+    +----------------------------------------------+
+
+#### last_time
+
+Get the largest timestamp in the Gauge
+
+**返回类型**: TIMESTAMP
+
+```sql
+select last_time(gauge_agg(time, pressure)) from air;
+```
+    +---------------------------------------------+
+    | last_time(gauge_agg(air.time,air.pressure)) |
+    +---------------------------------------------+
+    | 2023-03-14T16:00:00                         |
+    +---------------------------------------------+
+
+#### first_val
+
+Obtain the value corresponding to the smallest timestamp in the gauge
+
+**返回类型**: The type of column specified in gauge_agg
+
+```sql
+select first_val(gauge_agg(time, pressure)) from air;
+```
+    +---------------------------------------------+
+    | first_val(gauge_agg(air.time,air.pressure)) |
+    +---------------------------------------------+
+    | 68.0                                        |
+    +---------------------------------------------+
+
+
+#### last_val
+
+Get the value corresponding to the largest timestamp in the Gauge.
+
+**返回类型**: Type of column specified in gauge_agg
+
+```sql
+select last_val(gauge_agg(time, pressure)) from air;
+```
+    +--------------------------------------------+
+    | last_val(gauge_agg(air.time,air.pressure)) |
+    +--------------------------------------------+
+    | 80.0                                       |
+    +--------------------------------------------+
+
+#### idelta_left
+
+Calculates the earliest instantaneous change in Gauge. This is equal to the second value minus the first.
+
+**返回类型**：Type of column specified in gauge_agg
+
+```sql
+ select time, station, pressure from air where station = 'XiaoMaiDao' order by time limit 4;
+```
+    +---------------------+------------+----------+
+    | time                | station    | pressure |
+    +---------------------+------------+----------+
+    | 2023-01-14T16:00:00 | XiaoMaiDao | 63.0     |
+    | 2023-01-14T16:03:00 | XiaoMaiDao | 58.0     |
+    | 2023-01-14T16:06:00 | XiaoMaiDao | 65.0     |
+    | 2023-01-14T16:09:00 | XiaoMaiDao | 52.0     |
+    +---------------------+------------+----------+
+
+```sql
+select idelta_left(gauge_agg(time, pressure)) from air where station = 'XiaoMaiDao';
+```
+    +-----------------------------------------------+
+    | idelta_left(gauge_agg(air.time,air.pressure)) |
+    +-----------------------------------------------+
+    | -5.0                                          |
+    +-----------------------------------------------+
+
+#### idelta_right
+
+Calculates the latest instantaneous change in Gauge. This is equal to the last value value minus the penultimate value.
+
+**返回类型**：Type of column specified in gauge_agg
+
+```sql
+select time, station, pressure from air where station = 'XiaoMaiDao' order by time desc limit 4;
+```
+    +---------------------+------------+----------+
+    | time                | station    | pressure |
+    +---------------------+------------+----------+
+    | 2023-03-14T16:00:00 | XiaoMaiDao | 55.0     |
+    | 2023-03-14T15:57:00 | XiaoMaiDao | 62.0     |
+    | 2023-03-14T15:54:00 | XiaoMaiDao | 75.0     |
+    | 2023-03-14T15:51:00 | XiaoMaiDao | 61.0     |
+    +---------------------+------------+----------+
+
+```sql
+select idelta_right(gauge_agg(time, pressure)) from air where station = 'XiaoMaiDao';
+```
+    +------------------------------------------------+
+    | idelta_right(gauge_agg(air.time,air.pressure)) |
+    +------------------------------------------------+
+    | -7.0                                           |
+    +------------------------------------------------+
 
 ### compact_state_agg
 
