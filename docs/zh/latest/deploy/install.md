@@ -36,11 +36,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 @tab Ubuntu & Debian
 1. **下载**
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.3-community-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.4.0-community-1_amd64.deb
     ```
 2. **安装 CnosDB 程序**
     ```bash
-    dpkg -i cnosdb_2.3-community-1_amd64.deb
+    dpkg -i cnosdb_2.4.0-community-1_amd64.deb
     ```
 3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
 
@@ -60,11 +60,11 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 1. **下载**
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 2. **安装 CnosDB 程序**
     ```bash
-    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
+    yum localinstall cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 3. 修改配置文件`/etc/cnosdb/cnosdb.conf`
 
@@ -229,13 +229,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB Meta 程序
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_2.3-community-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb-meta_2.4.0-community-1_amd64.deb
     ```
 
 2. 安装 CnosDB Meta 程序
 
     ```bash
-    dpkg -i cnosdb-meta_2.3-community-1_amd64.deb
+    dpkg -i cnosdb-meta_2.4.0-community-1_amd64.deb
     ```
 3. 修改配置文件
     > Meta 服务的配置文件位于 `/etc/cnosdb/cnosdb-meta.conf`。
@@ -329,13 +329,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB 程序
     ```bash
-    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.3-community-1_amd64.deb
+    wget https://dl.cnosdb.com/packages/deb/cnosdb_2.4.0-community-1_amd64.deb
     ```
 
 2. 安装 CnosDB 程序
 
     ```bash
-    dpkg -i cnosdb_2.3-community-1_amd64.deb
+    dpkg -i cnosdb_2.4.0-community-1_amd64.deb
     ```
 
 3. 修改配置文件
@@ -404,13 +404,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB Meta 程序
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.3_community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-meta-2.4.0_community-1.x86_64.rpm
     ```
 
 2. 安装 CnosDB Meta 程序
 
     ```bash
-    yum localinstall cnosdb-meta-2.3_community-1.x86_64.rpm
+    yum localinstall cnosdb-meta-2.4.0_community-1.x86_64.rpm
     ```
 3. 修改配置文件
     > Meta 服务的配置文件位于 `/etc/cnosdb/cnosdb-meta.conf`。
@@ -504,13 +504,13 @@ CnosDB 是支持混合部署的，您可以自定义查询和存储服务的数�
 
 1. 下载 CnosDB 程序
     ```bash
-    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.3_community-1.x86_64.rpm
+    wget https://dl.cnosdb.com/packages/rpm/cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 
 2. 安装 CnosDB 程序
 
     ```bash
-    yum localinstall cnosdb-2.3_community-1.x86_64.rpm
+    yum localinstall cnosdb-2.4.0_community-1.x86_64.rpm
     ```
 
 3. 修改配置文件
