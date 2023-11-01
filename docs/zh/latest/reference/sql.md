@@ -3859,6 +3859,121 @@ select rate(gauge_agg(time, pressure)) from air group by date_trunc('month', tim
     | -4.133905465849807e-16                 |
     +----------------------------------------+
 
+#### first_time
+
+取得Gauge中最小的时间戳
+
+**返回类型**: TIMESTAMP
+
+```
+select first_time(gauge_agg(time, pressure)) from air;
+```
+    +----------------------------------------------+
+    | first_time(gauge_agg(air.time,air.pressure)) |
+    +----------------------------------------------+
+    | 2023-01-14T16:00:00                          |
+    +----------------------------------------------+
+
+#### last_time
+
+取得Gauge中最大的时间戳
+
+**返回类型**: TIMESTAMP
+
+```sql
+select last_time(gauge_agg(time, pressure)) from air;
+```
+    +---------------------------------------------+
+    | last_time(gauge_agg(air.time,air.pressure)) |
+    +---------------------------------------------+
+    | 2023-03-14T16:00:00                         |
+    +---------------------------------------------+
+
+#### first_val
+
+取得Gauge中最小时间戳对应的值
+
+**返回类型**: gauge_agg 中指定的列的类型
+
+```sql
+select first_val(gauge_agg(time, pressure)) from air;
+```
+    +---------------------------------------------+
+    | first_val(gauge_agg(air.time,air.pressure)) |
+    +---------------------------------------------+
+    | 68.0                                        |
+    +---------------------------------------------+
+
+
+#### last_val
+
+取得Gauge中最大时间戳对应的值
+
+**返回类型**: gauge_agg 中指定的列的类型
+
+```sql
+select last_val(gauge_agg(time, pressure)) from air;
+```
+    +--------------------------------------------+
+    | last_val(gauge_agg(air.time,air.pressure)) |
+    +--------------------------------------------+
+    | 80.0                                       |
+    +--------------------------------------------+
+
+#### idelta_left
+
+计算Gauge最早的瞬时变化。这等于第二个值减去第一个值。
+
+**返回类型**：gauge_agg 中指定的列的类型
+
+```sql
+ select time, station, pressure from air where station = 'XiaoMaiDao' order by time limit 4;
+```
+    +---------------------+------------+----------+
+    | time                | station    | pressure |
+    +---------------------+------------+----------+
+    | 2023-01-14T16:00:00 | XiaoMaiDao | 63.0     |
+    | 2023-01-14T16:03:00 | XiaoMaiDao | 58.0     |
+    | 2023-01-14T16:06:00 | XiaoMaiDao | 65.0     |
+    | 2023-01-14T16:09:00 | XiaoMaiDao | 52.0     |
+    +---------------------+------------+----------+
+
+```sql
+select idelta_left(gauge_agg(time, pressure)) from air where station = 'XiaoMaiDao';
+```
+    +-----------------------------------------------+
+    | idelta_left(gauge_agg(air.time,air.pressure)) |
+    +-----------------------------------------------+
+    | -5.0                                          |
+    +-----------------------------------------------+
+
+#### idelta_right
+
+计算Gauge最晚的瞬时变化。这等于最后一个值值减去倒数第二个值。
+
+**返回类型**：gauge_agg 中指定的列的类型
+
+```sql
+select time, station, pressure from air where station = 'XiaoMaiDao' order by time desc limit 4;
+```
+    +---------------------+------------+----------+
+    | time                | station    | pressure |
+    +---------------------+------------+----------+
+    | 2023-03-14T16:00:00 | XiaoMaiDao | 55.0     |
+    | 2023-03-14T15:57:00 | XiaoMaiDao | 62.0     |
+    | 2023-03-14T15:54:00 | XiaoMaiDao | 75.0     |
+    | 2023-03-14T15:51:00 | XiaoMaiDao | 61.0     |
+    +---------------------+------------+----------+
+
+```sql
+select idelta_right(gauge_agg(time, pressure)) from air where station = 'XiaoMaiDao';
+```
+    +------------------------------------------------+
+    | idelta_right(gauge_agg(air.time,air.pressure)) |
+    +------------------------------------------------+
+    | -7.0                                           |
+    +------------------------------------------------+
+
 ### compact_state_agg
 
 给定一个在离散状态之间切换的系统或值，
