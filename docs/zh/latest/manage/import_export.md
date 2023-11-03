@@ -1,9 +1,9 @@
 ---
-title: 备份与还原
-order: 6
+title: 导入导出
+order: 7
 ---
 
-# 备份与还原
+# 导入导出
 
 CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
 
@@ -232,47 +232,3 @@ COPY INTO [<database>.]< table_name >
         )
         FILE_FORMAT = (TYPE = 'CSV'); 
     ```
-
-## cnosdb-imexport
-
-cnosdb-imexport是一个集群数据的导入、导出、迁移工具。可以将整个集群数据（包括Meta、Data）导出到磁盘文件、对象存储系统（支持`AWS S3`, `Google Cloud Storage`, `Microsoft Azure`）；也可以将导出数据数据恢复到集群中；还可以在两个集群之间进行数据迁移。
-
-### 集群数据导出
-
-将集群所有Table数据导出到指定位置，同时在运行目录下会产生两个文件（`./meta_data.src`、`./schema_data.src`）是导出数据的元信息，跟Table导出数据一起组成一个完整的集群数据备份。
-
-注意： 如果是备份到磁盘文件，Table备份数据是产生在接收请求的CnosDB节点。
-
-```shell
-./cnosdb-imexport export --src user:password@ip:port --path file:///tmp/migrate
-# --src 待导出CnosDB集群的地址，注意其中的user、password权限
-# --path 导出数据位置，用法同：导入导出
-# --conn 可选参数，如果导出位置为对象存储系统需要提供，用法同：导入导出
-```
-
-### 集群数据导入
-
-将导出数据还原到CnosDB集群中，还原之前请确保集群是空闲，否则会产生覆盖写。运行之前请确保备份元信息（`./meta_data.src`、`./schema_data.src`）与工具在同一级目录。
-
-注意：如果待导入数据是在磁盘文件，还原之前还请确保Table备份数据已经放置到接收请求的CnosDB节点。
-
-```shell
-./cnosdb-imexport -- import --dst user:password@ip:port --path file:///tmp/migrate
-# --dst 导入CnosDB集群的地址，注意其中的user、password权限
-# --path 导入数据位置，用法同：导入导出
-# --conn 可选参数，如果导入数据位置为对象存储系统需要提供，用法同：导入导出
-```
-
-### 集群数据迁移
-
-数据迁移可以把整个集群的数据迁移到另一个CnosDB集群。
-
-注意：迁移过程中数据的暂存区是在磁盘文件，请确保cnosdb-imexport与导入、导出集群在共有机器。
-
-```shell
-./cnosdb-imexport -- migrate --src user:password@ip:port --dst user:password@ip:port --path file:///tmp/migrate
-# --src 待导出CnosDB集群的地址，注意其中的user、password权限
-# --dst 导入CnosDB集群的地址，注意其中的user、password权限
-# --path 迁移过程中数据的暂存区。
-# --conn 可选参数，如果path参数为对象存储系统需要提供，用法同：导入导出
-```
