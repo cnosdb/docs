@@ -16,7 +16,11 @@ order: 9
 ### 语法
 
 ```
-CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS <ALL|ANY> "<host_name>" ["<host_name>"]
+CREATE SUBSCRIPTION <subscription_name> 
+ON <database_name> 
+DESTINATIONS <ALL|ANY> "<host_name>" ["<host_name>"]
+[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[FILTER_BY <Expr>]];
 ```
 
 1. host_name 为订阅此节点的 CnosDB 节点的 grpc 服务的 host_name。
@@ -45,6 +49,16 @@ CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903";
 
 此时若有数据写入当前 CnosDB 节点，则数据将同步复制转发到`127.0.0.1:8903`。
 
+也可以根据需求，对数据进行过滤，如下：
+
+```
+create subscription test 
+on public
+DESTINATIONS ALL "127.0.0.1:8903"
+on air(time,station,pressure) 
+filter_by where pressure > 50;
+```
+
 ## 更新订阅
 
 可以使用 `ALTER SUBSCRIPTION` 更新订阅。
@@ -52,7 +66,11 @@ CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903";
 ### 语法
 
 ```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS <ALL|ANY> "<host_name>" ["<host_name>"]。
+ALTER SUBSCRIPTION <subscription_name> 
+ON <database_name> 
+DESTINATIONS <ALL|ANY> "<host_name>" ["<host_name>"]
+[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[FILTER_BY <Expr>]];
 ```
 
 ### 示例
