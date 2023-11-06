@@ -124,22 +124,22 @@ WKT格式包括一些基本的几何对象，例如点、线、多边形和圆�
 | 多点     | `MULTIPOINT (<x1> <y1>, <x2> <y2>, ...)`                                             |
 | 多线     | `MULTILINESTRING ((<x1> <y1>, <x2> <y2>, ...), (<x1> <y1>, <x2> <y2>, ...))`         |
 | 多多边形   | `MULTIPOLYGON (((<x1> <y1>, <x2> <y2>, ...)), ((<x1> <y1>, <x2> <y2>, ...)))`        |
-| 几何对象几何 | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
+| 几何对象集合 | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
 
 #### 示例
 
-| 几何对象  | 图片                                                       | 示例                                                                                                                       | 
-|-------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| 点     | ![](/_static/img/sql/SFA_Point.svg.png)                  | POINT (30 10)                                                                                                            |
-| 线     | ![](/_static/img/sql/102px-SFA_LineString.svg.png)       | LINESTRING (30 10, 10 30, 40 40)                                                                                         |
-| 多边形   | ![](/_static/img/sql/SFA_Polygon.svg.png)                | POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))                                                                            |
-|       | ![](/_static/img/sql/SFA_Polygon_with_hole.svg.png)      | POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))                                              |
-| 多点    | ![](/_static/img/sql/SFA_MultiPoint.svg.png)             | MULTIPOINT ((10 40), (40 30), (20 20), (30 10))                                                                          |
-|       |                                                          | MULTIPOINT (10 40, 40 30, 20 20, 30 10)                                                                                  |
-| 多线    | ![](/_static/img/sql/102px-SFA_MultiLineString.svg.png)  | MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))                                                    |
-| 多面    | ![](/_static/img/sql/SFA_MultiPolygon.svg.png)           | MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))                                        |
-|       | ![](/_static/img/sql/SFA_MultiPolygon_with_hole.svg.png) | MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20))) |
-| 几何对集合 | ![](/_static/img/sql/SFA_GeometryCollection.svg.png)     | GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))             |
+| 几何对象   | 图片                                                       | 示例                                                                                                                       | 
+|--------|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| 点      | ![](/_static/img/sql/SFA_Point.svg.png)                  | POINT (30 10)                                                                                                            |
+| 线      | ![](/_static/img/sql/102px-SFA_LineString.svg.png)       | LINESTRING (30 10, 10 30, 40 40)                                                                                         |
+| 多边形    | ![](/_static/img/sql/SFA_Polygon.svg.png)                | POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))                                                                            |
+|        | ![](/_static/img/sql/SFA_Polygon_with_hole.svg.png)      | POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), (20 30, 35 35, 30 20, 20 30))                                              |
+| 多点     | ![](/_static/img/sql/SFA_MultiPoint.svg.png)             | MULTIPOINT ((10 40), (40 30), (20 20), (30 10))                                                                          |
+|        |                                                          | MULTIPOINT (10 40, 40 30, 20 20, 30 10)                                                                                  |
+| 多线     | ![](/_static/img/sql/102px-SFA_MultiLineString.svg.png)  | MULTILINESTRING ((10 10, 20 20, 10 40), (40 40, 30 30, 40 20, 30 10))                                                    |
+| 多面     | ![](/_static/img/sql/SFA_MultiPolygon.svg.png)           | MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))                                        |
+|        | ![](/_static/img/sql/SFA_MultiPolygon_with_hole.svg.png) | MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20))) |
+| 几何对象集合 | ![](/_static/img/sql/SFA_GeometryCollection.svg.png)     | GEOMETRYCOLLECTION (POINT (40 10), LINESTRING (10 10, 20 20, 10 40), POLYGON ((40 40, 20 45, 45 30, 40 40)))             |
 
 ### **创建数据库**
 
@@ -738,7 +738,8 @@ assignment clause :
 1. CnosDB支持单独更新单个或多个 tag 列值，不支持同时更新 tag 列及 field 列。
 2. CnosDB支持更新 tag 列值为 NULL。
 3. `value_expression` 只能为编译期能确定值的表达式，如：'常量'、'1 + 2'、'CAST('1999-12-31 00:00:00.000' as timestamp)' 等。
-4. `where_clause` 中不能包含 field 列或 time 列，且不能为空，如果想更新表中所有数据，需要使用 'where true'，这代表你接受在表数据量比较大时带来的性能问题。
+4. `where_clause` 中不能包含 field 列或 time 列，且不能为空，如果想更新表中所有数据，需要使用 'where
+   true'，这代表你接受在表数据量比较大时带来的性能问题。
 5. 不支持修改成已经存在 series（所有的 tag 列值构成 series）。
 6. 避免在写入数据时执行更新 tag 操作，可能会引起 series 冲突。
 
