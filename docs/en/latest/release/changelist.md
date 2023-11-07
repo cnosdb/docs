@@ -109,7 +109,7 @@ The memory usage is effectively reduced, TSKV is optimized to be more efficient,
 - Add testcases about function, DDL, DML. [#1588](https://github.com/cnosdb/cnosdb/pull/1588)
 - Refactor the way to scan data in the update tag plan. [#1634](https://github.com/cnosdb/cnosdb/pull/1634)
 
-### 问题修复
+### Bug Fixes:
 
 - Fix check_writes error. [#1383](https://github.com/cnosdb/cnosdb/pull/1383)
 - Fix line protocol parser '\n' error. [#1426](https://github.com/cnosdb/cnosdb/pull/1426)
