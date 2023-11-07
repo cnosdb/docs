@@ -17,3 +17,5 @@ index: false
 - [分级存储](../manage/tiered_storage.md)
 
 - [订阅管理](../manage/subscriptions.md)
+
+- [副本放置策略](../manage/placement_policy.md)
