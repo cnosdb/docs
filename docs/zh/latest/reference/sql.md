@@ -5975,7 +5975,7 @@ SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 
     date_bin(interval, source, origin)
 
-**功能**：从origin开始，按interval切分bucket，返回source所在的bucket timestamp
+**功能**：按 interval 分组成与origin对齐的均匀 bucket, 返回source所在的bucket 的 timestamp。
 
 **参数类型**：
 
