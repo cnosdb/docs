@@ -5405,7 +5405,7 @@ SELECT * FROM information_schema.members;
     | root      | owner     |
     +-----------+-----------+
 
-### QUERIES(INFORMATION_SCHEMA)
+### QUERIES
 
 This schema shows a real-time snapshot of SQL statements, which is used to monitor SQL jobs in real time.
 
