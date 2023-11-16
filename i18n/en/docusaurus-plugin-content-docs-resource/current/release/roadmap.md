@@ -5,7 +5,7 @@ order: 3
 
 # CnosDB 2.0 RoadMap
 
-![RoadMap](/_static/img/RoadMap.png)
+![RoadMap](/img/RoadMap.png)
 ## The Overall Design Objectives of CnosDB 2.0
 
 Design and develop a high performance, high compression ratio, high availability of distributed cloud native time series database to meet the following goals:

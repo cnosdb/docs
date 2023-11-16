@@ -35,7 +35,7 @@ jaegertracing/all-in-one:latest
 
 When you start Jaeger successfully, visit [http://127.0.0.1:16686](http://127.0.0.1:16686).
 
-![jaeger](/_static/img/jaeger_setup.png)
+![jaeger](/img/jaeger_setup.png)
 
 ## Trace CnosDB with Jaeger
 
@@ -59,7 +59,7 @@ curl -i -u "root:" -H "Accept: application/json" -H "uber-trace-id: 3a3a43:432e3
 
 ## Use the Dashboard for Analysis
 
-![jaeger_dashboard](/_static/img/jaeger_dashboard.png)
+![jaeger_dashboard](/img/jaeger_dashboard.png)
 
 1. Record Span:
 

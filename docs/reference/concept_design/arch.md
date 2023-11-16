@@ -9,7 +9,7 @@ CnosDB 架构中主要包括了两类进程：CnosDB 和 CnosDB meta，分别命
 
 ## 整体架构图
 
-![整体架构](/_static/img/arch.png)
+![整体架构](/img/arch.png)
 
 ### CnosDB meta 
 **CnosDB meta**，对应程序命名为 cnosdb-meta ，作用是维护集群的一致性。它存储了集群中的元数据，其中包括集群的拓扑结构、副本的分布以及数据的分布等信息。
@@ -31,7 +31,7 @@ CnosDB 在 meta 集群中做了如下的一些优化：
 ## 数据管理
 Cnosdb 中对于数据的管理采用的是 **DB+Time_range** 分片规则，通过在[建库](../../reference/sql.md#创建数据库)的时候指定 bucket 数量来设置分片数，并利用时序数据的自身属性（timeline），按照设定的间隔将时间数据切割成 Vnode ，最后将每个 Vnode 落入到 bucket 当中进行存储，图示如下。
 
-![数据分片](/_static/img/buket.jpg)
+![数据分片](/img/buket.jpg)
 
 **Bucket**：bucket 是一个逻辑单元，建库时指定，每个 bucket 都包含以下主要的属性 ：< db , shardid，time_range, create_time,  end_time,  List< Vnode > >。
 

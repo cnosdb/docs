@@ -17,7 +17,7 @@ Sunspot observations last for a long time. Long-term data accumulation is conduc
 
 The latest data show that the number and area of sunspots have declined significantly in recent years.
 
-![](/_static/img/Hathaway_Cycle_24_Prediction.png)
+![](/img/Hathaway_Cycle_24_Prediction.png)
 
 Since the intensity of sunspot activity has a profound impact on Earth, it is particularly important to detect sunspot activity. Physics-based models, such as dynamical models, and statistical models, such as autoregressive moving averages, have been widely used to detect sunspot activity.
 In order to capture the nonlinear relationship in sunspot time series more efficiently, machine learning methods are introduced.
@@ -30,7 +30,7 @@ It is worth mentioning that neural networks in machine learning are better at mi
 
 The sunspot dataset used in this paper was released by the SILSO website version 2.0. (WDC-SILSO, Royal Observatory of Belgium, Brussels,http://sidc.be/silso/datafiles)
 
-![](/_static/img/sunspot_dataset.png)
+![](/img/sunspot_dataset.png)
 
 We mainly analyze and explore the changes of the monthly mean sunspot number (MSSN) from 1749 to 2023.
 
@@ -74,7 +74,7 @@ df["date"] = df["year"] + "-" + df["month"]
 df.head()
 ```
 
-![](/_static/img/pandas_dataframe.png)
+![](/img/pandas_dataframe.png)
 
 
 ```python
@@ -88,7 +88,7 @@ plt.title("Sunspot Activity Over Time")
 plt.show()
 ```
 
-![](/_static/img/plt_show.png)
+![](/img/plt_show.png)
 
 #### Use TSDB CnosDB to store MSSN data
 
@@ -188,7 +188,7 @@ conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
 References: [程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
 ](http://journal.ucas.ac.cn/CN/10.7523/j.ucas.2021.0068)
 
-![](/_static/img/MSSN.png)
+![](/img/MSSN.png)
 
 #### Use CnosDB to Read Data
 
@@ -198,7 +198,7 @@ df = pd.read_sql("select * from sunspot;", conn)
 print(df.head())
 ```
 
-![](/_static/img/cnosdb_dataframe.png)
+![](/img/cnosdb_dataframe.png)
 
 #### Divide the data into training set and test set
 
@@ -223,7 +223,7 @@ test_time = time_index[split_index:]
 
 #### Use the Sliding Window Method to Construct the Training Data
 
-![](/_static/img/sliding_window_method.png)
+![](/img/sliding_window_method.png)
 
 ```python
 import tensorflow as tf
@@ -278,7 +278,7 @@ metrics=["mae"])
 history = model.fit(tensor_train_dataset, epochs=20, validation_data=tensor_test_dataset)
 ```
 
-![](/_static/img/tensorflow.png)
+![](/img/tensorflow.png)
 
 ```python
 # summarize history for loss
@@ -291,7 +291,7 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 ```
 
-![](/_static/img/model_resault.png)
+![](/img/model_resault.png)
 
 #### Predict the MSSN using the trained model
 
@@ -327,4 +327,4 @@ plt.legend(['Ground Truth', 'Predictions'], loc='upper right')
 plt.show()
 ```
 
-![](/_static/img/model_resault_compare.png)
+![](/img/model_resault_compare.png)

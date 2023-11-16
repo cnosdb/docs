@@ -25,7 +25,7 @@ sql查询：
 历史记录：
     所有触发告警的查询结果、发出的通知都将记录在cnosdb中。
     用户配置的告警规则记录在用户指定位置json文件中。
-![告警组件原理](/_static/img/cnos-alert.png)
+![告警组件原理](/img/cnos-alert.png)
 
 
 ## 启动
@@ -602,4 +602,4 @@ curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
 ```
 ## 在Slack查看接受到的通知
 
-![](/_static/img/Slack-Notification.png)
+![](/img/Slack-Notification.png)

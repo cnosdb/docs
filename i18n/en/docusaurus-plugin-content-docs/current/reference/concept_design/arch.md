@@ -9,7 +9,7 @@ The CnosDB architecture mainly includes two types of processes: CnosDB and CnosD
 
 The following figure shows the architecture of CnosDB.
 
-![Arch](/_static/img/arch.png)
+![Arch](/img/arch.png)
 
 ### CnosDB meta 
 **CnosDB meta** ,the corresponding program named cnosdb-meta, the role is to maintain the consistency of the cluster. It stores metadata in the cluster, including information about the topology of the cluster, the distribution of replicas, and the distribution of data.
@@ -30,7 +30,7 @@ CnosDB makes the following optimizations in the meta cluster:
 ## Data management
 In Cnosdb, the data management adopts the **DB+Time_range** shard rule. The number of shards is set by specifying the number of buckets when [creating the database](../../reference/sql.md#create-database), and the time data is cut into Vnodes according to the set interval using the timeline property. Finally, each Vnode is dropped into a bucket for storage, as shown below.
 
-![Bucket](/_static/img/buket.jpg)
+![Bucket](/img/buket.jpg)
 
 **Bucket** : A bucket is a logical unit, specified when the library is created. Each bucket contains the following main properties: < db, shardid, time_range, create_time, end_time, List< Vnode > >. 
 

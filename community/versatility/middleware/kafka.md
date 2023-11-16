@@ -20,7 +20,7 @@ Apache Kafka是一个耐用、高性能的消息系统，也被认为是分布�
 
 整体的应用程序架构如图所示：
 
-![Kafka](/_static/img/kafka_to_cnosdb.png)
+![Kafka](/img/kafka_to_cnosdb.png)
 
 ## Kafka
 
@@ -40,7 +40,7 @@ Apache Kafka 是一个开源分布式流处理平台，它被设计用于处理�
 简单来说就是，当客户端将数据发送到 Apache Kafka 集群实例时，它必须将其发送到某个主题。
 此外，当客户端从 Apache Kafka 集群读取数据时，它必须从主题中读取。向 Apache Kafka 发送数据的客户端成为生产者，而从 Kafka 集群读取数据的客户端则成为消费者。数据流向示意图如下：
 
-![topic](/_static/img/kafka_topic.png)
+![topic](/img/kafka_topic.png)
 
 ## 部署 Kafka
 
@@ -210,7 +210,7 @@ python3 test.py
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic oceanic --from-beginning
 ```
 
-![message](/_static/img/userlmn_188a723d58873beddee3c15e9cdb48f1.png)
+![message](/img/userlmn_188a723d58873beddee3c15e9cdb48f1.png)
 
 ### 查看同步到 CnosDB 中的数据
 
@@ -231,4 +231,4 @@ cnosdb-cli
 select * from kafka_consumer;
 ```
 
-![cnosdb_result](/_static/img/userlmn_9ced0c8b3b1b7caea323148f994d16ee.png)
+![cnosdb_result](/img/userlmn_9ced0c8b3b1b7caea323148f994d16ee.png)

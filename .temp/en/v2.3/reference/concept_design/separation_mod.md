@@ -28,7 +28,7 @@ Consdb2.0 is developed in Rust language, based on its security, high performance
 
 In the process of redesigning the time series database, we solve a series of problems faced by the current time series database  as much as possible, form a complete set of time series data solutions and  time series  ecosystem and provide DBaas services in public clouds.
 
-![整体架构](/_static/img/new_arch.jpg)
+![整体架构](/img/new_arch.jpg)
 
 > We will have the elaboration from following aspects.
 
@@ -43,7 +43,7 @@ The fragment rule of CnosDB 2.0 is based on Time-range. It uses the fragmentatio
 
 Vnode is a virtual running unit and is distributed to a specific Node. Each Vnode is a separate LSM Tree. Its corresponding tsfamily structure is a separate running unit.
 
-![数据分片](/_static/img/buket.jpg)
+![数据分片](/img/buket.jpg)
 
 ### Replicaset
 
@@ -59,7 +59,7 @@ Data from different tenants on Node are physically segmented.
 
 `/User/db/bucket/replicaset_id/vnode_id`
 
-![数据分割目录存储](/_static/img/data_path.jpg)
+![数据分割目录存储](/img/data_path.jpg)
 
 ### Data Consensus Based on Quorum Mechanism
 
@@ -100,14 +100,14 @@ Data from different tenants on Node are physically segmented.
 
 ### Writer Process
 
-![write](/_static/img/write.jpg)
+![write](/img/write.jpg)
 
 ### Data Reading
 
 When a read request is received, the cordinator determines that the physical node (note) where the data to be stored and requires this key corresponding data based on the partition policy and the corresponding placement rules (place-rule), and at present we do not perform the function of read repair (read repair) to initiate only one reading request. In the case of delay in reading, initiate a second reading request.
 
 
-![read](/_static/img/read.jpg)
+![read](/img/read.jpg)
 
 ### Update of Conflicts
 
@@ -118,7 +118,7 @@ When a read request is received, the cordinator determines that the physical nod
 
 Maintain a strong consistency meta cluster through raft. Meta cluster api serves externally, while nodes also subscribe to updates to meta information. All metadata updates are updated through the meta-data cluster.
 
-![meta——server](/_static/img/raft.jpg)
+![meta——server](/img/raft.jpg)
 
 > 1.  Database catalog information, DDL operation.
 > 2.  The node probe/node registration, as well as node load information statistics, is the basis for the read and write selected by coordinator.
@@ -145,13 +145,13 @@ We used [DataFusion](https://arrow.apache.org/datafusion/) as the query engine. 
 
 By extending DataFusion data sources and providing custom SQL statements, the query process for data under distributed scenarios is as follows:
 
-![query](/_static/img/query_data_path.jpg)
+![query](/img/query_data_path.jpg)
 
 ## TSKV Index and Data Storage
 
 tskv mainly undertakes data and index storage, manages all Vnodes on node, each Vnode is responsible for some of the data in a db. In Vnode, three modules mainly make up WAL, Index Engine and Data Engine.
 
-![tskv](/_static/img/tskv.jpg)
+![tskv](/img/tskv.jpg)
 
 ### Index Engine
 
@@ -273,7 +273,7 @@ Data used primarily to store time series data are usually scenes that write more
 
 - #### level_range compaction
 
-  ![level_range](/_static/img/level_range.jpg)
+  ![level_range](/img/level_range.jpg)
 
     - Typically, time series databases are written in order to respond to disorderly data, we add delta files. The data of Delta is brushed to the L0 layer.
     - From L1 to L3, The data of `LevelInfo` are classified by time. Each layer has a fixed time range and does not overlap, and the data in memcache has a fixed timerange. Each layer of time is dynamically updated when it works or flashes.
@@ -283,7 +283,7 @@ Data used primarily to store time series data are usually scenes that write more
 
 - #### time_window compaction
 
-  ![time_window](/_static/img/time_range.jpg)
+  ![time_window](/img/time_range.jpg)
 
     - Window-based components are performed in different lev_lange modes, from immut_cache flash to disk, generating different TSM files into the corresponding windows based on the time range of TSM, and windows are created dynamically over time. Each windows is responsible for writing for some time.
 
@@ -291,7 +291,7 @@ Data used primarily to store time series data are usually scenes that write more
 
 - #### data_engine data stream
 
-  ![data_flow](/_static/img/data_engine.jpg)
+  ![data_flow](/img/data_engine.jpg)
 
 ## Other System Design
 

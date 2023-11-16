@@ -19,7 +19,7 @@ By combining Kafka, Telegraf and CnosDB, a complete flow of data can be achieved
 
 The overall application architecture looks like this:
 
-![Kafka](/_static/img/kafka_to_cnosdb.png)
+![Kafka](/img/kafka_to_cnosdb.png)
 
 ## Kafka
 
@@ -41,7 +41,7 @@ Apache Kafka is an open source distributed stream processing platform. It is des
 In simple words, when a client sends data to an Apache Kafka cluster instance, it has to send it to a certain topic.
 In addition, when a client reads from the Apache Kafka cluster, it must read from the topic. The clients that send data to Apache Kafka become producers, and the clients that read data from the Kafka cluster become consumers. The data flow diagram is as follows:
 
-![topic](/_static/img/kafka_topic.png)
+![topic](/img/kafka_topic.png)
 
 ##  Deploy Kafka
 
@@ -215,7 +215,7 @@ python3 test.py
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic oceanic --from-beginning
 ```
 
-![message](/_static/img/userlmn_188a723d58873beddee3c15e9cdb48f1.png)
+![message](/img/userlmn_188a723d58873beddee3c15e9cdb48f1.png)
 
 ### View Data in CnosDB
 
@@ -236,4 +236,4 @@ cnosdb-cli
 select * from kafka_consumer;
 ```
 
-![cnosdb_result](/_static/img/userlmn_9ced0c8b3b1b7caea323148f994d16ee.png)
+![cnosdb_result](/img/userlmn_9ced0c8b3b1b7caea323148f994d16ee.png)

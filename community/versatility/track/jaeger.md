@@ -34,7 +34,7 @@ jaegertracing/all-in-one:latest
 
 成功启动后，使用浏览器访问 [http://127.0.0.1:16686](http://127.0.0.1:16686)。
 
-![jaeger](/_static/img/jaeger_setup.png)
+![jaeger](/img/jaeger_setup.png)
 
 ## 跟踪 CnosDB 中的事件
 
@@ -57,7 +57,7 @@ curl -i -u "root:" -H "Accept: application/json" -H "uber-trace-id: 3a3a43:432e3
 
 ## 使用仪表盘进行分析
 
-![jaeger_dashboard](/_static/img/jaeger_dashboard.png)
+![jaeger_dashboard](/img/jaeger_dashboard.png)
 
 1. 记录 Span：
 

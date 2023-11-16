@@ -9,7 +9,7 @@ order: 2
 
 #### Introduction
 
-![write](/_static/img/vector_concept.png)
+![write](/img/vector_concept.png)
 
 [Vector](https://github.com/vectordotdev/vector) is a high performance observable data pipeline that enables organizations to control their observables. Collect, transform, and route all logs, metric to any vendor that is in use now, or any other vendor that you may want to use in the future. Vectors can dramatically reduce costs where you need them most (not where it's most convenient for the vendor), make your data fresh and richer, and provide data security. Vector is open source and is nearly 10x faster than any alternative.
 
@@ -18,7 +18,7 @@ Vector is downloaded millions of times per month and companies like T-Mobile, Co
 
 #### Topology model
 
-![write](/_static/img/vector_topology.png)
+![write](/img/vector_topology.png)
 
 Vector has three main modules: Sources, Transforms, Sinks.
 
@@ -161,11 +161,11 @@ run this command:
 vector --config log_vector.toml
 ```
 
-![write](/_static/img/vector_log_output.png)
+![write](/img/vector_log_output.png)
 
 You can also use grafna to view CnosDB log data:
 
-![write](/_static/img/vector_grafana_log_output.png)
+![write](/img/vector_grafana_log_output.png)
 
 
 #### Write to Vector Metric
@@ -201,8 +201,8 @@ Run this command:
 ```bash
 vector --config metric_vector.toml
 ```
-![write](/_static/img/vector_metric.png)
+![write](/img/vector_metric.png)
 
 Use the client to connect to CnosDB to query
 
-![write](/_static/img/vector_metric_output.png)
+![write](/img/vector_metric_output.png)

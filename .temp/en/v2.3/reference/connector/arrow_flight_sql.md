@@ -26,7 +26,7 @@ Our current environments that support the Arrow Flight SQL client are
 
 While it can be used directly for database access, it is not a direct replacement for JDBC/ODBC. However, Flight SQL can be used as a specific wired protocol/driver implementation that supports JDBC/ODBC drivers and reduces the implementation burden on the database.
 
-![](/_static/img/cnosdb_arrow_flight.png)
+![](/img/cnosdb_arrow_flight.png)
 
 ## Flow of Arrow Flight SQL Queries
 
@@ -50,7 +50,7 @@ If the data set is sorted, the data will be returned in only one FlightEndPoint.
 
 The flow chart is as follows:
 
-![流程图](/_static/img/arrow_flight_flow.png)
+![流程图](/img/arrow_flight_flow.png)
 
 ## Different Client Usage
 

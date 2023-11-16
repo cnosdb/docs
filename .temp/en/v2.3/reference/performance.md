@@ -28,11 +28,11 @@ All tests run on our servers, with the following configurations:
 
    Two disks in total, one is loaded into a virtual machine / opt- sdc1, performance Bench is as follows:
 
-   ![](/_static/img/nvme_bench.png)
+   ![](/img/nvme_bench.png)
 
    Other directory disk performance of virtual machines is as follows:
 
-   ![](/_static/img/other_bench.png)
+   ![](/img/other_bench.png)
 
 
 
@@ -40,7 +40,7 @@ All tests run on our servers, with the following configurations:
 
    Disk performance Bench is as follows:
 
-   ![](/_static/img/19bench.png)
+   ![](/img/19bench.png)
 
 ## Configuration
 

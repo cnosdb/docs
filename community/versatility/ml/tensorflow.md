@@ -17,7 +17,7 @@ order: 4
 
 最新数据显示,近些年来太阳黑子数和面积有明显的下降趋势。
 
-![](/_static/img/Hathaway_Cycle_24_Prediction.png)
+![](/img/Hathaway_Cycle_24_Prediction.png)
 
 鉴于太阳黑子活动强烈程度对地球有着深刻的影响，因此探测太阳黑子活动就显得尤为重要。基于物理学模型(如动力模型)和统计学模型(如自回归滑动平均)已被广泛应用于探测太阳黑子活动。
 为了更高效地捕捉太阳黑子时间序列中存在的非线性关系,机器学习方法被引入。
@@ -30,7 +30,7 @@ order: 4
 
 本文使用的太阳黑子数据集是由SILSO 网站发布2.0版本 (WDC-SILSO, Royal Observatory of Belgium, Brussels,http://sidc.be/silso/datafiles)
 
-![](/_static/img/sunspot_dataset.png)
+![](/img/sunspot_dataset.png)
 
 我们主要分析和探索：1749至2023年，月均太阳黑子数(monthly mean sunspot number，MSSN)变化情况。
 
@@ -74,7 +74,7 @@ df["date"] = df["year"] + "-" + df["month"]
 df.head()
 ```
 
-![](/_static/img/pandas_dataframe.png)
+![](/img/pandas_dataframe.png)
 
 
 ```python
@@ -88,7 +88,7 @@ plt.title("Sunspot Activity Over Time")
 plt.show()
 ```
 
-![](/_static/img/plt_show.png)
+![](/img/plt_show.png)
 
 ### 使用时序数据库 CnosDB 存储 MSSN 数据
 
@@ -182,7 +182,7 @@ conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
 参考论文：[程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
 ](http://journal.ucas.ac.cn/CN/10.7523/j.ucas.2021.0068)
 
-![](/_static/img/MSSN.png)
+![](/img/MSSN.png)
 
 #### 使用 CnosDB 读取数据
 
@@ -192,7 +192,7 @@ df = pd.read_sql("select * from sunspot;", conn)
 print(df.head())
 ```
 
-![](/_static/img/cnosdb_dataframe.png)
+![](/img/cnosdb_dataframe.png)
 
 #### 将数据集划分为训练集和测试集
 
@@ -217,7 +217,7 @@ test_time = time_index[split_index:]
 
 #### 使用滑动窗口法构造训练数据
 
-![](/_static/img/sliding_window_method.png)
+![](/img/sliding_window_method.png)
 
 ```python
 import tensorflow as tf
@@ -272,7 +272,7 @@ metrics=["mae"])
 history = model.fit(tensor_train_dataset, epochs=20, validation_data=tensor_test_dataset)
 ```
 
-![](/_static/img/tensorflow.png)
+![](/img/tensorflow.png)
 
 ```python
 # summarize history for loss
@@ -285,7 +285,7 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 ```
 
-![](/_static/img/model_resault.png)
+![](/img/model_resault.png)
 
 #### 使用训练好的模型预测 MSSN
 
@@ -322,4 +322,4 @@ plt.legend(['Ground Truth', 'Predictions'], loc='upper right')
 plt.show()
 ```
 
-![](/_static/img/model_resault_compare.png)
+![](/img/model_resault_compare.png)

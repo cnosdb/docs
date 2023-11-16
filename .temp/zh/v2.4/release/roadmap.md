@@ -4,7 +4,7 @@ order: 3
 ---
 # CnosDB 2.0 Roadmap 
 
-![RoadMap](/_static/img/RoadMap.png)
+![RoadMap](/img/RoadMap.png)
 
 ## CnosDB 2.0 总体设计目标
 设计并开发一个高性能、高压缩比、高可用的分布式云原生时间序列数据库，满足以下目标：

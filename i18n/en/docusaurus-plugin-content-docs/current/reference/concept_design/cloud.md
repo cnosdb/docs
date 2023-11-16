@@ -27,13 +27,13 @@ For example, cloud database services provided by cloud service providers such as
 
 A shared memory architecture is a storage system that is used by multiple users/computers. It stores all files in a centralized storage pool and allows multiple users to access them simultaneously. For the upper computing nodes, the shared memory architecture provides a uniform data access interface for multiple users, and users do not need to care about the actual data distribution in the system, nor do they need to care about the load balancing problem of data distribution. In the shared storage architecture, cloud vendors can pool disk resources, let multiple users share a distributed storage cluster, and pay according to the actual use of capacity. This business model is more in line with the current market demand. The diagram is as follows:
 
-![共享存储架构](/_static/img/share_everything.png)
+![共享存储架构](/img/share_everything.png)
 
 The shared-nothing storage architecture is a relatively old pattern that has recently seen a resurgence in data storage technologies, especially in the NoSQL, data warehousing, and big data domains. As the architecture evolves, it has some very interesting performance tradeoffs compared to the more common simple shared memory architecture.
 
 Shared-nothing architecture is an architecture used for distributed computing, where each node is independent and different nodes are interconnected through a network. Each node consists of a processor, main memory, and disk. The main motivation for this architecture is to eliminate contention between nodes. The nodes here do not share memory or storage. Disks have a single node that cannot be shared. It works effectively in high volume and read/write environments. The diagram is shown below.
 
-![无共享存储架构](/_static/img/share_nothing.png)
+![无共享存储架构](/img/share_nothing.png)
 
 
 ##  Single Tenant Model VS Multi Tenant Model
