@@ -93,11 +93,12 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'resource',
-        path: 'resource',
-        routeBasePath: 'resource',
+        id: 'community',
+        path: 'community',
+        routeBasePath: 'community',
         breadcrumbs: false,
         sidebarPath: require.resolve('./sidebars.js'),
+        sidebarCollapsed: false,
         editCurrentVersion: true,
         showLastUpdateAuthor: true, 
         showLastUpdateTime: true,
@@ -123,12 +124,25 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'docsSidebar',
             position: 'left',
-            label: 'Docs',
+            label: '文档',
           },
           {
-            to: 'resource/release',
-            label: 'Resource',
-            sidebarId: "resourceSidebar",
+            // to: 'community/versatility',
+            label: '资源',
+            // sidebarId: "communitySidebar",
+            position: 'left',
+            items: [
+              {
+                to: 'community/versatility',
+                label: '生态集成',
+                sidebarId: 'ecoSidebar',
+              }
+            ]
+          },
+          {
+            to: 'community/release/changelist',
+            label: '社区',
+            sidebarId: "communitySidebar",
             position: 'left',
           },
           // right

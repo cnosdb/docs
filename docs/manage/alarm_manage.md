@@ -9,11 +9,11 @@ order: 6
 
 # 告警管理
 
-### 介绍
+## 介绍
 
 CnosDB 支持告警管理，通过 CnosDB 告警管理，您可以查看告警信息、设置告警通知方式、设置告警规则、设置告警通知组等。
 
-### 实现原理
+## 实现原理
 
 cnos-alert组件针对存储在CnosDB中时序数据，根据用户提交的配置文件，定时执行sql查询，对查询结果与阈值比对，将触发告警的查询结果发送至用户指定接收终端。
 sql查询：
@@ -28,13 +28,13 @@ sql查询：
 ![告警组件原理](/_static/img/cnos-alert.png)
 
 
-### 启动
+## 启动
 
 ```shell
 ./alertserver --config=alertserver.yaml --serverport=9001
 ```
 
-### 配置（alertserver.yaml）
+## 配置（alertserver.yaml）
 
 ```yaml
 query: #被查询数据所在cnosdb配置
@@ -51,9 +51,9 @@ store: #告警、通知记录保存所在cnosdb配置
     notitable: notirecord #通知记录表明
 ```
 
-### API 接口描述
+## API 接口描述
 
-::: details /api/http/ping
+### `/api/http/ping`
 
 **描述**
 
@@ -80,9 +80,8 @@ curl -X GET http:/127.0.0.1:30001/api/http/ping
 ```shell
 curl: error
 ```
-:::
 
-::: details /api/v1/alert/config/rule
+### `/api/v1/alert/config/rule`
 
 **描述**
 
@@ -155,9 +154,8 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
     "details":[]
 }
 ```
-:::
 
-::: details /api/v1/alert/config/rule
+### `/api/v1/alert/config/rule`
 
 **描述**
 
@@ -228,9 +226,8 @@ curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/config/rule/tenant/:tenant/id/:id
+### `api/v1/alert/config/rule/tenant/:tenant/id/:id`
 
 **描述**
 
@@ -307,9 +304,8 @@ curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/config/rule/tenant/:tenant/id/:id
+### `api/v1/alert/config/rule/tenant/:tenant/id/:id`
 
 **描述**
 
@@ -350,63 +346,8 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
     "details":[]
 }
 ```
-:::
 
-::: details /api/v1/alert/config/rule/tenant/:tenant
-
-**描述**
-
-列出指定租户下所有rule
-
-**请求方法**
-
-- GET
-
-**请求示例**
-
-```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
-```
-
-**请求参数**
-
-```shell
-    :tenant: 租户
-    page: 页数
-    per_page: 每页展示记录数量
-```
-
-**请求成功**
-
-```shell
-{
-    "data":[
-        {
-            "name": "cpu new", # rule name
-            "severity": "Medium", # rule 级别
-            "lastrun": "2023-08-17T11:51:04+08:00", # sql查询最后一次执行时间 
-            "enabled": "on",  # rule状态
-            "laststatus": "0", # 最后一次执行状态,0表示失败，1表示成功
-            "id": 2 # rule id
-            }
-        ], 
-    "order": "name, severity, lastrun, laststatus, enabled", # 本地无需关心 
-    "total": "1" # 租户下rule总量
-}
-```
-
-**请求失败**
-
-```shell
-{
-    "code": error id, 
-    "message": error string, 
-    "details":[]
-}
-```
-:::
-
-::: details /api/v1/alert/config/rule/tenant/:tenant
+### `/api/v1/alert/config/rule/tenant/:tenant`
 
 **描述**
 
@@ -458,9 +399,61 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/data/alert/tenant/:tenant
+### `/api/v1/alert/config/rule/tenant/:tenant`
+
+**描述**
+
+列出指定租户下所有rule
+
+**请求方法**
+
+- GET
+
+**请求示例**
+
+```shell
+curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
+```
+
+**请求参数**
+
+```shell
+    :tenant: 租户
+    page: 页数
+    per_page: 每页展示记录数量
+```
+
+**请求成功**
+
+```shell
+{
+    "data":[
+        {
+            "name": "cpu new", # rule name
+            "severity": "Medium", # rule 级别
+            "lastrun": "2023-08-17T11:51:04+08:00", # sql查询最后一次执行时间 
+            "enabled": "on",  # rule状态
+            "laststatus": "0", # 最后一次执行状态,0表示失败，1表示成功
+            "id": 2 # rule id
+            }
+        ], 
+    "order": "name, severity, lastrun, laststatus, enabled", # 本地无需关心 
+    "total": "1" # 租户下rule总量
+}
+```
+
+**请求失败**
+
+```shell
+{
+    "code": error id, 
+    "message": error string, 
+    "details":[]
+}
+```
+
+### `api/v1/alert/data/alert/tenant/:tenant`
 
 **描述**
 
@@ -503,9 +496,8 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/data/noti/tenant/:tenant
+### `api/v1/alert/data/noti/tenant/:tenant`
 
 **描述**
 
@@ -548,9 +540,8 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1
     "details":[]
 }
 ```
-:::
 
-### 示例
+## 示例
 
 假设我们通过telegraf工具向cnosdb中写入了cpu的监控数据，表的部分数据如下：
 ```shell
@@ -568,7 +559,7 @@ public ❯ select time, cpu, usage_user from cpu order by time desc limit 5;
 
 这个表每 10 秒会记录一次 cpu 的相关数据，我们想要监控该表中各cpu的usage_user值，当过去一分钟内它的平均值大与 0.2 时，发出告警到 slack。
 
-### 创建Rule
+## 创建Rule
 
 ```shell
 curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
@@ -609,6 +600,6 @@ curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
     }
 }'
 ```
-### 在Slack查看接受到的通知
+## 在Slack查看接受到的通知
 
 ![](/_static/img/Slack-Notification.png)

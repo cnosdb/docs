@@ -1,12 +1,11 @@
 ---
-title: 连接 CnosDB
-order: 2
+sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Connect to CnosDB
+# 连接 CnosDB
 
 CnosDB 支持多种编程语言，以下提供一些示例。
 
