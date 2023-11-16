@@ -17,7 +17,11 @@ order: 3
 
 Authorization: BASIC
 
-basic64(user_name + ":" + password)
+    basic64(user_name + ":" + password)
+  
+Content-Encoding | Accept-Encoding:
+    
+    deflate | gzip | br | zstd
 
 **Request Parameter**
 
@@ -62,13 +66,17 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 **Request Header**
 
-- Authorization: BASIC
+Authorization: BASIC
 
-basic64(user_name + ":" + password)
+    basic64(user_name + ":" + password)
+  
+Content-Encoding | Accept-Encoding:
+    
+    deflate | gzip | br | zstd
 
-- Accept: application/csv | application/json | application/nd-json
+Accept:
 
-- Accept-Encoding: identity | gzip | compress | deflate | br | *
+    application/csv | application/json | application/nd-json
 
 **Request Parameter**
 
@@ -144,6 +152,10 @@ curl -G 'http://localhost:8902/api/v1/ping'
 Authorization: BASIC
 
     basic64(user_name + ":" + password)
+  
+Content-Encoding | Accept-Encoding:
+    
+    deflate | gzip | br | zstd
 
 **Request Parameter**
 
