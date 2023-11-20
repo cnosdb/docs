@@ -179,15 +179,13 @@ ALTER USER tester SET COMMENT = 'bbb';
 **语法**
 
 ```sql
-DROP
-USER [IF EXISTS] user_name;
+DROP USER [IF EXISTS] user_name;
 ```
 
 **示例**
 
 ```sql
-DROP
-USER IF EXISTS tester;
+DROP USER IF EXISTS tester;
 ```
 
 ## Admin权限
@@ -310,6 +308,11 @@ DROP ROLE role_name;
 ```sql
 DROP ROLE owner_role;
 ```
+
+**注意**： 租户成员和其角色之间的关系是通过名称进行维护。
+
+当删除角色时，对应角色的租户成员的权限会被同时撤销。
+然而，租户成员和其角色之间的绑定关系不会同步删除（即仅角色会失效）。
 
 ## 权限
 
