@@ -5,9 +5,7 @@ sidebar_position: 7
 # 企业版功能
 
 :::tip
-试用企业版功能，请使用微信扫描下方二维码添加 CC 为好友。
-
-![CC](https://dl.cnosdb.com/contact/u.jpg)
+试用企业版功能，请[联系我们](https://jinshuju.net/f/qrj9lq)。
 :::
 
 
