@@ -127,13 +127,11 @@ const config = {
             label: '文档',
           },
           {
-            // to: 'community/versatility',
             label: '资源',
-            // sidebarId: "communitySidebar",
             position: 'left',
             items: [
               {
-                to: 'community/versatility',
+                to: 'community/eco-integration',
                 label: '生态集成',
                 sidebarId: 'ecoSidebar',
               }
@@ -142,10 +140,9 @@ const config = {
           {
             to: 'community/release/changelist',
             label: '社区',
-            sidebarId: "communitySidebar",
             position: 'left',
           },
-          // right
+          //right
           {
             type: 'docsVersionDropdown',
             position: 'right',

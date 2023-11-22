@@ -1,9 +1,7 @@
 ---
-title: LangChain
-order: 3
 ---
 
-## LangChain 
+# LangChain 
 
 本篇我们将主要介绍如何使用 LangChain 连接 CnosDB 数据库，实现使用自然语言和数据库的交流。
 
