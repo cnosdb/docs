@@ -39,10 +39,14 @@ FROM cluster_schema.tenants;
 **语法**
 
 ```sql
-CREATE
-TENANT [IF NOT EXISTS] tenant_name WITH [comment = ''/drop_after = '7d'];
+CREATE TENANT [IF NOT EXISTS] tenant_name
+[WITH [comment = <comment>],
+       [drop_after = duration],
+       [_limiter = <limiter_config>]];
 ```
 drop_after：表示租户延迟删除时间，默认立即删除，用带单位的数据表示，支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天，如30。
+
+_limiter： 限制租户资源用量，可以参见[租户资源](./resource_limit.md)
 
 **示例**
 
@@ -68,13 +72,15 @@ FROM cluster_schema.tenants;
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     
 sql_option: option_name = value
-option: {COMMENT/DROP_AFTER}
+option: {COMMENT/DROP_AFTER/_LIMITER}
 ```
+
 SET 用来设置租户属性，属性只能为对应属性类型的常量
 
 UNSET 删除租户属性
 
-目前租户属性支持：COMMENT，对应属性类型为字符串类型，用单引号括起来；DROP_AFTER，对应属性类型为字符串类型，用单引号括起来
+目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来；DROP_AFTER，对应属性类型为STRING类型，用单引号括起来；
+_LIMITER，对应属性类型为STRING类型， 用单引号括起来，内容详见[租户资源限制](../manage/resource_limit.md)。
 
 
 **示例**
