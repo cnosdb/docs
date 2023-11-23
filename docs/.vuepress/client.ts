@@ -1,5 +1,6 @@
 import { defineClientConfig } from '@vuepress/client';
 import { useFetch } from '@vueuse/core';
+import ContactUs from './components/ContactUs.vue';
 
 const verifyToken = (token: string) => {
   const { data } = useFetch('https://ing.cnosdb.cloud/api/v1/auth/api', {
@@ -30,7 +31,9 @@ const verifyToken = (token: string) => {
 };
 
 export default defineClientConfig({
-  enhance({ router }) {
+  enhance({ app, router }) {
+    // 注册组件才能使用
+    app.component('ContactUs', ContactUs);
     if (typeof window === 'object') {
       router.beforeEach((to, _from, next) => {
         console.log('before navigation', to);

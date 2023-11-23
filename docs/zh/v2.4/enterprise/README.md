@@ -23,7 +23,9 @@ index: false
 - [告警管理](../manage/alarm_manage.md)
 
 - 高阶函数
-    * [candlestick_agg](../reference/sql.md#candlestick-agg)
-    * [gauge_agg](../reference/sql.md#gauge-agg)
-    * [asap_smooth](../reference/sql.md#asap-smooth)
-    * [stats_agg](../reference/sql.md#stats-agg)
+  - [candlestick_agg](../reference/sql.md#candlestick-agg)
+  - [gauge_agg](../reference/sql.md#gauge-agg)
+  - [asap_smooth](../reference/sql.md#asap-smooth)
+  - [stats_agg](../reference/sql.md#stats-agg)
+
+<contact-us />
