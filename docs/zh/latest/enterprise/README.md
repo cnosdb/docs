@@ -9,7 +9,7 @@ index: false
 企业版功能：
 
 :::tip
-<a href="https://jinshuju.net/f/PJcXII" style="color: #e05e31;" target="_blank">联系咨询</a>
+<contact-us />
 :::
 
 - [分级存储](../manage/tiered_storage.md)
@@ -25,5 +25,3 @@ index: false
   * [gauge_agg](../reference/sql.md#gauge-agg)
   * [asap_smooth](../reference/sql.md#asap-smooth)
   * [stats_agg](../reference/sql.md#stats-agg)
-
-<contact-us />

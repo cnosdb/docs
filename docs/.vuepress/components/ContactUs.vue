@@ -1,7 +1,7 @@
 <template>
   <div class="footer-warpper">
     <button id="lepopup-CnosDB-contact-us" @click="showContact = !showContact">
-      Contact Us
+      联系咨询
     </button>
     <v-modal :show="showContact">
       <iframe
@@ -26,10 +26,10 @@ const showContact = ref(false);
 <style lang="scss" scoped>
 #lepopup-CnosDB-contact-us {
   border: none;
-  background-color: #f25319;
+  background-color: rgba(0, 0, 0, 0);
   font-weight: 500;
-  background-color: #f25319;
   border-radius: 36px;
-  padding: 12px 24px;
+  font-size: 18px;
+  color: #e05e31;
 }
 </style>

@@ -9,9 +9,7 @@ index: false
 企业版功能：
 
 :::tip
-试用企业版功能，请使用微信扫描下方二维码添加 CC 为好友。
-
-<img src="https://dl.cnosdb.com/contact/u.jpg" style="width: 30%;height: 30%">
+<contact-us />
 :::
 
 - [分级存储](../manage/tiered_storage.md)
@@ -28,4 +26,3 @@ index: false
   - [asap_smooth](../reference/sql.md#asap-smooth)
   - [stats_agg](../reference/sql.md#stats-agg)
 
-<contact-us />
