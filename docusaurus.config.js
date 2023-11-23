@@ -97,7 +97,7 @@ const config = {
         path: 'community',
         routeBasePath: 'community',
         breadcrumbs: false,
-        sidebarPath: require.resolve('./sidebars.js'),
+        sidebarPath: require.resolve('./sidebarscommunity.js'),
         sidebarCollapsed: false,
         editCurrentVersion: true,
         showLastUpdateAuthor: true, 
@@ -126,6 +126,7 @@ const config = {
             position: 'left',
             label: '文档',
           },
+          
           {
             label: '资源',
             position: 'left',
