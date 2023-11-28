@@ -19,6 +19,10 @@ Authorization: BASIC
 
     basic64(user_name + ":" + password)
 
+Content-Encoding | Accept-Encoding:
+    
+    deflate | gzip | br | zstd
+
 **请求参数**
 
 - db: 数据库名字。（可选，不指定参数时为默认数据库 public）
@@ -63,13 +67,17 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 **请求头**
 
-- Authorization: BASIC
+Authorization: BASIC
 
-       basic64(user_name + ":" + password)
+    basic64(user_name + ":" + password)
 
-- Accept: application/csv | application/json | application/nd-json
+Content-Encoding | Accept-Encoding:
+    
+    deflate | gzip | br | zstd
 
-- Accept-Encoding: identity | gzip | compress | deflate | br | *
+Accept:
+
+    application/csv | application/json | application/nd-json
 
 **请求参数**
 
@@ -139,6 +147,10 @@ curl -G 'http://localhost:8902/api/v1/ping'
 Authorization: BASIC
 
     basic64(user_name + ":" + password)
+
+Content-Encoding | Accept-Encoding:
+    
+    deflate | gzip | br | zstd
 
 **请求参数**
 

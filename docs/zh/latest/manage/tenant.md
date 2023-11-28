@@ -39,10 +39,14 @@ FROM cluster_schema.tenants;
 **语法**
 
 ```sql
-CREATE
-TENANT [IF NOT EXISTS] tenant_name WITH [comment = ''/drop_after = '7d'];
+CREATE TENANT [IF NOT EXISTS] tenant_name
+[WITH [comment = <comment>],
+       [drop_after = duration],
+       [_limiter = <limiter_config>]];
 ```
 drop_after：表示租户延迟删除时间，默认立即删除，用带单位的数据表示，支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天，如30。
+
+_limiter： 限制租户资源用量，可以参见[租户资源](./resource_limit.md)
 
 **示例**
 
@@ -68,13 +72,15 @@ FROM cluster_schema.tenants;
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     
 sql_option: option_name = value
-option: {COMMENT/DROP_AFTER}
+option: {COMMENT/DROP_AFTER/_LIMITER}
 ```
+
 SET 用来设置租户属性，属性只能为对应属性类型的常量
 
 UNSET 删除租户属性
 
-目前租户属性支持：COMMENT，对应属性类型为字符串类型，用单引号括起来；DROP_AFTER，对应属性类型为字符串类型，用单引号括起来
+目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来；DROP_AFTER，对应属性类型为STRING类型，用单引号括起来；
+_LIMITER，对应属性类型为STRING类型， 用单引号括起来，内容详见[租户资源限制](../manage/resource_limit.md)。
 
 
 **示例**
@@ -179,15 +185,13 @@ ALTER USER tester SET COMMENT = 'bbb';
 **语法**
 
 ```sql
-DROP
-USER [IF EXISTS] user_name;
+DROP USER [IF EXISTS] user_name;
 ```
 
 **示例**
 
 ```sql
-DROP
-USER IF EXISTS tester;
+DROP USER IF EXISTS tester;
 ```
 
 ## Admin权限
@@ -310,6 +314,11 @@ DROP ROLE role_name;
 ```sql
 DROP ROLE owner_role;
 ```
+
+**注意**： 租户成员和其角色之间的关系是通过名称进行维护。
+
+当删除角色时，对应角色的租户成员的权限会被同时撤销。
+然而，租户成员和其角色之间的绑定关系不会同步删除（即仅角色会失效）。
 
 ## 权限
 

@@ -5975,7 +5975,7 @@ SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 
     date_bin(interval, source, origin)
 
-**功能**：从origin开始，按interval切分bucket，返回source所在的bucket timestamp
+**功能**：按 interval 分组成与origin对齐的均匀 bucket, 返回source所在的bucket 的 timestamp。
 
 **参数类型**：
 
@@ -6350,11 +6350,141 @@ SELECT ST_Area('POLYGON ((40 40, 20 45, 45 30, 40 40))');
 +---------------------------------------------------------+
 | st_Area(Utf8("POLYGON ((40 40, 20 45, 45 30, 40 40))")) |
 +---------------------------------------------------------+
-| 87.5 |
+| 87.5                                                    |
 +---------------------------------------------------------+
 
 > 部分几何图形不支持计算面积，对这些几何体计算面积会返回 0，如：Point、MultiPoint、LineString、MultiLineString、Line。
 > 如果参数内容格式非法，返回值为 NULL。
+
+#### ST_Equals
+
+    ST_Equals(A, B)
+
+**功能**：比较两个几何体，如果两个几何体完全相同，则返回true
+
+
+
+ST_Equals(A, B) 等价于 ST_Within(A, B) && ST_Within(B, A)
+
+**参数类型**： Geometry
+
+**返回类型**： Boolean
+
+**示例**：
+
+```sql
+select ST_Equals(
+    'LINESTRING(0 0, 10 10)', 
+    'LINESTRING(0 0, 5 5, 10 10)'
+) st_equals;
+```
+
+    +-----------+
+    | st_equals |
+    +-----------+
+    | true      |
+    +-----------+
+
+#### ST_Contains
+
+    ST_Contains(A, B)
+
+**功能**：如果几何对象A包含几何对象B，返回True
+
+ST_Contains(A, B) => ST_Within(B, A)
+
+**参数**：Geometry
+
+**返回类型**：Boolean
+
+**示例**：
+
+```sql
+select ST_Contains(
+    'POLYGON((0 0,0 3,3 0,0 0))', 
+    'POLYGON((0 0,0 1,1 0,0 0))'
+) st_contains;
+```
+
+    +-------------+
+    | st_contains |
+    +-------------+
+    | true        |
+    +-------------+
+
+#### ST_Intersects
+    
+    ST_Intersects(A, B)
+
+**功能**：如果两个几何对象相交，则返回True
+
+**参数**: Geometry
+
+**返回类型**： Boolean
+
+**示例**：
+
+```sql
+select ST_Intersects(
+    'LINESTRING(3 2, 7 6)',
+    'LINESTRING(3 4, 8 4)'
+) st_intersects;
+```
+
+    +---------------+
+    | st_intersects |
+    +---------------+
+    | true          |
+    +---------------+
+
+#### ST_Disjoint
+
+    ST_Disjoint(A, B)
+
+**功能**： 如果两个几何对象不相接，返回True
+
+**参数**： Geometry
+
+**返回类型**：Boolean
+
+**示例**：
+
+```sql
+select ST_Disjoint(
+    'LINESTRING(0 0,-3 -3)', 
+    'LINESTRING(0 1,1 0)'
+);
+```
+
+    +-------------+
+    | st_disjoint |
+    +-------------+
+    | true        |
+    +-------------+
+
+#### ST_Within
+
+    ST_Within(A, B)
+
+**功能**：如果给定的Geometry对象A完全在对象B之内，则返回True
+
+**参数**：Geometry
+
+**返回类型**：Boolean
+
+**示例**：
+```sql
+select ST_Within(
+    'POLYGON((1 1, 1 2, 2 2, 2 1, 1 1))',
+    'POLYGON((0 0, 0 3, 3 3, 3 0, 0 0))'
+);
+```
+
+    +-----------+
+    | st_within |
+    +-----------+
+    | true      |
+    +-----------+
 
 ### **窗口函数**
 

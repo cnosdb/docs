@@ -7247,7 +7247,7 @@ SELECT * FROM information_schema.members;
     | root      | owner     |
     +-----------+-----------+
 
-### QUERIES(INFORMATION_SCHEMA)
+### QUERIES
 
 此视图展示SQL语句实时快照，用于实时监控SQL作业。
 
