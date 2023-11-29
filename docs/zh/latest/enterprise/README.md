@@ -20,6 +20,8 @@ index: false
 
 - [告警管理](../manage/alarm_manage.md)
 
+- [数据分布策略](../manage/placement_policy.md)
+
 - 高阶函数
   - [candlestick_agg](../reference/sql.md#candlestick-agg)
   * [gauge_agg](../reference/sql.md#gauge-agg)
