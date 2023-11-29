@@ -58,5 +58,13 @@
   "sidebar.resourceSidebar.category.Connector": {
     "message": "Connector",
     "description": "The label for category Connector in sidebar resourceSidebar"
+  },
+  "sidebar.docsSidebar.category.部署": {
+    "message": "部署",
+    "description": "The label for category 部署 in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.开发": {
+    "message": "开发",
+    "description": "The label for category 开发 in sidebar docsSidebar"
   }
 }

@@ -45,7 +45,6 @@ const config = {
         label: '简体中文',
 
       }
-            // 如果你不需要覆盖默认值，你可以忽略这个语言（比如 zh-Hans）
     },
   },
 
@@ -93,16 +92,28 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
+        id: 'eco-integration',
+        path: 'eco-integration',
+        routeBasePath: 'eco-integration',
+        breadcrumbs: false,
+        sidebarPath: require.resolve('./sidebars.js'),
+        sidebarCollapsible: false,
+        showLastUpdateAuthor: true, 
+        showLastUpdateTime: true,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
         id: 'community',
         path: 'community',
         routeBasePath: 'community',
         breadcrumbs: false,
-        sidebarPath: require.resolve('./sidebarscommunity.js'),
+        sidebarPath: require.resolve('./sidebars.js'),
         sidebarCollapsed: false,
         editCurrentVersion: true,
         showLastUpdateAuthor: true, 
         showLastUpdateTime: true,
-        // ... other options
       },
     ],
   ],
@@ -120,47 +131,14 @@ const config = {
         },
         items: [
           // left
-          {
-            type: 'docSidebar',
-            sidebarId: 'docsSidebar',
-            position: 'left',
-            label: '文档',
-          },
-          
-          {
-            label: '资源',
-            position: 'left',
-            items: [
-              {
-                to: 'community/eco-integration',
-                label: '生态集成',
-                sidebarId: 'ecoSidebar',
-              }
-            ]
-          },
-          {
-            to: 'community/release/changelist',
-            label: '社区',
-            position: 'left',
-          },
+          { type: 'docSidebar', sidebarId: 'docsSidebar', position: 'left', label: '文档' },
+          { to: 'eco-integration', label: '生态集成', position: 'left' },
+          { to: 'community/changelist', label: '社区', position: 'left' },
           //right
-          {
-            type: 'docsVersionDropdown',
-            position: 'right',
-          },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
-          {
-            href: 'https://github.com/cnosdb/cnosdb',
-            className: "header-github-link",
-            position: 'right',
-          },
-          {
-            type: 'search',
-            position: 'right',
-          },
+          { type: 'docsVersionDropdown', position: 'right'},
+          { type: 'localeDropdown', position: 'right' },
+          { href: 'https://github.com/cnosdb/cnosdb', className: "header-github-link", position: 'right' },
+          { type: 'search', position: 'right' },
         ],
       },
       footer: {
