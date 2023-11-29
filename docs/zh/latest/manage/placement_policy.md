@@ -1,6 +1,6 @@
 ---
 title: 数据分布策略
-order: 11
+order: 15
 ---
 
 :::tip
