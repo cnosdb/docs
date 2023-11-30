@@ -80,6 +80,10 @@ const config = {
           editUrl: "https://github.com/cnosdb/docs/edit/main",
           editLocalizedFiles: true,
         },
+        gtag:{
+          trackingID: 'G-N59H7G52ZW',
+          anonymizeIP: true,
+        },
         googleTagManager: {
           containerId: 'GTM-K9WXG5PX',
         },
