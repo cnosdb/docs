@@ -80,6 +80,9 @@ const config = {
           editUrl: "https://github.com/cnosdb/docs/edit/main",
           editLocalizedFiles: true,
         },
+        googleTagManager: {
+          containerId: 'GTM-K9WXG5PX',
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
