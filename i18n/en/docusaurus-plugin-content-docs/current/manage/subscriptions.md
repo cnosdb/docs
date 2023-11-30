@@ -102,7 +102,7 @@ DROP SUBSCRIPTION test ON public
 
 ### Install Telegraf
 
-You can refer to [Telegraf](../versatility/collect/telegraf.md#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
+You can refer to [Telegraf](/eco-integration/index/telegraf#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
 
 ### Telegraf Configuration
 

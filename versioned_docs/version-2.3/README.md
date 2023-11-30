@@ -39,9 +39,6 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 本章节介绍了如何使用以下其中之一安装和运行单机版或集群版 CnosDB，以及 CnosDB 的计算存储分离架构。
 
 - [部署](./deploy)
-- [下载](./deploy/download.md)
-- [安装](./deploy/install.md)
-
 ## 管理
 
 本章节介绍了 CnosDB 单机版与集群版的管理与监控。
@@ -65,22 +62,3 @@ CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序�
 - [配置文件](./reference/config.md)
 - [工具](./reference/tools.md)
 - [性能测试](./reference/performance.md)
-
-## 生态
-
-本段介绍了 CnosDB 的生态集成，包括一些开源常用的的组件如何与 CnosDB 结合的一些示例。
-
-- [生态集成](./versatility)
-- [Telegraf](./versatility/collect/telegraf.md)
-- [Grafana](./versatility/visualization/grafana.md)
-- [Prometheus](./versatility/collect/prometheus.md)
-- [TensorFlow](./versatility/ml/tensorflow.md)
-
-## 版本发布
-
-本章节介绍了 CnosDB 的版本发布历史。
-
-- [版本发布](./release)
-- [版本发布](./release/changelist.md)
-- [路线图](./release/roadmap.md)
-

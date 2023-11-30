@@ -48,7 +48,7 @@ uber-trace-id: 3a3a43:432e345:0:1
 
 示例：
 
-> 示例中的数据来源请参考：https://docs.cnosdb.com/zh/latest/start/quick_start.html \
+> 示例中的数据来源请参考：https://docs.cnosdb.com/zh/latest/start/quick_start \
 > 查询数据库 `oceanic_station` 中 `air` 表中的数据，并且按时间倒序排序，返回前 5 条数据 。
 
 ```bash

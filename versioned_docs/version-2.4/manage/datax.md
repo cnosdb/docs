@@ -142,7 +142,7 @@ CnosDBWriter 会将这些内部类型转换为 CnosDB 的内部数据类型，�
 ### 前置条件
 
 - 安装 Python 2 或 3、JDK 1.8 以及 DataX，详见 [DataX 文档 - 快速开始](https://github.com/alibaba/DataX/blob/master/userGuid.md#quick-start)。
-- 安装 CnosDB，详见 [下载](../deploy/download.html) 与 [安装](../deploy/install.html)。
+- 安装 CnosDB，详见 [下载](../deploy/download) 与 [安装](../deploy/install)。
 
 我们假设 DataX 被安装到 `{YOUR_DATAX_HOME}` 路径下。
 

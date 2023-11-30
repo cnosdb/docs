@@ -29,7 +29,7 @@ order: 9
 
 2. 安装 CnosDB
 
-   参照部署文档：[Docker安装CnosDB](../../latest/start/install.md)
+   参照部署文档：[Docker安装CnosDB](../deploy)
 
 3. 安装 InfluxDB
 

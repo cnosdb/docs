@@ -96,7 +96,7 @@ DROP SUBSCRIPTION <subscription_name> ON <database_name>
 
 ### 示例
 
-```
+```shell
 DROP SUBSCRIPTION test ON public;
 ```
 
@@ -104,7 +104,7 @@ DROP SUBSCRIPTION test ON public;
 
 ### Telegraf 安装
 
-关于 Telegraf 的使用方法，以及如何安装 Telegraf，见 [Telegraf 章节](../versatility/collect/telegraf.md#cnos-telegraf)。
+关于 Telegraf 的使用方法，以及如何安装 Telegraf，见 [Telegraf 章节](/eco-integration/index/telegraf.md#cnos-telegraf)。
 
 ### 将数据发送至 InfluxDB
 

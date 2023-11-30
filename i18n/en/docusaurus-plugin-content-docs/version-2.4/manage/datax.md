@@ -151,7 +151,7 @@ CnosDBWriter will convert these internal types to CnosDB internal data types wit
 ### Preparation
 
 - Install Python 2 or 3, JDK 1.8 and DataX, see [DataX Docs - Quick Start](https://github.com/alibaba/DataX/blob/master/userGuid.md#quick-start).
-- Install CnosDB, You can refer to [Download](../deploy/download.html) and [Install](../deploy/install.html).
+- Install CnosDB, You can refer to [Download](../deploy/download) and [Install](../deploy/install).
 
 We assume that DataX is installed in the path `{YOUR_DATAX_HOME}`.
 

@@ -12,7 +12,7 @@ Downsampling refers to the frequency reduction of timeseries data in the time-se
 
 Stream Query:is a special query in CnosDB for processing stream data calculation, the stream query requires that the SELECT function must contain the GROUP BY time() phrase.
 
->Note: This article does not describe the syntax of how to create a stream query in detail, for more details, please click [Stream](../../latest/reference/sql.md#stream) query to jump to the corresponding interface. 
+>Note: This article does not describe the syntax of how to create a stream query in detail, for more details, please click [Stream](../reference/sql.md#stream) query to jump to the corresponding interface. 
 
 ### Data Samples
 

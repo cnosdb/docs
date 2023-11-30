@@ -5,7 +5,7 @@ order: 3
 
 # 快速开始
 
-CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction.html)，我们支持DataFusion的大部分SQL语法。
+CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction)，我们支持DataFusion的大部分SQL语法。
 
 **注意**：为了查询能更高效，没有指定排序的查询，每次行顺序都不一定相同，如果需要按字段排序的话，请参看`ORDER BY`子句。
 
@@ -593,7 +593,7 @@ SHOW QUERIES;
     | 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql.html#queries-information-schema) 查看
+关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql#queries-information-schema) 查看
 
 
 ## **EXPLAIN**

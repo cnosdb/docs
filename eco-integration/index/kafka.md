@@ -140,7 +140,7 @@ telegraf -config /etc/telegraf/telegraf.conf
 
 ### 部署 CnosDB
 
-详细操作请参考：![CnosDB 安装](https://docs.cnosdb.com/zh/latest/start/install.html)
+详细操作请参考：![CnosDB 安装](https://docs.cnosdb.com/zh/latest/start/install)
 
 ## 整合
 

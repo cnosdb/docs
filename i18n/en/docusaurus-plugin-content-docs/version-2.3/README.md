@@ -41,8 +41,6 @@ This section describes how to integrate CnosDB into your application.
 This section describes how to install and run the single or cluster CnosDB, as well as the compute storage separation architecture for CnosDB.
 
 - [Deploy](./deploy)
-- [Download](./deploy/download.md)
-- [Install](./deploy/install.md)
 
 ## Manage
 
@@ -67,21 +65,3 @@ This chapter introduces the implementation principles of CnosDB, including stora
 - [Configure](./reference/config.md)
 - [Tools](./reference/tools.md)
 - [Benchmark](./reference/performance.md)
-
-## Eco-integration
-
-This paragraph introduces the ecosystem integration of CnosDB, including examples of how some commonly used open-source components can be combined with CnosDB.
-
-- [Eco-integration](./versatility)
-- [Telegraf](./versatility/collect/telegraf.md)
-- [Grafana](./versatility/visualization/grafana.md)
-- [Prometheus](./versatility/collect/prometheus.md)
-- [TensorFlow](./versatility/ml/tensorflow.md)
-
-## Releases
-
-This section describes the version release history of CnosDB.
-
-- [Releases](./release)
-- [Change List](./release/changelist.md)
-- [Roadmap](./release/roadmap.md)
