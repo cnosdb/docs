@@ -1,7 +1,5 @@
 ---
-title: Manage
-order: -5
-index: false
+sidebar_position: 5
 ---
 
 # Manage

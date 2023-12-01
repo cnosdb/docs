@@ -1,8 +1,5 @@
 ---
-title: 指南
-icon: generic
-index: false
-order: -4
+sidebar_position: 6
 ---
 
 # 指南

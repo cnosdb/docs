@@ -1,7 +1,5 @@
 ---
-title: Reference
-index: false
-order: -4
+sidebar_position: 6
 ---
 
 # Reference

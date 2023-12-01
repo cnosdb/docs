@@ -1,10 +1,8 @@
 ---
-title: Enterprise
-order: -3
-index: false
+sidebar_position: 7
 ---
 
-# Manage
+# Enterprise
 
 Enterprise features:
 

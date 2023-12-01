@@ -1,7 +1,5 @@
 ---
-title: 开始
-index: false
-order: -8
+sidebar_position: 2
 ---
 
 # 开始

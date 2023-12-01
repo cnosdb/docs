@@ -1,7 +1,5 @@
 ---
-title: Get Started
-index: false
-order: -8
+sidebar_position: 2
 ---
 
 # Get Started

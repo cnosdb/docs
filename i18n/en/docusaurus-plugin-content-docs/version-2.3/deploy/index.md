@@ -1,7 +1,5 @@
 ---
-title: Deploy
-order: -7
-index: false
+sidebar_position: 3
 ---
 
 # Deploy

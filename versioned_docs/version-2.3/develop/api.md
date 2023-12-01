@@ -1,9 +1,11 @@
 ---
-title: 连接 CnosDB
-order: 2
+sidebar_position: 1
 ---
 
-# Connect to CnosDB
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 连接 CnosDB
 
 CnosDB 支持多种编程语言，以下提供一些示例。
 
@@ -34,9 +36,8 @@ curl -X POST "http://127.0.0.1:8902/api/v1/sql?db=public&pretty=true" \
 
 #### 使用编程语言
 
-::: tabs#language
-
-@tab Rust#Rust
+<Tabs>
+<TabItem value="rust" label="Rust">
 
 示例代码使用[reqwest](https://crates.io/crates/reqwest)构建Http请求。
 
@@ -80,7 +81,8 @@ let success = response.status().is_success();
 let result = response.text().await.unwrap();
 ```
 
-@tab Golang#Golang
+</TabItem>
+<TabItem value="go" label="Golang">
 
 示例代码使用[fasthttp](https://github.com/valyala/fasthttp)作为依赖。
 
@@ -127,8 +129,55 @@ if err != nil {
 fmt.Println(resp.StatusCode())
 ```
 response的status code 会指示SQL是否执行成功，200为成功。
+示例代码使用[fasthttp](https://github.com/valyala/fasthttp)作为依赖。
 
-@tab Java#Java
+以下为构造http request所需的参数。
+
+```go
+user := "cnosdb"
+pwd := ""
+// db means database, we use default db 'public'
+url := "http://127.0.0.1:8902/" + "api/v1/sql?db=public&pretty=true"
+query1 := `
+CREATE TABLE air (
+  visibility DOUBLE,****
+  temperature DOUBLE,
+  pressure DOUBLE,
+  TAGS(station)
+);`
+```
+
+构造http request：
+
+```go
+func basicAuth(username, password string) string {
+    auth := username + ":" + password
+    return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
+}
+
+req := fasthttp.AcquireRequest()
+req.Header.SetMethod("POST")
+req.Header.Set("Authorization", basicAuth(user, pwd))
+req.SetBody([]byte(query1))
+req.SetRequestURI(url)
+```
+
+发送http请求：
+
+```go
+cli := fasthttp.Client{}
+resp := fasthttp.Response{}
+err := cli.Do(req, &resp)
+if err != nil {
+    return
+}
+fmt.Println(resp.StatusCode())
+```
+response的status code 会指示SQL是否执行成功，200为成功。
+
+</TabItem>
+<TabItem value="java" label="Java">
+
 使用[Apache Http Components Apache](https://hc.apache.org/)作为依赖。
 
 ```java
@@ -176,5 +225,5 @@ public static void main(String[] args) {
     }
 }
 ```
-
-:::
+</TabItem>
+</Tabs>

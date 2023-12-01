@@ -1,7 +1,9 @@
 ---
-title: 写入数据
-order: 3
+sidebar_position: 2
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # 写入数据
 
@@ -108,9 +110,8 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 ```
 ### 使用编程语言写入
 
-::: tabs#language
-
-@tab Golang#Golang
+<Tabs>
+<TabItem value="go" label="Golang">
 
 ```go
 package main
@@ -157,8 +158,9 @@ func main() {
 }
 ```
 
+</TabItem>
 
-@tab Java#Java
+<TabItem value="java" label="Java">
 
 ```java
 import java.io.BufferedReader;
@@ -203,8 +205,9 @@ public class CurlToJava {
 }
 ```
 
+</TabItem>
 
-@tab Python#Python
+<TabItem value="python" label="Python">
 
 ```python
 import requests
@@ -225,8 +228,8 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-
-@tab Rust#Rust
+</TabItem>
+<TabItem value="rust" label="Rust">
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -263,7 +266,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-@tab C++#C++
+</TabItem>
+<TabItem value="c++" label="C++">
 
 ```cpp
 #include <iostream>
@@ -305,8 +309,7 @@ int main() {
 }
 ```
 
-:::
+</TabItem>
+</Tabs>
 
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
-
-相关内容：

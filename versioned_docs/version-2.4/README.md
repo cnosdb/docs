@@ -1,11 +1,8 @@
 ---
-title: 主页
-icon: home
-index: false
-order: -9
+sidebar_position: 1
 ---
 
-# 主页
+# 介绍
 
 CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序数据库。主要应用场景为物联网，工业互联网，车联网，IT运维。所有代码均已在 [GitHub](https://github.com/cnosdb/cnosdb) 开源。
 

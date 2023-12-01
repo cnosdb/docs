@@ -1,12 +1,13 @@
 ---
-title: 查询数据
-order: 4
+sidebar_position: 3
 ---
 
 # 查询数据
 
-CnosDB 支持多种查询接入方式，以下提供一些示例。包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
+CnosDB 支持多种查询接入方式，以下提供一些示例。包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
 
 ## HTTP API 查询
 
@@ -28,9 +29,8 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
-::: tabs#language
-
-@tab Golang#Golang
+<Tabs>
+<TabItem value="go" label="Golang">
 
 ```go
 package main
@@ -77,7 +77,8 @@ func main() {
 }
 ```
 
-@tab Python#Python
+</TabItem>
+<TabItem value="py" label="Python">
 
 ```python
 import requests
@@ -98,7 +99,8 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-@tab Java#Java
+</TabItem>
+<TabItem value="java" label="Java">
 
 ```java
 import java.io.BufferedReader;
@@ -141,8 +143,11 @@ public class CurlToJava {
         connection.disconnect();
     }
 }
+```
 
-@tab Rust#Rust
+</TabItem>
+
+<TabItem value="rust" label="Rust">
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -179,7 +184,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-@tab C++#C++
+</TabItem>
+
+
+<TabItem value="c++" label="C++">
 
 ```cpp
 #include <iostream>
@@ -221,6 +229,5 @@ int main() {
 }
 ```
 
-:::
-
-相关内容：
+</TabItem>
+</Tabs>

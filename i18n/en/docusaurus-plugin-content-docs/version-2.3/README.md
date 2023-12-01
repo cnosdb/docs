@@ -1,11 +1,8 @@
 ---
-icon: home
-title: Home
-order: -9
-index: false
+sidebar_position: 1
 ---
 
-# Home
+# Introduction
 
 CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.
 

@@ -1,10 +1,8 @@
 ---
-title: 企业版功能
-order: -3
-index: false
+sidebar_position: 7
 ---
 
-# Manage
+# 企业版功能
 
 :::tip
 试用企业版功能，请使用微信扫描下方二维码添加 CC 为好友。

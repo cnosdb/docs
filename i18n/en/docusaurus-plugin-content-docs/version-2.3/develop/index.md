@@ -1,7 +1,5 @@
 ---
-title: Develop
-index: false
-order: -6
+sidebar_position: 4
 ---
 
 # Develop
