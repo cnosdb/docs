@@ -5,6 +5,39 @@ order: 2
 
 # 版本发布历史
 
+## v2.3.4 Apus
+
+发布日期：2023年11月24日
+
+### 新增特性
+
+ - 适配 [Vector](https://vector.dev/) [#1628](https://github.com/cnosdb/cnosdb/pull/1628)
+ - 添加 increase 函数，http_limiter 和 metrics [#1629](https://github.com/cnosdb/cnosdb/pull/1629)
+ - 将写请求和SQL请求都路由到查询服务器 [#1760](https://github.com/cnosdb/cnosdb/pull/1760)
+ - 支持HTTP压缩 [#1762](https://github.com/cnosdb/cnosdb/pull/1762)
+ - 支持导出DDL [#1782](https://github.com/cnosdb/cnosdb/pull/1782)
+ - 通过配置启动服务 [#1789](https://github.com/cnosdb/cnosdb/pull/1789)
+
+### 功能优化
+
+- 通过读取系统表实现 desc table/database，并修复一些单词错误 [#1692](https://github.com/cnosdb/cnosdb/pull/1692)
+- 移除调试日志 [#1793](https://github.com/cnosdb/cnosdb/pull/1793)
+
+### 问题修复
+
+- 删除租户不删除成员的错误 [#1632](https://github.com/cnosdb/cnosdb/pull/1632)
+- 生成带别名的插值函数计划失败的问题 [#1777](https://github.com/cnosdb/cnosdb/pull/1777)
+- 添加对 `stream table` 的参数 `event_time_column` 的检查 [#1744](https://github.com/cnosdb/cnosdb/pull/1744)
+- 在重新启动时流作业丢失数据库信息的问题 [#1734](https://github.com/cnosdb/cnosdb/pull/1734)
+- 禁止创建具有相同名称列的流表 [#1733](https://github.com/cnosdb/cnosdb/pull/1733)
+- 优化直接选择流表的错误消息 [#1732](https://github.com/cnosdb/cnosdb/pull/1732)
+- 获取系统内存单位错误 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- CLI 写入行协议时没有显示错误消息 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 删除用户时不删除租户成员的问题 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 未找到租户返回HTTP状态码500 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 修复 gRPC 大小限制 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 创建外部表时的表名错误 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+
 ## v2.4.0 Milky Way
 
 发布日期：2023年10月24日

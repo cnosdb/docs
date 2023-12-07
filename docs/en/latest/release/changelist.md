@@ -5,6 +5,40 @@ order: 2
 
 # Change List
 
+## v2.3.4 Apus
+
+Release date: Nov 24, 2023
+
+### New Features
+
+ - adapt vector [#1628](https://github.com/cnosdb/cnosdb/pull/1628)
+ - add `increase` function, `http_limiter` and `metrics` [#1629](https://github.com/cnosdb/cnosdb/pull/1629)
+ - routing both write requests and SQL requests to query server [#1760](https://github.com/cnosdb/cnosdb/pull/1760)
+ - support HTTP compression [#1762](https://github.com/cnosdb/cnosdb/pull/1762)
+ - support dump ddl [#1782](https://github.com/cnosdb/cnosdb/pull/1782)
+ - start the service through configuration [#1789](https://github.com/cnosdb/cnosdb/pull/1789)
+
+### Improvements
+
+- implement desc tables/databases by reading system tables and fix some word error [#1692](https://github.com/cnosdb/cnosdb/pull/1692)
+- remove debug log [#1793](https://github.com/cnosdb/cnosdb/pull/1793)
+
+### Bug Fixes
+
+- drop tenant not drop members bug [#1632](https://github.com/cnosdb/cnosdb/pull/1632)
+- failed to generate a plan for interpolation functions with an alias [#1777](https://github.com/cnosdb/cnosdb/pull/1777)
+- add check of parameter event_time_column of stream table [#1744](https://github.com/cnosdb/cnosdb/pull/1744)
+- stream job lost database info when restart [#1734](https://github.com/cnosdb/cnosdb/pull/1734)
+- disable creation of stream table with columns with the same name [#1733](https://github.com/cnosdb/cnosdb/pull/1733)
+- optimize the error message for direct select the stream table [#1732](https://github.com/cnosdb/cnosdb/pull/1732)
+- get_sys_mem unit error [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- cli write line protocol didn't show error message [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- fix when drop user don't drop tenant member [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- fix Tenant not found return http status code 500 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- fix grpc size limit [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- table name error when creating external table [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+
+
 ## v2.4.0 Milky Way
 
 Release date: Oct 24, 2023
