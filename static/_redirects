@@ -1,2 +1,13 @@
-/  /docs  301!  Country=cn
-/  /en/docs  301!  !Country=cn
+
+/   /en/docs   302!
+
+/zh/latest/*    /docs/:splat   301
+/en/latest/*    /en/docs/:splat    301
+
+/zh/latest/versatility   /eco-integration   301
+/en/latest/versatility  /en/eco-integration   301
+
+/en/latest/release  /en/community/changelist 301
+
+/en/latest/deploy/install.html#start-a-cnosdb-cluster /docs/deploy  301
+/en/latest/versatility/collect/prometheus /en/eco-integration/prometheus 301

@@ -1,6 +1,6 @@
 ---
 title: Telegraf
-order: 1
+slug: /telegraf
 ---
 
 ## Telegraf

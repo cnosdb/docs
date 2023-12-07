@@ -1,6 +1,6 @@
 ---
 title: Prometheus
-order: 3
+slug: /prometheus
 ---
 
 ## Prometheus

@@ -1,6 +1,7 @@
 ---
 title: Grafana
 order: 2
+slug: /grafana
 ---
 
 ## Grafana

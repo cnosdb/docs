@@ -1,6 +1,6 @@
 ---
 title: Vector
-order: 2
+slug: /vector
 ---
 
 ## Vector

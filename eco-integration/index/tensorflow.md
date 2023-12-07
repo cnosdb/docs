@@ -1,6 +1,6 @@
 ---
 title: TensorFlow
-order: 4
+slug: /tensorflow
 ---
 
 ## TensorFlow

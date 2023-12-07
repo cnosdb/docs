@@ -1,6 +1,6 @@
 ---
 title: Jaeger
-order: 1
+slug: /jaeger
 ---
 
 
