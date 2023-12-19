@@ -428,8 +428,8 @@ COPY_OPTIONS = (
 ##### 将 ` Google Cloud Storage` 上的 `NDJSON` 数据导入
 
 ```sql
-COPY INTO 'gcs://tmp/air'
-FROM air
+COPY INTO "air"
+FROM 'gcs://tmp/air'
 CONNECTION = (
     gcs_base_url = 'https://storage.googleapis.com',
     disable_oauth = false,
@@ -444,8 +444,8 @@ FILE_FORMAT = (
 ##### 将 ` Google Cloud Storage` 上的 `CSV` 数据导入
 
 ```sql
-COPY INTO 'gcs://tmp/air'
-FROM air
+COPY INTO "air"
+FROM 'gcs://tmp/air'
 CONNECTION = (
     gcs_base_url = 'https://storage.googleapis.com',
     disable_oauth = false,
