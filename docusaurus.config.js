@@ -12,7 +12,7 @@ const url =
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'CnosDB',
-  tagline: 'CnosDB are cool',
+  tagline: 'CnosDB 是一款高性能、高压缩率、高易用性的开源分布式时序数据库。',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -60,20 +60,19 @@ const config = {
           // https://docs.netlify.com/routing/redirects/redirect-options/#redirect-by-country-or-language
           routeBasePath: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          breadcrumbs: false,
           lastVersion: 'current',
           versions: {
             current: {
               label: 'latest',
             },
-            // '2.4': {
-            //   label: '2.4',
-            //   banner: 'none'
-            // },
-            // '2.3':{
-            //     label: '2.3',
-            //     banner:'none',
-            // }
+            '2.4': {
+              label: '2.4',
+              banner: 'none'
+            },
+            '2.3':{
+                label: '2.3',
+                banner:'none',
+            }
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -102,7 +101,6 @@ const config = {
         id: 'eco-integration',
         path: 'eco-integration',
         routeBasePath: 'eco-integration',
-        breadcrumbs: false,
         sidebarPath: require.resolve('./sidebars.js'),
         sidebarCollapsible: false,
         showLastUpdateAuthor: true, 
@@ -115,7 +113,6 @@ const config = {
         id: 'community',
         path: 'community',
         routeBasePath: 'community',
-        breadcrumbs: false,
         sidebarPath: require.resolve('./sidebars.js'),
         sidebarCollapsed: false,
         editCurrentVersion: true,
