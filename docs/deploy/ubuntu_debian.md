@@ -17,8 +17,8 @@ Ubuntu 和 Debian 用户可以使用包管理器 `apt-get` 安装最新稳定版
 对于 Ubuntu 或 Debian 用户，使用以下命令添加 CnosDB 存储库：
 
 ```shell
-curl -fsSL https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/cnosdb.gpg-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/cnosdb.gpg > /dev/null
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/cnosdb.gpg] https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/deb stable main" | sudo tee /etc/apt/sources.list.d/cnosdb.list > /dev/null
+curl -fsSL https://repo.cnosdb.com/repo/cnosdb.gpg-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/cnosdb.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/cnosdb.gpg] https://repo.cnosdb.com/repo/deb stable main" | sudo tee /etc/apt/sources.list.d/cnosdb.list > /dev/null
 ```
 
 更新并下载软件：
@@ -60,7 +60,7 @@ license_file = '/etc/cnosdb/license.json'
 
 ```toml
 [deployment]
-mode = "query_tskv"
+mode = "singleton"
 ```
 
 #### 2. 启动

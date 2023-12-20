@@ -3,10 +3,6 @@ title: Prometheus
 slug: /prometheus
 ---
 
-## Prometheus
-
-### 简介
-
 Prometheus 是一款面向云原生的监控软件，支持众多软件、系统的数据采集与监控。
 
 本文介绍如何通过 Prometheus Remote Read/ Write 接口,配置 CnosDB 作为Prometheus终端。

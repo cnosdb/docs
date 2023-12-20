@@ -3,17 +3,9 @@ title: Vector
 slug: /vector
 ---
 
-## Vector
 
-### 概念
-
-#### 简介
+> [Vector](https://github.com/vectordotdev/vector)是一个高性能的可观测数据管道，使组织能够控制其可观测数据。收集、转换并将所有log、metric路由到现在正在使用的任何供应商，或者未来可能想要使用的任何其他供应商。Vector可以在你最需要的地方（而不是供应商最方便的地方）大幅降低成本，使数据更加新颖丰富，并提供数据安全性。Vector是开源的，并且比任何替代方案快接近10倍。
 ![write](/img/vector_concept.png)
-
-[Vector](https://github.com/vectordotdev/vector)是一个高性能的可观测数据管道，使组织能够控制其可观测数据。收集、转换并将所有log、metric路由到现在正在使用的任何供应商，或者未来可能想要使用的任何其他供应商。Vector可以在你最需要的地方（而不是供应商最方便的地方）大幅降低成本，使数据更加新颖丰富，并提供数据安全性。Vector是开源的，并且比任何替代方案快接近10倍。
-
-Vector每月被下载数百万次，T-Mobile、Comcast、Zendesk和Discord等公司都依赖它来获得可观察性数据。
-
 
 #### 拓扑模型
 ![write](/img/vector_topology.png)

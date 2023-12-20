@@ -4,10 +4,6 @@ order: 2
 slug: /grafana
 ---
 
-## Grafana
-
-### 简介
-
 ![](/img/grafana_overview.webp)
 
 [Grafana](https://github.com/grafana/grafana) 是一个开源的数据可视化工具，可以很方便地将任意符合要求的数据转换为可视化的图表，并且还带有告警功能，可以在指标数据达到阈值时通知你。Grafana 默认持多种数据源，并且还可以通过插件系统进行拓展。

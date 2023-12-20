@@ -14,16 +14,16 @@ Red Hat 和 CentOS 用户可以使用包管理器 `yum` 安装最新稳定版本
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
 
-对于 Ubuntu 或 Debian 用户，使用以下命令添加 CnosDB 存储库：
+对于 Red Hat 或 CentOS 用户，使用以下命令添加 CnosDB 存储库：
 
 ```shell
 cat <<EOF | sudo tee /etc/yum.repos.d/cnosdb.repo
 [cnosdb]
 name = CnosDB Repository
-baseurl = https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/rpm
+baseurl = https://repo.cnosdb.com/repo/rpm
 enabled = 1
 gpgcheck = 1
-gpgkey = https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/cnosdb.gpg-key.asc
+gpgkey = https://repo.cnosdb.com/repo/cnosdb.gpg-key.asc
 EOF
 ```
 
@@ -66,7 +66,7 @@ license_file = '/etc/cnosdb/license.json'
 
 ```toml
 [deployment]
-mode = "query_tskv"
+mode = "singleton"
 ```
 
 #### 2. 启动

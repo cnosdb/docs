@@ -3,9 +3,6 @@ title: Telegraf
 slug: /telegraf
 ---
 
-## Telegraf
-
-### 简介
 
 [Telegraf](https://github.com/influxdata/telegraf) 是一个开源的服务器代理程序，用于从堆栈、传感器和系统中收集一些指标，集中输出到数据库，内存占用极小，支持通过插件进行扩展。Telegraf 配置简单，易于上手，相较于通过手写脚本采集数据，大大降低了数据获取的难度。
 
