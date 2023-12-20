@@ -20,7 +20,6 @@ const verifyToken = (token: string) => {
       };
     },
     onFetchError(ctx) {
-      console.log('ctx', ctx);
       const data = ctx.data && JSON.parse(ctx.data);
       if (data.message) {
         window.location.href = 'https://cnosdb.cloud/start?callback=docs';
@@ -36,7 +35,6 @@ export default defineClientConfig({
     app.component('ContactUs', ContactUs);
     if (typeof window === 'object') {
       router.beforeEach((to, _from, next) => {
-        console.log('before navigation', to);
         if (to.path === '/') {
           next({ path: '/en/latest/' });
         } else if (to.path === '/en/') {
