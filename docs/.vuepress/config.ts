@@ -19,8 +19,8 @@ export default defineUserConfig({
       `
         window.onload = function() {
           (function() {
-            var logoEleLight = document.querySelector(".navbar-left a.brand .logo.light") ;
-            var logoEleDark = document.querySelector(".navbar-left a.brand .logo.dark") ;
+            var logoEleLight = document.querySelector(".navbar a.brand .logo.light") ;
+            var logoEleDark = document.querySelector(".navbar a.brand .logo.dark") ;
             
             logoEleLight.href = "https://www.cnosdb.com";
             logoEleDark.href = "https://www.cnosdb.com";
@@ -69,9 +69,13 @@ export default defineUserConfig({
     return {
       // 你可以在这里将别名定向到自己的组件
       // 比如这里我们将主题的主页组件改为用户 .vuepress/components 下的 HomePage.vue
-      '@theme-hope/components/PageFooter.js': path.resolve(
+      // '@theme-hope/components/PageFooter': path.resolve(
+      //   __dirname,
+      //   './components/PageFooter.vue'
+      // ),
+      '@theme-hope/modules/navbar/components/Navbar': path.resolve(
         __dirname,
-        './components/wrapper.js'
+        './components/Navbar.vue'
       ),
     };
   },
