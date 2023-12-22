@@ -7,7 +7,7 @@ order: 2
 
 ## Deploy
 
-For other installation methods, please see [Installing CnosDB](https://www.docker.com/products/docker-desktop/)
+For other installation methods, please see [Installing CnosDB](../deploy)
 
 ## Docker install
 
