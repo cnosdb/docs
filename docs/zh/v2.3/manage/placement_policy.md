@@ -75,9 +75,9 @@ alter placement_policy policy1 SET rule dc_aware dc 'dc1,dc2,dc3,dc4'
 location = "/dc1/rack1"
 show datanodes;
 +---------+-----------+-----------+---------+-----------+------------+---------------------+
-| NODE_ID | HOST      | ATTRIBUTE | STATUS  | DISK_FREE | LOCATION   | LAST_UPDATED_TIME   |
+| node_id | host      | attribute | status  | disk_free | location   | last_updated_time   |
 +---------+-----------+-----------+---------+-----------+------------+---------------------+
-| 1001    | localhost | HOT       | HEALTHY | 31.53 GB  | /dc1/rack1 | 2023-11-07 06:20:01 |
-| 2001    | localhost | HOT       | HEALTHY | 73.64 GB  | /dc1/rack2 | 2023-11-07 06:20:01 |
+| 1001    | localhost | hot       | healthy | 31.53 GB  | /dc1/rack1 | 2023-11-07 06:20:01 |
+| 2001    | localhost | hot       | healthy | 73.64 GB  | /dc1/rack2 | 2023-11-07 06:20:01 |
 +---------+-----------+-----------+---------+-----------+------------+---------------------+
 ```
