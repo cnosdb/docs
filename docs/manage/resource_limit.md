@@ -1,6 +1,5 @@
 ---
-title: 租户资源限制
-order: 3
+sidebar_position: 8
 ---
 
 # 租户资源限制

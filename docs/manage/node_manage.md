@@ -1,5 +1,5 @@
 ---
-order: 11
+sidebar_position: 1
 ---
 
 # 集群管理

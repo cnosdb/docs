@@ -1,6 +1,5 @@
 ---
-title: 数据迁移
-order: 10
+sidebar_position: 4
 ---
 
 # 数据迁移

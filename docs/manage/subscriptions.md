@@ -1,7 +1,8 @@
 ---
-title: 订阅管理
-order: 9
+sidebar_position: 5
 ---
+
+# 订阅管理
 
 :::tip
 仅企业版支持

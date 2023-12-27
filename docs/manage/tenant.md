@@ -1,6 +1,5 @@
 ---
-title: 租户和权限
-order: 8
+sidebar_position: 7
 ---
 
 # 租户和权限

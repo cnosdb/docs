@@ -1,9 +1,8 @@
 ---
-title: 监控指标
-order: 7
+sidebar_position: 9
 ---
 
-# 监控
+# 监控指标
 
 目前 CnosDB的监控指标可以通过Prometheus采集，也可以存储到CnosDB上。
 
