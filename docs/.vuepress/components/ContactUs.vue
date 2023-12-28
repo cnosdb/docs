@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-warpper">
+  <div>
     <button id="lepopup-CnosDB-contact-us" @click="showContact = !showContact">
       联系咨询
     </button>
