@@ -13,6 +13,6 @@ export const enNavbar = navbar([
 
     {
         text: 'Cloud',
-        link: '/en/cloud/' ,
+        link: 'https://docs.cnosdb.cloud' ,
     },
 ]);
