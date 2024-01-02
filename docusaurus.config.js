@@ -94,7 +94,6 @@ const config = {
     ],
   ],
 
-  
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
@@ -122,6 +121,9 @@ const config = {
       },
     ],
   ],
+  scripts: [
+    '/custom.js'
+  ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -143,10 +145,10 @@ const config = {
           { to: 'community/changelist', label: '社区', position: 'left' },
           //right
           {
-            if: locale => locale === 'en',
             to: 'https://docs.cnosdb.cloud',
             label: 'Cloud',
             position: 'right',
+            className: 'nav-cloud'  // 这里主要为了只在英文时展示所声明
           },
           { type: 'docsVersionDropdown', position: 'right'},
           { type: 'localeDropdown', position: 'right' },
