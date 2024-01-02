@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const { localizePath } = require('@docusaurus/utils');
 
 const url =
   process.env.NODE_ENV !== 'development'
@@ -141,6 +142,12 @@ const config = {
           { to: 'eco-integration', label: '生态集成', position: 'left' },
           { to: 'community/changelist', label: '社区', position: 'left' },
           //right
+          {
+            if: locale => locale === 'en',
+            to: 'https://docs.cnosdb.cloud',
+            label: 'Cloud',
+            position: 'right',
+          },
           { type: 'docsVersionDropdown', position: 'right'},
           { type: 'localeDropdown', position: 'right' },
           { href: 'https://github.com/cnosdb/cnosdb', className: "header-github-link", position: 'right' },
