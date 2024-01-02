@@ -58,3 +58,7 @@
     border-radius: var(--ifm-global-radius);
     background-color: var(--ifm-tabs-color-active);
   }
+
+  .nav-cloud {
+    opacity: 0;
+  }
