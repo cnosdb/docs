@@ -73,10 +73,10 @@ export default defineUserConfig({
         __dirname,
         './components/PageFooter.vue',
       ),
-      // '@theme-hope/modules/navbar/components/Navbar': path.resolve(
-      //   __dirname,
-      //   './components/wrapper.js'
-      // ),
+      '@theme-hope/modules/navbar/components/Navbar': path.resolve(
+        __dirname,
+        './components/Navbar.vue'
+      ),
     };
   },
   plugins: [
