@@ -135,7 +135,7 @@ DROP SUBSCRIPTION test ON public;
 ```sh
 > SHOW SUBSCRIPTION ON public;
 +--------------+----------------+------+
-| SUBSCRIPTION | DESTINATIONS   | MODE |
+| subscription | destinations   | mode |
 +--------------+----------------+------+
 | sub_tr_1003  | 127.0.0.1:8803 | ALL  |
 +--------------+----------------+------+
