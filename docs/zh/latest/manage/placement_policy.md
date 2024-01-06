@@ -47,8 +47,8 @@ create placement_policy policy_name WITH rule dc_aware dc 'dc1,dc2,dc3,dc4' -- �
 ## 策略关联
 创建/修改Database时可以指定放置策略的名字进行关联，如果不指定放置策略按照现有逻辑处理，就是不感知dc与rack。
 ```SQL
-create database db with replica 2 placement_policy policy_name
-alter database db set placement_policy policy_name
+create database db with replica 2 placement_policy 'policy_name'
+alter database db set placement_policy 'policy_name'
 ```
 
 ## 策略查看

@@ -16,4 +16,6 @@ index: false
 
 - [订阅管理](../manage/subscriptions.md)
 
+- [节点管理](../manage/node_manage.md)
+
 - [数据分布策略](../manage/placement_policy.md)
