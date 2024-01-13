@@ -104,7 +104,7 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
     "data": {
         "enabled": "on", # 告警规则的初始执行状态，【“on”， “off“】
         "dbname": "public", #  被查询数据所在数据库
-        "sqlType": 1, # 选择sql类型，本地推荐 1，使用sqlCmd参数中的完整sql进行查询
+        "sqlType": 1, # 选择sql类型，目前支持参数值为1，使用sqlCmd参数中的cnsodb sql进行查询。后续扩展会支持其他类型的sql语法。
         "sqlCmd": "select cpu, avg(usage_user) from cpu where time >= now() - interval '20' SECOND group by cpu", # 与sqlType 1配合使用
         "period": "15s", # 查询执行周期，由数字➕ 【‘s'，’m‘，’h‘，’d‘】组成
         "thresholds": [ # 阈值设置
