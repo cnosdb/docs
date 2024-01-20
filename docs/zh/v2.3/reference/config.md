@@ -123,7 +123,7 @@ reporting_disabled = true
 | max_file_size                 | 单个 WAL 的最大大小，默认：1G              |
 | flush_trigger_total_file_size | 所有 WAL 的大小达到该数值时，触发 flush，默认：2G |
 | sync                          | 是否为每次写入进行同步，默认：false            |
-| sync_interval                 | 同步 WAL 的时间间隔，默认：0，即不主动同步        |
+| sync_interval                 | 同步 WAL 的时间间隔，默认：0，即不主动同步，需要指定单位（eg:'1ms'）        |
 
 ## \[cache]
 

@@ -134,14 +134,14 @@ FROM cluster_schema.users;
 
 ```sql
 CREATE
-USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [COMMENT = '']];
+USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [RSA_PUBLIC_KEY='',] [COMMENT = '']];
 ```
 
 **示例**
 
 ```sql
 CREATE
-USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMENT = 'test';
+USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, RSA_PUBLIC_KEY='aaa', COMMENT = 'test';
 ```
 
 ### 修改用户
@@ -154,7 +154,7 @@ USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMEN
 ALTER USER user_name {SET sql_option};
 
 sql_option: option_name = option_value
-option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
+option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
 option_value 只能是常量
@@ -162,6 +162,7 @@ option_value 只能是常量
 COMMENT 的 option_value 类型为字符串
 MUST_CHANGE_PASSWORD 的 option_value 类型为布尔
 PASSWORD 的 option_value 类型为字符串
+RSA_PUBLIC_KEY 的 option_value 类型为字符串
 
 **示例**
 
@@ -169,6 +170,7 @@ PASSWORD 的 option_value 类型为字符串
 ALTER USER tester SET PASSWORD = 'aaa';
 ALTER USER tester SET MUST_CHANGE_PASSWORD = false;
 ALTER USER tester SET COMMENT = 'bbb';
+ALTER USER tester SET RSA_PUBLIC_KEY = 'ccc';
 ```
 
 ### 删除用户
@@ -319,8 +321,8 @@ DROP ROLE owner_role;
 | 权限名称  | 权限内容        |
 |-------|-------------|
 | read  | 对数据库读的权限    |
-| write | 对数据库读写的权限   |
-| all   | 对数据库增删改查的权限 |
+| write | 包含read权限，以及对数据库内的表的写权限<br>e.g. insert/update/delete table |
+| all   | 包含read、write权限, 以及在数据库内进行dll操作的权限<br>e.g. create/alter/drop table, alter/drop database |
 
 ### 赋予权限
 
@@ -391,7 +393,7 @@ REVOKE READ ON DATABASE air FROM rrr;
 
 ### 修改权限
 
-- ### 让用户担任某个租户下的角色
+- #### 让用户担任某个租户下的角色
 
 **语法**
 
@@ -407,6 +409,20 @@ CREATE
 USER user_a;
 ALTER
 TENANT cnosdb ADD USER user_a AS rrr;
+```
+
+- #### 修改用户在租户下担任的角色
+
+**语法**
+
+```sql
+ALTER
+TENANT tenant_name SET USER user_name AS role_name;
+```
+
+```sql
+ALTER
+TENANT cnosdb SET USER user_a as member;
 ```
 
 - #### 让用户不在担任租户下的角色

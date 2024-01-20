@@ -6981,6 +6981,98 @@ select st_area('POLYGON((0 0,0 1,1 1,1 0,0 0))');
 > 部分几何图形不支持计算面积，对这些几何体计算面积会返回 0，如：Point、MultiPoint、LineString、MultiLineString、Line。
 > 如果参数内容格式非法，返回值为 NULL。
 
+## **会话函数**
+
+### **CURRENT_USER()**
+当前用户
+```sql
+SELECT CURRENT_USER();
+```
+    +----------------+
+    | current_user() |
+    +----------------+
+    | root           |
+    +----------------+
+
+### **CURRENT_TENANT()**
+当前租户
+```sql
+SELECT CURRENT_TENANT();
+```
+    +------------------+
+    | current_tenant() |
+    +------------------+
+    | cnosdb           |
+    +------------------+
+
+### **CURRENT_ROLE()**
+当前用户在当前租户下的角色(不存在会返回NULL)
+```sql
+SELECT CURRENT_ROLE();
+```
+    +----------------+
+    | current_role() |
+    +----------------+
+    |                |
+    +----------------+
+
+### **CURRENT_DATABASE()**
+当前数据库
+```sql
+SELECT CURRENT_DATABASE();
+```
+    +--------------------+
+    | current_database() |
+    +--------------------+
+    | public             |
+    +--------------------+
+
+## **系统变量**
+
+### **@@CLUSTER_NAME**
+集群名称
+```sql
+SELECT @@CLUSTER_NAME;
+```
+    +----------------+
+    | @@CLUSTER_NAME |
+    +----------------+
+    | cluster_xxx    |
+    +----------------+
+
+### **@@SERVER_VERSION**
+版本号
+```sql
+SELECT @@SERVER_VERSION;
+```
+    +----------------------------------------------------------+
+    | @@SERVER_VERSION                                         |
+    +----------------------------------------------------------+
+    | 2.4.0, revision b9c223231aba9bbb0ede826cf19dcc059bbe7fcf |
+    +----------------------------------------------------------+
+
+### **@@DEPLOYMENT_MODE**
+部署模式
+```sql
+SELECT @@DEPLOYMENT_MODE;
+```
+    +-------------------+
+    | @@DEPLOYMENT_MODE |
+    +-------------------+
+    | singleton         |
+    +-------------------+
+
+### **@@NODE_ID**
+NODE_ID
+```sql
+SELECT @@NODE_ID;
+```
+    +-----------+
+    | @@NODE_ID |
+    +-----------+
+    | 1001      |
+    +-----------+
+
 ## **系统视图**
 
 CnosDB 提供了系统视图用来查看集群状态和集群Schema信息。
