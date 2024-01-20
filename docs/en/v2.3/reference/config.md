@@ -119,7 +119,7 @@ reporting_disabled = true
 | path                | Remote log path                                                                      |
 | max_file_size       | The maximum size of a single WAL, default: 1G                                        |
 | sync                | Synchronous Write WAL Remote Log, Default False                                      |
-| sync_interval       | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing |
+| sync_interval       | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing, need to specify unit(eg: 1ms) |
 
 ## \[cache]
 

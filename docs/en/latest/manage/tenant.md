@@ -137,14 +137,14 @@ FROM cluster_schema.users;
 
 ```sql
 CREATE
-USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [COMMENT = '']];
+USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [RSA_PUBLIC_KEY='',] [COMMENT = '']];
 ```
 
 **Example**
 
 ```sql
 CREATE
-USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMENT = 'test';
+USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, RSA_PUBLIC_KEY='aaa', COMMENT = 'test';
 ```
 
 ### Alter User
@@ -157,7 +157,7 @@ USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMEN
 ALTER
 ALTER USER user_name {SET sql_option};
 sql_option: option_name = option_value
-option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
+option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
 option_value is constant.
@@ -165,6 +165,7 @@ option_value is constant.
 COMMENT option_value type is string.
 MUST_CHANGE_PASSWORD option_value type is boolean.
 PASSWORD option_value type is string.
+RSA_PUBLIC_KEY option_value type is string.
 
 **Example**
 
@@ -172,6 +173,7 @@ PASSWORD option_value type is string.
 ALTER USER tester SET PASSWORD = 'aaa';
 ALTER USER tester SET MUST_CHANGE_PASSWORD = false;
 ALTER USER tester SET COMMENT = 'bbb';
+ALTER USER tester SET RSA_PUBLIC_KEY = 'ccc';
 ```
 
 ### Drop User
@@ -326,9 +328,9 @@ The current smallest granularity of permissions is the database.
 
 | Name  | Content                                 |
 |-------|-----------------------------------------|
-| read  | Permission of reading from the database |
-| write | Permission of writing to the database   |
-| all   | All permission of the database          |
+| read  | Permission of reading from the database<br> |
+| write | Include read permission, and permission of writing to the table under database.<br>e.g. insert/update/delete table |
+| all   | Include read and write permission, and permission of dll operation under database.<br>e.g. create/alter/drop table, alter/drop database |
 
 ### Grant Permission
 
@@ -415,6 +417,20 @@ CREATE
 USER user_a;
 ALTER
 TENANT cnosdb ADD USER user_a AS rrr;
+```
+
+- #### Alter a User's Role Under the Tenant
+
+**Syntax**
+
+```sql
+ALTER
+TENANT tenant_name SET USER user_name AS role_name;
+```
+
+```sql
+ALTER
+TENANT cnosdb SET USER user_a as member;
 ```
 
 #### Alter the User Out of the Role Under the Tenant

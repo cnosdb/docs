@@ -6874,6 +6874,98 @@ group by t0, minute;
     | tag14 | 1999-12-31T00:00:00.050 | 222.0                 |
     +-------+-------------------------+-----------------------+
 
+## **Session Function**
+
+### **CURRENT_USER()**
+Current user
+```sql
+SELECT CURRENT_USER();
+```
+    +----------------+
+    | current_user() |
+    +----------------+
+    | root           |
+    +----------------+
+
+### **CURRENT_TENANT()**
+Current tenant
+```sql
+SELECT CURRENT_TENANT();
+```
+    +------------------+
+    | current_tenant() |
+    +------------------+
+    | cnosdb           |
+    +------------------+
+
+### **CURRENT_ROLE()**
+Role of the current user under the current tenant (nonexistent returns NULL)
+```sql
+SELECT CURRENT_ROLE();
+```
+    +----------------+
+    | current_role() |
+    +----------------+
+    |                |
+    +----------------+
+
+### **CURRENT_DATABASE()**
+Current database
+```sql
+SELECT CURRENT_DATABASE();
+```
+    +--------------------+
+    | current_database() |
+    +--------------------+
+    | public             |
+    +--------------------+
+
+## **System Variable**
+
+### **@@CLUSTER_NAME**
+Cluster name
+```sql
+SELECT @@CLUSTER_NAME;
+```
+    +----------------+
+    | @@CLUSTER_NAME |
+    +----------------+
+    | cluster_xxx    |
+    +----------------+
+
+### **@@SERVER_VERSION**
+Server version
+```sql
+SELECT @@SERVER_VERSION;
+```
+    +----------------------------------------------------------+
+    | @@SERVER_VERSION                                         |
+    +----------------------------------------------------------+
+    | 2.4.0, revision b9c223231aba9bbb0ede826cf19dcc059bbe7fcf |
+    +----------------------------------------------------------+
+
+### **@@DEPLOYMENT_MODE**
+Deployment mode
+```sql
+SELECT @@DEPLOYMENT_MODE;
+```
+    +-------------------+
+    | @@DEPLOYMENT_MODE |
+    +-------------------+
+    | singleton         |
+    +-------------------+
+
+### **@@NODE_ID**
+NODE_ID
+```sql
+SELECT @@NODE_ID;
+```
+    +-----------+
+    | @@NODE_ID |
+    +-----------+
+    | 1001      |
+    +-----------+
+
 ## **System Schema**
 
 CnosDB provides the system to check the status and information of CnosDB clusters. The system schema is a read-only schema. You can query the system schema using the SQL statement.
