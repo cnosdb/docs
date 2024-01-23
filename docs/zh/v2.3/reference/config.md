@@ -112,6 +112,7 @@ reporting_disabled = true
 | max_compact_size              | compaction 最多选择的文件大小，默认：2G   |
 | max_concurrent_compaction     | 最多同时进行的 compaction 任务数量，默认：4 |
 | strict_write                  | 是否开启严格写入，默认：false            |
+| copyinto_trigger_flush_size   | copyinto导出时触发落盘的内存大小          |
 
 ## \[wal]
 
