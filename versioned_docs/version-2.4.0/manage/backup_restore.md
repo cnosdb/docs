@@ -55,7 +55,7 @@ cnosdb-imexport export [OPTIONS] --src <SRC> --path <PATH>
 #### 将数据备份至本地目录
 
 ```shell
-cnosdb-imexport export --src <user>:<password>@<ip>:<port> --path ./backup
+cnosdb-imexport export --src <user>:<password>@<ip>:<port> --path file:///backup
 ```
 
 ## `import`
@@ -112,7 +112,7 @@ cnosdb-imexport migrate [OPTIONS] --src <SRC> --dst <DST> --path <PATH>
 #### 将数据迁移至其他集群
 
 ```shell
-cnosdb-imexport migrate --src <user>:<passowrd>@<ip>:<port> --dst <user>:<passowrd>@<ip>:<port> --path ./staging
+cnosdb-imexport migrate --src <user>:<passowrd>@<ip>:<port> --dst <user>:<passowrd>@<ip>:<port> --path file:///staging
 ```
 
 ## 备份 DDL 语句

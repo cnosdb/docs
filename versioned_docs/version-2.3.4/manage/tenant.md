@@ -117,8 +117,7 @@ FROM cluster_schema.users;
 **语法**
 
 ```sql
-CREATE
-USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [COMMENT = '']];
+USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [GRANTED_ADMIN=true,] [COMMENT = '']];
 ```
 
 **示例**
