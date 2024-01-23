@@ -16,6 +16,8 @@ CnosDB 订阅可以将本地端点的数据写入到远程端点，可以和另�
 
 - `/api/v1/sql` 中的 `INSERT` 写入语句
 
+> 将数据分发至 CnosDB 实例前，请提前创建表，否则将导致数据丢失
+
 ## 创建订阅
 
 使用 `CREATE SUBSCRIPTION` 创建订阅。
