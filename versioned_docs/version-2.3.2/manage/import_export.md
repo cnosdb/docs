@@ -251,8 +251,6 @@ FILE_FORMAT = (
 );
 ```
 
-
-
 ## 导入数据
 
 > 导入之前，请确定目标表已经存在，并且列名和列的类型对应。
@@ -262,7 +260,7 @@ FILE_FORMAT = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
 FROM '<path>'
 FILE_FORMAT (
     TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
@@ -319,7 +317,7 @@ COPY_OPTIONS = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
 FROM 's3://<bucket>[/<path>]'
 CONNECTION = (
     region = '<string>'
@@ -394,7 +392,7 @@ FILE_FORMAT = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
 FROM 'gcs://<bucket>[/<path>]'
 CONNECTION = (
     gcs_base_url = '<string>' 
@@ -466,7 +464,7 @@ FILE_FORMAT = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
 FROM 'azblob://<container>[/<path>]'
 CONNECTION = (
     account = '<string>' 

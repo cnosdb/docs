@@ -262,7 +262,7 @@ FILE_FORMAT = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>
+COPY INTO [database.]<table_name>(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])
 FROM '<path>'
 FILE_FORMAT (
     TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
