@@ -468,7 +468,7 @@ ALTER TABLE tb_name alter_table_option;
 
 alter_table_option: {
       ADD TAG col_name
-    | ADD FIELD col_name [CODEC(code_type)]
+    | ADD FIELD col_name [data_type] [CODEC(code_type)]
     | ALTER col_name SET CODEC(code_type)
     | DROP col_name
     | RENAME COLUMN col_name TO new_col_name
