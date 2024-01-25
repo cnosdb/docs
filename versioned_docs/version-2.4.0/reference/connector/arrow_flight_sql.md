@@ -62,7 +62,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 @tab C++#C++
 - #### 安装Apache Arrow
 
-  你可以去[官方文档](arrow.apache.org/install/)找到详细的安装教程
+  你可以去[官方文档](https://arrow.apache.org/install/)找到详细的安装教程
   在Mac系统下，使用brew命令就可以简单安装了。
 
    ```shell
@@ -75,13 +75,13 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```CMake
    cmake_minimum_required(VERSION 3.24)
    project(arrow_flight_cpp)
-
+   
    set(CMAKE_CXX_STANDARD 20)
-
+   
    find_package(Arrow REQUIRED)
    find_package(ArrowFlight REQUIRED)
    find_package(ArrowFlightSql REQUIRED)
-
+   
    include_directories(${ARROW_INCLUDE_DIR})
    add_executable(arrow_flight_cpp main.cpp)
    target_link_libraries(arrow_flight_cpp PRIVATE Arrow::arrow_shared)
@@ -303,28 +303,28 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        <version>10.0.1</version>
        <type>pom</type>
      </dependency>
-
+   
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-sql -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
        <artifactId>flight-sql</artifactId>
        <version>10.0.1</version>
      </dependency>
-
+   
      <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
      <dependency>
        <groupId>org.slf4j</groupId>
        <artifactId>slf4j-api</artifactId>
        <version>2.0.5</version>
      </dependency>
-
+   
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-core -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
        <artifactId>arrow-memory-netty</artifactId>
        <version>10.0.1</version>
      </dependency>
-
+   
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-core -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
@@ -374,7 +374,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    FlightClient client = FlightClient.builder(allocator, clientLocation).build();
    FlightSqlClient sqlClinet = new FlightSqlClient(client);
-   ```
+  ```
 
 - #### 配置认证
 
@@ -551,7 +551,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        let resp = client.do_get(ticket).await.expect("do_get");
        let mut stream = resp.into_inner();
        let mut dictionaries_by_id = HashMap::new();
-
+   
        let mut record_batches = Vec::new();
        while let Some(Ok(flight_data)) = stream.next().await {
          let message =
@@ -560,7 +560,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            ipc::MessageHeader::Schema => {
              println!("a schema when messages are read",);
            }
-
+   
            ipc::MessageHeader::RecordBatch => {
              let record_batch = flight_data_to_arrow_batch(
                &flight_data,
@@ -572,7 +572,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
            ipc::MessageHeader::DictionaryBatch => {
              let ipc_batch = message.header_as_dictionary_batch().unwrap();
-
+   
              reader::read_dictionary(
                &Buffer::from(flight_data.data_body),
                ipc_batch,
@@ -587,7 +587,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
          }
        }
-
+   
        println!(
          "{}",
          arrow::util::pretty::pretty_format_batches(&record_batches).expect("print")
@@ -787,10 +787,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```java
    package org.example;
-
+   
    import java.sql.*;
    import java.util.Properties;
-
+   
    public class Main {
      public static void main(String[] args) {
        final Properties properties = new Properties();
@@ -814,14 +814,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
          statement.executeUpdate("INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES\n" +
                                  "    (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);");
          ResultSet resultSet = statement.executeQuery("select * from air limit 1;");
-
+   
          while (resultSet.next()) {
            Timestamp column1 = resultSet.getTimestamp(1);
            String column2 = resultSet.getString(2);
            Double column3 = resultSet.getDouble(3);
            Double column4 = resultSet.getDouble(4);
            Double column5 = resultSet.getDouble(5);
-
+   
            System.out.printf("%s %s %f %f %f", column1, column2, column3, column4, column5);
          }
        } catch (SQLException e) {
@@ -829,7 +829,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        }
      }
    }
-
+   
    ```
 
 @tab ODBC#ODBC
@@ -861,7 +861,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```
    [ODBC Data Sources]
    CNOSDB=Arrow Flight SQL ODBC Driver
-
+  
    [CNOSDB]
    Description=ODBC Driver DSN for Arrow Flight SQL developed by Dremio
    Driver=Arrow Flight SQL ODBC Driver
@@ -920,7 +920,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    #include <stdio.h>
    #include <sql.h>
    #include <sqlext.h>
-
+   
    int main() {
      SQLHENV henv;
      SQLHDBC hdbc;
@@ -953,7 +953,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      }
      // 分配语句空间
      SQLAllocStmt(hdbc, &hsmt);
-
+    
      SQLCHAR *sql = "CREATE TABLE IF NOT EXISTS air (\n"
        " visibility  DOUBLE,\n"
        " temperature DOUBLE,\n"
@@ -973,7 +973,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      if (ret != SQL_SUCCESS) {
        fprintf(stderr, "Execute insert fail");
      }
-
+    
      sql = "SELECT * FROM air LIMIT 1";
      //执行查询
      ret = SQLExecDirect(hsmt, sql ,SQL_NTS);
@@ -984,7 +984,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      SQLCHAR station[50];
      SQLDOUBLE visibility, temperature, pressure;
      long time_len, station_len;
-
+    
      // 获取结果集
      while (1) {
        ret = SQLFetch(hsmt);
@@ -1003,7 +1003,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
         break;
        }
      }
-
+    
      return 0;
    }
    ```

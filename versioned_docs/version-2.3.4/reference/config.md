@@ -75,37 +75,38 @@ cnosdb --config ./cnosdb.conf
 | `query_sql_limit`        | `16777216`  | 每个 SQL 查询请求的最大字节数，单位：Bytes           |
 | `write_sql_limit`        | `167772160` | 每个 Line Protocol 写入请求的最大字节数，单位：Bytes |
 | `auth_enabled`           | `false`     | 是否检查用户的权限。                                 |
-| `read_timeout_ms`        | `3000`      |                                                      |
-| `write_timeout_ms`       | `3000`      |                                                      |
-| `stream_trigger_cpu`     | `1`         |                                                      |
-| `stream_executor_cpu`    | `2`         |                                                      |
+| `read_timeout_ms`        | `3000`      | `query` 访问 `tskv` 的超时时间，单位：`ms`             |
+| `write_timeout_ms`       | `3000`      | 向 `tskv` 写入数据时的超时时间，单位：`ms`.           |
+| `stream_trigger_cpu`     | `1`         | 准备流计算任务的 CPU 数量                             |
+| `stream_executor_cpu`    | `2`         | 执行流计算任务的 CPU 数量                              |
 
 ### `[storage]`
 
-| 参数                            | 默认                      | 描述                                 |
-| ------------------------------- | ------------------------- | ------------------------------------ |
-| `path`                          | `/etc/cnosdb/cnosdb.conf` | 数据存储目录。                       |
-| `max_summary_size`              | `128M`                    | 单个 Summary 日志的最大大小。        |
-| `base_file_size`                | `16M`                     | 单个文件数据大小。                   |
-| `flush_req_channel_cap`         | `16`                      | 累积的 flush 任务上限。              |
-| `max_level`                     | `4`                       | LSM 的最大层数，取值范围 0-4。       |
-| `compact_trigger_file_num`      | `4`                       | 触发 compaction 所需的文件数量。     |
-| `compact_trigger_cold_duration` | `1h`                      | 时间段内未操作，则触发 compaction。  |
-| `max_compact_size`              | `2G`                      | compaction 最多选择的文件大小。      |
-| `max_concurrent_compaction`     | `4`                       | 最多同时进行的 compaction 任务数量。 |
-| `strict_write`                  | `false`                   | 是否开启严格写入。                   |
+| 参数                            | 默认                      | 描述                                                |
+| ------------------------------- | ------------------------- | --------------------------------------------------- |
+| `path`                          | `/etc/cnosdb/cnosdb.conf` | 数据存储目录。                                      |
+| `max_summary_size`              | `128M`                    | 单个 Summary 日志的最大大小。                       |
+| `base_file_size`                | `16M`                     | 单个文件数据大小。                                  |
+| `flush_req_channel_cap`         | `16`                      | 累积的 flush 任务上限。                             |
+| `max_cached_readers`            | `32`                      | 每个 vnode 中打开的文件句柄（用于查询）的最大计数。 |
+| `max_level`                     | `4`                       | LSM 的最大层数，取值范围 0-4。                      |
+| `compact_trigger_file_num`      | `4`                       | 触发 compaction 所需的文件数量。                    |
+| `compact_trigger_cold_duration` | `1h`                      | 时间段内未操作，则触发 compaction。                 |
+| `max_compact_size`              | `2G`                      | compaction 最多选择的文件大小。                     |
+| `max_concurrent_compaction`     | `4`                       | 最多同时进行的 compaction 任务数量。                |
+| `strict_write`                  | `false`                   | 是否开启严格写入。                                  |
 
 ### `[wal]`
 
 | 参数                            | 默认                  | 描述                                      |
 | ------------------------------- | --------------------- | ----------------------------------------- |
-| `enabled`                       | `false`               | 是否启用 WAL。                            |
+| `enabled`                       | `true`               | 是否启用 WAL。                            |
 | `path`                          | `/var/lib/cnosdb/wal` | WAL 存储目录。                            |
 | `wal_req_channel_cap`           | `64`                  | 累积的写 WAL 任务上限。                   |
 | `max_file_size`                 | `1G`                  | 单个 WAL 的最大大小。                     |
 | `flush_trigger_total_file_size` | `2G`                  | 所有 WAL 的大小达到该数值时，触发 flush。 |
 | `sync`                          | `false`               | 是否为每次写入进行同步。                  |
-| `sync_interval`                 | `0`                   | 同步 WAL 的时间间隔，即不主动同步         |
+| `sync_interval`                 | `0`                   | 同步 WAL 的时间间隔，即不主动同步，单位：h、m、s、ms、us、ns         |
 
 ### `[cache]`
 
@@ -113,14 +114,15 @@ cnosdb --config ./cnosdb.conf
 | ---------------------- | ------ | ---------------------- |
 | `max_buffer_size`      | `128M` | 最大的活跃缓存大小。   |
 | `max_immutable_number` | `4`    | 最大的非活跃缓存数量。 |
-| `partition`            | `8`    |                        |
+| `partition`            | 等于系统`CPU`数 | memcache 缓存的分区数量  |
 
 ### `[log]`
 
-| 参数    | 默认              | 描述                                   |
-| ------- | ----------------- | -------------------------------------- |
-| `level` | `info`            | 日志等级（debug、info、error、warn）。 |
-| `path`  | `/var/log/cnosdb` | 日志存储目录。                         |
+| 参数          | 默认                          | 描述                                   |
+| ------------- | ----------------------------- | -------------------------------------- |
+| `level`       | `info`                        | 日志等级（debug、info、error、warn）。 |
+| `path`        | `/var/log/cnosdb`             | 日志存储目录。                         |
+| `tokio_trace` | `{ addr = "127.0.0.1:6669" }` | Tokio 跟踪，默认处于关闭状态。         |
 
 ### `[security]`
 
@@ -145,7 +147,7 @@ cnosdb --config ./cnosdb.conf
 | `grpc_listen_port`       | `8903`           | GRPC 服务监听端口。       |
 | `flight_rpc_listen_port` | `8904`           | Flight RPC 服务监听端口。 |
 | `tcp_listen_port`        | `8905`           | TCP 服务监听端口。        |
-| `vector_listen_port`     | `8906`           |                           |
+| `vector_listen_port`     | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。      |
 
 ### `[hintedoff]`
 
@@ -201,7 +203,7 @@ cnosdb --config ./cnosdb.conf
 | `node_id`          | `1001`    | 节点 ID。                                                |
 | `cold_data_server` | `false`   | 是否停止在此节点上创建 Vnode。                           |
 | `store_metrics`    | `true`    | 是否统计此节点的使用情况并存储到 `usage_schema` 数据库。 |
-| `location`         | `default` |                                                          |
+| `location`         | `default` | 定义实例部署位置。                                       |
 
 </TabItem>
 </Tabs>

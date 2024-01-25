@@ -64,7 +64,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 - #### 安装Apache Arrow
 
-  你可以去[官方文档](arrow.apache.org/install/)找到详细的安装教程
+  你可以去[官方文档](https://arrow.apache.org/install/)找到详细的安装教程
   在Mac系统下，使用brew命令就可以简单安装了。
 
    ```shell
