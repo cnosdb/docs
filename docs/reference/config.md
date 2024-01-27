@@ -125,6 +125,9 @@ CNOSDB_REPORTING_DISABLED=false
 | `max_concurrent_compaction`     | `4`                       | `CNOSDB_MAX_CONCURRENT_COMPACTION` | 最多同时进行的 compaction 任务数量。 |
 | `strict_write`                  | `false`                   | `CNOSDB_STRICT_WRITE` | 是否开启严格写入。                   |
 | `reserve_space`                 | `0`                       | `CNOSDB_RESERVE_SPACE` | 系统的保留空间大小。                   |
+| `copyinto_trigger_flush_size` | `128M` | `COPYINTO_TRIGGER_FLUSH_SIZE` | `COPY INTO`导出时触发落盘的内存大小 。支持版本：>2.3.4.3 |
+
+
 
 ```mdx-code-block
 </APITable>

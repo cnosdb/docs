@@ -95,6 +95,7 @@ cnosdb --config ./cnosdb.conf
 | `max_compact_size`              | `2G`                      | compaction 最多选择的文件大小。                     |
 | `max_concurrent_compaction`     | `4`                       | 最多同时进行的 compaction 任务数量。                |
 | `strict_write`                  | `false`                   | 是否开启严格写入。                                  |
+| `copyinto_trigger_flush_size`   | `128M`                    | `COPY INTO`导出时触发落盘的内存大小 。              |
 
 ### `[wal]`
 
