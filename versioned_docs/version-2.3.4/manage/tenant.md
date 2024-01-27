@@ -414,4 +414,3 @@ TENANT cnosdb REMOVE USER user_a;
 
 
 
-

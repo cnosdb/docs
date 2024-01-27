@@ -39,17 +39,16 @@ FROM cluster_schema.tenants;
 **语法**
 
 ```sql
-CREATE
-TENANT [IF NOT EXISTS] tenant_name WITH [comment = ''];
+CREATE TENANT [IF NOT EXISTS] tenant_name [WITH [comment = ''] [_limiter = <limiter_config>]];
 ```
+
+_limiter： 限制租户资源用量，可以参见[租户资源](https://docs.cnosdb.com/zh/latest/manage/resource_limit)
 
 **示例**
 
 ```sql
-CREATE
-TENANT test;
-SELECT *
-FROM cluster_schema.tenants;
+CREATE TENANT test;
+SELECT * FROM cluster_schema.tenants;
 ```
 
     +-------------+---------------------------------------------------+
@@ -66,7 +65,7 @@ FROM cluster_schema.tenants;
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     
 sql_option: option_name = value
-option: {COMMENT}
+option: {COMMENT/_LIMITER}
 ```
 SET 用来设置租户属性，属性只能为对应属性类型的常量
 
@@ -86,12 +85,8 @@ ALTER TENANT test SET COMMENT = 'abc';
 **语法**
 
 ```sql 
-DROP TENANT tenant_name [AFTER '7d'];
+DROP TENANT tenant_name;
 ```
-
-当不带AFTER时，会立即删除；
-
-当带AFTER时，为延迟删除，会在指定时间后删除，时间支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天。延迟删除期间租户不可见且不可用。
 
 #### 语法
 
@@ -99,15 +94,15 @@ DROP TENANT tenant_name [AFTER '7d'];
 RECOVER TENANT tenant_name;
 ```
 
-延迟删除取消，租户恢复正常状态。
+SET 用来设置租户属性，属性只能为对应属性类型的常量
 
-**注意**：只有对延迟删除的资源，且在延迟删除期间，执行RECOVER语句才有作用。
+UNSET 删除租户属性
+
+目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来； _LIMITER，对应属性类型为STRING类型， 用单引号括起来，内容详见[租户资源限制](https://docs.cnosdb.com/zh/latest/manage/resource_limit)。
 
 **示例**
 
 ```sql
-DROP TENANT test AFTER ‘7d’;
-
 RECOVER TENANT test;
 
 DROP TENANT test;
@@ -424,7 +419,6 @@ TENANT tenant_name REMOVE USER user_name;
 ALTER
 TENANT cnosdb REMOVE USER user_a;
 ```
-
 
 
 

@@ -31,7 +31,7 @@ FROM cluster_schema.tenants;
     +-------------+-----------------------------------------------------------------------------------------+
     | tenant_name | tenant_options                                                                          |
     +-------------+-----------------------------------------------------------------------------------------+
-    | cnosdb      | {"comment":"system tenant","limiter_config":null,"after":null,"tenant_is_hidden":false} |
+    | cnosdb      | {"comment":"system tenant","limiter_config":null,"tenant_is_hidden":false} |
     +-------------+-----------------------------------------------------------------------------------------+
 
 ### 创建租户
@@ -41,11 +41,8 @@ FROM cluster_schema.tenants;
 ```sql
 CREATE TENANT [IF NOT EXISTS] tenant_name
 [WITH [comment = <comment>],
-       [drop_after = duration],
-       [_limiter = <limiter_config>]];
+      [_limiter = <limiter_config>]];
 ```
-drop_after：表示租户延迟删除时间，默认立即删除，用带单位的数据表示，支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天，如30。
-
 _limiter： 限制租户资源用量，可以参见[租户资源](./resource_limit.md)
 
 **示例**
@@ -60,8 +57,8 @@ FROM cluster_schema.tenants;
     +-------------+-----------------------------------------------------------------------------------------+
     | tenant_name | tenant_options                                                                          |
     +-------------+-----------------------------------------------------------------------------------------+
-    | test        | {"comment":null,"limiter_config":null,"after":null,"tenant_is_hidden":false}            |
-    | cnosdb      | {"comment":"system tenant","limiter_config":null,"after":null,"tenant_is_hidden":false} |
+    | test        | {"comment":null,"limiter_config":null,"tenant_is_hidden":false}            |
+    | cnosdb      | {"comment":"system tenant","limiter_config":null,"tenant_is_hidden":false} |
     +-------------+-----------------------------------------------------------------------------------------+
 
 ### 修改租户
@@ -72,14 +69,14 @@ FROM cluster_schema.tenants;
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     
 sql_option: option_name = value
-option: {COMMENT/DROP_AFTER/_LIMITER}
+option: {COMMENT/_LIMITER}
 ```
 
 SET 用来设置租户属性，属性只能为对应属性类型的常量
 
 UNSET 删除租户属性
 
-目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来；DROP_AFTER，对应属性类型为STRING类型，用单引号括起来；
+目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来；
 _LIMITER，对应属性类型为STRING类型， 用单引号括起来，内容详见[租户资源限制](../manage/resource_limit.md)。
 
 
@@ -94,13 +91,8 @@ ALTER TENANT test SET COMMENT = 'abc';
 **语法**
 
 ```sql 
-DROP TENANT tenant_name [AFTER '7d'];
+DROP TENANT tenant_name;
 ```
-
-当不带AFTER时，会立即删除；
-
-当带AFTER时，为延迟删除，会在指定时间后删除，时间支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天。延迟删除期间租户不可见且不可用。
-AFTER优先级高于option里的DROP_AFTER。
 
 #### 语法
 
@@ -115,8 +107,6 @@ RECOVER TENANT tenant_name;
 **示例**
 
 ```sql
-DROP TENANT test AFTER ‘7d’;
-
 RECOVER TENANT test;
 
 DROP TENANT test;
@@ -435,7 +425,6 @@ TENANT tenant_name REMOVE USER user_name;
 ALTER
 TENANT cnosdb REMOVE USER user_a;
 ```
-
 
 
 
