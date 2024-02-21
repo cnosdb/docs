@@ -127,9 +127,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      announcementBar: {
-        content: `您正在访问 <strong>CnosDB</strong> 新文档的公测版！在 <a href="https://docs.cnosdb.com">docs.cnosdb.com</a> 查找现有文档。`,
-      },
       // Replace with your project's social card
       navbar: {
         logo: {
