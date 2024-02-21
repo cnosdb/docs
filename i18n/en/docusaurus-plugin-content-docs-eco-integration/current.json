@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docsSidebar.category.生态集成": {
+    "message": "Eco-Integration",
+    "description": "The label for category Eco-Integration in sidebar docsSidebar"
+  }
+}

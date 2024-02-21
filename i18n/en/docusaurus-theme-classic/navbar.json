@@ -1,0 +1,26 @@
+{
+  "logo.alt": {
+    "message": "Cnosdb",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Resource": {
+    "message": "Resource",
+    "description": "Navbar item with label Resource"
+  },
+  "item.label.文档": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.生态集成": {
+    "message": "Eco-Integration",
+    "description": "Navbar item with label Eco-Integration"
+  },
+  "item.label.社区": {
+    "message": "Community",
+    "description": "Navbar item with label Community"
+  }
+}

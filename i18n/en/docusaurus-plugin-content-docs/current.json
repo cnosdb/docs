@@ -1,0 +1,70 @@
+{
+  "version.label": {
+    "message": "latest",
+    "description": "The label for version current"
+  },
+  "sidebar.docsSidebar.category.Get Started": {
+    "message": "Get Started",
+    "description": "The label for category Get Started in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Deploy": {
+    "message": "Deploy",
+    "description": "The label for category Deploy in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Develop": {
+    "message": "Develop",
+    "description": "The label for category Develop in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Manage": {
+    "message": "Manage",
+    "description": "The label for category Manage in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Reference": {
+    "message": "Reference",
+    "description": "The label for category Reference in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Design": {
+    "message": "Design",
+    "description": "The label for category Design in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.Connector": {
+    "message": "Connector",
+    "description": "The label for category Connector in sidebar docsSidebar"
+  },
+  "sidebar.resourceSidebar.category.Get Started": {
+    "message": "Get Started",
+    "description": "The label for category Get Started in sidebar resourceSidebar"
+  },
+  "sidebar.resourceSidebar.category.Deploy": {
+    "message": "Deploy",
+    "description": "The label for category Deploy in sidebar resourceSidebar"
+  },
+  "sidebar.resourceSidebar.category.Develop": {
+    "message": "Develop",
+    "description": "The label for category Develop in sidebar resourceSidebar"
+  },
+  "sidebar.resourceSidebar.category.Manage": {
+    "message": "Manage",
+    "description": "The label for category Manage in sidebar resourceSidebar"
+  },
+  "sidebar.resourceSidebar.category.Reference": {
+    "message": "Reference",
+    "description": "The label for category Reference in sidebar resourceSidebar"
+  },
+  "sidebar.resourceSidebar.category.Design": {
+    "message": "Design",
+    "description": "The label for category Design in sidebar resourceSidebar"
+  },
+  "sidebar.resourceSidebar.category.Connector": {
+    "message": "Connector",
+    "description": "The label for category Connector in sidebar resourceSidebar"
+  },
+  "sidebar.docsSidebar.category.部署": {
+    "message": "部署",
+    "description": "The label for category 部署 in sidebar docsSidebar"
+  },
+  "sidebar.docsSidebar.category.开发": {
+    "message": "开发",
+    "description": "The label for category 开发 in sidebar docsSidebar"
+  }
+}
