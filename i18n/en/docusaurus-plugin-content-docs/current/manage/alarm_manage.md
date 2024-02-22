@@ -4,7 +4,7 @@ order: 6
 ---
 
 :::tip
-Only Enterprise Edition supports, Please contact [CC](../enterprise/README.md) to get the alarm plugin.
+Only Enterprise Edition supports, Please contact [CC](../enterprise) to get the alarm plugin.
 :::
 
 # Alarm Management

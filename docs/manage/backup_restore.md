@@ -136,7 +136,7 @@ cnosdb-cli [--error-stop] restore-dump-ddl DUMP_FILE
 
 当指定 --error-stop 时，恢复中出错会中断恢复过程
 
-cnosdb-cli 支持更多参数，参数可参考[文档](../reference/tools.md/#客户端命令行程序)，其中的参数应该放在 dump-ddl 和
+cnosdb-cli 支持更多参数，参数可参考[文档](../reference/tools.md#客户端命令行程序)，其中的参数应该放在 dump-ddl 和
 restore-dump-ddl 前面
 
 ## 示例

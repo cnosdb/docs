@@ -97,7 +97,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 - Official Website: http://www.cnosdb.com
 - Github Repo: https://github.com/cnosdb/cnosdb
 
-（注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com/）
+（注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com
 
 在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](/docs/reference/tools) 工具直接访问 CnosDB：
 
