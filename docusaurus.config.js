@@ -17,7 +17,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: "https://www.cnosdb.com",
+  url: 'https://www.cnosdb.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -44,8 +44,7 @@ const config = {
       zh: {
         htmlLang: 'zh-Hans',
         label: '简体中文',
-
-      }
+      },
     },
   },
 
@@ -68,19 +67,19 @@ const config = {
             },
             '2.4.0': {
               label: '2.4.0',
-              banner: 'none'
+              banner: 'none',
             },
-            '2.3.4':{
-                label: '2.3.4',
-                banner:'none',
-            }
+            '2.3.4': {
+              label: '2.3.4',
+              banner: 'none',
+            },
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/cnosdb/docs/edit/main",
+          editUrl: 'https://github.com/cnosdb/docs/edit/main',
           editLocalizedFiles: true,
         },
-        gtag:{
+        gtag: {
           trackingID: 'G-N59H7G52ZW',
           anonymizeIP: true,
         },
@@ -103,7 +102,7 @@ const config = {
         routeBasePath: 'eco-integration',
         sidebarPath: require.resolve('./sidebars.js'),
         sidebarCollapsible: false,
-        showLastUpdateAuthor: true, 
+        showLastUpdateAuthor: true,
         showLastUpdateTime: true,
       },
     ],
@@ -116,17 +115,15 @@ const config = {
         sidebarPath: require.resolve('./sidebars.js'),
         sidebarCollapsed: false,
         editCurrentVersion: true,
-        showLastUpdateAuthor: true, 
+        showLastUpdateAuthor: true,
         showLastUpdateTime: true,
       },
     ],
   ],
-  scripts: [
-    '/custom.js'
-  ],
+  scripts: ['/custom.js'],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    {
       // Replace with your project's social card
       navbar: {
         logo: {
@@ -137,7 +134,12 @@ const config = {
         },
         items: [
           // left
-          { type: 'docSidebar', sidebarId: 'docsSidebar', position: 'left', label: '文档' },
+          {
+            type: 'docSidebar',
+            sidebarId: 'docsSidebar',
+            position: 'left',
+            label: '文档',
+          },
           { to: 'eco-integration', label: '生态集成', position: 'left' },
           { to: 'community/changelist', label: '社区', position: 'left' },
           //right
@@ -145,11 +147,15 @@ const config = {
             to: 'https://docs.cnosdb.cloud',
             label: 'Cloud',
             position: 'right',
-            className: 'nav-cloud'  // 这里主要为了只在英文时展示所声明
+            className: 'nav-cloud', // 这里主要为了只在英文时展示所声明
           },
-          { type: 'docsVersionDropdown', position: 'right'},
+          { type: 'docsVersionDropdown', position: 'right' },
           { type: 'localeDropdown', position: 'right' },
-          { href: 'https://github.com/cnosdb/cnosdb', className: "header-github-link", position: 'right' },
+          {
+            href: 'https://github.com/cnosdb/cnosdb',
+            className: 'header-github-link',
+            position: 'right',
+          },
           { type: 'search', position: 'right' },
         ],
       },
@@ -158,7 +164,7 @@ const config = {
       },
       algolia: {
         appId: '4O093YZHL1',
-        apiKey: 'b02a6bb324334323de977f71e73d06d0',
+        apiKey: '97bd7e824266635087a8957aaf6d94b2',
         indexName: 'cnosdb',
         locales: {
           '/zh-CN/': {
@@ -208,8 +214,7 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-    }),
-
+    },
 };
 
 module.exports = config;
