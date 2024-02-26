@@ -1,9 +1,8 @@
 ---
-
-title: 分级存储
-order: 5
-
+sidebar_position: 6
 ---
+
+# 分级存储
 
 :::tip
 仅企业版支持

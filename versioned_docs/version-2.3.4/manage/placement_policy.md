@@ -1,7 +1,8 @@
 ---
-title: 数据分布策略
-order: 11
+sidebar_position: 12
 ---
+
+# 数据分布策略
 
 :::tip
 仅企业版支持
