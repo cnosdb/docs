@@ -1,15 +1,15 @@
 ---
-title: 节点信息
+title: Node Information
 order: 13
 ---
 
-# 节点信息
+# Node Information
 
 :::tip
-仅企业版支持
+Enterprise only support
 :::
 
-CnosDB可以通过使用SQL `SHOW VNODE`查看节点信息。
+CnosDB can view node information using SQL `SHOW VNODE`.
 
 ## Syntax
 
@@ -17,7 +17,7 @@ CnosDB可以通过使用SQL `SHOW VNODE`查看节点信息。
 SHOW VNODE
 ```
 
-显示当前数据库的所有Vnode信息。
+Show all Vnode information in the current database.
 
 ```bash
 public ❯ show vnode;
