@@ -124,14 +124,14 @@ Count
 
 #### 标签
 
-| 字段                           | Description      |
-| ---------------------------- | ---------------- |
-| TIME                         | 记录的时间间           |
-| DATABASE                     | Database名称       |
-| NODE_ID | Data节点的 ID       |
-| TENANT                       | Database 所属的租户名称 |
-| USER                         | 用户名称             |
-| VALUE                        | 查询次数             |
+| 字段                           | Description          |
+| ---------------------------- | -------------------- |
+| TIME                         | Time between records |
+| DATABASE                     | Database名称           |
+| NODE_ID | Data节点的 ID           |
+| TENANT                       | Database 所属的租户名称     |
+| USER                         | 用户名称                 |
+| VALUE                        | 查询次数                 |
 
 ### HTTP_WRITES
 
