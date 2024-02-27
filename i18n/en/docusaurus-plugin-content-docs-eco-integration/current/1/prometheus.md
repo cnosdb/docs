@@ -3,10 +3,6 @@ title: Prometheus
 slug: /prometheus
 ---
 
-## Prometheus
-
-### Introduction
-
 Prometheus is a cloud-native monitoring software that enables data acquisition and monitoring for a wide range of software and systems.
 
 This article describes how to configure CnosDB as a Prometheus terminal via the Prometheus Remote Read/ Write interface.
@@ -31,6 +27,7 @@ basic_auth:
 username: 'root'
 password: ''
 ```
+
 **Parameter**
 
 ```
@@ -42,14 +39,14 @@ password: CnosDB user's password
 
 You can get the all configuration of Prometheus Remote Write via [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/?spm=a2c4g.11186623.0.0.231f780eoLUxCY#remote_write).
 
-
 ### Remote Read
 
 CnosDB supports Remote Read protocol of Prometheus. To ingest data to the logging service, simply enable the Remote Read functionality in Prometheus, as shown below.
 
 **Operation flow**
 
-- **Edit configure file**
+- **Edit configuration file**
+
 ```yaml
 # remote_read cnosdb
 remote_read:
@@ -58,7 +55,6 @@ basic_auth:
 username: 'root'
 password: ''
 ```
-**Parameter**
 
 **Parameter**
 
