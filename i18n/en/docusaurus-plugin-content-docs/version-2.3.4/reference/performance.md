@@ -1,47 +1,47 @@
 ---
-title: 性能测试
+title: Performance Tests
 order: 9
 ---
 
-# 性能测试
+# Performance Tests
 
-为了更直观的呈现 CnosDB 的性能，我们使用 [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) 对 [CnosDB](https://github.com/cnosdb/cnosdb) 以及同为时序数据库的 [InfluxDB](https://github.com/influxdata/influxdb) 做了写入的性能测试。
+In order to render CnosDB performance more intuitively, we used [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) for [CnosDB](https://github.com/cnosdb/cnosdb/cnosdb) and [InfluxDB](https://github.com/influxdata/influxdb) for the same time sequence database.
 
-## 基本信息
+## Basic Information
 
-|      |      CnosDB     |           InfluxDB           |
-| ---- | :-------------: | :--------------------------: |
-| 版本   |      2.0.1      |            1.8.10            |
-| 实现语言 |       rust      |              go              |
-| 官网   | www\.cnosdb.com | https\://www\.influxdata.com |
+|                  |      CnosDB     |           InfluxDB           |
+| ---------------- | :-------------: | :--------------------------: |
+| Version          |      2.0.1      |            1.8.10            |
+| Achieve Language |       rust      |              go              |
+| Web site         | www\.cnosdb.com | https\://www\.influxdata.com |
 
-## 测试环境
+## Test Environment
 
-为了避免受到网络带宽影响，同时更好的模拟多租户场景，我们服务端服务器开启一个虚拟机用来当作服务端机器，客户端机器同时开启两个 benchmark 客户端，向服务端虚拟机 CnosDB 或 InfluxDB 的不同数据库内同时写数据。
+In order to avoid being affected by network bandwidth and to better simulate multi-tenant scenarios, our server has a virtual machine that can be used as a server machine, and two benchmark clients are enabled simultaneously to write data to different databases of the server Virtual Machine CnosDB or InfluxDB.
 
-所有的测试运行在我们的服务器上，具体的配置如下：
+All tests run on our servers, configuration：
 
-1. 服务端服务器：32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz（内存：255.65 GB）
+1. Server：32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz (memory：255.65 GB)
 
-   虚拟机 CPU 分配16 核。
+   Virtual Machine CPU assigned 16 nucleus.
 
-   磁盘一共两块，一块挂载到虚拟机 /opt-sdc1，性能 bench 如下：
+   A total of two blocks on disk, one mounted to Virtual Machine / opt-sdc1, performance bench below：
 
    ![](/img/nvme_bench.png)
 
-   虚拟机其他目录磁盘性能 bench 如下：
+   Virtual Machine other directory diskperformance bench below：
 
    ![](/img/other_bench.png)
 
-2. 客户端服务器：32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz (内存 256)
+2. Client server：32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz (memory 256)
 
-   磁盘性能 bench 如下：
+   Disk performance bench below：
 
    ![](/img/19bench.png)
 
-## 配置
+## Configuration
 
-CnosDB 的配置如下：
+CSDB configuration below：
 
 ```
 [storage]
@@ -79,83 +79,83 @@ path = 'data/log'
 # private_key = "./config/tls/server.key"
 ```
 
-InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
+InfluxDB is a default configuration except [data] and [meta].
 
 ```
 [meta]
-  # Where the metadata/raft database is stored
+  # Where the metapa/draft database is stalled
   dir = "/opt-sdc1/var/lib/influxdb/meta"
 [data]
-  # The directory where the TSM storage engine stores TSM files.
+  # The directory where the TSM store engine stores TSM files.
   dir = "/opt/var/lib/influxdb/data"
 
-  # The directory where the TSM storage engine stores WAL files.
+  # The directory where the TSM story engine stores WAL files.
   wal-dir = "/opt-sdc1/var/lib/influxdb/wal"
 ```
 
-## 具体步骤
+## Split
 
-1. 提前安装好对应机器的db环境，go环境等，确保可以正常连接。
+1. The db environment of the corresponding machine is installed in advance, the go's environment, etc. to ensure proper connectivity.
 
-2. 安装 CnosDB。
+2. Install CnosDB.
 
-   从 GitHub 拉下代码：
+   Pull code： from GitHub
 
    ```
    git clone https://github.com/cnosdb/cnosdb.git
    ```
 
-   修改 `comfig/config.toml` 内的部分配置，运行：
+   Modify the part assigned in `config/config.toml` to run：
 
    ```
    cargo run --release run --cpu 64
    ```
 
-   下载 InfluxDB，修改 `etc/influxdb/influxdb.conf` 内的配置，运行：
+   Download InfluxDB, modify the configuration in `etc/influxdb/influxdb.conf` to run：
 
    ```
    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10_linux_amd64.tar.gz
    tar xvfz influxdb-1.8.10_linux_amd64.tar.gz
-   ./influxd run -config ../../etc/influxdb/influxdb.conf
+   ./influxd run -config ..//influxdb/influxdb.conf
    ```
 
-3. tsdb-comparisons 生成数据。
+3. tsdb-comparisons generate data.
 
-   从 GitHub 拉下代码：
+   Pull code： from GitHub
 
    ```
    git clone https://github.com/cnosdb/tsdb-comparisons.git
    ```
 
-   编译运行生成数据：
+   Build Run Data：
 
    cd tsdb-comparisons/cmd/generate_data
    go build
-   ./generate_data --use-case="iot" --seed=123 --scale=100          --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2023-01-01T00:00:00Z" --log-interval="50s" --format="influx"   > \<file_path>/data.txt
+   ./generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2022-01-01T00:00:00:00Z" --timestamp-end="2023-01-01T00:00:00Z" -log-interval="50s" --form="influx" > \<file_path>/data.txt
 
-4. 测试 CnosDB 写入。
+4. Test CnosDB writing.
 
    ```
    cd tsdb-comparisons/cmd/load_cnosdb
    go build
-   ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
+   ./load_cnosdb --do-abort-on-exist=false --do-cree-db=false-gzip=false --file=<file_path>/data.txt --db-name=<db_name> -urls="http://<ip>:8902" --batch-size=<batch_size_num> --workers=<workers_num>
    ```
 
-5. 测试 InfluxDB 写入。
+5. Test InfluxDB writing.
 
    ```
    cd tsdb-comparisons/cmd/load_influx
    go build
-   ./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"  --batch-size=<batch_size_num> --workers=<workers_num>
+   ./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false-file=<file_path>/data.txt --db-name=<db_name> --urls="http://<ip>:8086" ---batch-size=<batch_size_num> --workers=<workers_num>
    ```
 
-## 测试结果
+## Test results
 
-在我们的测试场景下，InfluxDB 只能做到 wrokers = 100，即 100 并发场景，测试结果如下（row 和 metric 单位：万）：
+In our test scenario, InfluxDB can only do wrokers = 100, i.e. 100 concurrent sprints, the results of which are as follows (row and metric units：,000)：
 
 |            | CnosDB        |                  | InfluxDB      |                  |
 | ---------- | ------------- | ---------------- | ------------- | ---------------- |
-| batch-size | overall row/s | overall metric/s | overall row/s | overall metric/s |
+| batch-size | overlay row/s | overlay metric/s | overlay row/s | overlay metric/s |
 | 20000      | 75            | 604              |               |                  |
 | 10000      | 68            | 538              | 54            | 420              |
 | 5000       | 66            | 512              | 61            | 480              |
@@ -163,19 +163,19 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
 | 1000       | 43            | 330              | 49            | 389              |
 | 1          | 6             | 48               | 2.5           | 15               |
 
-我们取在 benchmark 中数据库写入趋于稳定时的数据，值为两个客户端的和。
+We have a value of the sum of two clients when we write stable data in the database in benchmark
 
-当 batch-size 设置为 20000 时，InfluxDB 在客户端报错：
+InfluxDB on client report： when batch-size is set to 20000
 
-`{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`，
+`{"error":"engine: cache-max-memory-size: (1074767264/1073741824)"}`,
 
-所以我们没有测试这种情况下 InfluxDB 的性能，但是可以看到在大多数场景下，CnosDB 的性能是优于 InfluxDB 的。
+So we have not tested the performance of InfluxDB in this case, but it can be seen that, in most scenarios, the performance of CnosDB is that of the fluxDB.
 
-除此之外，CnosDB 支持更高的并发数，我们同时也测试了 CnosDB 在 workers = 200，即 200 并发场景下的性能，结果如下（row 和 metric 单位：万）：
+In addition to this, CnosDB supports higher conjunctions and we also tested CnosDB performance at worker=200, i.e. 200, conjunction, as follows (row and metric units：,000)：
 
 |            | CnosDB        |                  |
 | ---------- | ------------- | ---------------- |
-| batch-size | overall row/s | overall metric/s |
+| batch-size | overlay row/s | overlay metric/s |
 | 20000      | 75            | 601              |
 | 10000      | 75            | 607              |
 | 5000       | 67            | 518              |
@@ -183,10 +183,10 @@ InfluxDB 除 [data] 与 [meta] 外，其他均为默认配置。
 | 1000       | 49            | 382              |
 | 1          | 6             | 47               |
 
-随着并发数的提高，某些场景下的性能也会提高，CnosDB 的性能拥有更高的上限。
+As the number of parallel events increases, performance in some scenarios will improve, and CnosDB will have a higher ceiling.
 
-## 结论
+## Conclusion
 
-1. CnosDB 相比 InfluxDB，在大多数情况下，拥有更高的性能。
-2. CnosDB 相比 InfluxDB，可以支持更高的并发数，更高的 batch-size。
-3. 我们未与其他不支持 Line Protocol 或者将 Line Protocol 在客户端进行转化的时序数据库比较，这对直接写入 Line Protocol 的 CnosDB 以及 InfluxDB 来说是不太公平的。
+1. CnosDB compares with InfluxDB, with higher performance in most cases.
+2. CnosDB compares with InfluxDB. Can support higher parallel occurrences, higher batch-size.
+3. We do not compare with other time-series databases that do not support Line Protocol or convert Line Protocol to clients, which is not fair to CnosDB and InfluxDB directly writing to Line Protocol.
