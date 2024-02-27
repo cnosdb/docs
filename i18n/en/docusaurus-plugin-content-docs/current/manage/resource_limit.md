@@ -1,11 +1,10 @@
 ---
-title: Tenant Resource Limit
-order: 3
+sidebar_position: 8
 ---
 
-# Tenant Resource Limitation
+# 租户资源限制
 
-Currently, the resource isolation of CnosDB is tenant-level. There are two types of restrictions: one is to limit the objects created by tenants; One is to limit the size and number of times tenants can read and write data. Both types of restrictions can be set using the same SQL that can be used only by the most privileged users.
+当前 CnosDB 的资源隔离是租户级别的，共有两类限制：一类是限制租户创建的对象；一类是限制租户读写数据的大小和次数。两类限制均可通过同一种 SQL 来进行设定，并且该 SQL 只能由最高权限用户使用。
 
 #### Syntax
 
@@ -13,25 +12,22 @@ Currently, the resource isolation of CnosDB is tenant-level. There are two types
 alter tenant <tenant_name> set _limiter '<limiter_json>';
 ```
 
-#### Parameters
+#### 参数说明
 
-- tenant_name: The name of the tenant to be set.
-- limiter_json: The content of tenant resource limit, specifically classified as: object limit `object_config` and read and write limit `request_config`, content format must be json format.
+- tenant_name：租户名称。
+- limiter_json：租户资源限制的内容，具体分类为：对象限制 `object_config` 和 读写限制 `request_config`，内容格式必须为 json 格式。
 
+#### object_config ，对象限制，包含以下参数：
 
-#### object_config, object limit, the parameters included are as follows:
+| 参数名                                                          | 描述                                      | 必选 | 单位 |
+| :----------------------------------------------------------- | :-------------------------------------- | :- | :- |
+| max_users_number   | 指定租户下的用户（成员）最多有多少个，设置为null时，表示无限制。      | 是  | 个  |
+| max_databases                           | 指定租户下的数据库最多有多少个，设置为null时，表示无限制。         | 是  | 个  |
+| max_shard_number   | 指定租户下的数据库最多能创建多少shard，设置为null时，表示无限制。   | 是  | 个  |
+| max_replica_number | 指定租户下的数据库最多能创建多少replica，设置为null时，表示无限制。 | 是  | 个  |
+| max_retention_time | 指定租户下的数据库的TTL参数，最多可设置多大，当为null时，表示无限制。  | 是  | 天  |
 
-| Parameter name     | Description                                                                                                                          | Required | Metric |
-|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------|:---------|:-------|
-| max_users_number   | Specifies the maximum number of users (members) to be a tenant; when set to null, it is unbounded.                                   | Yes      | one    |
-| max_databases      | Specifies the maximum number of databases for each tenant; when set to null, it is unlimited.                                        | Yes      | one    |
-| max_shard_number   | Specifies the maximum number of shards that can be created in a tenant's database; when set to null, this is unlimited.              | Yes      | one    |
-| max_replica_number | Specifies the maximum number of replicas that can be created for the database under the tenant; when set to null, this is unlimited. | Yes      | one    |
-| max_retention_time | Specifies the maximum TTL parameter of the database under the tenant. When null, it is unlimited.                                    | Yes      | Day    |
-
-
-
-#### Example:
+#### 示例：
 
 ```json
 "object_config": {
@@ -43,36 +39,36 @@ alter tenant <tenant_name> set _limiter '<limiter_json>';
 },
 ```
 
-#### request_config, read and write limit, the parameters included are as follows:
+#### request_config ，限制读写请求，包含以下参数：
 
-| Parameter name | Description                                                                                | Required | Metric |
-|:---------------|:-------------------------------------------------------------------------------------------|:---------|:-------|
-| data_in        | Limit the size of write requests over a period of time; when set to null, it is unbounded. | Yes      | Byte   |
-| data_out       | Limit the size of read requests over a period of time; when set to null, it is unbounded.  | Yes      | Byte   |
-| queries        | Limit the number of read requests in a time.Set to null indicates no limit.                | Yes      | Time   |
-| writes         | Limit the number of write requests in a time.When set to null, it is unlimited.            | Yes      | Time   |
+| 参数名                           | 描述                            | 必选 | 单位   |
+| :---------------------------- | :---------------------------- | :- | :--- |
+| data_in  | 限制一段时间内写请求的大小，设置为null时，表示无限制。 | 是  | Byte |
+| data_out | 限制一段时间内读请求的大小，设置为null时，表示无限制。 | 是  | Byte |
+| queries                       | 限制一段时间内读请求次数，设置为null时，表示无限制。  | 是  | 次    |
+| writes                        | 限制一段时间内写请求次数，设置为null时，表示无限制。  | 是  | 次    |
 
-The `data_in` and `data_out` limits are implemented by the token bucket algorithm and consist of two parts: One is a remote token bucket on meta, specified by `remote_bucket`, and the other is a local token bucket on data, specified by `local_bucket`, where tokens are measured in bytes.
+其中 `data_in` 和 `data_out` 限制是通过令牌桶算法实现的，共由两部分组成：一个是 meta 上的远程令牌桶，由 `remote_bucket` 指定，另一个是 data 上的本地令牌桶，由 `local_bucket` 指定，令牌的单位是字节。
 
-#### Parameters of remote_bucket are as follows:
+#### remote_bucket 包含以下参数：
 
-| Parameter name | Description                                      | Metric |
-|:---------------|:-------------------------------------------------|:-------|
-| max            | Limit the maximum number of tokens in a bucket   | one    |
-| initial        | Limit the number of tokens in the initial bucket | one    |
-| refill         | Limit the number of tokens populated at a time   | one    |
-| interval       | Time interval to fill the token                  | ms     |
+| 参数名      | 描述         | 单位 |
+| :------- | :--------- | :- |
+| max      | 限制桶最大令牌个数  | 个  |
+| initial  | 限制桶初始时令牌个数 | 个  |
+| refill   | 限制每次填充令牌个数 | 个  |
+| interval | 填充令牌的时间间隔  | ms |
 
-#### Parameters of local_bucket are as follows:
+#### local_bucket 包含以下参数：
 
-| Parameter name | Description                                      | Metric |
-|:---------------|:-------------------------------------------------|:-------|
-| max            | Limit the maximum number of tokens in a bucket   | one    |
-| initial        | Limit the number of tokens in the initial bucket | one    |
+| 参数      | 描述         | 单位 |
+| :------ | :--------- | :- |
+| max     | 限制桶最大令牌个数  | 个  |
+| initial | 限制桶初始时令牌个数 | 个  |
 
-The following example bucket setup allows 10KB of data to be written every 100ms and 10KB of data to be cased every 100ms;
+下面令牌桶设置示例表示，每100毫秒允许10KB数据大小写入，每100毫秒允许10KB数据大小写出；
 
-#### Example data writing settings
+#### 数据写入设置示例
 
 ```json
 "data_in": {
@@ -101,7 +97,7 @@ The following example bucket setup allows 10KB of data to be written every 100ms
 }
 ```
 
-#### An example of limiting the size and number of reads and writes to a tenant is as follows:
+#### 限制租户读写数据大小和次数示例如下：
 
 ```json
 "request_config": {
@@ -134,7 +130,7 @@ The following example bucket setup allows 10KB of data to be written every 100ms
 }
 ```
 
-#### Overall Example
+#### 整体示例
 
 ```json
 alter tenant cnosdb set _limiter = '{
