@@ -55,7 +55,7 @@ cnosdb-imexport export [OPTIONS] --src <SRC> --path <PATH>
 #### Backup data to local directory
 
 ```shell
-cnosdb-imexport export --src <user>:<password>@<ip>:<port> --path file:///backup
+cnosdb-imexport export --src <user>:<password>@<ip>:<port> --path file://backup
 ```
 
 ## `Import`
@@ -112,7 +112,7 @@ cnosdb-imexport migrate [OPTIONS] --src <SRC> --dst <DST> --path <PATH>
 #### Migrate data to other clusters
 
 ```shell
-cnosdb-imexport migrate --src <user>:<passowrd>@<ip>:<port> --dst <user>:<passowrd>@<ip>:<port> --path file:///staging
+cnosdb-imexport migate --src <user>:<passowrd>@<ip>:<port> --dst <user>:<passowrd>@<ip>:<port> --path file://staging
 ```
 
 ## Backup DDL statements
