@@ -1,11 +1,13 @@
 ---
 title: Configuration
-order: 6
+order: 5
 ---
 
-# Configuration
+Import Tabs from '@theme/Tabs';
+import tab from '@theme/TabItem';
+import APITable from '@site/src/components/APITable';
 
-## Introduction
+CnosDB Meta Configuration
 
 The configuration adopts TOML syntax.
 
@@ -23,236 +25,245 @@ You can use `cnosdb check server-config <path>` command to check a config file (
 cnosdb check server-config /tmp/config.toml
 ```
 
-The configuration file consists of several TOML key-value pairs and tables, as shown below:
+Whether to enable Wal, default: false
 
-**TOML Key**
-
-- `reporting_disabled` Whether to turn off information collection.
-- `host` Node host.
-- `raft_logs_to_keep` When using raft protocol for replication; How many raft logs each replication group keeps and how often to take snapshots.
-- `using_raft_replication` Raft protocol is used for replica replication. Note: it is not stable at present, so it is not recommended for online use.
-
-**TOML Value**
-
-- `[deployment]` CnosDB startup configuration (v2.2.0)
-- `[query]` query interface configuration
-- `[storage]` storage configuration
-- `[wal]` write pre-log configuration
-- `[cache]` cache configuration
-- `[log]` runs log configuration
-- `[security]` security configuration
-- `[cluster]` cluster configuration
-- `[heartbeat]` heartbeat configuration (v2.3.0)
-- `[node_basic]` node configuration (v2.3.0)
-- `[hintedoff]` hintedOff configuration
-- `[trace]` fFull link tracing configuration
-
-The detailed configuration file description is as follows:
-
-## \[deployment]
-
-| Parameter    | Description                                                                                     |
-|--------------|-------------------------------------------------------------------------------------------------|
-| mode         | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv` |
-| cpu          | Specify the number of CPU cores required for the instance, default: 10                          |
-| memory       | line_protocol request, the maximum number of bytes in the request body, default: 16             |
-
-Parameter **mode** can be selected from the following values:
-
-- `tskv` : Deploying only tskv engine requires specifying a meta address.
-- `query` : Deploying only the query engine requires specifying a meta address.
-- `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified.
-- `singleton` : Deploying a standalone version without specifying a meta address.
-
-## reporting_disabled
-
-**Note**: If close information collection
-
-The CnosDB collects information to better improve the product
-
-We do not collect user data, we only collect
-
-- Database instance running time
-- Operating system type and architecture run by database instance.
-- Database version
-- Areas run by database instances, only at the provincial level, state level
-
-You can set this as True to shut down information collection at the top of the configuration file.
-
-```toml
-reporting_disabled = true
+```
+`[deployment]` CnosDB startup configuration (v2.2.0)
 ```
 
-## host
+## The detailed configuration file description is as follows:
 
-**Description**: node host, used to communicate with other nodes, default: localhost.
+### Configuration
 
-## \[query]
+<Tabs groupId="editions">
 
-| Parameter              | Description                                                                                         |
-|------------------------|-----------------------------------------------------------------------------------------------------|
-| max_server_connections | Maximum concurrent connection request, default is 10240.                                            |
-| query_sql_limit        | The maximum SQL accounting when the request is requested, default is 16777216.                      |
-| write_sql_limit        | When writing a request on LINE_PROTOCOL, request  the maximum number of bytes, default is 16777216. |
-| auth_enabled           | Whether to start checking user permissions, default is false.                                       |
+<TabItem value="Community" label="社区版">
 
-## \[storage]
+| Parameters                                                                                                                                     | Default                   | Description                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| reporting_disabled                                                                                                        | `false`                   | Turn off CnosDB to automatically report telemetric data and track usage rates of CnosDB versions for the continued development of CnosDB.Report data every 24 hours, each field contains： instance time, operating system type, database version, location of instance operation (only to provincial or continental level). |
+| `raft_logs_to_keep` When using raft protocol for replication; How many raft logs each replication group keeps and how often to take snapshots. | `5000`                    | The number of entries left in the Raft log and write to snapshot every time these are checked.                                                                                                                                                                                                                                                 |
+| `using_draft_replication`                                                                                                                      | `false`                   | Enable Rafah Copy Algorithm                                                                                                                                                                                                                                                                                                                    |
+| `host` Node host.                                                                                                                              | `host`: host of Meta node | Used to communicate with other nodes.                                                                                                                                                                                                                                                                                                          |
 
-| Parameter                     | Description                                                                                  |
-|-------------------------------|----------------------------------------------------------------------------------------------|
-| path                          | Data storage location                                                                        |
-| max_summary_size              | The largest summary log size is used to restore data in the database, default: 128M          |
-| base_file_size                | Single file data size, default: 16M                                                          |
-| flush_req_channel_cap         | Cumulative upper limit of persistence tasks, default: 16                                     |
-| max_level                     | LSM&apos;s maximum number of layers, value range 0-4, default: 4                             |
-| compact_trigger_file_num      | The number of files required to trigger the compaction, default: 4                           |
-| compact_trigger_cold_duration | If there is no operation within the time period, a compaction will be triggered, default: 1h |
-| max_compact_size              | Maximum compression size, default: 2G                                                        |
-| max_concurrent_compaction     | The maximum number of concurrent compaction tasks, default: 4                                |
-| strict_write                  | Whether it is strictly written, default: false                                               |
+</TabItem>
 
-## \[wal]
+<TabItem value="Enterprise" label="企业版">
 
+| Parameters                                                                                                                                     | Default                    | Description                                                                                                                                                                                                                                                                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| reporting_disabled                                                                                                        | `false`                    | Turn off CnosDB to automatically report telemetric data and track usage rates of CnosDB versions for the continued development of CnosDB.Report data every 24 hours, each field contains：instance time, operating system type, database version, location of instance operation (only to provincial or continental level). |
+| `raft_logs_to_keep` When using raft protocol for replication; How many raft logs each replication group keeps and how often to take snapshots. | `5000`                     |                                                                                                                                                                                                                                                                                                                                               |
+| `using_draft_replication`                                                                                                                      | `false`                    |                                                                                                                                                                                                                                                                                                                                               |
+| `host` Node host.                                                                                                                              | `host`: host of Meta node  | Used to communicate with other nodes.                                                                                                                                                                                                                                                                                                         |
+| `license_file`                                                                                                                                 | `/etc/cnosdb/license.json` | Use to specify the location of the `License` file.                                                                                                                                                                                                                                                                                            |
 
-| Parameter           | Description                                                                          |
-|---------------------|--------------------------------------------------------------------------------------|
-| wal_req_channel_cap | Maximum accumulated write WAL tasks, default: 64                                     |
-| enabled             | Whether to enable Wal, default: false                                                |
-| path                | Remote log path                                                                      |
-| max_file_size       | The maximum size of a single WAL, default: 1G                                        |
-| sync                | Synchronous Write WAL Remote Log, Default False                                      |
-| sync_interval       | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing |
+</TabItem>
 
-## \[cache]
+</Tabs>
 
-| Parameter            | Description                            |
-|----------------------|----------------------------------------|
-| max_buffer_size      | Maximum cache size, default: 134217728 |
-| max_immutable_number | ImmemTable maximum, default: 4         |
+## [deployment]
 
-## \[log]
+| Parameters | Default                                 | Note                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| mode       | `[query]` query interface configuration | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv`  `tskv` : Deploying only tskv engine requires specifying a meta address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
+| cpu        | `10`                                    | Number of cpu nucleus to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| memory     | `16`                                    | Maximum memory used for running node, unit：(G)                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-| Parameter | Description                                         |
-|-----------|-----------------------------------------------------|
-| level     | Log Level (Debug, Info, Error, Warn), Default: Info |
-| path      | Log storage location                                |
+### [query]
 
-## \[security]
+| Parameters                                                       | Default     | Description                                                                                              |
+| ---------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------- |
+| max_server_connections | `10240`     | Maximum number of concurrent connection requests.                                                        |
+| query_sql_limit        | `16777216`  | Maximum number of bytes per SQL query request, unit：Bytes                                                |
+| write_sql_limit        | `167772160` | line_protocol request, the maximum number of bytes in the request body, default: 16 |
+| auth_enabled                                | `false`     | Whether to start checking user permissions, default is false.                                            |
+| `read_timeout_ms`                                                | `3000`      | `query` visits the timeout of `tskv` in units：`ms`                                                       |
+| `write_timeout_ms`                                               | `3000`      | Timeout for writing to `tskv` in unit：`ms`.                                                              |
+| `[wal]` write pre-log configuration                              | `1`         | Number of CPUs to prepare streams for computing tasks                                                    |
+| `[log]` runs log configuration                                   | `2`         | Number of CPUs to perform streaming tasks                                                                |
 
-| Parameter  | Description                 |
-|------------|-----------------------------|
-| tls_config | Optional, TLS configuration |
+### [storage]
 
-### \[security.tls_config]
+| Parameters                                                                                   | Default                                                | Description                                                                           |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| path                                                                                         | HintedOff storage directory, default: `/tmp/cnosdb/hh` | Data storage location                                                                 |
+| max_summary_size                                   | `128M`                                                 | Maximum size of a single Summary log.                                                 |
+| base_file_size                                     | `16M`                                                  | Single file data size, default: 16M                                                   |
+| flush_req_channel_cap         | `16`                                                   | Cumulative flush task ceiling.                                                        |
+| Maximum cache size, default: 134217728                                                       | `32`                                                   | Maximum number of file handles opened in each vnode (for queries). |
+| max_level                                                               | `4`                                                    | LSM&apos;s maximum number of layers, value range 0-4, default: 4                 |
+| compact_trigger_file_num      | `4`                                                    | Number of files to trigger compaction.                                                |
+| compact_trigger_cold_duration | `1h`                                                   | Compatibility is triggered.                                                           |
+| max_compact_size                                   | `2G`                                                   | The maximum selected file size for compaction.                                        |
+| max_concurrent_compaction                          | `4`                                                    | Maximum number of compaction tasks to be performed simultaneously.                    |
+| strict_write                                                            | `false`                                                | Whether to enable strict writing.                                                     |
 
-| Parameter   | Description             |
-|-------------|-------------------------|
-| certificate | TLS service certificate |
-| private_key | TLS service private key |
+### [wal]
 
-## \[cluster]
+| Parameters                                                                         | Default               | Description                                                                          |
+| ---------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------ |
+| enabled                                                                            | `true`                | Whether to enable WAL.                                                               |
+| path                                                                               | `/var/lib/cnosdb/wal` | WAL Storage Directory.                                                               |
+| wal_req_channel_cap | `64`                  | Cumulative write WAL task ceiling.                                                   |
+| max_file_size                            | `1G`                  | The maximum size of a single WAL, default: 1G                                        |
+| The number of files required to trigger the compaction, default: 4                 | `2G`                  | Flash when all WAL sizes reach this value.                                           |
+| sync                                                                               | `false`               | Whether to sync for each writing.                                                    |
+| sync_interval                                                 | `0`                   | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing |
 
-| Parameter              | Description                       |
-|------------------------|-----------------------------------|
-| name                   | Cluster Name                      |
-| meta_service_port      | Remote Meta Service port          |
-| http_listen_port       | HTTP service listening port       |
-| grpc_listen_port       | GRPC service listening port       |
-| tcp_listen_port        | TCP service listening port        |
-| flight_rpc_listen_port | Flight RPC service listening port |
+### [cache]
 
-## \[node_basic]
+| Parameters                                                     | Default                                                                | Description                                                               |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| max_buffer_size      | `128M`                                                                 | Maximum active cache size.                                                |
+| max_immutable_number | `4`                                                                    | Maximum number of inactive cache.                                         |
+| `partition`                                                    | Specify the number of CPU cores required for the instance, default: 10 | number of partitions to memcache cache, default value equals CPU quantity |
 
-| Parameter        | Description                                                                     |
-|------------------|---------------------------------------------------------------------------------|
-| node_id          | Node ID                                                                         |
-| cold_data_server | If this field is true, it means that the node is not used when allocating vnode |
-| store_metrics    | If this field is true, it means storing metrics information to db               |
+### [log]
 
-## \[heartbeat]
+| Parameters    | Default                             | Description                                    |
+| ------------- | ----------------------------------- | ---------------------------------------------- |
+| level         | `info`                              | Log level（debug、info、error、warn, default: info |
+| path          | log storage path,default:`data/log` | Remote log path                                |
+| `tokio_trace` | `6 addr = "127.0.0.1:6669" }`       | Tokio tracking, by default.                    |
 
+### [security]
 
-| Parameter                 | Description                                                                                                                  |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| report_time_interval_secs | This field indicates how often the node reports the time stamp, disk remaining amount and other information to the meta node |
+| Parameters                      | Default | Description                 |
+| ------------------------------- | ------- | --------------------------- |
+| tls_config | None    | Optional, TLS configuration |
 
-## \[hintedoff]
+### [security.tls_config]
 
-| Parameter | Description                                                 |
-|-----------|-------------------------------------------------------------|
-| enable    | Is the HIntedOff service enabled, default: true             |
-| path      | HintedOff storage directory, default: `/tmp/cnosdb/hh`      |
-| threads   | Number of concurrent processing of handoff data, default: 3 |
+| Parameters                       | Default | Description             |
+| -------------------------------- | ------- | ----------------------- |
+| certificate                      | None    | TLS service certificate |
+| private_key | None    | TLS service private key |
 
-## \[subscription]
+### [cluster]
 
-| Parameter   | Description                                                        |
-|-------------|--------------------------------------------------------------------|
-| cache       | cache size (bit) before sending and forwarding, default: 1028      |
-| concurrency | number of concurrent requests processed for forwarding, default: 8 |
-| timeout     | timeout period for forwarding requests (seconds), default: 300     |
+| Parameters                                                                            | Default          | Description                                                  |
+| ------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------ |
+| `name`                                                                                | ClusterName      | name                                                         |
+| `[meta_init]`: example initializes related configuration information of Meta node     | `127.0.0.1:8901` | Remote Meta Service port                                     |
+| http_listen_port                            | `8902`           | HTTP service listening port                                  |
+| grpc_listen_port                            | `8903`           | GRPC service listening port                                  |
+| flight_rpc_listen_port | `8904`           | Flight RPC service listening port                            |
+| tcp_listen_port                             | `8905`           | TCP service listening port                                   |
+| meta_service_port                           | `8906`           | Use to listen for [Vector](https://vector.dev/) written data |
 
-## \[trace]
+### [hintedoff]
 
-| Parameter          | Description                                                                                                          |
-|--------------------|----------------------------------------------------------------------------------------------------------------------|
-| auto_generate_span | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
+| Parameters | Default             | Description                                                |
+| ---------- | ------------------- | ---------------------------------------------------------- |
+| `enable`   | `true`              | Is the HIntedOff service enabled, default: true            |
+| path       | `/var/lib/cnosdb/h` | HintedOff storage directory.                               |
+| threads    | `3`                 | Number of conjunctions to process the Hinted handoff data. |
 
-### \[trace.log] (optional)
+<Tabs groupId="editions">
 
-| Parameter | Description         |
-|-----------|---------------------|
-| path      | trace log file path |
+<TabItem value="Community" label="社区版">
 
-### \[trace.jaeger] (optional)
+</TabItem>
 
-| Parameter              | Description                                                                                           |
-|------------------------|-------------------------------------------------------------------------------------------------------|
-| jaeger_agent_endpoint  | the Jaeger agent endpoint.eg: http://localhost:14268/api/traces                                       |
-| max_concurrent_exports | trace parallelism of the reporter, default value is 2                                                 |
-| max_queue_size         | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096 |
+<TabItem value="Enterprise" label="企业版">
 
-# CnosDB Meta Configuration
+### [subscription]
 
-The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows:
+| Parameters  | Default | Description                                                                      |
+| ----------- | ------- | -------------------------------------------------------------------------------- |
+| cache       | `1024`  | cache size (bit) before sending and forwarding, default: 1028 |
+| concurrency | `8`     | Number of parallel requests to process forward requests.                         |
+| timeout     | `300`   | Timeout of forward request, unit：`s`.                                            |
 
-**TOML KEY**
+</TabItem>
 
-- `id` : id of Meta node, the value must be unique in the cluster
-- `host`: host of Meta node
-- `port`: port of Meta node
-- `snapshot_path`: snapshot storage path of Meta node
-- `journal_path`: journal storage path of Meta node
-- `snapshot_per_events`: The Meta node does a snapshot interval
+</Tabs>
 
-**TOML TABLE**
+### [heartbeat]
 
-- `[log]`: run log configuration
-- `[meta_init]`: example initializes related configuration information of Meta node
-- `[heartbeat]`:  check CnosDB node status configurations periodically
+| Parameters                                                                               | Default | Description                                                                                                             |
+| ---------------------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| report_time_interval_secs | `30`    | Time interval between reporting heart, disk balance and other information on this node to the `meta` service, unit：`s`. |
 
-The detailed configuration file description is as follows:
+### [node_basic]
 
-## \[log]
+| Parameters                                                 | Default | Description                                                                          |
+| ---------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| node_id                               | `1001`  | Interval for checking the heartbeat status of a node                                 |
+| cold_data_server | `false` | Whether to stop creating Vnode on this node.                                         |
+| store_metrics                         | `true`  | Whether to track the usage of this node and store it in the `usage_schema` database. |
 
-| Parameter | Description                                    |
-|-----------|------------------------------------------------|
-| level     | Log level（debug、info、error、warn, default: info |
-| path      | log storage path,default:`data/log`            |
+### [trace]
 
+| Parameters                                                   | Default | Description                                                                                                          |
+| ------------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| auto_generate_span | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
-## \[meta_init]
+### [trace.log] (optional)
 
-| Parameter        | Description                           |
-|------------------|---------------------------------------|
-| cluster_name     | ClusterName                           |
-| admin_user       | User name of the system administrator |
-| system_tenant    | Name of the default tenant            |
-| default_database | Default database created              |
+| Parameters | Default                             | Description         |
+| ---------- | ----------------------------------- | ------------------- |
+| path       | log storage path,default:`data/log` | trace log file path |
 
-## \[heartbeat]
+### [trace.jaeger] (optional)
 
-| Parameter                  | Description                                          |
-|----------------------------|------------------------------------------------------|
-| heartbeat_recheck_interval | Interval for checking the heartbeat status of a node |
-| heartbeat_expired_interval | Interval for checking whether a node is abnormal     |
+| Parameters                                                       | Default                                    | Description                                                                                                                                   |
+| ---------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| jaeger_agent_endpoint  | `[trace]` fFull link tracing configuration | the Jaeger agent endpoint.eg: http\://localhost:14268/api/tracese.g.：http\://localhost:14268/api/traces                                       |
+| max_concurrent_exports | 2                                          | The parallelism of the reporter on trace.Default value is 2                                                                                   |
+| max_queue_size         | 4096                                       | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096If the queue is full, it will drop span. |
+
+## `meta` file description
+
+### Configuration
+
+<Tabs groupId="editions">
+
+<TabItem value="Community" label="社区版">
+
+| Parameters                     | Default                | Description                                                     |
+| ------------------------------ | ---------------------- | --------------------------------------------------------------- |
+| Node ID                        | `1`                    | `id` : id of Meta node, the value must be unique in the cluster |
+| Post                           | `127.0.0.1`            | `host` for communication with other nodes                       |
+| Ports                          | `8901`                 | `port` for communicating with other nodes                       |
+| data_path | `/var/lib/cnosdb/meta` | `journal_path`: journal storage path of Meta node               |
+
+</TabItem>
+
+<TabItem value="Enterprise" label="企业版">
+
+| Parameters                                                  | Default                | Description                                                     |
+| ----------------------------------------------------------- | ---------------------- | --------------------------------------------------------------- |
+| Node ID                                                     | `1`                    | `id` : id of Meta node, the value must be unique in the cluster |
+| Post                                                        | `127.0.0.1`            | `host` for communication with other nodes                       |
+| Ports                                                       | `8901`                 | `port` for communicating with other nodes                       |
+| data_path                              | `/var/lib/cnosdb/meta` | `journal_path`: journal storage path of Meta node               |
+| meta_service_port | `0`                    |                                                                 |
+
+</TabItem>
+
+</Tabs>
+
+### [log]
+
+| Parameters | Default                             | Description                                    |
+| ---------- | ----------------------------------- | ---------------------------------------------- |
+| level      | `info`                              | Log level（debug、info、error、warn, default: info |
+| path       | log storage path,default:`data/log` | Remote log path                                |
+
+### [meta_init]
+
+| Parameters                            | Default                      | Description                           |
+| ------------------------------------- | ---------------------------- | ------------------------------------- |
+| cluster_name     | ClusterName                  | Cluster Name                          |
+| admin_user       | `root`                       | User name of the system administrator |
+| system_tenant    | `cnosdb`                     | Name of the default tenant            |
+| default_database | `["public", "usage_schema"]` | Default database created              |
+
+### [heartbeat]
+
+| Parameters                                                           | Default | Description                                                         |
+| -------------------------------------------------------------------- | ------- | ------------------------------------------------------------------- |
+| heartbeat_recheck_interval | 300     | How often to check the state of the CnosDB node in：seconds.         |
+| heartbeat_expired_interval | 300     | How long is the CnosDB node not reporting an anomaly, unit：seconds. |
