@@ -3,21 +3,21 @@ title: Prometheus
 slug: /prometheus
 ---
 
-Prometheus 是一款面向云原生的监控软件，支持众多软件、系统的数据采集与监控。
+Prometheus is a cloud based monitoring software that supports a wide range of software, systems data collection and monitoring.
 
-本文介绍如何通过 Prometheus Remote Read/ Write 接口,配置 CnosDB 作为Prometheus终端。
+This paper describes how to configure CnosDB as the Prometheus Terminal through the Prometheus Remote Read/Write interface.
 
 ### Precondition
 
-启动 CnosDB服务，获取 CnosDB 服务的地址。
+Start the CnosDB service and get the address of the CnosDB service.
 
 ### Remote Write
 
-CnosDB 支持Prometheus的Remote Write协议，只需要在 Prometheus 中启动 Remote Write 功能即可采集数据到日志服务，相关操作如下所示。
+CnosDB supports Prometheus's Remote Writ protocol and can collect data to log service only by starting the Remote Write feature in Prometheus as follows.
 
-**操作步骤**
+**Action Steps**
 
-- **修改配置文件**
+- **Edit profile**
 
 ```yaml
 # remote_write cnosdb
@@ -28,25 +28,24 @@ username: 'root'
 password: ''
 ```
 
-**参数说明**:
+**Parameter description**:
 
 ```
-db_url: CnosDB 的Http Server地址，如 127.0.0.1:8902
-db_name: Remote Write 写入的db名字
-username: CnosDB 中用户的用户名
-password: CnosDB 中用户的用户密码
+db_url: Http Server address of CnosDB, e.g. 127.0.0.0.1:8902
+db_name: Remote Write db name
+username: Username
+password: User password in CnosDB
 ```
 
-Prometheus的remote_write的所有配置项可以从[Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/?spm=a2c4g.11186623.0.0.231f780eoLUxCY#remote_write)
-官网得到。
+All Prometheus's remote_writing configuration items can be obtained from the web site[Prometheus](https\://prometheus.io/docs/prometheus/ latest/configuration/configuration/?spm=a2c4g.11186623.0.0.231f780eLUxCY#remote_write)
 
 ### Remote Read
 
-CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启动 Remote Read 功能即可采集数据到日志服务，相关操作如下所示。
+CnosDB supports Prometheus's Remote Read protocol and collects data to the log service only by starting the Remote Read function in Prometheus as follows.
 
-**操作步骤**
+**Action Steps**
 
-- **修改配置文件**
+- **Edit profile**
 
 ```yaml
 # remote_read cnosdb
@@ -57,15 +56,14 @@ username: 'root'
 password: ''
 ```
 
-**参数说明**:
+**Parameter description**:
 
 ```
-db_url: CnosDB 的Http Server地址，如 127.0.0.1:8902
-db_name: Remote Read 读取的db名字
-username: CnosDB 中用户的用户名
-password: CnosDB 中用户的用户密码
+db_url: Http Server for CnosDB, e.g. 127.0.0.1:8902
+db_name: Remote Read db name
+username: Username
+password: User password for CnosDB users
 ```
 
-Prometheus的remote_write的所有配置项可以从
-[Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read)
-官网得到。
+All of Prometheus's remote_write's configuration items are available from
+[Prometheus](https\://prometheus.io/docs/prometheus/ latest/configuration/configuration/#remote_read)
