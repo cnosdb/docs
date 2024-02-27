@@ -2,19 +2,19 @@
 sidebar_position: 1
 ---
 
-# 集群管理
+# Cluster management
 
 :::tip
-仅企业版支持
+Enterprise only support
 :::
 
-## 查看节点列表
+## View Node List
 
 ```sql
 SHOW DATANODES
 ```
 
-`SHOW DATANODES` 会返回集群中的所有节点的列表，如下所示：
+`SHOW DATANODES` returns the list of all nodes in the cluster, as shown below in：
 
 ```sql
 +---------+-----------+-----------+---------+-----------+------------+---------------------+
@@ -24,21 +24,21 @@ SHOW DATANODES
 +---------+-----------+-----------+---------+-----------+------------+---------------------+
 ```
 
-## 增加节点
+## Add Node
 
-新增一个节点只需要将节点配置[`cluster`](../reference/config#cluster)中的`meta_service_addr`指向目标集群中的 `meta` 端点且 `name` 需要与目标集群的 `name`一致。
+Add a new node only requires `meta_service_addr` in the configuration of the node [`cluster`](../reference/config#cluster) to the `meta` endpoint in the target cluster and `name` to match the target cluster \`\`name\`.
 
 ```sql
-... ...
+...
 [cluster]
 name = cluster_xxx
 meta_service_addr = [127.0.0.1:8901]
-... ...
+...
 ```
 
-## 移除节点
+## Remove Node
 
-如果节点为存储节点（`tskv` 或 `query_tskv`），则其数据会被合理地迁移到其他可以存储数据的节点，下线存储节点操作要求有两个及以上的相同`ATTRIBUTE`的存储节点。
+If the node is a store node (`tskv` or `query_tskv`), its data will be reasonably migrated to other nodes that can store the data. The offline storage node operation requires two or more of the same `ATTRIBUTE`.
 
 ```
 REMOVENODE nodeid [FORCE]
@@ -46,87 +46,88 @@ REMOVENODE nodeid [FORCE]
 
 ### Example
 
-\*\*移除 `NODE_ID` 为 `1001` 的节点 \*\*
+**Remove `NODE_ID` to `1001` node**
 
-> 如果节点 `1001` 中存在数据，则会将其标记为只读（`ReadOnly`）状态，不再写入新数据，直到节点中的数据根据 `TTL` 设置或根据 分级存储 功能数据完全消失，集群会将 `1001` 节点彻底销毁，移除后的节点不能重新加入集群。
+> If a node has data in `1001`, it will be marked as read-only (`ReadOnly`), it will no longer be written to new data until the data in the node completely disappears from the `TTL` setting or from the graded storage functionality. The cluster will destroy the `1001` node completely. The removed node will not be able to rejoin the cluster.
 
 ```sql
 REMOVENODE 1001
 ```
 
-**强制移除节点**
+**Force remove notes**
 
 ```sql
 REMOVENODE 1001 FORCE
 ```
 
-当附加 `FORCE` 参数时，会主动将数据迁移至其他节点，迁移时遵循如下规则：
+Moves data to other nodes when attaching `FORCE` parameters, follow the following rules：
 
-- 不迁移到副本集的其他节点上。
-- 选择可迁移节点中剩余存储空间最大的。
-- 如果没有合适的节点迁移，该数据丢弃。
+- Do not migrate to other nodes in the copy set.
+- Select the maximum storage space remaining in the migable node.
+- This data is discarded if there are no suitable peers to migrate.
 
-数据迁移过程中，节点会被标记为 `Migrating` 状态，停止新数据写入，完成后节点会被彻底销毁，移除后的节点不能重新加入集群。
+During migration the node will be marked as `Migrationn` in the state, stop writing new data, after completion the node will be completely destroyed, the node will not be able to rejoin the cluster.
 
-## 查看 `Vnode` 列表
+## View the `Vnode` list
 
 ```sql
 SHOW VNODE
 ```
 
-显示当前数据库的所有 `Vnode` 的列表
+Show a list of all `Vnode` from the current database
 
 ```shell
-+----------+---------+-----------+--------------------+---------------+-------------+---------------------+---------------------+---------+
-| VNODE_ID | NODE_ID | BUCKET_ID | REPLICATION_SET_ID | DATABASE_NAME | TENANT_NAME | START_TIME          | END_TIME            | STATUS  |
-+----------+---------+-----------+--------------------+---------------+-------------+---------------------+---------------------+---------+
-| 3        | 1001    | 1         | 2                  | usage_schema  | cnosdb      | 1671408000000000000 | 1702944000000000000 | Running |
-+----------+---------+-----------+--------------------+---------------+-------------+---------------------+---------------------+---------+
++---+---+------+---+-------------- +-
+| NODE_ID | BUCKET_ID | PLICATION_ID | DATABASE_NAME | START_TIME | START_NGE | START_TIME | START|STD_TATIM|STATUS |
++---------+---+------------++++-+-+-+++++-
+| 3 | 1 | 2 | usage_schema | cnosb | 16714080000000| 1702944000000000000|Running
+++---++-+-+-+-+-+++-+++++-
+ | 01
 ```
 
-CnosDB 支持使用 SQL 对 `Vnode` 进行 `MOVE`、`COPY` 、 `DROP`、 `COMPACT`、 `CHECKSUM GROUP` 等操作
+CnosDB supports using SQL for `MOVE`, `COPY`, `DROP`, `COMPAT`, `CHECKSUM GROUP` etc.
 
 ### Example
 
-**将 `VNODE_ID` 为 `5` 的 `VNODE` 移动到节点`1001`**
+\*\*Move `VNODE_ID` to the node \`1001\`\`
 
 ```sql
 MOVE VNODE 5 TO NODE 1001
 ```
 
-**将 `VNODE_ID` 为 `5` 的 `VNODE` 复制到节点`1001`**
+\*\*Copy `VNODE_ID` to `5` to the node \`1001\`\`
 
 ```sql
 COPY VNODE 5 TO NODE 1001
 ```
 
-**删除 `VNODE` 为 `5` 的节点**
+**Delete `VNODE` to `5` node**
 
 ```sql
 DROP VNODE 5
 ```
 
-**分别将 `VNODE_ID` 为 `5`、`6`、`7` 的 `VNODE` 强制压缩**
+**Force `VNODE_ID` to `5`, `6`, `7` and `VNODE` respectively**
 
 ```sql
 COMPACT VNODE 5 6 7
 ```
 
-**检查`REPLICATION_SET_ID`为 `5` 的 `Group` 的数据一致性**
+**Check the data consistency of `REPLICATION_SET_ID` for `5` \`\`Group**
 
 ```sql
 CHECKSUM GROUP 5
 ```
 
-## 资源管理
+## Resource management
 
-CnosDB 支持对资源进行管理，会对一些较为复杂、多步执行的资源进行监控，并且当操作失败时进行重试，直到成功。
+CnosDB supports the management of resources, monitors some of the more complex, multiple-executed resources and retries when the operation fails.
 
-当前支持的资源包括：`DropTenant`、`DropDatabase`、`DropTable`、`DropColumn`、`AddColumn`、`AlterColumn`、`RenameTagName`、`UpdateTagValue`
+Currently supported resources include：`DropTenant`, `DropDatabase`, `DropTable`, `DropColumn`, `AddColumn`, `AlterColumn`, `RenameTagName`, `UpdateTagValue`
 
-所对应的命令为：`DROP TENANT`、`DROP DATABASE`、`DROP TABLE`、`DROP COLUMN`、`ADD COLUMN`、`ALTER COLUMN`、`REMOTE COLUMN`
+The corresponding command is：`DROPP TENANT`, `DROP DATABSE`, `DROPP TABLE`, `DROPP COLUMN`, `ADD COLUMN`, `ALTER COLUMN`
 
-系统表 `information_schema.resource_status` 中存储了资源的状态：
+Saved resource status： in `information_schema.resource_status`
 
 ```sql
 SELECT * FROM information_schema.resource_status;
@@ -139,18 +140,18 @@ SELECT * FROM information_schema.resource_status;
 
 :::note
 
-社区版仅支持部分功能：
+Only some features are supported for community version：
 
-| 命令               | 企业版 | 社区版 |
-| ---------------- | --- | --- |
-| `SHOW DATANODES` | ✅   | ❌   |
-| `REMOVENODE`     | ✅   | ❌   |
-| `SHOW VNODE`     | ✅   | ❌   |
-| `MOVE VNODE`     | ✅   | ✅   |
-| `COPY VNODE`     | ✅   | ✅   |
-| `DROP VNODE`     | ✅   | ✅   |
-| `COMPACT VNODE`  | ✅   | ✅   |
-| `CHECKSUM GROUP` | ✅   | ✅   |
-| 资源管理             | ✅   | ✅   |
+| Commands            | Enterprise Edition | Community Edition |
+| ------------------- | ------------------ | ----------------- |
+| `SHOW DATANODES`    | ✅                  | ❌                 |
+| `REMOVENODE`        | ✅                  | ❌                 |
+| `SHOW VNODE`        | ✅                  | ❌                 |
+| `MOVE VNODE`        | ✅                  | ✅                 |
+| `COPY VNODE`        | ✅                  | ✅                 |
+| `DROP VNODE`        | ✅                  | ✅                 |
+| `COMPACT VNODE`     | ✅                  | ✅                 |
+| `CHECKSUM GROUP`    | ✅                  | ✅                 |
+| Resource management | ✅                  | ✅                 |
 
 :::
