@@ -1,40 +1,40 @@
 ---
-title: 节点迁移
+title: Node Migration
 order: 2
 ---
 
-# 节点迁移
+# Node Migration
 
-CnosDB 可以通过使用 SQL `MOVE VNODE` 把数据从一个节点转移到另一个节点。
+CnosDB can move data from one node to another using SQL `MOVE VNODE`.
 
 ### Syntax
 
-**转移 Vnode**
+**Transfer Vnode**
 
 ```
 MOVE VNODE [vnode_id] TO NODE [node_id]
 ```
 
-**复制 Vnode**
+**Copy Vnode**
 
 ```
 COPY VNODE [vnode_id] TO NODE [node_id]
 ```
 
-**删除 Vnode**
+**Delete Vnode**
 
 ```
 DROP VNODE <vnode_id>
 ```
 
-**压缩 Vnode**
+**Compress Vnode**
 
 ```
-COMPACT VNODE <vnode_id>[ <vnode_id>[ ...]]
+COMPACT VNODE <vnode_id>[ <vnode_id>[ ..]]
 ```
 
-**检查 Group 数据一致性** \
-该功能待上线
+**Check Group data consistency** \
+for this feature to be online
 
 ```
 CHECKSUM GROUP <replication_set_id>
@@ -42,26 +42,26 @@ CHECKSUM GROUP <replication_set_id>
 
 ### Example
 
-- #### 转移Vnode
+- #### Move Vnode
 
 ```sql
-MOVE VNODE 6 TO NODE 1001; /*具体vnode id与node id 根据实际环境而定*/
+MOVE VNODE 6 TO NODE 1001; /* specific vnode id and node id depending on the physical environment*/
 ```
 
-- #### 复制Vnode
+- #### Copy Vnode
 
 ```SQL
 COPY VNODE 7 TO NODE 2001;
 ```
 
-- #### 删除Vnode
+- #### Delete Vnode
 
 ```sql
 DROP VNODE 13;
 ```
 
-- #### 压缩Vnode
+- #### Compress Vnode
 
 ```sql
-COMPACT VNODE  7 10 11 12;
+COMPACT VNODE 7 10 11 12;
 ```
