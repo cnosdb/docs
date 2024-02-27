@@ -7,97 +7,97 @@ order: 2
 
 ## Deployment
 
-其他安装方式请查看[安装CnosDB](../deploy)
+For other installations, please see[安装CnosDB](../employ)
 
-## Docker安装
+## Docker Installation
 
-1. 安装 [Docker](https://www.docker.com/products/docker-desktop/) 环境
+1. Install [Docker](https://www.docker.com/products/docker-desktop/) environment
 
-2. 使用 Docker 启动容器
+2. Launch container using Docker
 
 ```shell
-  docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-2.3 cnosdb run -M singleton
+  docker run --name cnosdb -p 8902:8902-d cnosdb/cnosdb:community-2.3 cnosdb run -M singleton
 ```
 
-3. 进入容器
+3. Enter Container
 
 ```shell
   docker exec -it cnosdb sh
 ```
 
-4. 运行`cnosdb-cli`
+4. Run `cnosdb-cli`
 
 ```shell
-  cnosdb-cli --port 8902
+  cnosdb-cli -port 8902
 ```
 
-会显示如下：
+Will show the following：
 
 ```
-CnosDB CLI v2.3.0
-Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, format: Table, quiet: false }
-public ❯
+CnosDB CLI v2.3.
+Input Arguments: Args Led host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: Some(1), data_path: None, file: [], rc: None, form: Table, quiet: false }
+public client
 ```
 
-## 下载示例数据
+## Download Sample Data
 
-如果在 cnosdb-cli 中，请输入`\q`退出
+If in cnosdb-cli, type `\q` to exit
 
-在shell中执行以下命令将在本地生成一个名称为`oceanic_station`的 Line Protocol 格式的数据文件。
+Executing the following command in shell will generate data files in the form of Line Protocol named `oceanic_station` locally.
 
 ```shell
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-## 导入数据
+## Import Data
 
-- **启动CLI**
+- **Launch CLI**
   ```shell
   cnosdb-cli
   ```
-- **创建数据库**
+- **Create Database**
   ```shell
-  create database oceanic_station with ttl '10000d';
+  Create database oceanic_station with ttl '100000d';
   ```
-- **切换到指定数据库**
+- **Switch to specified database**
   ```shell
   \c oceanic_station
   ```
-- **导入数据**
+- **Import Data**
 
-  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+  Execute the \w instruction,\w after the data file is an absolute path or work path relative to cnosdb-cli.
 
   ```shell
   \w oceanic_station.txt
   ```
 
-## 数据查询
+## Data Query
 
-- **查看所有表**
+- **View all tables**
 
   ```shell
   SHOW TABLES;
   ```
 
-  执行成功返回以下结果：
+  Execute successfully returned the following results：
 
   ```
-  +-------+
+  +--+
   | Table |
-  +-------+
-  | sea   |
-  | wind  |
-  | air   |
-  +-------+
-  Query took 0.002 seconds.
+  +---+
+  |
+  | wind |
+  | air |
+  +--+
+  Query took 0. 02 seconds.
   ```
-- **查询数据**
+- **Query data**
 
   ```shell
   SELECT * FROM air limit 10;
   ```
 
-  执行成功返回以下结果：
+  Execute successfully returned the following results：
 
   ```sql
   +---------------------+------------+------------+-------------+----------+
@@ -117,7 +117,7 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
   Query took 0.635 seconds.
   ```
 
-> 有关更多关于数据库的操作请查看：
+> See： for more about database operations
 >
 > [SQL](../reference/sql.md)
 >
