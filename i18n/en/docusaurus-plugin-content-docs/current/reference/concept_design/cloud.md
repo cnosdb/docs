@@ -1,107 +1,107 @@
 ---
-title: 云原生
+title: Cloud Native
 order: 6
 ---
 
-# 云原生
+# Cloud Native
 
-### 云原生基本概念
+### Cloud Native Concepts
 
-云原生时序数据库是一种数据库服务（Database as a Service，DBaaS），通过云平台完成数据库的构建、部署和交付。其主要是一个提供服务的云平台，提供模型，允许组织、最终用户和各自的应用程序从云中存储、管理和检索数据。云数据库提供可扩展的、可靠的数据库解决方案。客户端有针对其云环境的服务级别。它部署在非虚拟化环境中，使底层硬件的全部都可以用于数据库。
+The cloud time series database is a database service (Datdatabase as a Service, DBaaS) that completes the construction, deployment and delivery of the database through the cloud platform.It is primarily a service cloud platform that provides models that allow organizations, end-users and their respective applications to store, manage and retrieve data from the cloud.The cloud database provides extensive, reliable database solutions.Clients have a service level for their cloud environment.It is deployed in a non-virtualized environment so that all bottom hardware can be used in databases.
 
-### 云原生数据库的优势
+### Advantages of cloud native databases
 
-例如 AWS、Microsoft Azure、阿里云、谷歌云和 CnosDB 等云服务厂商提供的云数据库服务，为云原生数据库的发展做出了贡献。因此，近年来云数据库的市场份额一直在快速增长。越来越多的企业和组织将其业务从本地数据中心迁移到云端。云平台提供高弹性、严格的服务级别协议以确保可靠性和易于管理，同时降低运营成本。云数据库在支持基于云的业务方面发挥着关键作用。它成为将底层资源连接到各种应用程序的中心枢纽，使其成为云的关键系统。
+For example, cloud database services provided by cloud service providers such as AWS, Microsoft Azure, Aliyun, Google Cloud, and CnosDB have contributed to the development of the cloud-origin database.As a result, the market share of the cloud database has been growing rapidly in recent years.An increasing number of businesses and organizations have migrated their operations from local data centres to clouds.The cloud platform provides high-element, rigorous service-level agreements to ensure reliability and ease of management, while reducing operating costs.Cloud databases play a key role in supporting cloud-based operations.It serves as a central hub for connecting underlying resources to various applications, making them a key system for clouds.
 
-- 更好的安全性。云原生数据库可能看起来像是一个非常遥远且无形的地方来存储有价值的信息。它比用户想象的更安全。在适当的防病毒和防火墙以及一些规则的帮助下，可以有效保护数据。此外，保持最新的软件技术保证了云计算可以为处理敏感信息的业务提供更高质量的数据保护。
-- 更多可用空间。这是云原生数据库最有用的方面之一，它可以存储大量数据而无需多个 USB 驱动器。
-- 加强协作。通过这项服务中，可以从任何地方访问数据库，云原生数据库创造了完美的协作工具，尤其是分布在各地的同事，使所有团队成员可以轻松协作，而不会出现丢失或重复工作的危险。
-- 成本效益。云原生数据库具有成本效益，因为一次性支付无限存储在云中比必须连续购买或维修多个硬盘驱动器更具成本效益。如果我们购买相对便宜的硬盘，它们很容易丢失或损坏，因此从长远来看，它们的维护成本很高。因此，通过此云原生数据库，用户可以购买与工作流程相关的尽可能多的存储空间。
-- 冗余。云计算提供可在发生故障时使用的副本和系统。通过在同一数据库内的多台计算机上复制数据，可以访问这些副本。这些服务可帮助用户确保他们的信息始终可供他们使用，即使情况发生意外情况也是如此。
-- 高扩展性。云原生分布式数据库与底层的云计算基础设施分离，所以能够灵活及时调动资源进行扩容缩容，以从容应对流量激增带来的压力，以及流量低谷期因资源过剩造成的浪费。生态兼容的特点，也让云原生数据库具备很强的可迁移性。
-- 易用性。云原生分布式数据库易于使用，它的计算节点在云端部署，可以随时随地从多前端访问。因其集群部署在云上，通过自动化的容灾与高可用能力，单点失败对服务的影响非常小。当需要升级或更换服务时，还可以对节点进行不中断服务的轮转升级。
-- 快速迭代。云原生分布式数据库中的各项服务之间相互独立，个别服务的更新不会对其他部分产生影响。此外，云原生的研发测试和运维工具高度自动化，也就可以实现更加敏捷的更新与迭代。
-- 节约成本。建立数据中心是一项独立而完备的工程，需要大量的硬件投资以及管理和维护数据中心的专业运维人员，持续运维也会造成很大的财务压力。云原生分布式数据库以较低的前期成本，获得一个可扩展的数据库，实现更优化的资源分配。
+- Better security.The cloud database may look like a very distant and intangible place to store valuable information.It is safer than users imagine.Data can be effectively protected with the help of appropriate anti-virus and firewalls and some rules.In addition, maintaining up-to-date software technology ensures that cloud computing provides better quality data protection for operations processing sensitive information.
+- More free space.This is one of the most useful aspects of the cloud native database that can store large amounts of data without multiple USB drives.
+- Strengthen collaboration.Through this service, the database can be accessed from anywhere and the native database has created perfect collaboration tools, especially among colleagues located in various locations, allowing all team members to work easily without the risk of loss or duplication of work.
+- Cost-effectiveness.The cloud origin database is cost-effective, as it is more cost-effective to store indefinitely in the clouds than to have to purchase or maintain multiple hard drives on a continuous basis.If we buy relatively cheap hard drives, they can easily be lost or damaged, and therefore their maintenance costs are high in the long run.Thus, through this cloud database users can purchase as many storage space associated with the workflow.
+- Redundation.Cloud calculation provides copies and systems that can be used in case of failure.These copies can be accessed by copying data on multiple computers in the same database.These services can help users to ensure that their information is always available to them, even in unforeseen circumstances.
+- High extension.The separation of the cloud distribution database from the base cloud infrastructure allows the flexible and timely mobilization of resources for scaling-up in order to respond to the pressures of surge flows and the wastage of excessive resources during the lower valleys.Ecological compatibility features also provide a strong portability to the cloud native database.
+- Accessibility.The cloud native distribution database is easy to use, its computing nodes are deployed in the cloud and can be accessed from multiple frontends anytime and anywhere.With its cluster deployed in clouds, the impact of single-point failures on services has been minimal, through automatic resilience and high-availability capabilities.When an upgrade or a replacement service is required, a non-interruptible service rotation upgrade can also be made for node.
+- Quick iteration.The services in the cloud distribution database are independent of each other, and the updating of individual services does not affect the others.In addition, more agile updates and iterations can be achieved by highly automated research and development testing and delivery tools.
+- Cost savings.The establishment of the data centre is an independent and complete project that requires significant investment in hardware and professional transport personnel to manage and maintain the data centre, and the continued movement of Vienna poses considerable financial stress.The cloud native distribution database has a more optimized resource allocation at lower upfront cost to obtain an expanded database.
 
-### 共享存储架构 VS 无共享存储架构
+### Shared Architecture VS has no shared storage architecture
 
-共享存储架构就是一个供多个用户/计算机使用的存储系统。它将所有文件存储在一个集中的存储池中，并允许多个用户同时访问它们。对于上层计算节点，共享存储架构为多个用户提供了统一的数据访问接口，用户不需要关心数据在系统中实际分布情况，也不需要关心数据分布的负载均衡问题。在共享存储架构下，云厂商可以将磁盘资源池化，让多个用户共享一个分布式存储集群，按照实际使用的容量付费。这种商业经营模式更符合当前市场需求。其示意图如下所示：
+The shared storage architecture is a storage system for multiple users/computers.It stores all files in a centralized repository and allows multiple users to access them simultaneously.For upper computing nodes, the shared storage architecture provides a unified data access interface for multiple users, and users need not be concerned about the actual distribution of data in the system or about the load balance of data distribution.Under the shared storage architecture, cloud manufacturers can pool disk resources, allowing multiple users to share a distributed storage cluster to pay for the capacity actually used.This business model is more in line with current market demand.The diagram is shown below in：
 
 ![共享存储架构](/img/share_everything.png)
 
-无共享存储架构是一种相对较旧的模式，最近在数据存储技术中重新兴起，特别是在NoSQL、数据仓库和大数据领域。随着架构的发展，与更常见的简单共享存储架构相比，它有一些非常有趣的性能折衷。
+The unshared storage architecture is a relatively old model that has recently reemerged in data storage technology, especially in the NoSQL, data warehouses and large data areas.As the architecture evolves, it has some very interesting performance compromises compared to the more common simple shared storage architecture.
 
-无共享架构是一种用于分布式计算的架构，其中每个节点都是独立的，不同的节点通过网络互连。每个节点都由处理器、主内存和磁盘组成。这种架构的主要动机是消除节点之间的争用。这里的节点不共享内存或存储。磁盘具有无法共享的单个节点。它在高容量和读写环境中有效工作。其示意图如下所示。
+The unshared architecture is a structure used for distributive calculations, in which each node is independent and different nodes are interconnected.Each node consists of processors, primary memory and disk.The main motive for this structure is to eliminate competition among nodes.Nodes here do not share memory or storage.Disk has a single node that cannot be shared.It works effectively in a high-capacity and literate environment.The diagram is shown below.
 
 ![无共享存储架构](/img/share_nothing.png)
 
-### 多租户模型 VS 单租户模型
+### Multi-Tenant Model VS Single Tenant Model
 
-单租户意味着只有一个云软件解决方案实例在其支持的硬件和基础架构组件上运行。不会与单租户环境中涉及的多个客户共享。在多租户环境中，云基础架构在多个客户或帐户之间共享。没有任何一个客户可以控制资源的分配或消耗方式。
+A single tenant means that there is only one example of cloud software solution that runs on the hardware and infrastructure components that it supports.It will not be shared with multiple clients involved in a single tenant environment.In a multi-tenant environment, the cloud infrastructure is shared among multiple customers or accounts.No customer can control how resources are allocated or consumed.
 
-CnosDB 采用多租户模型。多租户是提供云软件即服务（SaaS，Software as a Service）的一种解决方案。多租户使用共享基础架构为多个客户提供对 SaaS 解决方案的访问。多租户意味着软件的单个实例及其支持的基础设施服务于多个客户。每个客户共享软件应用程序，还共享一个数据库。每个租户的数据都是隔离的，并且对其他租户不可见。
+CnosDB uses multi-tenant models.Many tenants are a solution to the provision of cloud software, namely, services (SaaS, Software as a Service).Many tenants use the shared infrastructure to provide multiple clients with access to SaaS solutions.More renters mean that individual examples of software and the infrastructure they support serve multiple clients.Each customer shares the software application and also shares a database.Data for each tenant are segregated and not visible to other tenants.
 
-#### 多租户的潜在好处
+#### Potential benefits of multiple tenants
 
-- 成本低：多个客户意味着共享环境成本，而这些节省（来自 SaaS 供应商）通常会转移到软件成本中。
-- 集成：云环境允许通过使用 API 更轻松地与其他应用程序集成。
-- 易于维护：服务器在技术上属于 SaaS 供应商，这意味着一定程度的数据库维护由供应商处理，而不是您自己维护环境。
+- More than：customers mean shared environmental costs, and these savings (from SaaS suppliers) are usually transferred to software costs.
+- Integrate：cloud environments that allow easier integration with other applications using the API.
+- Easy maintenance of the：server is technically a SaaS provider, which means that some degree of database maintenance is handled by the vendor rather than by you yourself.
 
-云原生时序数据库的多租户模型通常是一种 SaaS 的多租户。相比以往的单租户模型，其有着诸多优势。
+The multi-tenant model of the cloud time series database is usually a SaaS multi-tenant.There are many advantages over previous single-tenant models.
 
-- 通过规模经济降低成本：与单租户托管解决方案相比，通过多租户，扩展对基础设施的影响要小得多，因为新用户可以访问相同的基本软件。
-- 共享基础架构导致成本降低：SaaS 允许各种规模的公司共享基础架构和数据中心运营成本。无需向其环境添加应用程序和更多硬件。无需配置或管理内部资源之外的任何基础架构或软件，使企业能够专注于日常任务。
-- 持续维护和更新：客户无需支付昂贵的维护费用即可使软件保持最新状态。供应商推出新功能和更新。这些通常包含在 SaaS 订阅中。
-- 可以在保持底层代码库不变的情况下完成配置：单租户托管解决方案通常是定制的，需要更改应用程序的代码。这种定制的成本很高，而且升级很耗时，因为升级可能与您的环境不兼容。
+- Expansion of infrastructure through economies of scale reduction：will have a much smaller impact on infrastructure than single-tenants hosting solutions, as new users will have access to the same basic software.
+- Shared infrastructure results in a cost reduction of：SaaS allowing all sizes of shared infrastructure and data center operating costs.There is no need to add applications and more hardware to its environment.There is no need to configure or manage any infrastructure or software other than internal resources to enable businesses to focus on their daily tasks.
+- Sustained maintenance and updating of：customers will keep the software up to date without paying a high maintenance fee.Vendors introduce new features and updates.These are usually included in SaaS subscriptions.
+- You can complete the configuration of：single Tenant Hosting solution while keeping the base library intact. Changes to the application code are required.This customization is costly and is time-consuming, as it may not be compatible with your environment.
 
-多租户解决方案被设计为高度可配置的，这样企业就可以让应用程序以他们想要的方式运行。无需更改代码或数据结构，使升级过程变得简单。
+The multi-tenant solution is designed to be highly configured, so that enterprises can allow applications to run in the manner they want.There is no need to change the code or data structure to make the upgrade process simple.
 
-多租户架构还允许数据库产品高效地为所有人提供服务，从规模可能无法保证专用基础设施的小型客户，到需要访问几乎无限的云计算资源的大型企业。软件开发和维护成本是分摊的，从而降低了支出，从而为用户带来了成本的节约。
+The Multi-Tenant Structure also allows database products to serve everyone efficiently, ranging from small customers whose size may not guarantee a dedicated infrastructure to large enterprises that require access to almost unlimited cloud computing resources.The costs of software development and maintenance are shared, thereby reducing expenditures, thereby resulting in cost savings for users.
 
 ### Serverless VS Dedicate
 
-#### Serverless 简介
+#### Serverless Introduction
 
-Serverless 架构作为一种新型的云计算范式，是云原生时代一种革命性的架构，颠覆了传统意义上对软件应用部署和运营的认识。 Serverless 是一种云原生开发模型，允许开发人员构建和运行应用程序而无需管理服务器。Serverless 中仍然有服务器，但它们是从应用程序开发中抽象出来的。云提供商处理配置、维护和扩展服务器基础设施的日常工作。开发人员可以简单地将他们的代码打包到容器中进行部署。部署后，Serverless 应用程序会响应需求并根据需要自动扩大和缩小规模。来自公共云提供商的Serverless产品通常通过事件驱动的执行模型按需计量。因此，当 Serverless 服务闲置时，它不会产生任何成本。
+Serverless structures, as a new cloud calculation paradigm, are revolutionary structures of cloud origin that upset the traditional understanding of the deployment and operation of software applications. Serverless is a cloud development model that allows developers to build and run applications without managing servers.Serverless servers still exist, but they are abstracted from application development.The cloud provider handles the day-to-day work of configuring and maintaining and expanding the server infrastructure.Developers can simply pack their code into containers for deployment.When deployed, Serverless applications respond to needs and are automatically scaled up and scaled down as needed.Serveress products from public cloud providers are usually measured on a demand-driven basis through an event-driven implementation model.Therefore, it does not incur any costs when the Serverless service is inactive.
 
-Serverless 模式与其他云计算模型的不同之处在于，云提供商负责管理云基础设施和应用程序的扩展。无服务器应用程序部署在容器中，容器在调用时会按需自动启动。
+The difference between Serverless modes and other cloud computing models is that cloud providers are responsible for managing cloud infrastructure and application extensions.No server application is deployed in the container, the container will start automatically when called on.
 
-在标准的基础设施即服务（Infrastructure as a Service，IaaS)云计算模型下，用户预购容量单位，这意味着用户需要向公共云提供商支付永远在线的服务器组件以运行其的应用程序。用户有责任在需求高时扩大服务器容量，并在不再需要该容量时缩减服务器容量。即使应用程序未被使用，运行应用程序所需的云基础设施也是活跃的。
+Under the standard infrastructure - infrastructure as a Service, IaaS cloud computing model, the user pre-purchase capacity units means that the user will need to pay the public cloud provider for a permanent online server component to run its application.Users are responsible for expanding server capacity when demand is high and reducing server capacity when it is no longer needed.The cloud infrastructure required to run the application is active even if the application is not used.
 
-相比之下，对于 Serverless 架构，应用程序仅在需要时启动。当事件触发应用程序代码运行时，公共云提供商会为该代码动态分配资源。当代码完成执行时，用户停止支付。除了成本和效率优势之外，Serverless 还使开发人员从与应用程序扩展和服务器配置相关的日常和琐碎任务中解放出来。
+By contrast, for Serverless structures, applications only start when needed.The public cloud provider will allocate resources for the dynamic of the code when the party triggers the application code.The user stopped paying when the contemporary code was executed.In addition to cost and efficiency advantages, Serverless also frees developers from routine and frivolous tasks associated with application extension and server configuration.
 
-使用 Serverless，管理操作系统和文件系统、安全补丁、负载平衡、容量管理、扩展、日志记录和监控等日常任务都被移交到云服务提供商，降低了用户所需要的人力成本。
+Using Serverlessness, managing operating systems and filesystems, security patches, load balances, capacity management, extension, log recording and surveillance are handed over to cloud service providers, reducing users' human costs.
 
-#### Serverless 优点
+#### Serverless strengths
 
-- Serverless 可以提高开发人员的工作效率并降低运营成本。摆脱了配置和管理服务器的日常任务，开发人员可以有更多时间专注于他们的应用程序开发工作。
-- Serverless 有助于 DevOps 的采用，因为它降低了开发人员明确描述他们需要操作来为他们配置的基础设施的需要。
-- 通过合并来自第三方后端即服务（Backend as a Service，BaaS）产品的整个组件，可以进一步简化应用程序的开发。
-- Serverless模型的运营成本降低了，因为用户可以根据需要为基于云的计算时间付费，而不是一直运行和管理其的服务器。
+- Serverless increases the efficiency of developers and reduces transaction costs.Moving away from the daily tasks of configuring and managing servers, developers have more time to focus on their application development.
+- Serverless to promote the adoption of DevOps because it reduces the need for developers to clearly describe the infrastructure they need to do to configure them.
+- The development of applications can be further simplified by merging the entire component from the third-party backend service (Backend as a Service, BaaS) product.
+- Operating costs of the Serveress model have been reduced because users can pay for cloud-based computing time as required, rather than running and managing their servers along.
 
-#### Serverless 缺点
+#### Serverless Disadvantages
 
-- 不运行自己的服务器或控制自己的服务器端逻辑可能会产生相应的问题。
-- 云提供商可能对其组件的交互方式有严格的限制，进而影响用户自己的系统的灵活性和定制化程度。在 BaaS 环境中，开发人员可能会依赖于其代码不受其控制的服务。
-- 放弃对 IT 堆栈这些方面的控制也会使用户容易被供应商锁定。决定更换供应商还可能伴随着升级系统以符合新供应商规范的成本。
+- The logic of not running their own server or controlling their own server side may cause corresponding problems.
+- Cloud providers may have severe restrictions on how their components interact, thereby affecting the flexibility and customization of the user's own systems.In BaaS environment, developers may rely on services whose code is not under their control.
+- Discard control over these aspects of the IT Stack will also be easy to lock users from suppliers.A decision to replace a supplier may also be accompanied by the cost of upgrading the system to meet new vendor specifications.
 
-#### Dedicate 简介
+#### Dedicate Overview
 
-Dedicate模式，也就是一个客户端对应一个服务器的服务方式，这是传统数据库厂商所采用的服务方式。Dedicate 模式可以有效解决 Serverless 的缺点，但是其也不具备 Serverless 的优点。
+The Dedicate model, which is the service mode used by a client for a server, is the service mode used by a traditional database provider.Dedicate models can effectively address Serverless disadvantages, but they do not have Serverless advantages.
 
 ### Serverless or Dedicate
 
-Serverless 和 Dedicate 各有千秋，因此在做套餐选择时，可以参考以下内容，完成选择。
+Serverless and Dedicate each have thousands of autumns, so that in doing the package selection, the selection can be completed by reference to the following.
 
 - Serverless
-  - 需要自动弹性扩展时。自动扩大/缩小规模，对需求的变化即时作出反应。对工作负荷剧增或不可预测的企业尤为关键。
-  - 需要最小化操作时。团队可以花更少的时间来担心数据库，而把更多的时间用于构建你的应用程序。
-  - 测试、实验或者评估时。适合轻量级应用、原型、测试和开发环境、辅助项目等，因为它们是自助式的、快速的。
-  - 需要最小化成本时。根据实际存储和计算使用量收费。数据库所分配的资源会随着需求自动增加和减少。
+  - When automatic elasticity extension is required.Automatically scale/scale to respond to changes in demand.This is particularly critical for enterprises with a surge or unpredictable workload.
+  - When minimized action is required.Team can take less time to worry about the database and spend more time building your application.
+  - When tested, experimented or evaluated.For lightweight applications, prototypes, testing and development environments, support projects, etc. as they are self-help and fast.
+  - When minimum cost is required.Charges based on actual storage and calculation of usage.The resources allocated to the database will automatically increase and decrease as needs arise.
 - Dedicate
-  - 需要对硬件进行控制时。Severless是基于云的，不能控制硬件。出于安全或监管的原因需要可以控制硬件的解决方案。
-  - 需要一个深入的功能集时。Serverless的功能目前还相对较少。有些公司需要一个具有多区域功能的数据库。
-  - 安全问题排除在多租户之外时。Severless归根结底租户仍共享同一台机器。高安全性工作负载，Dedicate 有其优势。
-  - 提供更好的性能或成本更低时。Severless是许多用例的最佳选择，但没有"完美"的数据库解决方案能满足所有可能的用例/工作负载。
+  - Hardware control is required.Severless is cloud-based and cannot control hardware.Hardware solutions need to be controlled for safety or regulatory reasons.
+  - When a deep set of features is required.Serveress features are currently relatively few\.Some companies need a multi-regional database.
+  - Security issues are excluded from multiple tenants.Severless ultimately still shares the same machine.High-security work loads, Dedicate has its advantages.
+  - Provide better performance or lower cost.Severless is the best option for many cases, but there is no "perfect" database solution that meets all possible uses/work loads.
 
-根据上述参考内容，用户可以针对自己的需求和使用情况选出合适的套餐类型。CnosDB 可以为用户提供 Serverless 和 Dedicate 两种套餐模式，最大程度满足用户的需要。
+Based on the above references, users can select appropriate package types for their needs and usage.CnosDB can provide both Serverless and Dedicate modes for users to maximize user needs.
