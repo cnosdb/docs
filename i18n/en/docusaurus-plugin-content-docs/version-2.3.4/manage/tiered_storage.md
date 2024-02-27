@@ -1,32 +1,31 @@
 ---
-
-title: Tiered Storage
-order: 5
-
+sidebar_position: 6
 ---
 
+# 分级存储
+
 :::tip
-Only Enterprise Edition supports
+仅企业版支持
 :::
 
-In the actual service scenario, there are multiple data disks on one machine at the same time. Therefore, it is necessary to give full play to the capabilities of these disks to improve the throughput of the system.
-Another scenario is that multiple data disks on the same or multiple machines use different storage media, and customers want to store cold data that is not frequently accessed move to cheap storage media to reduce the cost of enterprise storage.
-In CnosDB, we solve these two scenarios through the following solutions:
+在实际的业务场景中一台机器上会同时有多块数据盘，需要把这些盘的能力都充分发挥出来提高系统的吞吐，
+还有一种场景是同一台或者多台机器上的多块数据盘使用的是不同存储介质，客户希望把不经常访问的冷数据淘汰到廉价的存储介质来降低企业存储的成本。
+在CnosDB中我们通过如下的方案解决这两种场景：
 
-# Tiered Storage
+# 分级存储
 
-The basic unit of data migration in a CnosDB cluster is Vnode. The enterprise edition of CnosDB cluster provides the following commands to support tiered storage:
+在CnosDB集群中数据迁移的基本单元是Vnode。企业版CnosDB集群提供如下的命令支持分级存储：
 
 ```SQL
-SHOW DATANODES;                          // Show all nodes in the cluster
-+---------+------------------------+-----------+---------+-----------+---------------------+
-| NODE_ID | HOST                   | ATTRIBUTE | STATUS  | DISK_FREE | LAST_UPDATED_TIME   |
-+---------+------------------------+-----------+---------+-----------+---------------------+
-| 1001    | query_tskv1.cnosdb.com | HOT       | HEALTHY | 5.18 GB   | 2023-06-05 02:30:22 |
-| 1002    | query_tskv2.cnosdb.com | HOT       | HEALTHY | 93.71 GB  | 2023-06-05 02:30:19 |
-+---------+------------------------+-----------+---------+-----------+---------------------+
+SHOW DATANODES;                          // 查看节点信息
++---------+------------------------+-----------+---------+-----------+----------------------------------+
+| node_id | host                   | attribute | status  | disk_free | location   | last_updated_time   |
++---------+------------------------+-----------+---------+-----------+----------------------------------+
+| 1001    | query_tskv1.cnosdb.com | hot       | healthy | 5.18 GB   | /dc1/rack1 | 2023-06-05 02:30:22 |
+| 1002    | query_tskv2.cnosdb.com | hot       | healthy | 93.71 GB  | /dc1/rack2 | 2023-06-05 02:30:19 |
++---------+------------------------+-----------+---------+-----------+----------------------------------+
 
-ALTER NODE [node_id] ATTRIBUTE [HOT/COLD];  // Modify the attribute of the node
+ALTER NODE [node_id] ATTRIBUTE [HOT/COLD];  // 更改节点的属性
 ```
 
 ```SQL
@@ -45,24 +44,28 @@ db_option: {
 }
 ```
 
-Add `COOLING_DURATION value` to the `CREATE DATABASE` statement to add a cooldown time field. `option` indicates the interval for data cooling, `COOLING_DURATION` defaults to 0, which means infinite length.
+在 `CREATE DATABASE` 的语句中增加 `COOLING_DURATION value` 增加一个冷却时间的字段。 `option` 表示数据冷却的间隔， `COOLING_DURATION` 默认是0， 表示无限长。
 
-`COOLING_DURATION` must be a multiple of `VNODE_DURATION`. The `COOLING_DURATION` field can be modified by `alter database`.
+`COOLING_DURATION` 必须是 `VNODE_DURATION` 的整数倍。 `COOLING_DURATION` 字段可以通过 `alter database` 进行修改。
 
-After data is cooled, the `migrate` thread in meta will migrate data from hot nodes to cold nodes. The `migrate` thread periodically checks whether there is data to be migrated. The timing can be modified using the `auto_migrate_vnodes_duration` configuration item in the meta configuration file. The unit of this configuration item is seconds, and the default value is 0, which means that tiered storage is not enabled. The timing for periodic checks can be set according to practical needs. It is recommended to set the minimum check time to 1800 seconds, which is `auto_migrate_vnodes_duration = 1800`.
+数据冷却后，meta中的 `migrate` 线程会将数据从热节点迁移至冷节点，`migrate` 线程会定时检测是否有数据需要迁移，定时时间可以通过meta配置文件中的 `auto_migrate_vnodes_duration` 配置项来修改，该配置项单位是秒，默认为0，表示不开启分级存储功能；可以根据实际需要设置定时检测的时间，建议最小检测时间为1800秒，即 `auto_migrate_vnodes_duration = 1800`。
 
-**Notice**
+**需要注意**
 
-- After data is cooled, data is migrated from the hot node to the cold node. However, the cooling degree of data is defined by users. Users can modify the cooling period of db to change the cooling degree of data.
+- 数据冷却后数据会从热节点迁移至冷节点，但是数据的冷热度是由用户自己定义的，用户可以通过修改db的冷却时间来修改数据的冷热度。
 
-- Users change the db cool downtime. The change may migrate data from a cold node to a hot node, for example:
-  When starting the cluster through ./run_cluster.sh with default configuration, there are two data nodes in the cluster: 1001 and 2001, and both are hot nodes by default.
+- 用户修改db的冷却时间，有可能会把数据从冷节点迁移至热节点，例如：
+  通过./run_cluster.sh启动集群，在默认配置情况下，集群中有两个data节点：1001和2001，且默认都为热节点。
+
 ```SQL
-ALTER NODE 2001 ATTRIBUTE COLD;  // Change data node 2001 to a cold node
-CREATE DATABASE db1 with VNODE_DURATION '1m' COOLING_DURATION '1m';  // Create a database named "db1" on node 1001 with VNODE_DURATION and COOLING_DURATION both set to 1 minute
+ALTER NODE 2001 ATTRIBUTE COLD;  // 修改data节点2001为冷节点
+CREATE DATABASE db1 with VNODE_DURATION '1m' COOLING_DURATION '1m';  // 在1001节点上创建一个名为db1的数据库，它的VNODE_DURATION和COOLING_DURATION都设置为1分钟
 ```
-Then create a table and write data in the "db1" database, wait for a period of time until the data is cooled and migrated from hot node 1001 to cold node 2001. At this point, execute the SQL statement:
+
+然后在db1数据库中建表，并写入数据，等待一段时间后，数据冷却，由热节点1001迁移至冷节点2001，此时执行SQL：
+
 ```SQL
-ALTER DATABASE db1 SET COOLING_DURATION '1d'; // Change the cooldown time of database "db1" from 1 minute to 1 day
+ALTER DATABASE db1 SET COOLING_DURATION '1d'; // 将数据库db1的冷却时间由上面的1分钟，改为1天
 ```
-At this point, due to the increase in cooldown time, the previously cooled data becomes hot again, causing the data to be migrated from cold node 2001 back to hot node 1001.
+
+此时由于冷却时间变大，上面已经冷却的数据又变回了热数据，因此数据由冷节点2001迁回到热节点1001。
