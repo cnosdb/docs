@@ -4,124 +4,124 @@ slug: /langchain
 
 # LangChain
 
-本篇我们将主要介绍如何使用 LangChain 连接 CnosDB 数据库，实现使用自然语言和数据库的交流。
+We will focus on how to use LangChain to connect to the CnosDB database for communication in natural languages and databases.
 
-### 简介
+### Introduction
 
-LangChain 是一个用于开发由语言模型驱动的应用程序的框架。它可以实现以下功能：
+LangChain is a framework for developing applications driven by language models.It can perform the following features：
 
-- 数据感知：将语言模型与其他数据源连接起来。
-- 主体性：允许语言模型与其环境进行交互。
+- Data result：links language models to other data sources.
+- Subject：allows language models to interact with their environment.
 
-LangChain 的主要价值在于：
+The main value of LangChain is：
 
-1. 组件化：为使用语言模型提供抽象化的工具，同时还提供了每个抽象化工具的一系列实现。这些组件是模块化且易于使用的，无论你是否使用LangChain框架的其他部分。
-2. 现成的链式结构：用于完成特定高级任务的一系列组件的结构化组合。
-   现成的链式结构使得入门变得容易。对于更复杂的应用程序和细致的使用情况，组件使得自定义现有链式结构或构建新的链式结构变得容易。
+1. Component：provides abstract tools for using language models and also provides a series of implementations for each abstract tool.These components are modular and easy to use, regardless of whether you use other parts of the LangChain framework.
+2. The ready-made chain structure：is structured in a series of components that perform specific advanced tasks.
+   The ready-made chain structure makes entry easier.For more complex applications and meticulous uses, components make it easier to customize existing or build new chain structures.
 
-### 实现架构
+### Implementing Architecture
 
 ![实现架构图](/img/Langchain.png)
 
-通过架构图可以看出：通过利用 LangChain 的组件与现成的链，使得用户不需要提前去学习如何使用 SQL 脚本与数据库交互，节省了大量的时间与精力。利用 LangChain 、SQLDatabase、SQL Agent 以及 OpenAI 大型语言模型的强大功能，我们已经可以做到创建应用程序，实现让用户使用自然语言与 CnosDB 交流。
+By using LangChain components with ready-made chains,：is allowed through the schema to move ahead to learn how to interact with the database using SQL scripts, saving a lot of time and energy.Using the powerful features of LangChain, SQL Database, SQL Agent and OpenAI Large Language Model, we can already create an application that allows users to communicate with CnosDB in natural languages.
 
-### 安装部署 LangChain
+### Install LangChain
 
-执行下面命令：
+Execute the command： below
 
 ```shell
 pip install langchain
 ```
 
-### 安装 CnosDB 依赖
+### Install CnosDB Dependencies
 
 ```shell
 pip install cnos-connector
-# cnosdb_connector版本需要大于0.1.8
+# cnosdb_connector version needs more than 0.1.8
 ```
 
-### 连接CnosDB
+### Connect to CnosDB
 
-1. 使用 cnosdb_connector 以及 SQLDatabase 连接 CnosDB，需要创建 SQLDatabase 所需的 uri：
+1. Connect to CnosDB using cnosdb_connector and SQL Database, requires uri： to create SQL database
 
 ```python
-# 使用 make_cnosdb_langchain_uri 来创建uri
+# Use make_cnosdb_langchain_uri to create uri
 uri = cnosdb_connector.make_cnosdb_langchain_uri()
-# 通过 SQLDatabase.from_uri 来创建 DB
-db = SQLDatabase.from_uri(uri)
+# Create DB
+db = SQLDatabase.from_uri(ur)
 ```
 
-2. 或者使用 SQLDatabase 的 from_cnosdb 方法:
+2. Or the from_cnosdb method using SQL Database:
 
 ```python
-def SQLDatabase.from_cnosdb(url: str = "127.0.0.1:8902",
+def SQL Database.from_cnosdb(url: str = "127.0.0.1:8902",
                               user: str = "root",
                               password: str = "",
                               tenant: str = "cnosdb",
                               database: str = "public")
 ```
 
-| 参数名               | Description                                                                |
-| :---------------- | :------------------------------------------------------------------------- |
-| url               | CnosDB服务的HTTP连接主机名和端口号，不包括 "http\://" 或 "https\://"，默认值为 "127.0.0.1:8902"。 |
-| user              | 用于连接到CnosDB服务的用户名，默认值为 "root"。                                             |
-| password          | 连接到CnosDB服务的用户密码，默认值为空字符串 ""。                                              |
-| tenant            | 用于连接到CnosDB服务的租户名称，默认值为 "cnosdb"。                                          |
-| Database database | CnosDB租户中数据库的名称。                                                           |
+| 参数名               | Description                                                                                                                         |
+| :---------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| Url               | HTTP connection hostname and port number for CnosDB service, excluding "http\:/" or "https\://", default value is "127.0.0.1:8902". |
+| user              | Username used to connect to the CnosDB service, default is "root".                                                                  |
+| password          | The user password to connect to the CnosDB service, default value is empty string "".                                               |
+| tenant            | Name of the tenant used to connect to the CnosDB service, default is "cnosdb".                                                      |
+| Database database | Name of the database among the tenants of CnosDB.                                                                                   |
 
-### 使用示例
+### Use Example
 
 ```python
-# 使用 SQLDatabase 连接 CnosDB
+# Connect CnosDB
 from cnosdb_connector import make_cnosdb_langchain_uri
 from langchain import SQLDatabase
 
 uri = cnosdb_connector.make_cnosdb_langchain_uri()
-db = SQLDatabase.from_uri(uri)
+db = SQLDatabase. rom_uri(ur)
 
-# 创建 OpenAI Chat LLM
+# Create OpenAI Chat LLM
 from langchain.chat_models import ChatOpenAI
 
-llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+lm = ChatOpenAI (temperature=0, model_name="gpt-3.5-turbo")
 ```
 
-### SQL Database Chain 示例
+### Example SQL Database Chain
 
-下面例子演示了如何利用 SQL Chain 通过数据库来回答一个问题：
+The following example shows how to use SQL Chain to answer a question： through a database
 
 ```python
-from langchain import SQLDatabaseChain
+From langchain import SQLDatabaseChain
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True)
 
-db_chain.run(
-    "What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and October 20, 2022?"
-)
+db_chain. un(
+    "What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and October 20, 2022?
+
 ```
 
 ```python
-> Entering new  chain...
-What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and Occtober 20, 2022?
-SQLQuery:SELECT AVG(temperature) FROM air WHERE station = 'XiaoMaiDao' AND time >= '2022-10-19' AND time < '2022-10-20'
-SQLResult: [(68.0,)]
-Answer:The average temperature of air at station XiaoMaiDao between October 19, 2022 and October 20, 2022 is 68.0.
+> Entering new chain...
+What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and Occasional 20, 2022?
+SQLQuery: SELECT AVG (temperature) FROM air WHERE station = 'XiaoMaiDao' and time >= '2022-10' and time < '2022-10-20'
+SQLResult: [(68. ()]
+Answer: The average temperature of air at station XiaoMaiDao between October 19, 2022 and October 20, 2022 is 68.0.
 > Finished chain.
 ```
 
-### SQL Database Agent 示例
+### SQL Database Agent Example
 
 ```python
-from langchain.agents import create_sql_agent
+From langchain.agents import create_sql_agent
 from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 
 toolkit = SQLDatabaseToolkit(db=db, llm=llm)
-agent = create_sql_agent(llm=llm, toolkit=toolkit, verbose=True)
+agent = create_sql_agent(llm=lm, toolkit=toolkit, verbese=True)
 ```
 
 ```python
 agent.run(
-    "What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and Occtober 20, 2022?"
-)
+    "What is the average temperature of air at station XiaoMaiDao between October 19, 2022 and Occasion 20, 2022?"
+
 ```
 
 ```python
