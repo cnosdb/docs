@@ -1,22 +1,22 @@
 ---
-title: Downsampling
-order: 4
+sidebar_position: 4
 ---
-## Downsampling
 
-The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems. A more natural solution is to reduce the data sample.
- 
-Downsampling refers to the frequency reduction of timeseries data in the time-series databases, and coarse-grained data is obtained after the frequency reduction of originally fine-grained data, so as to save storage costs. The data after downsampling only retains some statistical features of the original data. This chapter describes how to automate data sampling with CnosDB.
+# Sampling
 
-### Definition
+Data writing cycles typically focus on the actual tabular writing frequency, which is usually associated with data collection equipment, which may sometimes require processing of a large number of data points per second and the long processing of so many data may result in survival storage.A more natural solution would be to lower data samples.
 
-Stream Query:is a special query in CnosDB for processing stream data calculation, the stream query requires that the SELECT function must contain the GROUP BY time() phrase.
+In the time series database, the down-sampling refers to the frequency with which time series data are downgraded and the data from the original gradient are obtained with more crude particles, thus saving storage costs and the data from the down-sampling will retain only some of the statistical characteristics of the original data.This chapter describes how to use CnosDB for automated data sampling.
 
->Note: This article does not describe the syntax of how to create a stream query in detail, for more details, please click [Stream](../reference/sql.md#stream) query to jump to the corresponding interface. 
+### Definitions
 
-### Data Samples
+Stream Query：is a special query in CnosDB to process streaming data calculations, which requires \`\`\`\`SELECT`to include`GROUP time()\`\`.
 
-Let's take the air table in the oceanic station library as an example:
+> Note：This article does not describe how to create syntax for streaming queries. For more details, click[流查询](../reference/sql#stream queries) to jump to the corresponding interface.
+
+### Data Sample
+
+We take the example of the airsheet in the oceanic_station library as：
 
 ```sql
 select * from air limit 5;
@@ -32,21 +32,21 @@ select * from air limit 5;
 Query took 0.028 seconds.
 ```
 
-### Goal
+### Objective
 
-Assume that the data write frequency of the air table is 1min, but we only want to know the changes of various indicators every 1h, such as the maximum pressure, the average temperature, the sum of temperatures, and the number of data rows in the specified time window. The corresponding sql is created as follows:
+Assuming that the airtable data is written at 1 min, we would like to know only the changes for each indicator in every 1h, such as maximum stress, mean temperature, sum of temperature, number of data lines within the specified time window\.then create the corresponding sql after：
 
 ```sql
 INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
 SELECT 
-	date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00') time, 
+	date_bin (INTERVAL 1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00) time, 
 	station, 
 	MAX(pressure) max_pressure, 
 	AVG(temperature) avg_temperature, 
 	SUM(temperature) sum_temperature, 
 	COUNT(pressure) count_pressure 
 FROM air_stream 
-GROUP BY date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00'), station;
+GROUP BY date_bin (INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00'), station;
 ```
 
 ### Results
