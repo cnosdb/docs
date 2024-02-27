@@ -1,18 +1,18 @@
 ---
-title: Flink 连接器
+title: Fluink connector
 order: 3
 ---
 
-# Flink 连接器
+# Fluink connector
 
-该连接器提供了 sink ，可以把数据发送到CnosDB。
+This connector provides sink to send data to CnosDB.
 
-## 依赖需求
+## Dependency Requirements
 
-需要 CnosDB 2.1.0 以上版本。
-需要 Java 1.8 以上版本。
+More than version of CnosDB 2.1.0 is required.
+Java Version 1.8 or more.
 
-首先添加依赖到您的项目中：
+First add dependencies to your project in：
 
 ```xml
 <dependency>
@@ -22,9 +22,9 @@ order: 3
 </dependency>
 ```
 
-## 代码说明
+## Code Description
 
-创建 CnosDB 配置
+Create CnosDB Configuration
 
 ```java
 CnosDBConfig cnosDBConfig = CnosDBConfig.builder()
@@ -35,18 +35,18 @@ CnosDBConfig cnosDBConfig = CnosDBConfig.builder()
                 .build();
 ```
 
-创建 CnosDBSink 并添加到 Stream 的 Sink 中。
+Create CnosDBSink and add it to Stream Sink.
 
 ```java
-dataStream.addSink(new CnosDBSink(cnosDBConfig);
+dataStream.addSink (new CnosDBSink (cnosDBConfig);
 ```
 
-CnosDBSink 接受的是 CnosDBPoint 类，该类其实就是 [LineProtocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/) 格式的代码实现。
+CnosDBSin accepts the CnosDBPoint class, which is in fact the code in [LineProtocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/lin_protocol_tutorial/).
 
 ```java
-new CnosDBPoint(measurement, timestamp, tags, fields);
+New CnosDBPoint (measures, timestamp, tags, fields);
 ```
 
-## 示例代码
+## Example Code
 
-示例代码在[此处](https://github.com/cnosdb/flink-connector-cnosdb/blob/main/src/examples/src/main/java/org/apache/flink/streaming/examples/cnosdb/CnosDBSinkExample.java)
+Example code at[此处](https://github.com/cnosdb/flink-connector-cnosdb/blob/main/src/examples/src/main/java/org/apache/flink/streaming/examples/cnosdb/CnosDBSinkExample.java)
