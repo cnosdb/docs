@@ -1,52 +1,52 @@
 ---
-title: 导入导出
+title: Import Export
 order: 7
 ---
 
-## 概述
+## General description
 
-CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
+CnosDB can export data to local or object storage using SQL `COPY INTO`, or import data from object storage and local file systems.
 
-支持的文件格式有`CSV`、`JSON`、`PARQUET`，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Azure Blob Storage` 。
+Supported files are in `CSV', `JSON`, `PARQUET`. Currently supported objects are `AWS S3`, `Google Cloud Storage`, `Azure Blob Storage\`.
 
-## 导出数据
+## Export data
 
-### 导出到本地文件
+### Export to local file
 
 #### Syntax
 
 ```sql
 COPY INTO <path>
-FROM [<database>.]<table_name>
+FROM [<database><table_name>
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
-)
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[, , ELIMITER = '<character>'] [, WTH_HEADER = true | false]
+
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                               | 描述                                                                           |
-| -------------------------------- | ---------------------------------------------------------------------------- |
-| TYPE                             | 设置文件格式，分别为：`CSV`、`JSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`            |
-| DELIMITER                        | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                           |
-| WITH_HEADER | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| Name                             | Description                                                                                                    |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| TYPE                             | Set file format to：`CSV`, `JSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                              |
+| DELIMITER                        | Only CSV, set file format, example：`DELIMITER = ',`                                                            |
+| CHAT_HEADER | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 
 #### Example
 
-##### 导出`PARQUET`文件到本地目录
+##### Export `PARQUET` file to local directory
 
 ```sql
-COPY INTO 'file:///tmp/air/'
+COPY INTO 'file:// tmp/air/'
 FROM "air"
 FILE_FORMAT = (
      TYPE = 'PARQUET'
 );
 ```
 
-##### 导出`CSV`文件到本地目录，并且设置分隔符为`,`，且不设置表头
+##### Export the `CSV` file to the local directory and set the separator to `,` without setting the header
 
 ```sql
-COPY INTO 'file:///tmp/air'
+COPY INTO 'file:/tmp/air'
 FROM "air"
 FILE_FORMAT = (
     TYPE = 'CSV',
@@ -55,7 +55,7 @@ FILE_FORMAT = (
 );
 ```
 
-### 导出到 AWS S3
+### Export to AWS S3
 
 #### Syntax
 
@@ -65,38 +65,38 @@ FROM [database.]<table_name>
 CONNECTION = (
     region = '<string>'
     , access_key_id = '<string>'
-    , secret_key = '<string>'
+    , secretariat_key = '<string>'
     [, token = '<string>' ]
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
-)
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [, ELIMITER = '<character>'] [,WTH_HEADER = true | false]
+
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                                                      | 描述                                                                             |
-| ------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| TYPE                                                    | 设置文件格式，分别为：`CSV`、`JSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`              |
-| DELIMITER                                               | 仅支持`CSV`，设置文件格式，示例：`DELIMITER = ','`                                           |
-| WITH_HEADER                        | 仅支持`CSV`，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| region                                                  | AWS 地区代码                                                                       |
-| access_key_id | 访问密钥 ID                                                                        |
-| secret_key                         | 密钥                                                                             |
-| token                                                   | （可选）临时授权令牌                                                                     |
+| Name                                                    | Description                                                                                                       |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                    | Set file format to：`CSV`, `JSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                                 |
+| DELIMITER                                               | Only `CSV`, set file format, example：`DELIMITER = ',`                                                             |
+| CHAT_HEADER                        | Only `CSV`, with table headers, defaults to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| Region                                                  | AWS Country Code                                                                                                  |
+| access_key_id | Access Key ID                                                                                                     |
+| secretariat_key                    | Key                                                                                                               |
+| token                                                   | (optional) temporary authorization token                                                       |
 
 #### Example
 
-##### 将数据导出成`CSV`存储到 AWS S3，指定分隔符为`,`，并设置表头
+##### Export data to `CSV` storage to AWS S3, specify separator `,` and set the header
 
 ```sql
 COPY INTO 's3://tmp/air' 
 FROM "air"
 CONNECTION = (
-    region = 'us‑east‑1',
-    access_key_id = '****************',
-    secret_key = '****************'
+    region = 'useast1',
+    access_key_id = '*************",
+    secretariat_key = '*************
 )
 FILE_FORMAT = (
   TYPE = 'CSV',
@@ -105,28 +105,28 @@ FILE_FORMAT = (
 );
 ```
 
-##### 将数据导出成`PARQUET`存储到 AWS S3
+##### Export data to `PARQUET` stored in AWS S3
 
 ```sql
 COPY INTO 's3://tmp/air'
 FROM "air"
 CONNECTION = (
-    region = 'us‑east‑1',
-    access_key_id = '****************',
-    secret_key = '****************'
+    region = 'useast1',
+    access_key_id = '*************",
+    secretariat_key = '***************
 )
 FILE_FORMAT = (
   	TYPE = 'PARQUET'
 );
 ```
 
-### 导出到 Google Cloud Storage
+### Export to Google Cloud Store
 
 #### Syntax
 
 ```sql
-COPY INTO 'gcs://<bucket>[/<path>]'
-FROM [<database>.]<table_name>
+COPY INTO 'gcs:/<bucket>[/<path>]'
+FROM [<database>.<table_name>
 CONNECTION = (
     gcs_base_url = '<string>' 
   	[, disable_oauth = true | false] 
@@ -134,41 +134,41 @@ CONNECTION = (
   	[, private_key = '<string>']
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
-)
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[, ELIMITER = '<character>'] [, WTH_HEADER = true | false]
+
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                                                     | 描述                                                                           |
-| ------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| TYPE                                                   | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`          |
-| DELIMITER                                              | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                           |
-| WITH_HEADER                       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| gcs_base_url | Google Cloud Storage 的基础 URL                                                 |
-| disable_oauth                     | （可选）是否禁用 OAuth，默认为 `false`                                                   |
-| client_email                      | （可选）服务账号的电子邮件地址，仅在不禁用 OAuth 时需要                                              |
-| private_key                       | （可选）服务账号的私钥，仅在不禁用 OAuth 时需要                                                  |
+| Name                                                   | Description                                                                                                    |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                   | Set file format to：`CSV`, `NOJSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                            |
+| DELIMITER                                              | Only CSV, set file format, example：`DELIMITER = ',`                                                            |
+| CHAT_HEADER                       | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| gcs_base_url | Base URL of Google Cloud Store                                                                                 |
+| disable_oauth                     | Optionally disable OAuth, default `false`                                                                      |
+| client_email                      | (optional) service account email address, only required if OAuth is not disabled            |
+| private key                                            | (optional) service account private key required only if OAuth is not disabled               |
 
 #### Example
 
-##### 将数据导出成 `NDJSON` 存储到 Google Cloud Storage
+##### Export data to `NDJSON` stored in Google Cloud Storage
 
 ```shell
 COPY INTO 'gcs://tmp/air'
 FROM "air"
 CONNECTION = (
-    gcs_base_url = 'https://storage.googleapis.com',
+    gcs_base_url = 'https://storage. oogleapis.com',
     disable_oauth = false,
-    client_email = 'service_account@example.com',
-    private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
-)
+    client_email = 'service_account@example. om',
+    private_key = '--BEGIN PRIVATE KEY --\n...\n---END PRIVATE KEY ---
+
 FILE_FORMAT = (
     TYPE = 'NDJSON'
 );
 ```
 
-##### 将数据导出成 `CSV` 存储到 Google Cloud Storage
+##### Export data to `CSV` stored in Google Cloud Store
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -186,47 +186,47 @@ FILE_FORMAT = (
 );
 ```
 
-### 导出到 Azure Blob Storage
+### Export to Azure Blob Store
 
 #### Syntax
 
 ```sql
-COPY INTO 'azblob://<container>[/<path>]'
-FROM [<database>.]<table_name>
+COPY INTO 'azblob:/<container>[/<path>]'
+FROM [<database>.<table_name>
 CONNECTION = (
     account = '<string>' 
   	[, access_key = '<string>'] 
   	[, bearer_token = '<string>']
-)
+
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
-)
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[, ELIMITER = '<character>'] [, WITH_HEADER = true | false]
+
 ```
 
-#### 参数说明
+#### Parameter Description
 
-> 这些参数提供了与Azure存储账户的连接和身份验证所需的信息。根据具体情况，你可能会使用access_key进行身份验证，或者使用bearer_token来进行身份验证。
+> These parameters provide the information required for connection to and authentication of the Azure storage account.Depending on the circumstances, you may use access_key for authentication or bearer_token.
 
-| 名称                                | 描述                                                                                       |
-| --------------------------------- | ---------------------------------------------------------------------------------------- |
-| TYPE                              | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`                      |
-| DELIMITER                         | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                                       |
-| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`             |
-| account                           | Azure存储账户的名称，指定要连接的存储账户。                                                                 |
-| access_key   | 存储账户的访问密钥，用于进行身份验证和授权。                                                                   |
-| bearer_token | 身份验证所需的令牌，可以替代access_key进行身份验证。                                     |
-| use_emulator | 默认为`false`，当为 `true` 时，`url`使用环境变量 `AZURITE_BLOB_STORAGE_URL` 或 `http://127.0.0.1:10000` |
+| Name                              | Description                                                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| TYPE                              | Set file format to：`CSV`, `NOJSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                                            |
+| DELIMITER                         | Only CSV, set file format, example：`DELIMITER = ',`                                                                            |
+| CHAT_HEADER  | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`                 |
+| Account                           | The name of the Azure store account. Specify the store account to connect.                                                     |
+| access_key   | Store account access keys for authentication and authorization.                                                                |
+| bearer_token | The tokens required for authentication can be used instead of access_key for authentication.              |
+| use_emulator | Default is `false`, when `true` is `url` using the environment variable `AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000` |
 
 #### Example
 
-##### 将数据导出成 `CSV` 存储到 Azure Blob Storage，指定分隔符为`,`，并设置表头
+##### Export data to `CSV` stored in Azure Blob Storage, specify the separator to `,` and set the header
 
 ```sql
-COPY INTO 'azblob://tmp/air'
+COPY INTO 'azblob:/tmp/air'
 FROM "air"
 CONNECTION = (
-    account = '***********',
-    access_key = '****************'
+    account = '***********",
+    access_key = '*************
 )
 FILE_FORMAT = (
     TYPE = 'CSV',
@@ -235,133 +235,133 @@ FILE_FORMAT = (
 );
 ```
 
-##### 将数据导出成 `PARQUET` 存储到 Microsoft Azure Blob Storage
+##### Export data to `PARQUET` stored in Microsoft Azure Blob Store
 
 ```sql
-COPY INTO 'azblob://tmp/air'
+COPY INTO 'azblob:/tmp/air'
 FROM "air"
 CONNECTION = (
-    account = '***********',
-    access_key = '****************'
+    account = '***********",
+    access_key = '***************
 )
 FILE_FORMAT = (
     TYPE = 'PARQUET'
 );
 ```
 
-## 导入数据
+## Import Data
 
-> 导入之前，请确定目标表已经存在，并且列名和列的类型对应。
+> Before importing, please make sure that the target table already exists and that the list and the type of the list correspond to it.
 
-### 从本地导入数据
+### Import data from local
 
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col> <field_col> [,field_col] ...,TAGS (<tag_col> [, tag_col]... )]
 FROM '<path>'
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [, DELIMITER = '<character>'] ITH_HEADER = true | false]
 )
-COPY_OPTIONS (
+COPY_OPTITONS (
     auto_infer_schema = true | false
 )
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                                                          | 说明                                                                           |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| TYPE                                                        | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`          |
-| DELIMITER                                                   | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                           |
-| WITH_HEADER                            | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| auto_infer_schema | 是否自动推断文件的 `schema`，如果为`false`则使用目标表的`schema`                                 |
+| Name                                                        | Note                                                                                                                   |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                        | Set file format to：`CSV`, `NOJSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                                   | Only CSV, set file format, example：`DELIMITER = ',`                                                                    |
+| CHAT_HEADER                            | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`         |
+| auto_infer_schema | Whether the `schema` of the file is automatically extrapolated and the `schema` of the target table if `false` is used |
 
 #### Example
 
-##### 从本地目录导入`PARQUET`文件
+##### Import `PARQUET` file from local directory
 
 ```sql
 COPY INTO "air"
-FROM 'file:///tmp/air/'
+FROM 'file:/tmp/air/'
 FILE_FORMAT = (
     TYPE = 'PARQUET'
 );
 ```
 
-##### 从本地目录导入`CSV`文件
+##### Import `CSV` file from local directory
 
-> `DELIMITER=','` 表示文件以`,`分隔。
+> `DELIMITER=',` means a file separated by `,`.
 >
-> `WITH_HEADER = true` 表示文件有表头。
+> `ITH_HEADER = true` indicates that the file has a header.
 >
-> `auto_infer_schema = true` 表示会自动推断表头
+> `auto_infer_schema = true` indicates that the header will be inferred automatically
 
 ```sql
 COPY INTO "air"
-FROM "file:///tmp/air/"
+FROM "file:/tmp/air/"
 FILE_FORMAT = (
     TYPE = 'CSV',
-  	DELIMITER=',',
+  	DELIMITER=', ,
   	WITH_HEADER = true
 )
 COPY_OPTIONS = (
-  	auto_infer_schema = false
+  	auto_informer_schema = false
 );
 ```
 
-### 从 AWS S3 导入数据
+### Import data from AWS S3
 
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
-FROM 's3://<bucket>[/<path>]'
+COPY INTO [database.]<table_name>[(<time_col> <field_col> [,field_col] ...,TAGS (<tag_col> [, tag_col]... )]
+FROM 's3:/<bucket>[/<path>]'
 CONNECTION = (
     region = '<string>'
     , access_key_id = '<string>'
-    , secret_key = '<string>'
+    , secretariat_key = '<string>'
     [, token = '<string>' ]
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [, ELIMITER = '<character>'] [, ITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
   auto_infer_schema = true | false
 )
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                                                          | 描述                                                                           |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| TYPE                                                        | 设置文件格式，分别为：`CSV`、`JSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`            |
-| DELIMITER                                                   | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                           |
-| WITH_HEADER                            | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| auto_infer_schema | 是否自动推断文件的 `schema`，如果为`false`则使用目标表的`schema`                                 |
-| region                                                      | AWS 地区代码                                                                     |
-| access_key_id     | 访问密钥 ID                                                                      |
-| secret_key                             | 密钥                                                                           |
-| token                                                       | （可选）临时授权令牌                                                                   |
+| Name                                                        | Description                                                                                                            |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                        | Set file format to：`CSV`, `JSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                                      |
+| DELIMITER                                                   | Only CSV, set file format, example：`DELIMITER = ',`                                                                    |
+| CHAT_HEADER                            | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`         |
+| auto_infer_schema | Whether the `schema` of the file is automatically extrapolated and the `schema` of the target table if `false` is used |
+| Region                                                      | AWS Country Code                                                                                                       |
+| access_key_id     | Access Key ID                                                                                                          |
+| secretariat_key                        | Key                                                                                                                    |
+| token                                                       | (optional) temporary authorization token                                                            |
 
 #### Example
 
-##### 将 `AWS S3` 上的`CSV`数据导入
+##### Import `CSV` data from `AWS S3`
 
-> `DELIMITER=','` 表示文件以`,`分隔。
+> `DELIMITER=',` means a file separated by `,`.
 >
-> `WITH_HEADER = true` 表示文件有表头。
+> `ITH_HEADER = true` indicates that the file has a header.
 >
-> `auto_infer_schema = true` 表示会自动推断表头
+> `auto_infer_schema = true` indicates that the header will be inferred automatically
 
 ```sql
 COPY INTO "air" 
-FROM 's3://temp/air'
+FROM 's3:/temp/air'
 CONNECTION = (
-    region = 'us‑east‑1',
-    access_key_id = '****************',
-    secret_key = '****************'
+    region = 'useast1',
+    access_key_id = '*************",
+    secretariat_key = '*************
 )
 FILE_FORMAT = (
 		TYPE = 'CSV',
@@ -370,22 +370,22 @@ FILE_FORMAT = (
 );
 ```
 
-##### 将  `AWS S3` 上的 `PARQUET`  数据导入
+##### Import `PARQUET` data from `AWS S3`
 
 ```sql
 COPY INTO "air"
 FROM 's3://tmp/air'
 CONNECTION = (
-    region = 'us‑east‑1',
-    access_key_id = '****************',
-    secret_key = '****************'
+    region = 'useast1',
+    access_key_id = '*************",
+    secretariat_key = '***************
 )
 FILE_FORMAT = (
 		TYPE = 'PARQUET'
 );
 ```
 
-### 从  Google Cloud Storage 导入数据
+### Import data from Google Cloud Store
 
 #### Syntax
 
@@ -406,38 +406,38 @@ COPY_OPTIONS = (
 )
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                                                          | 描述                                                                           |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| TYPE                                                        | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`          |
-| DELIMITER                                                   | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                           |
-| WITH_HEADER                            | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| auto_infer_schema | 是否自动推断文件的 `schema`，如果为`false`则使用目标表的`schema`                                 |
-| gcs_base_url      | Google Cloud Storage 的基础 URL                                                 |
-| disable_oauth                          | （可选）是否禁用 OAuth，默认为 `false`                                                   |
-| client_email                           | （可选）服务账号的电子邮件地址，仅在不禁用 OAuth 时需要                                              |
-| private_key                            | （可选）服务账号的私钥，仅在不禁用 OAuth 时需要                                                  |
+| Name                                                        | Description                                                                                                            |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                        | Set file format to：`CSV`, `NOJSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                                   | Only CSV, set file format, example：`DELIMITER = ',`                                                                    |
+| CHAT_HEADER                            | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`         |
+| auto_infer_schema | Whether the `schema` of the file is automatically extrapolated and the `schema` of the target table if `false` is used |
+| gcs_base_url      | Base URL of Google Cloud Store                                                                                         |
+| disable_oauth                          | Optionally disable OAuth, default `false`                                                                              |
+| client_email                           | (optional) service account email address, only required if OAuth is not disabled                    |
+| private key                                                 | (optional) service account private key required only if OAuth is not disabled                       |
 
 #### Example
 
-##### 将 ` Google Cloud Storage` 上的 `NDJSON` 数据导入
+##### Import `NDJSON` data from Google Cloud Storage\`
 
 ```sql
 COPY INTO "air"
 FROM 'gcs://tmp/air'
 CONNECTION = (
-    gcs_base_url = 'https://storage.googleapis.com',
+    gcs_base_url = 'https://storage. oogleapis.com',
     disable_oauth = false,
-    client_email = 'service_account@example.com',
-    private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
-)
+    client_email = 'service_account@example. om',
+    private_key = '--BEGIN PRIVATE KEY --\n...\n---END PRIVATE KEY ---
+
 FILE_FORMAT = (
     TYPE = 'NDJSON'
 );
 ```
 
-##### 将 ` Google Cloud Storage` 上的 `CSV` 数据导入
+##### Import `CSV` data from Google Cloud Storage\`
 
 ```sql
 COPY INTO "air"
@@ -455,48 +455,48 @@ FILE_FORMAT = (
 );
 ```
 
-### 从 Azure Blob Storage 导入数据
+### Import data from Azure Blob Store
 
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
-FROM 'azblob://<container>[/<path>]'
+COPY INTO [database.]<table_name>[(<time_col> <field_col> [,field_col] ...,TAGS (<tag_col> [, tag_col]... )]
+FROM 'azblob:/<container>[/<path>]'
 CONNECTION = (
     account = '<string>' 
   	[, access_key = '<string>'] 
-  	[, bearer_token = '<string>']
+  	[, beareer_token = '<string>']
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [, ELIMITER = '<character>'] [, ITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
   auto_infer_schema = true | false
 )
 ```
 
-#### 参数说明
+#### Parameter Description
 
-| 名称                                | 描述                                                                                       |
-| --------------------------------- | ---------------------------------------------------------------------------------------- |
-| TYPE                              | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')`                      |
-| DELIMITER                         | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`                                                       |
-| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`             |
-| account                           | Azure存储账户的名称，指定要连接的存储账户。                                                                 |
-| access_key   | 存储账户的访问密钥，用于进行身份验证和授权。                                                                   |
-| bearer_token | 身份验证所需的令牌，可以替代access_key进行身份验证。                                     |
-| use_emulator | 默认为`false`，当为 `true` 时，`url`使用环境变量 `AZURITE_BLOB_STORAGE_URL` 或 `http://127.0.0.1:10000` |
+| Name                              | Description                                                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| TYPE                              | Set file format to：`CSV`, `NOJSON`, `PARQUET`, example：`FILE_FORMAT = (TYPE='CSV')`                                            |
+| DELIMITER                         | Only CSV, set file format, example：`DELIMITER = ',`                                                                            |
+| CHAT_HEADER  | Only CSV, with table headers, default to `true`, example：Example：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)`                 |
+| Account                           | The name of the Azure store account. Specify the store account to connect.                                                     |
+| access_key   | Store account access keys for authentication and authorization.                                                                |
+| bearer_token | The tokens required for authentication can be used instead of access_key for authentication.              |
+| use_emulator | Default is `false`, when `true` is `url` using the environment variable `AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000` |
 
 #### Example
 
-##### 将 Azure Blob Storage 上的 `CSV` 数据导入
+##### Import `CSV` data from Azure Blob Storage
 
 ```sql
 COPY INTO "air"
-FROM 'azblob://tmp/air'
+FROM 'azblob:/tmp/air'
 CONNECTION = (
-    account = '***********',
-    access_key = '****************'
+    account = '***********",
+    access_key = '*************
 )
 FILE_FORMAT = (
     TYPE = 'CSV',
@@ -505,14 +505,14 @@ FILE_FORMAT = (
 );
 ```
 
-##### 将 Azure Blob Storage 上的 `PARQUET` 数据导入
+##### Import `PARQUET` data from Azure Blob Storage
 
 ```sql
 COPY INTO "air"
-FROM 'azblob://tmp/air'
+FROM 'azblob:/tmp/air'
 CONNECTION = (
-    account = '***********',
-    access_key = '****************'
+    account = '***********",
+    access_key = '***************
 )
 FILE_FORMAT = (
     TYPE = 'PARQUET'
