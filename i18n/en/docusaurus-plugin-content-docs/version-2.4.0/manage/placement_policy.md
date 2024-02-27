@@ -79,8 +79,8 @@ select * from information_schema.placement_policys;
 当没有database使用策略时，可以进行drop/alter
 
 ```SQL
-drop placement_policy policy1
-alter placement_policy policy1 WITH rule dc_aware dc 'dc1,dc2,dc3,dc4'
+Drop placement_policy 1
+alter placement_policy policy 1 WITH rule dc_aware dc 'dc1,dc2,dc3,dc4'
 ```
 
 ## Node标签
