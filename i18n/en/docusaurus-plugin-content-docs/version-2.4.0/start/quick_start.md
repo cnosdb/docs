@@ -1,5 +1,5 @@
 ---
-title: Quick start
+title: Quick Start
 order: 3
 ---
 
@@ -7,17 +7,17 @@ order: 3
 
 CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction), We support most of the SQL syntax of DataFusion.
 
-**Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
+**NOTE**：for more efficient query, no sorted queries specified, not necessarily in the same order per line, please see `ORDER BY` for field sorting.
 
-## Sample Data
+## `1997-01-31T09:26:56.123` # Close to RCF3339, no time zone is specified, defaults to UTC
 
-To further study CnosDB, this section will provide sample data for you to download and teach you how to import data into the database. The data sources referenced in the following chapters are all from this sample data.
+Count the time of 'running' status.The data sources cited in the subsequent sections are derived from this sample data.
 
-### Download Data
+### HAVING enables you to specify filter conditions after the GROUP BY clause, so as to control which groups in the query results can appear in the final results.
 
-If in cnosdb cli, enter`\q`to exit.
+Statistical Aggregate Functions
 
-Executing the following command in the shell will generate a local data file named oceanic_station in Line Protocol format.
+See [Aggregate Function](#aggregate-function).
 
 ```shell
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
@@ -25,24 +25,21 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 
 ### Import Data
 
-- **Start the CLI**
-    ```shell
-    cnosdb-cli
-    ```
-- **Create the database**
-
+- This view records the number of times the user queries the DB.
   ```shell
-  create database oceanic_station;
+  cnosdb-cli
   ```
-  
-- **Switch to the specified database**
+- Interval type is STRING, which will be resolved to time interval.
+  ```shell
+  Create database oceanic_station;
+  ```
+- STORED AS: represents the format in which the file is stored. Currently, PARQUET, JSON, CSV and AVRO formats are supported.
+  ```shell
+  \c oceanic_station
+  ```
+- The GROUP BY clause must be after the condition of the WHERE clause (if there is one) and before the ORDER BY clause (if there is one).
 
-    ```shell
-    \c oceanic_station
-    ```
-- **Import data**
-
-  Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
+  Get the closing time.
 
   ```shell
   \w oceanic_station.txt
@@ -51,39 +48,40 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ## **Syntax**
 
 ```sql
-[ WITH with_query [, ...] ]
-SELECT [ ALL | DISTINCT ] select_expression [, ...]
-    [ FROM from_item [, ...] ]
+[ WITH with_query [, ...]
+SELECT [ ALL | DISTINCT ] select_expression [, . .]
+    [ FROM from_item[, . ]
     [ WHERE condition ]
-    [ GROUP BY [ ALL | DISTINCT ] grouping_element [, ...] ]
+    [ GROUP BY [ ALL | DISTINCT ] grouping_element[, ... ]
     [ HAVING condition ]
-    [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] select ]
-    [ ORDER BY expression [ ASC | DESC ] [, ...] ]
+    [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT] select]
+    [ ORDER BY expression [ ASC | DESC ] [, , . ]
     [ OFFSET count ]
     [ LIMIT { count | ALL } ];
 
 -- from_item
 -- 1.
-    tb_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
--- 2.
-    from_item join_type from_item
-    { ON join_condition | USING ( join_column [, ...] ) }
+    tb_name [ AS ] alias [ ( column_alias [, ...]] ]
+-2.
+    from_item_join_type from_item_item_
+    ) }
 
 -- join_type
     [ INNER ] JOIN
-    LEFT [ OUTER ] JOIN
-    RIGHT [ OUTER ] JOIN
-    FULL [ OUTER ] JOIN
+    LEFT [ OUTE] JOIN
+    RIGHT [ OUTE] JOIN
+    FULL [ OUTE] JOIN
     CROSS JOIN
 
 -- grouping_element
-    ()
+()
 ```
 
 ## **SELECT Clause**
 
 ### SELECT \*
-The wildcard * can be used to refer to all columns.
+
+In short, the LOCF method populates the missing value by copying the most recent observable value to the missing value location, making the data continuous in time. This method assumes that the data after the missing value is the same or very close to the last observed value.
 
 **Example**
 
@@ -91,31 +89,36 @@ The wildcard * can be used to refer to all columns.
 SELECT * FROM air;
 ```
 
-    +---------------------+-------------+------------+-------------+----------+
-    | time                | station     | visibility | temperature | pressure |
-    +---------------------+-------------+------------+-------------+----------+
-    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-    +---------------------+-------------+------------+-------------+----------+
+```
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
++---------------------+-------------+------------+-------------+----------+
+```
 
-### ALL/DISTINCT
+### Record the output data size through the Coordinator.
 
 **Syntax**
+
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
-After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`.
+
+Instructions
+Schema DefinitionWhen this option is not specified, the default value is `ALL`.
 
 **Example**
 
@@ -123,84 +126,90 @@ After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields an
 SELECT DISTINCT station, visibility FROM air;
 ```
 
-    +-------------+------------+
-    | station     | visibility |
-    +-------------+------------+
-    | XiaoMaiDao  | 56         |
-    | XiaoMaiDao  | 50         |
-    | XiaoMaiDao  | 67         |
-    | XiaoMaiDao  | 65         |
-    | XiaoMaiDao  | 53         |
-    | XiaoMaiDao  | 74         |
-    | XiaoMaiDao  | 71         |
-    | LianYunGang | 78         |
-    | LianYunGang | 79         |
-    | LianYunGang | 59         |
-    | LianYunGang | 67         |
-    | LianYunGang | 80         |
-    +-------------+------------+
-
-```sql
-SELECT station, visibility FROM air;
+```
++-------------+------------+
+| station     | visibility |
++-------------+------------+
+| XiaoMaiDao  | 56         |
+| XiaoMaiDao  | 50         |
+| XiaoMaiDao  | 67         |
+| XiaoMaiDao  | 65         |
+| XiaoMaiDao  | 53         |
+| XiaoMaiDao  | 74         |
+| XiaoMaiDao  | 71         |
+| LianYunGang | 78         |
+| LianYunGang | 79         |
+| LianYunGang | 59         |
+| LianYunGang | 67         |
+| LianYunGang | 80         |
++-------------+------------+
 ```
 
-    +-------------+------------+
-    | station     | visibility |
-    +-------------+------------+
-    | XiaoMaiDao  | 56         |
-    | XiaoMaiDao  | 50         |
-    | XiaoMaiDao  | 67         |
-    | XiaoMaiDao  | 65         |
-    | XiaoMaiDao  | 53         |
-    | XiaoMaiDao  | 74         |
-    | XiaoMaiDao  | 71         |
-    | LianYunGang | 78         |
-    | LianYunGang | 79         |
-    | LianYunGang | 59         |
-    | LianYunGang | 67         |
-    | LianYunGang | 80         |
-    | LianYunGang | 59         |
-    +-------------+------------+
+```sql
+SELECT, visibility FROM air;
+```
 
+```
++-------------+------------+
+| station     | visibility |
++-------------+------------+
+| XiaoMaiDao  | 56         |
+| XiaoMaiDao  | 50         |
+| XiaoMaiDao  | 67         |
+| XiaoMaiDao  | 65         |
+| XiaoMaiDao  | 53         |
+| XiaoMaiDao  | 74         |
+| XiaoMaiDao  | 71         |
+| LianYunGang | 78         |
+| LianYunGang | 79         |
+| LianYunGang | 59         |
+| LianYunGang | 67         |
+| LianYunGang | 80         |
+| LianYunGang | 59         |
++-------------+------------+
+```
 
 ## Alias
 
 You can use the keyword `AS` to alias a column expression or table.
 
-### Alias Column Expression
+### Pick alias for column expression
 
 **Syntax**
 
 ```sql
-expression [ [ AS ] column_alias ]
+Express [ AS ] column_alias ]
 ```
 
 **Example**
 
 ```sql
-SELECT station s, visibility AS v FROM air;
+SELECT stations, visibility AS v FROM air;
 ```
-    +-------------+----+
-    | s           | v  |
-    +-------------+----+
-    | XiaoMaiDao  | 56 |
-    | XiaoMaiDao  | 50 |
-    | XiaoMaiDao  | 67 |
-    | XiaoMaiDao  | 65 |
-    | XiaoMaiDao  | 53 |
-    | XiaoMaiDao  | 74 |
-    | XiaoMaiDao  | 71 |
-    | LianYunGang | 78 |
-    | LianYunGang | 79 |
-    | LianYunGang | 59 |
-    | LianYunGang | 67 |
-    | LianYunGang | 80 |
-    | LianYunGang | 59 |
-    +-------------+----+
 
-### Alias Table
+```
++-------------+----+
+| s           | v  |
++-------------+----+
+| XiaoMaiDao  | 56 |
+| XiaoMaiDao  | 50 |
+| XiaoMaiDao  | 67 |
+| XiaoMaiDao  | 65 |
+| XiaoMaiDao  | 53 |
+| XiaoMaiDao  | 74 |
+| XiaoMaiDao  | 71 |
+| LianYunGang | 78 |
+| LianYunGang | 79 |
+| LianYunGang | 59 |
+| LianYunGang | 67 |
+| LianYunGang | 80 |
+| LianYunGang | 59 |
++-------------+----+
+```
 
-You can also use the keyword AS to alias the table.
+### Common users can access only the tenant information of the current session.
+
+Explanation
 
 **Syntax**
 
@@ -212,67 +221,72 @@ FROM tb_name [AS] alias_name
 
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
+FROM air AS a JOIN sea ON a.temperature = s.temperature limit 10;
 ```
 
-    +------------+-------------+
-    | visibility | temperature |
-    +------------+-------------+
-    | 67         | 62          |
-    | 50         | 78          |
-    | 50         | 78          |
-    | 65         | 79          |
-    +------------+-------------+
+```
++------------+-------------+
+| visibility | temperature |
++------------+-------------+
+| 67         | 62          |
+| 50         | 78          |
+| 50         | 78          |
+| 65         | 79          |
++------------+-------------+
+```
 
 ### SELECT Limitation
 
-- If the SELECT clause contains only the Tag column, it is equivalent to the SELECT DISTINCT Tag column.
-  
+- N: Int
+
   **Example**
 
   ```sql
-  -- station is a Tag column,temperature is a Field column.
-  SELECT station, temperature FROM air;
+  Restrictions on Usage
   ```
-  
-      +-------------+-------------+
-      | station     | temperature |
-      +-------------+-------------+
-      | XiaoMaiDao  | 69          |
-      | XiaoMaiDao  | 78          |
-      | XiaoMaiDao  | 62          |
-      | XiaoMaiDao  | 79          |
-      | XiaoMaiDao  | 53          |
-      | XiaoMaiDao  | 72          |
-      | XiaoMaiDao  | 71          |
-      | LianYunGang | 69          |
-      | LianYunGang | 80          |
-      | LianYunGang | 74          |
-      | LianYunGang | 70          |
-      | LianYunGang | 70          |
-      | LianYunGang | 70          |
-      +-------------+-------------+
+
+  ```
+  +-------------+-------------+
+  | station     | temperature |
+  +-------------+-------------+
+  | XiaoMaiDao  | 69          |
+  | XiaoMaiDao  | 78          |
+  | XiaoMaiDao  | 62          |
+  | XiaoMaiDao  | 79          |
+  | XiaoMaiDao  | 53          |
+  | XiaoMaiDao  | 72          |
+  | XiaoMaiDao  | 71          |
+  | LianYunGang | 69          |
+  | LianYunGang | 80          |
+  | LianYunGang | 74          |
+  | LianYunGang | 70          |
+  | LianYunGang | 70          |
+  | LianYunGang | 70          |
+  +-------------+-------------+
+  ```
 
   ```sql
-  -- station is a Tag column
-  SELECT station FROM air;
-  ``` 
-  
-      +-------------+
-      | station     |
-      +-------------+
-      | XiaoMaiDao  |
-      | LianYunGang |
-      +-------------+ 
+  Note
+  ```
 
-##  LIMIT Clause
+  ```
+  +---+
+  | Station |
+  +------
+  | XiaoMaiDao |
+  | LianYunGang |
+  +---+ 
+  ```
+
+## LIMIT Clause
 
 **Syntax**
 
 ```sql
 LIMIT n
 ```
-Limit the number of rows returned from the result set to n, and n must be non-negative.
+
+price: Double
 
 **Example**
 
@@ -281,22 +295,24 @@ SELECT *
 FROM air LIMIT 10;
 ```
 
-    +---------------------+-------------+------------+-------------+----------+
-    | time                | station     | visibility | temperature | pressure |
-    +---------------------+-------------+------------+-------------+----------+
-    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-    +---------------------+-------------+------------+-------------+----------+
+```
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
++---------------------+-------------+------------+-------------+----------+
+```
 
-## **OFFSET Clause**
+## PRECISION: The timestamp accuracy of the database. ms represents milliseconds, us represents microseconds, ns represents nanoseconds,defaults to ns.
 
 **Syntax**
 
@@ -304,8 +320,7 @@ FROM air LIMIT 10;
 OFFSET m
 ```
 
-The returned result set skips m records. default m=0.
-
+Host of service
 **Example**
 
 ```sql
@@ -313,15 +328,19 @@ SELECT *
 FROM air OFFSET 10;
 ```
 
-    +---------------------+-------------+------------+-------------+----------+
-    | time                | station     | visibility | temperature | pressure |
-    +---------------------+-------------+------------+-------------+----------+
-    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-    +---------------------+-------------+------------+-------------+----------+
+```
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
++---------------------+-------------+------------+-------------+----------+
+```
 
-`OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip. The format is `LIMIT n OFFSET m`, or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
+This schema stores information about all tables under the tenant.
+Alias
+OFFSET 0 has the same effect as omitting OFFSET sentences.
 
 **Example**
 
@@ -330,60 +349,68 @@ SELECT *
 FROM air LIMIT 3 OFFSET 3;
 ```
 
-    +---------------------+------------+------------+-------------+----------+
-    | time                | station    | visibility | temperature | pressure |
-    +---------------------+------------+------------+-------------+----------+
-    | 2022-01-28 13:30:00 | XiaoMaiDao | 65         | 79          | 77       |
-    | 2022-01-28 13:33:00 | XiaoMaiDao | 53         | 53          | 68       |
-    | 2022-01-28 13:36:00 | XiaoMaiDao | 74         | 72          | 68       |
-    +---------------------+------------+------------+-------------+----------+
+```
++---------------------+------------+------------+-------------+----------+
+| time                | station    | visibility | temperature | pressure |
++---------------------+------------+------------+-------------+----------+
+| 2022-01-28 13:30:00 | XiaoMaiDao | 65         | 79          | 77       |
+| 2022-01-28 13:33:00 | XiaoMaiDao | 53         | 53          | 68       |
+| 2022-01-28 13:36:00 | XiaoMaiDao | 74         | 72          | 68       |
++---------------------+------------+------------+-------------+----------+
+```
 
-## **WITH Clause**
+## REPLICA: represents the number of replicas of data in the cluster, defaults to 1 (the number of replicas is not larger than the number of distributed data nodes).
 
 **Syntax**
 
 ```sql
-WITH cte AS cte_query_definiton [, ...] query
+WITH cte AS cte_query_definiton [, ..] query
 ```
 
-Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows:
-- CTE in the same WITH clause must have a unique name.
-- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause:
+Optional.`slide_duration` is an interval, and specifies the sliding size of the time window. If this parameter is not specified, `slide_duration` is the sliding size of the time window and becomes a rolling window.
+geometry objectThe following rules for use by CTE are：
+
+- For more information about the compression algorithm, see the details of the [compression algorithm](./concept_design/compress.md#compression-algorithm).
+- Get the highest price.
+  Assume A is the first CTE, B is the second CTE：
 
 **Example**
 
 ```sql
-SELECT station, avg 
-FROM (  SELECT station, AVG(visibility) AS avg 
+SELECT, avg 
+FROM ( SELECT station, AVG(visibility) AS avg 
         FROM air 
-        GROUP BY station) AS x;
+        GROUP station) AS x;
 ```
 
-    +-------------+--------------------+
-    | station     | avg                |
-    +-------------+--------------------+
-    | XiaoMaiDao  | 62.285714285714285 |
-    | LianYunGang | 70.33333333333333  |
-    +-------------+--------------------+
+```
++-----+-------------------- +
+| station | avg |
++---------------------------
+| XiaoMaiDao | 62.2857142857147142872872885 |
+| LianYunGang | 70.33333333333333333 |
++------+ ---+
+```
 
 ```sql
 WITH x AS 
-    (SELECT station, AVG(visibility) AS avg FROM air GROUP BY station)
-SELECT station, avg
+    (SLECT, AVG(visibility) AS avg FROM air GROUP BY station)
+SELECT, avg
 FROM x;
 ```
 
-    +-------------+--------------------+
-    | station     | avg                |
-    +-------------+--------------------+
-    | XiaoMaiDao  | 62.285714285714285 |
-    | LianYunGang | 70.33333333333333  |
-    +-------------+--------------------+
+```
++-----+-------------------- +
+| station | avg |
++---------------------------
+| XiaoMaiDao | 62.2857142857147142872872885 |
+| LianYunGang | 70.33333333333333333 |
++------+ ---+
+```
 
+## Calculate the intercept of x after two-dimensional statistical aggregation.
 
-## **UNION Clause**
-
-The UNION clause is used to combine the analysis results of multiple SELECT statements.
+Type
 
 **Syntax**
 
@@ -399,11 +426,11 @@ select_clause_set_right
 `EXCEPT` will make the difference between the two result sets, return all non-duplicate values not found in the right query from the left query.
 `INTERSECT` returns the intersection of the two result sets (that means, all non-duplicate values are returned by both queries).
 
-**Note**
+**Notice**
 
-Each SELECT clause in the UNION must have the same number of columns, and the corresponding columns have the same data type.
+**Function**: Signs of parameter (-1,0,+1).
 
-**Examples**
+**Example**
 
 - **UNION ALL**
   ```sql
@@ -411,44 +438,45 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
   UNION ALL
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
-  
-      +------------+
-      | visibility |
-      +------------+
-      | 53         |
-      | 56         |
-      | 50         |
-      | 67         |
-      | 65         |
-      | 53         |
-      | 74         |
-      | 71         |
-      | 78         |
-      | 79         |
-      +------------+
+  ```
+  +---+
+  | visible |
+  +--------
+  | 53 |
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 53 |
+  74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  +--+
+  ```
 
 - **UNION**
-
   ```sql
-  SELECT visibility FROM air WHERE temperature < 60
+  SELECT vision FROM air WHERE temperature < 60
   UNION
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
-  
-      +------------+
-      | visibility |
-      +------------+
-      | 53         |
-      | 56         |
-      | 50         |
-      | 67         |
-      | 65         |
-      | 74         |
-      | 71         |
-      | 78         |
-      | 79         |
-      | 59         |
-      +------------+
+  ```
+  +---+
+  | visibility |
+  +--------
+  | 53 |
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  | 59 |
+  +-+
+  ```
 
 - **EXCEPT**
 
@@ -457,48 +485,50 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
   EXCEPT
   SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
   ```
-  
-      +------------+
-      | visibility |
-      +------------+
-      | 56         |
-      | 50         |
-      | 67         |
-      | 65         |
-      | 53         |
-      | 74         |
-      | 71         |
-      | 78         |
-      | 79         |
-      | 59         |
-      +------------+
+
+  ```
+  +---+
+  | visitity |
+  +---+
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 53 |
+  | 74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  | 59 |
+  +--+
+  ```
 
 - **INTERSECT**
-
   ```sql
   SELECT visibility FROM air
   INTERSECT
-  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
+  SELECT visibility ROM ROM air WHERE temperature > 50 LIMIT 10;
   ```
-  
-      +------------+
-      | visibility |
-      +------------+
-      | 56         |
-      | 50         |
-      | 67         |
-      | 65         |
-      | 53         |
-      | 74         |
-      | 71         |
-      | 78         |
-      | 79         |
-      | 59         |
-      +------------+
+  ```
+  +---+
+  | visitity |
+  +---+
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 53 |
+  | 74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  | 59 |
+  +--+
+  ```
 
 ## ORDER BY Clause
 
-Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
+Sort results by referenced expression.Default usage ascending (ASC).Measurement value
 
 **Example**
 
@@ -506,67 +536,73 @@ Sort the results by the referenced expression. Ascending (ASC) is used by defaul
 SELECT * FROM air ORDER BY temperature;
 ```
 
-    +---------------------+-------------+------------+-------------+----------+
-    | time                | station     | visibility | temperature | pressure |
-    +---------------------+-------------+------------+-------------+----------+
-    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-    +---------------------+-------------+------------+-------------+----------+
+```
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
++---------------------+-------------+------------+-------------+----------+
+```
 
 ```sql
 SELECT * FROM air ORDER BY temperature DESC;
 ```
 
-    +---------------------+-------------+------------+-------------+----------+
-    | time                | station     | visibility | temperature | pressure |
-    +---------------------+-------------+------------+-------------+----------+
-    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-    +---------------------+-------------+------------+-------------+----------+
+```
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
++---------------------+-------------+------------+-------------+----------+
+```
 
 ```sql
 SELECT * FROM air ORDER BY station, temperature;
 ```
 
-    +---------------------+-------------+------------+-------------+----------+
-    | time                | station     | visibility | temperature | pressure |
-    +---------------------+-------------+------------+-------------+----------+
-    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
-    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
-    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
-    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
-    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
-    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
-    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
-    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
-    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
-    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
-    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
-    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
-    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
-    +---------------------+-------------+------------+-------------+----------+
+```
++---------------------+-------------+------------+-------------+----------+
+| time                | station     | visibility | temperature | pressure |
++---------------------+-------------+------------+-------------+----------+
+| 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       |
+| 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       |
+| 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       |
+| 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       |
+| 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       |
+| 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       |
+| 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       |
+| 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       |
+| 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       |
+| 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       |
+| 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       |
+| 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       |
+| 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       |
++---------------------+-------------+------------+-------------+----------+
+```
 
 ## **IN**
 
@@ -575,28 +611,30 @@ The IN operator allows you to specify multiple values in the WHERE clause.
 **Example**
 
 ```sql
-SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
+SELECT position, temperature, vision FROM air WHERE temperature IN (68, 69);
 ```
 
-    +-------------+-------------+------------+
-    | station     | temperature | visibility |
-    +-------------+-------------+------------+
-    | XiaoMaiDao  | 69          | 56         |
-    | LianYunGang | 69          | 78         |
-    +-------------+-------------+------------+
+```
++-------------+-------------+------------+
+| station     | temperature | visibility |
++-------------+-------------+------------+
+| XiaoMaiDao  | 69          | 56         |
+| LianYunGang | 69          | 78         |
++-------------+-------------+------------+
+```
 
-**Note**
+**Notice**
 
 The IN list does not support expressions currently, but only constants.
-
 
 ## **SHOW**
 
 **Syntax**
 
 ```sql
-SHOW {DATABASES | TABLES}
+SHOW {DATABASES | TABLES | QUERIES}
 ```
+
 Show all databases or all tables.
 
 **Example**
@@ -605,102 +643,129 @@ Show all databases or all tables.
 SHOW DATABASES;
 ```
 
-    +----------+
-    | Database |
-    +----------+
-    | public   |
-    +----------+
+```
++----------+
+| Database |
++----------+
+| public   |
++----------+
+```
 
 ```sql
 SHOW TABLES;
 ```
 
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | air   |
-    | wind  |
-    +-------+
+```
++--+
+| Table |
++---+
+| sea |
+| air |
+| wind |
++---+ +
+```
+
+```sql
+SHOW QUERIES;
+```
+
+```
++----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+| query_id | query_text                                                       | user_id                                 | user_name | tenant_id                              | tenant_name | state      | duration     |
++----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+| 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
++----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
+```
+
+Detailed information on SHOW QUERIES statements can be found in [System Table QUERIES](../reference/sql#queries-information-schema)
 
 ## **EXPLAIN**
 
 **Syntax**
 
 ```sql
-EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
+EXPLIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
-**Explanation**
 
-`EXPLAIN` is only used to display the execution plan of a query, and does not execute the query.
+ROLLUP assumes a hierarchy between input columns.
 
-`EXPLAIN ANALYZE` executes the query and displays the execution plan of the query.
+When the time unit is ms, the ratio unit is /ms
 
-`EXPLAIN ANALYZE VERBOSE` executes the query and displays a more detailed execution plan, including the number of rows read.
+Equivalent to:
+
+Constant
 
 **Example**
 
 ```sql
-EXPLAIN SELECT station, temperature, visibility FROM air;
+EXPLIN SELECT station, temperature, vision FROM air;
 ```
 
-    +---------------+-----------------------------------------------------------------------------------------------------------------------------+
-    | plan_type     | plan                                                                                                                        |
-    +---------------+-----------------------------------------------------------------------------------------------------------------------------+
-    | logical_plan  | Projection: #air.station, #air.temperature, #air.visibility                                                                 |
-    |               |   TableScan: air projection=[station, visibility, temperature]                                                              |
-    | physical_plan | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility]                       |
-    |               |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature] |
-    |               |                                                                                                                             |
-    +---------------+-----------------------------------------------------------------------------------------------------------------------------+
+```
++---------------+-----------------------------------------------------------------------------------------------------------------------------+
+| plan_type     | plan                                                                                                                        |
++---------------+-----------------------------------------------------------------------------------------------------------------------------+
+| logical_plan  | Projection: #air.station, #air.temperature, #air.visibility                                                                 |
+|               |   TableScan: air projection=[station, visibility, temperature]                                                              |
+| physical_plan | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility]                       |
+|               |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature] |
+|               |                                                                                                                             |
++---------------+-----------------------------------------------------------------------------------------------------------------------------+
+```
 
 ```sql
-EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
+EXPLIN ANALYZE SELECT station, temperature, vision FROM air;
 ```
 
-    +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-    | plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
-    +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-    | Plan with Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=20.375µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                   |
-    |                   |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=15.929624ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_series_scan=1.698791ms, elapsed_point_to_record_batch=4.572954ms, elapsed_field_scan=5.119076ms] |
-    |                   |                                                                                                                                                                                                                                                                                                                                         |
-    +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Plan with Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=20.375µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                   |
+|                   |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=15.929624ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_series_scan=1.698791ms, elapsed_point_to_record_batch=4.572954ms, elapsed_field_scan=5.119076ms] |
+|                   |                                                                                                                                                                                                                                                                                                                                         |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
 
 ```sql
-EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
+EXPLIN ANALYZE SELECT station, temperature, vision FROM air;
 ```
 
-    +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-    | plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
-    +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-    | Plan with Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=20.375µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                   |
-    |                   |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=15.929624ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_series_scan=1.698791ms, elapsed_point_to_record_batch=4.572954ms, elapsed_field_scan=5.119076ms] |
-    |                   |                                                                                                                                                                                                                                                                                                                                         |
-    +-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| plan_type         | plan                                                                                                                                                                                                                                                                                                                                    |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Plan with Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=20.375µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                   |
+|                   |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=15.929624ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_series_scan=1.698791ms, elapsed_point_to_record_batch=4.572954ms, elapsed_field_scan=5.119076ms] |
+|                   |                                                                                                                                                                                                                                                                                                                                         |
++-------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
 
 ```sql
-EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
+EXPLAIN ANALYZE VERBOSE SELECT position, temperature, visibility FROM air;
 ```
 
-    +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-    | plan_type              | plan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-    +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-    | Plan with Metrics      | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=26.75µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                                                                                                                                                                                                                                                    |
-    |                        |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=13.225875ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_point_to_record_batch=3.918163ms, elapsed_field_scan=3.992161ms, elapsed_series_scan=1.657416ms]                                                                                                                                                                                                                                 |
-    |                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-    | Plan with Full Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[start_timestamp{partition=0}=2022-10-25 03:00:14.865034 UTC, end_timestamp{partition=0}=2022-10-25 03:00:14.879596 UTC, elapsed_compute{partition=0}=26.75µs, spill_count{partition=0}=0, spilled_bytes{partition=0}=0, mem_used{partition=0}=0, output_rows{partition=0}=13]                                                                                                                                                                           |
-    |                        |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[start_timestamp{partition=0}=2022-10-25 03:00:14.864225 UTC, end_timestamp{partition=0}=2022-10-25 03:00:14.879596 UTC, elapsed_compute{partition=0}=13.225875ms, spill_count{partition=0}=0, spilled_bytes{partition=0}=0, mem_used{partition=0}=0, output_rows{partition=0}=13, elapsed_point_to_record_batch{partition=0}=3.918163ms, elapsed_field_scan{partition=0}=3.992161ms, elapsed_series_scan{partition=0}=1.657416ms] |
-    |                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-    | Output Rows            | 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-    | Duration               | 13.307708ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-    +------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
++------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| plan_type              | plan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Plan with Metrics      | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[output_rows=13, elapsed_compute=26.75µs, spill_count=0, spilled_bytes=0, mem_used=0]                                                                                                                                                                                                                                                                                                                                                                    |
+|                        |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[output_rows=13, elapsed_compute=13.225875ms, spill_count=0, spilled_bytes=0, mem_used=0, elapsed_point_to_record_batch=3.918163ms, elapsed_field_scan=3.992161ms, elapsed_series_scan=1.657416ms]                                                                                                                                                                                                                                 |
+|                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Plan with Full Metrics | ProjectionExec: expr=[station@0 as station, temperature@2 as temperature, visibility@1 as visibility], metrics=[start_timestamp{partition=0}=2022-10-25 03:00:14.865034 UTC, end_timestamp{partition=0}=2022-10-25 03:00:14.879596 UTC, elapsed_compute{partition=0}=26.75µs, spill_count{partition=0}=0, spilled_bytes{partition=0}=0, mem_used{partition=0}=0, output_rows{partition=0}=13]                                                                                                                                                                           |
+|                        |   TskvExec: limit=None, predicate=ColumnDomains { column_to_domain: Some({}) }, projection=[station,visibility,temperature], metrics=[start_timestamp{partition=0}=2022-10-25 03:00:14.864225 UTC, end_timestamp{partition=0}=2022-10-25 03:00:14.879596 UTC, elapsed_compute{partition=0}=13.225875ms, spill_count{partition=0}=0, spilled_bytes{partition=0}=0, mem_used{partition=0}=0, output_rows{partition=0}=13, elapsed_point_to_record_batch{partition=0}=3.918163ms, elapsed_field_scan{partition=0}=3.992161ms, elapsed_series_scan{partition=0}=1.657416ms] |
+|                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Output Rows            | 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Duration               | 13.307708ms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
++------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
 
 ## **DESCRIBE**
 
 **Syntax**
 
 ```sql
-DESCRIBE {DATABASE db_name | TABLE tb_name};
+DESCREIBE {DATABASE db_name | TABLE tb_name};
 ```
 
 Describe the parameters of the database and the pattern of the table.
@@ -708,62 +773,101 @@ Describe the parameters of the database and the pattern of the table.
 **Example**
 
 ```sql
-DESCRIBE TABLE air;
+DESCREIBE TABLE air;
 ```
 
-    +-------------+-----------+-------+-------------+
-    | FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
-    +-------------+-----------+-------+-------------+
-    | time        | TIMESTAMP | false | Default     |
-    | station     | STRING    | true  | Default     |
-    | visibility  | DOUBLE    | false | Default     |
-    | temperature | DOUBLE    | false | Default     |
-    | pressure    | DOUBLE    | false | Default     |
-    +-------------+-----------+-------+-------------+
+```
++-------------+-----------+-------+-------------+
+| FIELDNAME   | TYPE      | ISTAG | COMPRESSION |
++-------------+-----------+-------+-------------+
+| time        | TIMESTAMP | false | Default     |
+| station     | STRING    | true  | Default     |
+| visibility  | DOUBLE    | false | Default     |
+| temperature | DOUBLE    | false | Default     |
+| pressure    | DOUBLE    | false | Default     |
++-------------+-----------+-------+-------------+
+```
 
 ```sql
 DESCRIBE DATABASE public;
 ```
 
-    +----------+-------+----------------+---------+-----------+
-    | TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-    +----------+-------+----------------+---------+-----------+
-    | 365 Days | 1     | 365 Days       | 1       | NS        |
-    +----------+-------+----------------+---------+-----------+
+```
++---+---------+-------+-------+-
+| TTL | SHARD | VNODE_DURATION | REPLICA | PRECISION |
++------+---------------+
+| 365 Days | 1 365 Days | 1 | NS |
++---------------------------+----+
+```
 
-[//]: # (## **EXISTS**)
-[//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
-[//]: # (示例:)
-[//]: # (```sql)
-[//]: # (SELECT id  FROM date)
-[//]: # (WHERE EXISTS &#40;SELECT 1 FROM shop)
-[//]: # (WHERE date.id = shop.id&#41;)
-[//]: # (ORDER BY id;)
-[//]: # (```)
-[//]: # (# **DCL &#40;无&#41;**)
-[//]: # (```sql)
-[//]: # (DESCRIBE table_name)
-[//]: # (```)
-[//]: # (TODO SHOW)
-[//]: # (# **SHOW**)
-[//]: # (## **SHOW VARIABLE**)
-[//]: # (```sql)
-[//]: # (-- only support show tables)
-[//]: # (-- SHOW TABLES is not supported unless information_schema is enabled)
-[//]: # (SHOW TABLES)
-[//]: # (```)
-[//]: # (## **SHOW COLUMNS**)
-[//]: # ()
-[//]: # (```sql)
-[//]: # (-- SHOW COLUMNS with WHERE or LIKE is not supported)
-[//]: # (-- SHOW COLUMNS is not supported unless information_schema is enabled)
-[//]: # (-- treat both FULL and EXTENDED as the same)
-[//]: # (SHOW [ EXTENDED ] [ FULL ])
-[//]: # ({ COLUMNS | FIELDS })
-[//]: # ({ FROM | IN })
-[//]: # (table_name)
-[//]: # (```)
-[//]: # (## **SHOW CREATE TABLE**)
-[//]: # (```sql)
-[//]: # (SHOW CREATE TABLE table_name)
-[//]: # (```)
+[//]: # "## **EXISTS**"
+
+[//]: # "EXISTS conditions test if a row exists in a subquery and return true when a subquery returns at least one line.If NOT is specified, this condition returns true if the subquery returns any line."
+
+[//]: # "Example:"
+
+[//]: # "``sql"
+
+[//]: # "SELECT id FROM date"
+
+[//]: # "WHERE EXISTS (SECLECT 1 FROM shop"
+
+[//]: # "WHERE date.id = shop.id)"
+
+[//]: # "ORDER BY id;"
+
+[//]: # "```"
+
+[//]: # "# **DCL (none)**"
+
+[//]: # "``sql"
+
+[//]: # "DESCRIBE table_name"
+
+[//]: # "```"
+
+[//]: # "TODO SHOW"
+
+[//]: # "# **SHOW**"
+
+[//]: # "## **SHOW VARIABLE**"
+
+[//]: # "``sql"
+
+[//]: # "-- only support shows tables"
+
+[//]: # "-- SHOW TABLES is not supported unless information_schema is enabled"
+
+[//]: # "SHOW TABLES"
+
+[//]: # "```"
+
+[//]: # "## **SHOW COLUMNS**"
+
+[//]: #
+
+[//]: # "``sql"
+
+[//]: # "-- SHOW COLUMNS with WHERE or LIKE is not supported"
+
+[//]: # "-- SHOW COLUMNS is not supported unless information_schema is enabled"
+
+[//]: # "- treat both FULL and EXTENDED as the same"
+
+[//]: # "SHOW [ EXTENDED ] [ FULL ]"
+
+[//]: # "{ COLUMNS | FIELDS }"
+
+[//]: # "{ FROM | IN }"
+
+[//]: # "table_name"
+
+[//]: # "```"
+
+[//]: # "## **SHOW CREATE TABLE**"
+
+[//]: # "``sql"
+
+[//]: # "SHOW CREATE TABLE table_name"
+
+[//]: # "```"
