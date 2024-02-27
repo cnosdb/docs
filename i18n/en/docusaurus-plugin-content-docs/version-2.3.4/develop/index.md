@@ -14,4 +14,4 @@ Related Contents:
 
 - [ODBC](../reference/connector/arrow_flight_sql.md#different-client-usage)
 - [JDBC](../reference/connector/arrow_flight_sql.md#different-client-usage)
-- [Arrow Filght SQL](../reference/connector/arrow_flight_sql)
+- [Arrow Filgight SQL](../reference/connector/arrow_flight_sql)
