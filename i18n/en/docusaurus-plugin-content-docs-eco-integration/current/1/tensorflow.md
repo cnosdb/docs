@@ -1,44 +1,44 @@
 ---
 title: TensorFlow
-slug: /tensorflow
+slug: /tensor flow
 ---
 
-> 使用 CnosDB 与 TensorFlow 进行时间序列预测
+> Time series prediction using CnosDB with TensorFlow
 
-### 使用 CnosDB 与 TensorFlow 进行时间序列预测
+### Time series prediction using CnosDB with TensorFlow
 
-### 从三体运动到太阳黑子变化预测
+### Forecast changes from trunk movement to solar black
 
-### 前言
+### Preface
 
-太阳黑子是太阳光球层上发生的太阳活动现象，通常成群出现。 预测太阳黑子变化是空间气象研究中最活跃的领域之一。
+The black sun is a solar activity taking place on the solar photovoltaic layer, which is usually occurring in crowds. The prediction of black solar changes is one of the most active areas in space meteorological research.
 
-太阳黑子观测持续时间很长。 长时间的数据积累有利于挖掘太阳黑子变化的规律。 长期观测显示,太阳黑子数及面积变化呈现出明显的周期 性，且周期呈现不规则性,大致范围在 9 \~ 13 a , 平均周期约为 11 a,太阳黑子数及面积变化的峰值不恒定。
+The solar black observation lasts for a long time. The long period of data accumulation facilitates the exhumation of black sun changes. Long-term observations indicate that changes in the black number and area of the Sun display marked periodicity and irregular cycles, with an average cycle of approximately 9\~13a, with an average cycle of approximately 11a, and a fluctuating peak of changes in the black number and area of the Sun.
 
-最新数据显示,近些年来太阳黑子数和面积有明显的下降趋势。
+The latest data show a clear downward trend in the number and area of black sun in recent years.
 
 ![](/img/Hathaway_Cycle_24_Prediction.png)
 
-鉴于太阳黑子活动强烈程度对地球有着深刻的影响，因此探测太阳黑子活动就显得尤为重要。基于物理学模型(如动力模型)和统计学模型(如自回归滑动平均)已被广泛应用于探测太阳黑子活动。
-为了更高效地捕捉太阳黑子时间序列中存在的非线性关系,机器学习方法被引入。
+The detection of black solar activity is particularly important in view of its profound impact on Earth.Physicological models (such as power models) and statistical models (such as regression averages) have been widely used to detect black solar activity.
+Machine learning methods have been introduced to capture non-linear relationships in solar black time series more efficiently.
 
-值得一提的是,机器学习中的神经网络更擅长挖掘数据中的非线性关系。
+It is worth mentioning that neurological networks in machine learning are more specialized in digging data for non-linear relationships.
 
-**因此，本文将介绍如何使用时序数据库`CnosDB`存储太阳黑子变化数据，并进一步使用TensorFlow实现`1DConv+LSTM` 网络来预测太阳黑子数量变化。**
+**This paper will therefore describe how to store solar black changes using the time series database `CnosDB` and further uses TensorFlow to implement the `1DConv+LSTM` network to predict changes in solar black numbers.**
 
-#### 太阳黑子变化观测数据集简介
+#### Introduction to solar black change observing data sets
 
-本文使用的太阳黑子数据集是由SILSO 网站发布2.0版本 (WDC-SILSO, Royal Observatory of Belgium, Brussels,http\://sidc.be/silso/datafiles)
+The solar black data set used here is version 2.0 published by the SILSO website (WDC-SILSO, Royal Observatory of Belgium, Brussels, http\://sidc.be/silso/datafiles)
 
-![](/img/sunspot_dataset.png)
+![](/img/sunspot_database.png)
 
-我们主要分析和探索：1749至2023年，月均太阳黑子数(monthly mean sunspot number，MSSN)变化情况。
+We analyze and explore：1749 to 2023, changing average monthly solar black count (monthly mean sunspot number@@, MSSN).
 
-### CnosDB 数据导入
+### CnosDB Data Import
 
-将 MSSN 数据 csv 格式文件`SN_m_tot_V2.0.csv`（https\://www\.sidc.be/SILSO/INFO/snmtotcsv.php） 下载到本地。
+Download the `SN_m_tot_V2.0.csv` file in MSS data csv format (https\://www\.sidc.be/SILSO/INFO/snmtotcsv.php).
 
-以下是官方提供的CSV文件描述：
+Here is the official CSV file description：
 
 ```
 Filename: SN_m_tot_V2.0.csv
@@ -50,26 +50,26 @@ Column 1-2: Gregorian calendar date
 - Year
 - Month
 Column 3: Date in fraction of year.
-Column 4: Monthly mean total sunspot number.
-Column 5: Monthly mean standard deviation of the input sunspot numbers.
-Column 6: Number of observations used to compute the monthly mean total sunspot number.
+Column 4: Monthly mean total sunspot number@@0.
+Column 5: Monthly mean standard Deviation of the input sunspot numbers.
+Column 6: Number of observations used to prosecute the monthly total sunspot number.
 Column 7: Definitive/provisional marker. '1' indicates that the value is definitive. '0' indicates that the value is still provisional.
 ```
 
-我们使用 `pandas` 进行文件加载和预览。
+We use `pandas` to load and preview files.
 
 ```python
 import pandas as pd
 
 df = pd.read_csv("SN_m_tot_V2.0.csv", sep=";", header=None)
-df.columns = ["year", "month", "date_fraction", "mssn", "standard_deviation", "observations", "marker"]
+df. olums = ["year", "month", "date_fraction", "mssn", "standard_deviation", "observations", "marker"]
 
 # convert year and month to strings
-df["year"] = df["year"].astype(str)
+df["year"] = df["year"]. stype(str)
 df["month"] = df["month"].astype(str)
 
-# concatenate year and month
-df["date"] = df["year"] + "-" + df["month"]
+# conciliate year and month
+df["date"]= df["year"] + "-" + df["month"]
 
 df.head()
 ```
@@ -77,41 +77,41 @@ df.head()
 ![](/img/pandas_dataframe.png)
 
 ```python
-import matplotlib.pyplot as plt
+import materiplotlib.pyplot as plt
 
-df["Date"] = pd.to_datetime(df["date"], format="%Y-%m")
-plt.plot(df["Date"], df["mssn"])
+df["Date"] = pd.to_datetime(df["date"], format@@="%Y-%m")
+plt.plot(df["Date"], df["mssn"]])
 plt.xlabel("Date")
-plt.ylabel("MSSN")
-plt.title("Sunspot Activity Over Time")
+plt.ylbel("MSSN")
+plt.title("Suns" Activity Over Time")
 plt.show()
 ```
 
 ![](/img/plt_show.png)
 
-### 使用时序数据库 CnosDB 存储 MSSN 数据
+### Storage MSSN data using time series database CnosDB
 
-CnosDB（An Open Source Distributed Time Series Database with high performance, high compression ratio and high usability.）
+CnosDB (An Open Source Distrible Time Series Database with high performance, high expression ratio and high ability.)
 
 - Official Website: http\://www\.cnosdb.com
 - Github Repo: https\://github.com/cnosdb/cnosdb
 
-（注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https\://docs.cnosdb.com
+(Note：This paper assumes that you have already had CnosDB installation deployment and basic usage capacity, see https\://docs.cnosdb.com
 
-在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](/docs/reference/tools) 工具直接访问 CnosDB：
+Start the CnosDB database service with Docker in the command line, and enter the container using the [CnosDB CLI](/docs/reference/tools) tool to access CnosDB：
 
 ```SHELL
-(base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2.0.2.1-beta
+(base) root@ecs-django-dev:~# docker run --restore=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2. .2.1-beta
 
-(base) root@ecs-django-dev:~# docker exec -it cnosdb sh sh
+(base) root@ecs-django-dev:~# docker exec -it cnosdb sh
 # cnosdb-cli
-CnosDB CLI v2.3.0
-Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
+CnosDB CLI v2. .0
+Input Arguments: Args Led host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, form: Table, quiet: false }
 ```
 
-为了简化分析，我们只需存储数据集中观测时间和太阳黑子数。因此，我们将年（Col 0）和月（Col 1）拼接作为观测时间（date, 字符串类型），月均太阳黑子数（Col 3）可以不作处理直接存储。
+In order to simplify analysis, we need only store data concentrated observation time and solar black numbers.We therefore spell annual (Col 0) and month (Col 1) as observation time (date, string type) and the average monthly solar black number (Col 3) can be stored without processing.
 
-我们可以在 CnosDB CLI 中使用 SQL 创建一张名为 `sunspot` 数据表，以用于存储 MSSN 数据集。
+We can use SQL to create a database table called `sunspot` in CnosDB CLI to store MSS data sets.
 
 ```SQL
 public ❯ CREATE TABLE sunspot (
@@ -136,144 +136,144 @@ public ❯ SELECT * FROM sunspot;
 Query took 0.002 seconds.
 ```
 
-#### 使用 CnosDB Python Connector 连接和读写 CnosDB 数据库
+#### Connect and write CnosDB database with CnosDB Python Connector
 
 Github Repo: https\://github.com/cnosdb/cnosdb-client-python
 
 ```python
-# 安装 Python Connector
+# Install Python Connector
 pip install -U cnos-connector
 ```
 
 ```python
-from cnosdb_connector import connect
+From cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+conn = connect(url="http://127.0.0.0.1:8902/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-如果不习惯使用 [CnosDB CLI](/docs/reference/tools) ，我们也可以直接使用 Python Connector 创建数据表。
+If it is not customary to use [CnosDB CLI](/docs/reference/tools), we can also create tables using Python Connector directly.
 
 ```python
-# 创建 tf_demo database
+# Create tf_demo database
 conn.create_database("tf_demo")
-# 使用 tf_demo database
-conn.switch_database("tf_demo")
-print(conn.list_database())
+# with tf_demo database
+conn.witch_database("tf_demo")
+print(conn.list_database()
 
-cursor.execute("CREATE TABLE sunspot (date STRING, mssn DOUBLE,);")
-print(conn.list_table())
+cursor.execute("CREATE TABLE sunspotmot (date STRING, mssn DOUBLE,);")
+print(conn.list_table()
 ```
 
-输出如下，其中包括 CnosDB 默认的 Database。
+The output below includes CnosDB default Database.
 
 ```python
 [{'Database': 'tf_demo'}, {'Database': 'usage_schema'}, {'Database': 'public'}]
 [{'Table': 'sunspot'}]
 ```
 
-将之前 pandas 的 dataframe 写入 CnosDB.
+Write data from previous pandas to CnosDB.
 
 ```python
-### df 为pandas的dataframe，"sunspot"为CnosDB中的表名，['date', 'mssn']为需要写入的列的名字
-### 如果写入的列不包含时间列，将会根据当前时间自动生成
-conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
+### df for pandas' datatrame, "sunspot" is the name of the table in CnosDB, ['date', 'mssn'] column name
+### if the column written does not contain a time column, auto-generate
+conn.write_dataframe (df, "sunspot", ['date', 'mssn'])
 ```
 
-### CnoDB 读取数据，并使用 TensorFlow 复现 1DConv+LSTM 网络，预测太阳黑子变化
+### CnoDB read data and uses TensorFlow to rewrite 1DConv+LSTM network to predict black sun changes
 
-参考论文：程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
+Reference paper：Program surgery, Pascoe, and gas. "Forecast solar black changes based on neurological network." (2022).
 
 
-![](/img/MSSN.png)
+![](/img/MSN.png)
 
-#### 使用 CnosDB 读取数据
+#### Read data using CnosDB
 
 ```python
 df = pd.read_sql("select * from sunspot;", conn)
 
-print(df.head())
+print(df.head() )
 ```
 
 ![](/img/cnosdb_dataframe.png)
 
-#### 将数据集划分为训练集和测试集
+#### Divide datasets into training sets and test sets
 
 ```python
-import numpy as np
-# Convert the data values to numpy for better and faster processing
-time_index = np.array(df['date'])
+Import sum as np
+# Data values to sum for better and disaster processing
+time_index = np. ray(df['date'])
 data = np.array(df['mssn'])
 
 # ratio to split the data
-SPLIT_RATIO = 0.8
+SPLIT_RATO = 0.
 
-# Dividing into train-test split
-split_index = int(SPLIT_RATIO * data.shape[0])
+# Dividing into train-test flit
+split_index = int(SPLIT_RATO *data). hape[0])
 
 # Train-Test Split
 train_data = data[:split_index]
 train_time = time_index[:split_index]
 test_data = data[split_index:]
-test_time = time_index[split_index:]
+test_time = time_index[plit_index:]
 ```
 
-#### 使用滑动窗口法构造训练数据
+#### Construct training data using sliding window
 
 ![](/img/sliding_window_method.png)
 
 ```python
-import tensorflow as tf
+import sensorflow as tf
 
 ## required parameters
 WINDOW_SIZE = 60
 BATCH_SIZE = 32
-SHUFFLE_BUFFER = 1000
+SHUFLE_BUFER = 1000
 
 ## function to create the input features
 def ts_data_generator(data, window_size, batch_size, shuffle_buffer):
 '''
 Utility function for time series data generation in batches
-'''
-ts_data = tf.data.Dataset.from_tensor_slices(data)
+''
+ts_data = tf. ata.Dataet.from_tensor_slices(data)
 ts_data = ts_data.window(window_size + 1, shift=1, drop_remainder=True)
-ts_data = ts_data.flat_map(lambda window: window.batch(window_size + 1))
-ts_data = ts_data.shuffle(shuffle_buffer).map(lambda window: (window[:-1], window[-1]))
-ts_data = ts_data.batch(batch_size).prefetch(1)
-return ts_data# Expanding data into tensors
+ts_data = ts_data.flat_map(lambda window: window.batch (window_size + 1))
+ts_data = ts_data.shuffle(shuffle_buffer). ap(lambda window: (window[:-1], windowow[-1]))
+ts_data = ts_data.batch(batch_size). refetch(1)
+return ts_data# Expanding data into tens
 
 
-# Expanding data into tensors
-tensor_train_data = tf.expand_dims(train_data, axis=-1)
-tensor_test_data = tf.expand_dims(test_data, axis=-1)
+# Expanding data into tens
+tensor_train_data = tf.expand_dims(train_data, axis=1)
+tensor_test_data = tf. xpand_dims(test_data, axis=-1)
 
 ## generate input and output features for training and testing set
-tensor_train_dataset = ts_data_generator(tensor_train_data, WINDOW_SIZE, BATCH_SIZE, SHUFFLE_BUFFER)
-tensor_test_dataset = ts_data_generator(tensor_test_data, WINDOW_SIZE, BATCH_SIZE, SHUFFLE_BUFFER)
+tensor_train_dataet = ts_data_generator(tensor_train_data, WINDOW_SIZE, BATCH_SIZE, SHOFLE_BUFER)
+tensor_test_dataet = ts_data_generator (tensor_test_data, WINDOW_SIZE, BATCH_SIZE, SHOFLE_BUFER)
 ```
 
-#### 定义 1DConv+LSTM 神经网络模型
+#### Define 1DConv+LSTM neuronetwork model
 
 ```python
-model = tf.keras.models.Sequential([
+model s.Sequential ([
 tf.keras.layers.Conv1D(filters=128, kernel_size=3, strides=1, input_shape=[None, 1]),
-tf.keras.layers.MaxPool1D(pool_size=2, strides=1),
-tf.keras.layers.LSTM(128, return_sequences=True),
-tf.keras.layers.LSTM(64, return_sequences=True),
-tf.keras.layers.Dense(132, activation="relu"),
+tf.keras.layers.MaxPool1D(Pool_size=2, strrides=1),
+tf.keryers.LSTM(128, return_sequences=Trace),
+tf.keras.layers.LSTM(64, return_sequences=Trace),
+tf.keras.layers.Dense(132, activation="),
 tf.keras.layers.Dense(1)])
 
 
 ```
 
 ```python
-## compile neural network model
-optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
-model.compile(loss="mse",
+## compile neural model
+optimizer = tf.keras.optimizers. Adam (learning_rate=1e-3)
+model. ompile(loss="mse",
 optimizer=optimizer,
 metrics=["mae"])
-## training neural network model
-history = model.fit(tensor_train_dataset, epochs=20, validation_data=tensor_test_dataset)
+## training neural model
+history = model.fit(tensor_train_database, epochs=20, validation_data=tensor_test_dataet)
 ```
 
 ![](/img/tensorflow.png)
@@ -284,46 +284,46 @@ plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('model loss')
 plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
+plt.xlabel('epoc')
+plt.legend([['train', 'test'test'], loc='upper left')
 plt.show()
 ```
 
-![](/img/model_resault.png)
+![](/img/model_result.png)
 
-#### 使用训练好的模型预测 MSSN
+#### Forecast MSSSN using trained models
 
 ```python
-def model_forecast(model, data, window_size):
-ds = tf.data.Dataset.from_tensor_slices(data)
-ds = ds.window(window_size, shift=1, drop_remainder=True)
-ds = ds.flat_map(lambda w: w.batch(window_size))
-ds = ds.batch(32).prefetch(1)
-forecast = model.predict(ds)
-return forecast
+def model_forest(model, data, window_size):
+ds = tf.data.Dataet.from_tensor_slices(data)
+ds = ds. indow(window_size, shift=1, drop_reader=True)
+ds = ds.flat_map(lambda w: w.batch (window_size))
+ds = ds.batch(32). prefetch(1)
+foresast = model. redict(ds)
+return foreecast
 
-rnn_forecast = model_forecast(model, data[..., np.newaxis], WINDOW_SIZE)
-rnn_forecast = rnn_forecast[split_index - WINDOW_SIZE:-1, -1, 0]
+rnnn_foresast = model_forestation(model, data[.., np. ewaxis], WINDOW_SIZE)
+rnn_foresast = rnn_forest_index - WINDOW_SIZE:-1, -0]
 # Overall Error
-error = tf.keras.metrics.mean_absolute_error(test_data, rnn_forecast).numpy()
+error = tf.keras.metrics.mean_solute_error(test_data, rnn_foreecast).numpy()
 print(error)
 ```
 
 ```python
-101/101 [==============================] - 2s 18ms/step
+101/101 [================================2s 18ms/stap
 24.676455
 ```
 
-#### 与真实值对比的可视化结果
+#### Visualizations compared to real values
 
 ```python
 plt.plot(test_data)
-plt.plot(rnn_forecast)
-plt.title('MSSN Forecast')
-plt.ylabel('MSSN')
+plt.plot(rn_forest)
+plt.title('MSN Foecast')
+plt.ybel('MSSN')
 plt.xlabel('Month')
-plt.legend(['Ground Truth', 'Predictions'], loc='upper right')
+plt.legend(['Ground Trust', 'Predictions'], loc='upper right')
 plt.show()
 ```
 
-![](/img/model_resault_compare.png)
+![](/img/model_result_compare.png)
