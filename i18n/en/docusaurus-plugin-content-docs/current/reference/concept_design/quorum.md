@@ -1,34 +1,40 @@
 ---
-title: Quorum Algorithm
+title: Quorum 算法
 order: 2
 ---
 
-# Quorum Algorithm
+# Quorum 算法
 
-Quorum algorithm is a voting algorithm commonly used in distributed systems to ensure data redundancy and eventual consistency. Quorum is used to ensure that if some participants fail, we can still collect votes from the surviving participants and continue to execute the algorithm. A Quorum represents the minimum number of votes needed to perform an action, typically a majority of participants. The core idea behind Quorum is that even if participants fail or happen to be separated by network partitions, at least one of them can act as an arbiter to ensure the accuracy of the protocol.
+Quorum 机制，是一种分布式系统中常用的，用来保证数据冗余和最终一致性的投票算法。Quorum用于保证在某些参与者发生故障的情况下，我们依然可以从存活的参与者那里收集投票，从而继续执行算法。Quorum 表示执行操作所需的最小票数，通常为多数派的参与者。Quorum 背后的核心思想就是，即使参与者发生故障或恰好被网络分区隔开，也至少有一个参与者可以充当仲裁者，以确保协议的准确性。
 
-### Basic Principle of Quorum Algorithm
+### Quorum 算法基本原理
 
-There are three parameters in Quorum URW algorithm: N, R, W.
+在Quorum NRW算法中，存在三个参数：N、R、W。
 
-Parameter N is also called a copy factor, meaning a number of copies of data throughout the cluster.
+参数N为副本数又被称作复制因子，其含义是一份数据在整个集群中的副本数量。
 
-Parameter R is the level of read consistency, which means successful reading from R copies will be considered a successful reading operation.
+参数R为读一致性级别，其含义为成功从R个副本读取，才会视为本次读操作成功。
 
-Parameter W is the level of writing consistency, which means successfully written from W copies, will be considered a successful writing operation.
+参数W为写一致性级别，其含义为成功从W个副本写入，才会视为本次写操作成功。
 
-N, R and W parameters can achieve different consistency levels under different combination conditions:
-1. When "W + R > N", the latest data can be determined by timestamp, version number, etc. In other words, under the combination of parameters that meet this condition, the strong consistency of data can be realized.
-2. When "W + R < = N" is not possible, it can only guarantee final consistency, i.e. system reading may obtain old data.
-3. When "W = N, R = 1, so-called Write All Read One" is the scenario of the CP model in CAP theory.
-4. When "W <N, R = 1" is the scene of the AP model in CAP theory.
+N、R、W参数在不同组合条件下，可实现不同的一致性级别：
 
-### Modalities for Data Consistency Assurance
+1. 当 「W + R > N」时，利用时间戳、版本号等手段即可确定出最新的数据。换言之在满足该条件的参数组合下，可以实现数据的强一致性。
+2. 当 「W + R <= N」时，无法实现强一致性，其只能保障最终一致性，即系统读取可能会获取旧数据。
+3. 当 「W=N、R=1」时，即所谓的WARO(Write All Read One)，就是CAP理论中CP模型的场景。
+4. 当 「W\<N、R=1」时，就是CAP理论中AP模型的场景。
 
-Data are required to write N when writing, taking into account that there may be write failures in reality, loss of data copies caused by machine failures, and inconsistencies in multiple copies of data, such as write-and-end.
-1. The hinted-handoff mechanism is a machine received to write requests. When a remote replaica is written in failure, it is stored in the hinted-handoff queue of the machine; this opportunity regularly sends the contents of the hinted-handoff queue to a remote node to achieve final consistency in the data. Typically, the hinted-handoff queue has a capacity limit, and overcapacity writes will fail.
-2. Reading repair mechanism If two data are found to be inconsistent when read, repairs are made to the final consistency of data based on version number, timestamp or other copy information; reading and repairs are usually used in the CP model.
-3. In this distributed algorithm of Quorum, the deletion operation is a special operation to deal with the problem that there may be no resurrection of old data. For example, three copies, two successful deletions of one unsuccessful, and the failure to delete successful data processing may be used as valid data synchronization to cause the resurrection of deleted data; in order to address this situation, marker deletion is usually used when deleted, and is later really deleted from disk, which is often referred to as a tombstone mechanism.
-4. The anti-entry anti-entropy mechanism is similar to a background checker, where there is a lack of data between copies and where values exist and are not consistent and then repaired. This mechanism is usually costly for the system, and most systems have a configuration switch when implemented, which is determined by users whether to open.
+### 数据一致性保证方式
 
-It is because of the large cost of the system that the antitropy mechanism is different when it is implemented, different systems choose to realize it according to different particle size. Some systems routinely view only whether one data block content is lost without carsandra, while some systems validate each content within the periodic calibration system, such as liak. In content-based consistency implementations, this data structure is usually built on Merkel Tree.
+数据在写入时要求写N份，考虑到现实情况可能会存在写入失败，机器故障引起的数据副本丢失，以及写入并发等引起多个副本数据不一致，通常的解决方式有以下几点。
+
+1. hinted-handoff 机制
+   一台机器接收到写入请求，当远端的replica写入失败时，会先存储到本机的hinted-handoff队列；本机会定期的将hinted-handoff队列的内容发送给远端节点，达到数据的最终一致。通常hinted-handoff队列会有一个容量限制，超过容量写入将会响应失败。
+2. 读修复机制
+   在读取的时候如果发现两份数据不一致，会根据版本号、时间戳或者其他副本信息进行修复达到数据的最终一致；读修复通常用在CP模型中。
+3. 墓碑机制
+   在Quorum这种分布式算法中，删除操作是一项特殊的操作，处理不当可能存在旧数据复活的问题。比如3个副本，两个成功删除一个没删除成功，未删除成功的这份数据处理不当可能会被当成有效数据同步给已删除的节点造成已删除数据的复活；为解决这种情况通常在删除的时候使用标记删除法，待后期再真正从磁盘中删除，这种标记删除法通常被称为墓碑机制。
+4. anti-entropy 反熵机制
+   反熵机制类似于一种后台对账程序，各个副本之间比对数据是否存在缺失、以及数值不一致存在然后修复。这种机制通常对系统开销巨大，多数系统在实现的时候都会有个配置开关，由用户决定是否开启。
+
+反熵机制正是由于系统开销巨大所以在实现的时候，不同系统会选择按照不同粒度实现方式不同。有些系统常规情况只查看一个数据块内容是否有丢失，而不关心数据块内部内容是否一致例如cassandra,有一些系统则会周期性校验系统内部每条内容是否一致例如riak。在基于内容的一致性实现中通常借助于默克尔树(Merkle Tree)这种数据结构。
