@@ -3,78 +3,78 @@ title: Telegraf
 slug: /telegraf
 ---
 
-[Telegraf](https://github.com/influxdata/telegraf) is an open source server agent program used to collect metrics from stacks, sensors, and systems to database intensively, with a minimal memory footprint and support for extensions via plug-ins.Telegraf is simple to configure, easy to get started with, and greatly reducing the difficulty of data acquisition compared to collecting data via handwritten scripts.
+[Telegraf](https://github.com/influxdata/telegraf) 是一个开源的服务器代理程序，用于从堆栈、传感器和系统中收集一些指标，集中输出到数据库，内存占用极小，支持通过插件进行扩展。Telegraf 配置简单，易于上手，相较于通过手写脚本采集数据，大大降低了数据获取的难度。
 
-#### User scenarios
+**使用场景**
 
-- **IoT sensor data:** Data transferred based on protocols such as MQTT, ModBus, OPC-UA, and Kafka.
-- **DevOps framework data:** Operational metrics from platforms or frameworks such as GitHub, Kubernetes, CloudWatch, Prometheus, etc.
-- **System telemetry data:** System telemetry metrics such as iptables, Netstat, NGINX and HAProxy
+- **IoT 传感器数据**: 基于 MQTT、ModBus、OPC-UA 和 Kafka 等协议传输的数据。
+- **DevOps 框架数据**: GitHub、Kubernetes、CloudWatch、Prometheus 等平台或框架的运行指标。
+- **系统遥测数据**: iptables, Netstat, NGINX 和 HAProxy 等系统遥测指标。
 
-**Plug-in System**
+**插件系统**
 
-1. **Input:** Collects metrics data from systems, services, or third-party APIs.
-2. **Process:** Process and trim the metrics data before sending them to maintain data cleanliness.
-3. **Aggregate:** Generate aggregated metrics, such as average, minimum, and maximum values of metric data.
-4. **Output:** Writing data to a data store, service or message queue such as CnosDB, InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ, etc.
+1. **输入**: 收集来自系统、服务或第三方 API 的指标数据。
+2. **处理**: 在发送指标数据前对数据进行处理、修饰，以维持数据整洁。
+3. **聚合**: 生成聚合指标，如指标数据的平均值、最小值、最大值等。
+4. **输出**: 将数据写入数据存储、服务或消息队列，如 CnosDB, InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ 等。
 
-In the following, we will describe how to install and configure Telegraf for collecting system metrics data and storing it in CnosDB.
+在下文中，我们将介绍如何安装、配置 Telegraf，以实现采集系统指标数据，并存储在 CnosDB 中。
 
-### **Telegraf Deployment**
+### Telegraf 部署
 
+- **下载**
 
-- #### Download
+[官方下载链接](https://portal.influxdata.com/downloads)
 
-[Official Download Link](https://portal.influxdata.com/downloads/)
+- **安装**
 
-- **Installation**
+[官方安装教程(v1.23)](https://docs.influxdata.com/telegraf/v1.23/install/)
 
-[Offical Installation Tutorial(v1.23)](https://docs.influxdata.com/telegraf/v1.23/install/)
+- **启动**
 
-- **Start**
+[官方基础教程(v1.23)](https://docs.influxdata.com/telegraf/v1.23/get_started/)
 
-[Offical Basic Tutorisl(v1.23)](https://docs.influxdata.com/telegraf/v1.23/get_started/)
+### Telegraf 配置
 
-### **Telegraf Configuration**
-
-- #### Generate configuration files manually
+- **手动生成配置文件**
 
 ```sh
 telegraf --sample-config > telegraf.conf
 ```
 
-- #### Default configuration file path
+- **默认配置文件路径**
 
 - macOS **Homebrew**: `/usr/local/etc/telegraf.conf`
+
 - Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
 
-- #### Use a text editor such as `vim` to modify the configuration file.
+- **使用 `vim` 等文本编辑器修改配置文件**
 
-In order to output the metrics data to CnosDB, we need to configure Telegraf's output plug-in `http` to output line protocol data to the write interface of CnosDB.
+为实现将指标数据输出至 CnosDB，我们需要配置 Telegraf 的输出插件 `http`，来将行协议数据输出至 CnosDB 的写入接口。
 
-Find [[`outputs.http`]] in the configuration file and modify it as follows:
+在配置文件中找到 `[[outputs.http]]`，将其内容修改如下：
 
 ```toml
 [[outputs.http]]
-url = "http://CnosDB_Addr:CnosDB_Port/api/v1/write?db=cnos"
+url = "http://CnosDB地址:CnosDB端口/api/v1/write?db=cnos"
 timeout = "5s"
 method = "POST"
-username = "username"
-password = "password"
+username = "用户名"
+password = "密码"
 data_format = "influx"
 use_batch_format = true
 content_encoding = "identity"
 idle_conn_timeout = 10
 ```
 
-In the above configuration, there are some texts needed to be replaced:
+在上面的配置中，有一些文本可能需要替换：
 
-- `CnosDB_address`
-- `CnosDB_port`
-- `username`
-- `password`
+- `CnosDB地址`
+- `CnosDB端口`
+- `用户名`
+- `密码`
 
-as, for example:
+如：
 
 ```toml
 [[outputs.http]]
@@ -89,7 +89,7 @@ content_encoding = "identity"
 idle_conn_timeout = 10
 ```
 
-Next, start the Telegraf service and provide the configuration file path:
+接下来，启动 Telegraf 服务，并提供配置文件路径：
 
 **macOS Homebrew**
 
@@ -109,23 +109,23 @@ sudo service telegraf start
 systemctl start telegraf
 ```
 
-Next, use the CnosDB query interface to view the data to verify that Telegraf is running correctly:
+接下来使用 CnosDB 查询接口来查看数据，以验证 Telegraf 是否正确运行：
 
 ```sh
-curl -XPOST 'http://<CnosDB addr>:<CnosDB port>/api/v1/sql?db=cnos'
-  -u "<username>:<password>"
+curl -XPOST 'http://<CnosDB地址>:<CnosDB端口>/api/v1/sql?db=cnos'
+  -u "<用户名>:<密码>"
   -H 'ACCEPT: application/json' \
   -d 'SELECT * from cpu limit 1'
 ```
 
-In the above configuration, there are some texts needed to be replaced:
+在上面的命令中，有一些文本可能需要替换：
 
-- `CnosDB_address`
-- `CnosDB_port`
-- `username`
-- `password`
+- `CnosDB地址`
+- `CnosDB端口`
+- `用户名`
+- `密码`
 
-as, for example:
+如：
 
 ```sh
 > curl -XPOST 'http://127.0.0.1:8902/api/v1/sql?db=cnos'
@@ -134,42 +134,41 @@ as, for example:
   -d 'SELECT * from cpu limit 1'
 ```
 
-Under correct configuration, you will obtain the following results:
+在正确配置的情况下，我们能够获得以下结果：
 
 ```json
 [
-  {
-    "cpu": "cpu0",
-    "host": "_HOST",
-    "time": "2022-10-10 10:10:10",
-    "usage_guest": 0.0,
-    "usage_guest_nice": 0.0,
-    "usage_idle": 99.49899799596298,
-    "usage_iowait": 0.10020040080156893,
-    "usage_irq": 0.0,
-    "usage_nice": 0.0,
-    "usage_softirq": 0.10020040080156893,
-    "usage_steal": 0.0,
-    "usage_system": 0.10020040080155113,
-    "usage_user": 0.20040080160317345
-  }
+    {
+        "cpu": "cpu0",
+        "host": "_HOST",
+        "time": "2022-10-10 10:10:10",
+        "usage_guest": 0.0,
+        "usage_guest_nice": 0.0,
+        "usage_idle": 99.49899799596298,
+        "usage_iowait": 0.10020040080156893,
+        "usage_irq": 0.0,
+        "usage_nice": 0.0,
+        "usage_softirq": 0.10020040080156893,
+        "usage_steal": 0.0,
+        "usage_system": 0.10020040080155113,
+        "usage_user": 0.20040080160317345
+    }
 ]
 ```
 
-
 ## Cnos-Telegraf
 
-CnosDB-Telegraf is based on Telegraf (re1.25, commit 86cd0c0c2), with some added features and plugins.
+CnosDB-Telegraf 基于 Telegraf (re1.25, commit 86cd0c0c2) 进行开发，增加了一些功能与插件。
 
-### **Description of the changes compared to Telegraf**
+### 相较于 Telegraf 的改动说明
 
 #### Parser Plugin
 
-Add Parser plug-ins OpenTSDB and OpenTSDB-Telnet to collect write requests from OpenTSDB.
+增加 Parser 插件 OpenTSDB 和 OpenTSDB-Telnet，用于采集 OpenTSDB 的写入请求。
 
 - **OpenTSDB**
 
-By using the Input plugin http_listener_v2 and configuring the `data_format` to "`opentsdb`", you will be able to parse write requests in OpenTSDB format.
+通过使用 Input 插件 http_listener_v2 并配置 `data_format` 为 `"opentsdb"`，将能够解析 OpenTSDB 格式的写入请求。
 
 ```toml
 [[inputs.http_listener_v2]]
@@ -181,7 +180,7 @@ data_format = "opentsdb"
 
 - **OpenTSDB-Telnet**
 
-By using the Input plugin socket_listener and configuring the `data_format` to "`opentsdbtelnet`", you will be able to parse write requests in OpenTSDB-Telnet format.
+通过使用 Input 插件 socket_listener，并配置 `data_format` 为 `"opentsdbtelnet"`，将能够解析 OpenTSDB-Telnet 格式的写入请求。
 
 ```toml
 [[inputs.socket_listener]]
@@ -191,7 +190,7 @@ data_format = "opentsdbtelnet"
 
 #### Output Plugin
 
-Add Output plugin CnosDB for exporting metrics to CnosDB.
+增加 Output 插件 CnosDB，用于将指标输出到 CnosDB。
 
 ```toml
 [[outputs.cnosdb]]
@@ -201,20 +200,20 @@ password = "pass"
 database = "telegraf"
 ```
 
-- **Configuration introduction**
+- **配置介绍**
 
-| **Parameters** | **Description**             |
-|----------------|-----------------------------|
-| url            | CnosDB GRpc service address |
-| user           | User Name                   |
-| password       | Password                    |
-| database       | CnosDB database             |
+| 参数                | 说明               |
+| ----------------- | ---------------- |
+| url               | CnosDB GRpc 服务地址 |
+| user              | 用户名              |
+| password          | 密码               |
+| Database database | CnosDB 数据库       |
 
 #### Input Plugin
 
-Add the configuration parameter high_priority_io to enable end-to-end mode.
+增加配置参数 high_priority_io，用于开启端到端模式。
 
-When set to true, the written data will be sent to the Output plug-in immediately and the return value will be determined based on the Output plug-in's return parameters.
+当设置为 true 时，写入的数据将立即发送到 Output 插件，并根据 Output 插件的返回参数来决定返回值。
 
 ```toml
 [[inputs.http_listener_v2]]
@@ -225,57 +224,57 @@ data_format = "opentsdb"
 high_priority_io = true
 ```
 
-The above configuration adds the `high_priority_io = true` configuration compared to the configuration in the [Output Plugin](#output-plugin) section.
+以上配置与在 [Output Plugin](#output-plugin) 章节中的配置相比，增加了 `high_priority_io = true` 配置项。
 
-### **Build**
+### 构建
 
-- #### [Install Go](https://golang.org/doc/install) >=1.18 (1.18.0 version recommended)
-- #### Clone the repository from Github:
+- #### [安装 Go](https://golang.org/doc/install) >=1.18 (推荐 1.18.0 版本)
+- #### 从 Github 克隆仓库:
 
 ```shell
 git clone https://github.com/cnosdb/cnos-telegraf.git
 ```
 
-- #### execute `make build` in the repository directory
+- #### 在仓库目录下执行 `make build`
 
 ```shell
 cd cnos-telegraf
 make build
 ```
 
-### **Start**
+### Boot
 
-- #### Execute the following command to view the use case:
+- #### 执行以下指令，查看用例:
 
 ```shell
 telegraf --help
 ```
 
-- #### **Generate a standard telegraf configuration file**
+- #### 生成一份标准的 telegraf 配置文件
 
 ```shell
 telegraf config > telegraf.conf
 ```
 
-- #### **Generate a telegraf configuration file that contains only the cpu metrics collection & influxdb output plugins**
+- #### 生成一份 telegraf 配置文件，仅包含 cpu 指标采集 & influxdb 输出两个插件
 
 ```shell
 telegraf config --section-filter agent:inputs:outputs --input-filter cpu --output-filter influxdb
 ```
 
-- #### **Run telegraf but output the capture metrics to the standard output**
+- #### 运行 telegraf 但是将采集指标输出到标准输出
 
 ```shell
 telegraf --config telegraf.conf --test
 ```
 
-- #### **Run telegraf and manage the loaded plugins through the configuration file**
+- #### 运行 telegraf 并通过配置文件来管理加载的插件
 
 ```shell
 telegraf --config telegraf.conf
 ```
 
-- #### **Run telegraf, load only the cpu & memory metrics collection, and the influxdb output plugin**
+- #### 运行 telegraf，仅加载 cpu & memory 指标采集，和 influxdb 输出插件
 
 ```shell
 telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb
