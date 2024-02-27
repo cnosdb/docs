@@ -12,7 +12,7 @@ sidebar_position: 10
 
 ### VNODE_DISK_STORAGE
 
-#### 名称
+#### Name
 
 vnode_disk_storage
 
@@ -20,13 +20,13 @@ vnode_disk_storage
 
 Gauge
 
-#### 描述
+#### Description
 
 vnode 占据的磁盘大小。
 
 #### 标签
 
-| 字段                            | 描述                  |
+| 字段                            | Description         |
 | ----------------------------- | ------------------- |
 | DATABASE                      | vnode 所属的数据库        |
 | NODE_ID  | data节点的ID           |
@@ -36,7 +36,7 @@ vnode 占据的磁盘大小。
 
 ### VNODE_CACHE_SIZE
 
-#### 名称
+#### Name
 
 vnode_cache_size
 
@@ -44,13 +44,13 @@ vnode_cache_size
 
 Gauge
 
-#### 描述
+#### Description
 
 vnode 占据的内存大小。
 
 #### 标签
 
-| 字段                            | 描述                  |
+| 字段                            | Description         |
 | ----------------------------- | ------------------- |
 | DATABASE                      | vnode 所属的数据库        |
 | NODE_ID  | data节点的ID           |
@@ -60,7 +60,7 @@ vnode 占据的内存大小。
 
 ### HTTP_DATA_IN
 
-#### 名称
+#### Name
 
 http_data_in
 
@@ -68,13 +68,13 @@ http_data_in
 
 Count
 
-#### 描述
+#### Description
 
 通过http协议写入的数据流量，不包括SQL
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -84,7 +84,7 @@ Count
 
 ### HTTP_DATA_OUT
 
-#### 名称
+#### Name
 
 http_data_out
 
@@ -92,13 +92,13 @@ http_data_out
 
 Count
 
-#### 描述
+#### Description
 
 Http返回数据的大小
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -110,7 +110,7 @@ Http返回数据的大小
 
 ### HTTP_QUERIES
 
-#### 名称
+#### Name
 
 http_queries
 
@@ -118,13 +118,13 @@ http_queries
 
 Count
 
-#### 描述
+#### Description
 
 该指标记录用户通过Http查询的次数。
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -135,7 +135,7 @@ Count
 
 ### HTTP_WRITES
 
-#### 名称
+#### Name
 
 http_writes
 
@@ -143,13 +143,13 @@ http_writes
 
 Count
 
-#### 描述
+#### Description
 
 该指标记录用户通过Http写入的次数。
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -160,7 +160,7 @@ Count
 
 ### HTTP_QUERY_DURATION
 
-#### 名称
+#### Name
 
 http_query_duration
 
@@ -168,13 +168,13 @@ http_query_duration
 
 Histogram
 
-#### 描述
+#### Description
 
 通过Http接口查询的耗时
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -186,7 +186,7 @@ Histogram
 
 ### HTTP_WRITE_DURATION
 
-#### 名称
+#### Name
 
 http_write_duration
 
@@ -194,13 +194,13 @@ http_write_duration
 
 Histogram
 
-#### 描述
+#### Description
 
 通过Http接口写入的耗时
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -212,7 +212,7 @@ Histogram
 
 ### COORD_DATA_IN
 
-#### 名称
+#### Name
 
 coord_data_in
 
@@ -220,13 +220,13 @@ coord_data_in
 
 Count
 
-#### 描述
+#### Description
 
 数据写入到数据库时，Coordinator接受的数据总大小。
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -236,7 +236,7 @@ Count
 
 ### COORD_DATA_OUT
 
-#### 名称
+#### Name
 
 coord_data_out
 
@@ -244,13 +244,13 @@ coord_data_out
 
 Count
 
-#### 描述
+#### Description
 
 数据读出数据库时，Coordinator输送的数据总大小。
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -260,7 +260,7 @@ Count
 
 ### COORD_QUERIES
 
-#### 名称
+#### Name
 
 coord_queries
 
@@ -268,13 +268,13 @@ coord_queries
 
 Count
 
-#### 描述
+#### Description
 
 查询时数据经过Coordinator的次数。
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -284,7 +284,7 @@ Count
 
 ### COORD_WRITES
 
-#### 名称
+#### Name
 
 coord_writes
 
@@ -292,13 +292,13 @@ coord_writes
 
 Count
 
-#### 描述
+#### Description
 
 写入时数据经过Coordinator的次数。
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -308,7 +308,7 @@ Count
 
 ### SQL_DATA_IN
 
-#### 名称
+#### Name
 
 sql_data_in
 
@@ -316,13 +316,13 @@ sql_data_in
 
 Count
 
-#### 描述
+#### Description
 
 通过sql写入的数据大小，包括INSERT，COPY 语句
 
 #### 标签
 
-| 字段                           | 描述               |
+| 字段                           | Description      |
 | ---------------------------- | ---------------- |
 | TIME                         | 记录的时间            |
 | DATABASE                     | Database名称       |
@@ -342,7 +342,7 @@ scrape_configs:
       - targets: [ '127.0.0.1:8902' ]
 ```
 
-#### 参数说明
+#### Parameter Description
 
 `targets` 填入CnosDB Http 服务地址。
 
