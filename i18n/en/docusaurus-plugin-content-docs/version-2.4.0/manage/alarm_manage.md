@@ -1,41 +1,38 @@
 ---
-title: Alarm Management
-order: 6
+sidebar_position: 6
 ---
+
+# Alarm Management
 
 :::tip
 Only Enterprise Edition supports, Please contact [CC](../enterprise) to get the alarm plugin.
 :::
 
-# Alarm Management
-
-### Introduction
+## Introduction
 
 CnosDB supports alarm management. Through CnosDB alarm management, you can view alarm information, set alarm notification methods, set alarm rules, set alarm notification groups, etc.
 
-### Principle of Implementation
+## Principle of Implementation
 
 For the time series data stored in CnosDB, cnos-alert component executes sql query regularly according to the configuration file submitted by the user, compares the query result with the threshold, and sends the query result that triggers the alarm to the user specified receiving terminal.
-
-sql query:
-    The standard cnosdb-sql query statement, considering the use scenario of the alarm, generally has a time related where clause.
-Threshold:
-    In the configuration, you need to specify a field of the sql query return value, and set a threshold value for this field to trigger the alarm. Currently, it supports five types of thresholds: greater than, less than, equal to, within the range, and outside the range.
-Notification receiving terminal:
-    Currently, slack and twitter are supported.
-History:
-    All query results, issued notifications that trigger alarms will be recorded in cnosdb.
-    The alarm rules configured by the user are recorded in the user-specified location json file.
+sql queried：
+standard cnosdb-sql query, usually with time related to where given warning scenarios.
+Threshold：
+needs to specify a sql query return value, setting a threshold for triggering a warning for this field that is currently supported in five categories greater than or less and equal to, within and outside range.
+Notification receiving terminal：
+currently supports slack, twitter and twitter.
+History history：
+All queries triggering warnings and notifications will be recorded in cnosdb.
+The user configured warning rule is recorded in the user locator json file.
 ![告警组件原理](/img/cnos-alert.png)
 
-
-### Start
+## Start
 
 ```shell
 ./alertserver --config=alertserver.yaml --serverport=9001
 ```
 
-### Configuration（alertserver.yaml）
+## Configuration（alertserver.yaml）
 
 ```yaml
 query: #cnosdb configuration where the queried data resides
@@ -52,9 +49,9 @@ store: #cnosdb configuration where the alarm record is stored
     notitable: notirecord #Notification record table name
 ```
 
-### API Description
+## API Description
 
-::: details /api/http/ping
+### /api/http/ping
 
 **Description**
 
@@ -67,7 +64,7 @@ Test the running status of the service
 **Request Example**
 
 ```shell
-curl -X GET http:/127.0.0.1:30001/api/http/ping
+curl-X GET http://127.0.0.1:3001/api/http/ping
 ```
 
 **Request Succeeded**
@@ -81,9 +78,8 @@ curl -X GET http:/127.0.0.1:30001/api/http/ping
 ```shell
 curl: error
 ```
-:::
 
-::: details /api/v1/alert/config/rule
+### /api/v1/alert/config/rule
 
 **Description**
 
@@ -96,44 +92,44 @@ Create an alert rule.
 **Request Example**
 
 ```shell
-curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
+curl-X POST http://127.0.0.0.1:30001/api/v1/alert/config/rule
 ```
 
 **Request Parameters**
 
 ```shell
 {
-    "tenant": "cnosdb", # tenant name where the queried data resides
+    "tenant": "cnosdb", # 被查询数据所在cnosdb中的租户
     "data": {
-        "enabled": "on", # initial execution status of the alert rule, ["on", "off"]
-        "dbname": "public", #  database name where the queried data resides
-        "sqlType": 1, # select sql type, local recommended 1, use the complete sql in sqlCmd parameter for query
+        "enabled": "on", # 告警规则的初始执行状态，【“on”， “off“】
+        "dbname": "public", #  被查询数据所在数据库
+        "sqlType": 1, # 选择sql类型，本地推荐 1，使用sqlCmd参数中的完整sql进行查询
         "sqlCmd": "select cpu, avg(usage_user) from cpu where time >= now() - interval '20' SECOND group by cpu", # 与sqlType 1配合使用
-        "period": "15s", # query execution period, composed of numbers + ['s', 'm', 'h', 'd']
-        "thresholds": [ # threshold
+        "period": "15s", # 查询执行周期，由数字➕ 【‘s'，’m‘，’h‘，’d‘】组成
+        "thresholds": [ # 阈值设置
             {
-                "checks": [ # check
+                "checks": [ # 查询结果需要进行的检查
                     {
-                        "value": "0.2", # a comparison value
-                        "operator": 1 # a comparison operator, -2: less than or equal to, -1: less than, 0: equal to, 1: greater than, 2: greater than or equal to
+                        "value": "0.2", # 一个比较值
+                        "operator": 1 # 一个比较运算，-2: 小于等于， -1: 小于， 0: 等于， 1: 大于， 2: 大于等于
                     }
                 ],
-                "period": "Automation", # notification task execution period, ['Automation', 'Hourly', 'Daily', 'Weekly'], where Automation is once a minute
-                "severity": "Medium", # alarm level
-                "endtools": [ # receiving terminal
+                "period": "Automation", # 通知任务执行周期，【’Automation', 'Hourly', 'Daily','Weekly']，其中Automation为一分钟一次
+                "severity": "Medium", # 告警级别
+                "endtools": [ # 接收终端
                     {
-                        "name": "slack", # terminal name
-                        "receiver": "https://hooks.slack.com/services/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", # slack requires users to provide webhookurl, and twitter requires users to provide verification key
-                        "format": "", # format of the notification content, please refer to the following example for details
-                        "tool": "slack" # terminal type
+                        "name": "slack", # 终端命名
+                        "receiver": "https://hooks.slack.com/services/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", # slack需要用户提供webhookurl，twitter则需要用户提供校验key
+                        "format": "", # 配置通知内容的格式，具体参考后续示例
+                        "tool": "slack" # 终端类型
                     }
                 ],
-                "checkrelation": 0 # checks can have multiple, and the logical relationship between checks is determined by relation, 0 is or operation, 1 is and operation
+                "checkrelation": 0 # checks可以有多个，通过relation确定check之间的逻辑关系，0为或运算，1为与运算
             }
         ],
-        "name": "cpu new", # rule name
-        "description": "cpu local demo", # description
-        "field": "AVG(cpu.usage_user)", # field used to compare the query result
+        "name": "cpu new", # rule名字
+        "description": "cpu local demo", # 描述
+        "field": "AVG(cpu.usage_user)", # 查询结果被用来比较的字段
     }
 }
 ```
@@ -141,8 +137,8 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
 **Request Succeeded**
 
 ```shell
-{ 
-    "message":"succeed", 
+LO 
+    "message": "suceed", 
     "id":"1"
 }
 ```
@@ -150,15 +146,14 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
 **Request Failed**
 
 ```shell
-{
+LO
     "code":3, 
-    "message":"invalid character '}' looking for beginning of object key string", 
+    "message": "invalid character '}' looking for beginning of object key string", 
     "details":[]
 }
 ```
-:::
 
-::: details /api/v1/alert/config/rule
+### /api/v1/alert/config/rule
 
 **Description**
 
@@ -171,7 +166,7 @@ Modify an alert rule.
 **Request Example**
 
 ```shell
-curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
+curl-X PUT http://127.0.0.0.1:30001/api/v1/alert/config/rule
 ```
 
 **Request Parameters**
@@ -217,21 +212,20 @@ curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
 **Request Succeeded**
 
 ```shell
-{ "message":"succeed" }
+"message":"ucceed" }
 ```
 
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-::: details api/v1/alert/config/rule/tenant/:tenant/id/:id
+### api/v1/alert/config/rule/tenant/:tenant/id/:id
 
 **Description**
 
@@ -244,7 +238,7 @@ Get the specified rule information.
 **Request Example**
 
 ```shell
-curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
+curl-X GET http://127.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 ```
 
 **Request Parameters**
@@ -302,15 +296,14 @@ curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-::: details api/v1/alert/config/rule/tenant/:tenant/id/:id
+### api/v1/alert/config/rule/tenant/:tenant/id/:id
 
 **Description**
 
@@ -323,13 +316,13 @@ Remove the top rule.
 **Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
+curl-X DELETE http://127.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 ```
 
 **Request Parameters**
 
 ```shell
-    :tenant: tenant name
+    :tenant: tenant name 
     :id: rule id
 
 ```
@@ -337,23 +330,22 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 **Request Succeeded**
 
 ```shell
-{
-    "message": "succeed"
+LO
+    "message": "ucce"
 }
 ```
 
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-::: details /api/v1/alert/config/rule/tenant/:tenant
+### /api/v1/alert/config/rule/tenant/:tenant
 
 **Description**
 
@@ -366,7 +358,7 @@ List all rules for the specified tenant.
 **Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
 ```
 
 **Request Parameters**
@@ -399,15 +391,14 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-::: details /api/v1/alert/config/rule/tenant/:tenant
+### /api/v1/alert/config/rule/tenant/:tenant
 
 **Description**
 
@@ -420,7 +411,7 @@ List all rules for the specified tenant.
 **Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
 ```
 
 **Request Parameters**
@@ -453,15 +444,14 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-::: details api/v1/alert/data/alert/tenant/:tenant
+### api/v1/alert/data/alert/tenant/:tenant
 
 **Description**
 
@@ -474,7 +464,7 @@ List all alert records for the specified tenant.
 **Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/data/alert/tenant/cnosdb?page=1&per_page=10
 ```
 
 **Request Parameters**
@@ -498,15 +488,14 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-::: details api/v1/alert/data/noti/tenant/:tenant
+### api/v1/alert/data/noti/tenant/:tenant
 
 **Description**
 
@@ -519,7 +508,7 @@ Lists all notification records for the specified tenant.
 **Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/data/noti/tenant/cnosdb?page=1&per_page=10
 ```
 
 **Request Parameters**
@@ -543,15 +532,14 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1
 **Request Failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
-:::
 
-### Example
+## Example
 
 Suppose we write the cpu monitoring data to cnosdb through telegraf tool. Part of the table is as follows:
 
@@ -570,7 +558,7 @@ public ❯ select time, cpu, usage_user from cpu order by time desc limit 5;
 
 This table logs cpu data every 10 seconds, and we want to monitor the usage_user value for each cpu in the table and send an alert to slack when it averages greater than 0.2 over the past minute.
 
-### Create Rule
+## Create Rule
 
 ```shell
 curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
@@ -611,6 +599,7 @@ curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
     }
 }'
 ```
-### Check for incoming notifications in Slack
+
+## Check for incoming notifications in Slack
 
 ![](/img/Slack-Notification.png)
