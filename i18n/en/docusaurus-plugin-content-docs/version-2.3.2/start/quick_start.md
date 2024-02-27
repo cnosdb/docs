@@ -1,89 +1,89 @@
 ---
-title: 快速开始
+title: Quick Start
 order: 3
 ---
 
-# 快速开始
+# Quick Start
 
-CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction)，我们支持DataFusion的大部分SQL语法。
+CnosDB SQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction), and we support most of the SQL syntax.
 
-**注意**：为了查询能更高效，没有指定排序的查询，每次行顺序都不一定相同，如果需要按字段排序的话，请参看`ORDER BY`子句。
+**NOTE**：for more efficient query, no sorted queries specified, not necessarily in the same order per line, please see `ORDER BY` for field sorting.
 
-## 示例数据
+## Sample Data
 
-为了进一步学习CnosDB，本节将提供示例数据供您下载，并教您如何将数据导入数据库。后面章节中引用的数据源都来自此示例数据。
+In order to learn more about CnosDB, this section will provide sample data for you to download and teach you how to import data into the database.The data sources cited in the subsequent sections are derived from this sample data.
 
-### 下载数据
+### Download data
 
-如果在 cnosdb-cli 中，请输入`\q`退出
+If in cnosdb-cli, type `\q` to exit
 
-在shell中执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
+Executing the following command in shell will generate a local data file in the form of Line Protocol: oceanic_station
 
 ```shell
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-### 导入数据
+### Import Data
 
-- **启动CLI**
+- **Launch CLI**
   ```shell
   cnosdb-cli
   ```
-- **创建数据库**
+- **Create Database**
   ```shell
-  create database oceanic_station;
+  Create database oceanic_station;
   ```
-- **切换到指定数据库**
+- **Switch to specified database**
   ```shell
   \c oceanic_station
   ```
-- **导入数据**
+- **Import Data**
 
-  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+  Execute the \w instruction,\w after the data file is an absolute path or work path relative to cnosdb-cli.
 
   ```shell
   \w oceanic_station.txt
   ```
 
-## **语法**
+## **Syntax**
 
 ```sql
-[ WITH with_query [, ...] ]
-SELECT [ ALL | DISTINCT ] select_expression [, ...]
-    [ FROM from_item [, ...] ]
+[ WITH with_query [, ...]
+SELECT [ ALL | DISTINCT ] select_expression [, . .]
+    [ FROM from_item[, . ]
     [ WHERE condition ]
-    [ GROUP BY [ ALL | DISTINCT ] grouping_element [, ...] ]
+    [ GROUP BY [ ALL | DISTINCT ] grouping_element[, ... ]
     [ HAVING condition ]
-    [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] select ]
-    [ ORDER BY expression [ ASC | DESC ] [, ...] ]
+    [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT] select]
+    [ ORDER BY expression [ ASC | DESC ] [, , . ]
     [ OFFSET count ]
     [ LIMIT { count | ALL } ];
 
 -- from_item
 -- 1.
-    tb_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
--- 2.
-    from_item join_type from_item
-    { ON join_condition | USING ( join_column [, ...] ) }
+    tb_name [ AS ] alias [ ( column_alias [, ...]] ]
+-2.
+    from_item_join_type from_item_item_
+    ) }
 
 -- join_type
     [ INNER ] JOIN
-    LEFT [ OUTER ] JOIN
-    RIGHT [ OUTER ] JOIN
-    FULL [ OUTER ] JOIN
+    LEFT [ OUTE] JOIN
+    RIGHT [ OUTE] JOIN
+    FULL [ OUTE] JOIN
     CROSS JOIN
 
 -- grouping_element
-    ()
+()
 ```
 
-## **SELECT 子句**
+## **SELECT sub sents**
 
 ### SELECT \*
 
-通配符 \* 可以用于代指全部列。
+Wildcard \* can be used to refer to all columns.
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM air;
@@ -111,16 +111,16 @@ SELECT * FROM air;
 
 ### ALL/DISTINCT
 
-**语法**
+**Syntax**
 
 ```sql
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
 
-在`SELECT`关键字后可以使用`DISTINCT`去掉重复字段，只返回去重后的值。
-使用`ALL`会返回字段中所有重复的值。不指定此选项时，默认值为`ALL`。
+After the `SELECT` key you can use `DISTINCT` to remove the duplicate field and return only the value after the reaction.
+Use `ALL` to return all duplicated values in the field.When this option is not specified, the default value is `ALL`.
 
-**示例**
+**Example**
 
 ```sql
 SELECT DISTINCT station, visibility FROM air;
@@ -146,7 +146,7 @@ SELECT DISTINCT station, visibility FROM air;
 ```
 
 ```sql
-SELECT station, visibility FROM air;
+SELECT, visibility FROM air;
 ```
 
 ```
@@ -169,22 +169,22 @@ SELECT station, visibility FROM air;
 +-------------+------------+
 ```
 
-## 别名
+## Alias
 
-可以用`AS`关键字为列表达式或表取别名
+You can use the `AS` keyword as a column expression or table alias
 
-### 为列表达式取别名
+### Pick alias for column expression
 
-**语法**
+**Syntax**
 
 ```sql
-expression [ [ AS ] column_alias ]
+Express [ AS ] column_alias ]
 ```
 
-**示例**
+**Example**
 
 ```sql
-SELECT station s, visibility AS v FROM air;
+SELECT stations, visibility AS v FROM air;
 ```
 
 ```
@@ -207,21 +207,21 @@ SELECT station s, visibility AS v FROM air;
 +-------------+----+
 ```
 
-### 为表取别名
+### Alias for table
 
-你也可以用关键字`AS`为表取别名。
+You can also use the keyword `AS` for alias.
 
-**语法**
+**Syntax**
 
 ```sql
 FROM tb_name [AS] alias_name
 ```
 
-**示例**
+**Example**
 
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
+FROM air AS a JOIN sea ON a.temperature = s.temperature limit 10;
 ```
 
 ```
@@ -241,15 +241,15 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 +------------+-------------+
 ```
 
-### SELECT限制
+### SELECT Limit
 
-- 如果SELECT子句仅包含Tag列，相当于 SELECT DISTINCT Tag列
+- If SELECT only contains Tags columns, equivalent to SELECT DISTINCT Tag.
 
-  **示例**
+  **Example**
 
   ```sql
-  -- station是Tag列，temperature是Field列
-  SELECT station, temperature FROM air;
+  -- Station is Tag, temperature is field column
+  SELECT station, temperature ROM Fair;
   ```
 
   ```
@@ -273,30 +273,30 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
   ```
 
   ```sql
-  -- station 是Tag列
+  -- Station is Tagcolumn
   SELECT station FROM air;
   ```
 
   ```
-  +-------------+
-  | station     |
-  +-------------+
-  | XiaoMaiDao  |
+  +---+
+  | Station |
+  +------
+  | XiaoMaiDao |
   | LianYunGang |
-  +-------------+ 
+  +---+ 
   ```
 
-## LIMIT 子句
+## LIMIT Subsentence
 
-**语法**
+**Syntax**
 
 ```sql
 LIMIT n
 ```
 
-限制返回结果集的行数为n，n必须非负。
+Limit the number of rows to return the resultset to n,n must not be negative.
 
-**示例**
+**Example**
 
 ```sql
 SELECT *
@@ -320,16 +320,16 @@ FROM air LIMIT 10;
 +---------------------+-------------+------------+-------------+----------+
 ```
 
-## **OFFSET 子句**
+## **OFFSET sub sents**
 
-**语法**
+**Syntax**
 
 ```sql
 OFFSET m
 ```
 
-返回的结果集跳过 m 条记录, 默认 m=0。
-**示例**
+Returns the resultset skipping m records, default m=0.
+**Example**
 
 ```sql
 SELECT *
@@ -346,11 +346,11 @@ FROM air OFFSET 10;
 +---------------------+-------------+------------+-------------+----------+
 ```
 
-`OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`。
-其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
-OFFSET 0与省略OFFSET子句效果相同。
+`OFFSET` can be used in conjunction with the `LIMIT` phrase, which specifies the number of lines to be skipped in the format `LIMIT OFFSET m`.
+Of these,：LIMIT n controls output mm line data, OFFSET m indicates the number of lines that were skipped before starting to return data.
+OFFSET 0 has the same effect as omitting OFFSET sentences.
 
-**示例**
+**Example**
 
 ```sql
 SELECT *
@@ -367,60 +367,60 @@ FROM air LIMIT 3 OFFSET 3;
 +---------------------+------------+------------+-------------+----------+
 ```
 
-## **WITH 子句**
+## **WITH sub sentences**
 
-**语法**
+**Syntax**
 
 ```sql
-WITH cte AS cte_query_definiton [, ...] query
+WITH cte AS cte_query_definiton [, ..] query
 ```
 
-可选。WITH子句包含一个或多个常用的表达式CTE(Common Table Expression)。
-CTE充当当前运行环境中的临时表，您可以在之后的查询中引用该表。CTE使用规则如下：
+Optional.The WTH sentence contains one or more commonly used expressions CTE (Common Table Expression).
+CTE serves as a temporary table in the current operating environment, which you can refer to in subsequent queries.The following rules for use by CTE are：
 
-- 在同一WITH子句中的CTE必须具有唯一的名字。
-- 在WITH子句中定义的CTE仅对在其后定义的同一WITH子句中的其他CTE可以使用。
-  假设A是子句中的第一个CTE，B是子句中的第二个CTE：
+- The CTE in the same WTH sentence must have a unique name.
+- The CTE defined in the WITH sentence is only available for other CTEs in the same WTH sentence as later defined.
+  Assume A is the first CTE, B is the second CTE：
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, avg 
-FROM (  SELECT station, AVG(visibility) AS avg 
+SELECT, avg 
+FROM ( SELECT station, AVG(visibility) AS avg 
         FROM air 
-        GROUP BY station) AS x;
+        GROUP station) AS x;
 ```
 
 ```
-+-------------+--------------------+
-| station     | avg                |
-+-------------+--------------------+
-| XiaoMaiDao  | 62.285714285714285 |
-| LianYunGang | 70.33333333333333  |
-+-------------+--------------------+
++-----+-------------------- +
+| station | avg |
++---------------------------
+| XiaoMaiDao | 62.2857142857147142872872885 |
+| LianYunGang | 70.33333333333333333 |
++------+ ---+
 ```
 
 ```sql
 WITH x AS 
-    (SELECT station, AVG(visibility) AS avg FROM air GROUP BY station)
-SELECT station, avg
+    (SLECT, AVG(visibility) AS avg FROM air GROUP BY station)
+SELECT, avg
 FROM x;
 ```
 
 ```
-+-------------+--------------------+
-| station     | avg                |
-+-------------+--------------------+
-| XiaoMaiDao  | 62.285714285714285 |
-| LianYunGang | 70.33333333333333  |
-+-------------+--------------------+
++-----+-------------------- +
+| station | avg |
++---------------------------
+| XiaoMaiDao | 62.2857142857147142872872885 |
+| LianYunGang | 70.33333333333333333 |
++------+ ---+
 ```
 
-## **UNION 子句**
+## **UNON sub sentences**
 
-UNION 子句用于合并多个 SELECT 语句的分析结果。
+UNON subsentence is used to merge analysis results of multiple SELECT statements.
 
-**语法**
+**Syntax**
 
 ```
 select_clause_set_left
@@ -434,11 +434,11 @@ select_clause_set_right
 `EXCEPT` 会作两个结果集的差，从左查询中返回右查询没有找到的所有非重复值
 `INTERSECT` 返回两个结果集的交集（即两个查询都返回的所有非重复值）。
 
-**注意**
+**Note**
 
-UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据类型相同。
+Each SELECT sentence within UNON must have the same number of columns, the same data type for each column.
 
-**示例**
+**Example**
 
 - **UNION ALL**
   ```sql
@@ -447,43 +447,43 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
   ```
-  +------------+
-  | visibility |
-  +------------+
-  | 53         |
-  | 56         |
-  | 50         |
-  | 67         |
-  | 65         |
-  | 53         |
-  | 74         |
-  | 71         |
-  | 78         |
-  | 79         |
-  +------------+
+  +---+
+  | visible |
+  +--------
+  | 53 |
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 53 |
+  74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  +--+
   ```
 
 - **UNION**
   ```sql
-  SELECT visibility FROM air WHERE temperature < 60
+  SELECT vision FROM air WHERE temperature < 60
   UNION
   SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
   ```
   ```
-  +------------+
+  +---+
   | visibility |
-  +------------+
-  | 53         |
-  | 56         |
-  | 50         |
-  | 67         |
-  | 65         |
-  | 74         |
-  | 71         |
-  | 78         |
-  | 79         |
-  | 59         |
-  +------------+
+  +--------
+  | 53 |
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  | 59 |
+  +-+
   ```
 
 - **EXCEPT**
@@ -495,50 +495,50 @@ UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据
   ```
 
   ```
-  +------------+
-  | visibility |
-  +------------+
-  | 56         |
-  | 50         |
-  | 67         |
-  | 65         |
-  | 53         |
-  | 74         |
-  | 71         |
-  | 78         |
-  | 79         |
-  | 59         |
-  +------------+
+  +---+
+  | visitity |
+  +---+
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 53 |
+  | 74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  | 59 |
+  +--+
   ```
 
 - **INTERSECT**
   ```sql
   SELECT visibility FROM air
   INTERSECT
-  SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
+  SELECT visibility ROM ROM air WHERE temperature > 50 LIMIT 10;
   ```
   ```
-  +------------+
-  | visibility |
-  +------------+
-  | 56         |
-  | 50         |
-  | 67         |
-  | 65         |
-  | 53         |
-  | 74         |
-  | 71         |
-  | 78         |
-  | 79         |
-  | 59         |
-  +------------+
+  +---+
+  | visitity |
+  +---+
+  | 56 |
+  | 50 |
+  | 67 |
+  | 65 |
+  | 53 |
+  | 74 |
+  | 71 |
+  | 78 |
+  | 79 |
+  | 59 |
+  +--+
   ```
 
-## ORDER BY 子句
+## ORDER BY clause
 
-按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
+Sort results by referenced expression.Default usage ascending (ASC).Sort by adding DESC in descending order after ORDER BY expression.
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM air ORDER BY temperature;
@@ -614,12 +614,12 @@ SELECT * FROM air ORDER BY station, temperature;
 
 ## **IN**
 
-IN 操作符允许您在 WHERE 子句中规定多个值。
+The IN operator allows you to specify more than one value in the WHERE sentence.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
+SELECT position, temperature, vision FROM air WHERE temperature IN (68, 69);
 ```
 
 ```
@@ -631,21 +631,21 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 +-------------+-------------+------------+
 ```
 
-**注意**
+**Note**
 
-IN 列表暂不支持表达式，暂时只支持常量
+An expression is not supported for the IN list, only constant is supported for the time being
 
 ## **SHOW**
 
-**语法**
+**Syntax**
 
 ```sql
 SHOW {DATABASES | TABLES | QUERIES}
 ```
 
-显示所有数据库，或显示所有表, 或正在执行的SQL
+Show all databases, or show all tables, or SQL in progress
 
-**示例**
+**Example**
 
 ```sql
 SHOW DATABASES;
@@ -664,13 +664,13 @@ SHOW TABLES;
 ```
 
 ```
-+-------+
++--+
 | Table |
-+-------+
-| sea   |
-| air   |
-| wind  |
-+-------+
++---+
+| sea |
+| air |
+| wind |
++---+ +
 ```
 
 ```sql
@@ -685,28 +685,28 @@ SHOW QUERIES;
 +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 ```
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql#queries-information-schema) 查看
+Detailed information on SHOW QUERIES statements can be found in [System Table QUERIES](../reference/sql#queries-information-schema)
 
 ## **EXPLAIN**
 
-**语法**
+**Syntax**
 
 ```sql
-EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
+EXPLIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
 
-**说明**
+**Description**
 
-`EXPLAIN` 语句仅用于显示查询的执行计划，而不执行查询。
+The `EXPLAIN` statement is only used to show the query implementation plan without executing the query.
 
-`EXPLAIN ANALYZE` 执行查询，并显示查询的执行计划。
+`EXPLIN ANALYZE` executes the query and shows the query implementation plan.
 
-`EXPLAIN ANALYZE VERBOSE` 执行查询，并显示更详细的执行计划，包括读取的行数等。
+`EXPLIN ANALYZE VERBOSE` executes queries and shows a more detailed implementation plan, including the number of lines readed.
 
-**示例**
+**Example**
 
 ```sql
-EXPLAIN SELECT station, temperature, visibility FROM air;
+EXPLIN SELECT station, temperature, vision FROM air;
 ```
 
 ```
@@ -722,7 +722,7 @@ EXPLAIN SELECT station, temperature, visibility FROM air;
 ```
 
 ```sql
-EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
+EXPLIN ANALYZE SELECT station, temperature, vision FROM air;
 ```
 
 ```
@@ -736,7 +736,7 @@ EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```
 
 ```sql
-EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
+EXPLIN ANALYZE SELECT station, temperature, vision FROM air;
 ```
 
 ```
@@ -750,7 +750,7 @@ EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```
 
 ```sql
-EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
+EXPLAIN ANALYZE VERBOSE SELECT position, temperature, visibility FROM air;
 ```
 
 ```
@@ -770,18 +770,18 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
 
 ## **DESCRIBE**
 
-**语法**
+**Syntax**
 
 ```sql
-DESCRIBE {DATABASE db_name | TABLE tb_name};
+DESCREIBE {DATABASE db_name | TABLE tb_name};
 ```
 
-描述数据库的参数，描述表的模式
+Describe the parameters of the database, the pattern of the description table
 
-**示例**
+**Example**
 
 ```sql
-DESCRIBE TABLE air;
+DESCREIBE TABLE air;
 ```
 
 ```
@@ -801,24 +801,24 @@ DESCRIBE DATABASE public;
 ```
 
 ```
-+----------+-------+----------------+---------+-----------+
-| TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-+----------+-------+----------------+---------+-----------+
-| 365 Days | 1     | 365 Days       | 1       | NS        |
-+----------+-------+----------------+---------+-----------+
++---+---------+-------+-------+-
+| TTL | SHARD | VNODE_DURATION | REPLICA | PRECISION |
++------+---------------+
+| 365 Days | 1 365 Days | 1 | NS |
++---------------------------+----+
 ```
 
 [//]: # "## **EXISTS**"
 
-[//]: # "EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。"
+[//]: # "EXISTS conditions test if a row exists in a subquery and return true when a subquery returns at least one line.If NOT is specified, this condition returns true if the subquery returns any line."
 
 [//]: # "示例："
 
-[//]: # "```sql"
+[//]: # "``sql"
 
-[//]: # "SELECT id  FROM date"
+[//]: # "SELECT id FROM date"
 
-[//]: # "WHERE EXISTS (SELECT 1 FROM shop"
+[//]: # "WHERE EXISTS (SECLECT 1 FROM shop"
 
 [//]: # "WHERE date.id = shop.id)"
 
@@ -826,9 +826,9 @@ DESCRIBE DATABASE public;
 
 [//]: # "```"
 
-[//]: # "# **DCL (无)**"
+[//]: # "# **DCL (none)**"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "DESCRIBE table_name"
 
@@ -840,9 +840,9 @@ DESCRIBE DATABASE public;
 
 [//]: # "## **SHOW VARIABLE**"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
-[//]: # "-- only support show tables"
+[//]: # "-- only support shows tables"
 
 [//]: # "-- SHOW TABLES is not supported unless information_schema is enabled"
 
@@ -854,13 +854,13 @@ DESCRIBE DATABASE public;
 
 [//]: #
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "-- SHOW COLUMNS with WHERE or LIKE is not supported"
 
 [//]: # "-- SHOW COLUMNS is not supported unless information_schema is enabled"
 
-[//]: # "-- treat both FULL and EXTENDED as the same"
+[//]: # "- treat both FULL and EXTENDED as the same"
 
 [//]: # "SHOW [ EXTENDED ] [ FULL ]"
 
@@ -874,7 +874,7 @@ DESCRIBE DATABASE public;
 
 [//]: # "## **SHOW CREATE TABLE**"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "SHOW CREATE TABLE table_name"
 
