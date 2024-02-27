@@ -1,7 +1,7 @@
 ---
-sidebar_position: 6
+sidebar_position: 5
 ---
 
 # Reference
 
-This chapter introduces the CnosDB reference documentation.
+This section presents all the relevant contents of CnosDB and details of the API and parameters.Include SQL syntax and details of some tools.
