@@ -7,7 +7,7 @@ index: false
 # Connector
 
 - [Python](./python.md)
-- [Arrow Filght SQL](./arrow_flight_sql)
+- [Arrow Filgight SQL](./arrow_flight_sql)
 - [C++](./arrow_flight_sql#different-client-usage)
 - [Go](./arrow_flight_sql#different-client-usage)
 - [Java](./arrow_flight_sql#different-client-usage)
