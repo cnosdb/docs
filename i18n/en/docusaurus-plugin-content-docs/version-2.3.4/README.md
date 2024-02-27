@@ -10,7 +10,7 @@ Our design takes full advantage of the chronological data characteristics, inclu
 
 - **High performance**：CnosDB solves time series expansion, theoretically supports an unlimited time series, supports aggregated queries along the timeline including interval window queries, queries by enumerating windows by a list value, and time interval by proximity time.Cache capability for the latest data and can be configured to access the latest data at a fast pace.
 - **Easy to use**：CnosDB provides a clear interface, simple configuration items, support standard SQL, easy handling, seamless integration with third-party tools, and easy data access.Support schemaless ("No Mode"), history data patch (written inactively)
-- **云原生**： CnosDB 有原生的分布式设计、数据分片和分区、存算分离、Quorum 机制、Kubernetes 部署和完整的可观测性，具有最终一致性，能够部署在公有云、私有云和混合云上。Provides multi-tenant functionality, with distribution of competencies based on role management.Supporting compute layer inactivity nodes and storage level extension increases system storage capacity.
+- **Cloud**： CnosDB has original distribution designs, data fragments and partitions, separation of deposits, Quorum mechanisms, Kubernetes deployment and full observability, and is ultimately consistent and capable of being deployed on public, private and mixed clouds.Provides multi-tenant functionality, with distribution of competencies based on role management.Supporting compute layer inactivity nodes and storage level extension increases system storage capacity.
 
 This chapter focuses on the current basics of CnosDB, quick handling, implementation doctrine, ecological integration, and cloud-origin schemes, so that there is a full understanding of CnosDB.
 
