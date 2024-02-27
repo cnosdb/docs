@@ -2,78 +2,78 @@
 sidebar_position: 11
 ---
 
-# 告警管理
+# Warning Management
 
 :::tip
-仅企业版支持，获取告警组件请联系 [CC](../enterprise)
+Only for enterprise version, please contact [CC](../enterprise) for warning components
 :::
 
 ## Introduction
 
-CnosDB 支持告警管理，通过 CnosDB 告警管理，您可以查看告警信息、设置告警通知方式、设置告警规则、设置告警通知组等。
+CnosDB supports warning management, management via CnosDB warning so you can view warning messages, set warning methods, set warning rules, set warning groups, and more.
 
-## 实现原理
+## How to Implement
 
-cnos-alert组件针对存储在CnosDB中时序数据，根据用户提交的配置文件，定时执行sql查询，对查询结果与阈值比对，将触发告警的查询结果发送至用户指定接收终端。
-sql查询：
-标准的cnosdb-sql查询语句，考虑到告警的使用场景，一般都是带有time相关where子句。
-阈值：
-配置时需要指定sql查询返回值的一个字段，为这个字段设置一个触发告警的阈值，目前支持大于、小于、等于、区间内、区间外五类阈值形式。
-通知接收终端：
-目前支持slack、twitter两种。
-历史记录：
-所有触发告警的查询结果、发出的通知都将记录在cnosdb中。
-用户配置的告警规则记录在用户指定位置json文件中。
+The cnos-alert component works on time series data stored in CnosDB, on the basis of a user submitted configuration file, executes sql queries temporarily, matches the search results against the threshold, and sends the query results that trigger a warning to the user's specified receiving terminal.
+sql queried：
+standard cnosdb-sql query, usually with time related to where given warning scenarios.
+Threshold：
+needs to specify a sql query return value, setting a threshold for triggering a warning for this field that is currently supported in five categories greater than or less and equal to, within and outside range.
+Notification receiving terminal：
+currently supports slack, twitter and twitter.
+History history：
+All queries triggering warnings and notifications will be recorded in cnosdb.
+The user configured warning rule is recorded in the user locator json file.
 ![告警组件原理](/img/cnos-alert.png)
 
-## 启动
+## Boot
 
 ```shell
 ./alertserver --config=alertserver.yaml --serverport=9001
 ```
 
-## 配置（alertserver.yaml）
+## Configuration (alertserver.yaml)
 
 ```yaml
-query: #被查询数据所在cnosdb配置
-    nodeHost: 127.0.0.1
+query: #Cnosdb configuration
+    nodeHost: 127.0.0.
     nodePort: 8902
-    authorization: ********* #仅支持base64加密后的用户名密码
-alert: #告警规则配置持久化配置
-    filePath: /etc/alert.json
-store: #告警、通知记录保存所在cnosdb配置
-    nodeHost: 127.0.0.1
+    authorization: ********* #Only supported base64 encrypted username
+alert: #warning rule configuration persistent configuration
+    filePath: /etc/alert. son
+store: #Warning, notification saved in cnosdb configuration
+    nodeHost: 127.0.0.
     nodePort: 8902
-    authorization: ********* #仅支持base64加密后的用户名密码
-    alerttable:  alertrecord #告警记录表名
-    notitable: notirecord #通知记录表明
+    authorization: ******** #Only supported base64 encrypted username
+    alerttable: alertrecord #warning form name
+    notitable: notirecord #notification indicates
 ```
 
-## API 接口描述
+## API interface description
 
 ### `/api/http/ping`
 
-**描述**
+**Description**
 
-测试服务运行状态
+Test Service Running Status
 
-**请求方法**
+**Request Method**
 
 - GET
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X GET http:/127.0.0.1:30001/api/http/ping
+curl-X GET http://127.0.0.1:3001/api/http/ping
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
 {"message":"ok"}
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
 curl: error
@@ -81,21 +81,21 @@ curl: error
 
 ### `/api/v1/alert/config/rule`
 
-**描述**
+**Description**
 
-创建一条告警规则
+Create a warning rule
 
-**请求方法**
+**Request Method**
 
 - POST
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
+curl-X POST http://127.0.0.0.1:30001/api/v1/alert/config/rule
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
 {
@@ -134,42 +134,42 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
 }
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
-{ 
-    "message":"succeed", 
+LO 
+    "message": "suceed", 
     "id":"1"
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code":3, 
-    "message":"invalid character '}' looking for beginning of object key string", 
+    "message": "invalid character '}' looking for beginning of object key string", 
     "details":[]
 }
 ```
 
 ### `/api/v1/alert/config/rule`
 
-**描述**
+**Description**
 
-修改一条告警规则
+Change a warning rule
 
-**请求方法**
+**Request Method**
 
 - PUT
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
+curl-X PUT http://127.0.0.0.1:30001/api/v1/alert/config/rule
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
 {
@@ -209,39 +209,39 @@ curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
 }
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
-{ "message":"succeed" }
+"message":"ucceed" }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ### `api/v1/alert/config/rule/tenant/:tenant/id/:id`
 
-**描述**
+**Description**
 
-获取指定rule的信息
+Get information about the specified rule
 
-**请求方法**
+**Request Method**
 
 - GET
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
+curl-X GET http://127.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
     :tenant: 租户
@@ -249,7 +249,7 @@ curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
 {
@@ -293,33 +293,33 @@ curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ### `api/v1/alert/config/rule/tenant/:tenant/id/:id`
 
-**描述**
+**Description**
 
-删除置顶rule
+Delete top rule
 
-**请求方法**
+**Request Method**
 
 - DELETE
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
+curl-X DELETE http://127.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
     :tenant: 租户
@@ -327,41 +327,41 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
-{
-    "message": "succeed"
+LO
+    "message": "ucce"
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ### `/api/v1/alert/config/rule/tenant/:tenant`
 
-**描述**
+**Description**
 
-列出指定租户下所有rule
+List all rule under the specified tenant
 
-**请求方法**
+**Request Method**
 
 - GET
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
     :tenant: 租户
@@ -369,52 +369,52 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
     per_page: 每页展示记录数量
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
-{
+Flag
     "data":[
-        {
+        FU
             "name": "cpu new", # rule name
-            "severity": "Medium", # rule 级别
-            "lastrun": "2023-08-17T11:51:04+08:00", # sql查询最后一次执行时间 
-            "enabled": "on",  # rule状态
-            "laststatus": "0", # 最后一次执行状态,0表示失败，1表示成功
+            "severity": "Medium", # rule level
+            "lastrun": "2023-08-17T11:51:04+08:00", # sql query last execution time 
+            "enable": "on", # rulestatus
+            "laststatus": "0", # Last execution,0 means failed, Represents success
             "id": 2 # rule id
             }
         ], 
-    "order": "name, severity, lastrun, laststatus, enabled", # 本地无需关心 
-    "total": "1" # 租户下rule总量
+    "order": "name, severity, lastrun, laststatus, enabled", # No local tatal 
+    "total": "1" # total rent rule
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ### `/api/v1/alert/config/rule/tenant/:tenant`
 
-**描述**
+**Description**
 
-列出指定租户下所有rule
+List all rule under the specified tenant
 
-**请求方法**
+**Request Method**
 
 - GET
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
     :tenant: 租户
@@ -422,52 +422,52 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
     per_page: 每页展示记录数量
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
-{
+Flag
     "data":[
-        {
+        FU
             "name": "cpu new", # rule name
-            "severity": "Medium", # rule 级别
-            "lastrun": "2023-08-17T11:51:04+08:00", # sql查询最后一次执行时间 
-            "enabled": "on",  # rule状态
-            "laststatus": "0", # 最后一次执行状态,0表示失败，1表示成功
+            "severity": "Medium", # rule level
+            "lastrun": "2023-08-17T11:51:04+08:00", # sql query last execution time 
+            "enable": "on", # rulestatus
+            "laststatus": "0", # Last execution,0 means failed, Represents success
             "id": 2 # rule id
             }
         ], 
-    "order": "name, severity, lastrun, laststatus, enabled", # 本地无需关心 
-    "total": "1" # 租户下rule总量
+    "order": "name, severity, lastrun, laststatus, enabled", # No local tatal 
+    "total": "1" # total rent rule
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ### `api/v1/alert/data/alert/tenant/:tenant`
 
-**描述**
+**Description**
 
-列出指定租户下所有alert记录
+List all alerts under specified tenants
 
-**请求方法**
+**Request Method**
 
 - GET
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/data/alert/tenant/cnosdb?page=1&per_page=10
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
     :tenant: 租户
@@ -475,43 +475,43 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=
     per_page: 每页展示记录数量
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
-{
-    "data": "[{\"enabled\":1,\"name\":\"cpu new\",\"severity\":\"Medium\",\"time\":\"2023-06-27T09:49:08.441665430\",\"value\":\"{\\\"AVG(cpu.usage_user)\\\":0.2001001001000161,\\\"cpu\\\":\\\"cpu2\\\"}\"}]", # alert记录 json字符串
-    "order": "time, name, severity, value, enabled",  # 本地可无视
-    "total": "628" # alert总量
+LO
+    "data": "[{\"enable\":1,\"name\":\"\"cpu new\",\"severity\":\"Medium\", \"time\":\"2023-06-27T09:49:08.441665430\", \"value\":\"{\\\"AVG(cpu.usage_user)\\":0.200100000161,\\\"cpu\\\\"\\\"}]", # alertrecord jsonstring
+    "order: "time, name, severity, value, enabled", # locally available
+    "total": "628" # total
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ### `api/v1/alert/data/noti/tenant/:tenant`
 
-**描述**
+**Description**
 
-列出指定租户下所有通知记录
+List all notifications under specified tenants
 
-**请求方法**
+**Request Method**
 
 - GET
 
-**请求示例**
+**Request Example**
 
 ```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1&per_page=10
+curl-X DELETE http://127.0.0.0.1:3001/api/v1/alert/data/noti/tenant/cnosdb?page=1&per_page=10
 ```
 
-**请求参数**
+**Request Parameters**
 
 ```shell
     :tenant: 租户
@@ -519,7 +519,7 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1
     per_page: 每页展示记录数量
 ```
 
-**请求成功**
+**Successfully requested**
 
 ```shell
 {
@@ -529,19 +529,19 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1
 }
 ```
 
-**请求失败**
+**Request failed**
 
 ```shell
-{
+LO
     "code": error id, 
     "message": error string, 
     "details":[]
-}
+ } }
 ```
 
 ## Example
 
-假设我们通过telegraf工具向cnosdb中写入了cpu的监控数据，表的部分数据如下：
+Assume that we have written cpu's control data to cnosdb via telegraf, some of the table data below：
 
 ```shell
 public ❯ select time, cpu, usage_user from cpu order by time desc limit 5;
@@ -556,9 +556,9 @@ public ❯ select time, cpu, usage_user from cpu order by time desc limit 5;
 +---------------------+-----------+---------------------+
 ```
 
-这个表每 10 秒会记录一次 cpu 的相关数据，我们想要监控该表中各cpu的usage_user值，当过去一分钟内它的平均值大与 0.2 时，发出告警到 slack。
+This table records cpu data every 10 seconds. We want to monitor the usage_user value of each cpu, and warn to slack when its average value is greater than 0.2 in the last minute.
 
-## 创建Rule
+## Create Rule
 
 ```shell
 curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
@@ -600,6 +600,6 @@ curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
 }'
 ```
 
-## 在Slack查看接受到的通知
+## View received notifications in Slack.
 
 ![](/img/Slack-Notification.png)
