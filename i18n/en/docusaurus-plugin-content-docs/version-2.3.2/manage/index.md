@@ -4,4 +4,12 @@ sidebar_position: 5
 
 # Manage
 
-This chapter will introduce how to manage single and distributed CnosDB instance.
+本章节介绍了集群管理相关的内容，包含了集群的升级、集群的迁移、集群的扩容、集群的缩容等。
+
+同时还有集群的备份和恢复、集群的监控、集群的日志等。
+
+```mdx-code-block
+Import DocdList from '@theme/DocCardList';
+
+<DocCardList />
+```
