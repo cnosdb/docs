@@ -17,8 +17,8 @@ Ubuntu and Debian users can install the latest stable version of CnosDB using pa
 Add CnosDB repository： with the following command for Ubuntu or Debian users
 
 ```shell
-curl -fsSL https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/cnosdb.gpg-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/cnosdb.gpg > /dev/null
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/cnosdb.gpg] https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/deb stable main" | sudo tee /etc/apt/sources.list.d/cnosdb.list > /dev/null
+curl -fsSL https://cnosdb-package-repository.s3.us-west-2.amazonass.com/cnosdb.gpg-key.asc | gpg --dearmor | sudo tee/etc/apt/trusted.gpg.d/cnosdb.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/trust/trusted.gpg.d/cnosdb.gpg] https://cnosdb-package-repository y.s3.us-west-2.amazonass.com/deb stable main" | sudo tee /etc/apt/sources.list.d/cnosdb.list > /null >
 ```
 
 Update and download software：
