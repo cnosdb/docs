@@ -5,141 +5,141 @@ order: 1
 
 # Python
 
-随着分布式新版本的发布，细心的小伙伴们想必已经发现CnosDB 2.0已经全面支持了Python。通过调用连接器cnos-connector， 实现了CnosDB 2.0与Python 的连接。cnos-connector 封装了对 CnosDB 的请求，使在Python环境下使用CnosDB更加简洁、易用。同时，cnos-connector提供了符合 [PEP 249](https://peps.python.org/pep-0249/) 的编程接口，更易与 SQLAlchemy 以及 pandas 进行交互。
+With the release of a new version of the distributed version, meticulous small partners must have found that CnosDB 2.0 is fully supportive.CnosDB 2.0 connection to Python was implemented by calling the connector cnos-connector.The cnos-connector encapsulated requests for CnosDB to make the use of CnosDB in Python environment more concise and user-friendly.At the same time, cnos-connector provides programming interfaces that meet [PEP 249](https://peps.python.org/pep-0249/) and interact more easily with SQLAlchemy and pandas.
 
-cnos-connector 已全部开源，源码位于 [GitHub](https://github.com/cnosdb/cnosdb-client-python)
+cnos-connector has all open sources, source in [GitHub](https://github.com/cnosdb/cnosdb-client-python)
 
 ### Install
 
-使用 pip 下载安装 cnos-connector，需要 Python 版本大于等于 3.6
+Use pip to download the cnos-connector, requires Python version greater than 3.6
 
 ```
 pip install cnos-connector
 ```
 
-### 使用示例
+### Use Example
 
-#### 查询示例
+#### Lookup Example
 
-- #### 通过SQL进行查询
+- #### Query by SQL
 
   ```python
-  from cnosdb_connector import connect
+  From cnosdb_connector import connection
 
-  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+  conn = connect(url="http://127.0.0.0.1:8902/", user="root", password="")
   resp = conn.execute("SHOW DATABASES")
-  print(resp)
+  print(rest)
   ```
 
-- #### 通过接口定义的函数查询
+- #### Query by function defined by interface
 
   ```python
-  from cnosdb_connector import connect
+  From cnosdb_connector import connection
 
-  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+  conn = conn(url="http://127.0.0.0.1:8902/", user="root", password="")
   conn.create_database("air")
   resp = conn.list_database()
-  print(resp)
+  print(reply)
   ```
 
-- #### 通过PEP-249进行查询，详细信息请参考 [PEP-249](https://peps.python.org/pep-0249/)。
+- #### For further information, please refer to [PEP-249](https://peps.python.org/pep-0249/).
 
   ```python
-  from cnosdb_connector import connect
+  From cnosdb_connector import connection
 
-  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+  conn = Connect(url="http://127.0.0.0.1:8902/", user="root", password="")
   cursor = conn.cursor()
 
-  cursor.execute("SHOW DATABASES")
+  cursor.execute("SHOW DATABES")
   resp = cursor.fetchall()
-  print(resp)
+  print()
   ```
 
-- #### 通过pandas进行查询，pandas支持PEP-249的规范
+- #### Query by pandas, pandas supports PEP-249 norms
 
   ```python
-  import pandas as pd
-  from cnosdb_connector import connect
+  import pandas pd
+  from cnosdb_connector import connection
 
   conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 
-  resp = pd.read_sql("SHOW DATABASES", conn)
-  print(resp)
+  resp = pd.read_sql("SHOW DATABES", conn)
+  print(reply)
   ```
 
-#### 写入示例
+#### Write Example
 
-- #### 支持Line Protocol的方式进行数据的写入
+- #### Data writing in support of Line Protocol
 
   ```python
-  from cnosdb_connector import connect
+  From cnosdb_connector import connection
 
-  line0 = "air,station=XiaoMaiDao temperature=56,pressure=77 1666165200290401000"
-  line1 = "air,station=XiaoMaiDao temperature=72,pressure=71 1666165300290401000"
-  line2 = "air,station=XiaoMaiDao temperature=46,pressure=67 1666165400290401000"
+  line0 = "air,station=XiaoMaiDao temperature=56,pressure=77 166616520029040100"
+  line1 = "air,station=XiaoMaiDao temperature=72, Ressure=71 166616530029040100"
+  line2 = "air,station=XiaoMaiDao temperature=46,pressure=67 166616540029040100"
 
-  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+  conn = conn(url="http://127. .0.1:8902/", user="root", password="")
 
   conn.create_database_with_ttl("ocean")
-  conn.switch_database("ocean")
+  conn.witch_database("ocean")
 
   conn.write_lines([line0, line1, line2])
 
-  resp = conn.execute("SELECT * FROM ocean;")
-  print(resp)
+  resp = conn.execute("SELECT * FROM ocean; ")
+  print()
   ```
 
-- #### 支持SQL的方式进行写入
+- #### Write with SQL support
 
   ```python
-  from cnosdb_connector import connect
+  From cnosdb_connector import connect
 
-  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
+  conn = connect(url="http://127.0.0. :8902/", user="root", password="")
 
-  query = "INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
-                  (1666165200290401000, 'XiaoMaiDao', 56, 69, 77); "
+  query = "INSERT INTO air (TIME, station, visibility, temperature, pressu) VALUES
+                  (166616520029040100, 'XiaoMaiDao', 56, 69, 77); "
 
-  conn.execute(query)
+  conn. xecute(query)
 
   resp = conn.execute("SELECT * FROM ocean;")
-  print(resp)
+  print(rest)
   ```
 
-- #### 支持CSV的方式进行写入
+- #### Support CSV for writing
 
   ```python
-  from cnosdb_connector import connect
+  From cnosdb_connector import connection
   import os
 
   query = "CREATE TABLE air (\
-               visibility DOUBLE,\
-               temperature DOUBLE,\
-               pressure DOUBLE,\
-               TAGS(station));"
+               visibility DOUBLE,
+               temperature DOUBLE,
+               press DOUBLE,
+               TAGS (staff));
 
-  conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
-  # table schema must same with csv file
+  conn = connect(url="http://127. .0.1:8902/", user="root", password="")
+  # table schema must be the same with csv file
   conn.execute(query)
 
-  path = os.path.abspath("test.csv")
+  path = os. ath.absath("test.csv")
   conn.write_csv("air", path)
 
   resp = conn.execute("SELECT * FROM air;")
-  print(resp)
+  print(rest)
   ```
 
-### 接口文档
+### Interface Documents
 
-为了便于用户更加方便地连接使用 CnosDB，cnosdb_connector 对于一些常用的 SQL 进行了简单的封装。
+Simple encapsulation of some commonly used SQL has been made to make it easier for users to connect to CnosDB, cnosdb_connector.
 
 ```python
 # CREATE DATABASE database_name;
 def create_database(self, database_name)
 
-# CREATE DATABASE database_name WITH TTL ttl;
+# CREATE DATABASE database_name TTL ttl;
 def create_database_with_ttl(self, database_name, ttl)
 
-# CREATE USER user WITH PASSWORD = password;
+# CREATE USER WITH PASWARD = password;
 def create_user(self, user, password)
 
 # DROP DATABASE database_name;
@@ -158,4 +158,4 @@ def list_database(self)
 def list_table(self)
 ```
 
-如果您对接口封装有更好的想法，欢迎向我们 Python 连接器的[源码仓库](https://github.com/cnosdb/cnosdb-client-python)提交PR。
+If you have a better idea of the interfaces envelope, please submit PRs to our Python connector[源码仓库](https://github.com/cnosdb/cnosdb-client-python).
