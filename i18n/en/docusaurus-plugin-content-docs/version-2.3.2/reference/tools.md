@@ -1,22 +1,22 @@
 ---
-title: 工具
+title: Tools
 order: 7
 ---
 
 Import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 工具
+# Tools
 
-## 客户端命令行程序
+## Client Command Line Program
 
-可以使用下列命令启动客户端命令行程序。
+The following command can be used to start the client command line program.
 
 ```shell
 cnosdb-cli <options>
 ```
 
-### 程序参数
+### Program Parameters
 
 ```txt
 -h, --host <STRING>         连接 CnosDB 的 host，默认为 'localhost'
@@ -45,24 +45,24 @@ cnosdb-cli <options>
 -V, --version               查看版本
 ```
 
-### 使用说明
+### Use Instructions
 
-如果需要详细了解启动命令，可以参考 [程序参数](#程序参数)。
+Reference to [程序参数](#program parameter) if you need a detailed knowledge of the launch command.
 
 ```sh
-# 使用默认参数启动 CnosDB 客户端命令行程序
+# Start CnosDB client command line with default parameter
 cnosdb-cli
 
-# 启动 CnosDB 客户端命令行程序，并连接至 192.168.1.2:8912，租户身份为 ten_beta
-cnosdb-cli --host 192.168.1.2 --port 8912 --tenant ten_beta
+# Launch CnosDB client command line program and connect to 192.168.1.2:8912, Ten_beta
+cnosdb-cli --host 192.168.1. --port 8912 --tenant ten_beta
 
-# 启动 CnosDB 客户端命令行程序，将文件 ./data_202220808 导入 CnosDB
-cnosdb-cli --write-line-protocol ./data_202220808
+# Start the CnosDB client command line program and import the file./data_202220808 CnosDB
+cnosdb-cli --write-line-protocol./data_202220808
 ```
 
-程序启动后将以交互式模式运行，你可以输入 SQL 或者指令，然后按回车键来执行。
+The program will run in interactive mode on startup. You can enter SQL or command, then press Enter to execute it.
 
-SQL 的例子：
+Example of SQL：
 
 ```txt
 ❯ CREATE DATABASE test;
@@ -93,20 +93,20 @@ test ❯ select * from test_table;
 Query took 0.050 seconds.
 ```
 
-在程序中还可以使用一些快捷指令：
+Some quick instructions： can also be used in the program
 
 ```txt
-\?                  查看指令帮助
-\h                  查看语句帮助
-\q                  退出 cnosdb-cli 程序
-\c <database>       连接数据库 <database>，相当于语句 'USE <database>;'
-\d                  显示数据库下的所有表，相当于语句 'SHOW TABLES;'
-\d <table>          描述表 <table>，相当于语句 'DESCRIBE TABLE <table>;'
-\quiet [true|false] 切换安静模式，安静模式下只输出结果，不输出执行时间
-\w <path>           读取 line-protocol 格式的文件，导入数据库，path 如果是目录，则会读取目录下所有文件
+\? View command help
+\h view statement help
+\q quit cnosdb-cli program
+\c <database>       Connect database <database>, when statement 'USE <database>;
+\d show all tables under the database, equivalent to 'SHOW TABLES;
+\d <table>          Description table <table>, equivalent to statement 'DESCRIBE TABLE <table>;
+\quiet [true|false] toggle quiet mode, only output results in quiet mode, not output execution time
+\w <path>           read files in line-protocol format, import database, path will read all files in directory if they are directories
 ```
 
-指令的例子：
+Example of directive：
 
 ```txt
 ❯ \c test;
@@ -134,165 +134,165 @@ test ❯ \q
 </TabItem>
 <TabItem value="Enterprise" label="企业版">
 
-## 文件修复工具
+## File Repair Tool
 
-用于查看文件内容、检查、修复文件。
+Used to view file content, check and fix files.
 
 ```sh
 cnosdb-tool <options> <COMMAND>
 ```
 
-### 主要功能
+### Main features
 
-简要介绍文件修复工具的三个子命令 `inspect`、`check`、`edit`，以及对应子命令的全局参数。针对具体文件格式的说明请查看：[支持的文件格式](#支持的文件格式)。
+Brief description of the three subcommands of the file repair tool `inspect`, `check`, `edit`, and the global parameters of the corresponding subcommand.For a description of the file format, please see：[支持的文件格式](#Supported file format).
 
-#### 查看文件内容
+#### View File Content
 
-打印一个文件、或目录下所有文件的详细内容。
+Print details of a file, or of all files in a directory.
 
 ```sh
-cnosdb-tool inspect [OPTIONS] <COMMAND>
+cnosdb-tool inject [OPTIONS] <COMMAND>
 ```
 
-全局参数：
+Global parameter：
 
-- `--format <FORMAT>` - 输出格式，可选值为：`csv`，`json`，`table`，`parquet`，默认值为：`json`，一般使用 JSON 来获得文件修复子命令 `cnosdb-tool repair` 所要用到的文件，使用 TABLE 来获得更适合在命令行中查看的格式。
-- `--time-format <TIME_FORMAT>` -  时间格式，可选值为：`timestamp`，`rfc3339`，默认值为：`timestamp`。
+- \`\`-format <FORMAT>- Output format, optional value：`csv`,`json`,`table`,`parquet`,default value：`json`, generally using JSON to get the file to fix the file to be used by the subcommand `cnosdb-tool reply`, using TABLE to get the format more suitable for viewing in the command line.
+- \--time-format \<TIME_FORMAT>- Time format, optional value：`timestamp`, `rfc3339`, default is：`timestamp`.
 
-支持的文件格式：
+Supported File Format：
 
 - [Summary](#summary)
 - [WAL](#wal)
-- [Tombstone](#tombstone)
+- [Tombstone](#tomstone)
 - [TSM](#tsm)
 - [Hinted-Handoff](#hinted-handoff)
 - [Series-Binlog](#series-binlog)
 
-#### 检查文件
+#### Check File
 
-检查一个文件，输出可能遇到的错误。
+Check a file to export a possible error.
 
 ```sh
 cnosdb-tool check [FILE_TYPE] [OPTIONS] [PATH]
 ```
 
-全局参数：
+Global parameter：
 
-- `<PATH>` - 文件路径。
+- `<PATH>` - File path.
 
-支持的文件格式：
+Supported File Format：
 
 - [Summary](#summary)
 - [WAL](#wal)
-- [Tombstone](#tombstone)
+- [Tombstone](#tomstone)
 - [TSM](#tsm)
 - [Hinted-Handoff](#hinted-handoff)
 - [Series-Binlog](#series-binlog)
 
-#### 修复文件
+#### Fix files
 
-自动或手动地修复一个文件。
+Fix a file automatically or manually.
 
 ```sh
 cnosdb-tool repair [FILE_TYPE] <SUB-COMMAND>
 ```
 
-支持的文件格式：
+Supported File Format：
 
 - [Summary](#summary)
 - [WAL](#wal)
-- [Tombstone](#tombstone)
+- [Tombstone](#tomstone)
 - [Hinted-Handoff](#hinted-handoff)
 - [Series-Binlog](#series-binlog)
 
-##### 修复指定文件
+##### Fix specified files
 
-删除或修改文件内容。
+Delete or modify the content of the file.
 
 ```sh
 cnosdb-tool repair [FILE_TYPE] edit [OPTIONS] <PATH>
 ```
 
-全局参数：
+Global parameter：
 
-- `<PATH>` - 待修复的文件路径。
-- `--from-pos <NUMBER>` - 待修改的数据块的起始位置
-- `--to-pos <NUMBER>` - 待修改的数据块的结束位置。
-- `--delete` - 删除数据块，而不是替换数据块的内容。
-- `--input <FILE>` - 用于替换数据块内容的文件，JSON 格式，该文件一般通过文件查看子命令 `cnosdb-tool inspect --format json` 来获得，也可以通过 `cnosdb-tool repair demo` 子命令来获得。
-- `--out-dir <DIR>` - 用于存放修复后的文件的目录，默认与被修复的文件相同。
+- `<PATH>` - File path to fix.
+- `--from-pos <NUMBER>` - Start position of the block to be modified
+- \--to-pos <NUMBER>\` - the end of the block to be modified.
+- `--delete` - Remove blocks instead of replacing the contents of the block.
+- `--input <FILE>` - a file used to replace the contents of the block, JSON format, which is usually obtained by viewing the subcommand `cnosdb-tool inspit-format json`, or `cnosdb-tool repair demo` subcommand.
+- `--out-dir <DIR>` - the directory used to store repaired files by default is the same as the file that was repaired.
 
-##### 获得文件内容 JSON 样例
+##### Get sample file content JSON
 
 ```sh
 cnosdb-tool repair [FILE_TYPE] demo
 ```
 
-### 支持的文件格式
+### Supported File Format
 
 #### Summary
 
-Summary 文件的格式为 **RecordFile** , 用于存放存储引擎的元数据。
+Summary file format **RecordFile** is used to store metadata from storage engine.
 
-##### 查看文件内容
+##### View File Content
 
-以日志的形式查看 Summary 文件内容:
+View Summary File Content in Log:
 
 ```
-cnosdb-tool inspect summary-log [OPTIONS] <PATH>
+cnosdb-tool inject summary-log [OPTIONS] <PATH>
 ```
 
-- `<PATH>` - 文件路径。
-- `--from` - 起始的数据块序号。
-- `--to` - 结束的数据块序号。
-- `--tenant` - 按 Tenant 过滤数据块。
-- `--db` - 按 Database 过滤数据块。
-- `--vnode` - 按 Vnode 过滤数据块。
-- `--tsm-id` - 按 TSM 文件编号过滤数据块。
+- `<PATH>` - File path.
+- `--from` - the starting block number.
+- `-to` - end block number.
+- `-tenant` - Press Tenant to filter data blocks.
+- `-db` - Filter data blocks by Database.
+- `--vnode` - Press Vnode to filter data blocks.
+- `--tsm-id` - Filter blocks by TSM file number.
 
-示例:
+Example:
 
 ```sh
-# 输出一个 Summary 文件中，第 5 至第 10 个数据块的日志内容
-cnosdb-tool inspect summary-log --from 5 --to 10
+# Output a summary of log content
+cnosdb-tool input from 5 to 10
 
-# 输出一个 Summary 文件中，数据库 cnosdb.public 对应的日志内容
-cnosdb-tool inspect summary-log --tenant cnosdb --db public
+# of a summary file for output of a summary file. Database cnosdb. blic corresponding log content
+cnosdb-tool input summary-log --tenant cnosdb --db public
 ```
 
-以最终状态的形式查看 Summary 文件内容:
+View Summary File Content in Final State:
 
 ```
-cnosdb-tool inspect summary-final [OPTIONS] <PATH>
+cnosdb-tool inspires summary-final [OPTIONS] <PATH>
 ```
 
-- `<PATH>` - 文件路径。
-- `--db-data-path` - 数据文件路径，默认情况下为 `<PATH>/../db/data/`。
-- `--tenant` - 按 Tenant 过滤数据。
-- `--db` - 按 Database 过滤数据。
-- `--vnode` - 按 Vnode 过滤数据。
+- `<PATH>` - File path.
+- `--db-data-path` - path to the data file, default to `<PATH>/../db/data/`.
+- `-tenant` - Press Tenant to filter data.
+- `-db` - Filter data by Database.
+- `--vnode` - Press Vnode to filter data.
 
 Examples:
 
 ```sh
-# 输出 CnosDB 实例下，数据库 cnosdb.public 的所有数据文件
-cnosdb-tool inspect summary-final --tenant cnosdb --db public
+# Output CnosDB instance, database cnosdb.public all data files
+cnosdb-tool input summary-final --tenant cnosdb --db public
 ```
 
-##### 检查文件
+##### Check File
 
 ```sh
 cnosdb-tool check summary [OPTIONS] <PATH>
 ```
 
-##### 修复文件
+##### Fix files
 
 ```sh
-cnosdb-tool repair summary edit [OPTIONS] <PATH>
+cnosdb-tool Repair summary edit [OPTIONS] <PATH>
 ```
 
-- `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 待修改的数据块序号的结束值。
+- `--from <NUMBER>` - the starting value of the block serial number to be modified.
+- `--to <NUMBER>` - the end of the serial number of the block to be modified.
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}`。
 
 Examples:
@@ -307,131 +307,131 @@ cnosdb-tool repair summary edit <PATH> --from 5 --to 6 --input <PATH> --output s
 
 #### WAL
 
-WAL 文件的格式为 **RecordFile**，用于存放存储引起的写入请求，比如 WriteRequest、DropTableRequest 等，每个 **Record** 都包含一个全局递增的序列号。
+WAL files are in the format of **RecordFile**, used to store storage for writing requests such as WriteRequest, DropTableRequest, etc. Each **Record** contains a global incremental serial number.
 
-##### 查看文件内容
+##### View File Content
 
 ```
-cnosdb-tool inspect wal [OPTIONS] <PATH>
+cnosdb-tool inspit wal [OPTIONS] <PATH>
 ```
 
-- `<PATH>` - 文件路径。
-- `--from` - 起始的数据块序号。
-- `--to` - 结束的数据块序号。
-- `--from-seq <NUMBER>` - 起始的数据块全局序列号。
-- `--to-seq <NUMBER>` - 结束的数据块全局序列号。
-- `--action <ACTION>` - 按类型过滤数据块，可选值为: `write`，`delete`，`delete-vnode`，`delete-table`，`update-series-keys`。
-- `--tenant <STRING>` - 按 Tenant 过滤数据块。
-- `--db <STRING>` - 按 Database 过滤数据块。
-- `--vnode <NUMBER>` - 按 Vnode 过滤数据块。
-- `--table <STRING>` - 按 Table 过滤数据块。
+- `<PATH>` - File path.
+- `--from` - the starting block number.
+- `-to` - end block number.
+- `--from-seq <NUMBER>` - the starting global serial number of the block.
+- \--to-seq <NUMBER>\` - End of the global serial number.
+- \`\`-action <ACTION>- Filter blocks by type, optional values are: `write`,`delete`,`delete-vnode`,`delete-table`,`update-series-keys`.
+- `-tenant <STRING>` - Press Tenant to filter data blocks.
+- `--db <STRING>` - Filter blocks by database database.
+- `--vnode <NUMBER>` - Press Vnode to filter data blocks.
+- \`-table <STRING>- Press Table to filter data blocks.
 
 Examples:
 
 ```sh
-# 输出一个 WAL 文件中，第 5 至第 10 个数据块的内容
-cnosdb-tool inspect wal --from 5 --to 10
+# Export the contents of a WAL file, 5 to 10 blocks of data
+cnosdb-tool Inspit wal — from 5 --to 10
 
-# 输出一个 WAL 文件中，全局序列号从 1000 至 1024 的数据块的内容
-cnosdb-tool inspect wal --from-seq 1000 --to-seq 1024
+# Output a WAL file, Content of blocks with a local serial number from 1000 to 1024
+cnosdb-tool inspit wal --from-seq 1000 --to-seq
 ```
 
-##### 检查文件
+##### Check File
 
 ```sh
 cnosdb-tool check wal [OPTIONS] <PATH>
 ```
 
-##### 修复文件
+##### Fix files
 
 ```sh
-cnosdb-tool repair wal edit [OPTIONS] <PATH>
+cnosdb-tool repair real edit [OPTIONS] <PATH>
 ```
 
-- `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 待修改的数据块序号的结束值。
+- `--from <NUMBER>` - the starting value of the block serial number to be modified.
+- `--to <NUMBER>` - the end of the serial number of the block to be modified.
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}.wal`
 
 Examples:
 
 ```sh
-# 删除一个 WAL 文件内第 5、第 6 个数据块
-cnosdb-tool repair wal edit <PATH> --delete --from 5 --to 6
+# Delete the 5 and 6 blocks of the WAL file
+cnosdb-tool repair real edit <PATH> --delete --delete --from 5 --to 6
 
-# 将一个 WAL 文件内第第 5、第 6 个数据块的内容替换为指定文件的内容，输出至 wal.bak 文件
-cnosdb-tool repair wal edit <PATH> --from 5 --to 6 --input <PATH> --output wal.bak
+# replace the contents of blocks 5 and 6 of an WAL file with the contents of the specified file, Outgoing to wal. ak File
+cnosdb-tool Repair real edit <PATH> — from 5 --to 6 --input <PATH> --output wal.bak
 ```
 
 #### Tombstone
 
-Tombstone 文件的格式为 **RecordFile**，存放删除标记。
+The Tombstone file is in the format of **RecordFile**, where delete markers are stored.
 
-##### 查看文件内容
+##### View File Content
 
 ```
-cnosdb-tool inspect tombstone [OPTIONS] <PATH>
+cnosdb-tool Inspit tombstone [OPTIONS] <PATH>
 ```
 
-- `<PATH>` - 文件路径。
-- `--from` - 起始的数据块序号。
-- `--to` - 结束的数据块序号。
+- `<PATH>` - File path.
+- `--from` - the starting block number.
+- `-to` - end block number.
 
 Examples:
 
 ```sh
-# 输出一个 Tombstone 文件中，第 5 至第 10 个数据块的内容
-cnosdb-tool inspect tombstone --from 5 --to 10
+# Output the contents of a Tombstone file, from 5 to 10 blocks
+cnosdb-tool Inspit stone --from 5 --to 10
 ```
 
-##### 检查文件
+##### Check File
 
 ```sh
 cnosdb-tool check tombstone [OPTIONS] <PATH>
 ```
 
-##### 修复文件
+##### Fix files
 
 ```sh
 cnosdb-tool repair tombstone edit [OPTIONS] <PATH>
 ```
 
-- `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 带修改的数据块序号的结束值。
+- `--from <NUMBER>` - the starting value of the block serial number to be modified.
+- `-to <NUMBER>` - End value with the changed data block number.
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}.tombstone`
 
 Examples:
 
 ```sh
-# 删除一个 Tombstone 文件内第 5、第 6 个数据块
-cnosdb-tool repair tombstone edit <PATH> --delete --from 5 --to 6
+# Deletes the 5 and 6 blocks
+cnosdb-tool repair tombstone edit <PATH> --delete --delete ---from 5 --to 6
 
-# 将一个 Tombstone 文件内第第 5、第 6 个数据块的内容替换为指定文件的内容，输出至 tombstone.bak 文件
-cnosdb-tool repair tombstone edit <PATH> --from 5 --to 6 --input <PATH> --output tombstone.bak
+# Replace the contents of the 5 and 6 blocks in a Tomstone file with the content of the specified file, Outgoing to tombstone. ak File
+cnosdb-tool replyir tombstone edit <PATH> — from 5 --to 6 --input <PATH> --output tombstone.bak
 ```
 
 #### TSM
 
-TSM 文件存放时序数据。
+TSM files store time series data.
 
-##### 查看文件内容
+##### View File Content
 
 ```sh
-cnosdb-tool inspect tsm [OPTIONS] <PATH>
+cnosdb-tool inject tsm [OPTIONS] <PATH>
 ```
 
-- `--tombstone` - 同时也打印 tombstone 的内容。
-- `--level` - 输出的级别，可选值为：`fields`，`block`，默认值为：`block`.
-- `fields` - 输出所有属性信息。
-- `block` - 输出所有属性信息与数据块信息。
+- `--tomstone` - also print the contents of tombstone
+- \--level` - level of output, optional value is：`fields`,`block`, default value is：`block\`.
+- `fields` - output all property information.
+- `block` - Output all property information and data blocks.
 
 Examples:
 
 ```sh
-# 输出一个 TSM 文件中，所有的数据块信息
-cnosdb-tool inspect tsm --level block <PATH>
+# Output a TSM file, all data block information
+cnosdb-tool inspit tsm --level block <PATH>
 ```
 
-##### 检查文件
+##### Check File
 
 ```sh
 cnosdb-tool check tsm [OPTIONS] <PATH>
@@ -439,74 +439,74 @@ cnosdb-tool check tsm [OPTIONS] <PATH>
 
 #### Hinted-Handoff
 
-Hinted-handoff 文件用于临时存放未能被正确写入的写入请求。
+Hinted-handoff file is used for temporary storage of uncorrectly written writing requests.
 
-##### 查看文件内容
+##### View File Content
 
 ```sh
-cnosdb-tool inspect hh [OPTIONS] <PATH>
+cnosdb-tool inspit hh [OPTIONS] <PATH>
 ```
 
 Options:
 
-- `<PATH>` - 文件路径。
-- `--from` - 起始的数据块序号。
-- `--to` - 结束的数据块序号。
-- `--tenant <STRING>` - 按 Tenant 过滤数据块。
-- `--vnode <NUMBER>` - 按 Vnode 过滤数据块。
+- `<PATH>` - File path.
+- `--from` - the starting block number.
+- `-to` - end block number.
+- `-tenant <STRING>` - Press Tenant to filter data blocks.
+- `--vnode <NUMBER>` - Press Vnode to filter data blocks.
 
 Examples:
 
 ```sh
-# 输出一个 Hinted-handoff 文件中，第 5 至第 10 个数据块的内容
-cnosdb-tool inspect hh --from 5 --to 10
+# Output the contents of a Hinted-handoff file, blocks 5 to 10 in
+cnosdb-tool inspit hh - from 5 - to 10
 ```
 
-##### 检查文件
+##### Check File
 
 ```sh
 cnosdb-tool check hh [OPTIONS] <PATH>
 ```
 
-##### 修复文件
+##### Fix files
 
 ```
-cnosdb-tool repair hh edit [OPTIONS] <PATH>
+cnosdb-tool repair hah edit [OPTIONS] <PATH>
 ```
 
 Options:
 
-- `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 待修改的数据块序号的结束值。
+- `--from <NUMBER>` - the starting value of the block serial number to be modified.
+- `--to <NUMBER>` - the end of the serial number of the block to be modified.
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}`
 
 Examples:
 
 ```sh
-# 删除一个 Hinted-handoff 文件内第 5、第 6 个数据块
-cnosdb-tool repair hh edit <PATH> --delete --from 5 --to 6
+# Delete the 5 and 6 blocks
+cnosdb-tool repair heir edit <PATH> --delete - from 5 --to 6
 
-# 将一个 Hinted-handoff 文件内第第 5、第 6 个数据块的内容替换为指定文件的内容，输出至 hh.bak 文件
-cnosdb-tool repair hh edit <PATH> --from 5 --to 6 --input <PATH> --output hh.bak
+# Replace the contents of the 5 and 6 blocks in the Hinted-handoff file with the content of the specified file, Outgoing to hh. ak File
+cnosdb-tool repair hah edit <PATH> — from 5 --to 6 --input <PATH> --output h.bak
 ```
 
 #### Series-Binlog
 
-Series binlog 文件用于存放数据模型。
+Series binlog file is used to store data models.
 
-##### 查看文件内容
+##### View File Content
 
 ```sh
-cnosdb-tool inspect series-binlog [OPTIONS] <PATH>
+cnosdb-tool input series-binlog [OPTIONS] <PATH>
 ```
 
 Options:
 
-- `<PATH>` - 文件路径。
-- `--from` - 起始的数据块序号。
-- `--to` - 结束的数据块序号。
-- `--database <STRING>` - 按 Database 过滤数据块。
-- `--table <NUMBER>` - 按 Table 过滤数据块。
+- `<PATH>` - File path.
+- `--from` - the starting block number.
+- `-to` - end block number.
+- `-database <STRING>` - Filter blocks by database database.
+- \`-table <NUMBER>- Press Table to filter data blocks.
 
 Examples:
 
@@ -529,18 +529,18 @@ cnosdb-tool repair series-binlog edit [OPTIONS] <PATH>
 
 Options:
 
-- `--from <NUMBER>` - 待修改的数据块序号的起始值。
-- `--to <NUMBER>` - 待修改的数据块序号的结束值。
+- `--from <NUMBER>` - the starting value of the block serial number to be modified.
+- `--to <NUMBER>` - the end of the serial number of the block to be modified.
 - `--out` - 修复后文件的保存位置，默认为 `<out_dir>/<source_file>.{%Y%m%d_%H%M%S}.{e|d}.binlog`
 
 Examples:
 
 ```sh
-# 删除一个 Series-binlog 文件内第 5、第 6 个数据块
-cnosdb-tool repair series-binlog edit <PATH> --delete --from 5 --to 6
+# Delete the 5 and 6 blocks
+cnosdb-tool repair series-binlog edit <PATH> --delete - from 5 --to 6
 
-# 将一个 Series-binlog 文件内第第 5、第 6 个数据块的内容替换为指定文件的内容，输出至 s_log.bak 文件
-cnosdb-tool repair series-binlog edit <PATH> --from 5 --to 6 --input <PATH> --output s_log.bak
+# replace the 5 and 6 blocks in a Series-binlog file with the contents of the specified file, Outgoing to s_log. ak File
+cnosdb-tool Repair series-binlog edit <PATH> — from 5 --to 6 --input <PATH> --outputs_log.bak
 ```
 
 
