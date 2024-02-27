@@ -3,40 +3,40 @@ title: Vector
 slug: /vector
 ---
 
-> [Vector](https://github.com/vectordotdev/vector)是一个高性能的可观测数据管道，使组织能够控制其可观测数据。收集、转换并将所有log、metric路由到现在正在使用的任何供应商，或者未来可能想要使用的任何其他供应商。Vector可以在你最需要的地方（而不是供应商最方便的地方）大幅降低成本，使数据更加新颖丰富，并提供数据安全性。Vector是开源的，并且比任何替代方案快接近10倍。
+> [Vector](https://github.com/vectordotdev/vector) is a high-performance observable data pipeline that enables organizations to control their observable data.Collect, convert and route all logs, metrics to any supplier currently in use, or any other supplier that may wish to use in the future.Vector can significantly reduce costs where you need it most (rather than where suppliers are the easiest), enrich data and provide data security.Vector is open source and is nearly 10 times faster than any alternative.
 > ![write](/img/vector_concept.png)
 
-#### 拓扑模型
+#### Popup Model
 
 ![write](/img/vector_topology.png)
 
-Vector 主要有三大功能模块：Sources，Transforms，Sinks
+Vector has three main features module：Sources,Transforms,Sinks
 
-数据从 Source 进入到 Vector，经过一些 Transforms 逻辑进行数据加工，最后发往 Sink。Vector 通过 Source、 Transform 、Sink 三种不同类型的组件组成了一个完整的数据流水线。
+Data entered from Source to Vector, processed with some Transforms logic and released to Sink.Vector made up a complete flow line of data via Source, Transform, Sink different types of components.
 
-Source 就是一个可供采集的数据源，例如文件、Kafka、Syslog 等。而一个 Sink 则是接收、消费数据的终端，比如Clickhouse、Splank、Datadog Logs 这类的数据库，或者日志分析平台。
+Source is an available source of data such as files, Kafka, Syslog etc.And a Sink is a terminal for receiving and consuming data, such as Clickhouse, Splank, Datadog Logs, or a log analysis platform.
 
-Transform 用于对数据流进行转换、修改和过滤，以满足特定的需求。它可以对输入数据进行多种转换和处理，例如重命名字段、过滤数据行、添加新字段、删除字段等。使用transform组件，可以将数据转换为所需的格式，并将其路由到正确的目标。支持多种转换方法，包括grok、JSON、CSV、regex、lua等。它还支持多种数据格式和协议，例如JSON、YAML、CSV、Syslog、HTTP、TCP等。
+Transform is used to convert, modify and filter data flows to meet specific needs.It can convert and process input data such as renaming fields, filtering data lines, adding new fields, deleting fields, etc.Using a transformer, data can be converted to the required format and routed to the correct target.Support a wide range of conversion methods, including grok, JSON, CSV, regex, lua, etc.It also supports multiple data formats and protocols such as JSON, YAML, CSV, Syslog, HTTP, TCP, etc.
 
-Sink 是经过处理和转换的数据流需要被发送到的目标存储或分析系统。Vector支持多种类型的sink，包括文件、标准输出、TCP/UDP、HTTP、Kafka、S3、Elasticsearch、Datadog、InfluxDB等
+Sink is a processed and converted data stream that needs to be sent to the target storage or analysis system.Vector supports multiple types of sink, including files, standard output, TCP/UDP, HTTP, Kafka, S3, Elasticsearch, Dataog, InfluxDB, etc.
 
-简单归纳一下 Vector 具备的两种主要类型的功能：
+Simply sum up the two main types of feature： that Vector has
 
-● 数据采集与传输
+• Data collection and transfer
 
-它可以从数据采集端的 Source 获取数据，并最终传输到数据的消费端 Sink。
+It can fetch data from the source of the data collection and eventually transfer it to the consumer Sink.
 
-● 数据加工的能力
+• Data processing capacity
 
-可以通过内部的 Transform 的功能模块对收集到的数据进行解析、采样、聚合等不同类型的加工处理。
+The collected data can be parsed, sampled, aggregated, etc. through the internal Transform Functional Modules.
 
-### Vector 用法介绍
+### Introduction to Vector usage
 
-作为一个工具，vector的易用性很高。
+As a tool, vector's ease of use is high.
 
-它支持通过很多不同的方式安装，安装包下载、包管理器等等，安装完成以后，得到一个二进制的 Binary，它唯一的依赖就是一个配置文件。
+It supports installing in many different ways, installing packages download, package manager, etc. to get a binary Binary, its only dependency is a configuration file.
 
-编辑配置文件 vector.toml
+Edit profile vector.toml
 
 ```toml
 [sources.generate_syslog]
@@ -83,37 +83,37 @@ inputs = ["json_transform"]
 address = "127.0.0.1:12006"
 ```
 
-配置文件中的配置大体上分三种类型：sources，transforms，sinks，概念与之前提到的相同。
+The configuration in the configuration file is broadly divided into three types of：sources,transforms,sinks, with the same concept as previously mentioned.
 
-每个组件都有一个唯一的id，并以组件的类型作为前缀。
+Each component has a unique id and prefix with the type of component.
 
-第一个组件为sources，id为generate_syslog，类型是demo_logs，以syslog为模板，100条数据。
+The first component is sources,id generate_syslog, type Demo_logs, using syslog as a template, and 100 data.
 
-第二个组件为transforms，id为remap_syslog，inputs告诉我们它接收的数据来源为generate_syslog，transform类型为remap，remap是vector在处理数据方面的一个强大的transform，提供了一种简单的语言，称为Vector Remap language，它允许你解析、操作和装饰经过Vector的事件数据。使用remap，可以将静态事件转换为信息数据，帮助询问和回答有关环境状态的问题。这里执行了一个parser_syslog函数，参数传入了message，将这个syslog解析成结构化事件。
+The second component is transforms,id reap_syslog,inputs tell us that it receives data from generate_syslog,transforms type reap,remop is a powerful transformation of vector in processing data and provides a simple language called Vector Remap Language, which allows you to sold, operate, and decorate Vector event data.Using reap, static events can be converted to information data to help ask and answer questions about the state of the environment.Here is a parser_syslog function, parameters passed into message, parsing this syslog into a structured event.
 
-第三个组件为sinks，id为emit_syslog，接收的数据来自于remap_syslog，类型为终端，将数据以json形式输出。
+The third component is sinks, id is emit_syslog. Received data from remoap_syslog, type is terminal, and output data in json.
 
-运行这个命令
+Run this command
 
 ```bash
 vector --config vector.toml
 ```
 
-将会在终端看到一些json形式的events，类似这些：
+Some json events will be seen in the terminal, similar to these：
 
 ```bash
-{"appname":"benefritz","facility":"authpriv","hostname":"some.de","message":"We're gonna need a bigger boat","msgid":"ID191","procid":9473,"severity":"crit","timestamp":"2021-01-20T19:38:55.329Z"}
-{"appname":"meln1ks","facility":"local1","hostname":"for.com","message":"Take a breath, let it go, walk away","msgid":"ID451","procid":484,"severity":"debug","timestamp":"2021-01-20T19:38:55.329Z"}
-{"appname":"shaneIxD","facility":"uucp","hostname":"random.com","message":"A bug was encountered but not in Vector, which doesn't have bugs","msgid":"ID428","procid":3093,"severity":"alert","timestamp":"2021-01-20T19:38:55.329Z"}
+{"appname":"beneficiz","facility":"auth","hostname":"some.de", "message": "We're gonna need a bigger boat", "msgid":"ID191", "process":9473,"severity":"rit", "timestamp":"2021-01-20T19:38:55.329Z"}
+{"appname":"meln1ks","facility":"local1", "hostname":". om","message":"Make a breath, let it go, walk away", "msgid":"ID451", "process":484,"severity": "debug", "timestamp":"2021-01-20T19:38:55.329Z"}
+{"appname":"ShaneIxD", "facility":"uucp", "hostname":""""random.com":"A bug was counted" but not in Vector, which doesn't have bugs", "msgid", ":"ID428", "process":3093,"severity":"alert", "timestamp":"2021-01-20T19:38:55.329Z"}
 ```
 
-### Vector 与 CnosDB 集成
+### Vector integration with CnosDB
 
-尽管目前Vector还没有支持CnosDB的Sink，但是由于CnosDB针对Vector做了数据导入的原生支持，用户可以通过类型为vector的Sink 直接把数据导入到CnosDB。
+Although Vector currently does not support CnosDB Sink, because of the nosDB native support for data import to Vector, users can import data directly into CnosDB via Sink of type vector.
 
-#### 写入Vector Log
+#### Write to Vector Log
 
-vector配置文件如下
+vector configuration file below
 
 ```toml
 data_dir = "/tmp/vector"
@@ -144,9 +144,9 @@ inputs = ["json_transform"]
 address = "127.0.0.1:8906"
 ```
 
-需要注意的是，需要将tenant，database等参数配置到source中，如果不设置，会使用默认配置。
+Note that the tenant, database's and other parameters need to be configured into source; if not set, default configuration will be used.
 
-执行命令
+Execute command
 
 ```bash
 vector --config log_vector.toml
@@ -154,29 +154,29 @@ vector --config log_vector.toml
 
 ![write](/img/vector_log_output.png)
 
-也可以使用grafna查看CnosDB log数据
+Can also view CnosDB log data with grafna
 
 ![write](/img/vector_grafana_log_output.png)
 
-#### 写入Vector Metric
+#### Write to Vector Metric
 
-示例收集Vector本身产生的metric
+Sample collection of metric generated by Vector itself
 
-vector配置文件如下
+vector configuration file below
 
 ```toml
 [sources.example_metrics]
-type = "internal_metrics"
+type = "internal_metas"
 
 [transforms.my_transform_id]
-type = "remap"
+type = "remov"
 inputs = [ "example_metrics" ]
 source = """
-# 与 Vector Log 类似，不同的是需要添加到 metric 的 tags 中，写入的 table 名为 metric 的 name 和 namespace（namespace.name），所以不需要指定 table 名
-.tags._tenant = "cnosdb"
+# similar to Vector Log, The same is the name of the table named metric and the name(namespace) that needs to be added to metrics. A table name
+is not required. ags._tenant = "cnosdb"
 .tags._database = "public"
 .tags._user = "root"
-.tags._password = ""
+.tags. password = ""
 """
 
 [sinks.cnosdb]
@@ -185,9 +185,9 @@ inputs = ["my_transform_id"]
 address = "127.0.0.1:8906"
 ```
 
-需要注意的是，与日志类型配置文件不同，需要将参数如tenant，database等配置到.tags中。
+Note that, unlike log type configuration files, parameters such as tenant, database, etc. need to be configured in .tags.
 
-执行命令
+Execute command
 
 ```bash
 vector --config metric_vector.toml
@@ -195,6 +195,6 @@ vector --config metric_vector.toml
 
 ![write](/img/vector_metric.png)
 
-使用client连接CnosDB查询
+Connect to CnosDB queries with clients
 
 ![write](/img/vector_metric_output.png)
