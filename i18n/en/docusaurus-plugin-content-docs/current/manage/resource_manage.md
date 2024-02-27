@@ -1,9 +1,8 @@
 ---
-title: Resource Management
-order: 12
+sidebar_position: 12
 ---
 
-# Resource Management
+# Resource management
 
 CnosDB has added resource management function, which will monitor some complex and multistep resource operations, and will retry when the operation fails until it succeeds.
 
@@ -12,10 +11,10 @@ Resource operations currently supported:
 ```
 DropTenant,
 DropDatabase,
-DropTable,
+Droptable,
 DropColumn,
 AddColumn,
-AlterColumn,
+Alternate,
 RenameTagName,
 UpdateTagValue
 ```
