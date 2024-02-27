@@ -2,23 +2,23 @@
 sidebar_position: 7
 ---
 
-# 租户和权限
+# Tenant and Permissions
 
-以下所有操作都在CnosDB用户界面中进行。
+All of the following actions are performed in the CnosDB user interface.
 
-## 租户与用户
+## Tenant and user
 
-CnosDB 提供了租户系统和用户系统。
+CnosDB provides both the Tenant System and the User System.
 
-- 只有拥有系统权限的用户才能添加用户和租户。
+- Only users with system permissions can add users and tenants.
 
-- 只有担任租户下owner角色的用户或拥有系统权限的用户才能添加租户下的角色，并赋予用户角色。
+- Only users who are in the Tenant Owner role or who have system permissions can add roles under the Tenant and assign roles to the user.
 
-- CnosDB实例启动的时候，会默认创建一个租户`cnosdb`和一个用户`root`。
+- When CnosDB instance starts by default, a tenant `cnosdb` and a user `root`.
 
-## 租户
+## Tenant
 
-### 查看租户
+### View Tenant
 
 #### Example
 
@@ -28,24 +28,24 @@ FROM cluster_schema.tenants;
 ```
 
 ```
-+-------------+---------------------------------------------------+
-| tenant_name | tenant_options                                    |
-+-------------+---------------------------------------------------+
-| cnosdb      | {"comment":"system tenant","limiter_config":null} |
-+-------------+---------------------------------------------------+
++----- +
+| tenant_name | tenant_options |
++------------------+
+| cnosdb | {"comment": "system tenant", "limiter_config":n} |
++---+ + +
 ```
 
-### 创建租户
+### Create Tenant
 
-**语法**
+**Syntax**
 
 ```sql
-CREATE TENANT [IF NOT EXISTS] tenant_name [WITH [comment = ''] [_limiter = <limiter_config>]];
+CREATE TENANT [IF NOT EXISTS] tenant_name [WITH [comment = '] [_limiter = <limiter_config>]];
 ```
 
-_limiter： 限制租户资源用量，可以参见[租户资源](https://docs.cnosdb.com/zh/latest/manage/resource_limit)
+_limiter： limits the use of tenant resources, see[租户资源](https\://docs.cnosdb.com/en/ latest/manage/resource_limit)
 
-**示例**
+**Example**
 
 ```sql
 CREATE TENANT test;
@@ -61,32 +61,32 @@ SELECT * FROM cluster_schema.tenants;
 +-------------+---------------------------------------------------+
 ```
 
-### 修改租户
+### Modify tenant
 
-**语法**
+**Syntax**
 
 ```sql
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     
 sql_option: option_name = value
-option: {COMMENT/_LIMITER}
+option: {MEST T/_LIMITER}
 ```
 
-SET 用来设置租户属性，属性只能为对应属性类型的常量
+SET is used to set tenant properties. Attributes can only be constant of attribute type
 
-UNSET 删除租户属性
+UNTT delete tenant properties
 
-目前租户属性只有 COMMENT，对应属性类型为字符串类型，用单引号括起来
+Current Tenant Attribute is only contingent and the corresponding attribute type is a string type, with a single quotation mark
 
-**示例**
+**Example**
 
 ```sql
 ALTER TENANT test SET COMMENT = 'abc';
 ```
 
-### 删除租户
+### Remove Tenant
 
-**语法**
+**Syntax**
 
 ```sql
 DROP TENANT tenant_name;
@@ -95,26 +95,26 @@ DROP TENANT tenant_name;
 #### Syntax
 
 ```sql
-RECOVER TENANT tenant_name;
+RECOVERTN tenant_name;
 ```
 
-SET 用来设置租户属性，属性只能为对应属性类型的常量
+SET is used to set tenant properties. Attributes can only be constant of attribute type
 
-UNSET 删除租户属性
+UNTT delete tenant properties
 
-目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来； _LIMITER，对应属性类型为STRING类型， 用单引号括起来，内容详见[租户资源限制](https://docs.cnosdb.com/zh/latest/manage/resource_limit)。
+At present, the tenant attribute supports：MEDT, the corresponding attribute type is STRING, with a single quote; _LIMITER, the corresponding attribute type is STRING, with a single quote, see[租户资源限制](https://docs.cosdb.com/en/latest/manage/resource_limit).
 
-**示例**
+**Example**
 
 ```sql
 RECOVER TENANT test;
 
-DROP TENANT test;
+DROPTENANT test;
 ```
 
-## 用户
+## User
 
-### 查看用户
+### View User
 
 ```sql
 SELECT *
@@ -129,27 +129,27 @@ FROM cluster_schema.users;
 +-----------+----------+-------------------------------------------------------------------------------------------------+
 ```
 
-### 创建用户
+### Create User
 
-**语法**
+**Syntax**
 
 ```sql
 CREATE
-USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [GRANTED_ADMIN=true,] [COMMENT = '']];
+USER [IF NOT EXISTS] user_name [WASSWORD=',] [MUST_CHANGE_PASSORD=true,] [GANTED_ADMIN=true,] [COMMENT = ']];
 ```
 
-**示例**
+**Example**
 
 ```sql
 CREATE
 USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMENT = 'test';
 ```
 
-### 修改用户
+### Modify User
 
-#### 修改用户参数
+#### Edit User Parameter
 
-**语法**
+**Syntax**
 
 ```sql
 ALTER USER user_name {SET sql_option};
@@ -158,107 +158,107 @@ sql_option: option_name = option_value
 option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 ```
 
-option_value 只能是常量
+option_value can only be constant
 
-COMMENT 的 option_value 类型为字符串
-MUST_CHANGE_PASSWORD 的 option_value 类型为布尔
-PASSWORD 的 option_value 类型为字符串
+The COMMENT option_value type is string
+MUST_CHANGE_PASSWORD option_value type is the prop
+PASWARD option_value type string
 
-**示例**
+**Example**
 
 ```sql
-ALTER USER tester SET PASSWORD = 'aaa';
+ALTER USER tester SET PASSWORRD = 'aaa';
 ALTER USER tester SET MUST_CHANGE_PASSWORD = false;
-ALTER USER tester SET COMMENT = 'bbb';
+ALTER USER SET COMMENT = 'bbb';
 ```
 
-### 删除用户
+### Delete user
 
-**语法**
+**Syntax**
 
 ```sql
 DROP
 USER [IF EXISTS] user_name;
 ```
 
-**示例**
+**Example**
 
 ```sql
 DROP
-USER IF EXISTS tester;
+USER IF EXISTS test;
 ```
 
-## Admin权限
+## Admin Permissions
 
-- admin 权限分为两种
-  - 初始的 admin 权限
-  - 被授予的 admin 权限
-- 支持拥有 admin 权限的人将 admin 权限授予其他人
-- 系统表 cluster_schema.users 中 is_admin 字段标记是否拥有 admin 权限（包括初始的和被授予的）
-- 系统表 cluster_schema.users 中的 user_options 的 granted_admin 为 true，表示被授予的 admin 权限
-- 拥有 admin 权限的人可以回收其他人被赋予的 admin 权限
-- 初始的 admin 权限不支持被回收（即 root 用户拥有的 admin 权限）
+- admin permissions are split to employees
+  - Initial admin permissions
+  - granted admin permissions
+- Those who have admin permissions are supported to grant admin permissions to others
+- Whether the is_admin field tag in the system cluster_schema.users has admin permissions (including initial and granted)
+- The user_options in the system cluster_schema.user's are granted_admin true for admin granted
+- People with admin permissions can recover admin permissions granted to others
+- Initial admin permissions do not support recovery (admin permissions owned by root user)
 
-### 授予 admin 权限
+### Grant admin permission
 
-**语法**
+**Syntax**
 
 ```sql
 alter user <user_name> set granted_admin = true
 ```
 
-**示例**
+**Example**
 
 ```sql
 create user dev;
 alter user dev set granted_admin = true;
 ```
 
-### 撤销 admin 权限
+### Revoke admin permissions
 
-**语法**
+**Syntax**
 
 ```sql
 alter user <user_name> set granted_admin = false
 ```
 
-**示例**
+**Example**
 
 ```sql
 alter user dev set granted_admin = false;
 ```
 
-### 查看 admin 权限
+### View admin permissions
 
-**示例**
+**Example**
 
 ```sql
-select * from cluster_schema.users where user_name = 'dev';
+Select * from cluster_schema.users where user_name = 'dev';
 ```
 
 ```
-+-----------+----------+------------------------------------------------------------------------+
-| user_name | is_admin | user_options                                                           |
-+-----------+----------+------------------------------------------------------------------------+
-| dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
-+-----------+----------+------------------------------------------------------------------------+
++---+
+| user_name | is_admin | user_user_options |
++--------------------------------------------------------------------- +
+ev | {"password": "***", "must_change_password":false, "granted_admin"admin": true} |
++---------------------------------------------+ + + +
 ```
 
-## 租户角色
+## Tenant role
 
-租户下的角色分为系统角色和用户自定义角色。
+Tenant roles are divided into system and user customized roles.
 
-- 系统角色：
-  - Owner: 对租户有顶级权限，支持租户下的所有操作。
-  - Member: 租户成员，可以浏览租户下的各种对象。
+- System Role：
+  - Owner: Have top level access to tenants to support all operations under the tenant.
+  - Member: Tenant members, can view various objects under the tenant.
 
-- 用户自定义角色：
-  - 自定义角色需要继承系统角色。
-  - 可以对自定义角色赋予多种权限。
+- User custom role：
+  - Custom roles need to inherit system roles.
+  - You can assign multiple permissions to custom roles.
 
-### 查看角色
+### View Roles
 
-查看当前租户下的角色。
+View roles under the current tenant.
 
 #### Example
 
@@ -270,75 +270,75 @@ FROM roles;
 ```
 
 ```
-+------------+-----------+--------------+
-| role_name  | role_type | inherit_role |
-+------------+-----------+--------------+
-| owner      | system    |              |
-| member     | system    |              |
-+------------+-----------+--------------+
++----------------------------------- ----- +
+| role_name | role_type | inherit_role |
++---+
+| owner | system |
+|
++-+--- + + + + + +
 ```
 
-### 创建角色
+### Create Role
 
-只有DBA和tenant的owner角色可以创建角色，角色是属于tenant的。
+Only DBA and tenant’s owner roles can create roles, which are tenant.
 
-**语法**
+**Syntax**
 
 ```sql
 CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
-**示例**
-在当前租户下创建继承owner角色的owner_role角色。
+**Example**
+to create a owner_role role under the current tenant.
 
 ```sql
 CREATE ROLE owner_role INHERIT owner;
 ```
 
-在当前租户下创建继承member角色的member_role角色。
+Creates the member_role role of inherited member under the current tenant.
 
 ```sql
 CREATE ROLE member_role INHERIT member;
 ```
 
-### 删除角色
+### Delete Role
 
-**语法**
-
-```sql
-DROP ROLE role_name;
-```
-
-**示例**
+**Syntax**
 
 ```sql
-DROP ROLE owner_role;
+DROLE ROLE role_name;
 ```
 
-## 权限
+**Example**
 
-可以使用`GRANT ...` 为租户下的角色赋予权限，使用`REVOKE ...`收回权限。
+```sql
+DROLE owner_role;
+```
 
-### 数据库的操作权限
+## Permissions
 
-目前权限的最小粒度是数据库。
+Use `GGRANT ...` to grant permissions for roles under the tenant, use `REVOKE ...` to reclaim permission.
 
-| 权限名称  | 权限内容        |
-| ----- | ----------- |
-| read  | 对数据库读的权限    |
-| write | 对数据库读写的权限   |
-| all   | 对数据库增删改查的权限 |
+### Database permissions
 
-### 赋予权限
+The minimum particle size of the current permissions is the database.
 
-**语法**
+| Permissions Name | Permission Content                            |
+| ---------------- | --------------------------------------------- |
+| read             | Permission to read database                   |
+| write            | Permission to read and write to database      |
+| all              | Adds permission to delete changes to database |
+
+### Grant permissions
+
+**Syntax**
 
 ```sql
 GRANT
 {READ | WRITE | ALL} ON DATABASE database_name TO ROLE role_name;
 ```
 
-**示例**
+**Example**
 
 ```sql
 -- 创建一个角色rrr
@@ -358,7 +358,7 @@ GRANT ALL
 ON DATABASE sea TO ROLE rrr;
 ```
 
-### 查看权限
+### View permissions
 
 #### Example
 
@@ -379,50 +379,50 @@ FROM DATABASE_PRIVILEGES;
 +-------------+---------------+----------------+-----------+
 ```
 
-**注意**
+**Note**
 
-授予一个角色关于同一个数据库的权限，会覆盖之前的权限。
+Grant a role permission for the same database that will override the previous permissions.
 
-### 收回权限
+### Retrieving permissions
 
-**语法**
+**Syntax**
 
 ```sql
 REVOKE {WRITE | READ | FULL} ON DATABASE database_name FROM role_name;
 ```
 
-**示例**
+**Example**
 
 ```sql
 -- 收回角色读取数据库air的权限
 REVOKE READ ON DATABASE air FROM rrr;
 ```
 
-### 修改权限
+### Modify permissions
 
-- ### 让用户担任某个租户下的角色
+- ### Ask users to play a role under a tenant
 
-**语法**
+**Syntax**
 
 ```sql
 ALTER
 TENANT tenant_name ADD USER user_name AS role_name;
 ```
 
-**示例**
+**Example**
 
 ```sql
 CREATE
 USER user_a;
 ALTER
-TENANT cnosdb ADD USER user_a AS rrr;
+TENT cnosdb ADD USER user_a AS rrrrr;
 ```
 
-- #### 让用户不在担任租户下的角色
+- #### Do not play a role as a tenant
 
-仅仅是用户不再担任租户的角色，角色不会被删除。
+Only users no longer act as tenants, roles will not be deleted.
 
-**语法**
+**Syntax**
 
 ```sql
 ALTER
