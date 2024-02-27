@@ -1,65 +1,65 @@
 ---
-title: 压缩算法
+title: Compression Algorithm
 order: 4
 ---
 
-# 压缩算法
+# Compression Algorithm
 
-时序数据规模很大，且可能存在大量冗余，因而在时序数据库中经常使用压缩方法来节约存储空间和查询执行时的I/O代价，下面将讨论一些时序数据库中常见的压缩技术。
+Because of the large scale of time-series data and the potential for large amounts of redundancy, compression methods are frequently used in the time series database to save storage space and query the I/O costs of implementation, compression techniques that are common in some time series databases are discussed below.
 
-不同时序数据库的具体存储结构与压缩算法在设计上相差很大。以Open TSDB为代表的分布式时序数据库底层依托HBase集群存储，存在基本的时序数据模型，根据时序数据的基本特征对时序数据进行压缩存储。Open TSDB使用类字典压缩算法，通过将索引名称和每个序列名称的每个标签，通过进行编码来减少序列内存使用。然而依然存在很多无用的字段，无法有效的压缩，聚合能力比较弱。InfluxDB具有更丰富的数据类型，InfluxDB在整型数据采用整型编码，整数编码的压缩具体取决于原始数值的范围。时间戳为独立的数据类型，并且具有一定的规律可循，在InfluxDB中，针对时间戳数据先执行排序操作后使用delta算法进行编码，然后再根据编码结果采用不同的算法进行处理。有关 CnosDB 的压缩算法，下面的内容将帮您对其有更清楚的了解。
+The specific storage structure of different time series databases differs significantly from the design of compression algorithms.The base layer of the distributed time-series database represented by the Open TSDB is based on HBase cluster storage, where basic time-series data models exist for compressed storage based on the basic characteristics of the time-series data.Open TSDB uses classical compression algorithms to reduce sequence memory usage by encoding index names and each tag with each sequence name.However, there are still many useless fields that cannot be effectively compressed and have weak aggregation capabilities.InfluxDB has a more abundant data type, InfluxDB is encoded in whole data, and compression of integer codes depends on the range of original values.Timestamp is a stand-alone data type and has a certain pattern to follow, in InfluxDB, after sorting over timestamps, then encoded using delta algorithms before using different algorithms based on encoding results.With regard to CnosDB compression algorithm, the following content will help you understand it more clearly.
 
 ### DELTA
 
-主要用于时间戳，整型以及无符号整型。
+Used mainly for timestamp, integer, and unsigned integs.
 
-#### 原理
+#### Principles
 
-首先进行差分，即第一个数据不变，其他数据转化为与上一个数据的delta，再将所有数字进行zigzag处理，即将i64映射到u64，具体为0映射到0，负数映射到奇数，正数映射到偶数，例如[0，-1，1，-2]经过zigzag处理后变为[0，1，2，3]，并计算出最大公约数。之后判断一下如果所有的delta都相同，就直接使用游程编码，即只需要记录第一个值，delta和数据的数量。否则就将所有的delta值除以最大公约数（最大公约数也会编码进数据），然后使用simple8b进行编码。
+The difference is made first, that the first data are not changed, that the other data are converted to delta from the previous data and then all the figures are processed by zigzag, with i64 being mapped to u64, specifically 0 to 0, negative to odds, positive to events, e.g. [0, -1, 1-2] being converted to [0, 2,3] after zigzag, and the maximum Convention number is calculated.It is then judged that if all delta are identical, the code is directly used, i.e. only the amount of the first value, delta and data is to be recorded.Otherwise, all delta values will be divided by the maximum number of conventions (the maximum number of conventions will also be encoded into data) and then encoded using simple8b.
 
 ![](/img/simple8b.png)
 
-simple8b是一种将多个整数打包到一个64位整数的压缩算法，前4位作为selector，用于指定剩余60位中储存的整数的个数和有效位长度，后60位用于储存多个整数。另外当delta的大小超过simple8b能编码的最大范围（超过1<<60 - 1，一般情况下不会出现）则不进行压缩，直接储存数组。
+simple8b is a compressed algorithm that packs multiple integers to a 64-digit integer, the first 4 as selector, specifies the number and length of the integer stored in the remaining 60 digits, and the second 60 for multiple integers.Also when delta has a size greater than the maximum size of simple8b encoded (more than 1<60 - 1, which normally does not appear) no compression is made to store arrays directly.
 
-#### 适用情况
+#### Applicability
 
-在一些定时采集的数据，假设每5秒采集一次数据，时间戳的delta为5，通过游程编码仅仅通过三个数字就可以复原所有的时间戳，压缩比极高，而一些delta不能保证一致的场景，即在使用simple8b的情况下，更适用于范围较小的，浮动较小的数据。
+In some of the periodic data collected, assuming that data is collected every five seconds, delta is five, all timestamps can be restored by programming code using only three digits, compression is extremely high, while some delta does not guarantee consistent scenarios, i.e., smaller and less floating data when simple8b is used.
 
-在不指定压缩算法的情况下，我们默认为时间戳，整型和无符号整型使用这种压缩算法，压缩率与压缩效率都比较高。
+Where compression algorithms are not specified, we use this compression algorithm by default, with both compression and compression efficient.
 
 ### GORILLA
 
-主要用于浮点型。
+Used mainly for floating types.
 
-#### 原理
+#### Principles
 
-gorilla的原理与差分类似，区别在于差分是两个数据的差，gorilla则是异或。编码时第一个数据不进行处理，计算后一个的数据与前一个数据的异或，如果异或值为0，则与上一个数据重复，写一个补位用来表示重复，如果不为零，则计算异或值delta的前导零和后导零个数，如果个数相同，则只编码中间有效位，如果个数不同则前导零写5位，后导零写6位，然后再写中间有效位。
+The difference between the rationale and the classification of gorilla is that the difference is the difference between the two data, and gorilla is the difference or the difference.The first data is not processed at the time of encoding and the latter data is calculated as different from the previous data or, if the value is 0, duplicates the previous data by writing a supplement, calculates the lead zero and back zero for the difference or value delta or, if the number is the same, encoded only the middle position and 5 for the lead if the number differs, then zero for 6 and then write the intermediate valid position.
 
 ![](/img/gorilla.png)
 
-#### 适用情况
+#### Applicability
 
-与delta类型，同样比较适用于时序数据场景下，我们可能在不同地点采集数据，但同一地点采集的数据的地名相关信息大体上是一致的，在这种场景下，压缩率与压缩效率都比较高。
+Comparisons with delta types can also be applied to time-series data scenarios, where we may collect data from different locations, but where toponymic information for data from the same location is generally consistent and where both compression and compression are efficient.
 
-在不指定压缩算法的情况下，我们默认为浮点型指定这种压缩算法。
+When compression algorithms are not specified, we specify this compression algorithm by default.
 
 ### QUANTILE
 
-主要用于时间戳，整型，无符号整型以及浮点数。
+Used mainly for timestamps, integing, unsigned integer and float.
 
-#### 原理
+#### Principles
 
-quantile支持多种级别压缩，CnosDB 目前采用默认的压缩等级。
+Quantile supports multiple levels of compression, CnosDB is currently using the default compression level.
 
-通过哈夫曼编码和偏移量描述每个数据，用哈夫曼码对应数据所在的范围[lower, upper]，偏移量指定该范围内的确切位置。对于每个块的压缩首先进行差分处理，用差分后的数据来代替现在的数据，然后将当前的数组大致以128为间隔分割成多个块，每个块确定一个范围与关联的元数据，同时计算每个块的最大公约数，根据情况使用最大公约数优化，以及合并一些相邻的块，再根据每个块在数据中的权重确定其哈夫曼编码，最后使用这些块对数据进行编码。
+Describe each data with the Hafman encoding and offset, using the Hafman code in the range [lower, upper], the offset specifies the exact location within that range.The compression for each block starts with differential treatment, replacing the current data with differential data, then dividing the current array into more than one block at approximately 128 intervals. Each block identifies a range and associated metadata, while calculating the maximum number of conventions for each block, optimizing the use of the maximum convention number as appropriate, and merging some adjacent blocks, then recoding the Hafman code according to each block in the data and using those blocks to encode the data.
 
 ![](/img/quantile.png)
 
-#### 适用情况
+#### Applicability
 
-相比较于delta算法与gorilla算法，由于同样使用了差分算法，在适用数据的选择上大致相同，由于quantile算法采用了更复杂的编码方式，导致压缩效率比较低，大约有5到10倍的差距，相对地，压缩率则稍优于delta与gorilla算法。
+Comparing the delta algam with the gorilla algorithm, which also uses differential algorithms, the choice of applicable data is broadly the same, and quantile algorithms result in lower compression efficiency, with a gap of approximately 5 to 10 times, and a slightly better compression rate than delta and gorilla algorithms.
 
-图片纵轴为压缩比，时间只比较相对值。
+The vertical axis of the image is compressed and the time only compares relative values.
 
 ![](/img/f64_codec.png)
 
@@ -67,71 +67,71 @@ quantile支持多种级别压缩，CnosDB 目前采用默认的压缩等级。
 
 ### BITPACK
 
-主要用于布尔类型。
+Use primarily for Boolean types.
 
-#### 原理
+#### Principles
 
-一个bool类型的数据的大小是一个字节，而对于bool所表示的信息，其实只需要1位就可以表示，这样我们可以将8个bool类型的数据组装成1个字节的数据。
+The size of a bool-type data is a byte, and the information expressed by bool, it really needs only one digit to indicate so that we can assemble eight bool-type data into one byte data.
 
-#### 适用情况
+#### Applicability
 
-无论任何数据，都可以保证接近8倍的压缩比，在不指定压缩算法的情况下，我们默认为布尔类型指定这种压缩算法。
+Any data can guarantee a compression ratio close to eight, and where compression algorithms are not specified, we will specify this compression algorithm by default.
 
-### 字符串压缩算法
+### String Compression Algorithm
 
-目前支持的字符串压缩算法压缩比如下：
+The currently supported string compression algorithm is more than the following：
 
 ![](/img/str_comrpess_ratio.png)
 
-以及压缩时间和解压缩时间，单位为us
+as well as compression time and extraction, in us
 
 ![](/img/str_compress_time.png)
 
-#### SNAPPY
+#### SNPPY
 
-snappy算法不旨在最大程度地压缩，也不旨在与任何其他压缩库兼容。相反，它的目标是非常高的压缩效率和合理的压缩率，所以在更加需要效率的情况下推荐使用snappy。
+Snapby algorithms are not intended to be compressed to the maximum extent and are not intended to be compatible with any other compression.Rather, it aims at very high compression efficiency and reasonable compression, and therefore recommends the use of snapmy when there is a greater need for efficiency.
 
-在不指定字符串压缩算法的情况下，我们默认指定这种压缩算法。
+We specify this compression algorithm by default without specifying a string compression algorithm.
 
-#### ZSTD
+#### ZSTs
 
-zstd支持多种压缩等级，CnosDB 目前采用默认的压缩等级。
+zstd supports multiple compression ratings, CnosDB is currently using default compression rating.
 
-Zstd 全称叫 Zstandard，是一个提供高压缩比的快速压缩算法，Zstd 采用了有限状态熵编码器。提供了非常强大的压缩速度/压缩率的折中方案。
+Zstd is fully known as Zstandard, a fast compression algorithm that provides high compression ratios, and Zstd uses limited entropy encoders.A very powerful compression speed/compression compromise solution is provided.
 
 #### GZIP/ZLIB
 
-gzip与zlib比较相似，对于要压缩的文件，首先使用LZ77算法的一个变种进行压缩，对得到的结果再使用Huffman编码的方法进行压缩，压缩率很高，但同样比较耗时。这两种算法使用均比较广泛，性能相似，可以根据情况选择。
+gzip is more similar to zlib. For documents to be compressed first using a variant of the LZ77 algorithm, where the results obtained were then compressed using the Huffman coded method, which has a very high but also time-consuming.Both of these algorithms are used more widely, with similar performance and can be selected according to the circumstances.
 
 #### BZIP
 
-与其他几种算法比较，压缩率更高，但是压缩效率也更低，可以用于需要极致压缩率的场景，一般情况下不太推荐使用。
+Compression rates are higher compared to several other algorithms, but it is also less efficient and can be used in scenarios that require extremely high compression rates, which are generally less recommended.
 
-### 有损压缩算法
+### Damaged compression algorithm
 
 :::tip
-仅企业版支持
+Enterprise only support
 :::
 
-#### SDT压缩算法
+#### SDT Compression Algorithm
 
-主要用于整型，无符号整型，浮点型。
+Used mainly for integing, unsigned integing, floating type.
 
-旋转门趋势(SDT)是一种在线有损数据压缩算法，传统上用于监控和数据采集(SCADA)系统，旨在存储过程信息系统(PIMs)的历史数据。
-SDT计算复杂度低，使用线性趋势来表示一定数量的数据。它最重要的参数是压缩偏差(deviation)，它表示当前样本与用于表示先前收集的数据的当前线性趋势之间的最大差异。
-其原理是通过 查看当前数据点与前一个被保留的数据点所构成的 压缩偏移覆盖区来决定数据的取舍。如果偏移覆盖区可以覆盖两者之间的所有点，则不保留该数据点；如果有数据点落在压缩偏移覆盖区之外，则保留当
-前数据点的前一个点，并以最新保留的数据点作为新的起点。
+Rotation gate trends (SDT) are an online compression algorithm, traditionally used for surveillance and data collection (SCADA), and designed to store historical data from the process information system (PIMs).
+The SDT calculates a low degree of complexity and uses linear trends to denote a certain amount of data.Its most important parameter is the compression of the deviation, which indicates the largest difference between the current sample and the current linear trend used to denote previously collected data.
+The rationale is to determine the choice of data by viewing the current data point and the compressed offset overlay formed by the previous reserved data point.If the offset covers can cover all points between them, the data point will not be retained; if there is a data point falling outside the compressed offset cover, the previous point will be retained when the data point is
+before the data point is last reserved as a new starting point.
 
-##### 算法参数
+##### Algorithm Parameters
 
-Deviation：正浮点数。它表示当前样本与当前线性趋势之间的最大差值。
+Deviation：positive float.It indicates the maximum difference between the current sample and the current linear trend.
 
-#### 死区压缩算法
+#### Dead Compression Algorithm
 
-主要用于整型，无符号整型，浮点型。
+Used mainly for integing, unsigned integing, floating type.
 
-死区压缩算法的原理是: 对于时间序列的变量数据，规定好变量的变化限值（即死区，或称为阈值），若 当前数据与上一个保存的数据的偏差超过了规定的死区，那么就保存当前数据，否则丢弃。这 种算法对来自时间序列的连续数据，仅需与前一个保存的数据进行比较即可确定本数据是否需要保存，因 此易于理解和实现，大部分采用有损压缩的实时数据库都提供了这种压缩方式。
+The rationale for the stillzone compression algorithm is: for time-series variables, a limit of variation of variables (i.e. dead or called thresholds) is fixed and the current data is preserved if the current data deviates from the previous saved data exceed the prescribed dead zone, or is abandoned.This algorithm determines whether this data needs to be preserved only by comparison with the data previously kept, and is therefore easy to understand and achieve, which is provided by most of the compressed real-time databases.
 
-##### 算法参数
+##### Algorithm Parameters
 
-Deviation: 正浮点数。使用该算法时允许偏差的绝对值或相对值，以最后一个已保存的数为基准。它决定了算法的压缩率，以及压缩后数据的精确度。
+Deviation: floating points.The algorithm is used to allow an absolute or relative value of the deviation, based on the last saved number.It determines the compression rate of algorithms, as well as the accuracy of the post-compressed data.
