@@ -1,65 +1,65 @@
 ---
-title: SQL语法参考手册
+title: SQL Syntax Reference
 order: 5
 ---
 
-# SQL语法参考手册
+# SQL Syntax Reference
 
-## 数据库操作
+## Database Actions
 
-### 数据类型
+### Data Type
 
-| 类型              | Description | 大小  |
-| --------------- | ----------- | --- |
-| BIGINT          | 整型          | 8字节 |
-| BIGINT UNSIGNED | 无符号整型       | 8字节 |
-| BOOLEAN         | 布尔类型        | 1字节 |
-| TIMESTAMP       | 时间戳         | 8字节 |
-| STRING          | UTF-8编码的字符串 | *** |
-| DOUBLE          | 双精度浮点型      | 8字节 |
+| Type            | Description           | Size    |
+| --------------- | --------------------- | ------- |
+| BIGINT          | Integer               | 8 Bytes |
+| BIGINT UNCIGNED | Unsigned integer      | 8 Bytes |
+| BOOLEN          | Boolean Type          | 1byte   |
+| TIMESTAMP       | Timestamp             | 8 Bytes |
+| STRING          | UTF-8 encoded string  | ***     |
+| DOUBLE          | Double-accuracy float | 8 Bytes |
 
-#### 其他数据类型
+#### Other data types
 
-以下数据类型无法直接存储，但会在SQL表达式中出现
+The following data type cannot be stored directly, but will appear in SQL expression
 
-| 类型       | Description               | 备注                                         |
-| -------- | ------------------------- | ------------------------------------------ |
-| BINARY   | 二进制数据，可以使用Cast子句转换成STRING | sha224, sha256, sha384, sha512函数的返回值均属于此类型 |
-| INTERVAL | 时间间隔                      | 时间加减运算和date_bin函数参数需要 |
-| ARRAY    | 数组类型                      | 聚合函数array_agg返回类型为此   |
+| Type     | Description                                                   | Remarks                                                                         |
+| -------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| BINARY   | Binary data can be converted to STRING using the Castsentence | The return value of sha224, sha256, sha384, sha512 functions of this type       |
+| INTERVAL | Time interval                                                 | Time plus offset and date_bin function parameters required |
+| ARRAY    | Array Type                                                    | The converse function array_agg returns this type          |
 
-#### 常量
+#### constant
 
-| 类型              | Syntax                                                        | 说明                                              |      |
-| --------------- | ------------------------------------------------------------- | ----------------------------------------------- | ---- |
-| BIGINT          | [{+-}]123 |                                                 | 数值类型 |
-| BIGINT UNSIGNED | [+]123    | 数值类型                                            |      |
-| DOUBLE          | 123.45                                                        | 数值类型，目前暂不支持科学记数法                                |      |
-| BOOLEAN         | {true \| false \| t \| f}                                     |                                                 |      |
-| STRING          | 'abc'                                                         | 不支持双引号格式，引号中连续两个''转义成‘                          |      |
-| TIMESTAMP       | TIMESTAMP '1900-01-01T12:00:00Z'                              | 时间戳，TIMESTAMP 关键字表示后面的字符串常量需要被解释为 TIMESTAMP 类型。 |      |
-| --              | NULL                                                          | 空值                                              |      |
+| Type            | Syntax                                                        | Note                                                                                                            |            |
+| --------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------- |
+| BIGINT          | [{+-}]123 |                                                                                                                 | Value Type |
+| BIGINT UNCIGNED | [+]123    | Value Type                                                                                                      |            |
+| DOUBLE          | 123.45                                                        | Numeric type, scientific notation is currently not supported                                                    |            |
+| BOOLEN          | {true \| false \| t \| f}                                     |                                                                                                                 |            |
+| STRING          | 'abc'                                                         | Double quotation format is not supported. Two consecutive '' in quotation numbers are converted to value        |            |
+| TIMESTAMP       | TIMESTAMP '1900-01-01T12:00Z'                                 | Timestamp,TIMESTAMP keyword indicates that the string constant after needs to be interpreted as TIMESTAMP type. |            |
+| --              | NULL                                                          | Empty value                                                                                                     |            |
 
-#### TIMESTAMP 常量语法
+#### TIMESTAMP constant syntax
 
-时间戳是按RCF3339标准
+Timestamp is by RCF 3339 standard
 
-T代表间隔，仅可以用空格代替
+T intervals, only spaces can be used instead
 
-Z代表零时区
+Z for zero timezone
 
-+08:00 代表东八区
++08:00 for Sector 8
 
-如下：
+The following：
 
-- `1997-01-31T09:26:56.123Z` # 标准RCF3339 UTC 时区
-- `1997-01-31T09:26:56.123+08:00` # 标准RCF3339 东八区
-- `1997-01-31 09:26:56.123+08:00` # 接近RCF3339, 只是用空格代替T
-- `1997-01-31T09:26:56.123` # 接近RCF3339, 没有指定时区，默认UTC
-- `1997-01-31 09:26:56.123` # 接近RCF3339, 用空格代替T， 且没有指定时区
-- `1997-01-31 09:26:56`     # 接近RCF3339, 精确度是秒级
+- `1997-01-31T09:26:56.123Z` # Standard RCF 3339 UTC timezone
+- `1997-01-31T09:26:56.123+08:00` # Standard RCF 3339 East Region
+- `1997-01-31 09:26:56.123+08:00` # close to RCF 3339, replacing T with spaces
+- `1997-01-31T09:26:56.123` # close to RCF 3339, no time zone specified, default UTC
+- `1997-01-31 09:26:56.123` # close to RCF 3339, replace T with spaces and no time zone specified
+- `1997-01-31 09:26:56` # close to RCF 3339, accuracy in seconds.
 
-**注意**：`CAST (BIGINT AS TIMESTAMP)` 是转化为纳秒级的时间戳，如下：
+**Note**：`CAST (BIGINT AS TAMEESTAMP)` is time stamp converted to nanoss, as follows:：
 
 ```sql
 SELECT CAST (1 AS TIMESTAMP);
@@ -73,41 +73,41 @@ SELECT CAST (1 AS TIMESTAMP);
 +-------------------------------+
 ```
 
-#### INTERVAL 常量
+#### INTERVAL constant
 
-**示例：**
+**Example：**
 
-1. `INTERVAL '1'` 一秒
-2. `INTERVAL '1 SECONDE'` 一秒
-3. `INTERVAL '1 MILLISECONDS'` 一毫秒
-4. `INTERVAL '1 MINUTE'` 一分钟
-5. `INTERVAL '0.5 MINUTE'` 半分钟
-6. `INTERVAL '1 HOUR'` 一小时
-7. `INTERVAL '1 DAY'` 一天
-8. `INTERVAL '1 DAY 1'` 一天零一秒
-9. `INTERVAL '1 WEEK'` 一周
-10. `INTERVAL '1 MONTH'` 一月(30天)
-11. `INTERVAL '0.5 MONTH'` 半月(15天)
-12. `INTERVAL '1 YEAR'` 一年（12个月）
-13. `INTERVAL '1 YEAR 1 DAY 1 HOUR 1 MINUTE'` 一年零一天零一小时一分
-14. `INTERVAL '1 DECADES' ` 一个十年
+1. \`INTERVAL 1' for one second
+2. \`INTERVAL '1 SECONDE' for one second
+3. \`INTERVAL '1 MILLISED' in one milliseconds
+4. \`INTERVAL '1 MINUTE' for a minute
+5. \`INTERVAL '0.5 MINUTE' for half a minute
+6. \`INTERVAL '1 HOUR' for one hour
+7. \`INTERVAL '1 DAY' for one day
+8. \`INTERVAL '1 DAY 1'
+9. \`INTERVAL '1 WEEK' week
+10. \`INTERVAL '1 MONTH' month (30 days)
+11. \`INTERVAL '0.5 MONTH' half-month (15 days)
+12. \`INTERVAL '1 YEAR' year (12 months)
+13. `INTERVAL '1 YEAR 1 DAY 1 HOUR 1 MINUTE' `One year and one hour one day and one hour one hour one year
+14. \`INTERVAL '1 DECADES' for one decade
 
-**注意:**
+**Note:**
 
-INTERVAL '1 YEAR' 并不是365天或366天，而是12个月
-INTERVAL '1 MONTH' 并不是28天或29天或31天，而是30天
+INTERVAL '1 YEAR' is not 365 or 366 days, but is 12 months
+INTERVAL '1 MONTH' not 28 or 29 or 31 days, but 30 days
 
-### 创建数据库
+### Create Database
 
-**语法**
+**Syntax**
 
 ```sql
 CREATE DATABASE [IF NOT EXISTS] db_name [WITH db_options];
 
 db_options:
-    db_option ...
+    db_option...
 
-db_option: {
+db_option: LO
       TTL value
     | SHARD value
     | VNODE_DURATION value
@@ -118,22 +118,22 @@ db_option: {
 
 #### Parameter Description
 
-1. TTL： 表示数据文件保存的时间，默认为365天，用带单位的数据表示，支持天（d），小时（h），分钟（m），如TTL 10d，TTL 50h，TTL 100m，当不带单位时，默认为天，如TTL 30
-2. SHARD：表示数据分片个数，默认为1
-3. VNODE_DURATION：表示数据在shard中的时间范围，默认为365天，同样使用带单位的数据来表示，数据意义与TTL的value一致
-4. REPLICA： 表示数据在集群中的副本数，默认为1（副本数不大于分布式数据节点的数量）
-5. PRECISION：数据库的时间戳精度，ms 表示毫秒，us 表示微秒，ns 表示纳秒，默认为ns纳秒
+1. TTL： indicates the time of data file saving, by default, 365 days, supported with unit data, days (d), hours (h), minutes (m), such as TTL 10d, TTL 50h,TTL 100m, when ununitary, day such as TTL 30
+2. SHARD：means data fragments, default is 1
+3. VNODE_DURATION：indicates the time range of data in shard, by default to 365 days, using unit data as well, the value of the data is consistent with TTL
+4. REPLICA： means the number of copies of the data in the cluster, by default 1 (number of copies is less than the number of distributed data nodes)
+5. PRECISON：Database's timestamp accuracy in milliseconds,us microseconds,ns by default, nunas seconds
 
-**示例**
+**Example**
 
 ```sql
 > CREATE DATABASE oceanic_station;
 Query took 0.062 seconds.
 ```
 
-### 查看数据库
+### View Database
 
-**语法**
+**Syntax**
 
 ```sql
 SHOW DATABASES;
@@ -148,45 +148,45 @@ SHOW DATABASES;
 +-----------------+
 ```
 
-### 使用数据库
+### Use database
 
-如果你通过[HTTP API](./rest_api.md)来使用数据库，
-你可以在url中指定参数db=database_name 来使用数据库。
+If you use the database using the [HTTP API](./res_api.md),
+you can specify the parameter db=database_name in the url.
 
-在 CnosDB-Cli 中，可以使用如下命令切换数据库：
+In CnosDB-Cli, the following command can be used to switch database：
 
 ```sql
 \c dbname
 ```
 
 ```
-public ❯ \c oceanic_station
-oceanic_station ❯
+Public employee \c oceanic_station
+oceanic_stage leader
 ```
 
-### 删除数据库
+### Delete database
 
-**语法**
+**Syntax**
 
 ```sql
 DROP DATABASE [IF EXISTS] db_name;
 ```
 
-删除数据库会将指定database的所有table数据及元数据全部删除。
+Removing the database will delete all tables and metadata specified for the database.
 
-**示例**
+**Example**
 
 ```sql
-DROP DATABASE oceanic_station;
+DROPP DATABASE oceanic_station;
 ```
 
 ```
 Query took 0.030 seconds.
 ```
 
-### 修改数据库参数
+### Modify database parameters
 
-**语法**
+**Syntax**
 
 ```sql
 ALTER DATABASE db_name [alter_db_options]
@@ -194,7 +194,7 @@ ALTER DATABASE db_name [alter_db_options]
 alter_db_options:
     SET db_option
 
-db_option: {
+db_option: LO
       TTL value
     | SHARD value
     | VNODE_DURATION value
@@ -202,49 +202,49 @@ db_option: {
 }
 ```
 
-**示例**
+**Example**
 
 ```sql
 ALTER DATABASE oceanic_station SET TTL '30d';
 ```
 
-### 查看数据库参数
+### View database parameters
 
-**语法**
+**Syntax**
 
 ```sql
 DESCRIBE DATABASE dbname;
 ```
 
-**示例**
+**Example**
 
 ```sql
 DESCRIBE DATABASE oceanic_station;
 ```
 
 ```
-+----------+-------+----------------+---------+-----------+
-| TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-+----------+-------+----------------+---------+-----------+
-| 365 Days | 1     | 365 Days       | 1       | NS        |
-+----------+-------+----------------+---------+-----------+
++---+---------+-------+-------+-
+| TTL | SHARD | VNODE_DURATION | REPLICA | PRECISION |
++------+---------------+
+| 365 Days | 1 365 Days | 1 | NS |
++---------------------------+----+
 ```
 
-## 表操作
+## Table Actions
 
-### 创建表
+### Create table
 
-可以使用 `CREATE TABLE` 创建表。
+Table can be created using `CREATE TABLE`.
 
-CnosDB 支持创建普通表和外部表。
+CnosDB supports the creation of regular and external tables.
 
-### 创建普通(TSKV)表
+### Create Normal (TSKV) Table
 
-**语法**
+**Syntax**
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
-(field_definition [, field_definition ] ... [, TAGS(tg_name [, tg_name] ...)]);
+(field_definition [, field_definition]... [, TAGS(tg_name [, tg_name]... ]);
 
 field_definition:
     column_name data_type [field_codec_type]
@@ -253,28 +253,28 @@ field_codec_type:
     CODEC(code_type)
 ```
 
-#### 使用说明
+#### Use Instructions
 
-1. 创建表时无需创建timestamp列，系统自动添加名为"time"的timestamp列。
-2. 各列的名字需要互不相同。
-3. 创建表时如果不指定压缩算法，则使用系统默认的压缩算法。
-4. 目前各种类型支持的压缩算法如下，每种类型第一个为默认指定的算法，NULL表示不使用压缩算法。
+1. There is no need to create a timestamp, the system automatically adds a timestamped column called "time".
+2. The names in each column need to be different.
+3. The default compression algorithm will be used when creating tables if no compression algorithm is specified.
+4. The compression algorithms currently supported by various types are as follows, the first to be specified by default for each type, and NULL indicates that compression algorithms are not used.
 
-   - BIGINT/BIGINT UNSIGNED：DELTA，QUANTILE，NULL
-   - DOUBLE：GORILLA，QUANTILE，NULL
-   - STRING：SNAPPY，ZSTD，GZIP，BZIP，ZLIB，NULL
-   - BOOLEAN：BITPACK，NULL
+   - BIGINT/BIGINT UNSIGNED：DELTA, QUANTILE, NULL
+   - DOUBLE：GORILLA,QUANTILE, NULL
+   - STRING：SNAPPY,ZSTD,GZIP,BZIP,ZIB,NULL
+   - BOOLA：BITPACK, NULL
 
-想了解更多有关压缩算法的内容可以看[压缩算法详情](./concept_design/compress.md#压缩算法)。
+See[压缩算法详情](/concept_design/compress.md# algorithms) for more about compression algorithms.
 
-**示例**
+**Example**
 
 ```sql
-CREATE TABLE air (
-   visibility DOUBLE,
+CREATE TABair (
+   vision DOUBLE,
    temperature DOUBLE,
    pressure DOUBLE,
-   TAGS(station)
+   TAGS (station)
 );
 ```
 
@@ -282,69 +282,69 @@ CREATE TABLE air (
 Query took 0.033 seconds.
 ```
 
-### 创建外部表
+### Create External Table
 
-**语法**
+**Syntax**
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
 
-CREATE EXTERNAL TABLE [ IF NOT EXISTS ] tb_name 
-    ( field_definition [, field_definition] ... ) tb_option;
+CREATE EXTERNAL AULE [ IF NOT EXISTS ] tb_name 
+    (field_definition [, Field_definition] ... ) tb_option;
 
 field_definition:
     column_name data_type [ NULL ]
 
-tb_option: {
+tb_option: LO
       STORED AS { PARQUET | NDJSON | CSV | AVRO }
-    | [ WITH HEADER ROW ]
-    | [ DELIMITER 'a_single_char' ]
-    | [ PARTITIONED BY ( column_name, [, ... ] ) ]
-    | LOCATION '/path/to/file'
+    | [ WITH HEADER ROW]
+    | [ DELIMITER 'a_single_char']
+    | [ PARTITER BY ( column_name, [. ]]
+    | LOCATON '/path/to/file'
 }
 ```
 
-#### 使用说明
+#### Use Instructions
 
-1. 外部表并不存在数据库中，而是将一个操作系统文件当作数据库普通表来访问。
-2. 数据均是只读的，不能执行 DML 操作，也不能建索引。
+1. The external table does not exist in the database but uses an operating system file as a general database for access.
+2. Data are read-only, cannot perform DML operations and cannot be indexed.
 
 #### Parameter Description
 
-1. STORED AS：表示文件以什么格式储存，目前支持 PARQUET，NDJSON，CSV，AVRO格式。
-2. WITH HEADER ROW：仅在csv文件格式下生效，表示带有csv表头。
-3. DELIMITER：仅在csv格式下生效，表示列数据的分隔符。
-4. PARTITIONED BY：使用创建表时指定的列来进行分区。
-5. LOCATION：表示关联的文件的位置。
+1. STORED AS：indicates the format in which the file is stored, currently supports PARQUET, NDJSON, CSV, AVRO.
+2. WITH HEADER ROW：only takes effect in csv file format and means having csv header
+3. DELIMITER：takes effect only in csv format, representing the delimiter of the column data.
+4. PARTICITIONED BY：uses the column specified when creating the table to partition.
+5. LOCAN：indicates the location of the associated file.
 
-**示例**
+**Example**
 
 ```sql
 CREATE EXTERNAL TABLE cpu (
-     cpu_hz  DECIMAL(10,6) NOT NULL,
-     temp  DOUBLE NOT NULL,
-     version_num  BIGINT NOT NULL,
-     is_old  BOOLEAN NOT NULL,
-     weight  DECIMAL(12,7) NOT NULL
-)
+     cpu_hz DECIMAL (10,6) NOT NULL,
+     temp DOUBLE NOT NULL,
+     version_num BIGINT NOT NULL,
+     is_old BOOLEN NOT NULL,
+     Weight DECIMAL (12), ) NOT NULL
+
 STORED AS CSV
 WITH HEADER ROW
-LOCATION 'tests/data/csv/cpu.csv';
+LOCATON 'tests/data/csv/cpu. sv';
 ```
 
 ```
 Query took 0.031 seconds.
 ```
 
-### 删除表
+### Delete table
 
-**语法**
+**Syntax**
 
 ```sql
 DROP TABLE [ IF EXISTS ] tb_name;
 ```
 
-**示例**
+**Example**
 
 ```sql
 DROP TABLE IF EXISTS air;
@@ -354,44 +354,44 @@ DROP TABLE IF EXISTS air;
 Query took 0.033 seconds.
 ```
 
-### 显示当前数据库所有表
+### Show all tables in current database
 
-**语法**
-
-```sql
-SHOW TABLES;
-```
-
-**示例**
+**Syntax**
 
 ```sql
 SHOW TABLES;
 ```
 
+**Example**
+
+```sql
+SHOW TABLES;
 ```
-+-------+
+
+```
++--+
 | Table |
-+-------+
-| sea   |
-| air   |
-| wind  |
-+-------+
++---+
+| sea |
+| air |
+| wind |
++---+ +
 ```
 
-### 查看表的模式
+### View table mode
 
-外部表和普通表的模式都可以使用该语句查看。
+Both external and normal tables can be viewed using this statement.
 
-**语法**
+**Syntax**
 
 ```sql
 DESCRIBE DATABASE table_name;
 ```
 
-**示例**
+**Example**
 
 ```sql
-DESCRIBE TABLE air;
+DESCREIBE TABLE air;
 ```
 
 ```
@@ -406,77 +406,77 @@ DESCRIBE TABLE air;
 +-------------+-----------+-------+-------------+
 ```
 
-### **修改表**
+### **Modify the table**
 
-**说明**
+**Description**
 
-目前我们支持修改普通表。
+We currently support the revision of the regular table.
 
-1. 添加列：添加 field，tag 列。
-2. 删除列：删除 field 列，当删除列导致删除某一行的最后一个 field 值时，我们认为这一行没有值，SELECT 时将不显示这一行。
-3. 修改列：修改列定义，目前支持修改列的压缩算法。
+1. Add column：to add field,tag columns.
+2. Delete column：delete field column. When deleting column leading to the deletion of the last field value of a line, we don't think this line has any value, SELECT will show this line.
+3. Modify column：to change column definition, currently supporting column compression algorithm.
 
-**语法**
+**Syntax**
 
 ```sql
 ALTER TABLE tb_name alter_table_option;
 
-alter_table_option: {
+alter_table_option: LO
       ADD TAG col_name
-    | ADD FIELD col_name [data_type] [CODEC(code_type)]
+    | ADD FIELD col_name [data_type] [CODEC(code_type]
     | ALTER col_name SET CODEC(code_type)
     | DROP col_name
 }
 ```
 
-**示例**
+**Example**
 
 ```sql
 ALTER TABLE air ADD TAG height;
-ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
-ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
+ALTER TABLE air ADD FIELD humidity DOUBLE CODEFAULT);
+ALTER TABLE air ALTER humidity SET CODEC (QUANTILE);
 ALTER TABLE air DROP humidity;
 ```
 
-## 插入数据
+## Insert data
 
-CnosDB支持两种数据写入的方法，一种是使用`INSERT INTO`语句，另一种是使用HTTP API的[write](./rest_api.md)接口，写入Line Protocol格式数据。
+CnosDB supports two data writing methods, one using the `INSERT INTO` and the other using the \`[write](./res_api.md) interface of the HTTP API, writing data in the Line Protocol format.
 
-本页面只展示`INSERT`相关的语法
+This page shows only the syntax associated with `INSERT`
 
 ### INSERT
 
 #### Syntax
 
 ```sql
-INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, ...] | query; 
+INSERT [INTO] tb_name [ ( column_name [, ...]) ] VALUES ( const [, ...]) [, ...] | query; 
 ```
 
-**说明**
+**Description**
 
-CnosDB 要求插入的数据列必须要有时间戳，且VALUES列表必须为[常量](#常量)。
-如果有列没有被选中，那么值为`NULL`。
+CnosDB requires a time stamp to insert data column and VALUES list must be[常量](#constants).
+If the column is not checked, the value is `NULL`.
 
-**注意**
+**Note**
 
-时间列不能为`NULL`，Tag列和Field列可以为`NULL`。
+Time column cannot be `NULL`, Tag, and Field column can be `NULL`.
 
-例如`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
+e.g. `INSERT INTO air (TIME, station, visibility) VALUES(166613280000000000000, NULL, NUL)`
 
-如果 VALUES 列表需要表达式，请使用[INSERT SELECT](./sql.md#插入查询结果--insert-select-)语法。
+If the VALUES list requires expression, use the [INSERT SELECT](./sql.md# insert query result --insert-select-).
 
-### 插入一条记录
+### Insert a record
 
-TIME 列的数据既可以用时间字符串表示，也可以用数字类型的时间戳表示，请注意。
+Data in the TIME column can be expressed both in time string and in digital type timestamps. Note that
 
-**示例**
+**Example**
 
 ```sql
-CREATE TABLE air (
-    visibility DOUBLE,
+CREATE TABair (
+    vision DOUBLE,
     temperature DOUBLE,
     pressure DOUBLE,
-    TAGS(station)
+    TAGS (station)
 );
 ```
 
@@ -490,11 +490,11 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
 ```
 
 ```
-+------+
++---+
 | rows |
-+------+
-| 1    |
-+------+
++---+
+| 1|
++---+
 Query took 0.044 seconds.
 ```
 
@@ -504,11 +504,11 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
 ```
 
 ```
-+------+
++---+
 | rows |
-+------+
-| 1    |
-+------+
++---+
+| 1|
++---+
 Query took 0.032 seconds.
 ```
 
@@ -525,15 +525,15 @@ SELECT * FROM air;
 +----------------------------+------------+------------+-------------+-----------+
 ```
 
-**注意**
+**Note**
 
-字符串表示的时间被认为是本地时区，会转换成UTC时区的时间戳。
+The time the string indicates is considered to be a local time zone and will be converted to a UTC time stamp.
 
-输出时输出UTC时区的时间。
+The time of output of the UTC time zone on output.
 
-### 插入多条记录
+### Insert multiple entries
 
-`VALUES`关键字后面可以跟多个列表，用`,`分隔开。
+The `VALUES` keywords can be followed by multiple lists, separated by `,`
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
@@ -542,11 +542,11 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
 ```
 
 ```
-+------+
++---+
 | rows |
-+------+
-| 2    |
-+------+
++---+
+| 2 |
++---+
 Query took 0.037 seconds.
 ```
 
@@ -565,16 +565,16 @@ SELECT * FROM air;
 +----------------------------+------------+------------+-------------+-----------+
 ```
 
-### 插入查询结果(INSERT SELECT)
+### Insert query result (INSERT SELECT)
 
-你还可以使用 `INSERT SELECT`语法，向表中插入查询的数据。
+You can also insert queried data into the table using the `INSERT SELECT` syntax.
 
-**示例**
+**Example**
 
 ```sql
-CREATE TABLE air_visibility (
-    visibility DOUBLE,
-    TAGS(station)
+CREATE TABLE air_vision (
+    visual DOUBLE,
+    TAGS (station
 );
 ```
 
@@ -583,16 +583,16 @@ Query took 0.027 seconds.
 ```
 
 ```sql
-INSERT air_visibility (TIME, station, visibility) 
+INSERT air_vision (TIME, station, visibility) 
     SELECT TIME, station, visibility FROM air;
 ```
 
 ```
-+------+
++---+
 | rows |
-+------+
-| 4    |
-+------+
++---+
+| 4 |
++---+
 Query took 0.045 seconds.
 ```
 
@@ -613,41 +613,41 @@ SELECT * FROM air_visibility;
 
 ## Query data
 
-CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction)，我们支持DataFusion的大部分SQL语法。
+CnosDB SQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction), and we support most of the SQL syntax.
 
-**注意**：为了查询能更高效，没有指定排序的查询，每次行顺序都不一定相同，如果需要按字段排序的话，请参看`ORDER BY`子句。
+**NOTE**：for more efficient query, no sorted queries specified, not necessarily in the same order per line, please see `ORDER BY` for field sorting.
 
-### 示例数据
+### Sample Data
 
-为了进一步学习CnosDB，本节将提供示例数据供您下载，并教您如何将数据导入数据库。后面章节中引用的数据源都来自此示例数据。
+In order to learn more about CnosDB, this section will provide sample data for you to download and teach you how to import data into the database.The data sources cited in the subsequent sections are derived from this sample data.
 
-### 下载数据
+### Download data
 
-如果在 cnosdb-cli 中，请输入`\q`退出
+If in cnosdb-cli, type `\q` to exit
 
-在shell中执行以下命令将在本地生成一个名称为oceanic_station的Line Protocol格式的数据文件
+Executing the following command in shell will generate a local data file in the form of Line Protocol: oceanic_station
 
 ```shell
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-### 导入数据
+### Import Data
 
-- **启动CLI**
+- **Launch CLI**
   ```shell
   cnosdb-cli
   ```
-- **创建数据库**
+- **Create Database**
   ```shell
-  create database oceanic_station;
+  Create database oceanic_station;
   ```
-- **切换到指定数据库**
+- **Switch to specified database**
   ```shell
   \c oceanic_station
   ```
-- **导入数据**
+- **Import Data**
 
-  执行\w指令，\w后面为数据文件的绝对路径或相对cnosdb-cli的工作路径。
+  Execute the \w instruction,\w after the data file is an absolute path or work path relative to cnosdb-cli.
 
   ```shell
   \w oceanic_station.txt
@@ -656,44 +656,44 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 #### Syntax
 
 ```sql
-[ WITH with_query [, ...] ]
-SELECT [ ALL | DISTINCT ] select_expression [, ...]
-    [ FROM from_item [, ...] ]
+[ WITH with_query [, ...]
+SELECT [ ALL | DISTINCT ] select_expression [, . .]
+    [ FROM from_item[, . ]
     [ WHERE condition ]
-    [ GROUP BY [ ALL | DISTINCT ] grouping_element [, ...] ]
+    [ GROUP BY [ ALL | DISTINCT ] grouping_element[, ... ]
     [ HAVING condition ]
-    [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] select ]
-    [ ORDER BY expression [ ASC | DESC ] [, ...] ]
+    [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT] select]
+    [ ORDER BY expression [ ASC | DESC ] [, , . ]
     [ OFFSET count ]
     [ LIMIT { count | ALL } ];
 
 -- from_item
 -- 1.
-    tb_name [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
--- 2.
-    from_item join_type from_item
-    { ON join_condition | USING ( join_column [, ...] ) }
+    tb_name [ AS ] alias [ ( column_alias [, ...]] ]
+-2.
+    from_item_join_type from_item_item_
+    ) }
 
 -- join_type
     [ INNER ] JOIN
-    LEFT [ OUTER ] JOIN
-    RIGHT [ OUTER ] JOIN
-    FULL [ OUTER ] JOIN
+    LEFT [ OUTE] JOIN
+    RIGHT [ OUTE] JOIN
+    FULL [ OUTE] JOIN
     CROSS JOIN
 
 -- grouping_element
-    ()
+()
 ```
 
-## SQL 语法
+## SQL syntax
 
-### SELECT 子句
+### SELECT Subsentence
 
 ### SELECT \*
 
-通配符 \* 可以用于代指全部列。
+Wildcard \* can be used to refer to all columns.
 
-**示例**
+**Example**
 
 ```
 SELECT * FROM air;
@@ -727,8 +727,8 @@ SELECT * FROM air;
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
 
-在`SELECT`关键字后可以使用`DISTINCT`去掉重复字段，只返回去重后的值。
-使用`ALL`会返回字段中所有重复的值。不指定此选项时，默认值为`ALL`。
+After the `SELECT` key you can use `DISTINCT` to remove the duplicate field and return only the value after the reaction.
+Use `ALL` to return all duplicated values in the field.When this option is not specified, the default value is `ALL`.
 
 #### Example
 
@@ -756,7 +756,7 @@ SELECT DISTINCT station, visibility FROM air;
 ```
 
 ```sql
-SELECT station, visibility FROM air;
+SELECT, visibility FROM air;
 ```
 
 ```
@@ -779,22 +779,22 @@ SELECT station, visibility FROM air;
 +-------------+------------+
 ```
 
-### 别名
+### Alias
 
-可以用 `AS` 关键字为列表达式或表取别名。
+You can use the `AS` keywords as column expression or table alias.
 
-### 为列表达式取别名
+### Pick alias for column expression
 
 #### Syntax
 
 ```sql
-expression [ [ AS ] column_alias ]
+Express [ AS ] column_alias ]
 ```
 
 #### Example
 
 ```sql
-SELECT station s, visibility AS v FROM air;
+SELECT stations, visibility AS v FROM air;
 ```
 
 ```
@@ -817,21 +817,21 @@ SELECT station s, visibility AS v FROM air;
 +-------------+----+
 ```
 
-### 为表取别名
+### Alias for table
 
-你也可以用关键字`AS`为表取别名。
+You can also use the keyword `AS` for alias.
 
-**语法**
+**Syntax**
 
 ```sql
 FROM tb_name [AS] alias_name
 ```
 
-**示例**
+**Example**
 
 ```sql
 SELECT a.visibility, s.temperature
-FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
+FROM air AS a JOIN sea ON a.temperature = s.temperature limit 10;
 ```
 
 ```
@@ -845,15 +845,15 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 +------------+-------------+
 ```
 
-### SELECT限制
+### SELECT Limit
 
-- 如果SELECT子句仅包含Tag列，相当于 SELECT DISTINCT Tag列
+- If SELECT only contains Tags columns, equivalent to SELECT DISTINCT Tag.
 
-  **示例**
+  **Example**
 
   ```sql
-  -- station是Tag列，temperature是Field列
-  SELECT station, temperature FROM air;
+  -- Station is Tag, temperature is field column
+  SELECT station, temperature ROM Fair;
   ```
 
   ```
@@ -877,30 +877,30 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
   ```
 
   ```sql
-  -- station 是Tag列
+  -- Station is Tagcolumn
   SELECT station FROM air;
   ```
 
   ```
-  +-------------+
-  | station     |
-  +-------------+
-  | XiaoMaiDao  |
+  +---+
+  | Station |
+  +------
+  | XiaoMaiDao |
   | LianYunGang |
-  +-------------+ 
+  +---+ 
   ```
 
-### LIMIT 子句
+### LIMIT Subsentence
 
-**语法**
+**Syntax**
 
 ```sql
 LIMIT n
 ```
 
-限制返回结果集的行数为n，n必须非负/
+Limit the number of rows to return the resultset to n,n must not be negative/.
 
-**示例**
+**Example**
 
 ```sql
 SELECT *
@@ -924,17 +924,17 @@ FROM air LIMIT 10;
 +---------------------+-------------+------------+-------------+----------+
 ```
 
-### OFFSET 子句
+### OFFSET Subsentence
 
-**语法**
+**Syntax**
 
 ```sql
 OFFSET m
 ```
 
-返回的结果集跳过 m 条记录, 默认 m=0。
+Returns the resultset skipping m records, default m=0.
 
-**示例**
+**Example**
 
 ```sql
 SELECT *
@@ -951,11 +951,11 @@ FROM air OFFSET 10;
 +---------------------+-------------+------------+-------------+----------+
 ```
 
-`OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`。
-其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
-OFFSET 0与省略OFFSET子句效果相同。
+`OFFSET` can be used in conjunction with the `LIMIT` phrase, which specifies the number of lines to be skipped in the format `LIMIT OFFSET m`.
+Of these,：LIMIT n controls output mm line data, OFFSET m indicates the number of lines that were skipped before starting to return data.
+OFFSET 0 has the same effect as omitting OFFSET sentences.
 
-**示例**
+**Example**
 
 ```sql
 SELECT *
@@ -972,60 +972,60 @@ FROM air LIMIT 3 OFFSET 3;
 +---------------------+------------+------------+-------------+----------+
 ```
 
-### WITH 子句
+### WITH Subsentence
 
-**语法**
+**Syntax**
 
 ```sql
-WITH cte AS cte_query_definiton [, ...] query
+WITH cte AS cte_query_definiton [, ..] query
 ```
 
-可选。WITH子句包含一个或多个常用的表达式CTE(Common Table Expression)。
-CTE充当当前运行环境中的临时表，您可以在之后的查询中引用该表。CTE使用规则如下：
+Optional.The WTH sentence contains one or more commonly used expressions CTE (Common Table Expression).
+CTE serves as a temporary table in the current operating environment, which you can refer to in subsequent queries.The following rules for use by CTE are：
 
-- 在同一WITH子句中的CTE必须具有唯一的名字。
-- 在WITH子句中定义的CTE仅对在其后定义的同一WITH子句中的其他CTE可以使用。
-  假设A是子句中的第一个CTE，B是子句中的第二个CTE：
+- The CTE in the same WTH sentence must have a unique name.
+- The CTE defined in the WITH sentence is only available for other CTEs in the same WTH sentence as later defined.
+  Assume A is the first CTE, B is the second CTE：
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, avg 
-FROM (  SELECT station, AVG(visibility) AS avg 
+SELECT, avg 
+FROM ( SELECT station, AVG(visibility) AS avg 
         FROM air 
-        GROUP BY station) AS x;
+        GROUP station) AS x;
 ```
 
 ```
-+-------------+--------------------+
-| station     | avg                |
-+-------------+--------------------+
-| XiaoMaiDao  | 62.285714285714285 |
-| LianYunGang | 70.33333333333333  |
-+-------------+--------------------+
++-----+-------------------- +
+| station | avg |
++---------------------------
+| XiaoMaiDao | 62.2857142857147142872872885 |
+| LianYunGang | 70.33333333333333333 |
++------+ ---+
 ```
 
 ```sql
 WITH x AS 
-    (SELECT station, AVG(visibility) AS avg FROM air GROUP BY station)
-SELECT station, avg
+    (SLECT, AVG(visibility) AS avg FROM air GROUP BY station)
+SELECT, avg
 FROM x;
 ```
 
 ```
-+-------------+--------------------+
-| station     | avg                |
-+-------------+--------------------+
-| XiaoMaiDao  | 62.285714285714285 |
-| LianYunGang | 70.33333333333333  |
-+-------------+--------------------+
++-----+-------------------- +
+| station | avg |
++---------------------------
+| XiaoMaiDao | 62.2857142857147142872872885 |
+| LianYunGang | 70.33333333333333333 |
++------+ ---+
 ```
 
-### UNION 子句
+### UNION clause
 
-UNION 子句用于合并多个 SELECT 语句的分析结果。
+UNON subsentence is used to merge analysis results of multiple SELECT statements.
 
-**语法**
+**Syntax**
 
 ```
 select_clause_set_left
@@ -1039,11 +1039,11 @@ select_clause_set_right
 `EXCEPT` 会作两个结果集的差，从左查询中返回右查询没有找到的所有非重复值
 `INTERSECT` 返回两个结果集的交集（即两个查询都返回的所有非重复值）。
 
-**注意**
+**Note**
 
-UNION 内每个 SELECT 子句必须拥有相同数量的列，对应列的数据类型相同。
+Each SELECT sentence within UNON must have the same number of columns, the same data type for each column.
 
-**示例**
+**Example**
 
 **UNION ALL**
 
@@ -1054,45 +1054,45 @@ SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
 ```
 
 ```
-+------------+
-| visibility |
-+------------+
-| 53         |
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 53         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-+------------+
++---+
+| visible |
++--------
+| 53 |
+| 56 |
+| 50 |
+| 67 |
+| 65 |
+| 53 |
+74 |
+| 71 |
+| 78 |
+| 79 |
++--+
 ```
 
 **UNION**
 
 ```sql
-SELECT visibility FROM air WHERE temperature < 60
+SELECT vision FROM air WHERE temperature < 60
 UNION
 SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
 ```
 
 ```
-+------------+
++---+
 | visibility |
-+------------+
-| 53         |
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-| 59         |
-+------------+
++--------
+| 53 |
+| 56 |
+| 50 |
+| 67 |
+| 65 |
+| 74 |
+| 71 |
+| 78 |
+| 79 |
+| 59 |
++-+
 ```
 
 **EXCEPT**
@@ -1104,20 +1104,20 @@ SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
 ```
 
 ```
-+------------+
-| visibility |
-+------------+
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 53         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-| 59         |
-+------------+
++---+
+| visitity |
++---+
+| 56 |
+| 50 |
+| 67 |
+| 65 |
+| 53 |
+| 74 |
+| 71 |
+| 78 |
+| 79 |
+| 59 |
++--+
 ```
 
 **INTERSECT**
@@ -1125,31 +1125,31 @@ SELECT visibility FROM air WHERE temperature < 50 LIMIT 10;
 ```sql
 SELECT visibility FROM air
 INTERSECT
-SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
+SELECT visibility ROM ROM air WHERE temperature > 50 LIMIT 10;
 ```
 
 ```
-+------------+
-| visibility |
-+------------+
-| 56         |
-| 50         |
-| 67         |
-| 65         |
-| 53         |
-| 74         |
-| 71         |
-| 78         |
-| 79         |
-| 59         |
-+------------+
++---+
+| visitity |
++---+
+| 56 |
+| 50 |
+| 67 |
+| 65 |
+| 53 |
+| 74 |
+| 71 |
+| 78 |
+| 79 |
+| 59 |
++--+
 ```
 
-### ORDER BY 子句
+### ORDER BY clause
 
-按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。通过在 ORDER BY 的表达式后添加 DESC 按降序排序。
+Sort results by referenced expression.Default usage ascending (ASC).Sort by adding DESC in descending order after ORDER BY expression.
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM air ORDER BY temperature;
@@ -1223,13 +1223,13 @@ SELECT * FROM air ORDER BY station, temperature;
 +---------------------+-------------+------------+-------------+----------+
 ```
 
-## 表达式
+## Expression
 
-表达式是符号和运算符的一种组合，CnosDB 将处理该组合以获得单个数据值。
-简单表达式可以是一个常量、变量、列或标量函数。
-可以用运算符将两个或更多的简单表达式联接起来组成复杂表达式。
+Expressions are a combination of symbols and operators, and CnosDB will process the combination to get a single data value.
+Simple expression can be a constant, variable, column or number function.
+Two or more simple expressions can be connected to complex expressions with an operator.
 
-**语法**
+**Syntax**
 
 ```sql
 <expresion> :: = { 
@@ -1243,103 +1243,103 @@ SELECT * FROM air ORDER BY station, temperature;
 }
 ```
 
-#### 常量
+#### constant
 
-表示单个特定数据值的符号。
-详细内容请阅览[常量](#常量)。
+Symbol representing a specific data value.
+See[常量](#constants) for details.
 
-**示例**
+**Example**
 
 ```sql
-select 1;
+Select 1;
 ```
 
 ```
-+----------+
++---+
 | Int64(1) |
-+----------+
-| 1        |
-+----------+
++---+
+| 1 |
++---+ +
 ```
 
-#### 标量函数
+#### Tag Functions
 
-详细内容请阅览[函数](#函数)
+See[函数](#function) for details
 
-#### 单目运算符
+#### Single Operator
 
-| 运算符         | 说明                                                |
-| ----------- | ------------------------------------------------- |
-| NOT         | 如果子表达式为true，则整个表达式false，如果整个表达式为false，则整个表达式为true |
-| IS NULL     | 如果子表达式为null，则整个表达式为true                           |
-| IS NOT NULL | 如果子表达式为null，则整个表达式为false                          |
+| Operator    | Note                                                                                                                               |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| NOT         | If a subexpression is true, then the whole expression is false, and if the whole expression is false, the whole expression is true |
+| IS NULL     | If a subexpression is null, the whole expression is true                                                                           |
+| IS NOT NULL | If subexpression is null, the whole expression is false                                                                            |
 
-#### 二元运算符
+#### Binary Operator
 
-二元运算符和两个表达式组合在一起，形成一个新的表达式。
+A binary operator is combined with two expressions to form a new expression.
 
-支持的二元运算符有:
+Supported binary operators are:
 
-| 运算符       | 说明                                       |
-| --------- | ---------------------------------------- |
-| -         | 数字类型表达式相加                                |
-| *         | 数字类型表达式相减                                |
-| -         | 数字类型表达式相乘                                |
-| /         | 数字类型表达式相除                                |
-| %         | 整数类型表达式取余                                |
-| \|\&#124  | 字符串类型表达式拼接                               |
-| =         | 比较表达式是否相等                                |
-| !=、 <\&gt | 比较表达式是否不相等                               |
-| <         | 比较表达式是否小于                                |
-| <=        | 比较表达式是否小于等于                              |
-| &gt; | 比较表达式是否大于                                |
-| > =       | 比较表达式是否大于等于                              |
-| AND       | 先求左表达式的值，如果为true，计算右表达式的值，都为true为true    |
-| OR        | 先求左表达式的值，如果为false，计算右表达式的值，都为false为false |
-| LIKE      | 判断左表达式是否符合右表达式的模式                        |
+| Operator       | Note                                                                                                                   |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| -              | Addition of an expression of number type                                                                               |
+| *              | Digital type expression subtract                                                                                       |
+| -              | Digital Type Expression Multiply                                                                                       |
+| /              | Digital Type Expression Divide                                                                                         |
+| %              | Integer type expression is available                                                                                   |
+| \|\&#124       | String Type Expression Spelling                                                                                        |
+| =              | Compare the equation                                                                                                   |
+| !=, <\&gt      | Compare expression not equal                                                                                           |
+| <              | Compare the expression less than                                                                                       |
+| <=             | Compare whether expression is less than or equal to                                                                    |
+| &gt;      | Compare expression greater than                                                                                        |
+| > =            | Compare expression is greater than or equal to                                                                         |
+| ND             | The value of the left expression is true if the value is true, the value of the right expression is calculated as true |
+| Other business | The value of the first left-expression is false if false, the value of the right expression is false                   |
+| LIKE           | Determines whether the left expression matches the right expression mode                                               |
 
-### `BETWEEN AND` 表达式
+### `BEETWEEN AND` expression
 
-**语法**
+**Syntax**
 
 ```sql
-expr BETWEEN expr AND expr
+expr BEETWEEN expr and expr
 ```
 
-**示例**
+**Example**
 
 ```sql
-SELECT DISTINCT PRESSURE FROM AIR WHERE PRESSURE BETWEEN 50 AND 60;
+SELECT DISTINCT PRESSURE FROM FROM AIR WHERE PRESSURE BETWEEN 50 and 60;
 ```
 
 ```
-+----------+
++---+
 | pressure |
-+----------+
-| 52       |
-| 54       |
-| 57       |
-| 50       |
-| 60       |
-| 51       |
-| 56       |
-| 58       |
-| 59       |
-| 53       |
-| 55       |
-+----------+
++------+
+| 52 |
+| 54 |
+| 57 |
+| 50 |
+| 6 |
+| 51 |
+| 56
+| 58 |
+| 59 |
+| 53 |
+| 55 |
++---+
 ```
 
-注意: BETWEEN x AND y 会列出x和y之间的数，包括x和y
+Note: BEETWEEN x AND y will list the numbers between x and y, including x and y
 
-### `IN` 表达式
+### `IN` expression
 
-IN 操作符判断列表中是否有值与表达式相等。
+IN Operator determines if there is a value equal to the expression in the list.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
+SELECT position, temperature, vision FROM air WHERE temperature IN (68, 69);
 ```
 
 ```
@@ -1351,24 +1351,24 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 +-------------+-------------+------------+
 ```
 
-**注意**：
+**Note**：
 
-IN 列表暂时只支持常量
+The IN list is only constant temporarily.
 
-### `CASE WHEN` 表达式
+### \`\`CASE WHEN\` expression
 
-当表达式需要按照不同情况得不同的值时，可以使用`CASE WHEN`表达式。
+The expression `CASE WHEN` can be used when it requires different values according to different circumstances.
 
-**语法**：
+**Syntax**：
 
 ```sql
 CASE
-    ( WHEN expression THEN result1 [, ...] )
+    ( WHEN expression THEN result1 [, ...])
     ELSE result
 END;
 ```
 
-**示例**：
+**Example**：
 
 ```sql
 SELECT DISTINCT 
@@ -1395,32 +1395,32 @@ FROM AIR;
 +----------+
 ```
 
-### 运算符优先级
+### Operator Priority
 
-如果一个复杂表达式有多个运算符，则运算符优先级将确定操作序列。 执行顺序可能对结果值有明显的影响。
+If a complex expression has multiple operators, the operator priority will determine the operation sequence. The order of implementation may have a clear impact on the value of results.
 
-运算符的优先级别如下表中所示。 在较低级别的运算符之前先对较高级别的运算符进行求值。 在下表中，1 代表最高级别，8 代表最低级别。
+The priority level of the operator is shown in the table below. The higher level operator is valued before the lower level operator. In the table below, 1 represents the highest level and 8 the lowest level.
 
-| 级别 | 运算符                               |
-| -- | --------------------------------- |
-| 1  | \*（乘）、/（除）、%（取模）                  |
-| 2  | +（正）、-（负）、+（加）、+（串联）、-（减）         |
-| 3  | =、\&gt=、<=、<\&gt、!=、\&gt、<（比较运算符） |
-| 4  | NOT                               |
-| 5  | AND                               |
-| 6  | BETWEEN、IN、LIKE、OR                |
+| Level | Operator                                                                                                                                               |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1     | \*(multiply), /(division), % (mode)                                                           |
+| 2     | +(positive), -(negative), +(plus), +(string), -(subtry) |
+| 3     | =,\&gt=,<=,<\&gt,!=,\&gt,<(comparative operator)                                                                                    |
+| 4     | NOT                                                                                                                                                    |
+| 5     | ND                                                                                                                                                     |
+| 6     | BETWEEN, IN, LIKE, OR                                                                                                                                  |
 
 ### SHOW
 
-**语法**
+**Syntax**
 
 ```sql
 SHOW {DATABASES | TABLES | QUERIES}
 ```
 
-显示所有数据库，或显示所有表, 或正在执行的SQL。
+Show all databases, or show all tables, or SQL in progress.
 
-**示例**
+**Example**
 
 ```sql
 SHOW DATABASES;
@@ -1439,13 +1439,13 @@ SHOW TABLES;
 ```
 
 ```
-+-------+
++--+
 | Table |
-+-------+
-| sea   |
-| air   |
-| wind  |
-+-------+
++---+
+| sea |
+| air |
+| wind |
++---+ +
 ```
 
 ```sql
@@ -1460,46 +1460,46 @@ SHOW QUERIES;
 +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 ```
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](#show-queries) 查看。
+Detailed information on SHOW QUERIES statements is available at [System Table QUERIES](#show-queries).
 
 #### SHOW SERIES
 
-返回指定表的series
+Returns the series of the specified table
 
-**语法**
+**Syntax**
 
 ```sql
 SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
 ```
 
-**示例**
+**Example**
 
 ```sql
 SHOW SERIES FROM air WHERE station = 'XiaoMaiDao' ORDER BY key LIMIT 1;
 ```
 
 ```
-+------------------------+
-| key                    |
-+------------------------+
++-------- +
+| key |
++--------------------
 | air,station=XiaoMaiDao |
-+------------------------+
++--+ + +
 ```
 
-**注意**
-WEHER子句中的表达式列，只能是tag列或time列，ORDER BY 子句的表达式只能是 key
+**NOTE**
+expression column in WEHER, only tag column or timecolumn, ORDER BY sentence expression can only be key
 
 #### SHOW TAG VALUES
 
-**语法**
+**Syntax**
 
 ```sql
-SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
+SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>| [[NOT] IN ("<tag_key1>", . )]] [WHERE expr] [order_by_clause] [limit_clause];
 ```
 
-operator 包括 `=`, `!=`
+operator includes `=`, `!=`
 
-**示例**
+**Example**
 
 ```sql
 SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER BY key, value LIMIT 1;
@@ -1514,7 +1514,7 @@ SHOW TAG VALUES FROM air WITH KEY = "station" WHERE station = 'XiaoMaiDao' ORDER
 ```
 
 ```sql
-SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
+SHOW TAG VALUES FROM FROM air WITH KEY NOT IN ("station1");
 ```
 
 ```
@@ -1526,26 +1526,26 @@ SHOW TAG VALUES FROM air WITH KEY NOT IN ("station1");
 +---------+-------------+
 ```
 
-### EXPLAIN
+### EXPLIN
 
-**语法**
+**Syntax**
 
 ```sql
-EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
+EXPLIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
 
-**说明**
+**Description**
 
-`EXPLAIN` 语句仅用于显示查询的执行计划，而不执行查询。
+The `EXPLAIN` statement is only used to show the query implementation plan without executing the query.
 
-`EXPLAIN ANALYZE` 执行查询，并显示查询的执行计划。
+`EXPLIN ANALYZE` executes the query and shows the query implementation plan.
 
-`EXPLAIN ANALYZE VERBOSE` 执行查询，并显示更详细的执行计划，包括读取的行数等。
+`EXPLIN ANALYZE VERBOSE` executes queries and shows a more detailed implementation plan, including the number of lines readed.
 
-**示例**
+**Example**
 
 ```sql
-EXPLAIN SELECT station, temperature, visibility FROM air;
+EXPLIN SELECT station, temperature, vision FROM air;
 ```
 
 ```
@@ -1561,7 +1561,7 @@ EXPLAIN SELECT station, temperature, visibility FROM air;
 ```
 
 ```sql
-EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
+EXPLIN ANALYZE SELECT station, temperature, vision FROM air;
 ```
 
 ```
@@ -1575,7 +1575,7 @@ EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```
 
 ```sql
-EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
+EXPLIN ANALYZE SELECT station, temperature, vision FROM air;
 ```
 
 ```
@@ -1589,7 +1589,7 @@ EXPLAIN ANALYZE SELECT station, temperature, visibility FROM air;
 ```
 
 ```sql
-EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
+EXPLAIN ANALYZE VERBOSE SELECT position, temperature, visibility FROM air;
 ```
 
 ```
@@ -1609,18 +1609,18 @@ EXPLAIN ANALYZE VERBOSE SELECT station, temperature, visibility FROM air;
 
 ### DESCRIBE
 
-**语法**
+**Syntax**
 
 ```sql
-DESCRIBE {DATABASE db_name | TABLE tb_name};
+DESCREIBE {DATABASE db_name | TABLE tb_name};
 ```
 
-描述数据库的参数，描述表的模式。
+Describe the parameters of the database, describing the pattern of the table.
 
-**示例**
+**Example**
 
 ```sql
-DESCRIBE TABLE air;
+DESCREIBE TABLE air;
 ```
 
 ```
@@ -1640,24 +1640,24 @@ DESCRIBE DATABASE public;
 ```
 
 ```
-+----------+-------+----------------+---------+-----------+
-| TTL      | SHARD | VNODE_DURATION | REPLICA | PRECISION |
-+----------+-------+----------------+---------+-----------+
-| 365 Days | 1     | 365 Days       | 1       | NS        |
-+----------+-------+----------------+---------+-----------+
++---+---------+-------+-------+-
+| TTL | SHARD | VNODE_DURATION | REPLICA | PRECISION |
++------+---------------+
+| 365 Days | 1 365 Days | 1 | NS |
++---------------------------+----+
 ```
 
 [//]: # "## **EXISTS**"
 
-[//]: # "EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。"
+[//]: # "EXISTS conditions test if a row exists in a subquery and return true when a subquery returns at least one line.If NOT is specified, this condition returns true if the subquery returns any line."
 
 [//]: # "示例："
 
-[//]: # "```sql"
+[//]: # "``sql"
 
-[//]: # "SELECT id  FROM date"
+[//]: # "SELECT id FROM date"
 
-[//]: # "WHERE EXISTS (SELECT 1 FROM shop"
+[//]: # "WHERE EXISTS (SECLECT 1 FROM shop"
 
 [//]: # "WHERE date.id = shop.id)"
 
@@ -1665,9 +1665,9 @@ DESCRIBE DATABASE public;
 
 [//]: # "```"
 
-[//]: # "# **DCL (无)**"
+[//]: # "# **DCL (none)**"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "DESCRIBE table_name"
 
@@ -1679,9 +1679,9 @@ DESCRIBE DATABASE public;
 
 [//]: # "## **SHOW VARIABLE**"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
-[//]: # "-- only support show tables"
+[//]: # "-- only support shows tables"
 
 [//]: # "-- SHOW TABLES is not supported unless information_schema is enabled"
 
@@ -1693,13 +1693,13 @@ DESCRIBE DATABASE public;
 
 [//]: #
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "-- SHOW COLUMNS with WHERE or LIKE is not supported"
 
 [//]: # "-- SHOW COLUMNS is not supported unless information_schema is enabled"
 
-[//]: # "-- treat both FULL and EXTENDED as the same"
+[//]: # "- treat both FULL and EXTENDED as the same"
 
 [//]: # "SHOW [ EXTENDED ] [ FULL ]"
 
@@ -1713,26 +1713,26 @@ DESCRIBE DATABASE public;
 
 [//]: # "## **SHOW CREATE TABLE**"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "SHOW CREATE TABLE table_name"
 
 [//]: # "```"
 
-### Join 子句
+### Join clause
 
-CnosDB支持`INNER JOIN`、`LEFT OUTER JOIN`、`RIGHT OUTER JOIN`、`FULL OUTER JOIN`。
+CnosDB supports `INNER JOIN`, `LEFT OUTER JOIN`, `RIGHT OUTER JOIN`, `FULL OUTER JOIN`.
 
-目前暂不支持`CROSS JOIN`。
+`CROSS JOIN` is not supported yet.
 
 ### INNER JOIN
 
-关键字`JOIN`或`INNER JOIN`定义了一个只显示两个表中匹配的行的连接。
+The keyword `JOIN` or `INNER JOIN` defines a connection that shows only the line matching in the two tables.
 
 #### Example
 
 ```sql
-SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
+SELECT * FROM air INNER JOIN Sea ON air.temperature = sea.temperature;
 ```
 
 ```
@@ -1748,12 +1748,12 @@ SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
 
 ### LEFT JOIN
 
-用关键字`LEFT JOIN`或`LEFT OUTER JOIN`定义一个左连接。该连接包括左表中的所有行，如果右表没有匹配行，则连接的右侧为空值。
+Defines a left connection with the key `LEFT JOIN` or `LEFT OTER JOIN`.This connection includes all lines in the left table, and if the right table does not match the line, the value of the connection is empty on the right side.
 
 #### Example
 
 ```sql
-SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
+SELECT * FROM air LEFT JOIN Sea ON air.temperature = sea.temperature;
 ```
 
 ```
@@ -1777,14 +1777,14 @@ SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
 +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+
 ```
 
-### RIGHT JOIN
+### HIGHT JOIN
 
-用关键字`RIGHT JOIN`或`RIGHT OUTER JOIN`定义一个右连接。该连接包括右表中的所有行，如果左表没有匹配行，则连接的左侧为空值。
+Define a right connection with the keyword `RIGHT JOIN` or `RigHT OUTER JOIN`.The connection includes all lines in the right table, and if the left table does not match the line, the link is empty on the left side.
 
 #### Example
 
 ```sql
-SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
+SELECT * FROM air HIGHT JOIN Sea ON air.temperature = sea.temperature;
 ```
 
 ```
@@ -1810,12 +1810,12 @@ SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
 
 ### FULL JOIN
 
-关键字`FULL JOIN`或`FULL OUTER JOIN`定义了一个全连接，实际上它是 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 的联合。 它会显示连接左侧和右侧的所有行，并将在连接的任一侧不匹配的地方产生空值。
+The keyword `FULL JOIN` or `FULL OUTER JOIN` defines a full connection that is actually a combination of LEFT OUTER JOIN and RIGHT OUTER JOIN. It will display all lines that connect to the left and right and will create empty values where no match exists on either side of the connection.
 
 #### Example
 
 ```sql
-SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
+SELECT * FROM air FULL JOIN Sea ON air.temperature = sea.temperature;
 ```
 
 ```
@@ -1853,11 +1853,11 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 [//]: #
 
-[//]: # "交叉连接产生一个笛卡尔积，它将连接左侧的每一行与连接右侧的每一行相匹配。"
+[//]: # "Cross-connecting produces a cartex that matches each row on the left with each row connected to the right."
 
 [//]: #
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "SELECT * FROM air CROSS JOIN sea;"
 
@@ -1865,474 +1865,474 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 [//]: # "    +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+"
 
-[//]: # "    | time                | station     | visibility | temperature | pressure | time                | station     | temperature |"
+[//]: # "    | time | station | visibility | temperature | pressure | time | station | temperature |"
 
 [//]: # "    +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao  | 56         | 69          | 77       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:21:00 | XiaoMaiDao | 56 | 77 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao  | 50         | 78          | 66       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:24:00 | XiaoMaiDao | 50 | 78 | 66 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao  | 67         | 62          | 59       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:27:00 | XiaoMaiDao | 67 | 62 | 59 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao  | 65         | 79          | 77       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:30:00 | XiaoMaiDao | 65 | 79 | 77 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao  | 53         | 53          | 68       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:33:00 | XiaoMaiDao | 53 | 53 | 68 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao  | 74         | 72          | 68       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:36:00 | XiaoMaiDao | 74 | 72 | 68 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 71 | 80 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 71 | 80 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 71 | 80 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao  | 71         | 71          | 80       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:39:00 | XiaoMaiDao | 71 | 81 | 80 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78         | 69          | 71       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:21:00 | LianYunGang | 78 | 69 | 71 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79         | 80          | 51       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:24:00 | LianYunGang | 79 | 80 | 51 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59| 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59| 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59| 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 59| 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59         | 74          | 59       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:27:00 | LianYunGang | 59 | 59 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67         | 70          | 72       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:30:00 | LianYunGang | 67 | 70 | 72 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80         | 70          | 68       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:33:00 | LianYunGang | 80 | 70 | 68 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:18:00 | LianYunGang | 62          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:18:00 | LianYunGang | 62 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:21:00 | LianYunGang | 63          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:21:00 | LianYunGang | 63 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:24:00 | LianYunGang | 77          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:24:00 | LianYunGang | 77 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:27:00 | LianYunGang | 54          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:27:00 | LianYunGang | 54 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:30:00 | LianYunGang | 55          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:30:00 | LianYunGang | 55 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:33:00 | LianYunGang | 64          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:33:00 | LianYunGang | 64 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:36:00 | LianYunGang | 56          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:36:00 | LianYunGang | 56 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:21:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:21:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:24:00 | XiaoMaiDao  | 64          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:24:00 | XiaoMaiDao | 64 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:27:00 | XiaoMaiDao  | 51          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:27:00 | XiaoMaiDao | 51 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:30:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59| 70 | 2022-01-28 13:30:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:33:00 | XiaoMaiDao  | 78          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:33:00 | XiaoMaiDao | 78 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:36:00 | XiaoMaiDao  | 57          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59 | 70 | 54 | 2022-01-28 13:36:00 | XiaoMaiDao | 57 |"
 
-[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59         | 70          | 54       | 2022-01-28 13:39:00 | XiaoMaiDao  | 79          |"
+[//]: # "    | 2022-01-28 13:36:00 | LianYunGang | 59| 70 | 2022-01-28 13:39:00 | XiaoMaiDao | 79 |"
 
 [//]: # "    +---------------------+-------------+------------+-------------+----------+---------------------+-------------+-------------+"
 
-### GROUP BY 子句
+### GROUP BY clause
 
-GROUP BY 子句必须在 WHERE 子句（如果有的话）的条件之后，ORDER BY 子句（如果有的话）之前。
+GROUP BY sentence must be after WHERE subsentence (if any), before ORDER BY sentence (if any).
 
 #### Example
 
 ```sql
-SELECT station, AVG(temperature) 
+SELECT, AVG(temperature) 
 FROM air 
 GROUP BY station;
 ```
 
 ```
-+-------------+----------------------+
-| station     | AVG(air.temperature) |
-+-------------+----------------------+
-| XiaoMaiDao  | 69.14285714285714    |
-| LianYunGang | 72.16666666666667    |
-+-------------+----------------------+
++---+-------------------- ----- ----- -- -- -- -- -- -- -- +
+| AVG(air.temperature) |
++---+
+| XiaoMaiDao | 69.1428571428285714714 |
+| LianYunGang | 72.1666666667 |
++---+ + + +
 ```
 
-### HAVING 子句
+### HAVING clause
 
-**语法**
+**Syntax**
 
 ```sql
 group_by_clause 
 [ HAVING condition ];
 ```
 
-在 SELECT 查询中，HAVING 子句必须紧随 GROUP BY 子句，并出现在 ORDER BY 子句（如果有的话）之前。
+In the SELECT query, HAVING subsentence must be close to GROUP BY sentence and appear before ORDER BY sentence (if any).
 
-**HAVING 与 WHERE 的区别**
+**HAVING differs from WHERE**
 
-HAVING 在 GROUP BY 子句之后使你能够指定过滤条件，从而控制查询结果中哪些组可以出现在最终结果里面。
+HAVING after GROUP BY sentence allows you to specify filters to control which groups of query results can appear in final results.
 
-WHERE 在 GROUP BY 子句之前对被选择的列施加条件，而 HAVING 子句则对 GROUP BY 子句所产生的组施加条件。
+WHERE imposes conditions on the selected column before the GROUP BY sentence and HAVING sentence on the group generated by the GROUP BY sentence.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, AVG(temperature)  AS avg_t 
+SELECT position, AVG(temperature) AS avg_t 
 FROM air 
 GROUP BY station 
 HAVING avg_t > 70;
 ```
 
 ```
-+-------------+-------------------+
-| station     | avg_t             |
-+-------------+-------------------+
-| LianYunGang | 72.16666666666667 |
-+-------------+-------------------+
++-------------------------------- +
+| station | avg_t |
++--------------+
+| LianYunGang | 72.16666666666666666666667 |
++-------+ + +
 ```
 
-### 复杂的分组操作
+### Complex group operations
 
-CnosDB 提供了 `ROLLUP`，`CUBE`等复杂分组操作，使您能以不同的方式操作查询结果
+CnosDB provides complex group operations such as `ROLLUP`, `CUBE`, etc. to enable you to search results in different ways.
 
 [//]: # "### **GROUPING SETS**"
 
-[//]: # "GROUPING SETS 是可以将行分组在一起的一组或一组列。"
+[//]: # "GROUPING SETS is a group or group of columns that can be grouped together."
 
-[//]: # "您可以简单地使用 GROUPING SETS，而不是编写多个查询并将结果与 UNION 组合。"
+[//]: # "You can simply use GROUPING SETS, instead of writing multiple queries and combining results with UNION"
 
-[//]: # "CnosDB 中的 GROUPING SETS 可以被认为是 GROUP BY 子句的扩展。 它允许您在同一查询中定义多个分组集。"
+[//]: # "GROUPING SETS in CnosDB can be considered an extension of GROUP BY sentences. It allows you to define multiple groups in the same query."
 
-[//]: # "让我们看看如下用例，看它如何等同于具有多个 UNION ALL 子句的 GROUP BY。"
+[//]: # "Let's see the example below of how it equates to GROUP BY with multiple UNION ALL sentences."
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "SELECT * FROM shipping;"
 
-[//]: # "--  origin_state | origin_zip | destination_state | destination_zip | package_weight"
+[//]: # "-- origin_state | origin_zip | destination_state | destination_zip | package_weight"
 
 [//]: # "-- --------------+------------+-------------------+-----------------+----------------"
 
-[//]: # "--  California   |      94131 | New Jersey        |            8648 |             13"
+[//]: # "-- California | 94131 | New Jersey | 8648 | 13"
 
-[//]: # "--  California   |      94131 | New Jersey        |            8540 |             42"
+[//]: # "-- California | 94131 | New Jersey | 8540 | 42"
 
-[//]: # "--  New Jersey   |       7081 | Connecticut       |            6708 |            225"
+[//]: # "-- New Jersey | 7081 | Connecticut | 6708 | 225"
 
-[//]: # "--  California   |      90210 | Connecticut       |            6927 |           1337"
+[//]: # "-- California | 90210 | Connecticut | 6927 | 1337"
 
-[//]: # "--  California   |      94131 | Colorado          |           80302 |              5"
+[//]: # "-- California | 94131 | Colorado | 80302 | 5"
 
-[//]: # "--  New York     |      10002 | New Jersey        |            8540 |              3"
+[//]: # "-- New York | 10002 | New Jersey | 8540 | 3"
 
 [//]: # "-- (6 rows)"
 
 [//]: # "```"
 
-[//]: # "如下查询演示了GROUPING SETS的语义"
+[//]: # "The following query demonstrates GROUPING SETS:"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
-[//]: # "SELECT origin_state, origin_zip, destination_state, sum(package_weight)"
+[//]: # "SELECT origin_state, origin_zip, destination_state, sum (package_weight)"
 
 [//]: # "FROM shipping"
 
@@ -2340,53 +2340,53 @@ CnosDB 提供了 `ROLLUP`，`CUBE`等复杂分组操作，使您能以不同的�
 
 [//]: # "(origin_state, origin_zip),"
 
-[//]: # "(destination_state));"
+[//]: # "(destination_state);"
 
-[//]: # "--  origin_state | origin_zip | destination_state | _col0"
+[//]: # "-- origin_state | origin_zip | destination_state | _col0"
 
 [//]: # "--  --------------+------------+-------------------+-------"
 
-[//]: # "--   New Jersey   | NULL       | NULL              |   225"
+[//]: # "- New Jersey | NULL | NULL | 225"
 
-[//]: # "--   California   | NULL       | NULL              |  1397"
+[//]: # "- California | NULL | NULL | 1397"
 
-[//]: # "--   New York     | NULL       | NULL              |     3"
+[//]: # "--- New York | NULL | NULL | 3"
 
-[//]: # "--   California   |      90210 | NULL              |  1337"
+[//]: # "- California | 90210 | NULL | 1337"
 
-[//]: # "--   California   |      94131 | NULL              |    60"
+[//]: # "- California | 94131 | NULL | 60"
 
-[//]: # "--   New Jersey   |       7081 | NULL              |   225"
+[//]: # "-- New Jersey | 7081 | NULL | 225"
 
-[//]: # "--   New York     |      10002 | NULL              |     3"
+[//]: # "-- New York | 10002 | NULL | 3"
 
-[//]: # "--   NULL         | NULL       | Colorado          |     5"
+[//]: # "--- NULL | NULL | Colorado | 5"
 
-[//]: # "--   NULL         | NULL       | New Jersey        |    58"
+[//]: # "--- NULL | NULL | New Jersey | 58"
 
-[//]: # "--   NULL         | NULL       | Connecticut       |  1562"
+[//]: # "--- NULL | NULL | Connecticut | 1562"
 
-[//]: # "--  (10 rows)"
+[//]: # "-- (10 rows)"
 
 [//]: # "```"
 
-[//]: # "上述查询等价于"
+[//]: # "The above query is equal to the"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
-[//]: # "SELECT origin_state, NULL, NULL, sum(package_weight)"
+[//]: # "SELECT origin_state, NULL, NULL, sum (package_weight)"
 
 [//]: # "FROM shipping GROUP BY origin_state"
 
 [//]: # "UNION ALL"
 
-[//]: # "SELECT origin_state, origin_zip, NULL, sum(package_weight)"
+[//]: # "SELECT origin_state, origin_zip, NULL, sum (package_weight)"
 
 [//]: # "FROM shipping GROUP BY origin_state, origin_zip"
 
 [//]: # "UNION ALL"
 
-[//]: # "SELECT NULL, NULL, destination_state, sum(package_weight)"
+[//]: # "SELECT NULL, NULL, destination_state, sum (package_weight)"
 
 [//]: # "FROM shipping GROUP BY destination_state;"
 
@@ -2394,21 +2394,21 @@ CnosDB 提供了 `ROLLUP`，`CUBE`等复杂分组操作，使您能以不同的�
 
 ### **ROLLUP**
 
-[//]: # "与 GROUPING SETS 类似，"
+[//]: # "Similar to GROUPING SETS ,"
 
-您可以在单个查询中使用 ROLLUP 选项来生成多个分组集。
+You can generate multiple clusters using ROLLUP options in a single query.
 
-ROLLUP 假定输入列之间存在层次结构。
+ROLLUP assumes a hierarchy between input columns.
 
-如果你的group by 子句是：
+If your group by child is：
 
 ```sql
 SELECT ...
 FROM ...
-GROUP BY ROLLUP(column_1,column_2);
+GROUP BY ROLLUP (column_1,column_2);
 ```
 
-它与如下的语句等同：
+It is equivalent to the following statement：
 
 ```sql
 SELECT ...
@@ -2418,7 +2418,7 @@ FROM ...
 UNION ALL
 
 SELECT ...
-FROM ...
+FROM FROM ...
 GROUP BY
 column_1
 
@@ -2440,14 +2440,14 @@ column_1, column2;
 
 [//]: # ")"
 
-ROLLUP 生成在此层次结构中有意义的所有分组集。 每次 column_1 的值发生变化时，它都会生成一个小计行；
+ROLLUP generates all meaningful clusters in this hierarchy. Each value of column_1 will generate a miniature line;
 
-因此，我们经常在报告中使用 ROLLUP 来生成小计和总计。 ROLLUP 中列的顺序非常重要。
+Therefore, we often use ROLLUP in our reports to generate subtotals and totals. The sequence in ROLLUP is important.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, visibility, avg(temperature) 
+SELECT, visibility, avg(temperature) 
 FROM air 
 GROUP BY ROLLUP (station, visibility);
 ```
@@ -2476,13 +2476,13 @@ GROUP BY ROLLUP (station, visibility);
 
 ### **CUBE**
 
-与 ROLLUP 类似，CUBE 是 GROUP BY 子句的扩展。 它允许您为 GROUP BY 子句中指定的分组列的所有组合生成小计。
+Like ROLLUP, CUBE is an extension of GROUP BY sentences. It allows you to generate subtotals for all groups specified in GROUP BY sentences.
 
-[//]: # "CUBE 就像结合了 GROUPING SETS 和 ROLLUP。"
+[//]: # "CUBE is like a combination of GROUPING SETS and ROLLUP."
 
-CUBE为指定表达式集的每个可能组合创建分组集。首先会对(A、B、C)进行group by，
+CUBE creates clusters for each possible combination of the specified expression set.The group will start with (A, B, C)
 
-然后依次是(A、B)，(A、C)，(A)，(B、C)，(B)，(C)，最后对全表进行group by操作。
+The tables were then followed by (A, B), (A, C), (A), (B), (B), (C), (C), and finally group by group.
 
 ```sql
 SELECT ... 
@@ -2490,7 +2490,7 @@ FROM ...
 GROUP BY CUBE (column1, column2);
 ```
 
-等价于：
+Equivalent to：
 
 ```sql
 SELECT ...
@@ -2499,13 +2499,13 @@ GROUP BY column1
 
 UNION ALL
 
-SELECT ...
+SELECT.
 FROM ...
 GROUP BY column2
 
 UNION ALL
 
-SELECT ...
+SELECT.
 FROM ...
 GROUP BY column1, column2
 
@@ -2516,10 +2516,10 @@ FROM ...
 ;
 ```
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, visibility, avg(temperature) 
+SELECT, visibility, avg(temperature) 
 FROM air 
 GROUP BY CUBE (station, visibility);
 ```
@@ -2561,13 +2561,13 @@ GROUP BY CUBE (station, visibility);
 
 [//]: # "    GROUPING(column_expression)"
 
-[//]: # "**说明**：GROUPING函数只能用于有GROUP BY 子句的表达式"
+[//]: # "**Description**：GROUPING's function can only be used for expressions with GROUP BY sentences"
 
-[//]: # "当指定`GROUP BY`时，只能在 SELECT 列表、HAVING 和 ORDER BY 子句中使用 GROUPING。"
+[//]: # "When `GROUP BY` is specified, GROUPING can only be used in SELECT lists, HAVING and ORDER BY sentences."
 
-[//]: # "**参数**： 只能是GROUP BY 子句中的表达式"
+[//]: # "**Parameters**： can only be an expression in GROUP BY sentence"
 
-[//]: # "```sql"
+[//]: # "``sql"
 
 [//]: # "SELECT origin_state,"
 
@@ -2595,39 +2595,39 @@ GROUP BY CUBE (station, visibility);
 
 [//]: # "-- --------------+------------+-------------------+-------+-------"
 
-[//]: # "-- California   | NULL       | NULL              |  1397 |     3"
+[//]: # "--- California | NULL | NULL | 1397 | 3"
 
-[//]: # "-- New Jersey   | NULL       | NULL              |   225 |     3"
+[//]: # "-- New Jersey | NULL | NULL | 225 | 3"
 
-[//]: # "-- New York     | NULL       | NULL              |     3 |     3"
+[//]: # "-- New York | NULL | NULL | 3 | 3 | 3"
 
-[//]: # "-- California   |      94131 | NULL              |    60 |     1"
+[//]: # "-- California | 94131 | NULL | 60 | 1"
 
-[//]: # "-- New Jersey   |       7081 | NULL              |   225 |     1"
+[//]: # "-- New Jersey | 7081 | NULL | 225 | 1"
 
-[//]: # "-- California   |      90210 | NULL              |  1337 |     1"
+[//]: # "-- California | 90210 | NULL | 1337 | 1"
 
-[//]: # "-- New York     |      10002 | NULL              |     3 |     1"
+[//]: # "-- New York | 10002 | NULL | 3 | 1"
 
-[//]: # "-- NULL         | NULL       | New Jersey        |    58 |     6"
+[//]: # "--- NULL | NULL | New Jersey | 58 | 6"
 
-[//]: # "-- NULL         | NULL       | Connecticut       |  1562 |     6"
+[//]: # "--- NULL | NULL | Connecticut | 1562 | 6"
 
-[//]: # "-- NULL         | NULL       | Colorado          |     5 |     6"
+[//]: # "-- NULL | NULL | Colorado | 5 | 6"
 
 [//]: # "-- (10 rows)"
 
 [//]: # "```"
 
-[//]: # "**注意**： GROUPING 用于区分 ROLLUP、CUBE 或 GROUPING SETS 返回的空值与标准空值。"
+[//]: # "**NOTE**： GROUPING is used to distinguish between ROLLUP, CUBE or GROUPING SETS returned empty values and standard empty values."
 
-[//]: # "作为 ROLLUP、CUBE 或 GROUPING SETS 操作的结果返回的 NULL 是 NULL 的一种特殊用途。"
+[//]: # "NULL returned as a result of ROLLUP, CUBE or GROUPING SETS operations is a special use of NULL."
 
-[//]: # "这充当结果集中的列占位符，表示全部。"
+[//]: # "This acts as the column holder of the concentration of results, indicating the total number of cases."
 
-## 聚合函数
+## Aggregate Functions
 
-### 一般聚合函数
+### General aggregation function
 
 ### COUNT
 
@@ -2637,30 +2637,30 @@ GROUP BY CUBE (station, visibility);
 COUNT(x)
 ```
 
-**功能**： 返回选定元素中检索过的行的数目。
+**Function**： returns the number of lines retrieved in the selected element.
 
-包含DISTINCT关键字，会对去重后的结果计数。
+Include DISTINCTs keywords and count results after going to reset them.
 
-> COUNT(\*) 和 COUNT(literal value) 是等价的，如果sql的投影中仅含有 `*/literal value`，则sql会被重写为 COUNT(time)。 \
-> COUNT(tag) 等价于 COUNT(DISTINCT tag)。 \
+> COUNT(\*) and COUNT (bilateral value) are equal, and sql will be rewritten to COUNT(time) if the sql projection contains only `*/lateral value`. An
+> COUNT(tag) equivalent to COUNT(DISTINCT tag). \
 > COUNT(field) 返回非NULL值的个数。
 
-**参数类型**：任意
+**Parameter Type**：any
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```
 SELECT COUNT(*) FROM air;
 ```
 
 ```
-+-----------------+
-| COUNT(UInt8(1)) |
-+-----------------+
-| 13              |
-+-----------------+
++-----+
+| COUNT (UInt8(1)) |
++---+
+| 13 |
++---------+ +
 ```
 
 ```sql
@@ -2676,15 +2676,15 @@ SELECT COUNT(temperature) FROM air;
 ```
 
 ```sql
-SELECT COUNT(DISTINCT temperature) FROM air;
+SELECT COUNT (DISTINCT temperature) FROM air;
 ```
 
 ```
-+---------------------------------+
-| COUNT(DISTINCT air.temperature) |
-+---------------------------------+
-| 10                              |
-+---------------------------------+
++-------- +
+| COUNT (DISTINCT air.temperature) |
++---, -+
+| 10 |
++------------- + A+ + + +
 ```
 
 ***
@@ -2694,27 +2694,27 @@ SELECT COUNT(DISTINCT temperature) FROM air;
 #### Syntax
 
 ```
-SUM(NUMERICS)
+SUM(NUERICS)
 ```
 
-**功能**： 返回从选定元素计算出的总和值。
+**Function**： returns the sum of the values calculated from the selected element.
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：与参数类型相同。
+**Return Type**：is the same as the parameter type.
 
-**示例**
+**Example**
 
 ```sql
 SELECT SUM(temperature) FROM air;
 ```
 
 ```
-+----------------------+
-| SUM(air.temperature) |
-+----------------------+
-| 917                  |
-+----------------------+
++------- +
+| SUM(air.temperature)|
++---------+
+| 917 |
++______
 ```
 
 ***
@@ -2724,27 +2724,27 @@ SELECT SUM(temperature) FROM air;
 #### Syntax
 
 ```
-MIN(STRING | NUMERICS | TIMESTAMP)
+MIN(SSTRING | NUMERICS | TIMESTAMP)
 ```
 
-**功能**： 返回选定元素中最小值。
+**Function**： returns the minimum of the selected element.
 
-**参数类型**：数值类型或STRING或TIMESTAMP。
+**Parameter Type**：Value Type or STRING, or TIMESTAMP.
 
-**返回类型**：与参数类型相同。
+**Return Type**：is the same as the parameter type.
 
-**示例**
+**Example**
 
 ```sql
  SELECT MIN(time), MIN(station), MIN(temperature) FROM air;
 ```
 
 ```
-+---------------------+------------------+----------------------+
-| MIN(air.time)       | MIN(air.station) | MIN(air.temperature) |
-+---------------------+------------------+----------------------+
-| 2022-01-28T13:21:00 | LianYunGang      | 53                   |
-+---------------------+------------------+----------------------+
++---+
+| MIN(Air.time) | MIN(Air.time) | MIN(Air.station) | MIN(Air.temperature) | MIN(Air.temperature) | MIN(air.temperature) |
++------------++-+
+| 2022-01-28T13:21:00 | LianYunGang | 53
++------------+++ + + +
 ```
 
 ***
@@ -2754,16 +2754,16 @@ MIN(STRING | NUMERICS | TIMESTAMP)
 #### Syntax
 
 ```
-MAX(STRINGS | NUMERICS | TIMESTAMPS)
+MAX (STRINGS | NUMERICS | TIMESTAMP)
 ```
 
-**功能**： 返回选定元素中最大值。
+**Function**： returns the maximum value of the selected element.
 
-**参数类型**：数值类型或STRING或TIMESTAMP。
+**Parameter Type**：Value Type or STRING, or TIMESTAMP.
 
-**返回类型**：与参数类型相同。
+**Return Type**：is the same as the parameter type.
 
-**示例**
+**Example**
 
 ```
 SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
@@ -2784,27 +2784,27 @@ SELECT MAX(time), MAX(station), MAX(temperature) FROM air;
 #### Syntax
 
 ```
-AVG(NUMERICS)
+AVG (NUMERICS)
 ```
 
-**功能**： 返回选定元素的平均值。
+**Function**： returns the average of the selected element.
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：数值类型。
+**Return Type**：Value Type.
 
-**示例**
+**Example**
 
 ```
 SELECT AVG(temperature) FROM air;
 ```
 
 ```
-+----------------------+
-| AVG(air.temperature) |
-+----------------------+
-| 70.53846153846153    |
-+----------------------+
++----- +
+| AVG(air.temperature)|
++-----------+
+| 70.53846153846153 |
++----------+ +
 ```
 
 ***
@@ -2817,16 +2817,16 @@ SELECT AVG(temperature) FROM air;
 ARRAY_AGG(expr)
 ```
 
-**功能**： 返回一个数组，该数组由选定元素的所有值组成，元素类型必须相同。
+**Function**： returns an array consisting of all values of the selected element. The element type must be the same.
 
-**参数类型**：任意。
+**Parameter Type**：is arbitrary.
 
-**返回类型**：参数类型的数组。
+**Return Type** of：parameter type.
 
-**示例**
+**Example**
 
 ```sql
-SELECT ARRAY_AGG(temperature) from air;
+SELECT ARRAY_AGG (temperature) from air;
 ```
 
 ```
@@ -2837,25 +2837,25 @@ SELECT ARRAY_AGG(temperature) from air;
 +------------------------------------------------------+
 ```
 
-**注意**：该聚合函数结果，无法以CSV格式返回
+**NOTE**：this polygon function result cannot be returned in CSV
 
-### 统计聚合函数
+### Statistics aggregator
 
 ### VAR | VAR_SAMP
 
 #### Syntax
 
 ```
-VAR(NUMERICS)
+VAR (NUMERICS)
 ```
 
-**功能**： 计算给定样本的方差
+**Function**： calculates the difference between the given sample
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT VAR(temperature) FROM air;
@@ -2876,16 +2876,16 @@ SELECT VAR(temperature) FROM air;
 #### Syntax
 
 ```
-VAR_POP(NUMERICS)
+VAR_POPUP(NUMERICS)
 ```
 
-**功能**： 计算总体方差。
+**Function**： calculates the overall variance
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```
 SELECT VAR_POP(temperature) FROM air;
@@ -2904,16 +2904,16 @@ SELECT VAR_POP(temperature) FROM air;
 ### STDDEV | STDDEV_SAMP
 
 ```
-STDDEV(NUMERICS)
+STDDEV (NUMERICS)
 ```
 
-**功能**： 计算样本标准差。
+**Function**： calculates the standard deviation of the sample.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```
 SELECT STDDEV(temperature) FROM air;
@@ -2929,21 +2929,21 @@ SELECT STDDEV(temperature) FROM air;
 
 ***
 
-### STDDEV_POP
+### PARTY_NOTIFICATION_TITLE
 
 #### Syntax
 
 ```
-STDDEV_POP(NUMERICS)
+STDEN_POPUP_POPUP_TITLE
 ```
 
-**功能**： 计算出的总体标准差。
+**Function**： calculates the overall standard difference.
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```
 SELECT STDDEV_POP(temperature) FROM air;
@@ -2964,27 +2964,27 @@ SELECT STDDEV_POP(temperature) FROM air;
 #### Syntax
 
 ```
-COVAR(NUMERICS, NUMERICS)
+COVAR (NUMERICS, NUMERICS)
 ```
 
-**功能**： 返回样本的协方差。
+**Feature**： returns the sample's composition.
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```
 SELECT COVAR(temperature, pressure) FROM air;
 ```
 
 ```
-+------------------------------------------+
-| COVARIANCE(air.temperature,air.pressure) |
-+------------------------------------------+
-| -5.121794871794841                       |
-+------------------------------------------+
++----- +
+| COVARIANCE (air.temperature,air.pressure) |
++----------+
+| 5.121794871794841 |
++---------+ + + +
 ```
 
 ***
@@ -2994,16 +2994,16 @@ SELECT COVAR(temperature, pressure) FROM air;
 #### Syntax
 
 ```
-COVAR_POP(NUMERICS, NUMERICS)
+COVAR_POPUP_(NUMERICS, NUMERICS)
 ```
 
-**功能**： 返回组中数字对的总体协方差。
+**Feature**： returns the overall difference in the number pair in the group.
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```
 SELECT COVAR_POP(temperature, pressure) FROM air;
@@ -3024,30 +3024,30 @@ SELECT COVAR_POP(temperature, pressure) FROM air;
 #### Syntax
 
 ```
-CORR**(NUMERICS, NUMERICS)
+COR** (NUMERICS, NUMERICS)
 ```
 
-**功能**： 返回表示一组数字对之间的关联情况的皮尔逊系数。
+**Feature**： returns a Pearson coefficient representing a set of numbers to link between them.
 
-**参数类型**：数值类型。
+**Parameter type**：Value type.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT CORR(temperature, pressure) FROM air;
+SELECT CORR (temperature, pressure) FROM air;
 ```
 
 ```
-+-------------------------------------------+
++----- +
 | CORRELATION(air.temperature,air.pressure) |
-+-------------------------------------------+
-| -0.07955796767766017                      |
-+-------------------------------------------+
++------------+
+| 0.075576766017 |
++---+ + +
 ```
 
-### **近似聚合函数**
+### **Close aggregation functions**
 
 ### **APPROX_DISTINCT**
 
@@ -3057,24 +3057,24 @@ SELECT CORR(temperature, pressure) FROM air;
 APPROX_DISTINCT(x)
 ```
 
-**功能**： 返回不同输入值的近似值(HyperLogLog)。
+**Function**： returns the approximation of different input values (HyperLogLogLogLog).
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT APPROX_DISTINCT(station) FROM air;
 ```
 
 ```
-+-----------------------------+
++---------- +
 | APPROXDISTINCT(air.station) |
-+-----------------------------+
-| 2                           |
-+-----------------------------+
++------------
+| 2 |
++-------------
 ```
 
 ***
@@ -3084,27 +3084,27 @@ SELECT APPROX_DISTINCT(station) FROM air;
 #### Syntax
 
 ```
-APPROX_PERCENTILE_CONT(x, p)  
+APPROX_PERCENTILE_CONT(x, p.  
 ```
 
-**功能**： 返回输入值x的近似百分位(TDigest)，p是百分位，是0到1(包括1)之间的64位浮点数。
+**Function**： returns the approximate percentage of input value x (TDigest), p. percent, the 64-bit floating point between 0 and 1 (including 1).
 
-**参数类型**：x为数值类型，p为DOUBLE类型。
+**Parameter type**：x numeric type, p DOUBLE type.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
+SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM ;
 ```
 
 ```
-+----------------------------------------------------+
-| APPROXPERCENTILECONT(air.temperature,Float64(0.1)) |
-+----------------------------------------------------+
-| 60.4                                               |
-+----------------------------------------------------+
++---------------------------+
+| APPROXPERCENTILECONTILET(air.temperature, Float64(0.1)) |
++----------+
+| 60.4 |
++-------------
 ```
 
 ***
@@ -3117,17 +3117,17 @@ SELECT APPROX_PERCENTILE_CONT(temperature, 0.1) FROM air;
 APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, w, p)  
 ```
 
-**功能**： x返回带权重的输入值的近似百分比(TDigest)，其中w是权重列表达式，p是0到1(包括)之间的浮点64。
+**Feature**： x returns the approximate percentage of input value with weight (TDigest), where w is a recount expression, p. 64 floats between 0 and 1 (inclusive).
 
-APPROX_PERCENTILE_CONT(x, p) 相当于 APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, 1, p)。
-**参数类型**：x,w为数值类型，p为DOUBLE类型。
+APPROX_PERCENTILE_CONT(x, p) equivalent to APPROX_PERCENTILE_CONT_WITH_WEIGHT(x, 1, p).
+**Parameter Type**：x,w Number Type, p DOUBLE.
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
+SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT (temperature,2, 0.1) FROM air;
 ```
 
 ```
@@ -3140,32 +3140,32 @@ SELECT APPROX_PERCENTILE_CONT_WITH_WEIGHT(temperature,2, 0.1) FROM air;
 
 ***
 
-### **APPROX_MEDIAN**(NUMERICS)
+### **APPROX_MEDIAN** (NUMERICS)
 
 #### Syntax
 
 ```
-APPROX_MEDIAN(NUMERICS)
+APPROX_MEDIAN (NUMERICS)
 ```
 
-**功能**： 返回输入值的近似中值。
+**Function**： returns the approximate median value of the input value.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT APPROX_MEDIAN(temperature) FROM air;
 ```
 
 ```
-+-------------------------------+
++-------- +
 | APPROXMEDIAN(air.temperature) |
-+-------------------------------+
-| 70                            |
-+-------------------------------+
++------------
+| 70 |
++---------------------------------------------
 ```
 
 [//]: # "----------------"
@@ -3174,33 +3174,33 @@ SELECT APPROX_MEDIAN(temperature) FROM air;
 
 [//]: # "    GROUPING(x)"
 
-[//]: # "**功能**： 函数采用单个参数，该参数必须是 GROUP BY 子句的 ROLLUP、CUBE 或 GROUPING SETS 扩展的表达式列表中指定的维度列的表达式。"
+[//]: # "**Function** The： function uses a single parameter that must be an expression of the dimension column specified in GROUP BY sentence ROLLUP, CUBE, or GROUPING SETS extension."
 
-[//]: # "**参数类型**：数值类型"
+[//]: # "**Parameter Type**：Value Type"
 
-[//]: # "**返回类型** BIGINT"
+[//]: # "**Return Type**"
 
 ### **SAMPLE**
 
 #### Syntax
 
 ```
-SAMPLE(<column_key>, <N>)
+SAMPLE(<column_key>, <N>
 ```
 
-**功能**： 从给定的列 column_key 中随机选择 N 条记录
+**Function**： randomly select N from the given column column_key
 
-**参数类型**：
+**Parameter Type**：
 
-- column_key：任意类型
-- N：整数类型
+- column_key：any type
+- N：integer type
 
-**返回类型**：数组
+**Return Type**：array
 
-**示例**
+**Example**
 
 ```sql
-select sample(visibility, 5) from air;
+Select sample(visibility, 5) from air;
 ```
 
 ```
@@ -3211,90 +3211,90 @@ select sample(visibility, 5) from air;
 +--------------------------------------+
 ```
 
-## 函数
+## Function
 
-### **数学函数**
+### **Math functions**
 
 ### **abs(x)**
 
-**功能**：   返回x的绝对值。
+**Function**：   returns the absolute value of x.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：与函数参数类型一致
+**Return Type**：matches the function parameter type
 
-**示例**
+**Example**
 
 ```sql
 SELECT abs(-1);
 ```
 
 ```
-+----------------+
-| abs(Int64(-1)) |
-+----------------+
-| 1              |
-+----------------+
++-----+
+| abs (Int64(-1)) |
++---+
+| 1 |
++--------+ + +
 ```
 
 ***
 
 ### **acos(x)**
 
-**功能**：   返回x的反余弦值。
+**Function**：   returns the inverse chord of x.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT acos(3);
 ```
 
 ```
-+----------------+
-| acos(Int64(3)) |
-+----------------+
-| NaN            |
-+----------------+
++----- +
+| acos (Int64(3)) |
++---+
+| NaN |
++----------+ + +
 ```
 
 ```sql
-SELECT acos(0.5);
+SELECT acos (0.5);
 ```
 
 ```
-+--------------------+
-| acos(Float64(0.5)) |
-+--------------------+
++----- +
+| acos (Float64(0.5)) |
++-----------+
 | 1.0471975511965976 |
-+--------------------+
++----------+ + +
 ```
 
 ***
 
 ### **asin(x)**
 
-**功能**：   返回x的反正弦值。
+**Function**：   returns the inverse chord of x.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT asin(0.5);
+SELECT asin (0.5);
 ```
 
 ```
-+--------------------+
-| asin(Float64(0.5)) |
-+--------------------+
++----- +
+| asin (Float64(0.5)) |
++-----------+
 | 0.5235987755982988 |
-+--------------------+
++----------+ +
 ```
 
 ```sql
@@ -3302,99 +3302,99 @@ SELECT asin(5);
 ```
 
 ```
-+----------------+
-| asin(Int64(5)) |
-+----------------+
-| NaN            |
-+----------------+
++------+
+| asin (Int64(5)) |
++---+
+| NaN |
++----------+ + +
 ```
 
 ***
 
 ### **atan(x)**
 
-**功能**：   返回x的反正切值。
+**Function**：   returns the inverse tangent value of x.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT atan(5);
 ```
 
 ```
-+-------------------+
-| atan(Int64(5))    |
-+-------------------+
++----- +
+| atan (Int64(5)) |
++--------+
 | 1.373400766945016 |
-+-------------------+
++---+ + + +
 ```
 
 ***
 
 ### **atan2(y,x)**
 
-**功能**：   返回y/x的反正切值。
+**Function**：   returns the reverse tangent value of y/x.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT atan2(10, 2);
+SELECT atan2(10,2);
 ```
 
 ```
-+---------------------------+
++-------------- +
 | atan2(Int64(10),Int64(2)) |
-+---------------------------+
-| 1.3734008                 |
-+---------------------------+
++--------------------+
+| 1.3340000 |
++------------------------------------------+ + +
 ```
 
 ***
 
 ### **ceil(x)**
 
-**功能**：   向上取整。
+**Feature**：
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT ceil(1.6);
+SELECT ceil (1.6);
 ```
 
 ```
-+--------------------+
-| ceil(Float64(1.6)) |
-+--------------------+
-| 2                  |
-+--------------------+
++----- +
+| ceil (Float64(1.6)) |
++-----------
+| 2 |
++---+ -+ -+ + +
 ```
 
 ***
 
 ### **floor(x)**
 
-**功能**：   向下取整
+**Function**：   rounded down
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT floor(-3.1);
+SELECT loor (-3.1);
 ```
 
 ```
@@ -3409,120 +3409,120 @@ SELECT floor(-3.1);
 
 ### **cos(x)**
 
-**功能**：   返回x的余弦值。
+**Function**：   returns the chord of x.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT cos(1);
 ```
 
 ```
-+--------------------+
-| cos(Int64(1))      |
-+--------------------+
++----- +
+| cos(Int64(1)) |
++---------------
 | 0.5403023058681398 |
-+--------------------+
++---+ + +
 ```
 
 ***
 
 ### **sin(x)**
 
-**功能**：   x的正弦值
+**Function**：   x sine
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT sin(5);
 ```
 
 ```
-+---------------------+
-| sin(Int64(5))       |
-+---------------------+
++------- +
+| sin(Int64(5)) |
++---------------
 | -0.9589242746631385 |
-+---------------------+
++-------- + +
 ```
 
 ***
 
 ### **exp(x)**
 
-**功能**：   返回e的x次方。
+**Feature**：   returns the x square.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT exp(1);
 ```
 
 ```
-+-------------------+
-| exp(Int64(1))     |
-+-------------------+
-| 2.718281828459045 |
-+-------------------+
++---+
+| exp (Int64(1)) |
++--------------
+| 2.71828182845905 |
++---+ + +
 ```
 
 ***
 
 ### **ln(x)**
 
-**功能**：   自然对数
+**Function**：   Natural logarithm
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT ln(2.718281828459045);
+SELECT ln (2.718281828459045);
 ```
 
 ```
-+--------------------------------+
-| ln(Float64(2.718281828459045)) |
-+--------------------------------+
-| 1                              |
-+--------------------------------+
++---------+
+| ln (Float64 (2.7182818281828459045)) |
++--+
+| 1|
++---+ + + + + + + + + +
 ```
 
 ***
 
 ### **log(x) | log10(x)**
 
-**功能**：   以10为底的对数
+**Function**：   logarithm based on 10
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT log(10);
 ```
 
 ```
-+----------------+
-| log(Int64(10)) |
-+----------------+
-| 1              |
-+----------------+
++------+
+| logo (Int64(10)) |
++---+
+| 1 |
++----------+ +
 ```
 
 ```sql
@@ -3530,168 +3530,168 @@ SELECT log10(10);
 ```
 
 ```
-+----------------+
-| log(Int64(10)) |
-+----------------+
-| 1              |
-+----------------+
++------+
+| logo (Int64(10)) |
++---+
+| 1 |
++----------+ +
 ```
 
 ***
 
 ### **log2(x)**
 
-**功能**：   以 2 为底的对数
+**Function**：   logarithm based on 2
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT log2(4);
 ```
 
 ```
-+----------------+
-| log2(Int64(4)) |
-+----------------+
-| 2              |
-+----------------+
++----- +
+| log2 (Int64(4)) |
++---+
+| 2 |
++----------+ + +
 ```
 
 ***
 
-### **power(x,y) | pow(x,y)**
+### **power(x,y) | power (x,y)**
 
-**功能**：   x的y次方
+**Features**：   x submarines
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT power(2, 3);
+SELECT power (2,3);
 ```
 
 ```
-+--------------------------+
-| power(Int64(2),Int64(3)) |
-+--------------------------+
-| 8                        |
-+--------------------------+
++----------- +
+| power (Int64(2), Int64(3)) |
++--------------------+
+| 8|
++-----------------------------------------------------------+ +
 ```
 
 ***
 
 ### **round(x)**
 
-**功能**：   四舍五入到最接近的整数
+**Function**：   rounded to the nearest integer
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT round(3.5);
+SELECT round (3.5);
 ```
 
 ```
-+---------------------+
-| round(Float64(3.5)) |
-+---------------------+
-| 4                   |
-+---------------------+
++----- +
+| round (Float64(3.5)) |
++---, -+
+| 4 |
++----+ + -+ + -+ + +
 ```
 
 ***
 
-### **signum(x)**
+### **sign(x)**
 
-**功能**：   参数的符号 (-1, 0, +1)
+**Features**：   Parameters (-1, 0, +1)
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT signum(-3);
+SELECT signum (-3);
 ```
 
 ```
-+-------------------+
-| signum(Int64(-3)) |
-+-------------------+
-| -1                |
-+-------------------+
++----- +
+| signum (Int64(-3)) |
++-------+
+| -1 |
++-----------+ -+ +
 ```
 
 ***
 
 ### **sqrt(x)**
 
-**功能**：   x的平方根
+**Function**：   x square root
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：与函数参数类型一致
+**Return Type**：matches the function parameter type
 
-**示例**
+**Example**
 
 ```sql
 SELECT sqrt(4);
 ```
 
 ```
-+----------------+
-| sqrt(Int64(4)) |
-+----------------+
-| 2              |
-+----------------+
++------+
+| sqrt (Int64(4)) |
++------+
+| 2 |
++--------+ +
 ```
 
 ***
 
 ### **tan(x)**
 
-**功能**：    x的正切值
+**Function**：    x positive tangent
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**： DOUBLE
+**Return Type**： DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT tan(1);
+SELECT tan(1) ;
 ```
 
 ```
-+-------------------+
-| tan(Int64(1))     |
-+-------------------+
-| 1.557407724654902 |
-+-------------------+
++----- +
+| tans (Int64(1))|
++--------------+
+| 1.55740772465400002 |
++--+ +
 ```
 
 ***
 
 ### **trunc(x)**
 
-**功能**：向零取整
+**Function**：o’clock zero
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT trunc(-3.9);
@@ -3712,34 +3712,34 @@ SELECT trunc(-3.9);
 #### Syntax
 
 ```
-struct(expr1 [, ...] ) 
+struct(expr1 [, ...]) 
 ```
 
-**功能**：创建一个具有指定字段值的 STRUCT。
+**Function**：creates a STRUCT, with a specified field value.
 
-**参数类型**：数值类型
+**Parameter Type**：Value Type
 
-**注意**：struct函数目前功能并不完善
+**Note**：structure function is currently not working
 
 ***
 
-### **条件函数**
+### **Conditional functions**
 
 ### **coalesce**
 
 #### Syntax
 
 ```
-coalesce(expr[,...exp])
+coalesce (expr[,..exp])
 ```
 
-**功能**：返回其第一个不为空的参数。只有当所有参数都为 null 时才返回 Null。当检索数据以进行显示时，它通常用于将默认值替换为空值。
+**Function**：returns its first non-empty argument.Null returns only if all arguments are nullWhen retrieving data for display it is commonly used to replace default values with empty values.
 
-**参数类型**：任意
+**Parameter Type**：any
 
-**返回类型**：第一个不为null的参数类型
+**Return Type**：First non-null's parameter type
 
-**示例**
+**Example**
 
 ```sql
 SELECT coalesce(temperature, null, station) FROM air;
@@ -3772,16 +3772,16 @@ SELECT coalesce(temperature, null, station) FROM air;
 #### Syntax
 
 ```
-nullif(expr1, expr2) 
+nullif (expr1, expr2) 
 ```
 
-**功能**：如果 expr1 等于 expr2，则返回 NULL；否则返回 expr1。
+**Function**：returns NULL if expr1 equals expr2; otherwise returns expr1.
 
-**参数类型**：expr1,expr2为数值类型，且为带列值的表达式
+**Parameter Type**：expr1,expr2 numerical type with column value
 
-**返回类型**：expr1的类型或NULL
+**Return Type**：expr1 or NULL
 
-**示例**
+**Example**
 
 ```sql
 SELECT nullif(temperature, 70) FROM air;
@@ -3809,11 +3809,11 @@ SELECT nullif(temperature, 70) FROM air;
 
 ***
 
-### **字符串函数**
+### **String functions**
 
 [//]: # "### **Array**"
 
-[//]: # "    创建数组"
+[//]: # "    Create array"
 
 ### **ascii**
 
@@ -3823,36 +3823,36 @@ SELECT nullif(temperature, 70) FROM air;
 ascii(str) 
 ```
 
-**功能**: 将 str 中的第一个字符转换成其ASCII 码后返回。
+**Feature**: Convert the first character in str to its ASCII code and return it.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
-
-```sql
-SELECT ascii('abc');
-```
-
-```
-+------------------+
-| ascii(Utf8("a")) |
-+------------------+
-| 97               |
-+------------------+
-```
+**Example**
 
 ```sql
-SELECT ascii('a');
+SELECT ascii ('abc');
 ```
 
 ```
-+------------------+
-| ascii(Utf8("a")) |
-+------------------+
-| 97               |
-+------------------+
++------+
+| ascii (Utf8("a") |
++---, --+
+| 97 |
++----------+ -+ +
+```
+
+```sql
+SELECT ascii ('a');
+```
+
+```
++------+
+| ascii (Utf8("a") |
++---, --+
+| 97 |
++----------+ -+ +
 ```
 
 ***
@@ -3865,13 +3865,13 @@ SELECT ascii('a');
 bit_length(str) 
 ```
 
-**功能**：返回字符串数据的位长度或二进制数据的位数。
+**Function**：returns the binary length of the string data or the number of binary data.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT bit_length('abc');
@@ -3892,39 +3892,40 @@ SELECT bit_length('abc');
 #### Syntax
 
 ```
-btrim(string [, matching_string ] ) 
+btrim (string [, matching_string]) 
 ```
 
-**功能**：函数通过删除前导空格和尾随空格或删除与可选的指定字符串匹配的字符来剪裁字符串。
+**Feature** the：function crop the string by deleting guided spaces and trailing spaces or deleting characters that match the optional string.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**: STRING
+**Return Type**: STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT btrim('     abc                  ');
+SELECT btrim('abc ');
 ```
 
 ```
-+-------------------------------------------+
-| btrim(Utf8("     abc                  ")) |
-+-------------------------------------------+
-| abc                                       |
-+-------------------------------------------+
++------------------------------------- +
+| btrim (Utf8(" abc') |
++-----------------+
+|
++-------------------------+
 ```
 
 ```sql
-SELECT btrim('111abc111','1');
+SELECT btrim ('111abc111', '1');
 ```
 
 ```
-+------------------------------------+
-| btrim(Utf8("111abc111"),Utf8("1")) |
-+------------------------------------+
-| abc                                |
-+------------------------------------+
++-------- ----- +
+| btrim (Utf8("111abc111"), Utf8("1")) |
++---+
+| abc |
++-----------------------+ 
+ | format@@3 +-------+ + + +
 ```
 
 ***
@@ -3937,32 +3938,32 @@ SELECT btrim('111abc111','1');
 trim(str) 
 ```
 
-**功能**：删除str首尾的空白字符
+**Function**：delete blank characters at the end of the string.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
 ***
 
-### **char_length | character_length**
+### **char_length | charter_length**
 
 #### Syntax
 
 ```
-char_length(expr) 
+char@@_length(expr) 
 ```
 
-**功能**：以字符数形式返回指定字符串的长度。
+**Function**：returns the length of the specified string in number form.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT char_length('你好');
+SELECT char_length('hello');
 ```
 
 ```
@@ -3983,46 +3984,46 @@ SELECT char_length('你好');
 chr(expr) 
 ```
 
-**功能**：返回位于提供的 UTF-16 码位的字符。
+**Function**：returns the character in the provided UTF-16 code.
 
-**参数类型**: BIGINT
+**Parameter Type**: BIGINT
 
-**返回类型**: STRING
+**Return Type**: STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT chr(20005);
+SELECT chr (20005);
 ```
 
 ```
-+-------------------+
-| chr(Int64(20005)) |
-+-------------------+
-| 严                |
-+-------------------+
++---+
+| chr (Int64(2000)) |
++-----------
+|
++-------+ -+ + + +
 ```
 
 ***
 
-### **concat**
+### **conciliate**
 
 #### Syntax
 
 ```
-concat(expr1, expr2 [, ...exp] ) 
+Contraat (expr1, expr2 [, ...exp]) 
 ```
 
-**功能**：联接两个或两个以上表达式并返回生成的表达式。
+**Function**：connects two or more expressions and returns the generated expression.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**: STRING
+**Return Type**: STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT concat('a', 'b', 'c');
+SELECT consent ('a', 'b', 'c');
 ```
 
 ```
@@ -4035,32 +4036,32 @@ SELECT concat('a', 'b', 'c');
 
 ***
 
-### **concat_ws**
+### **concili_ws**
 
 #### Syntax
 
 ```
-concat_ws(sep , expr1 [, ...] ) 
+Concat_ws(sep, expr1 [, ...]) 
 ```
 
-**功能**：返回由 sep 分隔的串联字符串。
+**Function**：returns a string separated by sep.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT concat_ws(' ', 'a', 'b', 'c');
+SELECT Concat_ws('', 'a', 'b', 'c');
 ```
 
 ```
-+--------------------------------------------------------------+
-| concatwithseparator(Utf8(" "),Utf8("a"),Utf8("b"),Utf8("c")) |
-+--------------------------------------------------------------+
-| a b c                                                        |
-+--------------------------------------------------------------+
++-------- ----------- +
+| concrete parator (Utf8(" "), Utf8("a"), Utf8("b"), Utf8("c"), Utf8("),Utf8("c") |
++----------------------------------+
+| a b c |
++---, format@@3 +--------
 ```
 
 ***
@@ -4073,13 +4074,13 @@ SELECT concat_ws(' ', 'a', 'b', 'c');
 initcap(expr) 
 ```
 
-**功能**：将参数中每个单词的首字母大写。
+**Function**：uppercase each word in the argument.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT initcap('hello world');
@@ -4103,24 +4104,24 @@ SELECT initcap('hello world');
 left(str, len) 
 ```
 
-**功能**：返回 str 中最左边的 len 个字符。
+**Function**：returns the leftiest len character of Str stack.
 
-**参数类型**：str为STRING类型，len为BIGINT类型
+**Parameter Type**：str, STRING, len BIGINT
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
 SELECT left('abcde', 3);
 ```
 
 ```
-+------------------------------+
-| left(Utf8("abcde"),Int64(3)) |
-+------------------------------+
-| abc                          |
-+------------------------------+
++-------- +
+| left(Utf8("abcde"), Int64(3)) |
++---+
+| abc |
++______
 ```
 
 ***
@@ -4130,29 +4131,29 @@ SELECT left('abcde', 3);
 #### Syntax
 
 ```
-lpad(expr, len [, pad] ) 
+lpad(expr, len [, pad] 
 ```
 
-**功能**：返回 expr左侧填充了 pad，填充后长度为 len。
+**Function**：returns expr-filled pads on the left, filled with length len.
 
-**参数类型**：expr, pad 类型为 STRING， len类型为BIGINT
+**Parameter type**：expr, pad type STRING, len type BIGINT
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-当len为负数时，len表现为0，当len过大，函数执行失败
+When len is negative, len shows 0,when len is too big, function execution failed
 
-**示例**
+**Example**
 
 ```sql
 SELECT lpad('abc', 10, '1');
 ```
 
 ```
-+---------------------------------------+
-| lpad(Utf8("abc"),Int64(10),Utf8("1")) |
-+---------------------------------------+
-| 1111111abc                            |
-+---------------------------------------+
++-------- +
+| lpad (Utf8("abc"), Int64(10),Utf8("1"))|
++---+
+| 1111111abc |
++----+ + --+ + +
 ```
 
 ***
@@ -4162,27 +4163,27 @@ SELECT lpad('abc', 10, '1');
 #### Syntax
 
 ```
-rpad(expr, len [, pad] ) 
+rpad(expr, len [, pad] 
 ```
 
-**功能**：返回右侧填充了 pad 的 expr，填充后整个字符的长度为 len。
+**Function**：returns the exprs of the pad packed on the right side and the length of the whole character is len.
 
-**参数类型**：expr, pad 类型为 STRING， len类型为BIGINT
+**Parameter type**：expr, pad type STRING, len type BIGINT
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT rpad('aaa', 10, 'b');
+SELECT rpad ('aaaa', 10, 'b');
 ```
 
 ```
-+---------------------------------------+
-| rpad(Utf8("aaa"),Int64(10),Utf8("b")) |
-+---------------------------------------+
-| aaabbbbbbb                            |
-+---------------------------------------+
++---------- +
+| rpad (Utf8("aaa"), Int64(10),Utf8("b"))|
++----------+
+| aabbbbbbb |
++---+ + + + + +
 ```
 
 ***
@@ -4195,24 +4196,24 @@ SELECT rpad('aaa', 10, 'b');
 lower(expr) 
 ```
 
-**功能**：返回字母小写。
+**Function**：returns lowercase.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
 SELECT lower('ABC');
 ```
 
 ```
-+--------------------+
-| lower(Utf8("ABC")) |
-+--------------------+
-| abc                |
-+--------------------+
++----- +
+| lower(Utf8("ABC") |
++---------+
+| abc |
++---------+ + -+ + +
 ```
 
 ***
@@ -4225,11 +4226,11 @@ SELECT lower('ABC');
 upper(expr)
 ```
 
-**功能**：返回将 expr 的所有字符均更改为大写后的结果。
+**Function**：returns the result of changing all characters from expr to upper case.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
 ***
 
@@ -4238,19 +4239,19 @@ upper(expr)
 #### Syntax
 
 ```
-ltrim(str[, trimstr] ) 
+ltrim(str[, trimstr]) 
 ```
 
-**功能**：返回 str，其中删除了 trimStr 内的前导字符。默认trimestr为空白符
+**Function**：returns str, which removes the lead characters in trimmStr.Default trimester is empty
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT ltrim('   abc');
+SELECT ltrim('abc');
 ```
 
 ```
@@ -4268,19 +4269,19 @@ SELECT ltrim('   abc');
 #### Syntax
 
 ```
-md5(expr) 
+md5 (expr) 
 ```
 
-**功能**：以十六进制字符串形式返回 expr 的 MD5 128 位校验和。
+**Function**：returns MD5128 bits sum in hexadecimal string.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT md5('abc');
+SELECT md5 ('abc');
 ```
 
 ```
@@ -4301,24 +4302,24 @@ SELECT md5('abc');
 octet_length(expr) 
 ```
 
-**功能**：返回字符串数据的字节长度。
+**Function**：returns the byte length of string data.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT octet_length('你好');
+SELECT octet_length('hello');
 ```
 
 ```
-+---------------------------+
-| octetlength(Utf8("你好")) |
-+---------------------------+
-| 6                         |
-+---------------------------+
++-------- +
+| octetlength (Utf8("hello") |
++------------+
+| 6 |
++---------------------------------------------------------------------------------------------------+ +
 ```
 
 ***
@@ -4328,16 +4329,16 @@ SELECT octet_length('你好');
 #### Syntax
 
 ```
-random( [seed] ) 
+random ( [seed] 
 ```
 
-**功能**：返回介于 0 和 1 之间的随机值。
+**Function**：returns random values between 0 and 1.
 
-**参数类型**：无
+**Parameter type**：none
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
 SELECT random();
@@ -4355,11 +4356,11 @@ SELECT random();
 
 [//]: # "    regexp_replace(str, regexp, rep [, position] ) "
 
-[//]: # "**功能**：将 str 中与 regexp 匹配的所有子字符串都替换为 rep。"
+[//]: # "**Function**：substitutes all substrings matching regexp with rep."
 
-[//]: # "**参数类型**：STRING"
+[//]: # "**Parameter type**：STRING"
 
-[//]: # "**返回类型**：BIGINT"
+[//]: # "**Return Type**：BIGINT"
 
 ***
 
@@ -4371,24 +4372,24 @@ SELECT random();
 repeat(expr, n) 
 ```
 
-**功能**：返回重复 expr, n 次的字符串。
+**Function**：returns duplicate expr, n seconds.
 
-**参数类型**：expr类型为STRING，n类型为BIGINT
+**Parameter type**：exprs type STRING, n type BIGINT
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT repeat('a', 5);
+SELECT recpeat('a', 5);
 ```
 
 ```
-+----------------------------+
-| repeat(Utf8("a"),Int64(5)) |
-+----------------------------+
-| aaaaa                      |
-+----------------------------+
++-------- +
+| repeat(Utf8("a"), Int64(5))|
++------------+
+| aaaaaaaa |
++-------------------------------------
 ```
 
 ***
@@ -4398,27 +4399,27 @@ SELECT repeat('a', 5);
 #### Syntax
 
 ```
-replace(str, search, replace ) 
+place(str, search, replace) 
 ```
 
-**功能**：将所有 search 项都替换为 replace。
+**Function**：Replace all search items with replacement.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT replace('aaa', 'a', 'b');
+SELECT place ('aaa', 'a', 'b');
 ```
 
 ```
-+------------------------------------------+
-| replace(Utf8("aaa"),Utf8("a"),Utf8("b")) |
-+------------------------------------------+
-| bbb                                      |
-+------------------------------------------+
++-------- +
+| replacement (Utf8("aaa"), Utf8("a"), Utf8("a"), Utf8("a"), Utf8("b")) |
++------------+
+| bbb |
++----------+ + + +
 ```
 
 ***
@@ -4428,19 +4429,19 @@ SELECT replace('aaa', 'a', 'b');
 #### Syntax
 
 ```
-reverse(expr) 
+reverse (expr) 
 ```
 
-**功能**：返回一个反向字符串或一个包含逆序的元素的数组。
+**Function**：returns an reverse string or an array of arrays containing inverse elements.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT reverse('你好');
+SELECT reverse('hello');
 ```
 
 ```
@@ -4458,27 +4459,27 @@ SELECT reverse('你好');
 #### Syntax
 
 ```
-right(str, len) 
+right (str, len) 
 ```
 
-**功能**：返回字符串 str 中最右边的 len 个字符。
+**Function**：returns the longest len character on the right of the string stack.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
- SELECT right('aaabbb', 3);
+ SELECT rights ('aabbb', 3);
 ```
 
 ```
-+--------------------------------+
-| right(Utf8("aaabbb"),Int64(3)) |
-+--------------------------------+
-| bbb                            |
-+--------------------------------+
++-------- +
+| right (Utf8("aaabb"), Int64(3)) |
++---+
+| bbb |
++---+ + + + + + +
 ```
 
 ***
@@ -4491,26 +4492,26 @@ right(str, len)
 digest(expr, algorithm)
 ```
 
-**功能**：把表达式用给定算法计算散列值
+**Function**：calculates hash values using the expression to a given algorithm.
 
-**参数类型**：expr, algorithm都为STRING类型
+**Parameter Type**：expr, algorithm is STRING,
 
-algorithm指定计算散列的算法，仅支持 md5, sha224, sha256, sha384, sha512, blake2s, blake2b, blake3
+algorithm specifies the algorithm for calculating hash and supports only md5, sha224, sha256, sha384, sha512, blake 2, blak2b, bllake3
 
-**返回类型**：BINARY
+**Return Type**：BINARY
 
-**示例**
+**Example**
 
 ```sql
-SELECT digest('abc', 'md5');
+SELECT digest ('abc', 'md5');
 ```
 
 ```
-+----------------------------------+
-| digest(Utf8("abc"),Utf8("md5"))  |
-+----------------------------------+
++-------------------- -+
+| digest(Utf8("abc"), Utf8("m5")) |
++---+
 | 900150983cd24fb0d6963f7d28e17f72 |
-+----------------------------------+
++---+ +
 ```
 
 ***
@@ -4520,27 +4521,27 @@ SELECT digest('abc', 'md5');
 #### Syntax
 
 ```
-rtrim( str [, trimstr] ) 
+rtrim ( str [, trimstr]) 
 ```
 
-**功能**：返回删除了尾随字符trimstr的str，trimstr默认是空白字符。
+**Feature**：returns deleting the strings of the tailed character trimstr,trimstr's default is empty characters.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT rtrim('aaabbb', 'b');
+SELECT rtrim ('aabbb', 'b');
 ```
 
 ```
-+---------------------------------+
-| rtrim(Utf8("aaabbb"),Utf8("b")) |
-+---------------------------------+
-| aaa                             |
-+---------------------------------+
++----------- +
+| rtrim (Utf8("aabb"),Utf8("b"))|
++---+
+| aaaa |
++---------+ + + + + +
 ```
 
 ***
@@ -4553,24 +4554,24 @@ SELECT rtrim('aaabbb', 'b');
 sha224(str)
 ```
 
-**功能**：计算字符串的 sha224 散列值
+**Function**：calculates the sha224 hash of a string
 
-**返回类型**：BINARY
+**Return Type**：BINARY
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**示例**
+**Example**
 
 ```sql
- SELECT sha224('abc');
+ SELECT sha224 ('abc');
 ```
 
 ```
-+----------------------------------------------------------+
-| sha224(Utf8("abc"))                                      |
-+----------------------------------------------------------+
-| 23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7 |
-+----------------------------------------------------------+
++----- +
+| sha224 (Utf8("abc")) |
++-----------+
+| 23097d223405d82a477bda2a2aadbce4bda0b3f7e3f7e36c9da7 |
++------------------------------------------------------------
 ```
 
 ***
@@ -4583,13 +4584,13 @@ sha224(str)
 sha256(str)
 ```
 
-**功能**：    计算字符串的 sha256 散列值
+**Function**：    calculates the sha256 hash of a string
 
-**返回类型**：BINARY
+**Return Type**：BINARY
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**示例**
+**Example**
 
 ```sql
 SELECT sha256('abc');
@@ -4613,16 +4614,16 @@ SELECT sha256('abc');
 sha384(str)
 ```
 
-**功能**：   计算字符串的 sha384 散列值
+**Function**：   calculates the sha384 hash of a string
 
-**返回类型**：BINARY
+**Return Type**：BINARY
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT sha384('abc');
+SELECT sha384 ('abc');
 ```
 
 ```
@@ -4643,11 +4644,11 @@ SELECT sha384('abc');
 sha512(str)
 ```
 
-**功能**： 计算字符串的 sha512 散列值
+**Function**： calculates the sha512 hash of a string
 
-**返回类型**：BINARY
+**Return Type**：BINARY
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
 ***
 
@@ -4659,24 +4660,24 @@ sha512(str)
 split_part(str, delim, n) 
 ```
 
-**功能**： 将 str 按照 delim 做拆分，返回第n部分。
+**Function**： split str by delimit, returning part n.
 
-**参数类型**：str，delim类型为STRING，partNum类型为BIGINT
+**Parameter type**：str,deim type STRING, partNum type BIGINT
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
 SELECT split_part('abc|def|ghi', '|', 2);
 ```
 
 ```
-+---------------------------------------------------+
-| splitpart(Utf8("abc|def|ghi"),Utf8("|"),Int64(2)) |
-+---------------------------------------------------+
-| def                                               |
-+---------------------------------------------------+
++-------- +
+| splitpart(Utf8("abc|def|ghi"), Utf8("|"|"), Int64(2)) |
++------------- +
+| def |
++-------------
 ```
 
 ***
@@ -4689,13 +4690,13 @@ SELECT split_part('abc|def|ghi', '|', 2);
 starts_with(expr, startExpr) 
 ```
 
-**功能**： 如果 expr 以 startExpr 开头，则返回 true。
+**Function**： returns true if expr starts with startExpm.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BOOLEAN
+**Return Type**：BOOLEN
 
-**示例**
+**Example**
 
 ```sql
 SELECT starts_with('abcdefg', 'abc');
@@ -4716,27 +4717,27 @@ SELECT starts_with('abcdefg', 'abc');
 #### Syntax
 
 ```
-strpos(str, substr ) 
+strpos(str, subst) 
 ```
 
-**功能**：返回子字符串在指定字符串中的位置。
+**Function**：returns the child string in the specified string.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT strpos('abcdef', 'def');
 ```
 
 ```
-+------------------------------------+
-| strpos(Utf8("abcdef"),Utf8("def")) |
-+------------------------------------+
-| 4                                  |
-+------------------------------------+
++----------------- +
+| strpos(Utf8("abcdef"), Utf8("def") |
++----+
+| 4 |
++-------------+ + +
 ```
 
 ***
@@ -4746,27 +4747,27 @@ SELECT strpos('abcdef', 'def');
 #### Syntax
 
 ```
-substr(expr, pos [, len] ) 
+substr(expr, pos [, len]) 
 ```
 
-**功能**： 返回 expr 的子字符串（从 pos 开始，长度为 len）。
+**Function**： returns expr substring (from pos and length).
 
-**参数类型**：expr 类型为STRING，pos，len类型为BIGINT
+**Parameter type**：expr type STRING,pos,len type BIGINT
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
 SELECT substr('abcdef', 4, 3);
 ```
 
 ```
-+------------------------------------------+
-| substr(Utf8("abcdef"),Int64(4),Int64(3)) |
-+------------------------------------------+
-| def                                      |
-+------------------------------------------+
++---------+
+| substr(Utf8("abcdef"), Int64(4), Int64(3)) |
++------+
+| de|
++----------+ +
 ```
 
 ***
@@ -4779,24 +4780,24 @@ SELECT substr('abcdef', 4, 3);
 to_hex(value)
 ```
 
-**功能**： 将十进制数字转换为十六进制表示形式。
+**Function**： Converts decimal numbers to hexadecimal expressions.
 
-**参数类型**：BIGINT
+**Parameter Type**：BIGINT
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
 SELECT to_hex(100);
 ```
 
 ```
-+-------------------+
-| tohex(Int64(100)) |
-+-------------------+
-| 64                |
-+-------------------+
++-------- +
+| tzm (Int64(100)) |
++-----------+
+| 64 |
++-------------+ + +
 ```
 
 ***
@@ -4806,32 +4807,33 @@ SELECT to_hex(100);
 #### Syntax
 
 ```
-translate(expr, from, to) 
+translate(expr, from,to) 
 ```
 
-**功能**： 返回一个 expr，其中 from 中的所有字符都替换为 to 中的字符。
+**Function**： returns an expr, where all characters from are replaced with characters to be in place.
 
-**参数类型**：STRING
+**Parameter type**：STRING
 
-**返回类型**：STRING
+**Return Type**：STRING
 
-**示例**
+**Example**
 
 ```sql
-SELECT translate('aaabbb', 'bbb', 'ccc');
+SELECT translate('aabbb', 'bbb', 'cc');
 ```
 
 ```
-+---------------------------------------------------+
-| translate(Utf8("aaabbb"),Utf8("bbb"),Utf8("ccc")) |
-+---------------------------------------------------+
-| aaaccc                                            |
-+---------------------------------------------------+
++-------- +
+| translate(Utf8("aabb"), Utf8("bbb"), Utf8("bbb"), Utf8("cc")) |
++----------------------------------+
+| aaccc |
++----------------------------------------------------------------------------------------------------------------------------------+ 
+
 ```
 
 ***
 
-### 时间函数
+### Time Function
 
 ### **date_part**
 
@@ -4841,29 +4843,29 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 date_part(field, expr) 
 ```
 
-**功能**：提取部分日期、时间戳或间隔。
+**Function**：extracted some dates, timestamps, or intervals.
 
-**参数类型**：
+**Parameter Type**：
 
-field 类型为STRING，且只能是('year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', '
-second')中的一种。
+Field type is STRING, and can only be one of (\`year', 'quarter', 'month', 'week', 'day', 'doy', 'doy', 'doow', 'hour', 'minute', '
+second').
 
-expr 类型为 TIMESTAMP
+expr type TIMESTAMP
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT date_part('hour', TIMESTAMP '2022-11-21T09:18:17');
 ```
 
 ```
-+----------------------------------------------------+
-| datepart(Utf8("hour"),Utf8("2022-11-21T09:18:17")) |
-+----------------------------------------------------+
-| 9                                                  |
-+----------------------------------------------------+
++-------------- +
+| datepart(Utf8("hour"), Utf8("2022-11-21T09:18:17") |
++----------------------------------------------------------+
+| 9 |
++---------------------------------------------------------------------
 ```
 
 ***
@@ -4876,25 +4878,25 @@ SELECT date_part('hour', TIMESTAMP '2022-11-21T09:18:17');
 date_trunc(field, expr) 
 ```
 
-**功能**：返回已截断到 field 中指定的单位的值。
+**Function**：returns the value of units truncated to the field.
 
-**参数类型**：field 类型为STRING，且只能是('year', 'quarter', 'month', 'week', 'day', 'doy', 'dow', 'hour', 'minute', '
-second')中的一种。
+**Parameter type**：Field type is STRING, and can only be one of ('year', 'quarter', 'month', 'month', 'week', 'day', 'doy', 'doow', 'hour', 'minute', ' , '
+second').
 
-expr 类型为TIMESTAMP
+expr type is TIMESTAMP
 
-**示例**
+**Example**
 
 ```sql
 SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 ```
 
 ```
-+------------------------------------------------------+
-| datetrunc(Utf8("month"),Utf8("2022-11-21T09:18:17")) |
-+------------------------------------------------------+
-| 2022-11-01T00:00:00                                  |
-+------------------------------------------------------+
++----------- +
+| datecrunc(Utf8("month"), Utf8("2022-11-21T09:18:17") |
++-------------+
+| 20-11-01T00:00:00 |
++-------------+
 ```
 
 ***
@@ -4907,20 +4909,20 @@ SELECT date_trunc('month', TIMESTAMP '2022-11-21T09:18:17');
 date_bin(interval, source, origin)
 ```
 
-**功能**： 从origin开始，按interval切分bucket，返回source所在的bucket timestamp
+**Feature**： starts from origin, split bucket, return source's bucket timestamp by interval
 
-**参数类型**：
+**Parameter Type**：
 
-interval 是 STRING 类型，会解析成时间间隔，
+interval is STRING type, will be parsed as time interval,
 
-source, origin 是 TIMESTAMP 类型。
+source, origin is the TIMESTAMP type.
 
-**返回类型**：TIMESTAMP
+**Return Type**：TIMESTAMP
 
-**示例**
+**Example**
 
 ```sql
-SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '2022-11-01T00:00:00');
+SELECT date_bin (INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '2022-11-01T00:00:00');
 ```
 
 ```
@@ -4941,24 +4943,25 @@ SELECT date_bin(INTERVAL '1' DAY, TIMESTAMP '2022-11-21T09:10:24', TIMESTAMP '20
 to_timestamp(expr) 
 ```
 
-**功能**：返回使用可选格式设置强制转换为某个时间戳的 expr。
+**Function**：returns exprs that use optional format to force conversion to a certain timestamp.
 
-**参数类型**：STRING或BIGINT
+**Parameter Type**：STRING, or BIGINT
 
-**返回类型**：TIMESTAMP类型，精度随参数确定，BIGINT类型的参数，返回的是纳秒级的TIMESTAMP
+**Return Type**：TIMESTAMP type, accuracy determined by parameters, BIGINT type, returned by nansecs TIMESTAMP
 
-**示例**
+**Example**
 
 ```sql
 SELECT to_timestamp('1970-01-01T00:00:00');
 ```
 
 ```
-+------------------------------------------+
++---------+
 | totimestamp(Utf8("1970-01-01T00:00:00")) |
-+------------------------------------------+
-| 1970-01-01T00:00:00                      |
-+------------------------------------------+
++-----------+
+| 1970-01-01T00:00:00 | format@@3 +---+ + 
+ | 1970-01-01T00:00:00 |
++-----------+
 ```
 
 ```sql
@@ -4975,7 +4978,7 @@ SELECT to_timestamp(1);
 
 ***
 
-### **to_timestamp_millis**
+### **to_timestamp_millennium**
 
 #### Syntax
 
@@ -4983,16 +4986,16 @@ SELECT to_timestamp(1);
 to_timestamp_millis(expr) 
 ```
 
-**功能**：转化为毫秒级的时间戳
+**Function**：is converted to milligrams in milliseconds
 
-**参数类型**：BIGINT 或 STRING
+**Parameter Type**：BIGINT or STRING
 
-**返回类型**：毫秒级的TIMESTAMP
+**Return Type**：m2 TIMESTAMP
 
-**示例**
+**Example**
 
 ```sql
-SELECT to_timestamp_millis('1970-01-01T00:00:00.00301');
+SELECT to_timestamp_millis ('1970-01-01T00:00:00.00301');
 ```
 
 ```
@@ -5004,7 +5007,7 @@ SELECT to_timestamp_millis('1970-01-01T00:00:00.00301');
 ```
 
 ```sql
-SELECT to_timestamp_millis(1);
+SELECT to_timestamp_millis(1) ;
 ```
 
 ```
@@ -5022,16 +5025,16 @@ SELECT to_timestamp_millis(1);
 #### Syntax
 
 ```
-to_timestamp_micros(expr) 
+to_timestamp_micro(expr) 
 ```
 
-**功能**：转为微秒精度的时间戳。
+**Function**：turns to timestamp of microseconds.
 
-**参数**：BIGINT 或 STRING
+**Parameters**：BIGINT or STRING
 
-**返回类型**： 微秒精度的TIMESTAMP
+**Return Type**： microseconds\* TIMESTAMP
 
-**示例**
+**Example**
 
 ```sql
 SELECT to_timestamp_micros(1)
@@ -5055,13 +5058,13 @@ SELECT to_timestamp_micros(1)
 to_timestamp_seconds(expr) 
 ```
 
-**功能**：转为秒级的时间戳
+**Function**：turns to second-level timestamps
 
-**参数**：BIGINT 或 STRING
+**Parameters**：BIGINT or STRING
 
-**返回类型**：秒精度的TIMESTAMP
+**Return Type**：seconds of accuracy of TIMESTAMP
 
-**示例**
+**Example**
 
 ```
 SELECT to_timestamp_seconds(1);
@@ -5082,16 +5085,16 @@ SELECT to_timestamp_seconds(1);
 #### Syntax
 
 ```
-from_unixtime(unixTime) 
+from_unixtime (unixTime) 
 ```
 
-**功能**：返回 unixTime。
+**Function**：returns unixTime.
 
-**参数**： BIGINT
+**Parameters**： BIGINT
 
-**返回类型**： unix时间，秒级
+**Return Type**： unix time, second
 
-**示例**
+**Example**
 
 ```
 SELECT from_unixtime(1);
@@ -5115,11 +5118,11 @@ SELECT from_unixtime(1);
 now()
 ```
 
-**功能**：返回当前时间戳
+**Function**：returns current timestamp
 
-**返回类型**：TIMESTAMP
+**Return Type**：TIMESTAMP
 
-**示例**
+**Example**
 
 ```
 SELECT now();
@@ -5138,43 +5141,43 @@ SELECT now();
 #### Syntax
 
 ```sql
-time_window(time_expr, window_duration [, slide_duration])
+time_window(time_expr, window_duration[, slide_duration])
 ```
 
-time_column 为 Timestamp 类型
+time_column for Timestamp type
 
-window_duration 为STRING类型，解析成时间间隔，指定时间窗口的窗口大小
+window_duration is STRING, resolves to interval and specifies the window size of the time window
 
-slide_duration 为STRING类型，解析成时间间隔，指定时间窗口滑动的大小，不指定此参数时，滑动大小为时间窗口大小，变成滚动窗口
+Slide_duration is STRING, resolves as time intervals, specifies the size of the time window slider without specifying this parameter, sliding size is time window, turning to scroll window
 
-时间间隔的表示方法：
+Time interval representation method：
 
-| 格式   | 意思 | Example |
-| ---- | -- | ------- |
-| 'd'  | 天  | '10d'   |
-| 'h'  | 小时 | '10h'   |
-| 'm'  | 分钟 | '10m'   |
-| 's'  | 秒  | '10s'   |
-| 'ms' | 毫秒 | '10ms'  |
+| Format | Meaning | Example |
+| ------ | ------- | ------- |
+| 'd'    | 天       | '10d'   |
+| 'h'    | Hours   | '10h'   |
+| 'm'    | minutes | '10m'   |
+| 's'    | Seconds | '10s'   |
+| 'ms'   | ms      | '10ms'  |
 
-time_window(time, window_duration, slide_duration) 生成的窗口为：
+time_window(time, window_duration, slide_duration) generated window with：
 
 ```sql
 start, end
 time, time_column + window_duration
 time - slide_duration, time + window_duration - slide_duration
 time - 2 * slide_duration, time + window_duration - 2 * slide_duration
-...
+.
 time - n * slide_duration, time + window_duration - n * slide_duration
 ```
 
-且窗口满足 start <= time < end
+and window meets start <= time < end
 
-**示例：**
+**Example：**
 
 ```sql
 CREATE TABLE test(a BIGINT, TAGS(b));
-INSERT INTO test(time, a, b) VALUES ('2023-04-23T00:00:00.000000Z', 1, 'b');
+INSERT INTO test(time, a, b) VALUES ('2023-04-23T00:00:00.0000Z', 1, 'b');
 SELECT time FROM test;
 ```
 
@@ -5191,11 +5194,12 @@ SELECT time_window(time, '3d') FROM test;
 ```
 
 ```
-+--------------------------------------------------------+
-| TIME_WINDOW(test.time,Utf8("3d"))                      |
-+--------------------------------------------------------+
++----------------------------- +
+| TIME_WINDOW(test.time,Utf8("3d")) |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | {start: 2023-04-23T00:00:00, end: 2023-04-26T00:00:00} |
-+--------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2 | {start: 2023-04-23T00:00:00, end: 2023-04-26T00:00:00} | 
+ +--------------------------------------------------------------------------+
 ```
 
 ```sql
@@ -5203,15 +5207,15 @@ SELECT time_window(time, '5d', '3d') FROM test;
 ```
 
 ```
-+--------------------------------------------------------+
-| TIME_WINDOW(test.time,Utf8("5d"),Utf8("3d"))           |
-+--------------------------------------------------------+
++-------------- +
+| TIME_WINDOW(test.time,Utf8("5d"), Utf8("3d") |
++-------------+
 | {start: 2023-04-23T00:00:00, end: 2023-04-28T00:00:00} |
 | {start: 2023-04-20T00:00:00, end: 2023-04-25T00:00:00} |
-+--------------------------------------------------------+ 
++-------------+ + 
 ```
 
-### 窗口函数
+### Window Functions
 
 ### Syntax
 
@@ -5230,64 +5234,64 @@ frame_end: {offset_stop PRECEDING | CURRENT ROW | offset_stop FOLLOWING | UNBOUN
 
 ```
 
-### 函数类型
+### Function Type
 
-#### 排名函数
+#### Ranking Functions
 
-| 函数名                               |
-| --------------------------------- |
-| DENSE_RANK   |
-| PERCENT_RANK |
-| RANK                              |
-| ROW_NUMBER   |
+| Function Name                                                                                    |
+| ------------------------------------------------------------------------------------------------ |
+| PLAYLIST_NOTIFICATION_POPUP_TITLE |
+| PERCENT_RANK                                                                |
+| RANK                                                                                             |
+| ROW_NUMBER                                                                  |
 
-其中`DENSE_RANK` | `RANK` | `PERCENT_RANK` 需要 ORDER BY 子句
+`DENSE_RANK` | `PERCENT_RANK` requires ORDER BY
 
-其中 `RANK`, `DENSE_RANK`, `ROW_NUMBER` 指定window_frame 无效
+`RANK`, `DENSE_RANK`, `ROW_NUMBER` specifies window_frame that is invalid
 
-#### 聚合函数
+#### Aggregate Functions
 
-详见[聚合函数](./sql.md#聚合函数)
+See[聚合函数](./sql.md#polymer)
 
-#### 分析窗口函数
+#### Analyze Window Functions
 
-| 函数名                            |
-| ------------------------------ |
-| CUME_DIST |
-| LAG                            |
-| LEAD                           |
-| NTH_VALUE |
+| Function Name                       |
+| ----------------------------------- |
+| PLAYLIST_TITLE |
+| LAG                                 |
+| LEAD                                |
+| NTH_VALUE      |
 
-### PARTITION BY 子句
+### PARTICIPATION BY
 
-一个或多个表达式，用于指定一个行分区，如果没有该子句，则分区由所有行组成
+One or more expressions, which are used to specify a line partition, and if there are no such sentences, the division is composed of all lines
 
-### ORDER BY 子句
+### ORDER BY clause
 
-指定行在分区中的顺序
+Specify the order of lines in partitions
 
-### window_frame 子句
+### window_frame
 
-frame 是当前分区的一个子集，在分区里进一步细分窗口
+fame is a subset of the current partition, further splitting windows within the partition
 
-指定ROWS，则窗口以行为单位算偏移量
+Specify ROWS, where the window calculates the offset by action unit
 
-指定RANGE，则必须指定 ORDER BY 子句，窗口以ORDER BY 表达式的值为单位算偏移量
+Specify RANG, then ORDER BY children must be specified, and the window must be calculated in the value of ORDER BY expression
 
-- `UNBOUND PRECEDING` ROWS 模式下为分区的第一行，RANGE模式下为分区ORDER BY表达式的第一个值
-- `offset PRECEDING` ROWS 模式下为当前行的前offset行，RANGE 模式下为当前值的前offset值
-- `CURRENT ROW` ROWS 模式下为当前行，RANGE模式下为当前值
-- `offset FOLLOWING` ROWS 模式下为当前行的后offset行，RANGE 模式下为当前值的后offset值
-- `UNBOUND FOLLOWING` ROWS 模式下为分区的最后一行，RANGE模式下为ORDER BY表达式的最后一个值
+- `UNBOUND PRECEDING` ROWS mode first line of partition and the first value of partition ORDER BY expression in RANGE mode
+- `offset PRECEDING` ROWS mode for the current line of the previous offset, RANGE mode for the current value
+- \`\`CURRENT ROW\` ROWS mode is current line, RANGE mode is current
+- `offset FOLLOWING` ROWS mode for the current line reoffset,RANGE for the current value after offset
+- `UNBOUN FOLLOWING` ROWS mode for the last row of the partition, and RANGE for the last value of ORDER BY expression
 
-#### 使用限制
+#### Use Limit
 
-- 窗口函数只能出现在SELECT语句中。
-- 窗口函数中不能嵌套使用窗口函数和聚合函数。
+- Window functions can only appear in SELECT.
+- Window and polymering functions cannot be nested in window functions.
 
-### 窗口函数列表
+### Window Function List
 
-包括[聚合函数](./sql.md#聚合函数)
+Include[聚合函数](./sql.md#polymer)
 
 ### **ROW_NUMBER**
 
@@ -5297,17 +5301,17 @@ frame 是当前分区的一个子集，在分区里进一步细分窗口
 ROW_NUMBER() OVER([partition_clause] [orderby_clause])
 ```
 
-**功能**：根据窗口分区中的行顺序，为每一行分配唯一的顺序编号（从 1 开始）。
+**Function**：assigns a unique order number (starting from 1) for each row based on the sequence of lines in the window partition.
 
-**参数类型**：无
+**Parameter type**：none
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
 SELECT temperature, station, 
-       ROW_NUMBER() OVER (PARTITION BY station) 
+       ROW_NUMBER() OVER (PARITON BY station) 
 FROM air;
 ```
 
@@ -5338,20 +5342,20 @@ FROM air;
 #### Syntax
 
 ```
-RANK() OVER([partition_clause] [orderby_clause])
+RANK() OVER([partition_clause] [orderby_clause]
 ```
 
-**功能**：返回某个值相对于分区中所有值的排名（跳跃排名）。
+**Function**：returns a value relative to all values in partitions (jump).
 
-**参数类型**：无
+**Parameter type**：none
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       RANK() OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       RAK() OVER (PARITION BY station ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5382,20 +5386,20 @@ FROM air;
 #### Syntax
 
 ```
-DENSE_RANK() OVER([partition_clause] [orderby_clause])
+DENSE_RANK() OVER([partition_clause] [orderby_clause]
 ```
 
-**功能**：返回某个值相对于分区中所有值的排名（连续排名）。
+**Function**：returns the ranking of a value relative to all values in the partition (series rank).
 
-**参数类型**：无
+**Parameter type**：none
 
-**返回类型**：BIGINT
+**Return Type**：BIGINT
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       DENSE_RANK() OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       DENSE_RANK() OVER (PARITON BY ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5429,17 +5433,17 @@ FROM air;
 PERCENT_RANK() OVER([partition_clause] [orderby_clause])
 ```
 
-**功能**： 计算分区中某个值的百分比排名。
+**Function**： calculates the percentage ranking of a value in partition.
 
-**参数类型**：无
+**Parameter type**：none
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
- SELECT station, temperature, 
-        PERCENT_RANK() OVER (PARTITION BY station ORDER BY temperature) 
+ SELECT, temperature, 
+        PERCENT_RANK() OVER (PARITIAN BY ORDER BY temperature) 
  FROM air;
 ```
 
@@ -5470,20 +5474,20 @@ PERCENT_RANK() OVER([partition_clause] [orderby_clause])
 #### Syntax
 
 ```
-CUME_DIST() OVER ([partition_clause] [orderby_clause])
+CUME_DIST() OVER ([partition_clause] [orderby_clause]
 ```
 
-**功能**：返回某个值相对于分区中的所有值的位置。
+**Function**：returns the position of a value relative to all values in the partition.
 
-**参数类型**：无
+**Parameter type**：none
 
-**返回类型**：DOUBLE
+**Return Type**：DOUBLE
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       CUME_DIST() OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       CUME_DIST() OVER(PARTITION BY station ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5515,19 +5519,19 @@ FROM air;
 
 [//]: #
 
-[//]: # "    ntile(n) over([partition_clause] [order_by_clause])"
+[//]: # "    ntile(n) over([partition_clause] [order_by_clause]"
 
 [//]: #
 
-[//]: # "**功能**：把有序的数据集合平均分配到n个桶中,将桶号分配给每一行。"
+[//]: # "**Function**：assigns the ordered dataset to nbb and the drum number to each line."
 
 [//]: #
 
-[//]: # "**参数类型**：BIGINT"
+[//]: # "**Parameter Type**：BIGINT"
 
 [//]: #
 
-[//]: # "**返回类型**：BIGINT"
+[//]: # "**Return Type**：BIGINT"
 
 ***
 
@@ -5536,24 +5540,24 @@ FROM air;
 #### Syntax
 
 ```
-lag( expr [, offset [, default] ] ) OVER([partition_clause] orderby_clause)
+lag( expr [, offset [, default]) OVER([partition_clause] orderby_clause)
 ```
 
-**功能**：返回分区中当前行前offset行的expr的值。
+**Function**：returns the expr's value of the current line of offset in partition.
 
-**参数类型**：expr为任意类型，
+**Parameter Type**：exprs are of any type,
 
-offset为BIGINT，为负数时，从分区中后offset行返回值，默认为1
+Offset returns value from offset line in partition, default is 1 when negative
 
-default 需要与expr对应的数据类型相同,默认为NULL
+Default requires the same data type as expr, default is NULL
 
-**返回类型**：与expr相同的类型
+**Return Type**：same type as expr.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       LAG(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       LAG (temperature, 2) OVER (PARITION BY station ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5584,24 +5588,24 @@ FROM air;
 #### Syntax
 
 ```
-lead(expr [, offset [, default] ] ) OVER ([partition_clause] orderby_clause)
+lead(expr [, offset [, default]) OVER ([partition_clause] orderby_clause)
 ```
 
-**功能**：返回分区中当前行后offset行的expr的值。
+**Function**：returns the expr's value of the current line after offset in the partition.
 
-**参数类型**：expr为任意类型，
+**Parameter Type**：exprs are of any type,
 
-offset为BIGINT，为负数时，从分区中前offset行返回值，默认为1
+Offset is BIGINT and returns value from the previous offset line in partition, default is 1
 
-default需要与expr类型相同，默认是NULL
+Default needs to be the same as expr, default is NULL
 
-**返回类型**：与expr类型相同
+**Return Type**：Same as expr.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       LEAD(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       LEAD (temperature, 2) OVER (PARITON BY station ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5632,20 +5636,20 @@ FROM air;
 #### Syntax
 
 ```
-FIRST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
+FIRST_VALUE(expr) OVER ([partition_clause] [orderby_clause]
 ```
 
-**功能**： 返回一组值(该组通常是有序集合)中的第一个值。
+**Function**： returns the first value in a set of values (this group is usually an orderly assembly).
 
-**参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
+**Parameter Type**：exprs are any of the types,igne_nulls are the BOOLEN type, default is false
 
-**返回类型**：与expr类型相同
+**Return Type**：Same as expr.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       FIRST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       FIRST_VALUE (temperature) OVER (PARITION BY station ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5676,20 +5680,20 @@ FROM air;
 #### Syntax
 
 ```
-LAST_VALUE(expr) OVER ([partition_clause] [orderby_clause])
+LAST_VALUE(expr) OVER ([partition_clause] [orderby_clause]
 ```
 
-**功能**： 返回当前窗口中的最后一个值。
+**Function**： returns the last value in the current window.
 
-**参数类型**：expr为任意类型，ignore_nulls为BOOLEAN类型，默认值为false
+**Parameter Type**：exprs are any of the types,igne_nulls are the BOOLEN type, default is false
 
-**返回类型**：与expr类型相同
+**Return Type**：Same as expr.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       LAST_VALUE(temperature) OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       LAST_VALUE (temperature) OVER (PARITION BY station ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5720,20 +5724,20 @@ FROM air;
 #### Syntax
 
 ```
-NTH_VALUE(expr, number) OVER ([partition_clause] [orderby_clause])
+NTH_VALUE(expr, number@@0) OVER ([partition_clause] [orderby_clause]
 ```
 
-**功能**： 返回相对于窗口的第一行的窗口框架的指定行的表达式值。
+**Function**： returns the expression value of the specified line of the window frame in the first line of the window.
 
-**参数类型**：expr为任意类型，number为BIGINT
+**Parameter Type**：exprs are of any type, number@@0 BIGINT
 
-**返回类型**：与expr类型相同
+**Return Type**：Same as expr.
 
-**示例**
+**Example**
 
 ```sql
-SELECT station, temperature, 
-       NTH_VALUE(temperature, 2) OVER (PARTITION BY station ORDER BY temperature) 
+SELECT position, temperature, 
+       NTH_VALUE (temperature, 2) OVER (PARITON BY ORDER BY temperature) 
 FROM air;
 ```
 
@@ -5757,75 +5761,75 @@ FROM air;
 +-------------+-------------+-------------------------------------+
 ```
 
-## 高级函数
+## Advanced Functions
 
-### 插值函数
+### interpolation function
 
-在数据库中，插值是用于处理数据中缺失值的技术。当数据中存在缺失值时，这些技术可以帮助我们估计或推测这些缺失值，从而填补数据的空白部分。
+In the database, the interpolation is the technology used to process missing values in the data.When missing values exist in the data, these technologies can help us to estimate or speculate these missing values and thus fill the gaps in the data.
 
 ### **time_window_gapfill**
 
-time_window_gapfill 与 time_window 类似，但具有填补缺失数据的功能。interpolate 和 locf 必须与 time_window_gapfill 一起使用，它们控制如何处理缺失值。
+time_window_gapfill is similar to time_window, but has the function of filling missing data.Interpolate and locf must be used with time_window_gapfill, which controls how missing values are handled.
 
-time_window_gapfill 必须作为查询或子查询中的顶级表达式使用。例如，不能将 time_window_gapfill 嵌套在另一个函数中，如sum(time_window_gapfill(...))。
+time_window_gapfill must be used as a top level expression in a query or a subquery.For example, time_window_gapfill cannot be nested in another function, such as sum (time_window_gapfill(...)).
 
 #### Syntax
 
 - time_window_gapfill
 
 ```sql
-time_window_gapfill(<time column>, <window interval>[, <sliding interval>[, <start time>]]): <time window struct>
+time_window_gapFill (<time column> <window interval>[, <sliding interval>[, <start time>]): <time window struct>
 ```
 
-#### 策略
+#### Policy
 
 - interpolate
 
-线性插值的核心思想是假设已知数据点之间的关系是线性的，然后根据已知数据点之间的线性关系来估算未知数据点的值。具体地，线性插值通过使用已知数据点的纵坐标之间的线性变化率来推断未知数据点的纵坐标。
+The central idea of linear interpolation is to assume that the relationship between known data points is linear and then to estimate the value of unknown data points based on linear relationships between known data points.Specifically, linear interpolation values are extrapolated to unknown data points by using linear variation rates between the longitudinal coordinates of known data points.
 
-线性插值适用于连续变量的估算，例如在时间序列中填补缺失值或在空间数据中进行插值。然而，线性插值的准确性和适用性取决于数据的特性和实际情况。在某些情况下，数据可能具有非线性关系，或存在其他更适合的插值方法。因此，在应用线性插值之前，需要仔细考虑数据的性质和插值的目的，以确保插值结果合理和准确。
+Linear interpolation can be used for estimation of consecutive variables, such as filling missing values in time series or interpolating values in spatial data.However, the accuracy and applicability of linear interpolation values depend on the characteristics and actual circumstances of the data.In some cases, data may have non-linear relationships or other more appropriate interpolation methods.Therefore, before applying linear interpolation, careful consideration needs to be given to the nature of the data and the purpose of the interpolation to ensure that the interpolation results are reasonable and accurate.
 
 ```sql
-interpolate(<expr>)
+interpolate (<expr>)
 ```
 
 - locf
 
-该函数用于在时间窗口内进行缺失值填补（Gap filling），并使用 "Last Observation Carried Forward"（LOCF）操作来填充缺失值。
+This function is used to fill missing values within the time window (Gap filling) and to fill missing values using "Last Observation Carved Forward" (LOCF).
 
-"Last Observation Carried Forward"（LOCF）是一种用于填充缺失值的方法，它使用最近的可观察值来进行填充。具体处理方式如下：
+"Last Observation Carried Forward" (LOCF) is a method used to fill missing values using the latest observable value to fill.Specific treatment as follows:：
 
-1. 找到缺失值之前的最近一个非缺失值。
-2. 将该非缺失值的值复制到缺失值所在的位置。
-3. 继续向后遍历，直到遇到下一个非缺失值。
-4. 如果遇到下一个非缺失值，则重复步骤1和2，将该非缺失值的值复制到缺失值位置。
-5. 如果在数据序列的末尾仍有缺失值，则最后一个非缺失值将一直被复制，直到填充完所有缺失值。
+1. The last non-missing value before the missing value was found.
+2. Copy the value of this non-missing value to the position where the missing value is located.
+3. Continue backward until next non-missing value is encountered.
+4. If the next non-missing value is encountered, repeat steps 1 and 2, copy the value of the non-missing value to the missing value.
+5. If there is still a missing value at the end of the data series, the last non-missing value will be copied until all missing values are filled.
 
-简而言之，LOCF 方法通过将最近的可观察值复制到缺失值位置来填充缺失值，使得数据在时间上保持连续性。这种方法假设缺失值之后的数据与最后观察到的值相同或非常接近。
+In short, the LOCF method fills the missing value by copying the most recent observable value to the missing position, allowing data to remain continuous over time.This method assumes that the data after the missing values are the same or very close to the last observed values.
 
-需要注意的是，LOCF 方法可能会引入一定的偏差，特别是当缺失值之后的数据发生剧烈变化时。因此，在使用 LOCF 进行缺失值填充时，需要谨慎考虑数据的特点和分析的目的，以确保填补的值能够合理反映实际情况。
+It should be noted that LOCF may introduce some deviations, especially when data change dramatically after missing values.Therefore, in filling in missing values using LOCF, careful consideration needs to be given to the characteristics of the data and the purpose of the analysis to ensure that the values filled are reasonably reflective of the actual situation.
 
 ```sql
-locf(<expr>)
+locf(<expr>
 ```
 
-**示例：**
+**Example：**
 
 ```sql
----- 准备数据
-DROP DATABASE IF EXISTS gapfill_db;
-CREATE DATABASE gapfill_db WITH TTL '1000000d';
-CREATE TABLE gapfill_db.m2(f0 BIGINT, f1 DOUBLE, TAGS(t0, t1, t2));
+---- Prepare Data
+DROPP DATABASE IF EXISTS gapfill_db;
+CREATE DATABASE gapill_db WITH TTL '100000d';
+CREATE TABLE gapfill_db. 2(f0 BIGINT, f1 DOUBLE, TAGS(t0, t1, t2));
 
-INSERT gapfill_db.m2(TIME, f0, f1, t0, t1)
+INSERT gapfill_db. 2(TIME, f0, f1, t0, t1)
 VALUES
-    ('1999-12-31 00:00:00.000', 111, 444, 'tag11', 'tag21'),
-    ('1999-12-31 00:00:00.005', 222, 333, 'tag12', 'tag22'),
-    ('1999-12-31 00:00:00.010', 333, 222, 'tag13', 'tag23'),
+    ('1999-12-31 00:00:00. 00', 111, 444, 'tag11', 'tag21'),
+    ('1999-12-31 00:00.005', 222, 333, 'tag12', 'tag22'),
+    ('1999-12-31 00:00:00. 10', 333, 222, 'tag13', 'tag23'),
     ('1999-12-31 00:00:00.015', 444, 111, 'tag14', 'tag24'),
-    ('1999-12-31 00:00:00.020', 222, 555, 'tag11', 'tag21'),
-    ('1999-12-31 00:00:00.025', 333, 444, 'tag12', 'tag22'),
-    ('1999-12-31 00:00:00.030', 444, 333, 'tag13', 'tag23'),
+    ('1999-12-31 00:00:00. 20', 222, 555, 'tag11', 'tag21'),
+    ('1999-12-31 00:00:00. 25', 333, 444, 'tag12', 'tag22'),
+    ('1999-12-31 00:00:00. 30', 444, 333, 'tag13', 'tag23'),
     ('1999-12-31 00:00:00.035', 555, 222, 'tag14', 'tag24');
 ```
 
@@ -5835,7 +5839,7 @@ SELECT
   t0,
   time_window_gapfill(time, interval '10 milliseconds') as minute,
   interpolate(avg(f1))
-from gapfill_db.m2
+from gapill_db. 2
 where time between timestamp '1999-12-31T00:00:00.000Z' and timestamp '1999-12-31T00:00:00.055Z'
 group by t0, minute;
 ```
@@ -5877,7 +5881,7 @@ SELECT
   t0,
   time_window_gapfill(time, interval '10 milliseconds') as minute,
   locf(avg(f1))
-from gapfill_db.m2
+from gapill_db. 2
 where time between timestamp '1999-12-31T00:00:00.000Z' and timestamp '1999-12-31T00:00:00.055Z'
 group by t0, minute;
 ```
@@ -5913,59 +5917,59 @@ group by t0, minute;
 +-------+-------------------------+-----------------------+
 ```
 
-## 系统视图
+## System View
 
-CnosDB 提供了系统视图用来查看集群状态和集群Schema信息。
+CnosDB provides a system view to view cluster status and cluster schema information.
 
-有两个特殊的数据库存放这些视图：
+There are two special databases that store these views in：
 
-- CLUSTER_SCHEMA 关于数据库集群
-- INFORMATION_SCHEMA 关于租户信息
+- CLUSER_SCHEMA on Database Cluster
+- INFORMATION_SCHEMA Information on Tenants
 
-### CLUSTER_SCHEMA
+### PLAYLIST_NOTIFICATION_SHEMA
 
-该数据库属于整个集群，只有管理员可以访问。
+This database belongs to the entire cluster, which can only be accessed by administrators.
 
-数据库中包含有关集群的元数据信息，例如租户信息，用户信息。
+The database contains metadata information on clusters, such as tenant information, user information.
 
-### TENANTS
+### ENANTS
 
-该视图可用于查询整个集群的所有租户信息。
+This view can be used to retrieve all tenant information for the entire cluster.
 
-#### 视图定义
+#### View Definition
 
-| 字段                                  | 数据类型   | Description     |
-| ----------------------------------- | ------ | --------------- |
-| TENANT_NAME    | STRING | 租户名称            |
-| TENANT_OPTIONS | STRING | 租户配置，json形式的字符串 |
+| 字段                                                             | Data Type | Description                      |
+| -------------------------------------------------------------- | --------- | -------------------------------- |
+| ENANT_NAME                                | STRING    | Tenant Name                      |
+| TREAT_PLAYLIST_TITLE | STRING    | Tenant configuration,json string |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM cluster_schema.tenants;
 ```
 
 ```
-+-------------+---------------------------------------------------+
-| tenant_name | tenant_options                                    |
-+-------------+---------------------------------------------------+
-| cnosdb      | {"comment":"system tenant","limiter_config":null} |
-+-------------+---------------------------------------------------+
++----- +
+| tenant_name | tenant_options |
++------------------+
+| cnosdb | {"comment": "system tenant", "limiter_config":n} |
++---+ + +
 ```
 
 ### USERS
 
-#### 视图定义
+#### View Definition
 
-该视图可以查询整个集群的所有用户信息。
+This view can search for all user information for the entire cluster.
 
-| 字段                                | 数据类型    | Description     |
-| --------------------------------- | ------- | --------------- |
-| USER_NAME    | STRING  | 用户名称            |
-| IS_ADMIN     | BOOLEAN | 是否为系统管理员        |
-| USER_OPTIONS | STRING  | 用户配置，JSON形式的字符串 |
+| 字段                                                             | Data Type | Description                          |
+| -------------------------------------------------------------- | --------- | ------------------------------------ |
+| USER_NAME                                 | STRING    | 用户名称                                 |
+| IS_ADMIN                                  | BOOLEN    | Whether to be a system administrator |
+| USER_OPTION_PLAYLIST | STRING    | User configuration,JSON string       |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM cluster_schema.users;
@@ -5979,27 +5983,27 @@ SELECT * FROM cluster_schema.users;
 +-----------+----------+-------------------------------------------------------------------------------------------------+
 ```
 
-### INFORMATION_SCHEMA
+### INFORMATION_SHEMA
 
-该数据库属于某个租户，在创建Tenant时，自动创建该DB，对租户下的所有成员可见。
+The database belongs to a tenant who automatically creates the DB when Tenant is created and is visible to all members of the tenant.
 
 ### DATABASES
 
-该视图存放租户下数据库的信息。
+This view stores information about the renters under the database.
 
-#### 视图定义
+#### View Definition
 
-| 字段名称                                | 数据类型            | Description      |
-| ----------------------------------- | --------------- | ---------------- |
-| TENANT_NAME    | STRING          | 数据库所属的租户名        |
-| DATABASE_NAME  | STRING          | 数据库名称            |
-| TTL                                 | STRING          | 表示数据文件保存的时间      |
-| SHARD                               | BIGINT UNSIGNED | 表示数据分片个数         |
-| VNODE_DURATION | STRING          | 表示数据在SHARD中的时间范围 |
-| PREPLICA                            | BIGINT UNSIGNED | 表示数据在集群中的副本数     |
-| PERCISION                           | STRING          | 表示数据库的时间精度       |
+| Field name                          | Data Type       | Description                                     |
+| ----------------------------------- | --------------- | ----------------------------------------------- |
+| ENANT_NAME     | STRING          | Tenant name for database                        |
+| DATABASSE_NAME | STRING          | Database name                                   |
+| TTL                                 | STRING          | Represents the time when the data file is saved |
+| SHARD                               | BIGINT UNCIGNED | Number of data fragments                        |
+| VNODE_DURATION | STRING          | Represents the time range of data in SHARD      |
+| PREPLICA                            | BIGINT UNCIGNED | Number of copies of data in cluster             |
+| PERCISON                            | STRING          | Represents the time accuracy of the database    |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM information_schema.databases;
@@ -6015,20 +6019,20 @@ SELECT * FROM information_schema.databases;
 
 ### TABLES
 
-该视图存放租户下所有表的信息。
+This view contains information about all tables under the tenant.
 
-#### 视图定义
+#### View Definition
 
-| 字段名称                                | 数据类型   | Description           |
-| ----------------------------------- | ------ | --------------------- |
-| TABLE_TENANT   | STRING | 表所属的租户                |
-| TABLE_DATABASE | STRING | 表所属的数据库               |
-| TABLE_NAME     | STRING | 表名                    |
-| TABLE_TYPE     | STRING | 表是基础表，还是视图            |
-| TABLE_ENGINE   | STRING | 表存储引擎，目前支持外部表和内部tskv表 |
-| TABLE_OPTION   | STRING | 内容为JSON字符串，记录表的所有参数   |
+| Field name                                                         | Data Type | Description                                                                     |
+| ------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------- |
+| TABLE_TEXT                                    | STRING    | Tenants attached to table                                                       |
+| TABLE_DATABASE                                | STRING    | Database to which table belongs                                                 |
+| TABLE_NAME                                    | STRING    | Table Name                                                                      |
+| TABLE_TYPE                                    | STRING    | Whether table is base table or view                                             |
+| TABLE_NOTIFICATION_TITLE | STRING    | Table storage engine, currently supported for external and internal tskv tables |
+| TABLE_OPTIONS                                 | STRING    | Content is JSON string, all parameters of the record table                      |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM information_schema.tables;
@@ -6046,23 +6050,23 @@ SELECT * FROM information_schema.tables;
 
 ### COLUMNS
 
-该视图存放租户下所有列的定义。
+This view contains all the definitions listed under the tenant.
 
-#### 视图定义
+#### View Definition
 
-| 字段名称                                   | 数据类型   | Description                                  |
-| -------------------------------------- | ------ | -------------------------------------------- |
-| TABLE_TENANT      | STRING | 表所属的租户                                       |
-| TABLE_DATABASE    | STRING | 表所属的数据库                                      |
-| TABLE_NAME        | STRING | 表所属的表名                                       |
-| COLUMN_NAME       | STRING | 列名                                           |
-| ORDINAL_POSITION  | STRING | 列在表中的顺序位置                                    |
-| COLUMN_TYPE       | STRING | 列的类型，tskv表独有的，支持 TIME、TAG、FIELD，通常字段为FIELD类型 |
-| IS_NULLABLE       | STRING | 如果列可能包含NULL，则为"YES"，否则为"NO"                  |
-| DATA_TYPE         | STRING | 列的数据类型                                       |
-| COMPRESSION_CODEC | STRING | 列使用的压缩算法                                     |
+| Field name                                                                                    | Data Type | Description                                                                           |
+| --------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- |
+| TABLE_TEXT                                                               | STRING    | Tenants attached to table                                                             |
+| TABLE_DATABASE                                                           | STRING    | Database to which table belongs                                                       |
+| TABLE_NAME                                                               | STRING    | Table name                                                                            |
+| COLUMN_NAME                                                              | STRING    | Listing                                                                               |
+| NOTIF_NOTIFICATION_POPUP_TITLE | STRING    | Sort position listed in table                                                         |
+| COLUMN_TYPE                                                              | STRING    | Column types, tskv table unique to support TIME, TAG, FIELD, usually fields are FIELD |
+| IS_NULLABLE                                                              | STRING    | If column may contain NULL, then "YES" or "NO"                                        |
+| DATA_TYPE                                                                | STRING    | Column data type                                                                      |
+| COMPRESSON_DEC                                                           | STRING    | Compression algorithm used for column                                                 |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM information_schema.columns;
@@ -6089,13 +6093,13 @@ SELECT * FROM information_schema.columns;
 
 ### ENABLED_ROLES
 
-此视图展示当前用户在当前租户下的角色信息。
+This view shows the current user's role information under the current tenant.
 
-#### 视图定义
+#### View Definition
 
-| 字段                             | 数据类型   | Description |
-| ------------------------------ | ------ | ----------- |
-| ROLE_NAME | STRING | 角色名称        |
+| 字段                             | Data Type | Description |
+| ------------------------------ | --------- | ----------- |
+| ROLE_NAME | STRING    | Role Name   |
 
 #### Example
 
@@ -6104,27 +6108,27 @@ SELECT * FROM information_schema.enabled_roles;
 ```
 
 ```
-+-----------+
++---+
 | role_name |
-+-----------+
-| owner     |
-+-----------+
++------
+| owner |
++---+ +
 ```
 
 ### ROLES
 
-此视图展示当前租户下所有可用的角色（包含系统角色和自定义角色）。
-此视图只对当前租户的Owner可见。
+This view shows all the roles available under the current tenant (including system and custom roles).
+This view is visible only to the current tenant Owner.
 
-#### 视图定义
+#### View Definition
 
-| 字段                                | 数据类型   | Description                  |
-| --------------------------------- | ------ | ---------------------------- |
-| ROLE_NAME    | STRING | 租户下的角色名称                     |
-| ROLE_TYPE    | STRING | 角色类型，自定义角色或系统角色              |
-| INHERIT_ROLE | STRING | 自定义角色继承的系统角色名称，如果是系统角色则为NULL |
+| 字段                                | Data Type | Description                                                   |
+| --------------------------------- | --------- | ------------------------------------------------------------- |
+| ROLE_NAME    | STRING    | Role Name under Tenant                                        |
+| ROLE_TYPE    | STRING    | Role Type, Custom Roles or System Roles                       |
+| INHERIT_ROLE | STRING    | Custom role name for role inheritance and NULL if system role |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM information_schema.roles;
@@ -6141,84 +6145,84 @@ SELECT * FROM information_schema.roles;
 
 ### DATABASE_PRIVILEGES
 
-#### 视图定义
+#### View Definition
 
-此视图展示所在租户下所有已被授予给指定角色的作用在db上的权限。
-此视图的所有记录对当前租户的Owner可见。
-对于非Owner成员，只展示对应角色的记录。
+This view shows all the permissions given to the given role on db under the tenant.
+All records of this view are visible to the current tenant Owner.
+For non-Owner members, show records of corresponding roles only.
 
-| 字段                                  | 数据类型   | Description             |
-| ----------------------------------- | ------ | ----------------------- |
-| TENANT_NAME    | STRING | 被授予权限的数据库所属的租户名称        |
-| DATABASE_NAME  | STRING | 被授予权限的数据库名称             |
-| PRIVILEGE_TYPE | STRING | 被授予的权限类型，READ/WRITE/ALL |
-| ROLE_NAME      | STRING | 被授予权限的角色名称              |
+| 字段                                  | Data Type | Description                                                                 |
+| ----------------------------------- | --------- | --------------------------------------------------------------------------- |
+| ENANT_NAME     | STRING    | Name of tenant in the database to which the granted permissions are granted |
+| DATABASSE_NAME | STRING    | Name of the database that has been granted permissions                      |
+| PRIVILEGE_TYPE | STRING    | Type of permissions granted, READ/WRITE/ALL                                 |
+| ROLE_NAME      | STRING    | Name of the role that has been granted permission                           |
 
-**示例**
+**Example**
 
 ```sql
 CREATE ROLE rrr INHERIT member;
-GRANT READ ON DATABASE air TO ROLE rrr;
+GRANT READ ON DATABASE air TO ROLE rrrrr;
 SELECT * FROM information_schema.database_privileges;
 ```
 
 ```
-+-------------+---------------+----------------+-----------+
-| tenant_name | database_name | privilege_type | role_name |
-+-------------+---------------+----------------+-----------+
-| cnosdb      | air           | Read           | rrr       |
-+-------------+---------------+----------------+-----------+
++-------- +------------------+-
+| tenant_name | database_name | privilege_type | role_name | role_name |
++--------------+
+| cnosdb | air | Read | rr |
++-----------------
 ```
 
 ### MEMBERS
 
-此视图展示所在租户下的成员信息。
+This view shows the membership information under the tenant.
 
-此视图的所有记录对当前租户的所有成员可见。
+All records of this view are visible to all members of the current tenant.
 
-#### 视图定义
+#### View Definition
 
-| 字段                             | 数据类型   | Description |
-| ------------------------------ | ------ | ----------- |
-| USER_NAME | STRING | 租户下的用户成员名称  |
-| ROLE_NAME | STRING | 成员的角色名称     |
+| 字段                             | Data Type | Description                   |
+| ------------------------------ | --------- | ----------------------------- |
+| USER_NAME | STRING    | Username of user under tenant |
+| ROLE_NAME | STRING    | Member's role name            |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM information_schema.members;
 ```
 
 ```
-+-----------+-----------+
++-------------- +
 | user_name | role_name |
-+-----------+-----------+
-| root      | owner     |
-+-----------+-----------+
++-----------------------
+| root | owner |
++----+ + + +
 ```
 
 ### QUERIES
 
-此视图展示SQL语句实时快照，用于实时监控SQL作业。
+This view shows SQL statements in real time snapshots used to monitor SQL jobs in real time.
 
-此视图的所有记录对当前租户的owner可见。
+All records for this view are visible to the current tenant owner.
 
-对于非Owner成员，只展示当前成员提交的SQL。
+For non-Owner members, only display SQL submissions from current members.
 
-#### 视图定义
+#### View Definition
 
-| 字段                               | 数据类型            | Description                                                    |
-| -------------------------------- | --------------- | -------------------------------------------------------------- |
-| QUERY_ID    | STRING          | SQL语句的ID                                                       |
-| QUERY_TEXT  | STRING          | SQL语句的内容                                                       |
-| USER_ID     | STRING          | 提交SQL的用户ID                                                     |
-| USER_NAME   | STRING          | 提交SQL的用户名称                                                     |
-| TENANT_ID   | STRING          | 租户ID                                                           |
-| TENANT_NAME | STRING          | 租户名称                                                           |
-| STATE                            | STRING          | 语句的运行状态，分为ACCEPTING，DISPATCHING，ANALYZING，OPTMIZING，SCHEDULING |
-| DURATION                         | BIGINT UNSIGNED | 语句持续运行的时间                                                      |
+| 字段                                | Data Type       | Description                                                                     |
+| --------------------------------- | --------------- | ------------------------------------------------------------------------------- |
+| QUERY_ID     | STRING          | SQL statement ID                                                                |
+| REQUERY_TEXT | STRING          | Content of SQL statements                                                       |
+| USER_ID      | STRING          | UserID for submission of SQL                                                    |
+| USER_NAME    | STRING          | Name of user who submitted SQL                                                  |
+| ENANT_ID     | STRING          | Tenant ID                                                                       |
+| ENANT_NAME   | STRING          | Tenant Name                                                                     |
+| STATE                             | STRING          | Status of statements in ACCEPTING, DISPATCHING, ANALYZING, OPTMIZING, SCHEDUING |
+| DURATION                          | BIGINT UNCIGNED | Time when statements are running                                                |
 
-**示例**
+**Example**
 
 ```sql
 SELECT * FROM information_schema.queries;
@@ -6234,9 +6238,9 @@ SELECT * FROM information_schema.queries;
 
 #### SHOW QUERIES
 
-你还可以使用`SHOW QUERIES`语句来查看正在执行的SQL语句, 该语句这是对QUERIES视图的包装。
+You can also view an active SQL statement using the `SHOW QUERIES` statement, which is a package for QUERIES.
 
-**示例**
+**Example**
 
 ```sql
 SHOW QUERIES;
@@ -6252,61 +6256,61 @@ SHOW QUERIES;
 
 ## USAGE_SCHEMA
 
-该数据库，属于某个租户，在创建Tenant时，自动创建该DB，对租户下的所有成员可见。
+The database, belonging to a tenant, automatically created the DB when Tenant was created and is visible to all members of the tenant.
 
-对于普通用户，只能看到 USAGE_SCHEMA 中的表中属于当前用户租户的一部分，
+For normal users, only the table in USAGE_SCHEMA can be seen as part of the current user's tenant,
 
-对于系统管理员，能看到 USAGE_SCHEMA 中表的全部。
+For system administrators, see all the tables in USAGE_SCHEMA.
 
-### DISK_STORAGE
+### PLAYLIST_NOTIFICATION_TITLE
 
-该视图记录集群中各个 vnode 所占磁盘空间大小，单位Byte。
+This view records the size of the disk space in the cluster of vnode, in Byte.
 
-#### 视图定义
+#### View Definition
 
-管理员看到的视图定义：
+Admin's view definition：
 
-| 字段                            | 数据类型            | Description                            |
-| ----------------------------- | --------------- | -------------------------------------- |
-| TIME                          | TIMESTAMP       | 统计disk_storage的时间 |
-| DATABASE                      | STRING          | vnode 所属的数据库                           |
-| NODE_ID  | STRING          | data节点的ID                              |
-| TENANT                        | STRING          | vnode 所属的租户名称                          |
-| VNODE_ID | STRING          | vnode 的 ID                             |
-| VALUE                         | BIGINT UNSIGNED | vnode 所占磁盘大小                           |
+| 字段                            | Data Type       | Description                             |
+| ----------------------------- | --------------- | --------------------------------------- |
+| TIME                          | TIMESTAMP       | Time of disk_store |
+| DATABASE                      | STRING          | vnode 所属的数据库                            |
+| NODE_ID  | STRING          | data节点的ID                               |
+| TENANT                        | STRING          | vnode 所属的租户名称                           |
+| VNODE_ID | STRING          | vnode 的 ID                              |
+| VALUE                         | BIGINT UNCIGNED | vnode size                              |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息：
+Definition of view seen by normal users. Only： can access the tenant information for the current session
 
-| 字段                            | 数据类型            | Description                            |
-| ----------------------------- | --------------- | -------------------------------------- |
-| TIME                          | TIMESTAMP       | 统计disk_storage的时间 |
-| DATABASE                      | STRING          | vnode 所属的数据库                           |
-| NODE_ID  | STRING          | data节点的ID                              |
-| TENANT                        | STRING          | vnode 所属的租户名称                          |
-| VNODE_ID | STRING          | vnode 的 ID                             |
-| VALUE                         | BIGINT UNSIGNED | vnode 所占磁盘大小                           |
+| 字段                            | Data Type       | Description                             |
+| ----------------------------- | --------------- | --------------------------------------- |
+| TIME                          | TIMESTAMP       | Time of disk_store |
+| DATABASE                      | STRING          | vnode 所属的数据库                            |
+| NODE_ID  | STRING          | data节点的ID                               |
+| TENANT                        | STRING          | vnode 所属的租户名称                           |
+| VNODE_ID | STRING          | vnode 的 ID                              |
+| VALUE                         | BIGINT UNCIGNED | vnode size                              |
 
 #### Example
 
-管理员用户
+Admin User
 
 ```sql
-select * from usage_schmea.disk_storage order by time desc limit 2;
+Select * from usage_schmea.disk_storage order by time desc limit 2;
 ```
 
 ```
-+----------------------------+--------------+---------+--------+----------+-------+
-| time                       | database     | node_id | tenant | vnode_id | value |
-+----------------------------+--------------+---------+--------+----------+-------+
-| 2023-02-23T03:57:52.566487 | usage_schema | 1001    | cnosdb | 3        | 0     |
-| 2023-02-23T03:57:42.566642 | usage_schema | 1001    | cnosdb | 3        | 0     |
-+----------------------------+--------------+---------+--------+----------+-------+
++----------------------------+--------+
+| time | database | node_id | tenant | vnode_id | value |
++----------------------------------------------------+
+| 2023-02-23T03:57:52. 66487 | usage_schema | 1001 | cnosdb | 3 | 0 |
+| 2023-02-23T03:57:42. 66642 | usage_schema | 1001 | cnosdb | 3 | 0 |
++---------------------+ +
 ```
 
-普通用户
+Normal User
 
 ```sql
-select * from usage_schema.disk_storage order by time desc limit 2;
+Select * from usage_schema.disk_storage order by time desc limit 2;
 ```
 
 ```
@@ -6320,50 +6324,50 @@ select * from usage_schema.disk_storage order by time desc limit 2;
 
 ### DATA_IN
 
-该视图记录数据写入到DB时，写入流量的总大小。
+The total size of the traffic is written to this view when the data is written to DB.
 
-#### 视图定义
+#### View Definition
 
-管理员看到的视图定义：
+Admin's view definition：
 
-| 字段                           | 数据类型            | Description                       |
-| ---------------------------- | --------------- | --------------------------------- |
-| TIME                         | TIMESTAMP       | 统计data_in的时间 |
-| DATABASE                     | STRING          | Database名称                        |
-| NODE_ID | STRING          | Data节点的 ID                        |
-| TENANT                       | STRING          | Database 所属的租户名称                  |
-| VALUE                        | BIGINT UNSIGNED | 写入流量的总大小                          |
+| 字段                           | Data Type       | Description                                      |
+| ---------------------------- | --------------- | ------------------------------------------------ |
+| TIME                         | TIMESTAMP       | Time of statistical data_in |
+| DATABASE                     | STRING          | Database名称                                       |
+| NODE_ID | STRING          | Data节点的 ID                                       |
+| TENANT                       | STRING          | Database 所属的租户名称                                 |
+| VALUE                        | BIGINT UNCIGNED | Total size of write traffic                      |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息：
+Definition of view seen by normal users. Only： can access the tenant information for the current session
 
-| 字段                           | 数据类型            | Description                       |
-| ---------------------------- | --------------- | --------------------------------- |
-| TIME                         | TIMESTAMP       | 统计data_in的时间 |
-| DATABASE                     | STRING          | Database名称                        |
-| NODE_ID | STRING          | Data节点的 ID                        |
-| VALUE                        | BIGINT UNSIGNED | 写入流量的总大小                          |
+| 字段                           | Data Type       | Description                                      |
+| ---------------------------- | --------------- | ------------------------------------------------ |
+| TIME                         | TIMESTAMP       | Time of statistical data_in |
+| DATABASE                     | STRING          | Database名称                                       |
+| NODE_ID | STRING          | Data节点的 ID                                       |
+| VALUE                        | BIGINT UNCIGNED | Total size of write traffic                      |
 
 #### Example
 
-管理员用户
+Admin User
 
 ```sql
-select * from usage_schema.data_in order by time desc limit 2;
+Select * from usage_schema.data_in order by time desc limit 2;
 ```
 
 ```
-+----------------------------+--------------+---------+--------+--------+
-| time                       | database     | node_id | tenant | value  |
-+----------------------------+--------------+---------+--------+--------+
-| 2023-02-23T06:50:36.578641 | usage_schema | 1001    | cnosdb | 741552 |
-| 2023-02-23T06:50:26.577544 | usage_schema | 1001    | cnosdb | 739612 |
-+----------------------------+--------------+---------+--------+--------+
++-------------------------+-----
+| time | database | node_id | tenant | value |
++-------------------------------
+| 2023-02-23T06:50:36. 78641 | usage_schema | 1001 | cnosdb | 741552 |
+| 2023-02-23T06:50:26. 77544 | usage_schema | 1001 | cnosdb | 7396|
++------------------------------------------+
 ```
 
-普通用户
+Normal User
 
 ```sql
-select * from usage_schema.data_in order by time desc limit 2;
+Select * from usage_schema.data_in order by time desc limit 2;
 ```
 
 ```
@@ -6377,33 +6381,33 @@ select * from usage_schema.data_in order by time desc limit 2;
 
 ### DATA_OUT
 
-该视图记录数据从DB中查询出来时，读取流量的大致总大小。
+The approximate total size of the traffic is read when this view records data from DB.
 
-#### 视图定义
+#### View Definition
 
-管理员看到的视图定义：
+Admin's view definition：
 
-| 字段                           | 数据类型            | Description                        |
-| ---------------------------- | --------------- | ---------------------------------- |
-| TIME                         | TIMESTAMP       | 统计data_out的时间 |
-| DATABASE                     | STRING          | Database名称                         |
-| NODE_ID | STRING          | Data节点的 ID                         |
-| TENANT                       | STRING          | Database 所属的租户名称                   |
-| VALUE                        | BIGINT UNSIGNED | 读取流量的总大小                           |
+| 字段                           | Data Type       | Description                                       |
+| ---------------------------- | --------------- | ------------------------------------------------- |
+| TIME                         | TIMESTAMP       | Time of statistical data_out |
+| DATABASE                     | STRING          | Database名称                                        |
+| NODE_ID | STRING          | Data节点的 ID                                        |
+| TENANT                       | STRING          | Database 所属的租户名称                                  |
+| VALUE                        | BIGINT UNCIGNED | Total size of read traffic                        |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息。
+The definition of view seen by the normal user. Only the tenant information on the current session is available.
 
-| 字段                           | 数据类型            | Description                        |
-| ---------------------------- | --------------- | ---------------------------------- |
-| TIME                         | TIMESTAMP       | 统计data_out的时间 |
-| DATABASE                     | STRING          | Database名称                         |
-| NODE_ID | STRING          | Data节点的 ID                         |
-| VALUE                        | BIGINT UNSIGNED | 读取流量的总大小                           |
+| 字段                           | Data Type       | Description                                       |
+| ---------------------------- | --------------- | ------------------------------------------------- |
+| TIME                         | TIMESTAMP       | Time of statistical data_out |
+| DATABASE                     | STRING          | Database名称                                        |
+| NODE_ID | STRING          | Data节点的 ID                                        |
+| VALUE                        | BIGINT UNCIGNED | Total size of read traffic                        |
 
 #### Example
 
 ```sql
-select * from usage_schema.data_out order by time desc limit 2;
+Select * from usage_schema.data_out order by time desc limit 2;
 ```
 
 ```
@@ -6416,108 +6420,108 @@ select * from usage_schema.data_out order by time desc limit 2;
 ```
 
 ```sql
-select * from usage_schema.data_out order by time desc limit 2;
+Select * from usage_schema.data_out order by time desc limit 2;
 ```
 
 ```
-+----------------------------+--------------+---------+----------+
-| time                       | database     | node_id | value    |
-+----------------------------+--------------+---------+----------+
-| 2023-02-23T06:51:46.576451 | usage_schema | 1001    | 16173128 |
-| 2023-02-23T06:51:36.576904 | usage_schema | 1001    | 16173128 |
-+----------------------------+--------------+---------+----------+
++-----------------------+-
+| time | database | node_id | value |
++------------------------------------------------
+| 2023-02-23T06:51:46. 76451 | usage_schema | 1001 | 16173128 |
+| 2023-02-23T06:51:36. 76904 | usage_schema | 1001 | 16173128 |
++------------------------------------------------------------------+
 ```
 
 ### QUERIES (USAGE_SCHEMA)
 
-该视图记录用户查询DB的次数。
+This view records how many times users query DB.
 
-#### 视图定义
+#### View Definition
 
-管理员看到的视图定义：
+Admin's view definition：
 
-| 字段                           | 数据类型            | Description      |
-| ---------------------------- | --------------- | ---------------- |
-| TIME                         | TIMESTAMP       | 统计queries的时间     |
-| DATABASE                     | STRING          | Database名称       |
-| NODE_ID | STRING          | Data节点的 ID       |
-| TENANT                       | STRING          | Database 所属的租户名称 |
-| USER                         | STRING          | 用户名称             |
-| VALUE                        | BIGINT UNSIGNED | 用户查询次数           |
+| 字段                           | Data Type       | Description            |
+| ---------------------------- | --------------- | ---------------------- |
+| TIME                         | TIMESTAMP       | Time of statistics     |
+| DATABASE                     | STRING          | Database名称             |
+| NODE_ID | STRING          | Data节点的 ID             |
+| TENANT                       | STRING          | Database 所属的租户名称       |
+| USER                         | STRING          | 用户名称                   |
+| VALUE                        | BIGINT UNCIGNED | Number of user queries |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息。
+The definition of view seen by the normal user. Only the tenant information on the current session is available.
 
-| 字段                           | 数据类型            | Description  |
-| ---------------------------- | --------------- | ------------ |
-| TIME                         | TIMESTAMP       | 统计queries的时间 |
-| DATABASE                     | STRING          | Database名称   |
-| NODE_ID | STRING          | Data节点的 ID   |
-| USER                         | STRING          | 用户名称         |
-| VALUE                        | BIGINT UNSIGNED | 用户查询次数       |
+| 字段                           | Data Type       | Description            |
+| ---------------------------- | --------------- | ---------------------- |
+| TIME                         | TIMESTAMP       | Time of statistics     |
+| DATABASE                     | STRING          | Database名称             |
+| NODE_ID | STRING          | Data节点的 ID             |
+| USER                         | STRING          | 用户名称                   |
+| VALUE                        | BIGINT UNCIGNED | Number of user queries |
 
 #### Example
 
 ```sql
-select * from usage_schema.queries order by time desc limit 2;
+Select * from usage_schema.queries order by time desc limit 2;
 ```
 
 ```
-+----------------------------+--------------+---------+--------+-------+-------+
-| time                       | database     | node_id | tenant | user  | value |
-+----------------------------+--------------+---------+--------+-------+-------+
-| 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | usage | 9     |
-| 2023-02-23T06:53:16.575193 | usage_schema | 1001    | cnosdb | root  | 17    |
-+----------------------------+--------------+---------+--------+-------+-------+
++--------------------------+
+| time | database | node_id | tenant | user | value |
++-----------------------------------------------------------------------------------
+| 2023-02-23T06:53:16. 75193 | usage_schema | 1001 | cnosdb | usage | 9 |
+| 2023-02-23T06:53:16. 75193 | usage_schema | 1001 | cnosdb | root | 17 |
++--------------------------------------------------+
 ```
 
 ```sql
-select * from usage_schema.queries order by time desc limit 2;
+Select * from usage_schema.queries order by time desc limit 2;
 ```
 
 ```
-+----------------------------+--------------+---------+-------+-------+
-| time                       | database     | node_id | user  | value |
-+----------------------------+--------------+---------+-------+-------+
-| 2023-02-23T06:52:36.576098 | usage_schema | 1001    | usage | 9     |
-| 2023-02-23T06:52:36.576097 | usage_schema | 1001    | root  | 17    |
-+----------------------------+--------------+---------+-------+-------+
++----------------------+------------ ---- --+
+| time | database | node_id | user | value |
++---------------------------------
+| 2023-02-23T06:52:36. 76098 | usage_schema | 1001 | use | 9 |
+| 2023-02-23T06:52:36. 76097 | usage_schema | 10001 | root | 17|
++----------------------------- +
 ```
 
 ### WRITES
 
-该视图记录用户写入DB的次数。
+This view records how many times users write to DB.
 
-注意，该视图目前只会在通过[lineprotocol](./rest_api.md#接口列表)/[prometheus remote write](../eco/prometheus#remote-write) 接口写入成功时创建。
+Note that this view is currently only created when it is written successfully via[lineprotocol](./res_api.md# interfaces list)/[prometheus remote write](../eco/prometheus#remote-write) interface.
 
-#### 视图定义
+#### View Definition
 
-管理员看到的视图定义：
+Admin's view definition：
 
-| 字段                           | 数据类型            | Description      |
+| 字段                           | Data Type       | Description      |
 | ---------------------------- | --------------- | ---------------- |
-| TIME                         | TIMESTAMP       | 统计writes的时间      |
+| TIME                         | TIMESTAMP       | Time of stats    |
 | DATABASE                     | STRING          | Database名称       |
 | NODE_ID | STRING          | Data节点的 ID       |
 | TENANT                       | STRING          | Database 所属的租户名称 |
 | USER                         | STRING          | 用户名称             |
-| VALUE                        | BIGINT UNSIGNED | 用户写入次数           |
+| VALUE                        | BIGINT UNCIGNED | 用户写入次数           |
 
-普通用户看到的视图定义，只能访问当前会话所在的租户信息。
+The definition of view seen by the normal user. Only the tenant information on the current session is available.
 
-| 字段                           | 数据类型            | Description |
-| ---------------------------- | --------------- | ----------- |
-| TIME                         | TIMESTAMP       | 统计writes的时间 |
-| DATABASE                     | STRING          | Database名称  |
-| NODE_ID | STRING          | Data节点的 ID  |
-| USER                         | STRING          | 用户名称        |
-| VALUE                        | BIGINT UNSIGNED | 用户写入次数      |
+| 字段                           | Data Type       | Description   |
+| ---------------------------- | --------------- | ------------- |
+| TIME                         | TIMESTAMP       | Time of stats |
+| DATABASE                     | STRING          | Database名称    |
+| NODE_ID | STRING          | Data节点的 ID    |
+| USER                         | STRING          | 用户名称          |
+| VALUE                        | BIGINT UNCIGNED | 用户写入次数        |
 
 #### Example
 
-管理员用户
+Admin User
 
 ```sql
-select * from usage_schema.writes order by time desc limit 2;
+Select * from usage_schema.writes order by time desc limit 2;
 ```
 
 ```
@@ -6529,31 +6533,31 @@ select * from usage_schema.writes order by time desc limit 2;
 +----------------------------+----------+---------+--------+------+-------+
 ```
 
-普通用户
+Normal User
 
 ```sql
-select * from usage_schema.writes order by time desc limit 2;
+Select * from usage_schema.writes order by time desc limit 2;
 ```
 
 ```
-+----------------------------+----------+---------+------+-------+
-| time                       | database | node_id | user | value |
-+----------------------------+----------+---------+------+-------+
-| 2023-02-23T07:06:56.547905 | public   | 1001    | root | 2     |
-| 2023-02-23T07:06:46.547673 | public   | 1001    | root | 2     |
-+----------------------------+----------+---------+------+-------+
++------------+------------+---+-
+| time | database | node_id | user | value |
++------------------------------
+| 2023-02-23T07:06:56. 47905 | public | 1001 | root | 2 |
+| 2023-02-23T07:06:46. 47673 | public | 1001 | root | 2 |
++---------------- +------+
 ```
 
-## 流
+## Stream
 
-### 创建流表
+### Create Stream Table
 
-创建流表，需要一个表作为source表，流表暂不支持 ALTER
+Create stream table, a table is required as source, stream table is not supported for ALTER
 
-**语法：**
+**Syntax：**
 
 ```sql
-CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
+CREATE STREAM TABLE [IF NOT EXISTS] table_name (field_definition [, field_definition]...
     WITH (db = 'db_name', table = 'table_name', event_time_column = 'time_column')
     engine = tskv;
 
@@ -6561,14 +6565,14 @@ field_definition:
     column_name data_type
 ```
 
-db和table参数，指定源表
+db and table parameters, specify source table
 
-event_time_column 指定事件时间列，该列数据类型必须是 TIMESTAMP 类型
+event_time_column specified event time column. The column data type must be TIMESTAMP type
 
-目前仅支持普通表为source表，流表字段定义的字段名和字段类型必须是属于source表，且与source表定义相同
+Only the regular table is supported for source. The field name and field type defined for the stream field must belong to the source table and be the same as the source table definition.
 
-**示例:**
-创建 source 表
+\*\*Example: \*\*
+to create source table
 
 ```sql
 CREATE DATABASE oceanic_station;
@@ -6579,41 +6583,41 @@ CREATE DATABASE oceanic_station;
 ```
 
 ```
-CREATE TABLE air(pressure DOUBLE, temperature DOUBLE, visibility DOUBLE, TAGS(station));
+CREATE TABLE air(pressure DOUBLE, temperature DOUBLE, visibility DOUBLE, TAGS (staff));
 ```
 
-创建流表
+Create Stream Table
 
 ```sql
-CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
+CREATE STREAM TABLE air_stream_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
     WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time')
     engine = tskv;
 ```
 
-### 删除流表
+### Remove Stream
 
-> 与删除普通表语法相同，请参考[删除表](#删除表)
+> Same as delete normal expression reference to[删除表](#delete table)
 
-### 流查询
+### Stream Query
 
-流查询只支持 INSERT SELECT 语句，SELECT 语句中 FROM 子句是流表，插入到目标表。
+Stream queries only support INSELECT statements, FROM subsentence in SELECT is a stream table inserted into the target table.
 
-写入数据到源表时，触发流式查询。
+Trigger stream queries when writing data to the source table.
 
-流查询的 SELECT 子句不支持 JOIN
+JOIN is not supported by SELECT sentence for stream queries
 
-流查询的语句会持久化运行，通过[KILL QUERY](#kill-query) 取消执行
+Fluid querying statements are running persistently and unexecuted by [KILL QUERY](#kill-query)
 
-**示例：**
-以流式降采样场景为示例，source表时间间隔为一分钟，降采样时间区间为1小时
+**Example：**
+Example in streaming sample scene, sourcetable time interval of one minute and sample time range of one hour
 
-创建流查询的目标表
+Target table for creating stream queries
 
 ```sql
-CREATE TABLE air_down_sampling_1hour(max_pressure DOUBLE, avg_temperature DOUBLE, sum_temperature DOUBLE, count_pressure BIGINT, TAGS(station));
+CREATE TABLE air_down_sampling_1hour (max_pressure DOUBLE, avg_temperature DOUBLE, sum_temperature DOUBLE, count_pressure BIGINT, TAGS(staff));
 ```
 
-创建流查询语句
+Create Flow Query Statement
 
 ```sql
 INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
@@ -6628,18 +6632,18 @@ FROM air_stream
 GROUP BY date_bin (INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00'), station;
 ```
 
-写入数据时触发流查询语句
+Trigger query statement when writing data
 
-[数据来源](#示例数据)
+[数据来源](#sample data)
 
 ```sql
 \w oceanic_station.txt
 ```
 
-查看目标表结果
+View target table results
 
 ```sql
-SELECT * FROM air_down_sampling_1hour LIMIT 10;
+SELECT * FROM air_down_sampling_1our LIMIT 10;
 ```
 
 ```
@@ -6667,7 +6671,7 @@ SELECT * FROM air_down_sampling_1hour LIMIT 10;
 KILL [QUERY] query_id;
 ```
 
-先通过 [`SHOW QUERIES`](./sql.md#show-queries) 获取 `query_id`。
+Get `query_id` first by [`SHOW QUERIES`](./sql.md#show-queries).
 
 ## Example
 
