@@ -1,52 +1,52 @@
 ---
-title: 工具
+title: Tools
 order: 7
 ---
 
-# 工具
+# Tools
 
-## 客户端CLI
+## Client CLI
 
 ```shell
 cnosdb-cli
 ```
 
-**程序的参数如下：**
+**Parameters below：**
 
 ```
--h --host CnosDB            服务的host，默认为"localhost"
--p --port CnosDB            服务的端口，默认为8902
--u --user                   用户名，默认为"root"
--p --password               密码，默认没有
--d --database               连接的数据库，默认为"public"
--t --target-partitions      可选，执行查询的分片数，增加分片数可以增加并发。默认为机器CPU核数
---data-path                 CLI程序数据存放位置，默认为执行client的目录
--f --file                   可选，执行多个命令脚本，并退出
---rc                        可选，配置文件
---format                    输出格式，默认是Table格式
---quiet                     运行在安静模式，只输出结果，不输出执行时间
---tenant                    指定租户名称，默认为"cnosdb"
+-h --host CnosDB service, Considering the port of the "localhost"
+-p --port CnosDB service, Consider 8902
+-u --user username, Believing "root"
+-p --password Ensures that there is no
+-d --database connected, Consider "public"
+-t --target-partitions optional, the number of snippets to perform queries, The number of additional decks can be added in parallel. Default is machine CPU core
+--data-path CLI data repository location, Considering directory
+-f --file to execute client, Line multiple command scripts, Exit
+--rc optional, File
+--format output format, Make sure it is form
+--quiet is running in quiet mode, Output, do not export execution time
+--tenant specify the tenant name, default is "cnosdb"
 ```
 
-**进入程序后你可以运行指令或SQL：**
+**You can run instructions or SQL： after entering the program**
 
-运行SQL例如：
+Run SQL like：
 
 ```
-❯ CREATE DATABASE test;
+Provident CREATE DATABASE test;
 Query took 0.050 seconds.
-❯ 
+principal 
 ```
 
-运行指令例如：
+Run command like：
 
-程序的指令如下：
+The following instructions for the program are：
 
 ```
-\?          指令帮助
-\q          退出CLI
-\c <db>     连接数据库db_name，db_name是大小写敏感的
-\d <table>  描述表table
-\quiet      切换至安静模式，只输出结果，不输出执行时间
-\w <path>   读取Line Protocol格式的文件，写入数据库，path如果是目录，则会导入目录下所有文件
+\? Command Help
+\q Exit CLI
+\c <db>     Connect database db_name,db_name is case-sensitive
+\d <table>  Description table
+\quiet switch to quiet mode, output results only, no execution time
+\w <path>   Read files in Line Protocolol, write to the database, path will import all files in directory if they are directories
 ```
