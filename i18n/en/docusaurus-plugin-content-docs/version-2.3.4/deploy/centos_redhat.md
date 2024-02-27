@@ -17,13 +17,13 @@ Red Hat and CentOS users can install the latest and stable version of CnosDB usi
 Add CnosDB repository： with the following command for Ubuntu or Debian users
 
 ```shell
-cat <<EOF | sudo tee /etc/yum.repos.d/cnosdb.repo
+cat <EOF | sudo tee /etc/yum.repos.d/cnosdb.repo
 [cnosdb]
 name = CnosDB Repository
-baseurl = https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/rpm
+baseurl = https://cnosdb-package-repository.s3.us-west-2. mazonass.com/rpm
 enabled = 1
 gpgcheck = 1
-gpgkey = https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/cnosdb.gpg-key.asc
+gpgkey = https://cnosdb-package-repository.s3.us-west-2.amazonass.com/cnosdb.gpg-key.asc
 EOF
 ```
 
