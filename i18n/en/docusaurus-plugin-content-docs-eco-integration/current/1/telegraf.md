@@ -3,9 +3,9 @@ title: Telegraf
 slug: /telegraf
 ---
 
-[Telegraf](https://github.com/influxdata/telegraf) is an open source server agent program used to collect metrics from stacks, sensors, and systems to database intensively, with a minimal memory footprint and support for extensions via plug-ins.Telegraf is simple to configure, easy to get started with, and greatly reducing the difficulty of data acquisition compared to collecting data via handwritten scripts.
+[Telegraf](https://github.com/influxdata/telegraf) is an open source server agent program used to collect metrics from stacks, sensors, and systems to database intensively, with a minimal memory footprint and support for extensions via plug-ins.Telegraf is simple to configure, easy to get started with, and greatly reducing the difficulty of data acquisition compared to collecting data via handwritten scripts.Telegraf is configured to be simple, hands-on, and significantly less difficult to obtain data than to collect by hand-written scripts.
 
-#### User scenarios
+**Description**
 
 - **IoT sensor data:** Data transferred based on protocols such as MQTT, ModBus, OPC-UA, and Kafka.
 - **DevOps framework data:** Operational metrics from platforms or frameworks such as GitHub, Kubernetes, CloudWatch, Prometheus, etc.
@@ -20,10 +20,9 @@ slug: /telegraf
 
 In the following, we will describe how to install and configure Telegraf for collecting system metrics data and storing it in CnosDB.
 
-### **Telegraf Deployment**
+### Telegraf deployment
 
-
-- #### Download
+- **Build**
 
 [Official Download Link](https://portal.influxdata.com/downloads/)
 
@@ -35,20 +34,21 @@ In the following, we will describe how to install and configure Telegraf for col
 
 [Offical Basic Tutorisl(v1.23)](https://docs.influxdata.com/telegraf/v1.23/get_started/)
 
-### **Telegraf Configuration**
+### Telegraf Configuration
 
-- #### Generate configuration files manually
+- Generate configuration files manually
 
 ```sh
 telegraf --sample-config > telegraf.conf
 ```
 
-- #### Default configuration file path
+- Default configuration file path
 
 - macOS **Homebrew**: `/usr/local/etc/telegraf.conf`
+
 - Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
 
-- #### Use a text editor such as `vim` to modify the configuration file.
+- Use a text editor such as `vim` to modify the configuration file.
 
 In order to output the metrics data to CnosDB, we need to configure Telegraf's output plug-in `http` to output line protocol data to the write interface of CnosDB.
 
@@ -77,9 +77,9 @@ In the above configuration, there are some texts needed to be replaced:
 as, for example:
 
 ```toml
-[[outputs.http]]
-url = "http://host.docker.internal:8902/api/v1/write?db=cnos"
-timeout = "5s"
+[[outputs.http]
+url = "http://host.docker. nternal: 8902/api/v1/write? b=cnos"
+timeout = "5"
 method = "POST"
 username = "admin"
 password = "admin"
@@ -156,14 +156,13 @@ Under correct configuration, you will obtain the following results:
 ]
 ```
 
-
 ## Cnos-Telegraf
 
 CnosDB-Telegraf is based on Telegraf (re1.25, commit 86cd0c0c2), with some added features and plugins.
 
 ### **Description of the changes compared to Telegraf**
 
-#### Parser Plugin
+#### Parser Plugins
 
 Add Parser plug-ins OpenTSDB and OpenTSDB-Telnet to collect write requests from OpenTSDB.
 
@@ -172,7 +171,7 @@ Add Parser plug-ins OpenTSDB and OpenTSDB-Telnet to collect write requests from 
 By using the Input plugin http_listener_v2 and configuring the `data_format` to "`opentsdb`", you will be able to parse write requests in OpenTSDB format.
 
 ```toml
-[[inputs.http_listener_v2]]
+[[inputs.http_listener_v2]
 service_address = ":8080"
 paths = ["/api/put"]
 methods = ["POST", "PUT"]
@@ -184,17 +183,17 @@ data_format = "opentsdb"
 By using the Input plugin socket_listener and configuring the `data_format` to "`opentsdbtelnet`", you will be able to parse write requests in OpenTSDB-Telnet format.
 
 ```toml
-[[inputs.socket_listener]]
+[[inputs.socket_listener]
 service_address = "tcp://:8081"
 data_format = "opentsdbtelnet"
 ```
 
-#### Output Plugin
+#### Out Plugins
 
 Add Output plugin CnosDB for exporting metrics to CnosDB.
 
 ```toml
-[[outputs.cnosdb]]
+[[outputs.cnosdb]
 url = "localhost:8902"
 user = "user"
 password = "pass"
@@ -203,21 +202,21 @@ database = "telegraf"
 
 - **Configuration introduction**
 
-| **Parameters** | **Description**             |
-|----------------|-----------------------------|
-| url            | CnosDB GRpc service address |
-| user           | User Name                   |
-| password       | Password                    |
-| database       | CnosDB database             |
+| Parameters        | Note                        |
+| ----------------- | --------------------------- |
+| Url               | CnosDB GRpc service address |
+| user              | User Name                   |
+| password          | Password                    |
+| Database database | CnosDB database             |
 
-#### Input Plugin
+#### Input Plugins
 
 Add the configuration parameter high_priority_io to enable end-to-end mode.
 
 When set to true, the written data will be sent to the Output plug-in immediately and the return value will be determined based on the Output plug-in's return parameters.
 
 ```toml
-[[inputs.http_listener_v2]]
+[[inputs.http_listener_v2]
 service_address = ":8080"
 paths = ["/api/put"]
 methods = ["POST", "PUT"]
@@ -227,7 +226,7 @@ high_priority_io = true
 
 The above configuration adds the `high_priority_io = true` configuration compared to the configuration in the [Output Plugin](#output-plugin) section.
 
-### **Build**
+### Build
 
 - #### [Install Go](https://golang.org/doc/install) >=1.18 (1.18.0 version recommended)
 - #### Clone the repository from Github:
@@ -243,7 +242,7 @@ cd cnos-telegraf
 make build
 ```
 
-### **Start**
+### Start
 
 - #### Execute the following command to view the use case:
 
@@ -260,7 +259,7 @@ telegraf config > telegraf.conf
 - #### **Generate a telegraf configuration file that contains only the cpu metrics collection & influxdb output plugins**
 
 ```shell
-telegraf config --section-filter agent:inputs:outputs --input-filter cpu --output-filter influxdb
+telegraf config --section-filter agent:inputs:outputs --input-filter cpu --output-filter fluxdb
 ```
 
 - #### **Run telegraf but output the capture metrics to the standard output**
@@ -278,5 +277,5 @@ telegraf --config telegraf.conf
 - #### **Run telegraf, load only the cpu & memory metrics collection, and the influxdb output plugin**
 
 ```shell
-telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb
+telegraf --config telegraf.conf --input-filter cpu:mem --output-filter fluxdb
 ```
