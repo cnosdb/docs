@@ -1,15 +1,15 @@
 ---
-title: 基础概念
+title: Basic concepts
 order: 1
 ---
 
-# 基础概念
+# Basic concepts
 
-## 前言
+## Preface
 
-在深入了解 CnosDB 之前，我们需要先熟悉一下 CnosDB 中的一些基本概念，这将有助于我们后续的学习以及更好的使用 CnosDB 。为了帮助大家更好的理解这些概念，本篇文章将借助一个示例向大家介绍各个元素是如何在 CnosDB 中协同工作的，并在文中最后章节处罗列了各个概念的含义。
+Before we can learn more about CnosDB, we need to become familiar with some basic concepts in CnosDB, which will help us follow up on learning and better use of CnosDB.In order to help better understand these concepts, the present article will provide an example of how the elements work together in CnosDB and include a list of concepts in the final section.
 
-## 示例数据：
+## Sample Data：
 
 ```sql
 test ❯ select * from air limit 5;
@@ -25,89 +25,89 @@ test ❯ select * from air limit 5;
 Query took 0.027 seconds.
 ```
 
-该数据是从 `oceanic_stations` 开放数据集中的 `air` 表中获取的5条数据作为示例讲解，可以看到该表共由5列组成：分别为 `time` 列、`station` 列、`pressure` 列、`tempreture` 列和 `visibility` 列,我们将详细分析一下这些数据。
+The 5 data obtained from the \`\`oceanic_stations`open data collection table as an example can be seen in the 5 columns comprising：columns,`time`columns,`station`columns,`pressure`columns,`template`columns, and`visibility\` columns. We will analyze these data in detail.
 
-1. 首先我们能够明确，在该示例中，库就是`oceanic_stations`,表则是`air`。CnosDB 是一个时序数据库，所以对于 CnosDB 来说，它开始的一切根源就是-时间。
+1. First, we can make it clear that in this example the library is `oceanic_stations` and the table is `air`.CnosDB is a time series database, so for CnosDB everything it starts is - time.
 
-2. 在上面数据中，第一列的列名为`time` ,在 CnosDB 中所有的数据库都有这一列。`time` 存着时间戳，这个时间戳遵循 [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) 标准。
+2. In the above data, the first column is named `time`. This column has a column in all the databases in CnosDB.The timestamp of `time` follows [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) standards.
 
-3. 接下来的 `station` 列为标签列，它表示是一个实体，即代表着数据源的 `id` 。在该例表明我们采集的数据是从 `XiaoMaiDao` 这个 `station` 采集到的。标签是由 `key` 和 `value` 组成的, `key` 和 `value` 都作为字符串存储，并记录在元数据中。示例中：`key` 为 `station` ,`value`为 `XiaoMaiDao` 和 `LianYunGang`。
+3. The next `station` is listed as a label that denotes an entity that represents the `id` source of data.This example shows that we collected data from `XiaoMaiDao` this `station`.Tags are stored as strings by `key` and `value` and are recorded in metadata.For example：`key` is `station`, `value` is `XiaoMaiDaao` and `LianYunGang`.
 
-在上述示例中，标签组是不同的每组 `key` 和 `value` 的集合，示例数据中一共有两个标签组：
+In the above example, the tag group is a collection of different groups of `key` and `value`. There are two tag groups in the sample data in total：
 
 ```text
-station = XiaoMaiDao
+Station = XiaoMaiDao
 station = LianYunGang
 ```
 
-4. 最后`pressure` 、 `temperature` 、 `visibility` 这三列是字段列，它也是由 key 和 value列组成的，该例中 `key` 为 `pressure` 、 `temperature` 、 `visibility` ,都是字符串，他们存储元数据。value 就是表示数据，可以是字符串类型或其它类型。在该例中value如下：
+4. The last three columns of `pressure`, `temperature`, `visibility` are fields columns. They also consist of key and value columns, where `key` is `pressure`, `temperature`, `visibility`, are strings that store metadata.Value means data and can be a string type or other type.In this case, the following：
 
 ```text
-63.0      80.0        79.0       
-58.0      64.0        78.0       
-65.0      79.0        67.0       
-51.0      75.0        64.0       
-60.0      50.0        67.0       
+63.0 80.0 79.0       
+58.0 64.0 78.0       
+65.0 79.0 67.0       
+51.0 75.0 64.0 64.0       
+60.0 50.0 67.0       
 ```
 
 在上述示例中，字段组就是每组的 `key` 和 `value` 的集合，示例数据中一共有五个字段组：
 
 ```text
-pressure = 63.0    temperature = 80.0    visibility = 79.0       
-pressure = 58.0    temperature = 64.0    visibility = 78.0       
-pressure = 65.0    temperature = 79.0    visibility = 67.0       
-pressure = 51.0    temperature = 75.0    visibility = 64.0       
-pressure = 60.0    temperature = 50.0    visibility = 67.0       
+Pressure = 63.0 temperature = 80. Visibility = 79.0       
+press = 58. Temperature = 64.0 visibility = 78.       
+pressure = 65.0 temperature = 79. Visibility = 67.0       
+press = 51. Temperature = 75.0 visibility = 64.       
+pressure = 60. temperature = 50.0 visibility = 67.0       
 ```
 
-> 注意：标签列不同于字段列，标签是索引起来的，这意味着对标签的查询更快，而字段是没有索引的。如果使用字段值作为过滤条件来查询，则必须扫描其他条件匹配后的所有值。故标签是存储常用数据的最佳选择。
+> Note that the：tag column is different from the field column, the tag is indexed and this means that the tag is queried faster and the field is not indexed.If the field value is used as a filter then the other condition must be scanned for all the values that match.Story tags are the best option to store commonly used data.
 
-## 关键概念
+## Key concepts
 
-### 时间序列
+### Time series
 
-在时序数据库中，**时间序列**是指按照时间顺序排列的数据点序列。它包含了时间戳和相应的数值或事件，用于记录和分析随时间变化的数据。
+In the time series database, **Time series** refers to data point sequences in chronological order.It contains timestamps and corresponding values or events that are used to record and analyse data over time.
 
-### 库
+### Library
 
-**数据库**是由多张表组成的，这与关系型数据库类似。每张表存储不同结构的数据。用户可以使用SQL操纵数据库中的不同表，也可以进行表的连接查询。
+**Database** is composed of multiple tables, which are similar to the relationship database.Each table stores data of different structures.Users can use SQL to manipulate different tables in the database or make links to the tables.
 
-### 表
+### Table
 
-**表**组织着有相同标签，字段的数据行。这十分类似关系型数据库中表的概念。时间戳，标签，字段就相当于关系型数据库中表的列。
+**Table** organizes data lines with the same label, fields.This is very similar to the concept of the table in the relational database.Timestamp,Label,Fields correspond to the list of tables in the relationship database.
 
-### 时间戳
+### Timestamp
 
-时序数据库要求写入的每一条数据都带有**时间戳**，表示采集到该条数据的时刻。CnosDB 支持设置时间的精度。
+The time series database requires each data to be written with **timestamp** representing the moment the data is collected.CnosDB supports setting the accuracy of time.
 
-### 标签列
+### Tab Column
 
-在时序数据库的应用场景中，有些数据是不随时间变化而变化的，比如物联网采集设备的所在地，设备的名字，设备的所有者。这些数据我们称之为**标签**，使用字符串(STRING)来存储Tag。
+In the application scenes of the time series database, some data do not vary over time, such as the location of the Internet collection equipment, the name of the equipment and the owner of the equipment.These data are called **Label** and use strings (STRING) to store Tags.
 
-### 标签值
+### Label value
 
-标签所对应的值。
+The corresponding value for the tag.
 
-### 标签组
+### Tab Group
 
-**标签组**通常由一个或多个标签组成，每个标签都是一个键值对，用于描述数据的特征或属性。
+**Tag Group** is usually composed of one or more tabs, each of which is a key pair that describes the characteristics or attributes of the data.
 
-### 字段列
+### Field column
 
-在时序数据库的应用场景中，有些数据是随时间变化而变化的，比如物联网采集设备所收集的数据。对检测环境的设备来说，它采集的室温，湿度等信息就是随时间变化而变化，这些数据我们称之为**字段**。
+In the application scenes of the time-series database, some data vary over time, such as those collected by the Internet collection device.For equipment to detect the environment, it collects information on room temperature, humidity, etc., which we call **fields**.
 
-### 字段值
+### Field value
 
-字段所对应的值。
+The value corresponding to the field.
 
-### 字段组
+### Field Group
 
-**字段组**通常由一个或多个字段组成，每个字段存储一个特定的数据值。
+**Field group** usually consists of one or more fields, each of which stores a specific value of data.
 
-### 行
+### Lines
 
-CnosDB 中的**行**是时间戳，标签，字段组成的数据行。一个时间戳，一组标签，一组字段，就组成了一个数据行，也可以将其称之为**点**。一个数据行必须包含一个时间戳，至少一个标签和一个字段。
+The **rows** in CnosDB are timestamps, tags, and data lines formed by fields.A timestamp, a set of tags, a set of fields form a data row that can also be called **point**.A data row must contain a timestamp, at least one tag and one field.
 
-### 存储策略
+### Storage Policy
 
-CnosDB 支持设置一个数据库的不同存储策略，数据保留时间，数据分片数目，分片设置策略，时间精度等。
+CnosDB supports setting up a different storage policy for a database, data retention time, data fragmentation, fragmentation, time accuracy etc.
