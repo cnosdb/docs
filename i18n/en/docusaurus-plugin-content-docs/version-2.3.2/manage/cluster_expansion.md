@@ -1,37 +1,37 @@
 ---
-title: 集群扩容
+title: Cluster expansion
 order: 4
 ---
 
-# 集群扩容
+# Cluster expansion
 
-### 集群维护
+### Cluster maintenance
 
-**转移 Vnode**
+**Transfer Vnode**
 
 ```
 MOVE VNODE [vnode_id] TO NODE [node_id]
 ```
 
-**复制 Vnode**
+**Copy Vnode**
 
 ```
 COPY VNODE [vnode_id] TO NODE [node_id]
 ```
 
-**删除 Vnode**
+**Delete Vnode**
 
 ```
 DROP VNODE <vnode_id>
 ```
 
-**压缩 Vnode**
+**Compress Vnode**
 
 ```
-COMPACT VNODE <vnode_id>[ <vnode_id>[ ...]]
+COMPACT VNODE <vnode_id>[ <vnode_id>[ ..]]
 ```
 
-**检查 Group 数据一致性**
+**Check Group data consistency**
 
 ```
 CHECKSUM GROUP <replication_set_id>
