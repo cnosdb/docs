@@ -1,53 +1,52 @@
 ---
-title: Tools
+title: 工具
 order: 7
 ---
 
-# CnosDB Tools
+# 工具
 
-## Client CLI
+## 客户端CLI
 
-Run the following command to start the CLI program in the root directory of CnosDB source code.
-
-```
-    cnosdb-cli
+```shell
+cnosdb-cli
 ```
 
-The parameters of CLI program are as follows:
+**程序的参数如下：**
 
 ```
-    -h --host CnosDB            Host of the service. The default is "localhost".
-    -p --port CnosDB            Port of the service. The default is 8902.
-    -u --user                   Username. The default value is "CnosDB".
-    -p --password               Password. None by default.
-    -d --database               Connected database. The default value is "public".
-    -t --target-partitions      Optional; the number of slices to execute the query, increasing which can increase concurrency. Not specified by default.
-    --data-path                 Data storage location of CLI program. The default is the directory where the client is executed.
-    -f --file                   Optional; it executse multiple command scripts and exits.
-    --rc                        Optional; profile.
-    --format                    Output format. The default is "Table" format.
-    --quiet                     To run in quiet mode, output only the result, not execution time.
-    --tenant                    Tenant name. The default value is "cnosdb".
- ```
-
-After entering the program you can run the command or SQL:.
-
-Run an SQL example:
-
-```
-    ❯ CREATE DATABASE test;
-    Query took 0.050 seconds.
-    ❯
+-h --host CnosDB            服务的host，默认为"localhost"
+-p --port CnosDB            服务的端口，默认为8902
+-u --user                   用户名，默认为"root"
+-p --password               密码，默认没有
+-d --database               连接的数据库，默认为"public"
+-t --target-partitions      可选，执行查询的分片数，增加分片数可以增加并发。默认为机器CPU核数
+--data-path                 CLI程序数据存放位置，默认为执行client的目录
+-f --file                   可选，执行多个命令脚本，并退出
+--rc                        可选，配置文件
+--format                    输出格式，默认是Table格式
+--quiet                     运行在安静模式，只输出结果，不输出执行时间
+--tenant                    指定租户名称，默认为"cnosdb"
 ```
 
-Run a command example:
+**进入程序后你可以运行指令或SQL：**
 
-The commands for the program are as follows:
+运行SQL例如：
+
 ```
-    \?          Command Help
-    \q          Exit CLI
-    \c <db>     Connect the database "db_name", db_name is case sensitive
-    \d <table>  Describe the table "table"
-    \quiet      Switch to quiet mode, output only the result, not execution time
-    \w <path>   Read a file in Line Protocol format and write it to the database, if path is a directory, all files in the directory will be written to the database
- ```
+❯ CREATE DATABASE test;
+Query took 0.050 seconds.
+❯ 
+```
+
+运行指令例如：
+
+程序的指令如下：
+
+```
+\?          指令帮助
+\q          退出CLI
+\c <db>     连接数据库db_name，db_name是大小写敏感的
+\d <table>  描述表table
+\quiet      切换至安静模式，只输出结果，不输出执行时间
+\w <path>   读取Line Protocol格式的文件，写入数据库，path如果是目录，则会导入目录下所有文件
+```
