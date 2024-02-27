@@ -1,7 +1,7 @@
 ---
-title: 概念
+title: Concept
 order: 1
 index: false
 ---
 
-# 概念
+# Concept
