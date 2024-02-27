@@ -4,17 +4,15 @@ sidebar_position: 1
 
 # Introduction
 
-CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.
+CnosDB is an open source distributed time series database with high performance, high compression rate and high ease of use. The main application scenarios are IoT, Industrial Internet, Telematics, IT operations and maintenance. All the code has been open-sourced in GitHub.The main application scenes are the Internet of Things, the Industrial Internet, the CarLog and IT.All code is open in [GitHub](https://github.com/cnosdb/cnosdb).
 
 We design to take full advantage of the characteristics of temporal data, including structured data, no transactions, less delete updates, write more read less, etc. Therefore, compared with other temporal databases, CnosDB has the following characteristics:
 
-
-- **High performance**: CnosDB solves time series inflation, theoretically supports time series without upper limit, and supports aggregation query along the time line, including query by equal interval window, query by a column enumeration value window, and window by the length of time interval of adjacent time series records. It has the ability to cache the latest data, and the cache space can be configured to get the latest data at high speed.
-- **Easy to use**: CnosDB provides a clear interface, easy to configure items, supports standard SQL, easy to start, seamlessly integrated with third-party tools, and has convenient data access functions. It supports schemaless ("schemaless") writing method and historical data replenishment (including chaotic writing).
-- **Cloud-native**: CnosDB has a native distributed design, data sharding and partitioning, store-and-counter separation, Quorum mechanism, Kubernetes deployment and full observability with ultimate consistency, and can be deployed on public, private and hybrid clouds. Provides multi-tenant capabilities with role-based management for privilege assignment. It supports stateless node addition and deletion in the compute layer and horizontal scaling in the storage layer to increase system storage capacity.
+- **High performance**: CnosDB solves time series inflation, theoretically supports time series without upper limit, and supports aggregation query along the time line, including query by equal interval window, query by a column enumeration value window, and window by the length of time interval of adjacent time series records. It has the ability to cache the latest data, and the cache space can be configured to get the latest data at high speed.Cache capability for the latest data and can be configured to access the latest data at a fast pace.
+- **Easy to use**: CnosDB provides a clear interface, easy to configure items, supports standard SQL, easy to start, seamlessly integrated with third-party tools, and has convenient data access functions. It supports schemaless ("schemaless") writing method and historical data replenishment (including chaotic writing).Support schemaless ("No Mode"), history data patch (written inactively)
+- **Cloud-native**: CnosDB has a native distributed design, data sharding and partitioning, store-and-counter separation, Quorum mechanism, Kubernetes deployment and full observability with ultimate consistency, and can be deployed on public, private and hybrid clouds. Provides multi-tenant capabilities with role-based management for privilege assignment. It supports stateless node addition and deletion in the compute layer and horizontal scaling in the storage layer to increase system storage capacity.Provides multi-tenant functionality, with distribution of competencies based on role management.Supporting compute layer inactivity nodes and storage level extension increases system storage capacity.
 
 This chapter focuses on the current basics of CnosDB, quick start, implementation principles, ecological integration and cloud-native plans, etc., to give you a full understanding of CnosDB.
-
 
 ## Get Started
 
@@ -45,7 +43,6 @@ This section describes how to install and run the single or cluster CnosDB, as w
 This chapter describes the management and monitoring of CnosDB standalone edition and cluster edition.
 
 - [Manage](./manage)
-  - [Backup and Restore](./manage/backup.md)
   - [Node Migration](./manage/migration.md)
   - [Tenant Resource Limit](./manage/resource_limit.md)
   - [Cluster Expansion](./manage/cluster_expansion.md)
@@ -55,10 +52,7 @@ This chapter describes the management and monitoring of CnosDB standalone editio
   - [Tenant and Permission](./manage/tenant.md)
   - [Subscriptions](./manage/subscriptions.md)
   - [Data Migration](./manage/datax.md)
-  - [Node Management](./manage/node_manage.md)
   - [Node Information](./manage/show_node.md)
-  - [Resource Management](./manage/resource_manage.md)
-  - [Upgrade V2.3 to V2.4](./manage/upgrade_v2.3_to_v2.4.md)
 
 # Reference
 
@@ -66,9 +60,9 @@ This chapter introduces the implementation principles of CnosDB, including stora
 
 - [Reference](./reference)
   - [Design](./reference/concept_design)
-  - [REST API](./reference/rest_api.md)
+  - [REST API](./reference/res_api.md)
   - [Connector](reference/connector/README.md)
-  - [SQL](./reference/sql.md)
+  - [SQL](/reference/sql.md)
   - [Configure](./reference/config.md)
   - [Tools](./reference/tools.md)
   - [Benchmark](./reference/performance.md)
