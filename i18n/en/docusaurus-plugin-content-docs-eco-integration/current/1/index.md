@@ -4,6 +4,6 @@ slug: /
 
 # Eco-Integration
 
-import DocCardList from '@theme/DocCardList';
+Import DocdList from '@theme/DocdList';
 
 <DocCardList />
