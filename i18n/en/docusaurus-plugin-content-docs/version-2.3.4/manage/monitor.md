@@ -74,13 +74,13 @@ Count
 
 #### 标签
 
-| 字段                           | Description                       |
-| ---------------------------- | --------------------------------- |
-| TIME                         | 统计data_in的时间 |
-| DATABASE                     | Database名称                        |
-| NODE_ID | Data节点的 ID                        |
-| TENANT                       | Database 所属的租户名称                  |
-| VALUE                        | 写入流量的总大小,单位Byte                   |
+| 字段                           | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| TIME                         | Time of statistical data_in |
+| DATABASE                     | Database名称                                       |
+| NODE_ID | Data节点的 ID                                       |
+| TENANT                       | Database 所属的租户名称                                 |
+| VALUE                        | 写入流量的总大小,单位Byte                                  |
 
 ### SQL_DATA_IN
 
@@ -94,17 +94,17 @@ Count
 
 #### Description
 
-通过sql写入的数据流量，包括INSERT，COPY 语句
+Data write by sql, including INSERT, COPY statements
 
 #### 标签
 
-| 字段                           | Description                       |
-| ---------------------------- | --------------------------------- |
-| TIME                         | 统计data_in的时间 |
-| DATABASE                     | Database名称                        |
-| NODE_ID | Data节点的 ID                        |
-| TENANT                       | Database 所属的租户名称                  |
-| VALUE                        | 写入流量的总大小,单位Byte                   |
+| 字段                           | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| TIME                         | Time of statistical data_in |
+| DATABASE                     | Database名称                                       |
+| NODE_ID | Data节点的 ID                                       |
+| TENANT                       | Database 所属的租户名称                                 |
+| VALUE                        | 写入流量的总大小,单位Byte                                  |
 
 ### COORD_DATA_IN
 
@@ -118,17 +118,17 @@ Count
 
 #### Description
 
-数据写入到数据库时，写入流量的总大小。
+The total size of the traffic is written when the data is written to the database.
 
 #### 标签
 
-| 字段                           | Description                       |
-| ---------------------------- | --------------------------------- |
-| TIME                         | 统计data_in的时间 |
-| DATABASE                     | Database名称                        |
-| NODE_ID | Data节点的 ID                        |
-| TENANT                       | Database 所属的租户名称                  |
-| VALUE                        | 写入流量的总大小,单位Byte                   |
+| 字段                           | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| TIME                         | Time of statistical data_in |
+| DATABASE                     | Database名称                                       |
+| NODE_ID | Data节点的 ID                                       |
+| TENANT                       | Database 所属的租户名称                                 |
+| VALUE                        | 写入流量的总大小,单位Byte                                  |
 
 ### COORD_DATA_OUT
 
@@ -142,17 +142,17 @@ Count
 
 #### Description
 
-从数据库读取数据的总流出流量。
+Total outflow of data read from database.
 
 #### 标签
 
-| 字段                           | Description                        |
-| ---------------------------- | ---------------------------------- |
-| TIME                         | 统计data_out的时间 |
-| DATABASE                     | Database名称                         |
-| NODE_ID | Data节点的 ID                         |
-| TENANT                       | Database 所属的租户名称                   |
-| VALUE                        | 读取流量的总大小，单位Byte                    |
+| 字段                           | Description                                       |
+| ---------------------------- | ------------------------------------------------- |
+| TIME                         | Time of statistical data_out |
+| DATABASE                     | Database名称                                        |
+| NODE_ID | Data节点的 ID                                        |
+| TENANT                       | Database 所属的租户名称                                  |
+| VALUE                        | Total size of traffic fetched, Byte               |
 
 ### HTTP_DATA_OUT
 
@@ -170,15 +170,15 @@ Http返回数据的大小
 
 #### 标签
 
-| 字段                           | Description                                                  |
-| ---------------------------- | ------------------------------------------------------------ |
-| TIME                         | 统计http_data_out的时间 |
-| DATABASE                     | Database名称                                                   |
-| NODE_ID | Data节点的 ID                                                   |
-| TENANT                       | Database 所属的租户名称                                             |
-| Database                     | Database 名称                                                  |
-| User                         | 用户名称                                                         |
-| VALUE                        | 读取流量的总大小，单位Byte                                              |
+| 字段                           | Description                                                                |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| TIME                         | Time of statistics http_data_out |
+| DATABASE                     | Database名称                                                                 |
+| NODE_ID | Data节点的 ID                                                                 |
+| TENANT                       | Database 所属的租户名称                                                           |
+| Database                     | Database 名称                                                                |
+| User                         | 用户名称                                                                       |
+| VALUE                        | Total size of traffic fetched, Byte                                        |
 
 ### USER_QUERIES
 
@@ -192,18 +192,18 @@ Count
 
 #### Description
 
-该指标记录用户查询DB的次数。
+This indicator records how many times users query DB.
 
 #### 标签
 
-| 字段                           | Description      |
-| ---------------------------- | ---------------- |
-| TIME                         | 统计queries的时间     |
-| DATABASE                     | Database名称       |
-| NODE_ID | Data节点的 ID       |
-| TENANT                       | Database 所属的租户名称 |
-| USER                         | 用户名称             |
-| VALUE                        | 用户查询次数           |
+| 字段                           | Description            |
+| ---------------------------- | ---------------------- |
+| TIME                         | Time of statistics     |
+| DATABASE                     | Database名称             |
+| NODE_ID | Data节点的 ID             |
+| TENANT                       | Database 所属的租户名称       |
+| USER                         | 用户名称                   |
+| VALUE                        | Number of user queries |
 
 ### USER_WRITES
 
@@ -217,13 +217,13 @@ Count
 
 #### Description
 
-该指标记录用户写入DB的次数。
+This indicator records how many times users write to DB.
 
 #### 标签
 
 | 字段                           | Description      |
 | ---------------------------- | ---------------- |
-| TIME                         | 统计writes的时间      |
+| TIME                         | Time of stats    |
 | DATABASE                     | Database名称       |
 | NODE_ID | Data节点的 ID       |
 | TENANT                       | Database 所属的租户名称 |
@@ -236,7 +236,7 @@ Count
 
 ```yaml
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  # The job name is added as a label `job=<job_name>` to any time series scattered from this configuration.
   - job_name: 'cnosdb'
     static_configs:
       - targets: ['127.0.0.1:8902']
