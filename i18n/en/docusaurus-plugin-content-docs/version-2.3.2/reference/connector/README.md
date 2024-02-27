@@ -1,17 +1,17 @@
 ---
-title: Connector
+title: 连接器
 order: 3
 index: false
 ---
 
-# Connector
+# 连接器
 
 - [Python](./python.md)
 - [Arrow Filght SQL](./arrow_flight_sql)
-- [C++](./arrow_flight_sql#different-client-usage)
-- [Go](./arrow_flight_sql#different-client-usage)
-- [Java](./arrow_flight_sql#different-client-usage)
-- [Rust](./arrow_flight_sql#different-client-usage)
-- [JDBC](./arrow_flight_sql#different-client-usage)
-- [ODBC](./arrow_flight_sql#different-client-usage)
-- [Flink](./flink-connector-cnosdb)
+- [C++](./arrow_flight_sql#不同客户端的使用方式)
+- [Go](./arrow_flight_sql#不同客户端的使用方式)
+- [Java](./arrow_flight_sql#不同客户端的使用方式)
+- [Rust](./arrow_flight_sql#不同客户端的使用方式)
+- [JDBC](./arrow_flight_sql#不同客户端的使用方式)
+- [ODBC](./arrow_flight_sql#不同客户端的使用方式)
+- [Flink](./flink-connector-cnosdb.md)
