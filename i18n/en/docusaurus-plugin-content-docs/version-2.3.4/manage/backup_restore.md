@@ -55,7 +55,7 @@ cnosdb-imexport export [OPTIONS] --src <SRC> --path <PATH>
 #### Backup data to local directory
 
 ```shell
-cnosdb-imexport export --src <user>:<password>@<ip>:<port> --path file:///backup
+cnosdb-imexport export --src <user>:<password>@<ip>:<port> --path file://backup
 ```
 
 ## `Import`
@@ -112,40 +112,40 @@ cnosdb-imexport migrate [OPTIONS] --src <SRC> --dst <DST> --path <PATH>
 #### Migrate data to other clusters
 
 ```shell
-cnosdb-imexport migrate --src <user>:<passowrd>@<ip>:<port> --dst <user>:<passowrd>@<ip>:<port> --path file:///staging
+cnosdb-imexport migate --src <user>:<passowrd>@<ip>:<port> --dst <user>:<passowrd>@<ip>:<port> --path file://staging
 ```
 
-## 备份 DDL 语句
+## Backup DDL statements
 
-dump 命令
+dump command
 
 ```shell
-cnosdb-cli dump-ddl [--tenant TENANT]
+cnosdb-cli dump-dl [--tenant TENANT]
 ```
 
-当指定 tenant 时，只会dump tenant相关的用户，角色，数据库，表
+When a tenant is specified, only dump tenant will be associated with users, roles, databases, tables
 
-restore 命令
+restore command
 
 ```shell
-cnosdb-cli [--error-stop] restore-dump-ddl DUMP_FILE
+cnosdb-cli [--error-stop] restore-dump-dl DUMP_FILE
 ```
 
-当指定 --error-stop 时，恢复中出错会中断恢复过程
+When --error-stop specified, a recovery error will interrupt the recovery process
 
-cnosdb-cli 支持更多参数，参数可参考[文档](../reference/tools.md#客户端命令行程序)，其中的参数应该放在 dump-ddl 和
-restore-dump-ddl 前面
+cnosdb-cli supports more parameters, reference to[文档](../reference/tools.md#Client command line program) in which arguments should be placed in dump-ddl and
+restore-dump-dl front
 
 ## Example
 
 dump
 
 ```shell
-cnosdb-cli --host 127.0.0.1 --port 8902 dump-ddl --tenant cnosdb > dump.sql
+cnosdb-cli --host 127.0.0.1 --port 8902 dump-dl -tenant cnosdb > dump.sql
 ```
 
-restore
+Restore
 
 ```shell
-cnosdb-cli --host 127.0.0.1 --port 8902 restore-dump-ddl dump.sql
+cnosdb-cli --host 127.0.0.1 --port 8902 restore-dump-dl dump.sql
 ```
