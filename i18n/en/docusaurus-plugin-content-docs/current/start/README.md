@@ -6,7 +6,7 @@ sidebar_position: 2
 
 CnosDB is a time-series database dedicated to the collection, storage and processing of sequential data. It is a non-relational database, based on column storage, and supports high concurrency, high availability, high reliability, high scalability, high performance, low cost data storage and query.
 
-CnosDB was designed to solve the storage and query problems of massive temporal data. The main application scenarios of time series data include operation and maintenance, IOT, and finance fields, covering online business and batch business in terms of business characteristics. In other words, time series database actually covers two types of business scenarios: analytical (OLAP) and business (OLTP). In theory, sequential databases should belong to a subcategory of OLAP, but at the same time, sequential databases are often divided into a separate category because of their different read and write modes.
+CnosDB is designed to address the storage and query of time-series data for sea volume.The main applications of time-series data are in the fields of transport, IOT and finance, covering online and batch operations in terms of business characteristics, and the time series database covers both analytical (OLAP) and operations (OLTP) business scenarios.CnosDB was designed to solve the storage and query problems of massive temporal data. The main application scenarios of time series data include operation and maintenance, IOT, and finance fields, covering online business and batch business in terms of business characteristics. In other words, time series database actually covers two types of business scenarios: analytical (OLAP) and business (OLTP). In theory, sequential databases should belong to a subcategory of OLAP, but at the same time, sequential databases are often divided into a separate category because of their different read and write modes.
 
 In this chapter, you will be shown how to use CnosDB, including how to install, start, connect, create a database, create a table, insert data, query data and other basic operations, to help you have a preliminary understanding of the use of timing databases.
 
@@ -29,5 +29,4 @@ This chapter includes the following:
 - [ORDER BY Clause](./quick_start.md#order-by-clause)
 - [IN](./quick_start.md#in)
 - [EXPLAIN](./quick_start.md#explain)
-- [DESCRIBE](./quick_start.md#describe)
-
+- [DESCRIBE](./quick_start.md#descripbe)
