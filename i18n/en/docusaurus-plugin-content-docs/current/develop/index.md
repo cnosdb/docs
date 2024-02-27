@@ -2,16 +2,16 @@
 sidebar_position: 4
 ---
 
-# Develop
+# Development
 
-CnosDB can use common development languages such as Go, Rust, Java, Python to operate, and also supports ODBC, Arrow Flight SQL and other technologies. This chapter introduces how to connect CnosDB to read and write operations in the development process and provides some examples.
+CnosDB can operate in commonly used development languages such as Go, Rust, Java, Python, and supports technologies such as ODBC, Arrow Flight SQL. This chapter describes how to connect CnosDB to read and write during development and provides some examples.
 
-- [Connect to CnosDB](./api.md)
-- [Write Data](./write.md)
-- [Query Data](./query.md)
+- [Connect to CnosDB](./api)
+- [写入数据](./write)
+- [查询数据](./query)
 
-Related Contents:
+Related Content：
 
-- [ODBC](../reference/connector/arrow_flight_sql.md#different-client-usage)
-- [JDBC](../reference/connector/arrow_flight_sql.md#different-client-usage)
-- [Arrow Filght SQL](../reference/connector/arrow_flight_sql)
+- [ODBC](../reference/connector/arrow_flowt_sql.md#Use different clients)
+- [JDBC](../reference/connector/arrow_flowt_sql.md#Use different clients)
+- [Arrow Filgight SQL](../reference/connector/arrow_flight_sql)
