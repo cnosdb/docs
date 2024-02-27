@@ -1,13 +1,13 @@
 ---
-title: Subscriptions
-order: 9
+title: Subscription Distribution Through Telegraf
+order: 12
 ---
 
 :::tip
-Only Enterprise Edition supports
+Enterprise only support
 :::
 
-The data can be replicated to another CnosDB cluster by subscription, and the data replication will help to improve the fault tolerance and reliability of the whole system. CnosDB supports managing subscriptions through SQL, and CnosDB supports subscribing through Telegraf or another CnosDB cluster.
+The data can be replicated to another CnosDB cluster by subscription, and the data replication will help to improve the fault tolerance and reliability of the whole system. CnosDB supports managing subscriptions through SQL, and CnosDB supports subscribing through Telegraf or another CnosDB cluster.Subscription Distribution Through Telegraf
 
 ## Create Subscription
 
@@ -19,9 +19,11 @@ We can use `CREATE SUBSCRIPTION` to create a subscription.
 CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_nmae>" ["<host_name>"]
 ```
 
-Note:
-1. `host_name` indicates the `host_name` of the grpc service of the CnosDB node that subscribing to this node.
-   All the data written to the specified database, CnosDB, will be copied and distributed to the host node.
+1. Configure the output plug-in `http` to distribute messages. If there is another CnosDB instance with an HTTP listening port number of `127.0.0.1:8912`, we can forward the subscription message to that instance with the following configuration.
+
+`host_name` indicates the `host_name` of the grpc service of the CnosDB node that subscribing to this node.
+All the data written to the specified database, CnosDB, will be copied and distributed to the host node.
+
 1. `ALL` Indicates the data replication mode. Currently, only `ALL` is supported.
 
 ### Example
@@ -50,7 +52,7 @@ We can use `ALTER SUBSCRIPTION` to alter the subscription.
 ### Syntax
 
 ```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]
+ALTER SUBSCRIPTON <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]
 ```
 
 ### Example
@@ -68,7 +70,7 @@ We can use `SHOW SUBSCRIPTION` to show the subscription information.
 ### Syntax
 
 ```
-SHOW SUBSCRIPTION ON <database_name>
+SHOW SUBSCRIPON ON <database_name>
 ```
 
 ### Example
@@ -77,9 +79,11 @@ SHOW SUBSCRIPTION ON <database_name>
 SHOW SUBSCRIPTION ON public
 ```
 
+Output Result：
+
 ```
-SUBSCRIPTION,DESTINATIONS,MODE
-test,"127.0.0.1:8902,127.0.0.1:8903",ALL
+SUBSCRIPTION,DESTINATIONS, MODE
+test,"127.0.0.1:8902,127.0.1:8903", ALL
 ```
 
 ## Drop Subscription
@@ -89,7 +93,7 @@ We can use `DROP SUBSCRIPTION` to drop the subscription.
 ### Syntax
 
 ```
-DROP SUBSCRIPTION <subscription_name> ON <database_name>
+DROP SUBSCRIPTON <subscription_name> ON <database_name>
 ```
 
 ### Example
@@ -98,13 +102,17 @@ DROP SUBSCRIPTION <subscription_name> ON <database_name>
 DROP SUBSCRIPTION test ON public
 ```
 
-## Subscription Distribution Through Telegraf
+## Synchronization of isomer data via Telegraf
 
 ### Install Telegraf
 
 You can refer to [Telegraf](/eco-integration/index/telegraf#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
 
-### Telegraf Configuration
+### Send data to InfluxDB
+
+> InfluxDB version in this instance is 1.8.10.
+>
+> Telegraf is installed locally (accessible through 127.0.0.1).
 
 Supposing that we've started CnosDB and created a subscription, set `DESTINATIONS` to `127.0.0.1:8803` :
 
@@ -120,11 +128,11 @@ Supposing that we've started CnosDB and created a subscription, set `DESTINATION
 Add the input plug-in `cnosdb` in the configuration file of Telegraf, and configure the listening address and port number as follows:
 
 ```toml
-[[inputs.cnosdb]]
+[[inputs.cnosdb]
 service_address = ":8803"
 ```
 
-Configure the output plug-in `http` to distribute messages. If there is another CnosDB instance with an HTTP listening port number of `127.0.0.1:8912`, we can forward the subscription message to that instance with the following configuration.
+Configure **Output Plugins** to implement distribution messages.Assuming that the HTTP listener port number `127.0.0.1:8086` is `127.0.01:8086` and creating a database `test_db`, then we can use configuration： below
 
 ```toml
 [[outputs.http]]
@@ -139,3 +147,38 @@ content_encoding = "identity"
 idle_conn_timeout = 10
 ```
 
+Next, write on CnosDB, data will be forwarded to the InfluxDB database `test_db`.
+
+First CnosDB command line client `cnosdb-cli` executes：
+
+```
+CREATE TABair (
+    vision DOUBLE,
+    temperature DOUBLE,
+    pressure DOUBLE,
+    TAGS(station)
+;
+
+INSERT INTO air (time, station, visibility, temperature, pressure) VALUES('2023-01-01 01:10:00', 'XiaoMaiDao', 79, 80, 63);
+INSERT INTO air (time, station, visibility, temperature, pressure) VALUES('2023-01-01 01:20:00', 'XiaoMaiDao', 80, 60, 63);
+INSERT INTO air (time, station, visibility, temperature, pressure) VALUES('2023-01-01 01:30:00', 'XiaoMaiDao', 81, 70, 61);
+```
+
+then execute： in InfluxDB command line client `influx`
+
+```
+use test_db;
+
+SELECT * FROM air;
+```
+
+Get Results：
+
+```
+name: air
+time                host        pressure station    temperature visibility
+----                ----        -------- -------    ----------- ----------
+1683643874641792000 devpc.local 63       XiaoMaiDao 80          79
+1683643877346013000 devpc.local 63       XiaoMaiDao 60          80
+1683643880454956000 devpc.local 61       XiaoMaiDao 70          81
+```
