@@ -1,43 +1,43 @@
 ---
-title: Raft复制
+title: Raft Copy
 order: 4
 ---
 
-# Raft复制算法基本概念
+# Raft Copy Algorithm Basic Concepts
 
-在分布式系统中，Raft是一种一致性算法，用于复制日志以确保在多个节点之间达成一致。Raft算法中的节点分为领导者（leader）、跟随者（follower）和候选者（candidate）。
+In the distribution system, Raft is a consistent algorithm used to copy logs to ensure agreement among multiple nodes.The nodes in the Rafah algorithm are divided into leaders (leader), followers (follower) and candidates (candidate).
 
-当一个节点作为领导者运行时，它负责接收客户端的请求，并将这些请求复制到其他节点的日志中，以实现数据的复制和一致性。
+When a node operates as a leader, it receives client requests and copies them to the logs of other nodes to achieve data reproduction and consistency.
 
-### Raft副本复制的基本过程
+### Basic process for copying copies of Raft
 
-- 领导选举
-  当系统启动或者当前的领导者节点失去联系时，剩余节点中的候选者会发起一次领导选举。候选者会向其他节点发送请求投票的消息，并在一定的时间内等待其他节点的回复。如果候选者获得了大多数节点的支持，它就成为了新的领导者。
+- Leadership election
+  Candidates from the remaining nodes will launch a leadership election when the system starts or the current leader node loses its contact.Candidates send requests for voting to other nodes and wait for responses from other nodes within a certain period of time.If the candidate enjoys the support of most nodes, it becomes a new leader.
 
-- 日志复制
-  一旦选出了领导者，它就可以接收客户端的请求，并将这些请求追加到自己的日志中。然后，领导者会将这些日志条目发给其他节点，并等待大多数节点的确认。一旦大多数节点都确认接收并复制了这些日志，领导者就可以将日志条目应用到本地状态机上，从而实现数据的一致性。
+- Log duplicates
+  to receive client requests and append them to their own logs.The leader then sends these log entries to other nodes and awaits confirmation from most nodes.Once most nodes confirm receiving and copying these logs, leaders can apply log entries to local state machines, thereby achieving data consistency.
 
-- 跟随者复制
-  当跟随者节点接收到领导者发送的日志条目时，它会将这些日志条目追加到自己的日志中，并发送确认消息给领导者。一旦领导者接收到大多数节点的确认消息，它就知道这些日志条目已经复制到了大多数节点中，从而确保了一致性。
+- Followers copy
+  when the follower node receives log entries sent by the leader, it append these log entries to its own log and send a confirmation message to the leader.Once the leader receives confirmation messages from most nodes, it knows that these log entries have been copied to most nodes, thus ensuring consistency.
 
-- 故障处理
-  如果领导者节点失去联系或者发生了其他故障，剩余的节点会重新发起选举，选出新的领导者。新选出的领导者会继续复制日志，并维护数据的一致性。
+- The troubleshooter
+  will restart the election and select a new leader if the leader's node has lost contact or other failures.Newly elected leaders will continue to copy logs and maintain data consistency.
 
-通过以上的流程，Raft算法实现了副本复制和一致性，确保了分布式系统中的数据一致性和可靠性。
+Through the above processes, the Rafah algorithm achieved copying and consistency and ensured data consistency and reliability in distributed systems.
 
-### CnosDB对Raft使用
+### Use by CnosDB for Rafah
 
-在CnosDB v2.4版本中引入了Raft复制算法，每个Replica Set是一个Raft复制组，整个系统是一个Multi-Raft模式运行。
+Raft copy algorithm was introduced in CnosDB v2.4. Each Replica Set is a Raft Repository, the entire system is running in a multi-Raft mode.
 
-#### 数据写入流程
+#### Data Writing Process
 
-- 根据租户、Database以及时间戳确定写入哪个Bucket。
-- 根据Series Key进行Hash确定写入哪个Replica Set，也就是哪个Raft复制组。
-- 查看接收请求的节点是不是Leader如果是直接写入，否则转发到Leader进行处理。
+- Determines which Bucket is written by tenant, Database, and timestamps.
+- Hash to determine which Replica Set, or which Raft Replicate Group to write based on Series Key.
+- Check if the requested node is a leader who wrote it directly, or forward it to the Leader for processing.
 
-#### Raft复制组的管理
+#### Manage Raft Copy Group
 
-- 复制组的创建、销毁
-- 添加一个副本
-- 删除一个副本
-- 移动一个副本
+- Duplicate group creation, destruction
+- Add a copy
+- Delete a copy
+- Move a copy
