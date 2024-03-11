@@ -69,8 +69,8 @@ const config = {
               label: '2.4.0',
               banner: 'none',
             },
-            '2.3.4': {
-              label: '2.3.4',
+            '2.3.x': {
+              label: '2.3.x',
               banner: 'none',
             },
           },
