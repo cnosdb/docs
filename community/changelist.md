@@ -1,5 +1,26 @@
 # 发行说明
 
+## v2.3.5 Aquarius
+
+发布日期：2024年03月06日
+
+### 功能优化
+
+- 增加增量文件的压缩任务。[#1945](https://github.com/cnosdb/cnosdb/pull/1945)
+- 同一个 Vnode 的压实操作改为单线程运行。[#2002](https://github.com/cnosdb/cnosdb/pull/2002)
+
+### 错误修复
+
+- 修复涉及大量文件的查询导致的LRU缓存击穿问题。[#1965](https://github.com/cnosdb/cnosdb/pull/1965)
+- 修复增量压实导致数据丢失的问题。[#1982](https://github.com/cnosdb/cnosdb/pull/1982)
+- 修复 pread 函数可能会写野指针的问题[#1981](https://github.com/cnosdb/cnosdb/pull/1981)
+- 修复压实操作导致数据丢失的问题。合并多个数据块时，未按预期排除墓碑数据。[#1988](https://github.com/cnosdb/cnosdb/pull/1988)
+- 将 async_file sync_data() 改为sync_all() 。[#1994](https://github.com/cnosdb/cnosdb/pull/1994)
+- 修复增量压实选取增量文件的一些错误逻辑，提升增量文件数量降低的效率 [#1998](https://github.com/cnosdb/cnosdb/pull/1998)
+- 修复TsmWriter::size 没有添加 index_size [#1999](https://github.com/cnosdb/cnosdb/pull/1999)
+- 修复添加 count tag 的功能 [#1989](https://github.com/cnosdb/cnosdb/pull/1989)
+- 提取函数 update_max_ts_of_levels [#2004](https://github.com/cnosdb/cnosdb/pull/2004)
+
 ## v2.3.4.4
 
 发布日期：2024年01月27日
@@ -54,8 +75,6 @@
 - 修复`dedup_by_front` 删除了错误元素的错误。 [#1815](https://github.com/cnosdb/cnosdb/pull/1815)
 - 修复异步 LruCache 导致的错误。 [#1820](https://github.com/cnosdb/cnosdb/pull/1820)
 - 修复 `meta` 服务创建的快照为空的问题。 [#1835](https://github.com/cnosdb/cnosdb/pull/1835)
-
-
 
 ## v2.3.4 Apus
 

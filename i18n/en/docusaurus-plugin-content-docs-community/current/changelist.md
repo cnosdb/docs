@@ -1,5 +1,26 @@
 # Releases
 
+## v2.3.5 Aquarius
+
+Release：March 06, 2024
+
+### Improvements
+
+- Add incremental file compression tasks. [#1945](https://github.com/cnosdb/cnosdb/pull/1945)
+- Compaction operations on the same Vnode changed to run in a single thread. [#2002](https://github.com/cnosdb/cnosdb/pull/2002)
+
+### Bug Fixes
+
+- Fix LRU cache hit due to queries involving a large number of files. [#1965](https://github.com/cnosdb/cnosdb/pull/1965)
+- Fix data loss due to incremental compaction. [#1982](https://github.com/cnosdb/cnosdb/pull/1982)
+- Fix pread function that could write wild pointers [#1981](https://github.com/cnosdb/cnosdb/pull/1981)
+- Fix compaction operation causing data loss. Tombstone data not excluded as expected when merging multiple data blocks. [#1988](https://github.com/cnosdb/cnosdb/pull/1988)
+- Change async_file sync_data() to sync_all(). [#1994](https://github.com/cnosdb/cnosdb/pull/1994)
+- Fix some buggy logic in selecting incremental files for incremental compaction, improve efficiency in decreasing the number of incremental files [#1998](https://github.com/cnosdb/cnosdb/pull/1998)
+- Fix not adding index_size to TsmWriter::size [#1999](https://github.com/cnosdb/cnosdb/pull/1999)
+- Fix add count tag function [#1989](https://github.com/cnosdb/cnosdb/pull/1989)
+- Extract function update_max_ts_of_levels [#2004](https://github.com/cnosdb/cnosdb/pull/2004)
+
 ## v2.3.4 Apus
 
 Release date: Nov 24, 2023
