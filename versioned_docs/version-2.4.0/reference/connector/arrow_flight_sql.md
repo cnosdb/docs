@@ -54,12 +54,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ## 不同客户端的使用方式
 
-::: info 下面分别介绍不同客户端的使用方式：
-:::
+:::info 本章节分别介绍不同客户端的使用方式。
 
-::: tabs#language
-
-@tab C++#C++
+<Tabs>
+<TabItem value="c++" label="C++">
 - #### 安装Apache Arrow
 
   你可以去[官方文档](https://arrow.apache.org/install/)找到详细的安装教程
@@ -212,7 +210,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-@tab Golang#Golang
+</TabItem>
+
+<TabItem value="golang" label="Golang">
 
 - #### 添加依赖
 
@@ -288,7 +288,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-@tab Java#Java
+</TabItem>
+
+<TabItem value="java" label="Java">
 
 - #### 添加依赖
 
@@ -474,7 +476,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-@tab Rust#Rust
+</TabItem>
+
+<TabItem value="rust" label="Rust">
 
 代码运行在异步环境下。
 
@@ -711,7 +715,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    }
    ```
 
-@tab JDBC#JDBC
+</TabItem>
+
+<TabItem value="jdbc" label="JDBC">
 
 - #### 添加依赖
 
@@ -832,7 +838,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    
    ```
 
-@tab ODBC#ODBC
+</TabItem>
+
+<TabItem value="odbc" label="ODBC">
 
 目前仅支持x86_64架构的系统，linux仅支持centos和redhat系列发行版。
 
