@@ -27,11 +27,11 @@ SELECT *
 FROM cluster_schema.tenants;
 ```
 
-    +-------------+---------------------------------------------------+
-    | tenant_name | tenant_options                                    |
-    +-------------+---------------------------------------------------+
-    | cnosdb      | {"comment":"system tenant","limiter_config":null} |
-    +-------------+---------------------------------------------------+
+    +-------------+----------------------------------------------------------------------------+
+    | tenant_name | tenant_options                                                             |
+    +-------------+----------------------------------------------------------------------------+
+    | cnosdb      | {"comment":"system tenant","limiter_config":null,"tenant_is_hidden":false} |
+    +-------------+----------------------------------------------------------------------------+
 
 ### 创建租户
 
@@ -50,12 +50,12 @@ CREATE TENANT test;
 SELECT * FROM cluster_schema.tenants;
 ```
 
-    +-------------+---------------------------------------------------+
-    | tenant_name | tenant_options                                    |
-    +-------------+---------------------------------------------------+
-    | test        | {"comment":null,"limiter_config":null}            |
-    | cnosdb      | {"comment":"system tenant","limiter_config":null} |
-    +-------------+---------------------------------------------------+
+    +-------------+----------------------------------------------------------------------------+
+    | tenant_name | tenant_options                                                             |
+    +-------------+----------------------------------------------------------------------------+
+    | test        | {"comment":null,"limiter_config":null,"tenant_is_hidden":false}            |
+    | cnosdb      | {"comment":"system tenant","limiter_config":null,"tenant_is_hidden":false} |
+    +-------------+----------------------------------------------------------------------------+
 
 ### 修改租户
 
@@ -84,8 +84,12 @@ ALTER TENANT test SET COMMENT = 'abc';
 **语法**
 
 ```sql 
-DROP TENANT tenant_name;
+DROP TENANT tenant_name [AFTER '7d'];
 ```
+
+当不带AFTER时，会立即删除；
+
+当带AFTER时，为延迟删除，会在指定时间后删除，时间支持天（d），小时（h），分钟（m），如10d，50h，100m，当不带单位时，默认为天。延迟删除期间租户不可见且不可用。
 
 #### 语法
 
@@ -93,15 +97,15 @@ DROP TENANT tenant_name;
 RECOVER TENANT tenant_name;
 ```
 
-SET 用来设置租户属性，属性只能为对应属性类型的常量
+延迟删除取消，租户恢复正常状态。
 
-UNSET 删除租户属性
-
-目前租户属性支持：COMMENT，对应属性类型为STRING类型，用单引号括起来； _LIMITER，对应属性类型为STRING类型， 用单引号括起来，内容详见[租户资源限制](https://docs.cnosdb.com/zh/latest/manage/resource_limit)。
+**注意**：只有对延迟删除的资源，且在延迟删除期间，执行RECOVER语句才有作用。
 
 **示例**
 
 ```sql
+DROP TENANT test AFTER '7d';
+
 RECOVER TENANT test;
 
 DROP TENANT test;
@@ -116,11 +120,11 @@ SELECT *
 FROM cluster_schema.users;
 ```
 
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
-    | user_name | is_admin | user_options                                                                                    |
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
-    | root      | true     | {"password":"*****","must_change_password":true,"rsa_public_key":null,"comment":"system admin"} |
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
+    +-----------+----------+------------------------------------------------------------------------------------------------------+
+    | user_name | is_admin | user_options                                                                                         |
+    +-----------+----------+------------------------------------------------------------------------------------------------------+
+    | root      | true     | {"hash_password":"*****","must_change_password":true,"comment":"system admin","granted_admin":false} |
+    +-----------+----------+------------------------------------------------------------------------------------------------------+
 
 ### 创建用户
 
@@ -154,7 +158,9 @@ option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 option_value 只能是常量
 
 COMMENT 的 option_value 类型为字符串
+
 MUST_CHANGE_PASSWORD 的 option_value 类型为布尔
+
 PASSWORD 的 option_value 类型为字符串
 
 **示例**
@@ -227,11 +233,11 @@ alter user dev set granted_admin = false;
 select * from cluster_schema.users where user_name = 'dev';
 ```
 
-    +-----------+----------+------------------------------------------------------------------------+
-    | user_name | is_admin | user_options                                                           |
-    +-----------+----------+------------------------------------------------------------------------+
-    | dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
-    +-----------+----------+------------------------------------------------------------------------+
+    +-----------+----------+-----------------------------------------------------------------------------+
+    | user_name | is_admin | user_options                                                                |
+    +-----------+----------+-----------------------------------------------------------------------------+
+    | dev       | true     | {"hash_password":"*****","must_change_password":false,"granted_admin":true} |
+    +-----------+----------+-----------------------------------------------------------------------------+
 
 ## 租户角色
 
@@ -276,6 +282,7 @@ CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
 **示例**
+
 在当前租户下创建继承owner角色的owner_role角色。
 
 ```sql
