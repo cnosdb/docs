@@ -131,7 +131,8 @@ alter tenant <tenant_name> set _limiter '<limiter_json>';
 #### 整体示例
 
 ```json
-alter tenant cnosdb set _limiter = '{
+create tenant test;
+alter tenant test set _limiter = '{
   "object_config": {
     "max_users_number": 1,
     "max_databases": 3,

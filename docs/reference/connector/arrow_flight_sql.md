@@ -918,7 +918,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        SQLGetData(hsmt, 3, SQL_C_DOUBLE, &visibility, 0, NULL);
        SQLGetData(hsmt, 4, SQL_C_DOUBLE, &temperature, 0, NULL);
        SQLGetData(hsmt, 5, SQL_C_DOUBLE, &pressure, 0, NULL);
-       printf("%d-%02d-%02dT%02d:%02d:%02d, %s, %.2lf, %.2lf, %.2lf\n", time.year, time.month, time.day, time.hour, tme.minute, time.second, station, visibility, temperature, pressure);
+       printf("%d-%02d-%02dT%02d:%02d:%02d, %s, %.2lf, %.2lf, %.2lf\n", time.year, time.month, time.day, time.hour, time.minute, time.second, station, visibility, temperature, pressure);
      } else {
       break;
      }

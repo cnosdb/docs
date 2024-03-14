@@ -105,18 +105,18 @@ SELECT *
 FROM cluster_schema.users;
 ```
 
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
-    | user_name | is_admin | user_options                                                                                    |
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
-    | root      | true     | {"password":"*****","must_change_password":true,"rsa_public_key":null,"comment":"system admin"} |
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
+    +-----------+----------+---------------------------------------------------------------------------+
+    | user_name | is_admin | user_options                                                              |
+    +-----------+----------+---------------------------------------------------------------------------+
+    | root      | true     | {"password":"*****","must_change_password":true,"comment":"system admin"} |
+    +-----------+----------+---------------------------------------------------------------------------+
 
 ### 创建用户
 
 **语法**
 
 ```sql
-USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [GRANTED_ADMIN=true,] [COMMENT = '']];
+CREATE USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [GRANTED_ADMIN=true,] [COMMENT = '']];
 ```
 
 **示例**
@@ -142,7 +142,9 @@ option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 option_value 只能是常量
 
 COMMENT 的 option_value 类型为字符串
+
 MUST_CHANGE_PASSWORD 的 option_value 类型为布尔
+
 PASSWORD 的 option_value 类型为字符串
 
 **示例**
@@ -215,11 +217,11 @@ alter user dev set granted_admin = false;
 select * from cluster_schema.users where user_name = 'dev';
 ```
 
-    +-----------+----------+------------------------------------------------------------------------+
-    | user_name | is_admin | user_options                                                           |
-    +-----------+----------+------------------------------------------------------------------------+
-    | dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
-    +-----------+----------+------------------------------------------------------------------------+
+    +-----------+----------+-------------------------------------------+
+    | user_name | is_admin | user_options                              |
+    +-----------+----------+-------------------------------------------+
+    | dev       | true     | {"password":"*****","granted_admin":true} |
+    +-----------+----------+-------------------------------------------+
 
 ## 租户角色
 
@@ -264,6 +266,7 @@ CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
 **示例**
+
 在当前租户下创建继承owner角色的owner_role角色。
 
 ```sql

@@ -30,7 +30,7 @@ FROM cluster_schema.tenants;
     +-------------+-----------------------------------------------------------------------------------------+
     | tenant_name | tenant_options                                                                          |
     +-------------+-----------------------------------------------------------------------------------------+
-    | cnosdb      | {"comment":"system tenant","limiter_config":null,"after":null,"tenant_is_hidden":false} |
+    | cnosdb      | {"comment":"system tenant","limiter_config":null,"drop_after":null,"tenant_is_hidden":false} |
     +-------------+-----------------------------------------------------------------------------------------+
 
 ### 创建租户
@@ -59,8 +59,8 @@ FROM cluster_schema.tenants;
     +-------------+-----------------------------------------------------------------------------------------+
     | tenant_name | tenant_options                                                                          |
     +-------------+-----------------------------------------------------------------------------------------+
-    | test        | {"comment":null,"limiter_config":null,"after":null,"tenant_is_hidden":false}            |
-    | cnosdb      | {"comment":"system tenant","limiter_config":null,"after":null,"tenant_is_hidden":false} |
+    | test        | {"comment":null,"limiter_config":null,"drop_after":null,"tenant_is_hidden":false}            |
+    | cnosdb      | {"comment":"system tenant","limiter_config":null,"drop_after":null,"tenant_is_hidden":false} |
     +-------------+-----------------------------------------------------------------------------------------+
 
 ### 修改租户
@@ -114,7 +114,7 @@ RECOVER TENANT tenant_name;
 **示例**
 
 ```sql
-DROP TENANT test AFTER ‘7d’;
+DROP TENANT test AFTER '7d';
 
 RECOVER TENANT test;
 
@@ -141,7 +141,7 @@ FROM cluster_schema.users;
 **语法**
 
 ```sql
-USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [GRANTED_ADMIN=true,] [COMMENT = '']];
+CREATE USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [GRANTED_ADMIN=true,] [COMMENT = '']];
 ```
 
 **示例**
@@ -167,7 +167,9 @@ option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 option_value 只能是常量
 
 COMMENT 的 option_value 类型为字符串
+
 MUST_CHANGE_PASSWORD 的 option_value 类型为布尔
+
 PASSWORD 的 option_value 类型为字符串
 
 **示例**
@@ -287,6 +289,7 @@ CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
 **示例**
+
 在当前租户下创建继承owner角色的owner_role角色。
 
 ```sql
