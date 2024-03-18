@@ -15,7 +15,6 @@ DropTable,
 DropColumn,
 AddColumn,
 AlterColumn,
-RenameTagName,
 UpdateTagValue
 ```
 
