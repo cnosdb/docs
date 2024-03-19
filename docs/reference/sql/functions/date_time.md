@@ -104,9 +104,22 @@ SELECT date_bin(INTERVAL '15' MINUTE, TIMESTAMP '2024-01-01T18:18:18Z');
 
 </details>
 
-
-
 ## date_trunc
+
+将时间戳值截断为指定的精度。
+
+```sql
+date_trunc(precision, expression)
+```
+
+| 参数         | 描述                                                         |
+| ------------ | ------------------------------------------------------------ |
+| `precision`  | 截断到的时间精度。支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`。 |
+| `expression` | 要操作的时间表达式。可以是常量、列或函数。                   |
+
+别名：`datetrunc`
+
+
 
 ## date_part
 

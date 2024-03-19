@@ -4,10 +4,6 @@ sidebar_position: 5
 
 # 数据查询语言
 
-
-
-## `SELECT`
-
 ```sql
 [ WITH with_query [, ...] ]
 SELECT [ ALL | DISTINCT ] select_expression [, ...]
@@ -39,39 +35,287 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 ### `WITH`
 
-### `SELECT`
+`WITH` 子句允许为查询提供名称并按名称引用它们。
 
-### `FROM`
+`WITH` 子句用于创建临时命名的结果集，也称为 公共表表达式（[CTE](https://learnsql.com/blog/what-is-common-table-expression/)）。
 
-### `WHERE`
+通过使用 `WITH` 关键字，可以在 SQL 查询中定义一个临时的结果集，并为其指定一个名称。这个临时结果集可以在查询的其他部分中被引用，从而使查询更清晰、可读性更高，并且可以避免重复性的子查询。
 
-### `JOIN`
+```sql
+WITH x AS (SELECT a, MAX(b) AS b FROM t GROUP BY a)
+SELECT a, b FROM x;
+```
 
-### `GROUP`
+<details>
+  <summary>查看 <code>WITH</code> 示例</summary>
 
-### `HAVING`
+```sql
+WITH x AS (SELECT station, avg(temperature) AS avg_temperature FROM air GROUP BY station)
+SELECT station, avg_temperature FROM x;
+```
 
-#### `ROLLUP`
+</details>
 
-#### `CUBE`
+## `SELECT`
 
-### `UNION`
+`SELECT` 子句用于从数据库中检索数据。
 
-### `ORDER BY`
+在 SQL 查询中，`SELECT` 语句用于指定要返回的列，以及要从中检索数据的 `table`。通过使用 `SELECT` 关键字，可以选择特定列或所有列，并从中检索数据。
 
-### `OFFSET`
+可以添加 `DISTINCT` 返回所有不同的行，默认为 `ALL`。
 
-### `LIMIT`
+<details>
+  <summary>查看 <code>DISTINCT</code> 和 <code>ALL</code> 示例</summary>
+
+**`DISTINCT` 和 `ALL` 对于 `TAG` 类型的列没有效果。**
+
+```sql {1}
+SELECT DISTINCT station FROM air;
++-------------+
+| station     |
++-------------+
+| XiaoMaiDao  |
+| LianYunGang |
++-------------+
+```
+
+```sql {1}
+SELECT station FROM air;
++-------------+
+| station     |
++-------------+
+| XiaoMaiDao  |
+| LianYunGang |
++-------------+
+```
+
+无论是否使用 `DISTINCT`，`TAG` 类型的列都会主动去重复。
+
+**`DISTINCT` 和 `ALL` 只对 `FIELD` 类型的列有效果。**
+
+以下的  `temperature` 列有多条相同的记录。
+
+```sql {1}
+SELECT temperature FROM air WHERE temperature = 50;
++-------------+
+| temperature |
++-------------+
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| 50.0        |
+| ... ...     |
++-------------+
+```
+
+如果使用 `DISTINCT` 对 `temperature` 列中的记录去重，则只会返回一条记录。
+
+```sql {1}
+SELECT DISTINCT temperature FROM air WHERE temperature = 50;
++-------------+
+| temperature |
++-------------+
+| 50.0        |
++-------------+
+```
+
+
+
+</details>
+
+## `FROM`
+
+`FROM` 子句用于指定要从中检索数据的 `table` 或 `table` 表达式。即要从中选择数据的 `table`。通过在 `FROM` 子句中指定 `table` 的名称，可以告诉数据库系统从哪里获取数据。
+
+**指定 `table` 名称。**
+
+<details>
+  <summary>查看示例</summary>
+
+```sql {1}
+SELECT * FROM air;
++---------------------+-------------+----------+-------------+------------+
+| time                | station     | pressure | temperature | visibility |
++---------------------+-------------+----------+-------------+------------+
+| 2023-01-14T16:00:00 | LianYunGang | 68.0     | 78.0        | 52.0       |
+| 2023-01-14T16:03:00 | LianYunGang | 69.0     | 54.0        | 72.0       |
+| 2023-01-14T16:06:00 | LianYunGang | 65.0     | 54.0        | 78.0       |
+| 2023-01-14T16:09:00 | LianYunGang | 51.0     | 75.0        | 64.0       |
+| ... ...      |
++---------------------+-------------+----------+-------------+------------+
+Query took 0.069 seconds.
+```
+
+</details>
+
+**使用 `VALUE` 构建临时表。**
+
+<details>
+  <summary>查看示例</summary>
+
+```sql
+SELECT *
+FROM
+  (VALUES ('2023-01-01 12:00:00'::TIMESTAMP, 1.23, 4.56),
+          ('2023-01-01 13:00:00'::TIMESTAMP, 2.46, 8.1),
+          ('2023-01-01 13:00:00'::TIMESTAMP, 4.81, 16.2)
+  ) AS data(time, f1, f2);
+```
+
+</details>
+
+
+## `WHERE`
+
+`WHERE` 子句用于筛选满足指定条件的行数据。
+
+当使用 `SELECT` 语句从数据库中检索数据时，可以通过 `WHERE` 子句指定条件，以便只返回满足条件的行。这样可以对数据进行过滤，只选择符合特定条件的数据行。
+
+`WHERE` 子句通常与 [比较运算符](reference.md#比较运算符) 和 [逻辑运算符](reference.md#逻辑运算符) 一起使用，以构建复杂的筛选条件。
+
+<details>
+  <summary>查看示例</summary>
+
+```sql {1}
+SELECT * FROM air WHERE temperature > 60;
++---------------------+-------------+----------+-------------+------------+
+| time                | station     | pressure | temperature | visibility |
++---------------------+-------------+----------+-------------+------------+
+| 2023-01-14T16:00:00 | LianYunGang | 68.0     | 78.0        | 52.0       |
+| 2023-01-14T16:09:00 | LianYunGang | 51.0     | 75.0        | 64.0       |
+| 2023-01-14T16:15:00 | LianYunGang | 79.0     | 68.0        | 67.0       |
+| 2023-01-14T16:18:00 | LianYunGang | 70.0     | 77.0        | 57.0       |
+| ... ...       														  |
++---------------------+-------------+----------+-------------+------------+
+```
+
+</details>
+
+## `JOIN`
+
+`JOIN` 子句可以连接多个表的数据。支持以下连接：
+
+`INNER JOIN`, `LEFT OUTER JOIN`， `RIGHT OUTER JOIN`， `FULL OUTER JOIN`
+
+<details>
+  <summary>查看<code>INNER JOIN</code>示例</summary>
+
+</details>
+
+<details>
+  <summary>查看<code>LEFT OUTER JOIN</code>示例</summary>
+
+</details>
+
+<details>
+  <summary>查看<code>RIGHT OUTER JOIN</code>示例</summary>
+
+</details>
+
+<details>
+  <summary>查看<code>FULL OUTER JOIN</code>示例</summary>
+
+</details>
+
+
+
+## `GROUP BY`
+
+用于将查询结果按指定列进行分组。通过使用 `GROUP BY` 子句，可以对查询结果进行分组，并且通常与聚合函数（如 `count`、`sum`、`avg` 等）一起使用，以便在每个组上执行聚合操作。
+
+在使用 `GROUP BY` 子句时，查询结果将根据指定的列值进行分组，并且每个组将具有相同的值。这使得可以在每个组上应用聚合函数，以便获取每个组的汇总信息。
+
+<details>
+  <summary>查看示例</summary>
+
+</details>
+
+## `HAVING`
+
+`HAVING` 子句通常与 `GROUP BY` 子句一起使用，用于过滤基于聚合函数计算结果的组。
+
+当使用 `GROUP BY` 子句对查询结果进行分组后，`HAVING` 子句允许在分组后的结果集上进一步筛选数据。它类似于` WHERE` 子句，但 `WHERE` 子句用于筛选行，而 `HAVING` 子句用于筛选组。
+
+<details>
+  <summary>查看示例</summary>
+
+</details>
+
+## `ROLLUP`
+
+`ROLLUP`  用于生成包含超级聚合行的多维聚合数据的操作符。
+
+在 SQL 中，`ROLLUP` 用于对 `GROUP BY` 子句中的列进行多层次的汇总。它会生成包含每个层次的合计行的结果。`ROLLUP` 从最右边的列开始，逐渐向左侧添加列进行汇总，直到生成一个包含所有行的总计行。
+
+## `CUBE`
+
+`CUBE` 用于生成所有可能的组合的多维聚合数据的操作符。
+
+在 SQL 中，`CUBE` 用于对 `GROUP BY` 子句中的列进行多维聚合，生成所有可能的组合。它会生成包含每个列的合计行的结果，从单个列到所有列的组合。
+
+使用 `CUBE` 可以生成比 `ROLLUP` 更多的汇总数据，因为它会考虑所有可能的组合，而不仅仅是从右向左逐渐添加列进行汇总。
+
+
+
+## `UNION`
+
+`UNION` 子句用于合并两个或多个 `SELECT` 语句的结果集并去除重复的行。
+
+通过使用 `UNION` 关键字，可以将多个 `SELECT` 查询的结果集合并为一个结果集。需要注意的是，使用 `UNION` 时，要求每个 `SELECT` 查询返回相同数量和类型的列，以便能够正确地合并结果集。
+
+除了 `UNION` 还有 `UNION ALL`，它也用于合并结果集，但不会去除重复的行。`UNION ALL` 比 `UNION` 更快，因为它不执行去重操作。
+
+<details>
+  <summary>查看示例</summary>
+
+</details>
+
+## `ORDER BY`
+
+ORDER BY 子句用于对查询结果按指定列进行排序。
+
+通过使用 `ORDER BY` 子句，可以对查询结果按一个或多个列的值进行排序，可以指定升序（`ASC`）或降序（`DESC`）排列顺序。默认情况下，`ORDER BY` 子句按升序排列。
+
+<details>
+  <summary>查看示例</summary>
+
+</details>
+
+## `LIMIT`
+
+`LIMIT` 子句，用于限制查询结果返回的行数。
+
+在 SQL 查询中，`LIMIT` 子句用于指定要返回的行数，从而控制查询结果集的大小。通过使用 `LIMIT`，可以限制返回的行数，以便只获取需要的数据行。
+
+<details>
+  <summary>查看示例</summary>
+
+</details>
+
+## `OFFSET`
+
+`OFFSET` 子句通常与 `LIMIT` 结合使用，用于指定从查询结果中跳过多少行开始返回数据
+
+在 SQL 查询中，`OFFSET` 用于指定要跳过的行数，而 `LIMIT` 用于指定要返回的行数。通过结合使用 `OFFSET` 和 `LIMIT`，可以实现分页功能，从查询结果中获取指定范围的数据。
+
+<details>
+  <summary>查看示例</summary>
+
+</details>
+
 
 ## `SHOW`
 
-显示对象列表。
+`SHOW` 不是标准 SQL 命令，而是 CnosDB 提供的指令，用于显示数据库对象或元数据信息。
 
 ```sql
 SHOW {DATABASES | TABLES | QUERIES}
 ```
-
-
 
 ## `SHOW SERIES`
 
