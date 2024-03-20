@@ -249,7 +249,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 设置连接凭证，并取得已经验证的上下文
 
    ```go
-   ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root", "")
+   ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root:", "")
    if err != nil {
      fmt.Print(err)
      return
@@ -288,12 +288,54 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      for i, col := range record.Columns() {
        fmt.Printf("rec[%d][%q]: %v\n", n, record.ColumnName(i), col)
      }
-     column := record.Column(0)
-     column.String()
+     record.Column(0)
      n++
    }
    ```
 
+#### 全部代码
+  ```go
+    addr := "127.0.0.1:8904"
+	var dialOpts = []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	cl, err := flightsql.NewClient(addr, nil, nil, dialOpts...)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root:", "")
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	info, err := cl.Execute(ctx, "SELECT now();")
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	// 目前CnosDb仅实现了一个EndPoint
+	rdr, err := cl.DoGet(ctx, info.GetEndpoint()[0].Ticket)
+	if err != nil {
+		fmt.Print(err)
+		fmt.Println(35)
+		return
+	}
+	defer rdr.Release()
+
+	n := 0
+	for rdr.Next() {
+		record := rdr.Record()
+		for i, col := range record.Columns() {
+			fmt.Printf("rec[%d][%q]: %v\n", n, record.ColumnName(i), col)
+		}
+		record.Column(0)
+		n++
+	}
+  ```
 </TabItem>
 
 <TabItem value="java" label="Java">

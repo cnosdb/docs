@@ -214,6 +214,126 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 </TabItem>
 
+<TabItem value="golang" label="Golang">
+
+- #### 添加依赖
+
+  在go.mod中写入依赖
+
+   ```go
+   require (
+     github.com/apache/arrow/go/v10 v10.0.1
+     google.golang.org/grpc v1.51.0
+   )
+   ```
+
+- #### 创建Flight SQL客户端
+
+   ```go
+   addr := "127.0.0.1:8904"
+   var dialOpts = []grpc.DialOption{
+     grpc.WithTransportCredentials(insecure.NewCredentials()),
+   }
+   cl, err := flightsql.NewClient(addr, nil, nil, dialOpts...)
+   if err != nil {
+     fmt.Print(err)
+     return
+   }
+   ```
+  addr 为CnosDB配置项`flight_rpc_listen_addr`指定的地址
+
+- #### 设置连接凭证，并取得已经验证的上下文
+
+   ```go
+   ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root:", "")
+   if err != nil {
+     fmt.Print(err)
+     return
+   }
+   ```
+
+- #### 在已经验证的上下文中执行SQL，取得FlightInfo
+
+   ```go
+   info, err := cl.Execute(ctx, "SELECT now();")
+   if err != nil {
+     fmt.Print(err)
+     return
+   }
+   ```
+
+- #### 根据FlightInfo取得数据Reader
+
+   ```go
+   // 目前CnosDb仅实现了一个EndPoint
+   rdr, err := cl.DoGet(ctx, info.GetEndpoint()[0].Ticket)
+   if err != nil {
+     fmt.Print(err)
+     fmt.Println(35)
+     return
+   }
+   defer rdr.Release()
+   ```
+
+- #### 操作Reader打印数据
+
+   ```go
+   n := 0
+   for rdr.Next() {
+     record := rdr.Record()
+     for i, col := range record.Columns() {
+       fmt.Printf("rec[%d][%q]: %v\n", n, record.ColumnName(i), col)
+     }
+     record.Column(0)
+     n++
+   }
+   ```
+
+#### 全部代码
+  ```go
+    addr := "127.0.0.1:8904"
+	var dialOpts = []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	cl, err := flightsql.NewClient(addr, nil, nil, dialOpts...)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root:", "")
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	info, err := cl.Execute(ctx, "SELECT now();")
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	// 目前CnosDb仅实现了一个EndPoint
+	rdr, err := cl.DoGet(ctx, info.GetEndpoint()[0].Ticket)
+	if err != nil {
+		fmt.Print(err)
+		fmt.Println(35)
+		return
+	}
+	defer rdr.Release()
+
+	n := 0
+	for rdr.Next() {
+		record := rdr.Record()
+		for i, col := range record.Columns() {
+			fmt.Printf("rec[%d][%q]: %v\n", n, record.ColumnName(i), col)
+		}
+		record.Column(0)
+		n++
+	}
+  ```
+</TabItem>
+
 <TabItem value="java" label="Java">
 
 - #### 添加依赖
