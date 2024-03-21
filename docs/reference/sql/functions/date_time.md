@@ -119,13 +119,51 @@ date_trunc(precision, expression)
 
 别名：`datetrunc`
 
+<details>
+  <summary>查看 <code>date_trunc</code> 示例</summary>
 
+```sql {1}
+SELECT date_trunc('month', time) AS month, avg(temperature) AS avg_temperature FROM air GROUP BY month;
++---------------------+-------------------+
+| month               | avg_temperature   |
++---------------------+-------------------+
+| 2023-02-01T00:00:00 | 65.09259672619048 |
+| 2023-03-01T00:00:00 | 65.00373418686176 |
+| 2023-01-01T00:00:00 | 64.96063701923077 |
++---------------------+-------------------+
+```
+
+</details>
 
 ## date_part
 
-## datepart
+以整数形式返回日期的指定部分。
+
+```sql
+date_part(part, expression)
+```
+
+| 选项         | 描述                                                         |
+| ------------ | ------------------------------------------------------------ |
+| `part`       | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
+| `expression` | 要操作的时间表达式。可以是常量、列或函数。                   |
+
+别名：`datepart`
 
 ## extract
+
+以整数形式从时间值返回子字段。与 [`date_part`](#date_part)类似，但参数不同。
+
+```sql
+extract(field FROM source)
+```
+
+| 选项     | 描述                                                         |
+| -------- | ------------------------------------------------------------ |
+| `field`  | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
+| `source` | 要操作的时间表达式。可以是常量、列或函数。                   |
+
+
 
 ## to_timestamp
 
