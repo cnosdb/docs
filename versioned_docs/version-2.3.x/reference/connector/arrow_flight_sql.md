@@ -533,15 +533,15 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 - #### 添加依赖
 
    ```toml
-   arrow = {version = "28.0.0", features = ["prettyprint"] }
-   arrow-flight = {version = "28.0.0", features = ["flight-sql-experimental"]}
-   tokio = "1.23.0"
+   arrow = { version = "42.0.0", features = ["prettyprint"] }
+   arrow-flight = {version = "42.0.0", features = ["flight-sql-experimental"]}
+   tokio = "1.35"
    futures = "0.3.25"
-   prost-types = "0.11.2"
-   tonic = "0.8.3"
-   prost = "0.11.3"
+   prost-types = "0.11.9"
+   tonic = "0.9.2"
+   prost = "0.11.9"
    http-auth-basic = "0.3.3"
-   base64 = "0.13.1"
+   base64 = "0.21.7"
    ```
 
 - #### 创建FlightServerClient
@@ -563,7 +563,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      AUTHORIZATION.as_str(),
      AsciiMetadataValue::try_from(format!(
        "Basic {}",
-       base64::encode(format!("{}:{}", "root", ""))
+       BASE64_STANDARD.encode(format!("{}:{}", "root", ""))
      ))
      .expect("metadata construct fail"),
    );
@@ -578,9 +578,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```rust
    let cmd = CommandStatementQuery {
      query: "select 1;".to_string(),
+     transaction_id: None,
    };
-   let pack = prost_types::Any::pack(&cmd).expect("pack");
-   let fd = FlightDescriptor::new_cmd(pack.encode_to_vec());
+   
+   let fd = FlightDescriptor::new_cmd(cmd.as_any().encode_to_vec());
 
    let mut req = Request::new(fd);
    req.metadata_mut().insert(
@@ -603,7 +604,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        let resp = client.do_get(ticket).await.expect("do_get");
        let mut stream = resp.into_inner();
        let mut dictionaries_by_id = HashMap::new();
-   
+
        let mut record_batches = Vec::new();
        while let Some(Ok(flight_data)) = stream.next().await {
          let message =
@@ -612,7 +613,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            ipc::MessageHeader::Schema => {
              println!("a schema when messages are read",);
            }
-   
+
            ipc::MessageHeader::RecordBatch => {
              let record_batch = flight_data_to_arrow_batch(
                &flight_data,
@@ -624,7 +625,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
            ipc::MessageHeader::DictionaryBatch => {
              let ipc_batch = message.header_as_dictionary_batch().unwrap();
-   
+
              reader::read_dictionary(
                &Buffer::from(flight_data.data_body),
                ipc_batch,
@@ -639,7 +640,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
          }
        }
-   
+
        println!(
          "{}",
          arrow::util::pretty::pretty_format_batches(&record_batches).expect("print")
@@ -660,7 +661,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    use arrow::ipc;
    use arrow::ipc::{reader, root_as_message};
    use arrow_flight::flight_service_client::FlightServiceClient;
-   use arrow_flight::sql::{CommandStatementQuery, ProstAnyExt};
+   use arrow_flight::sql::{CommandStatementQuery, ProstMessageExt};
    use arrow_flight::utils::flight_data_to_arrow_batch;
    use arrow_flight::{FlightDescriptor, HandshakeRequest, IpcMessage};
    use futures::StreamExt;
@@ -669,6 +670,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    use tonic::codegen::http::header::AUTHORIZATION;
    use tonic::metadata::AsciiMetadataValue;
    use tonic::Request;
+   use base64::prelude::{Engine, BASE64_STANDARD};
 
    #[tokio::main]
    async fn main() {
@@ -685,7 +687,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        AUTHORIZATION.as_str(),
        AsciiMetadataValue::try_from(format!(
          "Basic {}",
-         base64::encode(format!("{}:{}", "root", ""))
+         BASE64_STANDARD.encode(format!("{}:{}", "root", ""))
        ))
        .expect("metadata construct fail"),
      );
@@ -696,9 +698,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
      let cmd = CommandStatementQuery {
        query: "select 1;".to_string(),
+       transaction_id: None,
      };
-     let pack = prost_types::Any::pack(&cmd).expect("pack");
-     let fd = FlightDescriptor::new_cmd(pack.encode_to_vec());
+   
+     let fd = FlightDescriptor::new_cmd(cmd.as_any().encode_to_vec());
 
      let mut req = Request::new(fd);
      req.metadata_mut().insert(
