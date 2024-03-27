@@ -48,21 +48,19 @@ curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=exa
 
 ##### 请求成功
 
-<pre>
-  <a/>
+```
   HTTP/1.1 200 OK{'\n'}
   content-length: 0{'\n'}
   date: Sat, 08 Oct 2022 06:59:38 GMT{'\n'}
-</pre>
+```
 
 ##### 请求失败
 
-<pre>
-  <a/>
+```
 HTTP/1.1 500 Internal Server Error{'\n'}
 content-length: 0{'\n'}
 date: Sat, 08 Oct 2022 07:03:33 GMT{'\n'}
-</pre>
+```
 
 ### `/api/v1/sql`
 
@@ -182,3 +180,55 @@ content-length: 0
 date: Sat, 08 Oct 2022 07:03:33 GMT
 ... ...
 ```
+
+### `/apv/v1/es/write`
+
+#### 请求方法
+
+- `POST`
+
+#### 请求头
+
+- `Authorizaton: Basic`
+
+  `basic64(user_name + ":" + password)`
+
+#### 请求参数
+
+- `db`：数据库名称（可选，默认 `public`）
+- `tanent`：租户名称（可选，默认`cnosdb`）
+- `table`: 表名称 (必填)
+- `msg_field`: 输入日志中消息列 (可选, 默认`_msg`。 如果同时没有`_msg`列和`msg_field`会报错)
+- `time_field`: 输入日志中时间列 (可选， 默认`_time`。 如果同时没有使用当前时间)
+
+#### 请求体
+
+- ES bulk格式 目前仅支持 index和create，其中create会建表，如果表存在会报错并且后续指令不再执行；index则是无表就创建写入，有表就直接写入
+参考:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+
+#### 请求示例
+
+```bash
+echo '{"create":{}}
+{"msg":"test", "time":"2024-03-27T02:51:11.687Z"}
+{"index":{}}
+{"msg":"test", "time":"2024-03-27T02:51:11.688Z"}
+' | curl -X POST -u "username:password" --data-binary @- 'http://127.0.0.1:8902/api/v1/es/write?table=test&msg_field=msg&time_field=time'
+```
+
+#### 请求成功
+```
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
+
+or
+
+The 2th command fails because the table tablename already exists and cannot be created repeatedly
+```
+
+#### 请求失败
+```
+{"error_code":"0100XX","error_message":"XXXXXXXXXXXXXXXXXXXXXXX"}
+```
+
