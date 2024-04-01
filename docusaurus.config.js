@@ -4,6 +4,8 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const { localizePath } = require('@docusaurus/utils');
+const math = require('remark-math');
+const katex = require('rehype-katex');
 
 const url =
   process.env.NODE_ENV !== 'development'
@@ -55,6 +57,8 @@ const config = {
       ({
         docs: {
           path: 'docs',
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
 
           // 部署的时候使用以下的方法对于搜索会更加友好：
           // https://docs.netlify.com/routing/redirects/redirect-options/#redirect-by-country-or-language
@@ -121,6 +125,15 @@ const config = {
     ],
   ],
   scripts: ['/custom.js'],
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
+    },
+  ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
