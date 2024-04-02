@@ -281,6 +281,35 @@ SELECT station, first_value(temperature ORDER BY time) FROM air GROUP BY station
 
 </details>
 
+### first
+
+返回按时间排序的第一条记录。
+
+```sql
+first(time_expression, expression)
+```
+
+| 参数              | 描述                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| `time_expression` | 必需为 `time` 列。                                           |
+| `expression`      | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+
+<details>
+  <summary>查看 <code>first</code> 示例</summary>
+
+
+```sql {1}
+SELECT first(time, temperature) FROM air;
++---------------------------------+
+| first(air.time,air.temperature) |
++---------------------------------+
+| 80.0                            |
++---------------------------------+
+```
+
+</details>
+
+
 ### last_value
 
 根据请求的顺序返回聚合组中的第一个元素。如果未给出排序，则从组中返回任意元素。
@@ -307,6 +336,88 @@ SELECT station, last_value(temperature ORDER BY time) FROM air GROUP BY station;
 ```
 
 </details>
+
+### last
+
+返回按时间排序的最后一条记录。
+
+```sql
+last(expression_x, expression_y)
+```
+
+| 参数              | 描述                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| `time_expression` | 必需为 `time` 列。                                           |
+| `expression`      | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+
+<details>
+  <summary>查看 <code>last</code> 示例</summary>
+
+```sql {1}
+
+SELECT last(time, temperature) FROM air;
++--------------------------------+
+| last(air.time,air.temperature) |
++--------------------------------+
+| 50.0                           |
++--------------------------------+
+```
+
+</details>
+
+### mode
+
+计算一组数据中出现频率最高的值。
+
+```sql
+mode(expression)
+```
+
+| 参数           | 描述                                                         |
+| -------------- | ------------------------------------------------------------ |
+| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+
+<details>
+  <summary>查看 <code>mode</code> 示例</summary>
+
+```sql {1}
+SELECT mode(temperature) FROM air;
++-----------------------+
+| mode(air.temperature) |
++-----------------------+
+| 80.0                  |
++-----------------------+
+```
+
+</details>
+
+### increase
+
+计算范围向量中时间序列的增量，类似 Prometheus 中的 [increase](https://prometheus.io/docs/prometheus/latest/querying/functions/#increase) 函数。
+
+```sql
+increase(time_expression, expression ORDER BY time_expression)
+```
+| 参数              | 描述                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| `time_expression` | 必需为 `time` 列。                                           |
+| `expression`      | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+
+<details>
+  <summary>查看 <code>mode</code> 示例</summary>
+
+```sql {1}
+SELECT station, INCREASE(time, temperature ORDER BY time) FROM air GROUP BY station ORDER BY station;
++-------------+------------------------------------+
+| station     | increase(air.time,air.temperature) |
++-------------+------------------------------------+
+| LianYunGang | 964366.0                           |
+| XiaoMaiDao  | 961627.0                           |
++-------------+------------------------------------+
+```
+
+</details>
+
 
 
 ## 统计
@@ -768,4 +879,3 @@ SELECT asap_smooth(time, pressure, 10) FROM air GROUP BY date_trunc('month', tim
 </TabItem>
 </Tabs>
 
-### 
