@@ -30,7 +30,6 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
     [ INNER ] JOIN
     LEFT [ OUTER ] JOIN
     RIGHT [ OUTER ] JOIN
-   画
 -- grouping_element
     ()
 ```
@@ -565,6 +564,17 @@ SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [l
 ```sql
 SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
 ```
+
+## `SHOW QUERIES`
+
+获取当前正在运行的 SQL 任务。
+
+```sql
+SHOW QUERIES;
+```
+
+如果您想查看更详细的信息，可以运行 `SELECT * FROM information_schema.queries`
+
 
 ## `EXPLAIN`
 
