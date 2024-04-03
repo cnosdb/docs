@@ -45,6 +45,7 @@ CREATE TENANT test;
 CREATE USER [IF NOT EXISTS] user_name
 [WITH [PASSWORD='',]
 [MUST_CHANGE_PASSWORD=true,]
+[RSA_PUBLIC_KEY='']
 [GRANTED_ADMIN=true,] [COMMENT = '']];
 ```
 
@@ -52,6 +53,8 @@ CREATE USER [IF NOT EXISTS] user_name
 | ---------------------- | --------------------------------------------------------- |
 | `MUST_CHANGE_PASSWORD` | 第一次登录时是否需要更改密码，默认为 `false`。            |
 | `GRANTED_ADMIN`        | 用户是否为 `admin` 用户，`admin` 用于整个实例的所有权限。 |
+| `RSA_PUBLIC_KEY`       | 上传用户 `RSA` 算法的公钥，用于登录验证。                 |
+
 
 <details>
   <summary>查看示例</summary>
@@ -123,7 +126,7 @@ ALTER TENANT test SET COMMENT = 'abc';
 ALTER USER user_name {SET sql_option};
 
 sql_option: option_name = option_value
-option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
+option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
 | 选项  | 描述                   |
