@@ -1,11 +1,13 @@
 ---
-title: Write Data
-order: 3
+sidebar_position: 3
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Wirte Data
 
-CnosDB supports a variety of write modes, and some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.
+CnosDB supports a variety of write modes, and some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
 
 ### Insert One Record
 
@@ -13,39 +15,39 @@ CnosDB supports a variety of write modes, and some examples are provided below. 
 
 - **use api `/api/v1/sql`**
 
-    ```shell
-    curl -i -u "<username>:<password>" -H "Accept: application/json" \
-    -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
-    -d "<your SQL statement>"
-    ```
+  ```shell
+  curl -i -u "<username>:<password>" -H "Accept: application/json" \
+  -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
+  -d "<your SQL statement>"
+  ```
 
 - **use api `/api/v1/write`**
 
-    ```shell
-    curl -i -u "<username>:<password>" -H "Accept: application/json" \
-    -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/write?db=<database_name>&pretty=true" \
-    -d "<your data>"
-    ```
-  
-    Notice that the data to be inserted should be in the format of [Line Protocol](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/line-protocol/).
+  ```shell
+  curl -i -u "<username>:<password>" -H "Accept: application/json" \
+  -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/write?db=<database_name>&pretty=true" \
+  -d "<your data>"
+  ```
+
+  Notice that the data to be inserted should be in the format of [Line Protocol](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/line-protocol/).
 
 #### Example
 
 - **use api `/api/v1/sql`**
 
-    ```shell
-    curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
-    -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
-    VALUES (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);"
-    ```
+  ```shell
+  curl -i -u "cnosdb:" -H "Accept: application/json" \
+  -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
+  -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
+  VALUES (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);"
+  ```
 - **use api `/api/v1/write`**
 
-    ```shell
-    curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
-    -d "air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
-    ```
+  ```shell
+  curl -i -u "cnosdb:" -H "Accept: application/json" \
+  -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
+  -d "air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
+  ```
 
 ### Insert Multiple Records
 
@@ -53,45 +55,43 @@ CnosDB supports a variety of write modes, and some examples are provided below. 
 
 - **use api `/api/v1/sql`**
 
-    ```shell
-    curl -i -u "<username>:<password>" -H "Accept: application/json" \
-    -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
-    -d "<your SQL statement>"
-    ```
+  ```shell
+  curl -i -u "<username>:<password>" -H "Accept: application/json" \
+  -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pretty=true" \
+  -d "<your SQL statement>"
+  ```
 
 - **use api `/api/v1/write`**
 
-    ```shell
-    curl -i -u "<username>:<password>" -H "Accept: application/json" \
-    -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/write?db=<database_name>&pretty=true" \
-    -d "<your data>
-        <your data>"
-    ```
-  
-    Notice that the data to be inserted should be in the format of [Line Protocol](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/line-protocol/).
+  ```shell
+  curl -i -u "<username>:<password>" -H "Accept: application/json" \
+  -XPOST "http://<cnosdb_url>:<cnosdb_port>/api/v1/write?db=<database_name>&pretty=true" \
+  -d "<your data>
+      <your data>"
+  ```
+
+  Notice that the data to be inserted should be in the format of [Line Protocol](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/line-protocol/).
 
 #### Example
 
 - **use api `/api/v1/sql`**
 
-    ```shell
-    curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
-    -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
-    VALUES ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 76), ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);"
-    ```
-  
+  ```shell
+  curl -i -u "cnosdb:" -H "Accept: application/json" \
+  -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station" \
+  -d "INSERT INTO air (TIME, station, visibility, temperature, pressure)
+  VALUES ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 76), ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);"
+  ```
 - **use api `/api/v1/write`**
 
-    ```shell
-    curl -i -u "cnosdb:" -H "Accept: application/json" \
-    -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
-    -d "air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000
-        air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
-    ```
+  ```shell
+  curl -i -u "cnosdb:" -H "Accept: application/json" \
+  -XPOST "http://127.0.0.1:8902/api/v1/write?db=oceanic_station" \
+  -d "air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000
+      air,station=XiaoMaiDao visibility=50,temperature=63,pressure=52 1642176000000000000"
+  ```
 
-
-### Load Data
+### Write Data
 
 #### Syntax
 
@@ -112,9 +112,8 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 
 ### Use Programming Language
 
-::: tabs#language
-
-@tab Golang#Golang
+<Tabs>
+<TabItem value="go" label="Golang">
 
 ```go
 package main
@@ -161,8 +160,9 @@ func main() {
 }
 ```
 
+</TabItem>
 
-@tab Java#Java
+<TabItem value="java" label="Java">
 
 ```java
 import java.io.BufferedReader;
@@ -207,8 +207,9 @@ public class CurlToJava {
 }
 ```
 
+</TabItem>
 
-@tab Python#Python
+<TabItem value="python" label="Python">
 
 ```python
 import requests
@@ -229,8 +230,9 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
+</TabItem>
 
-@tab Rust#Rust
+<TabItem value="rust" label="Rust">
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -267,7 +269,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-@tab C++#C++
+</TabItem>
+
+<TabItem value="c++" label="C++">
 
 ```cpp
 #include <iostream>
@@ -309,8 +313,8 @@ int main() {
 }
 ```
 
-:::
+</TabItem>
+
+</Tabs>
 
 When using the api `/api/v1/write`, just replace the api address wth `/api/v1/write` and replace `<your SQL statement>` with `<your data>`.
-
-Related Content:
