@@ -76,8 +76,16 @@ btrim(str[, trim_str])
 | `trim_str` | 从输入字符串的开头和结尾处修剪的字符串表达式。可以是常量、列或函数，以及算术运算符的任意组合。默认为空白字符。 |
 
 <details>
-  <summary>查看 <code>bit_length</code> 示例</summary>
+  <summary>查看 <code>btrim</code> 示例</summary>
 
+```sql {1}
+SELECT btrim('111abc111','1');
++------------------------------------+
+| btrim(Utf8("111abc111"),Utf8("1")) |
++------------------------------------+
+| abc                                |
++------------------------------------+
+```
 
 </details>
 
@@ -108,6 +116,14 @@ concat(separator, str[, ..., str_n])
 <details>
   <summary>查看 <code>concat</code> 示例</summary>
 
+```sql {1}
+SELECT concat('a', 'b', 'c');
++---------------------------------------+
+| concat(Utf8("a"),Utf8("b"),Utf8("c")) |
++---------------------------------------+
+| abc                                   |
++---------------------------------------+
+```
 
 </details>
 
@@ -118,7 +134,7 @@ concat(separator, str[, ..., str_n])
 使用指定的分隔符将多个字符串连接在一起。
 
 ```sql
-concat(separator, str[, ..., str_n])
+concat_ws(separator, str[, ..., str_n])
 ```
 
 | 参数        | 描述                                                         |
@@ -128,8 +144,16 @@ concat(separator, str[, ..., str_n])
 | `str_n`     | 要连接的后续字符串列或文本字符串。                           |
 
 <details>
-  <summary>查看 <code>concat</code> 示例</summary>
+  <summary>查看 <code>concat_ws</code> 示例</summary>
 
+```sql {1}
+SELECT concat_ws(' ', 'a', 'b', 'c');
++----------------------------------------------------+
+| concat_ws(Utf8(" "),Utf8("a"),Utf8("b"),Utf8("c")) |
++----------------------------------------------------+
+| a b c                                              |
++----------------------------------------------------+
+```
 
 </details>
 
@@ -150,29 +174,18 @@ chr(expression)
 <details>
   <summary>查看 <code>chr</code> 示例</summary>
 
+```sql {1}
+SELECT chr(20005);
++-------------------+
+| chr(Int64(20005)) |
++-------------------+
+| 严                |
++-------------------+
+```
 
 </details>
 
 **相关函数**：[ascii](#ascii)
-
-## ends_with
-
-测试字符串是否以字符串结束。
-
-```sql
-ends_with(str, substr)
-```
-
-| 参数        | 描述                                                         |
-| ----------- | ------------------------------------------------------------ |
-| `str` | 可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
-| `subset` | 要测试的子字符串。 |
-
-<details>
-  <summary>查看 <code>ends_with</code> 示例</summary>
-
-
-</details>
 
 ## initcap
 
@@ -187,8 +200,18 @@ initcap(str)
 | `str` | 可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
 
 <details>
-  <summary>查看 <code>ends_with</code> 示例</summary>
+  <summary>查看 <code>initcap</code> 示例</summary>
 
+```sql {1}
+SELECT initcap('hello world');
+
+
++------------------------------+
+| initcap(Utf8("hello world")) |
++------------------------------+
+| Hello World                  |
++------------------------------+
+```
 
 </details>
 
@@ -341,7 +364,7 @@ octet_length(str)
 ```
 
 <details>
-  <summary>查看 <code>ltrim</code> 示例</summary>
+  <summary>查看 <code>octet_length</code> 示例</summary>
 
 ```sql {1}
 SELECT octet_length('Hello');
@@ -500,7 +523,7 @@ SELECT rpad('aaa', 10, 'b');
 rtrim(str)
 ```
 <details>
-  <summary>查看 <code>rpad</code> 示例</summary>
+  <summary>查看 <code>rtrim</code> 示例</summary>
 
 ```sql {1}
 SELECT rtrim('aaabbb', 'b');

@@ -595,12 +595,14 @@ power(base, exponent)
 <details>
   <summary>查看 <code>power</code> 示例</summary>
 
+```sql {1}
 SELECT power(10, 2);
 +---------------------------+
 | power(Int64(10),Int64(2)) |
 +---------------------------+
 | 100                       |
 +---------------------------+
+```
 
 </details>
 
@@ -829,12 +831,14 @@ tanh(numeric_expression)
 <details>
   <summary>查看 <code>tanh</code> 示例</summary>
 
+```sql {1}
 SELECT tanh(10);
 +--------------------+
 | tanh(Int64(10))    |
 +--------------------+
 | 0.9999999958776927 |
 +--------------------+
+```
 
 </details>
 
