@@ -69,8 +69,8 @@ const config = {
             current: {
               label: 'latest',
             },
-            '2.4.0': {
-              label: '2.4.0',
+            '2.4.x': {
+              label: '2.4.x',
               banner: 'none',
             },
             '2.3.x': {
