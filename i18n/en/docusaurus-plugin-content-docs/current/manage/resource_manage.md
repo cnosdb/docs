@@ -1,6 +1,5 @@
 ---
-title: Resource Management
-order: 12
+sidebar_position: 12
 ---
 
 # Resource Management
