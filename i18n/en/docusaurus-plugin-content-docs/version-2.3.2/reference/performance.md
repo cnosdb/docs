@@ -7,189 +7,116 @@ order: 9
 
 To present CnosDB performance more intuitively, we do performance test of CnosDB and InfluxDB of the same time series database by using [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons).
 
-## Basic Information
+## Conclusion
 
-|                         |     CnosDB     |          InfluxDB          |
-|-------------------------|:--------------:|:--------------------------:|
-| Version                 |     2.0.1      |           1.8.10           |
-| Implementation language |      rust      |             go             |
-| Official website        | www.cnosdb.com | https://www.influxdata.com |
+When the batch-size is set to 20,000, InfluxDB returns an error on the client: `{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`, So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
 
-## Testing Environment
+## Test CnosDB writes
 
-To avoid being affected by network bandwidth while better simulating multi- tenant scenarios, our service side server opens a virtual machine as service side machines, while the client machine opens two Benchmark clients simultaneously and writes data to different databases of the service side virtual machine, CanosDB, or InfluxDB
+### Testing Environment
 
-All tests run on our servers, with the following configurations:
+|               | CnosDB                                                                                                                                                                                                      | InfluxDB                                                                                                                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Version       | 2.0.1                                                                                                                                                                       | 1.8.10                                                                                                                                                 |
+| 机器            | 1                                                                                                                                                                                                           | 1                                                                                                                                                                                      |
+| Configuration | 3.10.0-1160.81.1.el7.x86_64                                                            | 3.10.0-1160.81.1.el7.x86_64                                       |
+| 操作系统版本        | CentOS Linux release 7.9.2009 (Core)                                                                                                                     | CentOS Linux release 7.9.2009 (Core)                                                                                                |
+| CPU           | Service side server:32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz（memory:255.65 GB） | Client server: 32 CPUs x Intel (R) Xion (R) Gold 5218 CPU @ 2.30GHz (memory 256) |
+| 内存            | 480                                                                                                                                                                                                         | 512                                                                                                                                                                                    |
+| 磁盘            | 1块SSD盘(1T)                                                                                                                                                                               | 1块SSD盘(1T)                                                                                                                                                          |
 
+> 注：CnosDB和InfluxDB均为容器内部署，CPU核数为8，内存限制为32G。
 
-1. Service side server:32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz（memory:255.65 GB）
-
-   Virtual machine CPU allocates 16 cores.
-
-   Two disks in total, one is loaded into a virtual machine / opt- sdc1, performance Bench is as follows:
-
-   ![](/img/nvme_bench.png)
-
-   Other directory disk performance of virtual machines is as follows:
-
-   ![](/img/other_bench.png)
-
-
-
-2. Client server: 32 CPUs x Intel (R) Xion (R) Gold 5218 CPU @ 2.30GHz (memory 256)
-
-   Disk performance Bench is as follows:
-
-   ![](/img/19bench.png)
-
-## Configuration
-
-The configuration of the CosDB is as follows:
-
-```
-[storage]
-# Directory for summary: $path/summary/
-# Directory for index: $path/index/$database/
-# Directory for tsm: $path/data/$database/tsm/
-# Directory for delta: $path/data/$database/delta/
-path = '/opt/data/db'
-max_summary_size = 134217728 # 128 * 1024 * 1024
-max_level = 4
-base_file_size = 16777216 # 16 * 1024 * 1024
-compact_trigger = 4
-max_compact_size = 2147483648 # 2 * 1024 * 1024 * 1024
-dio_max_resident = 1024
-dio_max_non_resident = 1024
-dio_page_len_scale = 10
-strict_write = false
-
-[wal]
-enabled = true
-path = '/opt-sdc1/data/wal'
-sync = false
-
-[cache]
-max_buffer_size = 10485760 # 10 * 1024 * 1024
-max_immutable_number = 4
-
-[log]
-level = 'info'
-path = 'data/log'
-
-[security]
-# [security.tls_config]
-# certificate = "./config/tls/server.crt"
-# private_key = "./config/tls/server.key"
-```
-
-InfluxDB is the default configuration except [data] and [meta]
-
-```
-[meta]
-  # Where the metadata/raft database is stored
-  dir = "/opt-sdc1/var/lib/influxdb/meta"
-[data]
-  # The directory where the TSM storage engine stores TSM files.
-  dir = "/opt/var/lib/influxdb/data"
-
-  # The directory where the TSM storage engine stores WAL files.
-  wal-dir = "/opt-sdc1/var/lib/influxdb/wal"
-```
-
-## Specific Steps
+### 2.测试实例准备
 
 1. Install the db environment, go environment, etc. of the corresponding machine in advance, and ensure normal connection.
 
 2. Install CnosDB:
 
-   Pull the code off GitHub.
+   参照部署文档：[Docker安装CnosDB](../start/install.md)
 
-   ```
-   git clone https://github.com/cnosdb/cnosdb.git
-   ```
+3. Test InfluxDB writes
 
-   Modify partial configurations in the `config/config.toml`, run
-
-    ````
-    cargo run --release run --cpu 64
-    ````
-
-   Download InfluxDB, modify configurations in `etc/influxdb/influxdb.conf`, run
-
-   ```
    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10_linux_amd64.tar.gz
    tar xvfz influxdb-1.8.10_linux_amd64.tar.gz
    ./influxd run -config ../../etc/influxdb/influxdb.conf
-   ```
 
-3. Tsdb-comparisons generate data
+### 3.配置项检查及修改
 
-   Pull the code off GitHub.
+```
+ CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
+```
 
-   ```
-   git clone https://github.com/cnosdb/tsdb-comparisons.git
-   ```
+### 4.数据集准备
 
-   Compile Running Generated Data
+| 用例  | 确定性生成的PRNG种子 | 要生成的设备数量 | 开始时间戳                                                | 结束时间戳                                                | 每台设备每次读数时间间隔 | 目标数据库    | 数据量大小 | 数据行数       |
+| --- | ------------ | -------- | ---------------------------------------------------- | ---------------------------------------------------- | ------------ | -------- | ----- | ---------- |
+| iot | 67           | 75       | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 60           | CnosDB   | 8G    | 37,342,964 |
+| iot | 66           | 75       | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 57           | InfluxDB | 8G    | 37,342,964 |
 
-   	cd tsdb-comparisons/cmd/generate_data
+### 5.测试方案
+
+此次测试方案主要从两个角度考量：保持同等batch-size下，测试导入并发；保持同等导入并发大小，测试batch-size。
+
+| batch-size | workers |
+| ---------- | ------- |
+| 1000       | 75      |
+| 10000      | 61      |
+| 10000      | 15      |
+| 5000       | 6       |
+| 20000      | 6       |
+
+## 测试中期
+
+1. Tsdb-comparisons generate data
+
+```shell
+git clone https://github.com/cnosdb/cnosdb.git
+```
+
+2. 生成InfluxDB数据集
+
+```shell
+cd tsdb-comparisons/cmd/generate_data
    	go build
    	./generate_data --use-case="iot" --seed=123 --scale=100          --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2023-01-01T00:00:00Z" --log-interval="50s" --format="influx"   > <file_path>/data.txt
+```
 
-4. Test CnosDB writes
+3. www.cnosdb.com
 
-   ```
-   cd tsdb-comparisons/cmd/load_cnosdb
-   go build
-   ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
-   ```
+```shell
+docker run --name cnosdb -p 8902:8902 -d --cpus=8 --memory=32g cnosdb/cnosdb:community-latest cnosdb run -M singleton
+```
 
-5. Test InfluxDB writes
+4. InfluxDB is the default configuration except [data] and [meta]
 
-   ```
-   cd tsdb-comparisons/cmd/load_influx
-   go build
-   ./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"  --batch-size=<batch_size_num> --workers=<workers_num>
-   ```
+```shell
+docker run --name influxdb -p 8086:8086 -d --cpus=8 --memory=32g influxdb
+```
+
+5. The configuration of the CosDB is as follows:
+
+```shell
+cd tsdb-comparisons/cmd/load_cnosdb
+go build
+./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
+```
+
+6. Download InfluxDB, modify configurations in `etc/influxdb/influxdb.conf`, run
+
+```shell
+cd tsdb-comparisons/cmd/load_influx
+go build
+./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"  --batch-size=<batch_size_num> --workers=<workers_num>
+```
 
 ## Test Results
 
-In our test scenario, InfluxDB can but do wrokers = 100(100 concurrent scenarios), with the test results as follows (row and metric units: 10,000):
-
-|            | CnosDB        |                  | InfluxDB      |                  |
-|------------|---------------|------------------|---------------|------------------|
-| batch-size | overall row/s | overall metric/s | overall row/s | overall metric/s |
-| 20000      | 75            | 604              |               |                  |
-| 10000      | 68            | 538              | 54            | 420              |
-| 5000       | 66            | 512              | 61            | 480              |
-| 2500       | 53            | 420              | 57            | 450              |
-| 1000       | 43            | 330              | 49            | 389              |
-| 1          | 6             | 48               | 2.5           | 15               |
-
-We take the data in Benchmark when database writing levels off which is valued at the sum of two clients.
-
-When the batch-size is set to 20,000, InfluxDB returns an error on the client:
-
-`{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`,
-
-So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
-
-In addition, CnosDB supports higher concurrent numbers, and we also test the performance of CnosDB under workrs = 200 (200 concurrent scenarios). The results are as follows (row and metric units: 10,000):
-
-|            | CnosDB        |                  |
-|------------|---------------|------------------|
-| batch-size | overall row/s | overall metric/s |
-| 20000      | 75            | 601              |
-| 10000      | 75            | 607              |
-| 5000       | 67            | 518              |
-| 2500       | 60            | 463              |
-| 1000       | 49            | 382              |
-| 1          | 6             | 47               |
-
-With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling.
-
-## Conclusion
-
-1. CnosDB has higher performance than InfluxDB in most cases.
-2. CnosDB can support higher concurrent, higher batch-size than InfluxDB.
-3. We do not compare with other time series databases that do not support Line Productol or transform line Protocol on the client, which is not fair for CnosDB and InfluxDB that writes directly to Line Protocol.
+|            |         | CnosDB                    |                            | InfluxDB                  |                            | With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling. |
+| ---------- | ------- | ------------------------- | -------------------------- | ------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| batch-size | workers | overall row/s             | overall metric/s           | overall row/s             | overall metric/s           |                                                                                                                                                            |
+| 1000       | 49      | 102089.67 | 807526.66  | 93781.54  | 741809.55  | 518                                                                                                                                                        |
+| 2500       | 47      | 137468.17 | 607 463 382                | 106206.98 | 840094.40  | 330                                                                                                                                                        |
+| 2500       | 49      | 211845.94 | 1675695.81 | 158378.11 | 1252766.68 | 43                                                                                                                                                         |
+| 5000       | 48      | 176883.43 | 1399143.30 | 162338.48 | 1284093.14 | 538                                                                                                                                                        |
+| 20000      | 54      | 174757.78 | 1382329.47 | 604 68 420                | 1270551.00 | 2.5                                                                                                                                        |
