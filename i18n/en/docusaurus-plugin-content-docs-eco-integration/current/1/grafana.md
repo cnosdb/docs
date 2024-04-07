@@ -4,11 +4,11 @@ order: 2
 slug: /grafana
 ---
 
+![](/img/grafana_overview.webp)
 
+[Grafana](https://github.com/grafana/grafana) 是一个开源的数据可视化工具，可以很方便地将任意符合要求的数据转换为可视化的图表，并且还带有告警功能，可以在指标数据达到阈值时通知你。Grafana 默认持多种数据源，并且还可以通过插件系统进行拓展。
 
-[Grafana](https://github.com/grafana/grafana) is an open source data visualization tool that easily converts any conforming data into visual charts and comes with an alerting feature that notifies you when metric data reaches a threshold. Grafana supports multiple data sources by default and can also be extended through a plugin system.
-
-We will describe the process of getting CnosDB data through Grafana to present a dashboard.
+本文将介绍通过 Grafana 获取 CnosDB 数据，以展示仪表板的流程。
 
 ```mermaid
 graph LR
@@ -19,62 +19,60 @@ tg1--metrics data-->CnosDB
 CnosDB--data frame-->Grafana
 ```
 
-![](/img/grafana_overview.webp)
+### Grafana 部署
 
-### Grafana Deployment
+[官方安装教程](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
 
-[Official Installation Tutorial](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
+[官方配置文件说明](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/)
 
-[Official profile description](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/)
+### Grafana 配置
 
-### Grafana Configuration
+- **连接 CnosDB**
 
-- #### **Connect CnosDB**
-
-Type `http://localhost:3000`, and the Grafana login screen will show up if running correctly. The original username and password are both admin.
+输入 `http://localhost:3000`，当 Grafana 正确运行，便可以看到 Grafana 登录界面了。初始用户名 `admin`，初始密码 `admin`。
 
 ![](/img/grafana_login_page.png)
 
-You will be asked to set a new password when you first login. The main Grafana interface shows up after this.
+初次登陆时，还会要求你输入新的密码。再之后，我们便进入了 Grafana 的主界面。
 
 ![](/img/grafana_main_page_1.png)
 
-Grafana provides a common data interface that allows us to read data from the CnosDB database via the CnosDB data source plugin. Firstly, we shall go to the data source configuration screen.
+Grafana 提供了通用的数据接口，我们可以通过 CnosDB 数据源插件来从 CnosDB 数据库中读取数据。首先我们进入数据源配置界面。
 
 ![](/img/grafana_main_page_2.png)
 
-Then cilck the [`Add data source`] button.
+然后点击【`Add data source`】 按钮。
 
 ![](/img/grafana_setting_add_data_source_button.png)
 
-Search for CnosDB and click to enter the configuration screen.
+搜索 CnosDB，然后点击进入配置界面。
 
 ![](/img/grafana_setting_add_data_source_1.png)
 
-In the configuration screen, enter the address of CnosDB and username, and then click the [`Save & test`] button.
+在配置界面中，输入 CnosDB 的地址，以及用户名等信息，然后点击【`Save & test`】按钮。
 
 ![](/img/grafana_setting_add_data_source_2.png)
 
-You shall see [`Data source is working`] under correct configuration, indicating that Grafana has access to CnosDB data.
+配置正确的情况下，之后会出现 `Data source is working` 提示，表明 Grafana 已经能够获取 CnosDB 的数据。
 
 ![](/img/grafana_setting_add_data_source_3.png)
 
-- #### **Configure Dashboard**
+- **配置仪表板**
 
-Grafana can configure dashboards via a graphical interface. The configured dashboards can be exported via JSON formatted data or imported as JSON formatted dashboard data.
+Grafana 可以通过图形化界面来配置仪表板，配置好的仪表板可以通过 JSON 格式的数据进行导出，也可以导入 JSON 格式的仪表板数据。
 
-We shall import a piece of dashboard data.
+我们接下来导入一段仪表板数据。
 
 ![](/img/grafana_main_page_3.png)
 
-Copy the [JSON](https://github.com/cnosdb/docs/blob/main/assets/grafana_dashboard.json) to [`import via panel json`], and then click the [`load`] button.
+将 [JSON](https://github.com/cnosdb/docs/blob/main/assets/grafana_dashboard.json) 复制到【`import via panel json`】处，随后点击【`load`】按钮。
 
 ![](/img/grafana_import_dashboard_1.png)
 
-Next, select the CnosDB data source we just configured, and click the [`import`] button.
+接下来选择我们刚才配置好的 CnosDB 数据源，随后点击【`import`】按钮。
 
 ![](/img/grafana_import_dashboard_2.png)
 
-We've then created a dashboard.
+我们便创建好一张仪表板了。
 
 ![](/img/grafana_dashboard_1.png)
