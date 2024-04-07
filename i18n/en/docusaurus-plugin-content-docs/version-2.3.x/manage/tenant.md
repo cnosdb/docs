@@ -1,6 +1,5 @@
 ---
-title: Tenant and Permission
-order: 8
+sidebar_position: 8
 ---
 
 # Tenant and Permission
@@ -17,9 +16,9 @@ CnosDB provides a tenant system and a user system.
 
 - CnosDB instance starts with a tenant 'cnosdb' and a user 'root' by default.
 
-## Tenant 
+## 租户
 
-### Show Tenant
+### 查看租户
 
 #### Example
 
@@ -28,11 +27,13 @@ SELECT *
 FROM cluster_schema.tenants;
 ```
 
-    +-------------+---------------------------------------------------+
-    | tenant_name | tenant_options                                    |
-    +-------------+---------------------------------------------------+
-    | cnosdb      | {"comment":"system tenant","limiter_config":null} |
-    +-------------+---------------------------------------------------+
+```
++-------------+---------------------------------------------------+
+| tenant_name | tenant_options                                    |
++-------------+---------------------------------------------------+
+| cnosdb      | {"comment":"system tenant","limiter_config":null} |
++-------------+---------------------------------------------------+
+```
 
 ### Create Tenant
 
@@ -52,14 +53,16 @@ SELECT *
 FROM cluster_schema.tenants;
 ```
 
-    +-------------+---------------------------------------------------+
-    | tenant_name | tenant_options                                    |
-    +-------------+---------------------------------------------------+
-    | test        | {"comment":null,"limiter_config":null}            |
-    | cnosdb      | {"comment":"system tenant","limiter_config":null} |
-    +-------------+---------------------------------------------------+
+```
++-------------+---------------------------------------------------+
+| tenant_name | tenant_options                                    |
++-------------+---------------------------------------------------+
+| test        | {"comment":null,"limiter_config":null}            |
+| cnosdb      | {"comment":"system tenant","limiter_config":null} |
++-------------+---------------------------------------------------+
+```
 
-### Alter Tenant
+### 修改租户
 
 **Syntax**
 
@@ -82,11 +85,11 @@ Currently, the only tenant attribute is COMMENT, which is a string and enclosed 
 ALTER TENANT test SET COMMENT = 'abc';
 ```
 
-### Drop Tenant
+### 删除租户
 
 **Syntax**
 
-```sql 
+```sql
 DROP
 TENANT tenant_name;
 ```
@@ -102,18 +105,18 @@ TENANT test;
 
 ### Show User
 
-#### Example
-
 ```sql
 SELECT *
 FROM cluster_schema.users;
 ```
 
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
-    | user_name | is_admin | user_options                                                                                    |
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
-    | root      | true     | {"password":"*****","must_change_password":true,"rsa_public_key":null,"comment":"system admin"} |
-    +-----------+----------+-------------------------------------------------------------------------------------------------+
+```
++-----------+----------+-------------------------------------------------------------------------------------------------+
+| user_name | is_admin | user_options                                                                                    |
++-----------+----------+-------------------------------------------------------------------------------------------------+
+| root      | true     | {"password":"*****","must_change_password":true,"rsa_public_key":null,"comment":"system admin"} |
++-----------+----------+-------------------------------------------------------------------------------------------------+
+```
 
 ### Create User
 
@@ -124,7 +127,7 @@ CREATE
 USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [COMMENT = '']];
 ```
 
-**Example**
+**Examples**
 
 ```sql
 CREATE
@@ -145,6 +148,10 @@ option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD}
 ```
 
 option_value is constant.
+
+Note:
+
+Alter Tenant
 
 COMMENT option_value type is string.
 MUST_CHANGE_PASSWORD option_value type is boolean.
@@ -176,25 +183,24 @@ USER IF EXISTS tester;
 
 ## Admin Permission
 
-There are two types of admin permissons:
-1. Initial admin permission
-2. Admin permission granted
+- There are two types of admin permissons:
+  - Initial admin permission
+  - Admin permission granted
+- Support people who have admin permissions to grant admin permissions to others.
+- Whether the is_admin field in the system table cluster_schema.users has admin permissions(both initial and granted).
+- If granted_admin is set to true for user_options in the cluster_schema.users system table, the admin permission is granted.
+- A person with admin permission can reclaim admin permission granted to someone else.
+- The initial admin permission cannot be reclaimed (that is, the admin permission of the root user).
 
-Note:
-* Support people who have admin permissions to grant admin permissions to others.
-* Whether the is_admin field in the system table cluster_schema.users has admin permissions(both initial and granted).
-* If granted_admin is set to true for user_options in the cluster_schema.users system table, the admin permission is granted.
-* A person with admin permission can reclaim admin permission granted to someone else.
-* The initial admin permission cannot be reclaimed (that is, the admin permission of the root user).
 ### Grant Admin Permission
 
-**Grammar**
+**Syntax**
 
 ```sql
 alter user <user_name> set granted_admin = true
 ```
 
-**Examples**
+**Example**
 
 ```sql
 create user dev;
@@ -203,7 +209,7 @@ alter user dev set granted_admin = true;
 
 ### Revoke admin Permission
 
-**Grammar**
+**Syntax**
 
 ```sql
 alter user <user_name> set granted_admin = false
@@ -217,20 +223,21 @@ alter user dev set granted_admin = false;
 
 ### View Admin Permission
 
-**Examples**
+**Example**
 
 ```sql
 select * from cluster_schema.users where user_name = 'dev';
 ```
 
+```
++-----------+----------+------------------------------------------------------------------------+
+| user_name | is_admin | user_options                                                           |
++-----------+----------+------------------------------------------------------------------------+
+| dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
++-----------+----------+------------------------------------------------------------------------+
+```
 
-    +-----------+----------+------------------------------------------------------------------------+
-    | user_name | is_admin | user_options                                                           |
-    +-----------+----------+------------------------------------------------------------------------+
-    | dev       | true     | {"password":"*****","must_change_password":false,"granted_admin":true} |
-    +-----------+----------+------------------------------------------------------------------------+
-
-## Role of Tenant
+## 租户角色
 
 The roles under the tenant are divided into system roles and user-defined roles.
 
@@ -255,12 +262,14 @@ SELECT *
 FROM roles;
 ```
 
-    +------------+-----------+--------------+
-    | role_name  | role_type | inherit_role |
-    +------------+-----------+--------------+
-    | owner      | system    |              |
-    | member     | system    |              |
-    +------------+-----------+--------------+
+```
++------------+-----------+--------------+
+| role_name  | role_type | inherit_role |
++------------+-----------+--------------+
+| owner      | system    |              |
+| member     | system    |              |
++------------+-----------+--------------+
+```
 
 ### Create Role
 
@@ -309,7 +318,7 @@ You can use `GRANT... ` To give permissions to roles under the tenant, use `REVO
 The current smallest granularity of permissions is the database.
 
 | Name  | Content                                 |
-|-------|-----------------------------------------|
+| ----- | --------------------------------------- |
 | read  | Permission of reading from the database |
 | write | Permission of writing to the database   |
 | all   | All permission of the database          |
@@ -345,7 +354,7 @@ ON DATABASE sea TO ROLE rrr;
 
 ### Show Permission
 
-**Example**
+#### Example
 
 ```sql
 \c
@@ -354,13 +363,15 @@ SELECT *
 FROM DATABASE_PRIVILEGES;
 ```
 
-    +-------------+---------------+----------------+-----------+
-    | tenant_name | database_name | privilege_type | role_name |
-    +-------------+---------------+----------------+-----------+
-    | cnosdb      | air           | Read           | rrr       |
-    | cnosdb      | sea           | All            | rrr       |
-    | cnosdb      | wind          | Write          | rrr       |
-    +-------------+---------------+----------------+-----------+
+```
++-------------+---------------+----------------+-----------+
+| tenant_name | database_name | privilege_type | role_name |
++-------------+---------------+----------------+-----------+
+| cnosdb      | air           | Read           | rrr       |
+| cnosdb      | sea           | All            | rrr       |
+| cnosdb      | wind          | Write          | rrr       |
++-------------+---------------+----------------+-----------+
+```
 
 **Notice**
 
@@ -381,11 +392,11 @@ REVOKE {WRITE | READ | FULL} ON DATABASE database_name FROM role_name;
 REVOKE READ ON DATABASE air FROM rrr;
 ```
 
-### Alter Role
+### Tenant and Permission
 
-#### Alter a User With a Role Under a Tenant
+- ### Alter a User With a Role Under a Tenant
 
-**Syntax**
+**Examples**
 
 ```sql
 ALTER
@@ -401,11 +412,11 @@ ALTER
 TENANT cnosdb ADD USER user_a AS rrr;
 ```
 
-#### Alter the User Out of the Role Under the Tenant
+- #### Alter the User Out of the Role Under the Tenant
 
 The role will not be removed only if the user no longer holds the role of tenant.
 
-**Syntax**
+**Grammar**
 
 ```sql
 ALTER
@@ -416,11 +427,3 @@ TENANT tenant_name REMOVE USER user_name;
 ALTER
 TENANT cnosdb REMOVE USER user_a;
 ```
-
-
-
-
-
-
-
-
