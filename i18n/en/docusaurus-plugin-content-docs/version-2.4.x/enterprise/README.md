@@ -2,12 +2,10 @@
 sidebar_position: 7
 ---
 
-# Enterprise
+# Enterprise features:
 
-Enterprise features:
-
-::: tip
-To try out the Enterprise features, please contact <a class="color-fg-default" itemprop="email" href="mailto:contact@cnosdb.com">contact@cnosdb.com</a>
+:::tip
+试用企业版功能，请[联系我们](https://jinshuju.net/f/qrj9lq)。
 :::
 
 - [Tiered Storage](../manage/tiered_storage.md)
@@ -18,8 +16,10 @@ To try out the Enterprise features, please contact <a class="color-fg-default" i
 
 - [Alarm Manage](../manage/alarm_manage.md)
 
-- Advanced SQL
-    - [candlestick_agg](../reference/sql.md#candlestick-agg)
-    * [gauge_agg](../reference/sql.md#gauge-agg)
-    * [asap_smooth](../reference/sql.md#asap-smooth)
-    * [stats_agg](../reference/sql.md#stats-agg)
+- [数据分布策略](../manage/placement_policy.md)
+
+- 高阶函数
+  - [candlestick_agg](../reference/sql.md#candlestick-agg)
+  * [gauge_agg](../reference/sql.md#gauge-agg)
+  * [asap_smooth](../reference/sql.md#asap-smooth)
+  * [stats_agg](../reference/sql.md#stats-agg)
