@@ -1,19 +1,17 @@
 ---
-title: Tools
+title: CnosDB Tools
 order: 7
 ---
 
-# CnosDB Tools
+# Tools
 
 ## Client CLI
 
-Run the following command to start the CLI program in the root directory of CnosDB source code.
-
-```
+```shell
     cnosdb-cli
 ```
 
-The parameters of CLI program are as follows:
+**程序的参数如下：**
 
 ```
     -h --host CnosDB            Host of the service. The default is "localhost".
@@ -28,7 +26,7 @@ The parameters of CLI program are as follows:
     --format                    Output format. The default is "Table" format.
     --quiet                     To run in quiet mode, output only the result, not execution time.
     --tenant                    Tenant name. The default value is "cnosdb".
- ```
+```
 
 After entering the program you can run the command or SQL:.
 
@@ -43,6 +41,7 @@ Run an SQL example:
 Run a command example:
 
 The commands for the program are as follows:
+
 ```
     \?          Command Help
     \q          Exit CLI
@@ -50,4 +49,4 @@ The commands for the program are as follows:
     \d <table>  Describe the table "table"
     \quiet      Switch to quiet mode, output only the result, not execution time
     \w <path>   Read a file in Line Protocol format and write it to the database, if path is a directory, all files in the directory will be written to the database
- ```
+```
