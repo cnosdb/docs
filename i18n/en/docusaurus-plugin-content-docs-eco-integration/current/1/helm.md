@@ -12,6 +12,7 @@ Helm Chart是Helm工具的核心组件，它是一个预定义的目录结构，
 ## 使用方法
 
 以在`cnosdb`命名空间中安装一个叫`my-cnosdb`的实例:
+
 > 下载[cnosdb-0.1.0.tgz](https://dl.cnosdb.com/sample/cnosdb-0.1.0.tgz)
 
 ```shell
