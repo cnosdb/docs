@@ -4,97 +4,100 @@ index: true
 slug: /kafka
 ---
 
-As more and more application architectures move to microservice or serverless architectures, the number of applications and services is increasing every day. Users can process an increasing amount of time series data either through real-time aggregation or through computations whose outputs are measurements or metrics. Faced with the massive data generated, users can capture and observe the changes of the data in the system in a variety of ways. In the cloud-native environment, the most popular one is to use events.
+随着越来越多的应用程序架构转向微服务或无服务器结构，应用程序和服务的数量每天都在增加。用户既可以通过实时聚合，也可以通过输出为测量或指标的计算，来处理数量不断增加的时间序列数据。面对产生的海量数据，用户可以通过多种方式来捕获和观察系统中数据的变化，在云原生环境中，最流行的一种是使用事件。
 
-Apache Kafka is a durable, high-performance messaging system that is also considered a distributed stream processing platform. It can be applied to many use cases including messaging, data integration, log aggregation, and metrics. As far as metrics are concerned, message trunks or proxies are not enough. While Apache Kafka is durable, it is not designed for running metrics and monitoring queries. This is precisely the strength of CnosDB.
+Apache Kafka是一个耐用、高性能的消息系统，也被认为是分布式流处理平台。它可应用于许多用例，包括消息传递、数据集成、日志聚合和指标。而就指标而言，仅有消息主干或代理是不够的。虽然 Apache Kafka 很耐用，但它并不是为运行指标和监控查询而设计的。这恰恰正是 CnosDB 的长处。
 
-In this article, we will mainly introduce how to implement a Kafka+Telegraf+CnosDB synchronous real-time streaming data acquisition and storage scheme in Ubuntu 22.04.2 LTS environment. In this operation, the CnosDB version is 2.3.0, the Kafka version is 2.5.1, and the Telegraf version is 1.27.1.
+本篇我们将主要介绍如何在 Ubuntu 22.04.2 LTS 环境下，实现一个Kafka+Telegraf+CnosDB 同步实时获取流数据并存储的方案。在本次操作中，CnosDB 版本是2.3.0，Kafka 版本是2.5.1，Telegraf 版本是1.27.1。
 
-## Architecture Solution
+## 架构方案
 
-By combining Kafka, Telegraf and CnosDB, a complete flow of data can be achieved:
-1. Data Generation: Generate data using sensors, devices, or other data sources and send it to Kafka topics. 
-2. Kafka Message Queue: Kafka receives and stores data streams to ensure data security and reliability. 
-3. Telegraf Consumer: Telegraf, as a consumer of Kafka, subscribs to Kafka topics and fetches data streams.
-4. CnosDB Data Storage: The preprocessed data is sent to CnosDB by Telegraf for time series data storage.
+通过将这Kafka、Telegraf和CnosDB 三者结合起来，可以实现数据的完整流程：
 
-The overall application architecture looks like this:
+1. 数据生成：使用传感器、设备或其他数据源产生数据，并将其发送到Kafka主题。
+2. Kafka 消息队列：Kafka 接收并存储数据流，确保数据安全和可靠性。
+3. Telegraf 消费者：Telegraf 作为 Kafka 的消费者，订阅 Kafka 主题并获取数据流。
+4. CnosDB 数据存储：经过预处理的数据由 Telegraf 发送到 CnosDB 中进行时序数据的存储。
+
+整体的应用程序架构如图所示：
 
 ![Kafka](/img/kafka_to_cnosdb.png)
 
 ## Kafka
 
-Apache Kafka is an open source distributed stream processing platform. It is designed for processing real-time data streams with high reliability, high throughput and low latency, and has been used by most companies. It can be used in a variety of ways, including:
-- Stream Processing: It provides the event backbone by storing real-time events for aggregation, enrichment and processing.
-- Metrics:  Apache Kafka becomes a centralized aggregation point for many distributed components or applications, such as microservices. These applications can send real-time metrics for use by other platforms, including CnosDB.
-- Data Integration: Data and event changes can be captured and sent to Apache Kafka, which can be used by any application that needs to act on these changes.
-- Log Aggregation:  Apache Kafka can act as the message backbone of a log-streaming platform to transform log blocks into data streams.
+Apache Kafka 是一个开源分布式流处理平台，它被设计用于处理实时数据流，具有高可靠性、高吞吐量和低延迟的特点，目前已经被大多数公司使用。它的使用方式非常多样化，包括：
 
-### Several Core Concepts
+- 流处理：它通过存储实时事件以进行聚合、丰富和处理来提供事件主干。
+- 指标： Apache Kafka 成为许多分布式组件或应用程序（例如微服务）的集中聚合点。这些应用程序可以发送实时指标以供其他平台使用，包括 CnosDB。
+- 数据集成：可以捕获数据和事件更改并将其发送到 Apache Kafka，任何需要对这些更改采取行动的应用程序都可以使用它们。
+- 日志聚合： Apache Kafka 可以充当日志流平台的消息主干，将日志块转换为数据流。
 
-1. Broker: A Broker in Kafka is a server node in a Kafka cluster that stores and forwards messages, providing high availability, fault tolerance, and reliability.
-2. Topics: A topic in Apache Kafka is a logical unit of storage, much like a table in a relational database. Topics are distributed through agents through partitions, providing scalability and elasticity.
-3. Producers: A Producer publishes messages to a specific topic in Kafka. The producer can choose to send messages to a specific partition or let Kafka automatically determine the allocation policy.
-4. Consumers: Consumers read messages from one or more partitions of a given topic. Consumers can be organized in different ways, such as unicast, multicast, consumer groups, etc.
-5. Publish/Subscribe Pattern: A producer publishes messages to one or more topics, and a consumer can subscribe to one or more topics to receive and process messages from.
+### 几个核心概念
 
-In simple words, when a client sends data to an Apache Kafka cluster instance, it has to send it to a certain topic.
-In addition, when a client reads from the Apache Kafka cluster, it must read from the topic. The clients that send data to Apache Kafka become producers, and the clients that read data from the Kafka cluster become consumers. The data flow diagram is as follows:
+1. 实例（Broker）：Kafka的Broker是Kafka集群中的服务器节点，负责存储和转发消息，提供高可用性、容错性和可靠性。
+2. 主题（Topic）：Apache Kafka 中的 topic ，是逻辑存储单元，就像关系数据库的表一样。主题通过分区通过代理进行分发，提供可扩展性和弹性。
+3. 生产者（Producer）：生产者将消息发布到Kafka的指定主题。生产者可以选择将消息发送到特定的分区，也可以让Kafka自动决定分配策略。
+4. 消费者（Consumer）：消费者从指定主题的一个或多个分区中读取消息。消费者可以以不同的方式进行组织，如单播、多播、消费者组等。
+5. 发布-订阅模式：是指生产者将消息发布到一个或多个主题，而消费者可以订阅一个或多个主题，从中接收并处理消息。
+
+简单来说就是，当客户端将数据发送到 Apache Kafka 集群实例时，它必须将其发送到某个主题。
+此外，当客户端从 Apache Kafka 集群读取数据时，它必须从主题中读取。向 Apache Kafka 发送数据的客户端成为生产者，而从 Kafka 集群读取数据的客户端则成为消费者。数据流向示意图如下：
 
 ![topic](/img/kafka_topic.png)
 
-##  Deploy Kafka
+## 部署 Kafka
 
-### Download and Install
+### 下载并安装
 
-1. Install JDK and Zookeeper environment
+1. 安装 JDK 和 Zookeeper 环境
 
 ```shell
 sudo apt install openjdk-8-jdk
 sudo apt install zookeeper
 ```
 
-2. Download and unzip the Kafka package
+2. 下载并解压 Kafka 程序包
 
 ```shell
 wget https://archive.apache.org/dist/kafka/2.5.1/kafka_2.12-2.5.1.tgz
 tar -zxvf kafka_2.12-2.5.1.tgz
 ```
 
-3. Enter the unzipped Kafka directory
+3. 进入解压后的 Kafka 目录
 
 ```
 cd  kafka_2.12-2.5.1
 ```
 
-4. Modify the configuration file `$KAFKA_HOME/config/server.properties` (you can modify the port, log path and other configuration information as needed).
+4. 修改 `$KAFKA_HOME/config/server.properties` 的配置文件（可按需修改端口、日志路径等配置信息）
 
+5. 保存并关闭编辑器。运行下面的命令来启动Kafka：
 
-5. Save and close the editor. Run the following command to start Kafka:
+> Kafka 将在后台运行，并通过默认的 9092 端口监听连接。
 
-> Kafka will run in the background and listen for connections through the default port 9092.
 ```shell
 bin/kafka-server-start.sh config/server.properties
 ```
 
 ## Telegraf
 
-Telegraf is an open source server agent for collecting, processing, and transmitting metric data for systems and applications. Telegraf supports a variety of input plug-ins and output plug-ins, and is able to integrate with a variety of different types of systems and services. It can collect metrics data from multiple sources such as system statistics, log files, API interfaces, message queues, and send it to various targets such as CnosDB, Elasticsearch, Kafka, Prometheus, etc. This makes Telegraf very flexible and adaptable to different monitoring and data processing scenarios.
-- Lightweight: Telegraf is designed as a lightweight agent program with a relatively small footprint on system resources and can run efficiently in a variety of environments.
-- Plug-in driver: Telegraf uses plug-ins to support various input and output functions. It provides a rich plugin ecosystem that covers a wide range of systems and services. Users can choose appropriate plug-ins to collect and transmit indicator data according to their own needs.
-- Data processing and transformation: Telegraf has flexible data processing and transformation capabilities, which can filter, process, transform and aggregate the collected metrics data through a Plugin Chain to provide more accurate and advanced data analysis.
+Telegraf 是一个开源的服务器代理程序，用于收集、处理和传输系统和应用程序的指标数据。Telegraf 支持多种输入插件和输出插件，并且能够与各种不同类型的系统和服务进行集成。它可以从系统统计、日志文件、API 接口、消息队列等多个来源采集指标数据，并将其发送到各种目标，如 CnosDB 、Elasticsearch、Kafka、Prometheus 等。这使得 Telegraf 非常灵活，可适应不同的监控和数据处理场景。
 
-### Deploy Telegraf
+- 轻量级：Telegraf被设计为一个轻量级的代理程序，对系统资源的占用相对较小，可以高效运行在各种环境中。
+- 插件驱动：Telegraf使用插件来支持各种输入和输出功能。它提供了丰富的插件生态系统，涵盖了众多的系统和服务。用户可以根据自己的需求选择合适的插件来进行指标数据的采集和传输。
+- 数据处理和转换：Telegraf具有灵活的数据处理和转换功能，可以通过插件链（Plugin Chain）来对采集到的指标数据进行过滤、处理、转换和聚合，从而提供更加精确和高级的数据分析。
 
-1. Install Telegraf
+### 部署 Telegraf
+
+1. 安装 Telegraf
 
 ```
 sudo apt-get update && sudo apt-get install telegraf
 ```
 
-2. Switch to the directory where the default configuration file of Telegraf is located `/etc/telegraf`
+2. 切换到 Telegraf 的默认配置文件所处目录 /etc/telegraf 下
 
-3. Modify the configuration file `telegraf.conf` (you can modify the configuration information as needed).
+3. 在配置文件 telegraf.config 中添加目标 OUTPUT PLUGIN
 
 ```toml
 [[outputs.http]]
@@ -109,33 +112,36 @@ sudo apt-get update && sudo apt-get install telegraf
   idle_conn_timeout = 10
 ```
 
-Parameters:
-> Note: Other parameters can be kept consistent with the configuration example above.
+按需修改的参数：
+
+> 注意：其余参数可与上述配置示例中保持一致
+
 ```
-url: CnosDB address and port
-username: username for connecting to CnosDB
-password: password for connecting to CnosDB
+url：CnosDB 地址和端口
+username：连接 CnosDB 的用户名
+password：连接 CnosDB 的用户名对应的密码
 ```
 
-4. Uncomment the following configuration in the configuration file and modify it as needed
+4. 在配置文件中将下面的配置注释放开，可按需修改
 
-```toml
+```
 [[inputs.kafka_consumer]]
 brokers = ["127.0.0.1:9092"]
 topics = ["oceanic"]
 data_format = "json"
 ```
 
-Parameters:
-> Note: Other parameters can be kept consistent with the configuration example above.
+参数：
+
+> 注意：其余参数可与上述配置示例中保持一致
 
 ```shell
-brokers: broker list of Kafka
-topics: specify the topic to write to Kafka
-data_format: format of the written data
+brokers：Kafka 的 broker list 
+topics：指定写入 Kafka 目标的 topic
+data_format：写入数据的格式
 ```
 
-5. Start Telegraf
+5. 启动 Telegraf
 
 ```toml
 telegraf -config /etc/telegraf/telegraf.conf
@@ -143,24 +149,24 @@ telegraf -config /etc/telegraf/telegraf.conf
 
 ## CnosDB
 
-### Deploy CnosDB
+### 部署 CnosDB
 
-You can refer to ![CnosDB 安装](https://docs.cnosdb.com/en/latest/start/install.html).
+详细操作请参考：![CnosDB 安装](https://docs.cnosdb.com/zh/latest/start/install)
 
-## Integration
+## 整合
 
-### Create Kafka Topic
+### Kafka 创建 Topic
 
-1. Enter the bin folder of Kafka.
-2. Run the following command to create a topic.
+1. 进入 kafka 的 bin 文件夹下
+2. 执行命令，创建 topic
 
 ```shell
 ./kafka-topics.sh --create --topic oceanic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
-### Python Simulates Writing Data to Kakfa
+### Python 模拟写入数据到Kakfa
 
-1. Write code
+1. 编写代码
 
 ```python
 import time
@@ -201,15 +207,15 @@ if __name__ == "__main__":
     main()
 ```
 
-2. Run the code
+2. 运行 Python 脚本
 
 ```shell
 python3 test.py
 ```
 
-### View Data in Kafka
+### 查看 Kafka topic 中的数据
 
-1. Run the following command to view the data of the specified topic.
+1. 执行下面查看指定 topic 数据的命令
 
 ```shell
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic oceanic --from-beginning
@@ -217,23 +223,24 @@ python3 test.py
 
 ![message](/img/userlmn_188a723d58873beddee3c15e9cdb48f1.png)
 
-### View Data in CnosDB
+### 查看同步到 CnosDB 中的数据
 
-1. Use `cnosdb-cli` to connect to the database.
+1. 使用工具连接到CnosDB
 
 ```shell
 cnosdb-cli
 ```
-2. Switch to the public database.
+
+2. 切换到指定库
 
 ```shell
 \c public
 ```
 
-3. View data.
+3. 查看数据
 
 ```shell
 select * from kafka_consumer;
 ```
 
-![cnosdb_result](/img/userlmn_9ced0c8b3b1b7caea323148f994d16ee.png)
+![cnosdb\_result](/img/userlmn_9ced0c8b3b1b7caea323148f994d16ee.png)
