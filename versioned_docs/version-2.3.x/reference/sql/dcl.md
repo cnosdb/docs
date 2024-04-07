@@ -17,13 +17,11 @@ sidebar_position: 6
 ```sql
 CREATE TENANT [IF NOT EXISTS] tenant_name
 [WITH [comment = <comment>],
-       [drop_after = duration],
        [_limiter = <limiter_config>]];
 ```
 
 | 选项         | 描述                                                         |
 | ------------ | ------------------------------------------------------------ |
-| `drop_after` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d` |
 | `_limiter`   | 限制租户资源用量，详细内容请参考 [租户资源](../../manage/resource_limit.md)       |
 
 <details>
@@ -99,7 +97,7 @@ CREATE ROLE owner_role INHERIT owner;
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
     
 sql_option: option_name = value
-option: {COMMENT/DROP_AFTER/_LIMITER}
+option: {COMMENT/_LIMITER}
 ```
 
 | 选项    | 描述                     |
@@ -151,18 +149,14 @@ DROP TENANT 用于删除租户（tenant）及其相关的数据和配置。
 在执行 `DROP TENANT` 操作之前，通常需要谨慎考虑，因为该操作将永久删除租户及其所有相关数据。
 
 ```sql
-DROP TENANT tenant_name [AFTER duration];
+DROP TENANT tenant_name;
 ```
-
-| 选项    | 描述                                                         |
-| ------- | ------------------------------------------------------------ |
-| `ALTER` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d`，删除期间租户会被禁用，`ALTER` 的优先级高于 `CREATE TANANT` 中的 `DROP_AFTER`。 |
 
 <details>
   <summary>查看示例</summary>
 
 ```sql
-DROP TENANT test AFTER '7d';
+DROP TENANT test;
 ```
 
 </details>

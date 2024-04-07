@@ -238,11 +238,9 @@ ALTER DATABASE oceanic_station SET VNODE_DURATION '7d';
 
 :::tip
 
-支持修改/删除 `TAG` 和 `FIELD` 类型的列，可以通过 [`DESCRIBE TABLE`](dql.md#describe) 语法查询列类型。
+支持修改/删除 `FIELD` 类型的列，可以通过 [`DESCRIBE TABLE`](dql#describe) 语法查询列类型。
 
 不支持修改列名 `time`。
-
-避免在执行重命名 `TAG` 类型列的时候执行写入操作，可能会引起 `series` 冲突。
 
 :::
 
@@ -250,8 +248,7 @@ ALTER DATABASE oceanic_station SET VNODE_DURATION '7d';
 ALTER TABLE tb_name alter_table_option;
 
 alter_table_option: {
-      ADD TAG col_name
-    | ADD FIELD col_name [data_type] [CODEC(code_type)]
+      ADD FIELD col_name [data_type] [CODEC(code_type)]
     | ALTER col_name SET CODEC(code_type)
     | DROP col_name
     | RENAME COLUMN col_name TO new_col_name
@@ -260,12 +257,6 @@ alter_table_option: {
 
 <details>
   <summary>查看 <code>ALTER TABLE</code> 示例</summary>
-
-**添加一个 `TAG` 类型的列。**
-
-```sql
-ALTER TABLE air ADD TAG height;
-```
 
 **添加一个 `FIELD` 类型的列，并指定压缩算法。**
 
@@ -285,23 +276,13 @@ ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ALTER TABLE air DROP humidity;
 ```
 
-**重命名列名。**
-
-```sql
-ALTER TABLE air RENAME COLUMN height to height_v2;
-```
-
 </details>
 
 ## `DROP DATABASE`
 
 ```sql
-DROP DATABASE [IF EXISTS] db_name [AFTER <duration>];
+DROP DATABASE [IF EXISTS] db_name;
 ```
-
-| 选项    | 描述                                                         |
-| ------- | ------------------------------------------------------------ |
-| `AFTER` | 设置延迟删除时间，当设置 `AFTER` 时，数据库将进入禁用阶段，直到持续时间结束，数据库会在磁盘上移除，在持续时间结束之前，可以通过 `RECOVER DATABASE` 语法进行恢复。默认单位为 `d`，支持`d`、`h`、`m` |
 
 <details>
   <summary>查看 <code>DROP DATABASE</code> 示例</summary>
@@ -310,20 +291,6 @@ DROP DATABASE [IF EXISTS] db_name [AFTER <duration>];
 
 ```sql
 DROP DATABASE oceanic_station;
-```
-
-**删除数据库，并设置数据库在 3 天后被删除。**
-
-```sql
-DROP DATABASE oceanic_station AFTER '3';
-```
-
-**撤回删除数据库**
-
-在数据库没有在被真正删除之前，即在 `AFTER` 持续时间结束之前，删除操作可以撤回。
-
-```sql
-RECOVER DATABASE oceanic_station;
 ```
 
 </details>
