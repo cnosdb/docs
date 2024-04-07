@@ -1,8 +1,6 @@
 ---
-
 title: Cluster Expansion
 order: 4
-
 ---
 
 # Cluster Expansion
