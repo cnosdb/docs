@@ -1,12 +1,13 @@
 ---
-title: Query Data
-order: 4
+sidebar_position: 4
 ---
 
 # Query Data
 
-CnosDB supports a variety of query access methods, some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
+CnosDB supports a variety of query access methods, some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
 
 ## HTTP API Query
 
@@ -28,9 +29,8 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
-::: tabs#language
-
-@tab Golang#Golang
+<Tabs>
+<TabItem value="go" label="Golang">
 
 ```go
 package main
@@ -77,7 +77,9 @@ func main() {
 }
 ```
 
-@tab Python#Python
+</TabItem>
+
+<TabItem value="py" label="Python">
 
 ```python
 import requests
@@ -98,9 +100,11 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-@tab Java#Java
+</TabItem>
 
-```java
+<TabItem value="java" label="Java">
+
+````java
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -177,9 +181,50 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
+````
+
+</TabItem>
+
+<TabItem value="rust" label="Rust">
+
+```rust
+use reqwest::header::{Authorization, HeaderValue, ACCEPT};
+use std::error::Error;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
+    let username = "<username>";
+    let password = "<password>";
+    let cdb_url = "<cnosdb_url>";
+    let cdb_port = "<cnosdb_port>";
+    let database_name = "<database_name>";
+    let sql_statement = "<your SQL statement>";
+
+    let url = format!(
+        "http://{}:{}/api/v1/sql?db={}&pretty=true",
+        cdb_url, cdb_port, database_name
+    );
+
+    let client = reqwest::Client::new();
+    let res = client
+        .post(&url)
+        .header(ACCEPT, "application/json")
+        .header(
+            Authorization(format!("Basic {}", base64::encode(format!("{}:{}", username, password))))
+        )
+        .body(sql_statement)
+        .send()
+        .await?;
+
+    println!("{}", res.text().await?);
+
+    Ok(())
+}
 ```
 
-@tab C++#C++
+</TabItem>
+
+<TabItem value="c++" label="C++">
 
 ```cpp
 #include <iostream>
@@ -221,6 +266,6 @@ int main() {
 }
 ```
 
-:::
+</TabItem>
 
-Related Content：
+</Tabs>
