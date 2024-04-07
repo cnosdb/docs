@@ -1,6 +1,5 @@
 ---
-title: Monitor
-order: 7
+sidebar_position: 7
 ---
 
 # Monitor
@@ -17,23 +16,23 @@ If you would like to see more metrics supported by CnosDB, please send an ISSUE 
 
 vnode_disk_storage
 
-#### Type
+#### Category
 
 Gauge
 
-#### Description
+#### NAME
 
 The disk that the Vnode occupies.
 
 #### Tag
 
-| Field    | Discription                           |
-|----------|---------------------------------------|
-| DATABASE | Database vnode belongs to             |
+| Field                         | Description                           |
+| ----------------------------- | ------------------------------------- |
+| DATABASE                      | Database vnode belongs to             |
 | NODE_ID  | ID of data node                       |
-| TENANT   | tenant vnode belongs to               |
+| TENANT                        | tenant vnode belongs to               |
 | VNODE_ID | ID of Vnode                           |
-| VALUE    | Disk that the Vnode occupies in bytes |
+| VALUE                         | Disk that the Vnode occupies in bytes |
 
 ### VNODE_CACHE_SIZE
 
@@ -51,21 +50,21 @@ The cache size that vnode occupies in bytes.
 
 #### Tag
 
-| Field    | Discription                            |
-|----------|----------------------------------------|
-| DATABASE | Database vnode belongs to              |
+| Field                         | Description                            |
+| ----------------------------- | -------------------------------------- |
+| DATABASE                      | Database vnode belongs to              |
 | NODE_ID  | ID of data node                        |
-| TENANT   | tenant vnode belongs to                |
+| TENANT                        | tenant vnode belongs to                |
 | VNODE_ID | ID of Vnode                            |
-| VALUE    | Cache that the Vnode occupies in bytes |
+| VALUE                         | Cache that the Vnode occupies in bytes |
 
 ### HTTP_DATA_IN
 
-#### NAME
+#### Name
 
 http_data_in
 
-#### Category
+#### Type
 
 Count
 
@@ -75,13 +74,13 @@ Data traffic written over http, excluding SQL.
 
 #### Tag
 
-| Field    | Description                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | DatabaseName                        |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | The total write traffic in Bytes    |
+| Field                        | Discription                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| VALUE                        | The total write traffic in Bytes    |
 
 ### HTTP_DATA_OUT
 
@@ -89,25 +88,25 @@ Data traffic written over http, excluding SQL.
 
 http_data_out
 
-#### Category
+#### Type
 
 Count
 
-#### Description
+#### Discription
 
 The size of the Http return data
 
 #### Tag
 
-| Field    | Description                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | DatabaseName                        |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| Database | Database name                       |
-| User     | User name                           |
-| VALUE    | The total write traffic in Bytes    |
+| Field                        | Description                                 |
+| ---------------------------- | ------------------------------------------- |
+| TIME                         | Time of record                              |
+| DATABASE                     | Database name                               |
+| NODE_ID | ID of data node                             |
+| TENANT                       | Tenant name the database belongs to         |
+| Database                     | DatabaseName                                |
+| User                         | User name                                   |
+| VALUE                        | The total size of the read traffic in Bytes |
 
 ### HTTP_QUERIES
 
@@ -119,20 +118,20 @@ http_queries
 
 Count
 
-#### Description
+#### Discription
 
 This metric keeps track of the number of Http queries a user makes.
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | DatabaseName                        |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| USER     | User name                           |
-| VALUE    | Query times                         |
+| Field                        | Discription                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of queries                     |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| USER                         | User name                           |
+| VALUE                        | Query times                         |
 
 ### HTTP_WRITES
 
@@ -144,19 +143,20 @@ http_writes
 
 Count
 
-#### Description
+#### Discription
 
 This metric records the number of times a user writes via Http.
 
 #### Tag
 
-| Field    | Description                                 |
-|----------|---------------------------------------------|
-| TIME     | Time of record                              |
-| DATABASE | Database name                               |
-| NODE_ID  | ID of data node                             |
-| TENANT   | Tenant name the database belongs to         |
-| VALUE    | The total size of the read traffic in Bytes |
+| Field                        | Discription                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| USER                         | User name                           |
+| VALUE                        | 用户写入次数                              |
 
 ### HTTP_QUERY_DURATION
 
@@ -174,16 +174,15 @@ Time spent querying through the Http interface.
 
 #### Tag
 
-| Field    | Description                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| Database | Database name                       |
-| User     | User name                           |
-| LE       | Less than this time, in ms          |
-| VALUE    | Times                               |
+| Field                        | Discription                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| USER                         | Name                                |
+| LE                           | Less than this time, in ms          |
+| VALUE                        | Times                               |
 
 ### HTTP_WRITE_DURATION
 
@@ -201,15 +200,15 @@ Time taken to write through the Http interface.
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of queries                     |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| USER     | User name                           |
-| LE       | Less than this time, in ms          |
-| VALUE    | Times                               |
+| Field                        | Description                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | DatabaseName                        |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| USER                         | User name                           |
+| LE                           | Less than this time, in ms          |
+| VALUE                        | Times                               |
 
 ### COORD_DATA_IN
 
@@ -227,13 +226,13 @@ Total size of the data accepted by the Coordinator when the data is written to t
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | Data size in bytes                  |
+| Field                        | Description                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| VALUE                        | Data size in bytes                  |
 
 ### COORD_DATA_OUT
 
@@ -251,43 +250,35 @@ Total size of the data sent by the Coordinator when the data is read out of the 
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | Data size in bytes                  |
+| Field                        | Description                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| VALUE                        | Data size in bytes                  |
 
 ### COORD_QUERIES
-
-#### Name
-
-coord_queries
 
 #### Type
 
 Count
 
-#### Type
+#### Discription
 
 The number of times the data passes through the Coordinator during the query.
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | Times                               |
+| Field                        | Discription                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| VALUE                        | Times                               |
 
 ### COORD_WRITES
-
-#### Name
-
-coord_writes
 
 #### Type
 
@@ -299,13 +290,13 @@ The number of times the data passes through the Coordinator during writing.
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | Times                               |
+| Field                        | Description                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| VALUE                        | Times                               |
 
 ### SQL_DATA_IN
 
@@ -323,13 +314,13 @@ The size of the data written via sql, including INSERT, COPY statements
 
 #### Tag
 
-| Field    | Discription                         |
-|----------|-------------------------------------|
-| TIME     | Time of record                      |
-| DATABASE | Database name                       |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | Data size in bytes                  |
+| Field                        | Description                         |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of record                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| VALUE                        | Data size in bytes                  |
 
 ## Prometheus Monitor
 
@@ -342,11 +333,11 @@ scrape_configs:
     static_configs:
       - targets: ['127.0.0.1:8902']
 ```
-**Params**
+
+#### **Params**
 
 `targets` is the adderss of CnosDB Http.
 
-## Store to CnosDB 
+## Store to CnosDB
 
 Change the `store_metrics` in [config](./cluster_expansion.md#configuration-cluster) to `true`.
-
