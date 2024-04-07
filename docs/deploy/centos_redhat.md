@@ -213,6 +213,7 @@ license_file = '/etc/cnosdb/license.json'
 ```
 
 </TabItem>
+
 </Tabs>
 
 修改 `[deployment].mode` 为 `query_tskv` 。

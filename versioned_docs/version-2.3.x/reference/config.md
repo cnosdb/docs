@@ -207,6 +207,7 @@ cnosdb --config ./cnosdb.conf
 | `location`         | `default` | 定义实例部署位置。                                       |
 
 </TabItem>
+
 </Tabs>
 
 ### `[trace]`
