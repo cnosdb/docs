@@ -78,6 +78,7 @@ func main() {
 ```
 
 </TabItem>
+
 <TabItem value="py" label="Python">
 
 ```python
@@ -100,6 +101,7 @@ print(response.text)
 ```
 
 </TabItem>
+
 <TabItem value="java" label="Java">
 
 ```java
@@ -186,7 +188,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 </TabItem>
 
-
 <TabItem value="c++" label="C++">
 
 ```cpp
@@ -230,4 +231,5 @@ int main() {
 ```
 
 </TabItem>
+
 </Tabs>

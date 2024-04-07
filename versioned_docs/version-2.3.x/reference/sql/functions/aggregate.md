@@ -761,6 +761,7 @@ SELECT sample(temperature, 5) FROM air;
 <TabItem value="Community" label="社区版">
 
 </TabItem>
+
 <TabItem value="Enterprise" label="企业版">
 
 ### asap_smooth
@@ -794,5 +795,6 @@ SELECT asap_smooth(time, pressure, 10) FROM air GROUP BY date_trunc('month', tim
 </details>
 
 </TabItem>
+
 </Tabs>
 

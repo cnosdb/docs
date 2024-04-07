@@ -34,6 +34,7 @@ sudo yum update & yum install -y cnosdb cnosdb-meta
 ```
 
 </TabItem>
+
 <TabItem value="Enterprise" label="企业版">
 
 :::tip
@@ -41,6 +42,7 @@ sudo yum update & yum install -y cnosdb cnosdb-meta
 :::
 
 </TabItem>
+
 </Tabs>
 
 ## 启动单机实例
@@ -50,6 +52,7 @@ sudo yum update & yum install -y cnosdb cnosdb-meta
 <TabItem value="Community" label="社区版">
 
 </TabItem>
+
 <TabItem value="Enterprise" label="企业版">
 
 修改 `license_file` 指定正确的文件位置
@@ -60,6 +63,7 @@ license_file = '/etc/cnosdb/license.json'
 ```
 
 </TabItem>
+
 </Tabs>
 
 修改 `[deployment].mode` 为 `singleton`
@@ -198,6 +202,7 @@ host = "query_tskv<n>.cnosdb.com"
 <TabItem value="Community" label="社区版">
 
 </TabItem>
+
 <TabItem value="Enterprise" label="企业版">
 
 修改 `license_file` 指定正确的文件位置
@@ -208,6 +213,7 @@ license_file = '/etc/cnosdb/license.json'
 ```
 
 </TabItem>
+
 </Tabs>
 
 修改 `[deployment].mode` 为 `query_tskv` 。

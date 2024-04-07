@@ -130,7 +130,9 @@ test ❯ \q
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
+
 </TabItem>
+
 <TabItem value="Enterprise" label="企业版">
 
 ## 文件修复工具
@@ -543,4 +545,5 @@ cnosdb-tool repair series-binlog edit <PATH> --from 5 --to 6 --input <PATH> --ou
 ```
 
 </TabItem>
+
 </Tabs>

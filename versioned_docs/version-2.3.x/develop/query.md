@@ -78,6 +78,7 @@ func main() {
 ```
 
 </TabItem>
+
 <TabItem value="py" label="Python">
 
 ```python
@@ -100,6 +101,7 @@ print(response.text)
 ```
 
 </TabItem>
+
 <TabItem value="java" label="Java">
 
 ```java
@@ -230,4 +232,5 @@ int main() {
 ```
 
 </TabItem>
+
 </Tabs>

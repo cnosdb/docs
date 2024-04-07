@@ -229,6 +229,7 @@ print(response.text)
 ```
 
 </TabItem>
+
 <TabItem value="rust" label="Rust">
 
 ```rust
@@ -267,6 +268,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 ```
 
 </TabItem>
+
 <TabItem value="c++" label="C++">
 
 ```cpp
@@ -310,6 +312,7 @@ int main() {
 ```
 
 </TabItem>
+
 </Tabs>
 
 当使用 `/api/v1/write` 接口时，只需要替换接口地址，并将 `<your SQL statement>` 替换为 `<your data>` 。
