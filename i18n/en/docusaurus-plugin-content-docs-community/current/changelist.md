@@ -1,67 +1,154 @@
-# Releases
+# 发行说明
 
 ## v2.3.5 Aquarius
 
-Release：March 06, 2024
+发布日期：2024年03月06日
 
-### Improvements
+### 功能优化
 
-- Add incremental file compression tasks. [#1945](https://github.com/cnosdb/cnosdb/pull/1945)
-- Compaction operations on the same Vnode changed to run in a single thread. [#2002](https://github.com/cnosdb/cnosdb/pull/2002)
+- 增加增量文件的压缩任务。[#1945](https://github.com/cnosdb/cnosdb/pull/1945)
+- 同一个 Vnode 的压实操作改为单线程运行。[#2002](https://github.com/cnosdb/cnosdb/pull/2002)
 
-### Bug Fixes
+### 错误修复
 
-- Fix LRU cache hit due to queries involving a large number of files. [#1965](https://github.com/cnosdb/cnosdb/pull/1965)
-- Fix data loss due to incremental compaction. [#1982](https://github.com/cnosdb/cnosdb/pull/1982)
-- Fix pread function that could write wild pointers [#1981](https://github.com/cnosdb/cnosdb/pull/1981)
-- Fix compaction operation causing data loss. Tombstone data not excluded as expected when merging multiple data blocks. [#1988](https://github.com/cnosdb/cnosdb/pull/1988)
-- Change async_file sync_data() to sync_all(). [#1994](https://github.com/cnosdb/cnosdb/pull/1994)
-- Fix some buggy logic in selecting incremental files for incremental compaction, improve efficiency in decreasing the number of incremental files [#1998](https://github.com/cnosdb/cnosdb/pull/1998)
-- Fix not adding index_size to TsmWriter::size [#1999](https://github.com/cnosdb/cnosdb/pull/1999)
-- Fix add count tag function [#1989](https://github.com/cnosdb/cnosdb/pull/1989)
-- Extract function update_max_ts_of_levels [#2004](https://github.com/cnosdb/cnosdb/pull/2004)
+- 修复涉及大量文件的查询导致的LRU缓存击穿问题。[#1965](https://github.com/cnosdb/cnosdb/pull/1965)
+- 修复增量压实导致数据丢失的问题。[#1982](https://github.com/cnosdb/cnosdb/pull/1982)
+- 修复 pread 函数可能会写野指针的问题[#1981](https://github.com/cnosdb/cnosdb/pull/1981)
+- 修复压实操作导致数据丢失的问题。合并多个数据块时，未按预期排除墓碑数据。[#1988](https://github.com/cnosdb/cnosdb/pull/1988)
+- 将 async_file sync_data() 改为sync_all() 。[#1994](https://github.com/cnosdb/cnosdb/pull/1994)
+- 修复增量压实选取增量文件的一些错误逻辑，提升增量文件数量降低的效率 [#1998](https://github.com/cnosdb/cnosdb/pull/1998)
+- 修复TsmWriter::size 没有添加 index_size [#1999](https://github.com/cnosdb/cnosdb/pull/1999)
+- 修复添加 count tag 的功能 [#1989](https://github.com/cnosdb/cnosdb/pull/1989)
+- 提取函数 update_max_ts_of_levels [#2004](https://github.com/cnosdb/cnosdb/pull/2004)
+
+## v2.3.4.4
+
+发布日期：2024年01月27日
+
+### 功能优化
+
+- 为 `FileCursor` 添加内存缓冲区。[#1927](https://github.com/cnosdb/cnosdb/pull/1927)
+- 添加配置文件项目 `file_buffer_size`。[#1960](https://github.com/cnosdb/cnosdb/pull/1960)
+- 添加配置文件项目 `copyinto_trigger_flush_size`。[#1944](https://github.com/cnosdb/cnosdb/pull/1944)
+
+### 错误修复
+
+- 修复宽表导致的 `COPY INTO` 错误。[#1924](https://github.com/cnosdb/cnosdb/pull/1924)
+- 在刷新前更新 `version_set` 版本。[#1926](https://github.com/cnosdb/cnosdb/pull/1926)
+- 修复删除 `ScalarValueForkDF`。[#1938](https://github.com/cnosdb/cnosdb/pull/1938)
+- 当表没有数据时，不执行底层的删除列数据操作。[#1950](https://github.com/cnosdb/cnosdb/pull/1950)
+- 修复重新启动时，反序列化流语句失败的问题。[#1953](https://github.com/cnosdb/cnosdb/pull/1953)
+- 不允许更改 root 用户的`grant_admin` 参数。[#1954](https://github.com/cnosdb/cnosdb/pull/1954)
+
+## v2.3.4.3
+
+发布日期：2024年01月09日
+
+### 问题修复
+
+- 修复 tskv 迭代器有时会反回比预期更多的数据。[#1895](https://github.com/cnosdb/cnosdb/pull/1895)
+
+## v2.3.4.2
+
+发布日期：2024年01月03日
+
+### 功能优化
+
+- 重构 e2e_test 中的实用程序和不相关内容。[#1882](https://github.com/cnosdb/cnosdb/pull/1882)
+
+### 问题修复
+
+- 修复有关合并的错误。[#1889](https://github.com/cnosdb/cnosdb/pull/1889)
+
+## v2.3.4.1
+
+发布日期：2024年12月29日
+
+### 功能优化
+
+- 删除 `cold_data_server` 和 `NodeAttribute` 模块。[#1859](https://github.com/cnosdb/cnosdb/pull/1859)
+- 在 `meta` 服务中添加 `setkv` 和 `delete` 的 http 接口。[#1835](https://github.com/cnosdb/cnosdb/pull/1835)
+- 客户端启动时隐藏密码。[#1881](https://github.com/cnosdb/cnosdb/pull/1881)
+
+### 问题修复
+
+- 修复`dedup_by_front` 删除了错误元素的错误。 [#1815](https://github.com/cnosdb/cnosdb/pull/1815)
+- 修复异步 LruCache 导致的错误。 [#1820](https://github.com/cnosdb/cnosdb/pull/1820)
+- 修复 `meta` 服务创建的快照为空的问题。 [#1835](https://github.com/cnosdb/cnosdb/pull/1835)
 
 ## v2.3.4 Apus
 
-Release date: Nov 24, 2023
+发布日期：2023年11月24日
 
-### New Features
+### 新增特性
 
- - adapt vector [#1628](https://github.com/cnosdb/cnosdb/pull/1628)
- - add `increase` function, `http_limiter` and `metrics` [#1629](https://github.com/cnosdb/cnosdb/pull/1629)
- - routing both write requests and SQL requests to query server [#1760](https://github.com/cnosdb/cnosdb/pull/1760)
- - support HTTP compression [#1762](https://github.com/cnosdb/cnosdb/pull/1762)
- - support dump ddl [#1782](https://github.com/cnosdb/cnosdb/pull/1782)
- - start the service through configuration [#1789](https://github.com/cnosdb/cnosdb/pull/1789)
+- 适配 [Vector](https://vector.dev/) [#1628](https://github.com/cnosdb/cnosdb/pull/1628)
+- 添加 increase 函数，http_limiter 和 metrics [#1629](https://github.com/cnosdb/cnosdb/pull/1629)
+- 将写请求和SQL请求都路由到查询服务器 [#1760](https://github.com/cnosdb/cnosdb/pull/1760)
+- 支持HTTP压缩 [#1762](https://github.com/cnosdb/cnosdb/pull/1762)
+- 支持导出DDL [#1782](https://github.com/cnosdb/cnosdb/pull/1782)
+- 通过配置启动服务 [#1789](https://github.com/cnosdb/cnosdb/pull/1789)
 
-### Improvements
+### 功能优化
 
-- implement desc tables/databases by reading system tables and fix some word error [#1692](https://github.com/cnosdb/cnosdb/pull/1692)
-- remove debug log [#1793](https://github.com/cnosdb/cnosdb/pull/1793)
+- 通过读取系统表实现 desc table/database，并修复一些单词错误 [#1692](https://github.com/cnosdb/cnosdb/pull/1692)
+- 移除调试日志 [#1793](https://github.com/cnosdb/cnosdb/pull/1793)
 
-### Bug Fixes
+### 问题修复
 
-- drop tenant not drop members bug [#1632](https://github.com/cnosdb/cnosdb/pull/1632)
-- failed to generate a plan for interpolation functions with an alias [#1777](https://github.com/cnosdb/cnosdb/pull/1777)
-- add check of parameter event_time_column of stream table [#1744](https://github.com/cnosdb/cnosdb/pull/1744)
-- stream job lost database info when restart [#1734](https://github.com/cnosdb/cnosdb/pull/1734)
-- disable creation of stream table with columns with the same name [#1733](https://github.com/cnosdb/cnosdb/pull/1733)
-- optimize the error message for direct select the stream table [#1732](https://github.com/cnosdb/cnosdb/pull/1732)
-- get_sys_mem unit error [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
-- cli write line protocol didn't show error message [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
-- fix when drop user don't drop tenant member [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
-- fix Tenant not found return http status code 500 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
-- fix grpc size limit [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
-- table name error when creating external table [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 删除租户不删除成员的错误 [#1632](https://github.com/cnosdb/cnosdb/pull/1632)
+- 生成带别名的插值函数计划失败的问题 [#1777](https://github.com/cnosdb/cnosdb/pull/1777)
+- 添加对 `stream table` 的参数 `event_time_column` 的检查 [#1744](https://github.com/cnosdb/cnosdb/pull/1744)
+- 在重新启动时流作业丢失数据库信息的问题 [#1734](https://github.com/cnosdb/cnosdb/pull/1734)
+- 禁止创建具有相同名称列的流表 [#1733](https://github.com/cnosdb/cnosdb/pull/1733)
+- 优化直接选择流表的错误消息 [#1732](https://github.com/cnosdb/cnosdb/pull/1732)
+- 获取系统内存单位错误 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- CLI 写入行协议时没有显示错误消息 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 删除用户时不删除租户成员的问题 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 未找到租户返回HTTP状态码500 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 修复 gRPC 大小限制 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 创建外部表时的表名错误 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
 
+## v2.3.4 Apus
+
+发布日期：2023年11月24日
+
+### 新增特性
+
+- 适配 [Vector](https://vector.dev/) [#1628](https://github.com/cnosdb/cnosdb/pull/1628)
+- 添加 increase 函数，http_limiter 和 metrics [#1629](https://github.com/cnosdb/cnosdb/pull/1629)
+- 将写请求和SQL请求都路由到查询服务器 [#1760](https://github.com/cnosdb/cnosdb/pull/1760)
+- 支持HTTP压缩 [#1762](https://github.com/cnosdb/cnosdb/pull/1762)
+- 支持导出DDL [#1782](https://github.com/cnosdb/cnosdb/pull/1782)
+- 通过配置启动服务 [#1789](https://github.com/cnosdb/cnosdb/pull/1789)
+
+### 功能优化
+
+- 通过读取系统表实现 desc table/database，并修复一些单词错误 [#1692](https://github.com/cnosdb/cnosdb/pull/1692)
+- 移除调试日志 [#1793](https://github.com/cnosdb/cnosdb/pull/1793)
+
+### 问题修复
+
+- 删除租户不删除成员的错误 [#1632](https://github.com/cnosdb/cnosdb/pull/1632)
+- 生成带别名的插值函数计划失败的问题 [#1777](https://github.com/cnosdb/cnosdb/pull/1777)
+- 添加对 `stream table` 的参数 `event_time_column` 的检查 [#1744](https://github.com/cnosdb/cnosdb/pull/1744)
+- 在重新启动时流作业丢失数据库信息的问题 [#1734](https://github.com/cnosdb/cnosdb/pull/1734)
+- 禁止创建具有相同名称列的流表 [#1733](https://github.com/cnosdb/cnosdb/pull/1733)
+- 优化直接选择流表的错误消息 [#1732](https://github.com/cnosdb/cnosdb/pull/1732)
+- 获取系统内存单位错误 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- CLI 写入行协议时没有显示错误消息 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 删除用户时不删除租户成员的问题 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 未找到租户返回HTTP状态码500 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 修复 gRPC 大小限制 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
+- 创建外部表时的表名错误 [#1739](https://github.com/cnosdb/cnosdb/pull/1739)
 
 ## v2.4.0 Milky Way
 
-Release date: Oct 24, 2023
+发布日期：2023年10月24日
 
-### New Features
+### 新增特性
 
-📈 No more monotone data summarization, new aggregation functions!
+📈 数据汇总不再单调，新的聚合函数登场！
 
 - compact_state_agg [#1359](https://github.com/cnosdb/cnosdb/pull/1359)
 - gauge_agg [#1370](https://github.com/cnosdb/cnosdb/pull/1370)
@@ -73,18 +160,18 @@ Release date: Oct 24, 2023
 - time_delta [#1405](https://github.com/cnosdb/cnosdb/pull/1405)
 - rate [#1405](https://github.com/cnosdb/cnosdb/pull/1405)
 
-🌐 GIS Functions: [#1465](https://github.com/cnosdb/cnosdb/pull/1465)
+🌐 GIS函数集锦 [#1465](https://github.com/cnosdb/cnosdb/pull/1465)
 
 - ST_AsBinary
 - ST_GeomFromWKB
 - ST_Distanc
 - ST_Area
 
-💼 Change on system schema [#1461](https://github.com/cnosdb/cnosdb/pull/1461)
+💼 系统表大改造 [#1461](https://github.com/cnosdb/cnosdb/pull/1461)
 
-- All lowercase, system field names are normalized.
+- 全都小写，系统字段名规范化，一切都走心。
 
-🔄 Make it easier to modify data! [#1484](https://github.com/cnosdb/cnosdb/pull/1484) [#1517](https://github.com/cnosdb/cnosdb/pull/1517) [#1623](https://github.com/cnosdb/cnosdb/pull/1623) [#1590](https://github.com/cnosdb/cnosdb/pull/1590)
+🔄 修改数据炸裂更新，修改数据变得so easy，你想改就改！[#1484](https://github.com/cnosdb/cnosdb/pull/1484) [#1517](https://github.com/cnosdb/cnosdb/pull/1517) [#1623](https://github.com/cnosdb/cnosdb/pull/1623) [#1590](https://github.com/cnosdb/cnosdb/pull/1590)
 
 ```sql
 UPDATE table_name SET ( assignment_clause [, ...] ) where_clause
@@ -113,317 +200,288 @@ alter_table_option: {
 DELETE FROM table_name where_clause
 ```
 
-Other new features are as follows:
+其他重磅功能如下：
 
-- Adapt vector. [#1380](https://github.com/cnosdb/cnosdb/pull/1380)
-- support Geometry data type. [#1463](https://github.com/cnosdb/cnosdb/pull/1463)
-- Add histogram Line Protocol export. [#1472](https://github.com/cnosdb/cnosdb/pull/1472)
-- Support duration_in function. [#1423](https://github.com/cnosdb/cnosdb/pull/1423) [#1408](https://github.com/cnosdb/cnosdb/pull/1408)
-- Support grpc compression. [#1631](https://github.com/cnosdb/cnosdb/pull/1631)
-- Add cluster data export/import/migrate tool. [#1635](https://github.com/cnosdb/cnosdb/pull/1635)
-- Added database deferred deletion. [#1510](https://github.com/cnosdb/cnosdb/pull/1510)
+- 适配 Vector。[#1380](https://github.com/cnosdb/cnosdb/pull/1380)
+- 新增 Geometry 类型。[#1463](https://github.com/cnosdb/cnosdb/pull/1463)
+- 添加直方图导出。[#1472](https://github.com/cnosdb/cnosdb/pull/1472)
+- 支持 duration_in 函数 [#1423](https://github.com/cnosdb/cnosdb/pull/1423) [#1408](https://github.com/cnosdb/cnosdb/pull/1408)
+- 新增对 grpc 压缩的支持 [#1631](https://github.com/cnosdb/cnosdb/pull/1631)
+- 新增集群数据导入导出工具 [#1635](https://github.com/cnosdb/cnosdb/pull/1635)
+- 新增数据库延迟删除。[#1510](https://github.com/cnosdb/cnosdb/pull/1510)
 
 ```sql
 DROP DATABASE [IF EXISTS] <db_name> [AFTER <time_interval>]
 ```
 
-### Improvements
+### 功能优化
 
-The memory usage is effectively reduced, TSKV is optimized to be more efficient, and Flatbuffers, index building and other aspects are also significantly improved. In addition, careful optimizations such as cache refactoring and fewer clones have led to even better overall performance.
+内存使用得到有效减少，TSKV经过优化更加高效，而Flatbuffers、构建索引等方面也得到了明显的提升。除此之外，缓存重构和减少克隆操作等细致优化，让整体性能更上一层楼。
 
-- Support <!=>  compare operators to data sources. [#1469](https://github.com/cnosdb/cnosdb/pull/1469)
-- Split wal by vnode. [#1454](https://github.com/cnosdb/cnosdb/pull/1454)
-- TSKV Optimizations to reduce the memory usage. [#1199](https://github.com/cnosdb/cnosdb/pull/1199)
-- Refactor DESC TABLES / DESC DATABASES。[#1397](https://github.com/cnosdb/cnosdb/pull/1397)
-- New resource management function, data delete action monitoring and failure retry. [#1616](https://github.com/cnosdb/cnosdb/pull/1616)
-- Enhance Meta Watch model. [#1586](https://github.com/cnosdb/cnosdb/pull/1586)
-- Refactor iterator and optimize performance. [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
-- Change big dependency 'models' to small dependency 'error_code'[#1470](https://github.com/cnosdb/cnosdb/pull/1470)
-- Optimize build index. [#1468](https://github.com/cnosdb/cnosdb/pull/1468)
-- The password is encrypted and stored to enhance security. [#1419](https://github.com/cnosdb/cnosdb/pull/1419)
-- Optomize Flatbuffers. [#1435](https://github.com/cnosdb/cnosdb/pull/1435)
-- Refactor record_file and codec in TSKV. [#1439](https://github.com/cnosdb/cnosdb/pull/1439)
-- Map vector array to string. [#1450](https://github.com/cnosdb/cnosdb/pull/1450)
-- Refactor usage_schema. [#1479](https://github.com/cnosdb/cnosdb/pull/1479)
-- Rename coordinator limiter. [#1482](https://github.com/cnosdb/cnosdb/pull/1482)
-- Add limiter manager. [#1494](https://github.com/cnosdb/cnosdb/pull/1494)
-- Clean no-use VnodeStatusListener。[#1487](https://github.com/cnosdb/cnosdb/pull/1487)
-- Decrease clone. [#1582](https://github.com/cnosdb/cnosdb/pull/1582)
-- Fixed a BUG where the number of arguments of scalar functions is not checked. [#1597](https://github.com/cnosdb/cnosdb/pull/1597)
-- Seek position before index read. [#1618](https://github.com/cnosdb/cnosdb/pull/1618)
-- Extend raft write interface. [#1620](https://github.com/cnosdb/cnosdb/pull/1620)
-- Refactor cache. [#1560](https://github.com/cnosdb/cnosdb/pull/1560)
-- When drop table, the will deleted. [#1553](https://github.com/cnosdb/cnosdb/pull/1553)
-- Disable restrictions on Tenant cnosdb. [#1617](https://github.com/cnosdb/cnosdb/pull/1617)
-- leader replication, multi raft replication group. [#1534](https://github.com/cnosdb/cnosdb/pull/1534)
-- Add testcases about function, DDL, DML. [#1588](https://github.com/cnosdb/cnosdb/pull/1588)
-- Refactor the way to scan data in the update tag plan. [#1634](https://github.com/cnosdb/cnosdb/pull/1634)
+- 支持下推 \<!=> 比较运算符到数据源。[#1469](https://github.com/cnosdb/cnosdb/pull/1469)
+- 按 vnode 拆分 WAL。[#1454](https://github.com/cnosdb/cnosdb/pull/1454)
+- 优化 TSKV  以减少内存使用。 [#1199](https://github.com/cnosdb/cnosdb/pull/1199)
+- 重构 DESC TABLES / DESC DATABASES。[#1397](https://github.com/cnosdb/cnosdb/pull/1397)
+- 新增资源管理功能，数据删改动作进行监控和失败重试。[#1616](https://github.com/cnosdb/cnosdb/pull/1616)
+- 改进 Meta Watch 模型。[#1586](https://github.com/cnosdb/cnosdb/pull/1586)
+- 重构迭代器并优化性能。[#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 将大依赖 'models' 更改为小依赖 'error_code'。[#1470](https://github.com/cnosdb/cnosdb/pull/1470)
+- 优化构建索引。[#1468](https://github.com/cnosdb/cnosdb/pull/1468)
+- 优化 Flatbuffers。[#1435](https://github.com/cnosdb/cnosdb/pull/1435)
+- 重构 TSKV 中的 record_file 和 codec。[#1439](https://github.com/cnosdb/cnosdb/pull/1439)
+- Vector类型数组映射成字符串。[#1450](https://github.com/cnosdb/cnosdb/pull/1450)
+- 重构 usage_schema。[#1479](https://github.com/cnosdb/cnosdb/pull/1479)
+- 重命名 coordinator limiter。[#1482](https://github.com/cnosdb/cnosdb/pull/1482)
+- 添加 limiter manager。[#1494](https://github.com/cnosdb/cnosdb/pull/1494)
+- 清理无用代码 VnodeStatusListener。[#1487](https://github.com/cnosdb/cnosdb/pull/1487)
+- 减少克隆操作。[#1582](https://github.com/cnosdb/cnosdb/pull/1582)
+- 修复标量函数参数数量未见检查的BUG。[#1597](https://github.com/cnosdb/cnosdb/pull/1597)
+- 在索引读取之前寻找位置。[#1618](https://github.com/cnosdb/cnosdb/pull/1618)
+- 扩展 Raft 写接口。[#1620](https://github.com/cnosdb/cnosdb/pull/1620)
+- 重构缓存。[#1560](https://github.com/cnosdb/cnosdb/pull/1560)
+- 删除表时，相关数据将被删除。[#1553](https://github.com/cnosdb/cnosdb/pull/1553)
+- 禁用对 tenant cnosdb 的限制。[#1617](https://github.com/cnosdb/cnosdb/pull/1617)
+- Leader 复制，多 Raft 复制组。[#1534](https://github.com/cnosdb/cnosdb/pull/1534)
+- 添加关于函数、DDL、DML 的测试用例。[#1588](https://github.com/cnosdb/cnosdb/pull/1588)
+- 重构 tag plan 中扫描数据的方式 [#1634](https://github.com/cnosdb/cnosdb/pull/1634)
 
-### Bug Fixes:
+### 问题修复
 
-- Fix check_writes error. [#1383](https://github.com/cnosdb/cnosdb/pull/1383)
-- Fix line protocol parser '\n' error. [#1426](https://github.com/cnosdb/cnosdb/pull/1426)
-- Fix modify the cases to be repeatable. [#1451](https://github.com/cnosdb/cnosdb/pull/1451)
-- Fix http metrics field order error. [#1506](https://github.com/cnosdb/cnosdb/pull/1506)
-- Fix tsm damaged, but query not try read. [#1453](https://github.com/cnosdb/cnosdb/pull/1453)
-- Fix stream plan not perform filter pushdown. [#1515](https://github.com/cnosdb/cnosdb/pull/1515)
-- Fix cli array out-of-bounds access. [#1531](https://github.com/cnosdb/cnosdb/pull/1531)
-- Fix restart lose data. [#1471](https://github.com/cnosdb/cnosdb/pull/1471)
-- Drop database in raft replication mode. [#1556](https://github.com/cnosdb/cnosdb/pull/1556)
-- Fix unexpectedly deleted the wal test directory. [#1558](https://github.com/cnosdb/cnosdb/pull/1558)
-- Fix password verify failed. [#1583](https://github.com/cnosdb/cnosdb/pull/1583)
-- Fix time_window function cannot handle constant cast expression. [#1578](https://github.com/cnosdb/cnosdb/pull/1578)
-- Fix rate bucket refill. [#1563](https://github.com/cnosdb/cnosdb/pull/1563)
-- Fix Confusing error message. [#1595](https://github.com/cnosdb/cnosdb/pull/1595)
-- Fix restart recover invalid data. [#1570](https://github.com/cnosdb/cnosdb/pull/1570)
-- Forbidden drop root user. [#1598](https://github.com/cnosdb/cnosdb/pull/1598)
-- Fix drop column case tskv get empty database. [#1581](https://github.com/cnosdb/cnosdb/pull/1581)
-- Fix /cluster/users/user change not notify to serve. [#1599](https://github.com/cnosdb/cnosdb/pull/1599)
-- Fix meta create duplicate data version. [#1605](https://github.com/cnosdb/cnosdb/pull/1605)
-- Add scalar args check. [#1615](https://github.com/cnosdb/cnosdb/pull/1615)
-- Fix create system database usage_schema. [#1606](https://github.com/cnosdb/cnosdb/pull/1606)
-- Fix drop tenant not drop members bug. [#1626](https://github.com/cnosdb/cnosdb/pull/1626)
-- Fix tskv iterator sometimes returns more data than expected. [#1638](https://github.com/cnosdb/cnosdb/pull/1638)
-- Fix restart get actual database schema. [#1636](https://github.com/cnosdb/cnosdb/pull/1636)
-- Fix errors in execution of DELETE FROM TABLE. [#1643](https://github.com/cnosdb/cnosdb/pull/1643)
+- 修复 check_writes 错误。 [#1383](https://github.com/cnosdb/cnosdb/pull/1383)
+- 修复行协议解析器 '\n' 错误。[#1426](https://github.com/cnosdb/cnosdb/pull/1426)
+- 修改案例以实现可重复性。[#1451](https://github.com/cnosdb/cnosdb/pull/1451)
+- 修复 HTTP 指标字段顺序错误。[#1506](https://github.com/cnosdb/cnosdb/pull/1506)
+- 修复 TSM 损坏，但查询不尝试读取的问题。[#1453](https://github.com/cnosdb/cnosdb/pull/1453)
+- 修复流计划未执行过滤推送的问题。[#1515](https://github.com/cnosdb/cnosdb/pull/1515)
+- 修复 CLI 数组越界访问。[#1531](https://github.com/cnosdb/cnosdb/pull/1531)
+- 修复重新启动时数据丢失的问题。[#1471](https://github.com/cnosdb/cnosdb/pull/1471)
+- 在 Raft 复制模式中删除数据库。[#1556](https://github.com/cnosdb/cnosdb/pull/1556)
+- 修复意外删除了 WAL 测试目录的问题。[#1558](https://github.com/cnosdb/cnosdb/pull/1558)
+- 修复密码验证失败问题。[#1583](https://github.com/cnosdb/cnosdb/pull/1583)
+- 修复 time_window 函数无法处理常量转换表达式。[#1578](https://github.com/cnosdb/cnosdb/pull/1578)
+- 修复桶的填充率。[#1563](https://github.com/cnosdb/cnosdb/pull/1563)
+- 修复混淆的错误消息。[#1595](https://github.com/cnosdb/cnosdb/pull/1595)
+- 修复重新启动时恢复无效数据的问题。[#1570](https://github.com/cnosdb/cnosdb/pull/1570)
+- 禁止删除 root 用户。[#1598](https://github.com/cnosdb/cnosdb/pull/1598)
+- 修复在 TSKV 中删除列导致获取空数据库的问题。[#1581](https://github.com/cnosdb/cnosdb/pull/1581)
+- 修复 /cluster/users/user 变更不通知服务器的问题。[#1599](https://github.com/cnosdb/cnosdb/pull/1599)
+- 修复Meta 创建重复数据版本的问题。[#1605](https://github.com/cnosdb/cnosdb/pull/1605)
+- 增加标量函数参数检查。[#1615](https://github.com/cnosdb/cnosdb/pull/1615)
+- 修复创建系统数据库 usage_schema 的问题。[#1606](https://github.com/cnosdb/cnosdb/pull/1606)
+- 修复删除租户时不删除成员的错误。[#1626](https://github.com/cnosdb/cnosdb/pull/1626)
+- 修复 tskv 迭代器有时返回超出预期数据的问题。 [#1638](https://github.com/cnosdb/cnosdb/pull/1638)
+- 使 tskv 节点重启不受资源隐藏影响。 [#1636](https://github.com/cnosdb/cnosdb/pull/1636)
+- 执行删除时停止后台的数据文件 compaction 任务。 [#1643](https://github.com/cnosdb/cnosdb/pull/1643)
 
 ## v2.3.3 Antlia
 
-Release date：Sep 28,2023
+发布日期：2023年9月28日
 
-### Improvements:
-- Optimized read performance [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
-- Improved the Ord implementation of DataType  [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
-- Added data block reader  [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
-- Removed field scan timer  [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+### 功能优化
 
-### Bug Fixes:
-- Fixed the issue allowing modification of the usage_schema database [#1421](https://github.com/cnosdb/cnosdb/pull/1421)
-- Resolved inconsistency issues with users and tenants on multiple metadata nodes [#1417](https://github.com/cnosdb/cnosdb/pull/1417)
-- Fixed the problem of not deleting data when deleting a tenant [#1418](https://github.com/cnosdb/cnosdb/pull/1418)
-- Resolved the issue of generating TLS lv-2 certificates without options [#1441](https://github.com/cnosdb/cnosdb/pull/1441)
-- Fixed the data loss issue when creating TSF [#1478](https://github.com/cnosdb/cnosdb/pull/1478)
-- Resolved the cancellation of queries on Tskv [#1488](https://github.com/cnosdb/cnosdb/pull/1488)
-- Fixed retry after table update conflict [#1503](https://github.com/cnosdb/cnosdb/pull/1503)
-- Fixed database modification issue [#1504](https://github.com/cnosdb/cnosdb/pull/1504)
-- Fixed issues with Arrow Flight SQL JDBC API's getCatalogs, getSchemas, and getTables [#1520](https://github.com/cnosdb/cnosdb/pull/1520)
-- Fixed the getTables API of Arrow Flight SQL [#1528](https://github.com/cnosdb/cnosdb/pull/1528)
-- Resolved the delayed reporting of NodeMetrics [#1541](https://github.com/cnosdb/cnosdb/pull/1541)
-- Fixed data loss issue due to table updates [#1542](https://github.com/cnosdb/cnosdb/pull/1542)
-- Fixed errors in parsing Line Protocol [#1539](https://github.com/cnosdb/cnosdb/pull/1539)
+- 优化了读取性能 [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 优化了 DataType 的 Ord 实现 [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 添加了  data block reader [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
+- 移除了字段扫描定时器 [#1467](https://github.com/cnosdb/cnosdb/pull/1467)
 
-## v2.3.2 Andromeda
+### 问题修复：
 
-Release date: Aug 02,2023
+- 修复了允许修改 usage_schema 数据库的问题 [1421](https://github.com/cnosdb/cnosdb/pull/1421)
+- 修复了多个元数据节点上用户和租户的不一致性问题  [1417](https://github.com/cnosdb/cnosdb/pull/1417)
+- 修复了删除租户时不删除数据的问题 [1418](https://github.com/cnosdb/cnosdb/pull/1418)
+- 修复了生成没有选项的 TLS lv-2 证书的问题  [1441](https://github.com/cnosdb/cnosdb/pull/1441)
+- 修复了创建 TSF 时数据丢失的问题  [1478](https://github.com/cnosdb/cnosdb/pull/1478)
+- 修复了在 Tskv 上取消查询任务 [1488](https://github.com/cnosdb/cnosdb/pull/1488)
+- 修复了在更新表冲突后重试  [1503](https://github.com/cnosdb/cnosdb/pull/1503)
+- 修复了更改数据库的问题  [1504](https://github.com/cnosdb/cnosdb/pull/1504)
+- 修复了 Arrow Flight SQL JDBC API 的 getCatalogs、getSchemas 和 getTables 的问题 [1520](https://github.com/cnosdb/cnosdb/pull/1520)
+- 修复了 Arrow Flight SQL 的 getTables API    [1528](https://github.com/cnosdb/cnosdb/pull/1528)
+- 修复了未及时报告 NodeMetrics 的问题    [1541](https://github.com/cnosdb/cnosdb/pull/1541)
+- 更新表格导致数据丢失的问题    [1542](https://github.com/cnosdb/cnosdb/pull/1542)
+- 修复了解析 Line Protocol 时出现的错误    [1539](https://github.com/cnosdb/cnosdb/pull/1539)
 
-### New Features:
-- Add monitoring metric 'http_data_out' [#1304](https://github.com/cnosdb/cnosdb/issues/1304)
-- Added chunked mode in the client [#1357](https://github.com/cnosdb/cnosdb/issues/1357)
-- Added new log types to the WAL: DROP VNODE and DROP TABLE [#1340](https://github.com/cnosdb/cnosdb/issues/1340)
-### Improvements:
-- Improved flight-sql implementation, added implementation for the do_put_prepared_statement_update interface [#1329](https://github.com/cnosdb/cnosdb/issues/1329)
-- Enhanced meta watch and optimized interaction between queries [#1314](https://github.com/cnosdb/cnosdb/issues/1314)
-- Upgraded datafusion version to 27.0.0 [#1323](https://github.com/cnosdb/cnosdb/issues/1323)
-- Added additional methods to the flatbuffers model [#1361](https://github.com/cnosdb/cnosdb/issues/1361)
-### Bug Fixes:
-- Fixed the issue of generating duplicate series IDs [#1301](https://github.com/cnosdb/cnosdb/issues/1301)
-- Fixed the problem with the sample function returning errors [#1296](https://github.com/cnosdb/cnosdb/issues/1296)
-- Fixed panic when writing to binlog [#1309](https://github.com/cnosdb/cnosdb/issues/1309)
-- Fixed schema error in logical plan [#1332](https://github.com/cnosdb/cnosdb/issues/1332)
-- Fixed parsing error in CREATE TABLE [#1318](https://github.com/cnosdb/cnosdb/issues/1318)
-- Fixed json deserialization issue in raft_bucket [#1347](https://github.com/cnosdb/cnosdb/issues/1347)
-- Fixed handshake failure for arrow-flight-sql odbc [#1336](https://github.com/cnosdb/cnosdb/issues/1336)
-- Fixed out-of-memory issue when importing Line Protocol data [#1319](https://github.com/cnosdb/cnosdb/issues/1319)
-- Fixed errors in data node health check [#1352](https://github.com/cnosdb/cnosdb/issues/1352)
-- Fixed unintended deletion of irrelevant columns when deleting a table [#1363](https://github.com/cnosdb/cnosdb/issues/1363)
-- Fixed client connection issue using ca.crt [#1369](https://github.com/cnosdb/cnosdb/issues/1369)
-- Fixed tokio trace filtering [#1372](https://github.com/cnosdb/cnosdb/issues/1372)
-- Fixed errors in inserting line protocol data [#1366](https://github.com/cnosdb/cnosdb/issues/1366)
-### Behavior Change:
-- Configuration changes [#1372](https://github.com/cnosdb/cnosdb/issues/1372)
-- Default TTL set to infinite when creating a database [#1354](https://github.com/cnosdb/cnosdb/issues/1354)
+## v2.3.2
+
+发布日期：2023年8月2日
+
+### 新增特性
+
+- 增加监控指标 'http_data_out' [#1304](https://github.com/cnosdb/cnosdb/pull/1304)
+- client 中添加 chunked 模式 [#1357](https://github.com/cnosdb/cnosdb/pull/1357)
+- WAL 增加日志种类：DROP VNODE 和 DROP TABLE [#1340](https://github.com/cnosdb/cnosdb/pull/1340)
+
+### 功能优化
+
+- 改进 flight-sql 实现, 增加其中 do_put_prepared_statement_update 接口的实现 [#1329](https://github.com/cnosdb/cnosdb/pull/1329)
+- 改进 meta watch 并且优化查询之间的交互过程 [#1314](https://github.com/cnosdb/cnosdb/pull/1314)
+- 升级 datafusion 版本到 27.0.0 [#1323](https://github.com/cnosdb/cnosdb/pull/1323)
+- 为 flatbuffers  模型添加一些额外的方法 [#1361](https://github.com/cnosdb/cnosdb/pull/1361)
+
+### 问题修复
+
+- 修复生成重复 series id 的问题 [#1301](https://github.com/cnosdb/cnosdb/pull/1301)
+- 修复 sample 函数返回错误的问题 [#1296](https://github.com/cnosdb/cnosdb/pull/1296)
+- 修复写入 binlog 时出现 panic 的问题 [#1309](https://github.com/cnosdb/cnosdb/pull/1309)
+- 修复逻辑计划错误的 schema [#1332](https://github.com/cnosdb/cnosdb/pull/1332)
+- 修复 CREATE TABLE 解析错误的问题 [#1318](https://github.com/cnosdb/cnosdb/pull/1318)
+- 修复 raft_bucket json 反序列化问题 [#1347](https://github.com/cnosdb/cnosdb/pull/1347)
+- 修复 arrow-flight-sql odbc 握手失败的问题 [#1336](https://github.com/cnosdb/cnosdb/pull/1336)
+- 修复导入 Line Prototol 数据时提示内存不足的问题  [#1319](https://github.com/cnosdb/cnosdb/pull/1319)
+- 修复 data 节点健康检查有错误的问题 [#1352](https://github.com/cnosdb/cnosdb/pull/1352)
+- 修复删除表时意外删除无关列的问题 [#1363](https://github.com/cnosdb/cnosdb/pull/1363)
+- 修复 client 不能通过 ca.crt 连接到 server 的问题 [#1369](https://github.com/cnosdb/cnosdb/pull/1369)
+- 修复 tokio trace 过滤 [#1372](https://github.com/cnosdb/cnosdb/pull/1372)
+- 修复插入 line protocol 的错误 [#1366](https://github.com/cnosdb/cnosdb/pull/1366)
+
+### 行为变更
+
+- 配置变更 [#1372](https://github.com/cnosdb/cnosdb/pull/1372)
+- 创建数据库时默认 TTL 设置为无限长 [#1354](https://github.com/cnosdb/cnosdb/pull/1354)
 
 ## v2.3.1
 
-Release date: June 21,2023
+发布日期：2023年6月21日
 
-### New Features
-- Added trace [#1272](https://github.com/cnosdb/cnosdb/issues/1272)
-- Support sliding window gap fill [#1171](https://github.com/cnosdb/cnosdb/pull/1171)
-- Support metadata API for Flight SQL [#1173](https://github.com/cnosdb/cnosdb/pull/1173)
-- Support granting admin privileges [#1929](https://github.com/cnosdb/cnosdb/pull/1219)
-- Implemented sample function [#1228](https://github.com/cnosdb/cnosdb/pull/1228)
-- Client-side supports HTTPS connection [#1225](https://github.com/cnosdb/cnosdb/pull/1225)
-### Improvements
-- Early release of rwlock for cached partitions [#1181](https://github.com/cnosdb/cnosdb/pull/1181)
-- Implementation of viewing database and table functionality for system tables [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
-- Remove support for TLS protocol connection on grpc server side [#1216](https://github.com/cnosdb/cnosdb/pull/1216)
-- Modify the starting time precision of buckets to ms [#1215](https://github.com/cnosdb/cnosdb/pull/1215)
-- Support multi-threaded write hinted handoff [#1230](https://github.com/cnosdb/cnosdb/pull/1230)
-- TskvExec partition read strategy [#1200](https://github.com/cnosdb/cnosdb/pull/1200)
-- Added a tool to repair corrupted index files [#1238](https://github.com/cnosdb/cnosdb/pull/1238)
-- Compaction consumes too much memory [#1237](https://github.com/cnosdb/cnosdb/pull/1237)
-- Add host information when querying metrics [#1202](https://github.com/cnosdb/cnosdb/pull/1202)
-- Added metrics information for write_data_in and sql_data_in [#1241](https://github.com/cnosdb/cnosdb/pull/1241)
-- Expired WAL files are not always automatically deleted [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
-- Expired WAL files are not automatically deleted when some Vnodes are "cold" (rarely written to) [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
-- Check for expired WALs and delete them when the cache is flushed to disk [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
-- Optimization of some methods in FileManager [#1268](https://github.com/cnosdb/cnosdb/pull/1268)
-### Bug Fixes
-- Data loss caused by copying the target Vnode during Vnode migration [#1151](https://github.com/cnosdb/cnosdb/issues/1151)
-- Failed to write data due to metadata verification failure [#1184](https://github.com/cnosdb/cnosdb/issues/1184)
-- Deleting a nonexistent table returns an unexpected status [#1218](https://github.com/cnosdb/cnosdb/issues/1218)
-- Inaccurate monitoring indicators for VNODE_DISK_STORAGE and VNODE_CACHE_SIZE [#1197](https://github.com/cnosdb/cnosdb/issues/1197)
-- System tables cannot query currently executing SQL statements [#1188](https://github.com/cnosdb/cnosdb/issues/1188)
-- Exporting data generates many empty files with only column name information [#1211](https://github.com/cnosdb/cnosdb/issues/1211)
-- Column encoding is not checked when updating tables [#1148](https://github.com/cnosdb/cnosdb/issues/1148)
-- Inconsistent data query results caused by damaged Vnodes [#1192](https://github.com/cnosdb/cnosdb/issues/1192)
-- Writing data fails but still returns success result [#1084](https://github.com/cnosdb/cnosdb/issues/1084)
-- When writing data, a large number of file handles marked as deleted cause continuous disk space growth [#1242](https://github.com/cnosdb/cnosdb/issues/1242)
-- Multiple connections are established when writing data [#1251](https://github.com/cnosdb/cnosdb/issues/1251)
-- Compilation error in CnosDB tuple component in Docker environment [#1266](https://github.com/cnosdb/cnosdb/issues/1266)
-- Fix issue where prom remote_read doesn't return data [#1273](https://github.com/cnosdb/cnosdb/issues/1273)
-- Memory exhaustion when exporting data [#955](https://github.com/cnosdb/cnosdb/issues/955)
-- Inconsistent or inaccurate query results [#1283](https://github.com/cnosdb/cnosdb/pull/1283)
-- Slow DB recovery after version upgrade [#1180](https://github.com/cnosdb/cnosdb/issues/1180)
-- Syntax parsing error for describe tables and describe databases command [#1160](https://github.com/cnosdb/cnosdb/issues/1160)
-- High memory consumption during data import resulting in OOM and failed data writes [#1141](https://github.com/cnosdb/cnosdb/issues/1141)
-- Incorrect seq_no parameter set during Vnode movement [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
-- SQL execution error "Not a field name"  [#1033](https://github.com/cnosdb/cnosdb/issues/1033)
-- External table data import overrides original table data [#1131](https://github.com/cnosdb/cnosdb/issues/1131)
-### Behavior Change
-- Change the "Table" displayed in the result of show tables to "table_name" [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
+### 新增特性
 
-## V2.3.0
+- 新增trace [#1272](https://github.com/cnosdb/cnosdb/issues/1272)
+- 支持滑动窗口的gap fill [#1171](https://github.com/cnosdb/cnosdb/pull/1171)
+- 支持flight sql的元数据api [#1173](https://github.com/cnosdb/cnosdb/pull/1173)
+- 支持授予admin权限 [#1929](https://github.com/cnosdb/cnosdb/pull/1219)
+- 实现了sample函数 [#1228](https://github.com/cnosdb/cnosdb/pull/1228)
+- client端支持https链接 [#1225](https://github.com/cnosdb/cnosdb/pull/1225)
 
-On May 09, 2023, CnosDB released version 2.3.0. This version mainly adds stream computing capabilities and some enterprise features. The main modifications of this version include:
+### 功能优化
 
-- Enhanced query functionality now supports scrolling windows, sliding windows, and streaming calculations.
+- 提前释放缓存分区的rwlock [#1181](https://github.com/cnosdb/cnosdb/pull/1181)
+- 系统表实现查看库表功能 [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
+- grpc server端去掉TLS协议链接的支持 [#1216](https://github.com/cnosdb/cnosdb/pull/1216)
+- 修改bucket起始时间精度为ms [#1215](https://github.com/cnosdb/cnosdb/pull/1215)
+- 支持多线程写hinted handoff [#1230](https://github.com/cnosdb/cnosdb/pull/1230)
+- TskvExec分区读取策略 [#1200](https://github.com/cnosdb/cnosdb/pull/1200)
+- 新增修复损坏的索引文件工具 [#1238](https://github.com/cnosdb/cnosdb/pull/1238)
+- Compaction消耗过多内存 [#1237](https://github.com/cnosdb/cnosdb/pull/1237)
+- 在查询metrics加入host信息 [#1202](https://github.com/cnosdb/cnosdb/pull/1202)
+- 添加write_data_in和sql_data_in的metrics信息 [#1241](https://github.com/cnosdb/cnosdb/pull/1241)
+- 过期的WAL文件有时不会被自动删除 [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- 当某些Vnode较“冷”(很少进行写入)时，过期的WAL文件不会被自动删除 [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- 当Cache刷入磁盘时，检查WAL是否过期并删除过期的WAL [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- 优化FileManager中的一些方法 [#1268](https://github.com/cnosdb/cnosdb/pull/1268)
 
-- Parallel processing has been applied to query iterators, greatly improving query performance.
+### 问题修复
 
-- Added some tools for problem localization, including the use of CPU/Memory pprof and asynchronous call stack printing.
+- 迁移Vnode时复制目标Vnode导致数据丢失 [#1151](https://github.com/cnosdb/cnosdb/issues/1151)
+- 元数据验证失败导致写数据失败 [#1184](https://github.com/cnosdb/cnosdb/issues/1184)
+- 删除不存在的表返回状态不符合预期 [#1218](https://github.com/cnosdb/cnosdb/issues/1218)
+- VNODE_DISK_STORAGE和VNODE_CACHE_SIZE监控指标统计不准确 [#1197](https://github.com/cnosdb/cnosdb/issues/1197)
+- 系统表查询不到正在执行的sql [#1188](https://github.com/cnosdb/cnosdb/issues/1188)
+- 导出数据时生成许多只有列名信息的空文件 [#1211](https://github.com/cnosdb/cnosdb/issues/1211)
+- 更新表时未检查列编码 [#1148](https://github.com/cnosdb/cnosdb/issues/1148)
+- Vnode损坏导致数据查询结果不一致 [#1192](https://github.com/cnosdb/cnosdb/issues/1192)
+- 数据写入失败返回结果为success [#1084](https://github.com/cnosdb/cnosdb/issues/1084)
+- 写数据时，大量标记为已删除的文件句柄，导致磁盘空间持续增长 [#1242](https://github.com/cnosdb/cnosdb/issues/1242)
+- 写数据时，连接建立过多 [#1251](https://github.com/cnosdb/cnosdb/issues/1251)
+- 在Docker环境中编译CnosDB元组件时发生错误 [#1266](https://github.com/cnosdb/cnosdb/issues/1266)
+- 修复prom remote_read 没有返回数据的问题 [#1273](https://github.com/cnosdb/cnosdb/issues/1273)
+- 导出数据时内存耗尽 [#955](https://github.com/cnosdb/cnosdb/issues/955)
+- 查询数据结果不一致、结果不准确 [#1283](https://github.com/cnosdb/cnosdb/pull/1283)
+- 升级版本后，DB recovery非常慢 [#1180](https://github.com/cnosdb/cnosdb/issues/1180)
+- describle tables/databases 语法解析错误 [#1160](https://github.com/cnosdb/cnosdb/issues/1160)
+- 数据导入内存占用过高导致OOM，最终数据写入失败 [#1141](https://github.com/cnosdb/cnosdb/issues/1141)
+- 移动Vnode时，设置了错误的seq_no参数 [#1175](https://github.com/cnosdb/cnosdb/pull/1175)
+- sql执行报"Not a field name" [#1033](https://github.com/cnosdb/cnosdb/issues/1033)
+- 外部表数据导入进来会覆盖原表数据 [#1131](https://github.com/cnosdb/cnosdb/issues/1131)
 
-- Further improved the test case system, including improving access control test cases and adding support for SQLLogicTest.
+### 行为变更
 
-- Added support for the OpenTSDB write protocol.
+- show tables结果显示的Table变更为table_name [#1212](https://github.com/cnosdb/cnosdb/pull/1212)
 
-- HTTP requests now support streaming processing, effectively reducing database memory usage.
+## v2.3.0
 
-- In the enterprise version, support for subscription and tiered storage has been added. Please contact us for more information.
+2023年05月09日，CnosDB 发布 V2.3.0 版。该版本主要增加了流计算能力以及一些企业版功能。这个版本的主要修改还包括：
 
-Addition, there are a series of bug fixes.
+- 增强了查询功能，现在支持滚动窗口、滑动窗口以及流式计算。
+- 对查询迭代器进行了并行化处理，从而极大提升了查询性能。
+- 新增了一些问题定位的工具，包括使用 CPU/Memory pprof和异步调用堆栈打印。
+- 进一步完善了测试用例系统，包括完善门禁测试用例和增加对SQLLogicTest 的支持。
+- 支持 OpenTSDB 写入协议。
+- HTTP请求现在支持流式处理方式，有效减少了数据库的内存占用。
+- 在企业版本中，增加了订阅和分级存储的支持。欢迎与我们联系。
 
-## V2.2.0
+此外，还修复了一些 bug。
 
-On March 01, 2023, CnosDB released version V2.2.0. This version mainly adds the storage and computation separation mode and further enhances the performance and stability of distributed, and continues to be open source. The major changes in this release also include:
+## v2.2.0
 
-- Support for the Prometheus Remote Read/Write API.
+2023年03月01日，CnosDB 发布 V2.2.0 版。该版本主要增加了存算分离模式并对分布式的性能和稳定性进一步增强，并继续保持开源。这个版本的主要修改还包括：
 
-- Improved performance: added caching for index and file index.
+- 支持Prometheus Remote Read/Write API。
+- 提高性能：增加索引和文件索引的缓存。
+- 重构coodinator和watch的代码，提高性能并增强稳定性。
+- 支持多种启动模式： 存算一体、分离和单机模式启动。
+- 完善监控metric并增加内存限制以防止oom。
+- 完善运维功能，增加copy/move/drop vnode的功能。
+- 增加count下推，优化count(\*)，大幅提升了count的性能。
+- 增加多线程flush，减少写入时内存copy，优化一些锁的使用，提高了写入性能。
 
-- Refactor the code of Coodinator and Watch to improve performance and enhance stability.
+此外，还有一系列bug修复。
 
-- Support multiple startup modes: storage and computing integration, separation and stand-alone mode start.
+## v2.1.0
 
-- Improved monitoring metrics and added memory limits to prevent OOM.
+2023年01月10日，CnosDB 发布 V2.1.0 版。该版本发布了CnosDB2.0分布式集群版本，并继续保持开源。这个版本的主要修改还包括：
 
-- Improved the O&M functions, adding copy/move/drop vnode capabilities.
+- 新增了支持分布式集群的元数据服务和协调者服务。
+- 引入了RBAC权限系统，通过SQL支持用户管理、角色管理和权限管理。
+- 重构了倒排索引，解决了索引放大的问题。
+- 查询上新增了展示正在执行的query和停掉正在执行的query的功能。
+- 统一了对用户的错误码返回，使其更加清晰、简洁。
+- 新增了针对多租户场景下的quota支持。
 
-- Added count pushdown, optimized count(*) and significantly improving count performance.
-
-- Add multi-threaded flush, reduce memory copy during writes, optimize the use of some locks and improve write performance.
-
-Addition, there are a series of bug fixes.
-
-## V2.1.0
-
-On January 10, 2023, CnosDB released version V2.1.0. This version releases the CnosDB 2.0 distributed cluster version and continues to be open source. The major changes in this release also include.
-
-*   Added metadata service and coordinator service to support distributed clusters.
-
-*   Introduced RBAC permission system to support user management, role management and permission management via SQL.
-
-*   Refactored the inverted index to solve the problem of index amplification.
-
-*   Added the function of showing the executing query and stopping the executing query on query.
-
-*   Unified the return of error codes to users to make it clearer and more concise.
-
-*   Added quota support for multi-tenant scenarios.
-
-*   In addition, a series of metric and performance optimizations, as well as bug fixes, are included.
-
+此外，还包括一系列metric指标和性能优化，以及bug修复等。
 
 ## V2.0.1
 
-On November 8th, 2022, CnosDB released version V2.0.1. This version fixes some of the key bugs in CnosDB and updates some essential new features, the details of the update are as follows:
+2022年11月08日，CnosDB 发布 V2.0.1 版。该版本修复了CnosDB部分重点错误，并且更新了一些必要的新功能，更新细节如下：
 
-### Bug Fixes:
+**Bug修复：**
 
-*   Fix the wrong names of table and database object.
+- 修复表和数据库对象名称错误的问题。
+- 修复WAL中断时文件损坏的错误。
+- 修复TableWriteExec只能写入一个分区。
+- 修复Schema使用错误，当将数据刷新到磁盘导致查询混乱。
+- 增加TskvScan的投影有效性检查并优化列修剪。
+- 修复写入的行协议中field可以为空的问题。
+- 修复解析包含逗号或等号的请求字符串时失败的问题。
+- 增加对写入point进行field和tag异常检查。
+- 修复compaction时导致的写入挂起的问题。
+- 修复SELECT语句中仅包含tag列时不返回数据的Bug。
+- 在全局上下文添加tsfid。
+- 禁用cross join。
 
-*   Fix the bug of file corruption when WAL is interrupted.
+**新功能：**
 
-*   Fix the problem that TableWriteExec can only write to one partition.
+- 限制查询连接数和查询内容的大小。
 
-*   Fix Schema use error when refreshing data to disk causes query confusion.
+**其他：**
 
-*   Add TskvScan's projection validity check and optimize column pruning.
-
-*   Fix the problem that field can be empty in the written row protocol.
-
-*   Fix the failure of parsing request strings containing comma or equal sign.
-
-*   Add field and tag exception checking for write points.
-
-*   Fix the problem of write hang caused by compaction.
-
-*   Fix the bug that no data is returned when only tag column is included in SELECT statement.
-
-*   Add tsfid to the global context.
-
-*   Disable cross join.
-
-
-### New features:
-
-*   Limit the number of query joins and the size of query contents.
-
-
-### Others:
-
-*   Clearer Key using HashMap.
-
-*   Upgrade DataFusion version to 13.0.0.
-
-*   Solve the dependency conflict problem.
-
-*   Add log\_err macro.
-
-*   Check input point format.
-
-*   Performance optimization.
-
-*   Add collection information.
-
-*   Structure naming change, change Point::table to tab, change Points::database to db.
-
+- 使用HashMap的Key更清晰。
+- 升级DataFusion版本到13.0.0。
+- 解决依赖冲突的问题。
+- 添加log_err macro。
+- 检查输入的point格式。
+- 性能优化。
+- 添加收集信息。
+- 结构体命名修改，将Point::table改为tab，将Points::database 改为 db.
 
 ## V2.0.0
 
-On October 24th, 2022, CnosDB released version V2.0.0. This release is a new beginning where we have rebuilt CnosDB time series database based on Rust, improved the performance of CnosDB, enhanced the ease of use of CnosDB, and made CnosDB more adaptable to the requirements of cloud ecology.
+2022年10月24日，CnosDB 发布 V2.0.0 版本。
+这次的版本发布是一个新的开始，我们基于Rust重新构建了CnosDB时序数据库，提升了CnosDB的性能，增强了CnosDB的易用性，也使CnosDB更加适应云生态的要求。
 
-### Special features:
+**特色功能：**
 
-*   Storage engine specially designed for time series data, write operation optimization, and delete and update operation supporting;
-
-*   Compression algorithm flexibly specified by users, with adjustable compression ratio;
-
-*   Query engine implemented based on Apache Arrow and Datafusion;
-
-*   Support for standard SQL and Schemaless writes;
-
-*   Multiple indexes to optimize query efficiency;
-
-*   Eco-friendly, support for RESTful interface, Telegraf, Grafana and other common third-party ecological components.
+- 专为时序数据设计的存储引擎，优化写操作，支持删除和更新操作；
+- 压缩算法由用户灵活指定，压缩比可调；
+- 基于Apache Arrow及Datafusion 实现了查询引擎；
+- 支持标准SQL，支持Schemaless 写入；
+- 多索引优化了查询效率；
+- 生态友好，支持RESTful接口，支持Telegraf、Grafana等通用第三方生态组件。
