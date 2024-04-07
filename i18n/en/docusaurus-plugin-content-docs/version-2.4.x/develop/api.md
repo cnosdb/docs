@@ -1,7 +1,9 @@
 ---
-title: Connect to CnosDB
-order: 2
+sidebar_position: 2
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Connect to CnosDB
 
@@ -20,23 +22,22 @@ curl -X POST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pr
 
 #### Example
 
- ```shell
+```shell
 curl -X POST "http://127.0.0.1:8902/api/v1/sql?db=public&pretty=true" \
-  -u "root:" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "CREATE TABLE air (
-    visibility DOUBLE,
-    temperature DOUBLE,
-    pressure DOUBLE,
-    TAGS(station)
-  );"
- ```
+ -u "root:" \
+ -H "Content-Type: application/x-www-form-urlencoded" \
+ -d "CREATE TABLE air (
+   visibility DOUBLE,
+   temperature DOUBLE,
+   pressure DOUBLE,
+   TAGS(station)
+ );"
+```
 
 #### Use programming languages
 
-::: tabs#language
-
-@tab Rust#Rust
+<Tabs>
+<TabItem value="rust" label="Rust">
 
 The sample code uses [reqwest](https://crates.io/crates/reqwest) to build Http requests.
 
@@ -70,7 +71,7 @@ let request = http_client
     .unwrap();
 ```
 
-The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
+response的status code 会指示SQL是否执行成功，200为成功。
 
 The error messages or the result of the correct execution will be in the text() of the response.
 
@@ -80,11 +81,13 @@ let success = response.status().is_success();
 let result = response.text().await.unwrap();
 ```
 
-@tab Golang#Golang
+</TabItem>
 
-The sample code uses [fasthttp](https://github.com/valyala/fasthttp) as a dependency.
+<TabItem value="go" label="Golang">
 
-Following are the parameters required to construct the http request.
+@tab Rust#Rust
+
+以下为构造http request所需的参数。
 
 ```go
 user := "cnosdb"
@@ -128,8 +131,50 @@ fmt.Println(resp.StatusCode())
 ```
 
 The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
+The sample code uses [fasthttp](https://github.com/valyala/fasthttp) as a dependency.
 
+Following are the parameters required to construct the http request.
+
+```go
+user := "cnosdb"
+pwd := ""
+// db means database, we use default db 'public'
+url := "http://127.0.0.1:8902/" + "api/v1/sql?db=public&pretty=true"
+query1 := `
+CREATE TABLE air (
+  visibility DOUBLE,****
+  temperature DOUBLE,
+  pressure DOUBLE,
+  TAGS(station)
+);`
+```
+
+Connect to CnosDB
+
+```go
+func basicAuth(username, password string) string {
+    auth := username + ":" + password
+    return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
+}
+
+req := fasthttp.AcquireRequest()
+req.Header.SetMethod("POST")
+req.Header.Set("Authorization", basicAuth(user, pwd))
+req.SetBody([]byte(query1))
+req.SetRequestURI(url)
+```
+
+@tab Golang#Golang
+
+```go
 @tab Java#Java
+```
+
+The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
+
+</TabItem>
+
+<TabItem value="java" label="Java">
 
 Use [Apache Http Components Apache](https://hc.apache.org/) as a dependency.
 
@@ -173,4 +218,6 @@ public static void main(String[] args) {
         }
 ```
 
-:::
+</TabItem>
+
+</Tabs>
