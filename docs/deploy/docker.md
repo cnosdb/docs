@@ -31,6 +31,7 @@ docker run --name cnosdb -p 8902:8902 -d <enterprise-image> cnosdb run -M single
 ```
 
 </TabItem>
+
 </Tabs>
 
 ## 使用 Docker 启动一个集群
@@ -55,6 +56,7 @@ chmod +x ./setup.sh
 ```
 
 </TabItem>
+
 <TabItem value="Enterprise" label="企业版">
 
 :::info
@@ -76,5 +78,5 @@ chmod +x ./setup.sh
 ```
 
 </TabItem>
-</Tabs>
 
+</Tabs>

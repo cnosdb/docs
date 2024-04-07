@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 ## Start a standalone instance using Docker
 
 <Tabs groupId="editions">
-<TabItem value="Community" label="Community">
+<TabItem value="Community" label="社区版">
 
 ```shell
 docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
@@ -20,7 +20,7 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 
 </TabItem>
 
-<TabItem value="Enterprise" label="Enterprise">
+<TabItem value="Enterprise" label="企业版">
 
 :::info
 Please contact us to obtain the installation package for the enterprise version.
@@ -31,6 +31,7 @@ docker run --name cnosdb -p 8902:8902 -d <enterprise-image> cnosdb run -M single
 ```
 
 </TabItem>
+
 </Tabs>
 
 ## Start a cluster using Docker
@@ -38,7 +39,7 @@ docker run --name cnosdb -p 8902:8902 -d <enterprise-image> cnosdb run -M single
 To quickly get started, we have written an example using [Docker Compose](https://docs.docker.com/compose/install/) to quickly start a CnosDB cluster.
 
 <Tabs groupId="editions">
-<TabItem value="Community" label="Community">
+<TabItem value="Community" label="社区版">
 
 1. Clone Repository
 
@@ -55,7 +56,8 @@ chmod +x ./setup.sh
 ```
 
 </TabItem>
-<TabItem value="Enterprise" label="Enterprise">
+
+<TabItem value="Enterprise" label="企业版">
 
 :::info
 When installing the CnosDB Enterprise Edition cluster using sandbox, please pay attention to modifying the image name and configuring the License. You can contact us to obtain it.
@@ -76,4 +78,5 @@ chmod +x ./setup.sh
 ```
 
 </TabItem>
+
 </Tabs>
