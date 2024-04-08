@@ -5,26 +5,25 @@ sidebar_position: 5
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 聚合函数
+# Aggregate Functions
 
-聚合函数是数据库中常用的函数，用于对数据进行聚合计算和汇总。它们接收一组值作为输入，并返回一个单一的聚合结果。聚合函数可以用于执行各种操作，例如计算总和、平均值、最大值、最小值等。
+Aggregation function is a commonly used function in databases, used for aggregating and summarizing data.They receive a set of values as input and return a single aggregated result.The polymer function can be used to perform a variety of actions such as aggregation, averages, maximum, etc.
 
-## 通用
+## Generic
 
 ### avg
 
-返回指定列中数值的平均值。
+Returns the average of numeric values in the specified column.
 
 ```sql
 avg(expression)
 ```
 
-| 参数           | 描述                                     |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Argument     | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
-<details>
-  <summary>查看 <code>avg</code> 示例</summary>
+<details>  <summary>View <code>avg</code> examples</summary>
 
 ```sql {1}
 SELECT station, avg(temperature) FROM air group by station;
