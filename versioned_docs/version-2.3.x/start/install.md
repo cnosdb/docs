@@ -5,9 +5,11 @@ order: 2
 
 # 安装
 
-## 部署
+本章节演示了使用 [Docker](https://www.docker.com) 安装 CnosDB 的示例，这是启动 CnosDB 最简单的方式。
 
-其他安装方式请查看[安装CnosDB](../deploy)
+:::tip
+其他安装方式请查看 [部署](../deploy)
+:::
 
 ## Docker安装
 
@@ -15,7 +17,7 @@ order: 2
 
 2. 使用 Docker 启动容器
   ```shell
-    docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-2.3 cnosdb run -M singleton
+    docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
   ```
 
 3. 进入容器

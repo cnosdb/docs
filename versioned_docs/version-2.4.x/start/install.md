@@ -5,9 +5,11 @@ order: 2
 
 # 安装
 
-## 部署
+本章节演示了使用 [Docker](https://www.docker.com) 安装 CnosDB 的示例，这是启动 CnosDB 最简单的方式。
 
-其他安装方式请查看[安装CnosDB](../deploy)
+:::tip
+其他安装方式请查看 [部署](../deploy)
+:::
 
 ## Docker安装
 

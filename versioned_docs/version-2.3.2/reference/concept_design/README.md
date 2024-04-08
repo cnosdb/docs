@@ -5,3 +5,9 @@ index: false
 ---
 
 # 概念
+
+```mdx-code-block
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />
+```
