@@ -49,12 +49,13 @@ For purposes of greater clarity, the cluster that is deployed in this section us
 In CnosDB, cnosdb has multiple start-up modes
 
 - The `singleton` meta, storage, query service is all in the same instance. Cluster mode is not supported.
-- The `query_tskv`：instance provides query_query_tskv\` service and supports cluster mode.
+- The `query_tskv`：instance provides query_query_tskv\\` service and supports cluster mode.
 - The `query`：instance only provides query services, supports cluster mode.
 - The `tskv`: instance only provides storage services, supports cluster mode.
 
 CnosDB is supported for hybrid deployments where you can customize the number of queries and storage services.
 But a full cluster is at least 1 meta service, 1 query service and 1 tskv service.
+但是一个完整的集群至少 1 个 meta服务、1 个查询服务和 1 个存储服务。
 
 So in your CnosDB cluster, your mix is at least the following:
 
