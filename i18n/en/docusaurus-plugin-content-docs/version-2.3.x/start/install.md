@@ -1,31 +1,38 @@
 ---
-title: Install
+title: 安装
 order: 2
 ---
 
-# Install
+# 安装
 
-## Deploy
+Deploy
 
-For other installation methods, please see [Installing CnosDB](https://www.docker.com/products/docker-desktop/)
+:::tip
+For other installation methods, please see [Installing CnosDB](../deploy)
+:::
 
 ## Docker install
 
 1. Installing a [Docker](https://www.docker.com/products/docker-desktop/) environment
 
 2. Start the container with Docker
-    ```shell
-    docker run --name cnosdb -d cnosdb/cnosdb:community-2.3 cnosdb run -M singleton
-    ```
+
+```shell
+docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+```
 
 3. Enter the container
-    ```shell
-    docker exec -it cnosdb sh
-    ```
+
+```shell
+docker exec -it cnosdb sh
+```
+
 4. Run `cnosdb-cli`
-    ```shell
-    cnosdb-cli --port 8902
-    ```
+
+```shell
+cnosdb-cli --port 8902
+```
+
 It will display the following:
 
 ```
@@ -44,76 +51,77 @@ Executing the following command in the shell will generate a data file locally i
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-## Import Data
+## 导入数据
 
 - **Start the CLI**
-    ```shell
-    cnosdb-cli
-    ```
+  ```shell
+  cnosdb-cli
+  ```
 - **Create the database**
-- 
-    ```shell
-    create database oceanic_station with ttl '10000d';
-    ```
+  ```shell
+  create database oceanic_station with ttl '10000d';
+  ```
 - **Switch to the specified database**
-
-    ```shell
-    \c oceanic_station
-    ```
+  ```shell
+  \c oceanic_station
+  ```
 - **Import data**
 
-    Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
-- 
-    ```shell
-    \w oceanic_station.txt
-    ```
+  Execute the \w command, followed by the absolute path of the data file or the working path relative to cnosdb-cli.
+
+  ```shell
+  \w oceanic_station.txt
+  ```
 
 ## Data Query
 
 - **View all tables**
-    ```shell
-    SHOW TABLES;
-    ```
-    Successful execution returns the following results:
-    
-        +-------+
-        | Table |
-        +-------+
-        | sea   |
-        | wind  |
-        | air   |
-        +-------+
-        Query took 0.002 seconds.
 
+  ```shell
+  SHOW TABLES;
+  ```
 
+  Successful execution returns the following results:
+
+  ```
+    +-------+
+    | Table |
+    +-------+
+    | sea   |
+    | wind  |
+    | air   |
+    +-------+
+    Query took 0.002 seconds.
+  ```
 - **Query data**
-    ```shell
-    SELECT * FROM air limit 10;
-    ```
-    Successful execution returned the following results:
-    
-    ```sql
-    +---------------------+------------+------------+-------------+----------+
-    | time                | station    | visibility | temperature | pressure |
-    
-    +---------------------+------------+------------+-------------+----------+
-    | 2022-01-14 16:00:00 | XiaoMaiDao | 50         | 63          | 52       |
-    | 2022-01-14 16:03:00 | XiaoMaiDao | 56         | 62          | 54       |
-    | 2022-01-14 16:06:00 | XiaoMaiDao | 58         | 75          | 57       |
-    | 2022-01-14 16:09:00 | XiaoMaiDao | 65         | 76          | 50       |
-    | 2022-01-14 16:12:00 | XiaoMaiDao | 79         | 57          | 60       |
-    | 2022-01-14 16:15:00 | XiaoMaiDao | 71         | 68          | 51       |
-    | 2022-01-14 16:18:00 | XiaoMaiDao | 66         | 55          | 50       |
-    | 2022-01-14 16:21:00 | XiaoMaiDao | 64         | 78          | 77       |
-    | 2022-01-14 16:24:00 | XiaoMaiDao | 63         | 50          | 52       |
-    | 2022-01-14 16:27:00 | XiaoMaiDao | 72         | 69          | 56       |
-    +---------------------+------------+------------+-------------+----------+
-    Query took 0.635 seconds.
-    ```
 
+  ```shell
+  SELECT * FROM air limit 10;
+  ```
 
-> For more information about database operations, please refer to：
+  Successful execution returns the following results:
+
+  ```sql
+  +---------------------+------------+------------+-------------+----------+
+  | time                | station    | visibility | temperature | pressure |
+
+  +---------------------+------------+------------+-------------+----------+
+  | 2022-01-14 16:00:00 | XiaoMaiDao | 50         | 63          | 52       |
+  | 2022-01-14 16:03:00 | XiaoMaiDao | 56         | 62          | 54       |
+  | 2022-01-14 16:06:00 | XiaoMaiDao | 58         | 75          | 57       |
+  | 2022-01-14 16:09:00 | XiaoMaiDao | 65         | 76          | 50       |
+  | 2022-01-14 16:12:00 | XiaoMaiDao | 79         | 57          | 60       |
+  | 2022-01-14 16:15:00 | XiaoMaiDao | 71         | 68          | 51       |
+  | 2022-01-14 16:18:00 | XiaoMaiDao | 66         | 55          | 50       |
+  | 2022-01-14 16:21:00 | XiaoMaiDao | 64         | 78          | 77       |
+  | 2022-01-14 16:24:00 | XiaoMaiDao | 63         | 50          | 52       |
+  | 2022-01-14 16:27:00 | XiaoMaiDao | 72         | 69          | 56       |
+  +---------------------+------------+------------+-------------+----------+
+  Query took 0.635 seconds.
+  ```
+
+> For more information about database operations, please refer to:
 >
 > [SQL](../reference/sql.md)
 >
-> [Programming Interface](../develop/api.md) 
+> [Programming Interface](../develop/api.md)
