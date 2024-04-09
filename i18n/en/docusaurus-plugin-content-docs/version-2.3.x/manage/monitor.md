@@ -1,6 +1,5 @@
 ---
-title: Monitor
-order: 7
+sidebar_position: 7
 ---
 
 # Monitor
@@ -13,222 +12,223 @@ If you would like to see more metrics supported by CnosDB, please send an ISSUE 
 
 ### VNODE_DISK_STORAGE
 
-#### Name
+#### 名称
 
 vnode_disk_storage
 
-#### Type
+#### Category
 
 Gauge
 
-#### Discription
+#### 描述
 
 The disk that the Vnode occupies.
 
 #### Tag
 
-| Field    | Discription                           |
-|----------|---------------------------------------|
-| DATABASE | Database vnode belongs to             |
+| Field                         | 描述                                    |
+| ----------------------------- | ------------------------------------- |
+| DATABASE                      | Database vnode belongs to             |
 | NODE_ID  | ID of data node                       |
-| TENANT   | tenant vnode belongs to               |
+| TENANT                        | tenant vnode belongs to               |
 | VNODE_ID | ID of Vnode                           |
-| VALUE    | Disk that the Vnode occupies in bytes |
+| VALUE                         | Disk that the Vnode occupies in bytes |
+
+### VNODE_CACHE_SIZE
+
+#### 名称
+
+vnode_cache_size
+
+#### Category
+
+Gauge
+
+#### 描述
+
+The cache size that vnode occupies in bytes.
+
+#### Tag
+
+| Field                         | 描述                                     |
+| ----------------------------- | -------------------------------------- |
+| DATABASE                      | Database vnode belongs to              |
+| NODE_ID  | ID of data node                        |
+| TENANT                        | tenant vnode belongs to                |
+| VNODE_ID | ID of Vnode                            |
+| VALUE                         | Cache that the Vnode occupies in bytes |
 
 ### WRITE_DATA_IN
 
-#### NAME
+#### 名称
 
 write_data_in
 
 #### Category
 
 Count
-#### Description
+
+#### 描述
 
 Data traffic written over http, excluding SQL.
 
 #### Tag
 
-| Field    | Description                         |
-|----------|-------------------------------------|
-| TIME     | Time of data_in                     |
-| DATABASE | DatabaseName                        |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | The total write traffic in Bytes    |
+| Field                        | 描述                                   |
+| ---------------------------- | ------------------------------------ |
+| TIME                         | Time of data_in |
+| DATABASE                     | Database name                        |
+| NODE_ID | ID of data node                      |
+| TENANT                       | Tenant name the database belongs to  |
+| VALUE                        | The total write traffic in Bytes     |
 
 ### SQL_DATA_IN
 
-#### Name
+#### 名称
 
 sql_data_in
 
 #### Category
+
 Count
 
-#### Description
+#### 描述
 
 Data traffic written by sql, including INSERT, COPY statements.
 
 #### Tag
 
-| Field    | Description                         |
-|----------|-------------------------------------|
-| TIME     | Time of data_in                     |
-| DATABASE | DatabaseName                        |
-| NODE_ID  | ID of data node                     |
-| TENANT   | Tenant name the database belongs to |
-| VALUE    | The total write traffic in Bytes    |
-
-### VNODE_CACHE_SIZE
-
-#### Name
-
-vnode_cache_size
-
-#### Type
-
-Gauge
-
-#### Description
-
-The cache size that vnode occupies in bytes.
-
-#### Tag
-
-| Field    | Discription                            |
-|----------|----------------------------------------|
-| DATABASE | Database vnode belongs to              |
-| NODE_ID  | ID of data node                        |
-| TENANT   | tenant vnode belongs to                |
-| VNODE_ID | ID of Vnode                            |
-| VALUE    | Cache that the Vnode occupies in bytes |
+| Field                        | 描述                                   |
+| ---------------------------- | ------------------------------------ |
+| TIME                         | Time of data_in |
+| DATABASE                     | Database name                        |
+| NODE_ID | ID of data node                      |
+| TENANT                       | Tenant name the database belongs to  |
+| VALUE                        | The total write traffic in Bytes     |
 
 ### COORD_DATA_IN
 
-#### Name
+#### 名称
 
 coord_data_in
 
-#### Type
+#### Category
 
 Count
 
-#### Description
+#### 描述
 
 The total size of the written traffic when data is written to the database.
 
 #### Tag
 
-| Field    | Discription                                  |
-|----------|----------------------------------------------|
-| TIME     | Time of data_in                              |
-| DATABASE | DatabaseName                                 |
-| NODE_ID  | ID of data node                              |
-| TENANT   | Tenant name the database belongs to          |
-| VALUE    | The total size of the write traffic in Bytes |
-
+| Field                        | 描述                                   |
+| ---------------------------- | ------------------------------------ |
+| TIME                         | Time of data_in |
+| DATABASE                     | Database name                        |
+| NODE_ID | ID of data node                      |
+| TENANT                       | Tenant name the database belongs to  |
+| VALUE                        | The total write traffic in Bytes     |
 
 ### COORD_DATA_OUT
 
-#### Name
+#### 名称
 
 coord_data_out
 
-#### Type
+#### Category
 
 Count
 
-#### Description
+#### 描述
 
 Total outflow traffic for reading data from the database.
 
 #### Tag
 
-| Field    | Discription                                 |
-|----------|---------------------------------------------|
-| TIME     | Time of data out                            |
-| DATABASE | Database name                               |
-| NODE_ID  | ID of data node                             |
-| TENANT   | Tenant name the database belongs to         |
-| VALUE    | The total size of the read traffic in Bytes |
+| Field                        | 描述                                          |
+| ---------------------------- | ------------------------------------------- |
+| TIME                         | Time of data out                            |
+| DATABASE                     | Database name                               |
+| NODE_ID | ID of data node                             |
+| TENANT                       | Tenant name the database belongs to         |
+| VALUE                        | The total size of the read traffic in Bytes |
 
 ### HTTP_DATA_OUT
 
-#### Name
+#### 名称
 
 http_data_out
 
-#### Type
+#### Category
 
 Count
 
-#### Description
+#### 描述
 
-The size of the Http returned data.
+The size of the Http return data
 
 #### Tag
 
-| Field    | Description                                    |
-|----------|-------------------------------------------     |
-| TIME     | Time of http_data_out                          |
-| DATABASE | Database name                                  |
-| NODE_ID  | ID of data node                                |
-| TENANT   | Tenant name the database belongs to            |
-| Database | Database name                                  |
-| User     | User name                                      |
-| VALUE    | The total size of the read traffic in Bytes    |
+| Field                        | 描述                                                              |
+| ---------------------------- | --------------------------------------------------------------- |
+| TIME                         | Time of http_data_out |
+| DATABASE                     | Database name                                                   |
+| NODE_ID | ID of data node                                                 |
+| TENANT                       | Tenant name the database belongs to                             |
+| Database                     | DatabaseName                                                    |
+| User                         | User name                                                       |
+| VALUE                        | The total size of the read traffic in Bytes                     |
+
 ### USER_QUERIES
 
-#### Name
+#### 名称
 
 user_queries
 
-#### Type
+#### Category
 
 Count
 
-#### Description
+#### 描述
 
 The times the user queries from the database.
 
 #### Tag
 
-| Field    | Discription                                   |
-|----------|-----------------------------------------------|
-| TIME     | Time of queries                               |
-| DATABASE | Database name                                 |
-| NODE_ID  | ID of data node                               |
-| TENANT   | Tenant name the database belongs to           |
-| USER     | User name                                     |
-| VALUE    | The times the user queries from the database. |
+| Field                        | 描述                                  |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of queries                     |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| USER                         | User name                           |
+| VALUE                        | 用户查询次数                              |
 
 ### USER_WRITES
 
-#### Name
+#### 名称
 
 user_writes
 
-#### Type
+#### Category
 
 Count
 
-#### Description
+#### 描述
 
 The times the user writes to the database.
 
 #### Tag
 
-| Field    | Discription                                |
-|----------|--------------------------------------------|
-| TIME     | Time of writes                             |
-| DATABASE | Database name                              |
-| NODE_ID  | ID of data node                            |
-| TENANT   | Tenant name the database belongs to        |
-| USER     | User name                                  |
-| VALUE    | The times the user writes to the database. |
-
+| Field                        | 描述                                  |
+| ---------------------------- | ----------------------------------- |
+| TIME                         | Time of writes                      |
+| DATABASE                     | Database name                       |
+| NODE_ID | ID of data node                     |
+| TENANT                       | Tenant name the database belongs to |
+| USER                         | User name                           |
+| VALUE                        | 用户写入次数                              |
 
 ## Prometheus Monitor
 
@@ -241,11 +241,11 @@ scrape_configs:
     static_configs:
       - targets: ['127.0.0.1:8902']
 ```
-**Params**
+
+#### 参数说明
 
 `targets` is the adderss of CnosDB Http.
 
-## Store to CnosDB 
+## Store to CnosDB
 
 Change the `store_metrics` in [config](./cluster_expansion.md#configuration-cluster) to `true`.
-
