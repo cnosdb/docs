@@ -4,8 +4,8 @@
 
 ## How to Run?
 
-```
+```shell
 npm install
 
-npm run docs:clean-dev
+npm run start
 ```

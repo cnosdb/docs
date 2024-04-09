@@ -1,14 +1,15 @@
-project_id: '651662'
+project_id: '664454'
 api_token_env: CROWDIN_PERSONAL_TOKEN
-languages_mapping:
+preserve_hierarchy: true
+languages_mapping: &languages_mapping
   two_letters_code:
     en-US: en-US
-preserve_hierarchy: 1
 files:
   - source: /docs/**/*
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
-    languages_mapping: []
+    languages_mapping: *languages_mapping
   - source: /versioned_docs/**/*
     ignore:
       - version-2.3.2/
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/**/%original_file_name%
+    languages_mapping: *languages_mapping
