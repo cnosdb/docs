@@ -1,18 +1,18 @@
 ---
-title: Downsampling
-order: 4
+sidebar_position: 4
 ---
-## Downsampling
 
-The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems. A more natural solution is to reduce the data sample.
- 
-Downsampling refers to the frequency reduction of timeseries data in the time-series databases, and coarse-grained data is obtained after the frequency reduction of originally fine-grained data, so as to save storage costs. The data after downsampling only retains some statistical features of the original data. This chapter describes how to automate data sampling with CnosDB.
+# Downsampling
+
+The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems. A more natural solution is to reduce the data sample.一个比较自然的解决方案即降低数据样本。
+
+Downsampling refers to the frequency reduction of timeseries data in the time-series databases, and coarse-grained data is obtained after the frequency reduction of originally fine-grained data, so as to save storage costs. The data after downsampling only retains some statistical features of the original data. This chapter describes how to automate data sampling with CnosDB.本章将描述如何使用CnosDB实现自动化数据采样。
 
 ### Definition
 
 Stream Query:is a special query in CnosDB for processing stream data calculation, the stream query requires that the SELECT function must contain the GROUP BY time() phrase.
 
->Note: This article does not describe the syntax of how to create a stream query in detail, for more details, please click [Stream](../../latest/reference/sql.md#stream) query to jump to the corresponding interface. 
+> Note: This article does not describe the syntax of how to create a stream query in detail, for more details, please click [Stream](../reference/sql.md#stream) query to jump to the corresponding interface.
 
 ### Data Samples
 
@@ -34,7 +34,7 @@ Query took 0.028 seconds.
 
 ### Goal
 
-Assume that the data write frequency of the air table is 1min, but we only want to know the changes of various indicators every 1h, such as the maximum pressure, the average temperature, the sum of temperatures, and the number of data rows in the specified time window. The corresponding sql is created as follows:
+Assume that the data write frequency of the air table is 1min, but we only want to know the changes of various indicators every 1h, such as the maximum pressure, the average temperature, the sum of temperatures, and the number of data rows in the specified time window. The corresponding sql is created as follows:则创建对应的sql如下：
 
 ```sql
 INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
