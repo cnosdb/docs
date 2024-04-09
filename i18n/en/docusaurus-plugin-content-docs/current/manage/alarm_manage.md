@@ -1,41 +1,38 @@
 ---
-title: Alarm Management
-order: 6
+sidebar_position: 6
 ---
+
+# Alarm Management
 
 :::tip
 Only Enterprise Edition supports, Please contact [CC](../enterprise) to get the alarm plugin.
 :::
 
-# Alarm Management
-
-### Introduction
+## Introduction
 
 CnosDB supports alarm management. Through CnosDB alarm management, you can view alarm information, set alarm notification methods, set alarm rules, set alarm notification groups, etc.
 
-### Principle of Implementation
+## Principle of Implementation
 
 For the time series data stored in CnosDB, cnos-alert component executes sql query regularly according to the configuration file submitted by the user, compares the query result with the threshold, and sends the query result that triggers the alarm to the user specified receiving terminal.
-
-sql query:
-    The standard cnosdb-sql query statement, considering the use scenario of the alarm, generally has a time related where clause.
-Threshold:
-    In the configuration, you need to specify a field of the sql query return value, and set a threshold value for this field to trigger the alarm. Currently, it supports five types of thresholds: greater than, less than, equal to, within the range, and outside the range.
-Notification receiving terminal:
-    Currently, slack and twitter are supported.
-History:
-    All query results, issued notifications that trigger alarms will be recorded in cnosdb.
-    The alarm rules configured by the user are recorded in the user-specified location json file.
+sql查询：
+标准的cnosdb-sql查询语句，考虑到告警的使用场景，一般都是带有time相关where子句。
+阈值：
+配置时需要指定sql查询返回值的一个字段，为这个字段设置一个触发告警的阈值，目前支持大于、小于、等于、区间内、区间外五类阈值形式。
+通知接收终端：
+目前支持slack、twitter两种。
+历史记录：
+所有触发告警的查询结果、发出的通知都将记录在cnosdb中。
+用户配置的告警规则记录在用户指定位置json文件中。
 ![告警组件原理](/img/cnos-alert.png)
 
-
-### Start
+## Start
 
 ```shell
 ./alertserver --config=alertserver.yaml --serverport=9001
 ```
 
-### Configuration（alertserver.yaml）
+## Configuration（alertserver.yaml）
 
 ```yaml
 query: #cnosdb configuration where the queried data resides
@@ -52,9 +49,9 @@ store: #cnosdb configuration where the alarm record is stored
     notitable: notirecord #Notification record table name
 ```
 
-### API Description
+## API Description
 
-::: details /api/http/ping
+### /api/http/ping
 
 **Description**
 
@@ -81,9 +78,8 @@ curl -X GET http:/127.0.0.1:30001/api/http/ping
 ```shell
 curl: error
 ```
-:::
 
-::: details /api/v1/alert/config/rule
+### /api/v1/alert/config/rule
 
 **Description**
 
@@ -156,9 +152,8 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
     "details":[]
 }
 ```
-:::
 
-::: details /api/v1/alert/config/rule
+### /api/v1/alert/config/rule
 
 **Description**
 
@@ -229,9 +224,8 @@ curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/config/rule/tenant/:tenant/id/:id
+### api/v1/alert/config/rule/tenant/:tenant/id/:id
 
 **Description**
 
@@ -308,9 +302,8 @@ curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/config/rule/tenant/:tenant/id/:id
+### api/v1/alert/config/rule/tenant/:tenant/id/:id
 
 **Description**
 
@@ -329,7 +322,7 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 **Request Parameters**
 
 ```shell
-    :tenant: tenant name
+    :tenant: tenant name 
     :id: rule id
 
 ```
@@ -351,63 +344,8 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
     "details":[]
 }
 ```
-:::
 
-::: details /api/v1/alert/config/rule/tenant/:tenant
-
-**Description**
-
-List all rules for the specified tenant.
-
-**Request Method**
-
-- GET
-
-**Request Example**
-
-```shell
-curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
-```
-
-**Request Parameters**
-
-```shell
-    :tenant: tenant name
-    page: page number
-    per_page: number of records displayed per page
-```
-
-**Request Succeeded**
-
-```shell
-{
-    "data":[
-        {
-            "name": "cpu new", # rule name
-            "severity": "Medium", # rule level
-            "lastrun": "2023-08-17T11:51:04+08:00", # last execution time of sql query
-            "enabled": "on",  # rule status
-            "laststatus": "0", # last execution status, 0 means failure, 1 means success
-            "id": 2 # rule id
-            }
-        ], 
-    "order": "name, severity, lastrun, laststatus, enabled", # local can be ignored
-    "total": "1" # total number of rules under the tenant
-}
-```
-
-**Request Failed**
-
-```shell
-{
-    "code": error id, 
-    "message": error string, 
-    "details":[]
-}
-```
-:::
-
-::: details /api/v1/alert/config/rule/tenant/:tenant
+### /api/v1/alert/config/rule/tenant/:tenant
 
 **Description**
 
@@ -459,9 +397,61 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/data/alert/tenant/:tenant
+### /api/v1/alert/config/rule/tenant/:tenant
+
+**Description**
+
+List all rules for the specified tenant.
+
+**Request Method**
+
+- GET
+
+**Request Example**
+
+```shell
+curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page=1&per_page=10
+```
+
+**Request Parameters**
+
+```shell
+    :tenant: tenant name
+    page: page number
+    per_page: number of records displayed per page
+```
+
+**Request Succeeded**
+
+```shell
+{
+    "data":[
+        {
+            "name": "cpu new", # rule name
+            "severity": "Medium", # rule level
+            "lastrun": "2023-08-17T11:51:04+08:00", # last execution time of sql query
+            "enabled": "on",  # rule status
+            "laststatus": "0", # last execution status, 0 means failure, 1 means success
+            "id": 2 # rule id
+            }
+        ], 
+    "order": "name, severity, lastrun, laststatus, enabled", # local can be ignored
+    "total": "1" # total number of rules under the tenant
+}
+```
+
+**Request Failed**
+
+```shell
+{
+    "code": error id, 
+    "message": error string, 
+    "details":[]
+}
+```
+
+### api/v1/alert/data/alert/tenant/:tenant
 
 **Description**
 
@@ -504,9 +494,8 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=
     "details":[]
 }
 ```
-:::
 
-::: details api/v1/alert/data/noti/tenant/:tenant
+### api/v1/alert/data/noti/tenant/:tenant
 
 **Description**
 
@@ -549,9 +538,8 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/noti/tenant/cnosdb?page=1
     "details":[]
 }
 ```
-:::
 
-### Example
+## Example
 
 Suppose we write the cpu monitoring data to cnosdb through telegraf tool. Part of the table is as follows:
 
@@ -570,7 +558,7 @@ public ❯ select time, cpu, usage_user from cpu order by time desc limit 5;
 
 This table logs cpu data every 10 seconds, and we want to monitor the usage_user value for each cpu in the table and send an alert to slack when it averages greater than 0.2 over the past minute.
 
-### Create Rule
+## Create Rule
 
 ```shell
 curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
@@ -611,6 +599,7 @@ curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
     }
 }'
 ```
-### Check for incoming notifications in Slack
+
+## Check for incoming notifications in Slack
 
 ![](/img/Slack-Notification.png)
