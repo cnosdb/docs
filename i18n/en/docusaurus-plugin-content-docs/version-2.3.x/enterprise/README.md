@@ -1,14 +1,16 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # Enterprise
 
-Enterprise features:
+:::tip
+试用企业版功能，请使用微信扫描下方二维码添加 CC 为好友。
 
-::: tip
-To try out the Enterprise features, please contact <a class="color-fg-default" itemprop="email" href="mailto:contact@cnosdb.com">contact@cnosdb.com</a>
+![CC](https://dl.cnosdb.com/contact/u.jpg)
 :::
+
+Enterprise features:
 
 - [Tiered Storage](../manage/tiered_storage.md)
 
