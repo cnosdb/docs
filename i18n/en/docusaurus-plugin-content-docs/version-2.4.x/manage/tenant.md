@@ -46,7 +46,7 @@ TENANT [IF NOT EXISTS] tenant_name WITH [comment = ''];
 
 _limiter： 限制租户资源用量，可以参见[租户资源](https://docs.cnosdb.com/zh/latest/manage/resource_limit)
 
-**Examples**
+**Example**
 
 ```sql
 CREATE
@@ -81,7 +81,7 @@ UNSET deletes vstore attributes.
 
 Currently, the only tenant attribute is COMMENT, which is a string and enclosed in single quotation marks.
 
-**Examples**
+**Example**
 
 ```sql
 ALTER TENANT test SET COMMENT = 'abc';
@@ -109,7 +109,7 @@ Delay deletion is cancelled and the tenant returns to normal.
 
 **Notice**: Only resources that are delayed deletion and during the delayed deletion period can be recovered by executing the RECOVER statement.
 
-**Examples**
+**Example**
 
 ```sql
 DROP TENANT test AFTER ‘7d’;
@@ -145,7 +145,7 @@ CREATE
 USER [IF NOT EXISTS] user_name [WITH [PASSWORD='',] [MUST_CHANGE_PASSWORD=true,] [COMMENT = '']];
 ```
 
-**Examples**
+**Example**
 
 ```sql
 CREATE
@@ -175,7 +175,7 @@ COMMENT option_value type is string.
 MUST_CHANGE_PASSWORD option_value type is boolean.
 PASSWORD option_value type is string.
 
-**Examples**
+**Example**
 
 ```sql
 ALTER USER tester SET PASSWORD = 'aaa';
@@ -192,7 +192,7 @@ DROP
 USER [IF EXISTS] user_name;
 ```
 
-**Examples**
+**Example**
 
 ```sql
 DROP
@@ -218,7 +218,7 @@ USER IF EXISTS tester;
 alter user <user_name> set granted_admin = true
 ```
 
-**Examples**
+**Example**
 
 ```sql
 create user dev;
@@ -233,7 +233,7 @@ alter user dev set granted_admin = true;
 alter user <user_name> set granted_admin = false
 ```
 
-**Examples**
+**Example**
 
 ```sql
 alter user dev set granted_admin = false;
@@ -241,7 +241,7 @@ alter user dev set granted_admin = false;
 
 ### View Admin Permission
 
-**Examples**
+**Example**
 
 ```sql
 select * from cluster_schema.users where user_name = 'dev';
@@ -299,7 +299,7 @@ Only DBA and the owner of tenant can creat a new role, the new role is belonged 
 CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
-**Examples**
+**Example**
 
 Create the owner_role under the current tenant that inherits from the owner role.
 
@@ -321,7 +321,7 @@ CREATE ROLE member_role INHERIT member;
 DROP ROLE role_name;
 ```
 
-**Examples**
+**Example**
 
 ```sql
 DROP ROLE owner_role;
@@ -350,7 +350,7 @@ GRANT
 {READ | WRITE | ALL} ON DATABASE database_name TO ROLE role_name;
 ```
 
-**Examples**
+**Example**
 
 ```sql
 -- create a member rrr
@@ -403,7 +403,7 @@ Granting permissions to a role on the same database overwrites previous permissi
 REVOKE {WRITE | READ | FULL} ON DATABASE database_name FROM role_name;
 ```
 
-**Examples**
+**Example**
 
 ```sql
 -- revoke read permission of database air from rrr
@@ -421,7 +421,7 @@ ALTER
 TENANT tenant_name ADD USER user_name AS role_name;
 ```
 
-**Examples**
+**Example**
 
 ```sql
 CREATE
