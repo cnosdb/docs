@@ -5,9 +5,9 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Wirte Data
+# Write Data
 
-CnosDB supports a variety of write modes, and some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.包含 Java，Python，Rust，Golang，C++ 等常用的编程语言。
+CnosDB supports a variety of writing methods, some examples are provided below.Contains common programming languages such as Java, Python, Rust, Golang, C++
 
 ### Insert One Record
 
@@ -137,12 +137,12 @@ func main() {
         panic(err)
     }
 
-    // add Authorization header
+    // 添加 Authorization 头部
     authStr := username + ":" + password
     encodedAuth := base64.StdEncoding.EncodeToString([]byte(authStr))
     req.Header.Set("Authorization", "Basic "+encodedAuth)
 
-    // add Accept header
+    // 添加 Accept 头部
     req.Header.Set("Accept", "application/json")
 
     resp, err := client.Do(req)
@@ -151,7 +151,7 @@ func main() {
     }
     defer resp.Body.Close()
 
-    // print response
+    // 输出响应的状态码和响应体
     fmt.Println("Status Code:", resp.StatusCode)
     fmt.Println("Response Body:")
     buf := new(bytes.Buffer)
@@ -164,7 +164,7 @@ func main() {
 
 <TabItem value="java" label="Java">
 
-````java
+```java
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -180,12 +180,12 @@ public class CurlToJava {
         String cnosdbPort = "<cnosdb_port>";
         String dbName = "<database_name>";
         String sqlStatement = "<your SQL statement>";
-        
+
         String apiUrl = "http://" + cnosdbUrl + ":" + cnosdbPort + "/api/v1/sql?db=" + dbName + "&pretty=true";
         String auth = username + ":" + password;
         byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes());
         String authHeaderValue = "Basic " + new String(encodedAuth);
-        
+
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -205,43 +205,7 @@ public class CurlToJava {
         connection.disconnect();
     }
 }
-
-@tab Rust#Rust
-
-```rust
-use reqwest::header::{Authorization, HeaderValue, ACCEPT};
-use std::error::Error;
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
-    let username = "<username>";
-    let password = "<password>";
-    let cdb_url = "<cnosdb_url>";
-    let cdb_port = "<cnosdb_port>";
-    let database_name = "<database_name>";
-    let sql_statement = "<your SQL statement>";
-
-    let url = format!(
-        "http://{}:{}/api/v1/sql?db={}&pretty=true",
-        cdb_url, cdb_port, database_name
-    );
-    
-    let client = reqwest::Client::new();
-    let res = client
-        .post(&url)
-        .header(ACCEPT, "application/json")
-        .header(
-            Authorization(format!("Basic {}", base64::encode(format!("{}:{}", username, password))))
-        )
-        .body(sql_statement)
-        .send()
-        .await?;
-
-    println!("{}", res.text().await?);
-
-    Ok(())
-}
-````
+```
 
 </TabItem>
 
