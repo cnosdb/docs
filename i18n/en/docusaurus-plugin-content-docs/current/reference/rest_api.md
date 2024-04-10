@@ -54,7 +54,7 @@ curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=exa
   date: Sat, 08 Oct 2022 06:59:38 GMT{'\n'}
 ```
 
-##### Header
+##### Failed
 
 ```
 HTTP/1.1 500 Internal Server Error{'\n'}
@@ -96,7 +96,7 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 ... ...
 ```
 
-##### Header
+##### Failed
 
 ```bash
 HTTP/1.1 500 Internal Server Error
@@ -128,7 +128,7 @@ curl -G 'http://localhost:8902/api/v1/ping'
 }
 ```
 
-##### Header
+##### Failed
 
 > No result returned
 
@@ -170,7 +170,7 @@ content-length: 0
 date: Sat, 08 Oct 2022 06:59:38 GMT
 ```
 
-##### Header
+##### Failed
 
 ```
 HTTP/1.1 500 Internal Server Error
@@ -226,7 +226,7 @@ or
 The 2th command fails because the table tablename already exists and cannot be created repeatedly
 ```
 
-#### Header
+#### Failed
 
 ```
 {"error_code":"0100XX","error_message":"XXXXXXXXXXXXXXXXXXXXXXX"}
