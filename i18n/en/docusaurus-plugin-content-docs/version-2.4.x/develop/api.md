@@ -59,6 +59,16 @@ Set the SQL requested for execution into the body of the http.
 Encode the username and password in BASIC code to the Authorization Header.
 
 ```rust
+let user_name = "cnosdb";
+let password = "";
+let http_client = reqwest::Client::new();
+let request = http_client
+    .request(Method::POST, url)
+    //用户名和密码
+    .basic_auth::<&str, &str>(user_name, Some(password))
+    .body(sql)
+    .build()
+    .unwrap();
 ```
 
 The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
