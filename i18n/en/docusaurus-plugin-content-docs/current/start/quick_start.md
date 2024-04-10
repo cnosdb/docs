@@ -83,7 +83,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 The wildcard \* can be used to refer to all columns.
 
-**Examples**
+**Example**
 
 ```sql
 SELECT * FROM air;
@@ -120,7 +120,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...];
 After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`.
 Alias Column Expression不指定此选项时，默认值为`ALL`。
 
-**Examples**
+**Example**
 
 ```sql
 SELECT DISTINCT station, visibility FROM air;
@@ -181,7 +181,7 @@ You can use the keyword `AS` to alias a column expression or table.
 expression [ [ AS ] column_alias ]
 ```
 
-**Examples**
+**Example**
 
 ```sql
 SELECT station s, visibility AS v FROM air;
@@ -217,7 +217,7 @@ You can also use the keyword AS to alias the table.
 FROM tb_name [AS] alias_name
 ```
 
-**Examples**
+**Example**
 
 ```sql
 SELECT a.visibility, s.temperature
@@ -239,7 +239,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 
 - If the SELECT clause contains only the Tag column, it is equivalent to the SELECT DISTINCT Tag column.
 
-  **Examples**
+  **Example**
 
   ```sql
   -- station is a Tag column,temperature is a Field column.
@@ -290,7 +290,7 @@ LIMIT n
 
 Limit the number of rows returned from the result set to n, and n must be non-negative.
 
-**Examples**
+**Example**
 
 ```sql
 SELECT *
@@ -323,7 +323,7 @@ OFFSET m
 ```
 
 The returned result set skips m records. default m=0.
-**Examples**
+**Example**
 
 ```sql
 SELECT *
@@ -344,7 +344,7 @@ FROM air OFFSET 10;
 Alias
 OFFSET 0与省略OFFSET子句效果相同。
 
-**Examples**
+**Example**
 
 ```sql
 SELECT *
@@ -376,7 +376,7 @@ Alias TableCTE使用规则如下：
 - The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause:
   假设A是子句中的第一个CTE，B是子句中的第二个CTE：
 
-**Examples**
+**Example**
 
 ```sql
 SELECT station, avg 
@@ -432,7 +432,7 @@ select_clause_set_right
 
 Each SELECT clause in the UNION must have the same number of columns, and the corresponding columns have the same data type.
 
-**Examples**
+**Example**
 
 - **UNION ALL**
   ```sql
@@ -532,7 +532,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
 
 按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
 
-**Examples**
+**Example**
 
 ```sql
 SELECT * FROM air ORDER BY temperature;
@@ -610,7 +610,7 @@ SELECT * FROM air ORDER BY station, temperature;
 
 The IN operator allows you to specify multiple values in the WHERE clause.
 
-**Examples**
+**Example**
 
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
@@ -639,7 +639,7 @@ SHOW {DATABASES | TABLES | QUERIES}
 
 Show all databases or all tables.
 
-**Examples**
+**Example**
 
 ```sql
 SHOW DATABASES;
@@ -697,7 +697,7 @@ EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 
 `EXPLAIN ANALYZE VERBOSE` executes the query and displays a more detailed execution plan, including the number of rows read.
 
-**Examples**
+**Example**
 
 ```sql
 EXPLAIN SELECT station, temperature, visibility FROM air;
@@ -772,7 +772,7 @@ DESCRIBE {DATABASE db_name | TABLE tb_name};
 
 Describe the parameters of the database and the pattern of the table.
 
-**Examples**
+**Example**
 
 ```sql
 DESCRIBE TABLE air;
