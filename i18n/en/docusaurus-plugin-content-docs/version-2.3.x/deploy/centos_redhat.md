@@ -7,9 +7,9 @@ import TabItem from '@theme/TabItem';
 
 # CentOS & Redhat
 
-Red Hat 和 CentOS 用户可以使用包管理器 `yum` 安装最新稳定版本的 CnosDB。
+Red Hat and CentOS users can use the package manager `yum` to install the latest stable version of CnosDB.
 
-## 下载
+## Download
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
@@ -27,7 +27,7 @@ gpgkey = https://cnosdb-package-repository.s3.us-west-2.amazonaws.com/cnosdb.gpg
 EOF
 ```
 
-更新并下载软件：
+Update and download software:
 
 ```shell
 sudo yum update & yum install -y cnosdb cnosdb-meta
@@ -38,16 +38,16 @@ sudo yum update & yum install -y cnosdb cnosdb-meta
 <TabItem value="Enterprise" label="企业版">
 
 :::tip
-如需获取企业版的安装包，请联系我们。
+Please contact us to obtain the installation package for the enterprise version.
 :::
 
 </TabItem>
 
 </Tabs>
 
-## 启动单机实例
+## Start a standalone instance
 
-#### 1. 修改配置
+#### 1. Edit configuration
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
@@ -56,9 +56,9 @@ sudo yum update & yum install -y cnosdb cnosdb-meta
 
 <TabItem value="Enterprise" label="企业版">
 
-修改 `license_file` 指定正确的文件位置
+Change `license_file` to specify the correct file location
 
-> 获取 License 文件，请联系我们
+> Get License file, please contact us
 
 ```shell
 license_file = '/etc/cnosdb/license.json'
@@ -68,31 +68,31 @@ license_file = '/etc/cnosdb/license.json'
 
 </Tabs>
 
-修改 `[deployment].mode` 为 `singleton`
+Change `[deployment].mode` to `singleton`
 
 ```toml
 [deployment]
 mode = "query_tskv"
 ```
 
-#### 2. 启动
+#### 2. Start
 
 ```shell
 systemctl start cnosdb
 ```
 
-如果是 CentOS 7 以及之前的版本 和 RHEL 7 之前的版本，使用以下命令启动：
+If it is CentOS 7 and earlier versions and RHEL 7 earlier versions, use the following command to start:
 
 ```shell
 service cnosdb start
 ```
 
-## 启动集群
+## Starting the cluster
 
 :::note
 请将以下记录添加到您的 DNS 解析服务器中，以便于 CnosDB 集群中的实例之间进行通信。必要时需要联系您的网络管理员。
 
-| 记录类型                                                | 主机名                      | 主机IP                                                        |
+| Record type                                         | Hostname                 | 主机IP                                                        |
 | --------------------------------------------------- | ------------------------ | ----------------------------------------------------------- |
 | A                                                   | `meta1.cnosdb.com`       | \<meta1_ip>                            |
 | A                                                   | `meta2.cnosdb.com`       | \<meta2_ip>                            |
@@ -103,7 +103,7 @@ service cnosdb start
 
 ### 启动 `meta` 服务
 
-#### 1. 修改配置
+#### 1. Edit configuration
 
 默认配置文件位置：`/etc/cnosdb/cnosdb-meta.conf`
 
@@ -134,7 +134,7 @@ port = 8901
 systemctl start cnosdb-meta
 ```
 
-如果是 CentOS 7 以及之前的版本 和 RHEL 7 之前的版本，使用以下命令启动：
+If it is CentOS 7 and earlier versions and RHEL 7 earlier versions, use the following command to start:
 
 ```shell
 service cnosdb-meta start
@@ -209,9 +209,9 @@ host = "query_tskv<n>.cnosdb.com"
 
 <TabItem value="Enterprise" label="企业版">
 
-修改 `license_file` 指定正确的文件位置
+Change `license_file` to specify the correct file location
 
-> 获取 License 文件，请联系我们
+> Get License file, please contact us
 
 ```shell
 license_file = '/etc/cnosdb/license.json'
