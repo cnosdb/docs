@@ -55,7 +55,7 @@ In CnosDB, cnosdb has multiple start-up modes
 
 CnosDB is supported for hybrid deployments where you can customize the number of queries and storage services.
 But a full cluster is at least 1 meta service, 1 query service and 1 tskv service.
-但是一个完整的集群至少 1 个 meta服务、1 个查询服务和 1 个存储服务。
+But a full cluster is at least 1 meta service, 1 query service and 1 tskv service.
 
 So in your CnosDB cluster, your mix is at least the following:
 
