@@ -11,7 +11,7 @@ CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-g
 
 ## Sample Data
 
-To further study CnosDB, this section will provide sample data for you to download and teach you how to import data into the database. The data sources referenced in the following chapters are all from this sample data.后面章节中引用的数据源都来自此示例数据。
+To learn more about CnosDB, this section provides sample data for you to download and teaches you how to import data into the database.The data sources cited in later chapters are taken from this example data.
 
 ### Download Data
 
@@ -23,7 +23,7 @@ Executing the following command in the shell will generate a local data file nam
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-### 导入数据
+### Import Data
 
 - **Start the CLI**
   ```shell
@@ -117,8 +117,8 @@ SELECT * FROM air;
 SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
 
-After the keyword `SELECT`, you can use `DISTINCT` to remove duplicate fields and return only the values after duplicate removal. Using ALL returns all duplicate values in the field. When this option is not specified, the default value is `ALL`.
-Alias Column Expression不指定此选项时，默认值为`ALL`。
+You can use `DISTINCT` after the `SELECT` keyword to remove duplicate fields and return only the de-duplicated values.
+Alias Column ExpressionWhen this option is not specified, the default value is `ALL`.
 
 **Example**
 
@@ -169,11 +169,11 @@ SELECT station, visibility FROM air;
 +-------------+------------+
 ```
 
-## 别名
+## Alias
 
 You can use the keyword `AS` to alias a column expression or table.
 
-### 为列表达式取别名
+### Alias for column expression
 
 **Syntax**
 
@@ -207,7 +207,7 @@ SELECT station s, visibility AS v FROM air;
 +-------------+----+
 ```
 
-### 为表取别名
+### Alias for table
 
 You can also use the keyword AS to alias the table.
 
@@ -228,10 +228,16 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
 +------------+-------------+
 | visibility | temperature |
 +------------+-------------+
-| 67         | 62          |
-| 50         | 78          |
-| 50         | 78          |
-| 65         | 79          |
+| 80.0       | 56.0        |
+| 57.0       | 56.0        |
+| 70.0       | 56.0        |
+| 78.0       | 56.0        |
+| 56.0       | 56.0        |
+| 63.0       | 56.0        |
+| 69.0       | 56.0        |
+| 59.0       | 56.0        |
+| 60.0       | 56.0        |
+| 51.0       | 56.0        |
 +------------+-------------+
 ```
 
@@ -242,7 +248,7 @@ FROM air AS a JOIN sea s ON a.temperature = s.temperature limit 10;
   **Example**
 
   ```sql
-  -- station is a Tag column,temperature is a Field column.
+  -- station是Tag列，temperature是Field列
   SELECT station, temperature FROM air;
   ```
 
@@ -342,7 +348,7 @@ FROM air OFFSET 10;
 
 `OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip. The format is `LIMIT n OFFSET m`, or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
 Alias
-OFFSET 0与省略OFFSET子句效果相同。
+OFFSET 0 is equivalent to omitting the OFFSET clause.
 
 **Example**
 
@@ -370,11 +376,11 @@ WITH cte AS cte_query_definiton [, ...] query
 ```
 
 可选。Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows:
-Alias TableCTE使用规则如下：
+Alias TableThe following rules for use by CTE are:
 
 - CTE in the same WITH clause must have a unique name.
 - The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause:
-  假设A是子句中的第一个CTE，B是子句中的第二个CTE：
+  Assume A is the first CTE, B is the second CTE:
 
 **Example**
 
@@ -530,7 +536,7 @@ Each SELECT clause in the UNION must have the same number of columns, and the co
 
 ## ORDER BY Clause
 
-按引用的表达式对结果进行排序。默认情况使用升序 (ASC)。Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
+Sort the results by the quoted expression.Default usage ascending (ASC).Sort the results by the referenced expression. Ascending (ASC) is used by default. Sort in descending order by adding DESC after the expression of ORDER BY.
 
 **Example**
 
@@ -679,7 +685,7 @@ SHOW QUERIES;
 +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 ```
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql#queries-information-schema) 查看
+Detailed information on SHOW QUERIES statements can be found in [System Table QUERIES](../reference/sql#queries-information-schema)
 
 ## **EXPLAIN**
 
