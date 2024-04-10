@@ -33,7 +33,7 @@ Whether to enable Wal, default: false
 
 ## The detailed configuration file description is as follows:
 
-### `[trace]` fFull link tracing configuration
+### Configuration
 
 <Tabs groupId="editions">
 
@@ -121,7 +121,7 @@ Whether to enable Wal, default: false
 | Parameters    | 默认                                                  | 描述                                                             |
 | ------------- | --------------------------------------------------- | -------------------------------------------------------------- |
 | level         | `info`                                              | Log level（debug、info、error、warn, default: info |
-| path          | log storage path,default:`data/log` | Log storage location                                           |
+| path          | log storage path,default:`data/log` | Remote log path                                                |
 | `tokio_trace` | `{ addr = "127.0.0.1:6669" }`                       | Tokio 跟踪，默认处于关闭状态。                                             |
 
 ### \[security]
@@ -139,15 +139,15 @@ Whether to enable Wal, default: false
 
 ### \[cluster]
 
-| Parameters                                                                                        | 默认                                | 描述                                        |
-| ------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------------------------------- |
-| `name`                                                                                            | `[cluster]` cluster configuration | name                                      |
-| `[meta_init]`: example initializes related configuration information of Meta node | `127.0.0.1:8901`                  | Remote Meta Service port                  |
-| http_listen_port                                        | `8902`                            | HTTP service listening port               |
-| grpc_listen_port                                        | `8903`                            | GRPC service listening port               |
-| flight_rpc_listen_port             | `8904`                            | Flight RPC service listening port         |
-| tcp_listen_port                                         | `8905`                            | TCP service listening port                |
-| meta_service_port                                       | `8906`                            | 用于监听 [Vector](https://vector.dev/) 写入的数据。 |
+| Parameters                                                                                        | 默认               | 描述                                        |
+| ------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------- |
+| `name`                                                                                            | ClusterName      | name                                      |
+| `[meta_init]`: example initializes related configuration information of Meta node | `127.0.0.1:8901` | Remote Meta Service port                  |
+| http_listen_port                                        | `8902`           | HTTP service listening port               |
+| grpc_listen_port                                        | `8903`           | GRPC service listening port               |
+| flight_rpc_listen_port             | `8904`           | Flight RPC service listening port         |
+| tcp_listen_port                                         | `8905`           | TCP service listening port                |
+| meta_service_port                                       | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。 |
 
 ### \[hintedoff]
 
@@ -231,7 +231,7 @@ Whether to enable Wal, default: false
 
 ## `meta` 文件描述
 
-### `[trace]` fFull link tracing configuration
+### Configuration
 
 <Tabs groupId="editions">
 
@@ -270,16 +270,16 @@ Whether to enable Wal, default: false
 | Parameters | 默认                                                  | 描述                                                             |
 | ---------- | --------------------------------------------------- | -------------------------------------------------------------- |
 | level      | `info`                                              | Log level（debug、info、error、warn, default: info |
-| path       | log storage path,default:`data/log` | Log storage location                                           |
+| path       | log storage path,default:`data/log` | Remote log path                                                |
 
 ### \[meta_init]
 
-| Parameters                            | 默认                                | 描述                                    |
-| ------------------------------------- | --------------------------------- | ------------------------------------- |
-| cluster_name     | `[cluster]` cluster configuration | Cluster Name                          |
-| admin_user       | `root`                            | User name of the system administrator |
-| system_tenant    | `cnosdb`                          | Name of the default tenant            |
-| default_database | `["public","usage_schema"]`       | Default database created              |
+| Parameters                            | 默认                          | 描述                                    |
+| ------------------------------------- | --------------------------- | ------------------------------------- |
+| cluster_name     | ClusterName                 | Cluster Name                          |
+| admin_user       | `root`                      | User name of the system administrator |
+| system_tenant    | `cnosdb`                    | Name of the default tenant            |
+| default_database | `["public","usage_schema"]` | Default database created              |
 
 ### \[heartbeat]
 
