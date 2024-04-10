@@ -23,7 +23,7 @@ docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb r
 <TabItem value="Enterprise" label="企业版">
 
 :::info
-如需获取企业版的安装包，请联系我们。
+Please contact us to obtain the installation package for the enterprise version.
 :::
 
 ```shell
@@ -47,7 +47,7 @@ To quickly get started, we have written an example using [Docker Compose](https:
 git clone https://github.com/cnosdb/distributed-sandbox.git
 ```
 
-2. 启动集群
+2. Starting the cluster
 
 ```shell
 cd distributed-sandbox
@@ -69,7 +69,7 @@ When installing the CnosDB Enterprise Edition cluster using sandbox, please pay 
 git clone https://github.com/cnosdb/distributed-sandbox.git
 ```
 
-2. 启动集群
+2. Starting the cluster
 
 ```shell
 cd distributed-sandbox
