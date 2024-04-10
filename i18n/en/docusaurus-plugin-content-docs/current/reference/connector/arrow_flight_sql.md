@@ -1814,7 +1814,7 @@ The following steps are based on Centos7.
   yum localinstall arrow-flight-sql-odbc-driver-LATEST.x86_64.rpm 
   ```
 
-- #### 修改配置文件
+- #### Edit profile
 
   Modify the configuration file located in `/etc/odbc.ini`.
 
