@@ -4,6 +4,6 @@ sidebar_position: 3
 
 # Helm
 
-要使用 Helm 安装 CnosDB，首先你需要确保你的系统上已经安装了 Helm。
+To install CnosDB with Helm, first you need to make sure that Helm is installed on your system.
 
-然后请参照文档 [CnosDB with Helm](/eco-integration/helm)
+Then refer to the document [CnosDB with Helm](/eco-integration/helm)
