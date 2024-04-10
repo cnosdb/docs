@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 Ubuntu 和 Debian 用户可以使用包管理器 `apt-get` 安装最新稳定版本的 CnosDB。
 
-## 下载
+## Download
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
@@ -21,7 +21,7 @@ curl -fsSL https://repo.cnosdb.com/repo/cnosdb.gpg-key.asc | gpg --dearmor | sud
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/cnosdb.gpg] https://repo.cnosdb.com/repo/deb stable main" | sudo tee /etc/apt/sources.list.d/cnosdb.list > /dev/null
 ```
 
-更新并下载软件：
+Update and download software:
 
 ```shell
 sudo apt-get update & apt-get -y install cnosdb cnosdb-meta
@@ -32,16 +32,16 @@ sudo apt-get update & apt-get -y install cnosdb cnosdb-meta
 <TabItem value="Enterprise" label="企业版">
 
 :::tip
-如需获取企业版的安装包，请联系我们。
+Please contact us to obtain the installation package for the enterprise version.
 :::
 
 </TabItem>
 
 </Tabs>
 
-## 启动单机实例
+## Start a standalone instance
 
-#### 1. 修改配置
+#### 1. Edit configuration
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
@@ -50,9 +50,9 @@ sudo apt-get update & apt-get -y install cnosdb cnosdb-meta
 
 <TabItem value="Enterprise" label="企业版">
 
-修改 `license_file` 指定正确的文件位置
+Change `license_file` to specify the correct file location
 
-> 获取 License 文件，请联系我们
+> Get License file, please contact us
 
 ```shell
 license_file = '/etc/cnosdb/license.json'
@@ -62,14 +62,14 @@ license_file = '/etc/cnosdb/license.json'
 
 </Tabs>
 
-修改 `[deployment].mode` 为 `singleton`
+Change `[deployment].mode` to `singleton`
 
 ```toml
 [deployment]
 mode = "singleton"
 ```
 
-#### 2. 启动
+#### 2. Start
 
 ```shell
 systemctl start cnosdb
@@ -81,12 +81,12 @@ systemctl start cnosdb
 service cnosdb start
 ```
 
-## 启动集群
+## Starting the cluster
 
 :::note
 请将以下记录添加到您的 DNS 解析服务器中，以便于 CnosDB 集群中的实例之间进行通信。必要时需要联系您的网络管理员。
 
-| 记录类型                                                | 主机名                      | 主机IP                                                        |
+| Record type                                         | Hostname                 | 主机IP                                                        |
 | --------------------------------------------------- | ------------------------ | ----------------------------------------------------------- |
 | A                                                   | `meta1.cnosdb.com`       | \<meta1_ip>                            |
 | A                                                   | `meta2.cnosdb.com`       | \<meta2_ip>                            |
@@ -97,7 +97,7 @@ service cnosdb start
 
 ### 启动 `meta` 服务
 
-#### 1. 修改配置
+#### 1. Edit configuration
 
 默认配置文件位置：`/etc/cnosdb/cnosdb-meta.conf`
 
@@ -203,9 +203,9 @@ host = "query_tskv<n>.cnosdb.com"
 
 <TabItem value="Enterprise" label="企业版">
 
-修改 `license_file` 指定正确的文件位置
+Change `license_file` to specify the correct file location
 
-> 获取 License 文件，请联系我们
+> Get License file, please contact us
 
 ```shell
 license_file = '/etc/cnosdb/license.json'
