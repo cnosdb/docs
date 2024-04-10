@@ -90,36 +90,38 @@ service cnosdb start
 ## Starting the cluster
 
 :::note
-请将以下记录添加到您的 DNS 解析服务器中，以便于 CnosDB 集群中的实例之间进行通信。必要时需要联系您的网络管理员。
 
-| Record type                                         | Hostname                 | 主机IP                                                        |
-| --------------------------------------------------- | ------------------------ | ----------------------------------------------------------- |
-| A                                                   | `meta1.cnosdb.com`       | \<meta1_ip>                            |
-| A                                                   | `meta2.cnosdb.com`       | \<meta2_ip>                            |
-| A                                                   | `meta3.cnosdb.com`       | \<meta3_ip>                            |
-| A                                                   | `query_tskv1.cnosdb.com` | \<query_tskv1_ip> |
-| A                                                   | `query_tskv2.cnosdb.com` | \<query_tskv2_ip> |
-| ::: |                          |                                                             |
+Please add the following records to your DNS resolution server for communication between instances in your CnosDB cluster.Please contact your network administrator when necessary.
 
-### 启动 `meta` 服务
+| Record type | Hostname                 | IP                                                       |
+| ----------- | ------------------------ | -------------------------------------------------------- |
+| A           | `meta1.cnosdb.com`       | meta1_ip                            |
+| A           | `meta2.cnosdb.com`       | meta2_ip                            |
+| A           | `meta3.cnosdb.com`       | meta3_ip                            |
+| A           | `query_tskv1.cnosdb.com` | query_tskv1_ip |
+| A           | `query_tskv2.cnosdb.com` | query_tskv2_ip |
+
+:::
+
+### Start the `meta` service
 
 #### 1. Edit configuration
 
-默认配置文件位置：`/etc/cnosdb/cnosdb-meta.conf`
+Default configuration file location: `/etc/cnosdb/cnosdb-meta.conf`
 
-将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 `meta` 服务。
+Add the records added in the DNS server to the configuration file, assigning different records to different `meta` services.
 
 ```toml
 host = meta<n>.cnosdb.com
 ```
 
-分配 node_id 给每个 `meta` 服务，id 不能重复。
+Assign a node_id to each `meta` service, the id must not be duplicated.
 
 ```toml
 id = n
 ```
 
-配置完成后的配置文件示例如下：
+The configuration file example after configuration is completed is as follows:
 
 ```toml
 id = n
@@ -128,7 +130,7 @@ port = 8901
 ... ...
 ```
 
-#### 启动服务
+#### Start Service
 
 ```shell
 systemctl start cnosdb-meta
@@ -140,42 +142,42 @@ If it is CentOS 7 and earlier versions and RHEL 7 earlier versions, use the foll
 service cnosdb-meta start
 ```
 
-#### 初始化 `meta` 服务
+#### Initialize `meta` service
 
-> 如果您的集群中有多个 `meta` 服务，只需要在其中一个 `meta` 服务上执行初始化命令即可。
+> If there are multiple `meta` services in your cluster, you only need to execute the initialization command on one of the `meta` services.
 
 ```shell
 curl http://meta1.cnosdb.com:8901/init -d '{}'
 ```
 
-#### 添加其他 `meta` 服务实例
+#### Add other `meta` service instances
 
 ```shell
 curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[2, "meta2.cnosdb.com:8901"]' | jq
 curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[3, "meta3.cnosdb.com:8901"]' | jq
 ```
 
-#### 重置集群成员以使集群生效
+#### Reset cluster members to make the cluster take effect
 
-> 执行以下命令可以修改集群成员，如果您的集群中有多个 `meta` 服务，使用最初执行初始化的节点执行此命令。
+> Executing the following command can modify the cluster members. If there are multiple `meta` services in your cluster, use the node that initially performed the initialization to execute this command.
 
 ```shell
 curl http://meta1.cnosdb.com:8901/change-membership -H "Content-Type: application/json" -d '[1,2,3]' | jq
 ```
 
-#### 查看集群状态
+#### View Cluster Status
 
-分别指定不同的节点，执行以下命令，查看集群状态。
+Specify different nodes separately, perform the following commands to view cluster status.
 
-> 替换命令中的 `<n>` 以指定不通的 `meta` 服务实例。
+> Replace `<n>` in the command to specify a different `meta` service instance.
 
 ```shell
 curl http://meta<n>.cnosdb.com:8901/metrics | jq
 ```
 
-如果集群安装成功，则应该返回以下内容：
+If the cluster installation is successful, the following content should be returned:
 
-> `state` 还有可能是 `Follower`。
+> `state` may also be `Follower`.
 
 ```json
 {
@@ -190,13 +192,13 @@ curl http://meta<n>.cnosdb.com:8901/metrics | jq
 }
 ```
 
-### 启动 `cnosdb` 服务
+### Launch the `cnosdb` service
 
-#### 修改配置文件
+#### Edit profile
 
-`cnosdb` 服务的配置文件位于 `/etc/cnosdb/cnosdb.conf`。
+The configuration file for the `cnosdb` service is located at `/etc/cnosdb/cnosdb.conf`.
 
-将添加在 DNS 服务器中的记录添加到配置文件中，将不同记录分配个不同的 `cnosdb` 服务。
+Add entries to the DNS server to the configuration file and assign different `cnosdb` services to different records.
 
 ```toml
 host = "query_tskv<n>.cnosdb.com"
@@ -221,22 +223,23 @@ license_file = '/etc/cnosdb/license.json'
 
 </Tabs>
 
-修改 `[deployment].mode` 为 `query_tskv` 。
+Change `[deployment].mode` to `query_tskv`.
 
 ```toml
 [deployment]
 mode = "query_tskv"
 ```
 
-修改 `node_id`，`node_id` 不能重复。
+Modify `node_id`, `node_id` cannot be duplicated.
 
 ```toml
 [node_basic]
  node_id = <n>
 ```
 
-修改 `meta` 服务地址。
-`[cluster].name` 需要与 `cnosdb-meta` 配置中的`[meta_init].cluster_name` 相同。
+Change `meta` service address.
+Change `meta` service address.
+`[cluster].name` needs to be the same as `[meta_init].cluster_name` in the `cnosdb-meta` configuration.
 
 ```toml
  [cluster]
@@ -244,7 +247,7 @@ mode = "query_tskv"
  meta_service_addr = ['meta1.cnosdb.com:8901', 'meta2.cnosdb.com:8901', 'meta3.cnosdb.com:8901']
 ```
 
-配置完成后的配置文件示例如下：
+The configuration file example after configuration is completed is as follows:
 
 ```toml
  ... ...
@@ -260,13 +263,13 @@ mode = "query_tskv"
  ... ...
 ```
 
-#### 启动服务
+#### Start Service
 
 ```shell
 systemctl start cnosdb
 ```
 
-如果是 Centos 7 以及之前的版本 和 RHEL 7 之前的版本，使用以下命令启动。
+If it is CentOS 7 and earlier versions and RHEL 7 earlier versions, use the following command to start.
 
 ```shell
 service cnosdb start
