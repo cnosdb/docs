@@ -1,7 +1,5 @@
 ---
-title: 企业版功能
-order: -3
-index: false
+sidebar_position: 7
 ---
 
 # Manage
