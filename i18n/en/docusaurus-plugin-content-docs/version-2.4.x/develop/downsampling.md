@@ -4,9 +4,9 @@ sidebar_position: 4
 
 # Downsampling
 
-The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems. A more natural solution is to reduce the data sample.一个比较自然的解决方案即降低数据样本。
+The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems.A more natural solution would be to lower data samples.
 
-Downsampling refers to the frequency reduction of timeseries data in the time-series databases, and coarse-grained data is obtained after the frequency reduction of originally fine-grained data, so as to save storage costs. The data after downsampling only retains some statistical features of the original data. This chapter describes how to automate data sampling with CnosDB.本章将描述如何使用CnosDB实现自动化数据采样。
+Downsampling in the timing database refers to the downsampling of timing data, the original fine-grained data downsampling to get the coarser-grained data, in order to save storage costs, downsampling data will only retain some statistical characteristics of the original data.This chapter describes how to use CnosDB for automated data sampling.
 
 ### Definition
 
@@ -32,9 +32,9 @@ select * from air limit 5;
 Query took 0.028 seconds.
 ```
 
-### Goal
+### Targets
 
-Assume that the data write frequency of the air table is 1min, but we only want to know the changes of various indicators every 1h, such as the maximum pressure, the average temperature, the sum of temperatures, and the number of data rows in the specified time window. The corresponding sql is created as follows:则创建对应的sql如下：
+Assuming that the frequency of air meter data writing is 1min, but we only want to know the change of each index every 1h, such as the maximum value of the pressure, the average value of the temperature, the sum of the temperature, and the number of data rows in the specified time window.Then the corresponding sql is created as follows:
 
 ```sql
 INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
