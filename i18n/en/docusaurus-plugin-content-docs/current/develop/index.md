@@ -12,7 +12,7 @@ import DocCardList from '@theme/DocCardList';
 <DocCardList />
 ```
 
-其他内容：
+Other Content:
 
 - [ODBC](../reference/connector/arrow_flight_sql.md#different-client-usage)
 - [JDBC](../reference/connector/arrow_flight_sql.md#different-client-usage)
