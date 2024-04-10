@@ -88,6 +88,7 @@ service cnosdb start
 ## 启动集群
 
 :::note
+
 请将以下记录添加到您的 DNS 解析服务器中，以便于 CnosDB 集群中的实例之间进行通信。必要时需要联系您的网络管理员。
 
 | 记录类型      | 主机名 | 主机IP |
@@ -97,6 +98,7 @@ service cnosdb start
 | A           | `meta3.cnosdb.com`       |  <meta3_ip>          |
 | A           | `query_tskv1.cnosdb.com` |  <query_tskv1_ip>    |
 | A           | `query_tskv2.cnosdb.com` |  <query_tskv2_ip>    |
+
 :::
 
 ### 启动 `meta` 服务
