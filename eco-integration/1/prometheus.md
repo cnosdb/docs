@@ -21,10 +21,10 @@ CnosDB 支持Prometheus的Remote Write协议，只需要在 Prometheus 中启动
 ```yaml
 # remote_write cnosdb
 remote_write:
-- url: "http://{db_url}/api/v1/prom/write?db={db_name}"
-basic_auth:
-username: 'root'
-password: ''
+  - url: "http://{db_url}/api/v1/prom/write?db={db_name}"
+    basic_auth:
+    username: 'root'
+    password: ''
 ```
 **参数说明**:
 
@@ -48,11 +48,12 @@ CnosDB 支持 Prometheus 的 Remote Read 协议，只需要在 Prometheus 中启
 ```yaml
 # remote_read cnosdb
 remote_read:
-- url: "http://{db_url}/api/v1/prom/read?db={db_name}"
-basic_auth:
-username: 'root'
-password: ''
+  - url: "http://{db_url}/api/v1/prom/read?db={db_name}"
+    basic_auth:
+    username: 'root'
+    password: ''
 ```
+
 **参数说明**:
 
 ```
