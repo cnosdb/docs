@@ -817,7 +817,7 @@ DESCRIBE DATABASE public;
 [//]: # "WHERE date.id = shop.id)"
 [//]: # "ORDER BY id;"
 [//]: # "```"
-[//]: # "# **DCL (无)**"
+[//]: # "# **DCL (None)**"
 [//]: # "```sql"
 [//]: # "DESCRIBE table_name"
 [//]: # "```"
