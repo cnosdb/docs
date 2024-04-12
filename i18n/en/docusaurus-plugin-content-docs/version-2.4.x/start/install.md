@@ -1,11 +1,11 @@
 ---
-title: 安装
+title: Install
 order: 2
 ---
 
-# 安装
+# Install
 
-Deploy
+This section shows an example of installing CnosDB using [Docker](https://www.docker.com). This is the simplest way to start CnosDB.
 
 :::tip
 For other installation methods, please see [Installing CnosDB](../deploy)
@@ -18,19 +18,19 @@ For other installation methods, please see [Installing CnosDB](../deploy)
 2. Start the container with Docker
 
 ```shell
-docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+  docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
 ```
 
 3. Enter the container
 
 ```shell
-docker exec -it cnosdb sh
+  docker exec -it cnosdb sh
 ```
 
 4. Run `cnosdb-cli`
 
 ```shell
-cnosdb-cli --port 8902
+  cnosdb-cli --port 8902
 ```
 
 It will display the following:
@@ -84,14 +84,14 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
   Successful execution returns the following results:
 
   ```
-    +-------+
-    | Table |
-    +-------+
-    | sea   |
-    | wind  |
-    | air   |
-    +-------+
-    Query took 0.002 seconds.
+  +-------+
+  | Table |
+  +-------+
+  | sea   |
+  | wind  |
+  | air   |
+  +-------+
+  Query took 0.002 seconds.
   ```
 - **Query data**
 
@@ -104,7 +104,6 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
   ```sql
   +---------------------+------------+------------+-------------+----------+
   | time                | station    | visibility | temperature | pressure |
-
   +---------------------+------------+------------+-------------+----------+
   | 2022-01-14 16:00:00 | XiaoMaiDao | 50         | 63          | 52       |
   | 2022-01-14 16:03:00 | XiaoMaiDao | 56         | 62          | 54       |
