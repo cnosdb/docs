@@ -14,7 +14,7 @@ sidebar_position: 2
 coalesce(expression1[, ..., expression_n])
 ```
 
-| Parameters                       | 描述                                                                   |
+| Parameters                       | Description                                                          |
 | -------------------------------- | -------------------------------------------------------------------- |
 | `expression1`,    `expression_n` | 如果前面的表达式为 `null`，则使用的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。根据需要传递尽可能多的表达式参数。 |
 
@@ -52,7 +52,7 @@ SELECT coalesce(temperature, null, station) FROM air;
 nullif(expression1, expression2)
 ```
 
-| Parameters    | 描述                                                        |
+| Parameters    | Description                                               |
 | ------------- | --------------------------------------------------------- |
 | `expression1` | 如果等于 `expression2`，则要比较并返回的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression2` | 要与 `expression1` 进行比较的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。      |
