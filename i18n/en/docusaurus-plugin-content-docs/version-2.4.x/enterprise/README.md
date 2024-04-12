@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Enterprise
+# Enterprise Edition feature
 
 :::tip
 To try out the Enterprise Edition features, please [contact us](https://jinshuju.net/f/qrj9lq).
