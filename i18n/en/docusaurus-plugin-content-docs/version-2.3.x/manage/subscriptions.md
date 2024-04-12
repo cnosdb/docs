@@ -5,7 +5,7 @@ sidebar_position: 5
 # Subscription Distribution Through Telegraf
 
 :::tip
-仅企业版支持
+Only Enterprise Edition supports
 :::
 
 CnosDB 订阅可以将本地端点的数据写入到远程端点，可以和另一个 CnosDB 实例 或 Telegraf 一起使用。CnosDB 订阅使用流量复制的方式进行分发。
