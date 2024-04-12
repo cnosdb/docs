@@ -12,14 +12,14 @@ Currently, the resource isolation of CnosDB is tenant-level. There are two types
 alter tenant <tenant_name> set _limiter '<limiter_json>';
 ```
 
-#### 参数说明
+#### Parameter Description
 
 - tenant_name: The name of the tenant to be set.
 - limiter_json: The content of tenant resource limit, specifically classified as: object limit `object_config` and read and write limit `request_config`, content format must be json format.
 
 #### object_config, object limit, the parameters included are as follows:
 
-| Parameter name                                               | 描述                                                                                                                                                   | Required | 单位  |
+| Parameter name                                               | Description                                                                                                                                          | Required | 单位  |
 | :----------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :-- |
 | max_users_number   | Specifies the maximum number of users (members) to be a tenant; when set to null, it is unbounded.                | Yes      | one |
 | max_databases                           | Specifies the maximum number of databases for each tenant; when set to null, it is unlimited.                                        | Yes      | one |
@@ -41,7 +41,7 @@ alter tenant <tenant_name> set _limiter '<limiter_json>';
 
 #### request_config, read and write limit, the parameters included are as follows:
 
-| Parameter name                | 描述                                                                                                              | Required | 单位   |
+| Parameter name                | Description                                                                                                     | Required | 单位   |
 | :---------------------------- | :-------------------------------------------------------------------------------------------------------------- | :------- | :--- |
 | data_in  | Limit the size of write requests over a period of time; when set to null, it is unbounded.      | Yes      | Byte |
 | data_out | Limit the size of read requests over a period of time; when set to null, it is unbounded.       | Yes      | Byte |
@@ -52,7 +52,7 @@ The `data_in` and `data_out` limits are implemented by the token bucket algorith
 
 #### Parameters of remote_bucket are as follows:
 
-| Parameter name | 描述                                               | 单位  |
+| Parameter name | Description                                      | 单位  |
 | :------------- | :----------------------------------------------- | :-- |
 | max            | Limit the maximum number of tokens in a bucket   | one |
 | initial        | Limit the number of tokens in the initial bucket | one |
@@ -61,7 +61,7 @@ The `data_in` and `data_out` limits are implemented by the token bucket algorith
 
 #### Parameters of local_bucket are as follows:
 
-| Parameters | 描述                                               | 单位  |
+| Parameters | Description                                      | 单位  |
 | :--------- | :----------------------------------------------- | :-- |
 | max        | Limit the maximum number of tokens in a bucket   | one |
 | initial    | Limit the number of tokens in the initial bucket | one |
