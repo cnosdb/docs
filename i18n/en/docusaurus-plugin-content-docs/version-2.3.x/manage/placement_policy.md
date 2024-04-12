@@ -5,7 +5,7 @@ sidebar_position: 12
 # 数据分布策略
 
 :::tip
-仅企业版支持
+Only Enterprise Edition supports
 :::
 
 对于重要的线上生产，需要支持跨区域级别的容灾。CnosDB的多副本特性搭配合理的数据分布策略可以满足这个目标。
