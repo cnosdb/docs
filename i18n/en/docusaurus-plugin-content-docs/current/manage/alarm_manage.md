@@ -17,14 +17,14 @@ CnosDB supports alarm management. Through CnosDB alarm management, you can view 
 The cnos-alert component executes the sql query at regular intervals according to the configuration file submitted by the user, compares the query result with the threshold value, and sends the query result triggering the alarm to the user's specified receiving terminal.
 SQL query:
 Standard cnosdb-sql query statement, considering the usage scenario of alarms, generally comes with a where clause related to time.
-阈值：
-配置时需要指定sql查询返回值的一个字段，为这个字段设置一个触发告警的阈值，目前支持大于、小于、等于、区间内、区间外五类阈值形式。
-通知接收终端：
-目前支持slack、twitter两种。
-历史记录：
-所有触发告警的查询结果、发出的通知都将记录在cnosdb中。
-用户配置的告警规则记录在用户指定位置json文件中。
-![告警组件原理](/img/cnos-alert.png)
+Threshold:
+When configuring, you need to specify a field that the SQL query returns, and set a threshold for triggering an alarm on this field. Currently, five types of threshold forms are supported: greater than, less than, equal to, within range, and outside range.
+Notification receiving terminal：
+currently supports slack, twitter and twitter types.
+History history：
+All queries triggering a warning and notifications will be recorded in cnosdb.
+User configured warning rules are recorded in the user locator json file.
+![Principle of Alarm Component](/img/cnos-alert.png)
 
 ## Start
 
@@ -35,23 +35,23 @@ Standard cnosdb-sql query statement, considering the usage scenario of alarms, g
 ## Configuration（alertserver.yaml）
 
 ```yaml
-query: #cnosdb configuration where the queried data resides
+query: #被查询数据所在cnosdb配置
     nodeHost: 127.0.0.1
     nodePort: 8902
-    authorization: ********* #Only supports base64 encrypted username and password
-alert: #alarm configuration
+    authorization: ********* #仅支持base64加密后的用户名密码
+alert: #告警规则配置持久化配置
     filePath: /etc/alert.json
-store: #cnosdb configuration where the alarm record is stored
+store: #告警、通知记录保存所在cnosdb配置
     nodeHost: 127.0.0.1
     nodePort: 8902
-    authorization: ********* #Only supports base64 encrypted username and password
-    alerttable:  alertrecord #Alarm record table name
-    notitable: notirecord #Notification record table name
+    authorization: ********* #仅支持base64加密后的用户名密码
+    alerttable:  alertrecord #告警记录表名
+    notitable: notirecord #通知记录表明
 ```
 
 ## API Description
 
-### /api/http/ping
+### `/api/http/ping`
 
 **Description**
 
@@ -79,7 +79,7 @@ curl -X GET http:/127.0.0.1:30001/api/http/ping
 curl: error
 ```
 
-### /api/v1/alert/config/rule
+### `/api/v1/alert/config/rule`
 
 **Description**
 
@@ -153,7 +153,7 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
 }
 ```
 
-### /api/v1/alert/config/rule
+### `/api/v1/alert/config/rule`
 
 **Description**
 
@@ -225,7 +225,7 @@ curl -X PUT http:/127.0.0.1:30001/api/v1/alert/config/rule
 }
 ```
 
-### api/v1/alert/config/rule/tenant/:tenant/id/:id
+### `api/v1/alert/config/rule/tenant/:tenant/id/:id`
 
 **Description**
 
@@ -303,7 +303,7 @@ curl -X GET http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 }
 ```
 
-### api/v1/alert/config/rule/tenant/:tenant/id/:id
+### `api/v1/alert/config/rule/tenant/:tenant/id/:id`
 
 **Description**
 
@@ -345,7 +345,7 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb/id/1
 }
 ```
 
-### /api/v1/alert/config/rule/tenant/:tenant
+### `/api/v1/alert/config/rule/tenant/:tenant`
 
 **Description**
 
@@ -398,7 +398,7 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
 }
 ```
 
-### /api/v1/alert/config/rule/tenant/:tenant
+### `/api/v1/alert/config/rule/tenant/:tenant`
 
 **Description**
 
@@ -451,7 +451,7 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/config/rule/tenant/cnosdb?page
 }
 ```
 
-### api/v1/alert/data/alert/tenant/:tenant
+### `api/v1/alert/data/alert/tenant/:tenant`
 
 **Description**
 
@@ -479,9 +479,9 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=
 
 ```shell
 {
-    "data": "[{\"enabled\":1,\"name\":\"cpu new\",\"severity\":\"Medium\",\"time\":\"2023-06-27T09:49:08.441665430\",\"value\":\"{\\\"AVG(cpu.usage_user)\\\":0.2001001001000161,\\\"cpu\\\":\\\"cpu2\\\"}\"}]", # alert record in json string
-    "order": "time, name, severity, value, enabled",  # local can be ignored
-    "total": "628" # alert record total number
+    "data": "[{\"enabled\":1,\"name\":\"cpu new\",\"severity\":\"Medium\",\"time\":\"2023-06-27T09:49:08.441665430\",\"value\":\"{\\\"AVG(cpu.usage_user)\\\":0.2001001001000161,\\\"cpu\\\":\\\"cpu2\\\"}\"}]", # alert记录 json字符串
+    "order": "time, name, severity, value, enabled",  # 本地可无视
+    "total": "628" # alert总量
 }
 ```
 
@@ -495,7 +495,7 @@ curl -X DELETE http:/127.0.0.1:30001/api/v1/alert/data/alert/tenant/cnosdb?page=
 }
 ```
 
-### api/v1/alert/data/noti/tenant/:tenant
+### `api/v1/alert/data/noti/tenant/:tenant`
 
 **Description**
 
