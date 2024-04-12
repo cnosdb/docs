@@ -2,9 +2,7 @@
 sidebar_position: 7
 ---
 
-# Manage
-
-企业版功能：
+# 企业版功能
 
 :::tip
 试用企业版功能，请[联系我们](https://jinshuju.net/f/qrj9lq)。
