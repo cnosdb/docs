@@ -56,7 +56,7 @@ $$
 completeness(time_expresion, numeric_expression)
 ```
 
-| 选项                   | 描述                                 |
+| Options              | Description                        |
 | -------------------- | ---------------------------------- |
 | `time_expresion`     | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 | `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
@@ -87,7 +87,7 @@ SELECT completeness(time, value) FROM wzz;
 consistency(time_expresion, numeric_expression)
 ```
 
-| 选项                   | 描述                                 |
+| Options              | Description                        |
 | -------------------- | ---------------------------------- |
 | `time_expresion`     | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 | `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
@@ -126,7 +126,7 @@ SELECT consistency(time, value) FROM wzz;
 timeliness(time_expresion, numeric_expression)
 ```
 
-| 选项                   | 描述                                 |
+| Options              | Description                        |
 | -------------------- | ---------------------------------- |
 | `time_expresion`     | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 | `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
@@ -165,7 +165,7 @@ SELECT timeliness(time, value) FROM wzz;
 validity(time_expresion, numeric_expression)
 ```
 
-| 选项                   | 描述                                 |
+| Options              | Description                        |
 | -------------------- | ---------------------------------- |
 | `time_expresion`     | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 | `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
