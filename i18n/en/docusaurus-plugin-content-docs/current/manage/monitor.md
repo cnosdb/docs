@@ -12,7 +12,7 @@ If you would like to see more metrics supported by CnosDB, please send an ISSUE 
 
 ### VNODE_DISK_STORAGE
 
-#### 名称
+#### Name
 
 vnode_disk_storage
 
@@ -20,13 +20,13 @@ vnode_disk_storage
 
 Gauge
 
-#### 描述
+#### Description
 
 The disk that the Vnode occupies.
 
 #### Tag
 
-| Field                         | 描述                                    |
+| Field                         | Description                           |
 | ----------------------------- | ------------------------------------- |
 | DATABASE                      | Database vnode belongs to             |
 | NODE_ID  | ID of data node                       |
@@ -36,7 +36,7 @@ The disk that the Vnode occupies.
 
 ### VNODE_CACHE_SIZE
 
-#### 名称
+#### Name
 
 vnode_cache_size
 
@@ -44,13 +44,13 @@ vnode_cache_size
 
 Gauge
 
-#### 描述
+#### Description
 
 The cache size that vnode occupies in bytes.
 
 #### Tag
 
-| Field                         | 描述                                     |
+| Field                         | Description                            |
 | ----------------------------- | -------------------------------------- |
 | DATABASE                      | Database vnode belongs to              |
 | NODE_ID  | ID of data node                        |
@@ -60,7 +60,7 @@ The cache size that vnode occupies in bytes.
 
 ### HTTP_DATA_IN
 
-#### 名称
+#### Name
 
 http_data_in
 
@@ -68,13 +68,13 @@ http_data_in
 
 Count
 
-#### 描述
+#### Description
 
 Data traffic written over http, excluding SQL.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -84,7 +84,7 @@ Data traffic written over http, excluding SQL.
 
 ### HTTP_DATA_OUT
 
-#### 名称
+#### Name
 
 http_data_out
 
@@ -92,13 +92,13 @@ http_data_out
 
 Count
 
-#### 描述
+#### Description
 
 The size of the Http return data
 
 #### Tag
 
-| Field                        | 描述                                          |
+| Field                        | Description                                 |
 | ---------------------------- | ------------------------------------------- |
 | TIME                         | Time of record                              |
 | DATABASE                     | Database name                               |
@@ -110,7 +110,7 @@ The size of the Http return data
 
 ### HTTP_QUERIES
 
-#### 名称
+#### Name
 
 http_queries
 
@@ -118,13 +118,13 @@ http_queries
 
 Count
 
-#### 描述
+#### Description
 
 This metric keeps track of the number of Http queries a user makes.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -135,7 +135,7 @@ This metric keeps track of the number of Http queries a user makes.
 
 ### HTTP_WRITES
 
-#### 名称
+#### Name
 
 http_writes
 
@@ -143,13 +143,13 @@ http_writes
 
 Count
 
-#### 描述
+#### Description
 
 This metric records the number of times a user writes via Http.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -160,7 +160,7 @@ This metric records the number of times a user writes via Http.
 
 ### HTTP_QUERY_DURATION
 
-#### 名称
+#### Name
 
 http_query_duration
 
@@ -168,13 +168,13 @@ http_query_duration
 
 Histogram
 
-#### 描述
+#### Description
 
 Time spent querying through the Http interface.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -186,7 +186,7 @@ Time spent querying through the Http interface.
 
 ### HTTP_WRITE_DURATION
 
-#### 名称
+#### Name
 
 http_write_duration
 
@@ -194,13 +194,13 @@ http_write_duration
 
 Histogram
 
-#### 描述
+#### Description
 
 Time taken to write through the Http interface.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -212,7 +212,7 @@ Time taken to write through the Http interface.
 
 ### COORD_DATA_IN
 
-#### 名称
+#### Name
 
 coord_data_in
 
@@ -220,13 +220,13 @@ coord_data_in
 
 Count
 
-#### 描述
+#### Description
 
 Total size of the data accepted by the Coordinator when the data is written to the database.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -236,7 +236,7 @@ Total size of the data accepted by the Coordinator when the data is written to t
 
 ### COORD_DATA_OUT
 
-#### 名称
+#### Name
 
 coord_data_out
 
@@ -244,13 +244,13 @@ coord_data_out
 
 Count
 
-#### 描述
+#### Description
 
 Total size of the data sent by the Coordinator when the data is read out of the database.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -260,7 +260,7 @@ Total size of the data sent by the Coordinator when the data is read out of the 
 
 ### COORD_QUERIES
 
-#### 名称
+#### Name
 
 coord_queries
 
@@ -268,13 +268,13 @@ coord_queries
 
 Count
 
-#### 描述
+#### Description
 
 The number of times the data passes through the Coordinator during the query.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -284,7 +284,7 @@ The number of times the data passes through the Coordinator during the query.
 
 ### COORD_WRITES
 
-#### 名称
+#### Name
 
 coord_writes
 
@@ -292,13 +292,13 @@ coord_writes
 
 Count
 
-#### 描述
+#### Description
 
 The number of times the data passes through the Coordinator during writing.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -308,7 +308,7 @@ The number of times the data passes through the Coordinator during writing.
 
 ### SQL_DATA_IN
 
-#### 名称
+#### Name
 
 sql_data_in
 
@@ -316,13 +316,13 @@ sql_data_in
 
 Count
 
-#### 描述
+#### Description
 
 The size of the data written via sql, including INSERT, COPY statements
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of record                      |
 | DATABASE                     | Database name                       |
@@ -342,7 +342,7 @@ scrape_configs:
       - targets: ['127.0.0.1:8902']
 ```
 
-#### 参数说明
+#### Parameter Description
 
 `targets` is the adderss of CnosDB Http.
 
