@@ -21,7 +21,7 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
        [_limiter = <limiter_config>]];
 ```
 
-| 选项           | 描述                                                      |
+| Options      | Description                                             |
 | ------------ | ------------------------------------------------------- |
 | `drop_after` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d`       |
 | `_limiter`   | 限制租户资源用量，详细内容请参考 [租户资源](../../manage/resource_limit.md) |
@@ -49,7 +49,7 @@ CREATE USER [IF NOT EXISTS] user_name
 [GRANTED_ADMIN=true,] [COMMENT = '']];
 ```
 
-| 选项                     | 描述                                    |
+| Options                | Description                           |
 | ---------------------- | ------------------------------------- |
 | `MUST_CHANGE_PASSWORD` | 第一次登录时是否需要更改密码，默认为 `false`。           |
 | `GRANTED_ADMIN`        | 用户是否为 `admin` 用户，`admin` 用于整个实例的所有权限。 |
@@ -74,7 +74,7 @@ CREATE USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true,
 CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
-| 选项       | 描述                                      |
+| Options  | Description                             |
 | -------- | --------------------------------------- |
 | `owner`  | 租户下默认的角色，创建新角色时必需继承 `owner` 或 `member`。 |
 | `member` | 租户下默认的角色，创建新角色时必需继承 `owner` 或 `member`。 |
@@ -101,7 +101,7 @@ sql_option: option_name = value
 option: {COMMENT/DROP_AFTER/_LIMITER}
 ```
 
-| 选项      | 描述           |
+| Options | Description  |
 | ------- | ------------ |
 | `SET`   | 为租户添加或修改属性。  |
 | `UNSET` | 撤销租户内的配置或属性。 |
@@ -128,9 +128,9 @@ sql_option: option_name = option_value
 option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
-| 选项    | 描述          |
-| ----- | ----------- |
-| `SET` | 为租户添加或修改属性。 |
+| Options | Description |
+| ------- | ----------- |
+| `SET`   | 为租户添加或修改属性。 |
 
 <details>
   <summary>查看示例</summary>
@@ -153,7 +153,7 @@ DROP TENANT 用于删除租户（tenant）及其相关的数据和配置。
 DROP TENANT tenant_name [AFTER duration];
 ```
 
-| 选项      | 描述                                                                                                           |
+| Options | Description                                                                                                  |
 | ------- | ------------------------------------------------------------------------------------------------------------ |
 | `ALTER` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d`，删除期间租户会被禁用，`ALTER` 的优先级高于 `CREATE TANANT` 中的 `DROP_AFTER`。 |
 
@@ -216,7 +216,7 @@ DROP USER IF EXISTS tester;
 
 权限支持的粒度如下
 
-| 选项      | 描述           |
+| Options | Description  |
 | ------- | ------------ |
 | `READ`  | 对数据库读的权限。    |
 | `WRITE` | 对数据库读写的权限。   |
