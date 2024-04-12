@@ -14,7 +14,7 @@ sidebar_position: 1
 abs(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -40,7 +40,7 @@ SELECT abs(-10);
 acos(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -66,7 +66,7 @@ SELECT acos(0.5);
 acosh(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -92,7 +92,7 @@ SELECT acosh(10);
 asin(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -118,7 +118,7 @@ SELECT asin(1);
 asinh(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -144,7 +144,7 @@ SELECT asinh(1);
 atan(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -170,7 +170,7 @@ SELECT atan(1);
 atanh(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -196,7 +196,7 @@ SELECT atanh(0.3);
 atan2(expression_y, expression_x)
 ```
 
-| Parameters     | 描述                                    |
+| Parameters     | Description                           |
 | -------------- | ------------------------------------- |
 | `expression_y` | 要操作的第一个数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 | `expression_x` | 要操作的第二个数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
@@ -223,7 +223,7 @@ SELECT atan2(10, 2);
 cbrt(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -249,7 +249,7 @@ SELECT cbrt(8);
 ceil(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -275,7 +275,7 @@ SELECT ceil(1.6);
 cos(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -301,7 +301,7 @@ SELECT cos(1);
 cosh(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -327,7 +327,7 @@ SELECT cosh(2);
 exp(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -353,7 +353,7 @@ SELECT exp(1);
 factorial(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -379,7 +379,7 @@ SELECT factorial(5);
 floor(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -405,7 +405,7 @@ SELECT floor(-3.1);
 gcd(expression_x, expression_y)
 ```
 
-| Parameters     | 描述                         |
+| Parameters     | Description                |
 | -------------- | -------------------------- |
 | `expression_x` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。 |
@@ -432,7 +432,7 @@ SELECT gcd(24,36);
 lcm(expression_x, expression_y)
 ```
 
-| Parameters     | 描述                         |
+| Parameters     | Description                |
 | -------------- | -------------------------- |
 | `expression_x` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。 |
@@ -459,7 +459,7 @@ SELECT lcm(4, 7);
 ln(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -486,7 +486,7 @@ log(base, numeric_expression)
 log(numeric_expression)
 ```
 
-| Parameters           | 描述                                   |
+| Parameters           | Description                          |
 | -------------------- | ------------------------------------ |
 | `base`               | 基数：可以是常数、列或函数，也可以是算术运算符的任意组合。        |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -513,7 +513,7 @@ SELECT log(10, 2);
 log10(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -539,7 +539,7 @@ SELECT log10(2);
 log2(numeric_expression)
 ```
 
-| Parameters           | 描述                                 |
+| Parameters           | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -587,7 +587,7 @@ SELECT pi();
 power(base, exponent)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `base`     | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。   |
 | `exponent` | 要运算的指数数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
@@ -618,7 +618,7 @@ SELECT power(10, 2);
 radians(numeric_expression)
 ```
 
-| Parameters           | 描述                                   |
+| Parameters           | Description                          |
 | -------------------- | ------------------------------------ |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -666,7 +666,7 @@ SELECT random();
 round(numeric_expression[, decimal_places])
 ```
 
-| Parameters           | 描述                                   |
+| Parameters           | Description                          |
 | -------------------- | ------------------------------------ |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `decimal_places`     | 小数位：可选。要舍入的小数位数。默认为 0。               |
@@ -693,7 +693,7 @@ SELECT round(2.3);
 signum(numeric_expression)
 ```
 
-| Parameters           | 描述                         |
+| Parameters           | Description                |
 | -------------------- | -------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -719,7 +719,7 @@ SELECT signum(10);
 sin(numeric_expression)
 ```
 
-| Parameters           | 描述                         |
+| Parameters           | Description                |
 | -------------------- | -------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -746,7 +746,7 @@ SELECT sin(5);
 sinh(numeric_expression)
 ```
 
-| Parameters           | 描述                         |
+| Parameters           | Description                |
 | -------------------- | -------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -772,7 +772,7 @@ SELECT sinh(2);
 sqrt(numeric_expression)
 ```
 
-| Parameters           | 描述                         |
+| Parameters           | Description                |
 | -------------------- | -------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -798,7 +798,7 @@ SELECT sqrt(25);
 tan(numeric_expression)
 ```
 
-| Parameters           | 描述                         |
+| Parameters           | Description                |
 | -------------------- | -------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -824,7 +824,7 @@ SELECT tan(10);
 tanh(numeric_expression)
 ```
 
-| Parameters           | 描述                         |
+| Parameters           | Description                |
 | -------------------- | -------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -850,7 +850,7 @@ SELECT tanh(10);
 trunc(numeric_expression[, decimal_places])
 ```
 
-| Parameters           | 描述                                                                                                       |
+| Parameters           | Description                                                                                              |
 | -------------------- | -------------------------------------------------------------------------------------------------------- |
 | `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。                                                                               |
 | `decimal_places`     | 小数位：可选。要截断到的小数位数。默认为 0（截断为整数）。如果`decimal_places`是正整数，则截断小数点右侧的数字。如果`decimal_places`是负整数，则用`0`替换小数点左边的数字。 |
