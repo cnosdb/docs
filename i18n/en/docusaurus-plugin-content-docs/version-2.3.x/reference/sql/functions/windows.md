@@ -221,7 +221,7 @@ nth_value(expression, n)
 time_window(time_expression, window_duration [, slide_duration])
 ```
 
-| 选项                | 描述                                                           |
+| Options           | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
 | `time_expression` | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。                           |
 | `window_duration` | 设置时间窗口的长度。请参考 [持续时间单位](../reference#持续时间单位)。                 |
