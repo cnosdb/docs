@@ -9,7 +9,7 @@ order: 1
 
 cnos-connector is fully open source and the source code is located on [GitHub](https://github.com/cnosdb/cnosdb-client-python).
 
-### 安装
+### Install
 
 Download and install cnos-connector using pip, which requires Python version greater than or equal to 3.6
 
