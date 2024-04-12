@@ -2,7 +2,7 @@
 
 ## Status Code
 
-| Status Code | 描述                                                                                                               |
+| Status Code | Description                                                                                                      |
 | ----------- | ---------------------------------------------------------------------------------------------------------------- |
 | 200         | Body                                                                                                             |
 | 204         | Request successful, asynchronous operation called successfully, no request result returned.      |
