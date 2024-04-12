@@ -580,10 +580,10 @@ SHOW QUERIES;
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
 
-| 选项        | 描述      |
-| --------- | ------- |
-| `ANALYZE` | 执行查询。   |
-| `VERBOSE` | 显示详细信息。 |
+| Options   | Description |
+| --------- | ----------- |
+| `ANALYZE` | 执行查询。       |
+| `VERBOSE` | 显示详细信息。     |
 
 \*\*返回语句的执行计划。**Example**
 
