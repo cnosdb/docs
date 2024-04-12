@@ -12,7 +12,7 @@ If you would like to see more metrics supported by CnosDB, please send an ISSUE 
 
 ### VNODE_DISK_STORAGE
 
-#### 名称
+#### Name
 
 vnode_disk_storage
 
@@ -20,13 +20,13 @@ vnode_disk_storage
 
 Gauge
 
-#### 描述
+#### Description
 
 The disk that the Vnode occupies.
 
 #### Tag
 
-| Field                         | 描述                                    |
+| Field                         | Description                           |
 | ----------------------------- | ------------------------------------- |
 | DATABASE                      | Database vnode belongs to             |
 | NODE_ID  | ID of data node                       |
@@ -36,7 +36,7 @@ The disk that the Vnode occupies.
 
 ### VNODE_CACHE_SIZE
 
-#### 名称
+#### Name
 
 vnode_cache_size
 
@@ -44,13 +44,13 @@ vnode_cache_size
 
 Gauge
 
-#### 描述
+#### Description
 
 The cache size that vnode occupies in bytes.
 
 #### Tag
 
-| Field                         | 描述                                     |
+| Field                         | Description                            |
 | ----------------------------- | -------------------------------------- |
 | DATABASE                      | Database vnode belongs to              |
 | NODE_ID  | ID of data node                        |
@@ -60,7 +60,7 @@ The cache size that vnode occupies in bytes.
 
 ### WRITE_DATA_IN
 
-#### 名称
+#### Name
 
 write_data_in
 
@@ -68,13 +68,13 @@ write_data_in
 
 Count
 
-#### 描述
+#### Description
 
 Data traffic written over http, excluding SQL.
 
 #### Tag
 
-| Field                        | 描述                                   |
+| Field                        | Description                          |
 | ---------------------------- | ------------------------------------ |
 | TIME                         | Time of data_in |
 | DATABASE                     | Database name                        |
@@ -84,7 +84,7 @@ Data traffic written over http, excluding SQL.
 
 ### SQL_DATA_IN
 
-#### 名称
+#### Name
 
 sql_data_in
 
@@ -92,13 +92,13 @@ sql_data_in
 
 Count
 
-#### 描述
+#### Description
 
 Data traffic written by sql, including INSERT, COPY statements.
 
 #### Tag
 
-| Field                        | 描述                                   |
+| Field                        | Description                          |
 | ---------------------------- | ------------------------------------ |
 | TIME                         | Time of data_in |
 | DATABASE                     | Database name                        |
@@ -108,7 +108,7 @@ Data traffic written by sql, including INSERT, COPY statements.
 
 ### COORD_DATA_IN
 
-#### 名称
+#### Name
 
 coord_data_in
 
@@ -116,13 +116,13 @@ coord_data_in
 
 Count
 
-#### 描述
+#### Description
 
 The total size of the written traffic when data is written to the database.
 
 #### Tag
 
-| Field                        | 描述                                   |
+| Field                        | Description                          |
 | ---------------------------- | ------------------------------------ |
 | TIME                         | Time of data_in |
 | DATABASE                     | Database name                        |
@@ -132,7 +132,7 @@ The total size of the written traffic when data is written to the database.
 
 ### COORD_DATA_OUT
 
-#### 名称
+#### Name
 
 coord_data_out
 
@@ -140,13 +140,13 @@ coord_data_out
 
 Count
 
-#### 描述
+#### Description
 
 Total outflow traffic for reading data from the database.
 
 #### Tag
 
-| Field                        | 描述                                          |
+| Field                        | Description                                 |
 | ---------------------------- | ------------------------------------------- |
 | TIME                         | Time of data out                            |
 | DATABASE                     | Database name                               |
@@ -156,7 +156,7 @@ Total outflow traffic for reading data from the database.
 
 ### HTTP_DATA_OUT
 
-#### 名称
+#### Name
 
 http_data_out
 
@@ -164,13 +164,13 @@ http_data_out
 
 Count
 
-#### 描述
+#### Description
 
 The size of the Http return data
 
 #### Tag
 
-| Field                        | 描述                                                              |
+| Field                        | Description                                                     |
 | ---------------------------- | --------------------------------------------------------------- |
 | TIME                         | Time of http_data_out |
 | DATABASE                     | Database name                                                   |
@@ -182,7 +182,7 @@ The size of the Http return data
 
 ### USER_QUERIES
 
-#### 名称
+#### Name
 
 user_queries
 
@@ -190,13 +190,13 @@ user_queries
 
 Count
 
-#### 描述
+#### Description
 
 The times the user queries from the database.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of queries                     |
 | DATABASE                     | Database name                       |
@@ -207,7 +207,7 @@ The times the user queries from the database.
 
 ### USER_WRITES
 
-#### 名称
+#### Name
 
 user_writes
 
@@ -215,13 +215,13 @@ user_writes
 
 Count
 
-#### 描述
+#### Description
 
 The times the user writes to the database.
 
 #### Tag
 
-| Field                        | 描述                                  |
+| Field                        | Description                         |
 | ---------------------------- | ----------------------------------- |
 | TIME                         | Time of writes                      |
 | DATABASE                     | Database name                       |
@@ -242,7 +242,7 @@ scrape_configs:
       - targets: ['127.0.0.1:8902']
 ```
 
-#### 参数说明
+#### Parameter Description
 
 `targets` is the adderss of CnosDB Http.
 
