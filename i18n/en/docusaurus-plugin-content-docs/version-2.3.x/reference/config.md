@@ -39,7 +39,7 @@ Whether to enable Wal, default: false
 
 <TabItem value="Community" label="社区版">
 
-| Parameters                              | 默认                                        | 描述                                                                                                                          |
+| Parameters                              | 默认                                        | Description                                                                                                                 |
 | --------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | reporting_disabled | `false`                                   | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
 | `host` Node host.       | `host`: host of Meta node | 用来和其他节点通信。                                                                                                                  |
@@ -48,7 +48,7 @@ Whether to enable Wal, default: false
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                              | 默认                                        | 描述                                                                                                                          |
+| Parameters                              | 默认                                        | Description                                                                                                                 |
 | --------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | reporting_disabled | `false`                                   | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
 | `host` Node host.       | `host`: host of Meta node | 用来和其他节点通信。                                                                                                                  |
@@ -60,7 +60,7 @@ Whether to enable Wal, default: false
 
 ### \[deployment]
 
-| Parameters | 默认                                      | 描述                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Parameters | 默认                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ---------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | mode       | `[query]` query interface configuration | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv`  `tskv` : Deploying only tskv engine requires specifying a meta address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
 | cpu        | `10`                                    | 节点运行所使用的 cpu 核数                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -68,7 +68,7 @@ Whether to enable Wal, default: false
 
 ### \[query]
 
-| Parameters                                                       | 默认          | 描述                                                                                                                       |
+| Parameters                                                       | 默认          | Description                                                                                                              |
 | ---------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ |
 | max_server_connections | `10240`     | 最大并发连接请求数。                                                                                                               |
 | query_sql_limit        | `16777216`  | 每个 SQL 查询请求的最大字节数，单位：Bytes                                                                                               |
@@ -81,7 +81,7 @@ Whether to enable Wal, default: false
 
 ### \[storage]
 
-| Parameters                                                                                                                                                                                          | 默认                                                                     | 描述                                                                                                       |
+| Parameters                                                                                                                                                                                          | 默认                                                                     | Description                                                                                              |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | path                                                                                                                                                                                                | HintedOff storage directory, default: `/tmp/cnosdb/hh` | Data storage location                                                                                    |
 | max_summary_size                                                                                                                                          | `128M`                                                                 | 单个 Summary 日志的最大大小。                                                                                      |
@@ -98,7 +98,7 @@ Whether to enable Wal, default: false
 
 ### \[wal]
 
-| Parameters                                                                         | 默认                    | 描述                                                                                                                                   |
+| Parameters                                                                         | 默认                    | Description                                                                                                                          |
 | ---------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | enabled                                                                            | `true`                | 是否启用 WAL。                                                                                                                            |
 | path                                                                               | `/var/lib/cnosdb/wal` | WAL 存储目录。                                                                                                                            |
@@ -110,7 +110,7 @@ Whether to enable Wal, default: false
 
 ### \[cache]
 
-| Parameters                                                     | 默认         | 描述               |
+| Parameters                                                     | 默认         | Description      |
 | -------------------------------------------------------------- | ---------- | ---------------- |
 | max_buffer_size      | `128M`     | 最大的活跃缓存大小。       |
 | max_immutable_number | `4`        | 最大的非活跃缓存数量。      |
@@ -118,7 +118,7 @@ Whether to enable Wal, default: false
 
 ### \[log]
 
-| Parameters    | 默认                                                  | 描述                                                             |
+| Parameters    | 默认                                                  | Description                                                    |
 | ------------- | --------------------------------------------------- | -------------------------------------------------------------- |
 | level         | `info`                                              | Log level（debug、info、error、warn, default: info |
 | path          | log storage path,default:`data/log` | Remote log path                                                |
@@ -126,20 +126,20 @@ Whether to enable Wal, default: false
 
 ### \[security]
 
-| Parameters                      | 默认 | 描述                          |
+| Parameters                      | 默认 | Description                 |
 | ------------------------------- | -- | --------------------------- |
 | tls_config | 无  | Optional, TLS configuration |
 
 ### \[security.tls_config]
 
-| Parameters                       | 默认 | 描述                      |
+| Parameters                       | 默认 | Description             |
 | -------------------------------- | -- | ----------------------- |
 | certificate                      | 无  | TLS service certificate |
 | private_key | 无  | TLS service private key |
 
 ### \[cluster]
 
-| Parameters                                                                                        | 默认               | 描述                                        |
+| Parameters                                                                                        | 默认               | Description                               |
 | ------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------- |
 | `name`                                                                                            | ClusterName      | name                                      |
 | `[meta_init]`: example initializes related configuration information of Meta node | `127.0.0.1:8901` | Remote Meta Service port                  |
@@ -151,7 +151,7 @@ Whether to enable Wal, default: false
 
 ### \[hintedoff]
 
-| Parameters | 默认                   | 描述                                                              |
+| Parameters | 默认                   | Description                                                     |
 | ---------- | -------------------- | --------------------------------------------------------------- |
 | `enable`   | `true`               | Is the HIntedOff service enabled, default: true |
 | path       | `/var/lib/cnosdb/hh` | HintedOff 存储目录。                                                 |
@@ -167,7 +167,7 @@ Whether to enable Wal, default: false
 
 ### \[subscription]
 
-| Parameters  | 默认     | 描述                                                                                               |
+| Parameters  | 默认     | Description                                                                                      |
 | ----------- | ------ | ------------------------------------------------------------------------------------------------ |
 | cache       | `1024` | cache size (bit) before sending and forwarding, default: 1028 |
 | concurrency | `8`    | 处理转发请求的并发数。                                                                                      |
@@ -179,7 +179,7 @@ Whether to enable Wal, default: false
 
 ### \[heartbeat]
 
-| Parameters                                                                               | 默认   | 描述                                    |
+| Parameters                                                                               | 默认   | Description                           |
 | ---------------------------------------------------------------------------------------- | ---- | ------------------------------------- |
 | report_time_interval_secs | `30` | 此节点上报心跳、磁盘余量等信息到 `meta` 服务的时间间隔，单位：秒。 |
 
@@ -188,7 +188,7 @@ Whether to enable Wal, default: false
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
 
-| Parameters                                                 | 默认      | 描述                                                   |
+| Parameters                                                 | 默认      | Description                                          |
 | ---------------------------------------------------------- | ------- | ---------------------------------------------------- |
 | node_id                               | `1001`  | Interval for checking the heartbeat status of a node |
 | cold_data_server | `false` | 是否停止在此节点上创建 Vnode。                                   |
@@ -198,7 +198,7 @@ Whether to enable Wal, default: false
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                                                 | 默认        | 描述                                                   |
+| Parameters                                                 | 默认        | Description                                          |
 | ---------------------------------------------------------- | --------- | ---------------------------------------------------- |
 | node_id                               | `1001`    | Interval for checking the heartbeat status of a node |
 | cold_data_server | `false`   | 是否停止在此节点上创建 Vnode。                                   |
@@ -211,13 +211,13 @@ Whether to enable Wal, default: false
 
 ### \[trace]
 
-| Parameters                                                   | 默认      | 描述                                                                                                                                   |
+| Parameters                                                   | 默认      | Description                                                                                                                          |
 | ------------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | auto_generate_span | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
 ### \[trace.log] (optional)
 
-| Parameters | 默认 | 描述                  |
+| Parameters | 默认 | Description         |
 | ---------- | -- | ------------------- |
 | path       | 无  | trace log file path |
 
@@ -237,7 +237,7 @@ Whether to enable Wal, default: false
 
 <TabItem value="Community" label="社区版">
 
-| Parameters                                                    | 默认                              | 描述                                                                              |
+| Parameters                                                    | 默认                              | Description                                                                     |
 | ------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------- |
 | Node ID                                                       | `1`                             | `id` : id of Meta node, the value must be unique in the cluster |
 | host                                                          | `127.0.0.1`                     | 用于和其他节点通信的 `host`                                                               |
@@ -250,7 +250,7 @@ Whether to enable Wal, default: false
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                                                                                        | 默认                              | 描述                                                                              |
+| Parameters                                                                                        | 默认                              | Description                                                                     |
 | ------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------- |
 | `id`                                                                                              | `1`                             | `id` : id of Meta node, the value must be unique in the cluster |
 | `host` Node host.                                                                 | `127.0.0.1`                     | 用于和其他节点通信的 `host`                                                               |
@@ -267,14 +267,14 @@ Whether to enable Wal, default: false
 
 ### \[log]
 
-| Parameters | 默认                                                  | 描述                                                             |
+| Parameters | 默认                                                  | Description                                                    |
 | ---------- | --------------------------------------------------- | -------------------------------------------------------------- |
 | level      | `info`                                              | Log level（debug、info、error、warn, default: info |
 | path       | log storage path,default:`data/log` | Remote log path                                                |
 
 ### \[meta_init]
 
-| Parameters                            | 默认                          | 描述                                    |
+| Parameters                            | 默认                          | Description                           |
 | ------------------------------------- | --------------------------- | ------------------------------------- |
 | cluster_name     | ClusterName                 | Cluster Name                          |
 | admin_user       | `root`                      | User name of the system administrator |
@@ -283,7 +283,7 @@ Whether to enable Wal, default: false
 
 ### \[heartbeat]
 
-| Parameters                                                           | 默认  | 描述                        |
+| Parameters                                                           | 默认  | Description               |
 | -------------------------------------------------------------------- | --- | ------------------------- |
 | heartbeat_recheck_interval | 300 | 多久检查一次CnosDB节点的状态，单位：秒。   |
 | heartbeat_expired_interval | 300 | CnosDB节点多久未上报心跳认定异常，单位：秒。 |
