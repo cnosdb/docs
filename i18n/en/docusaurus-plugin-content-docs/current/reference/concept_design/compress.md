@@ -113,7 +113,7 @@ Compared with several other algorithms, the compression rate is higher, but the 
 ### Lossy Compression Algorithm
 
 :::tip
-仅企业版支持
+Only Enterprise Edition supports
 :::
 
 #### SDT Compression Algorithm
