@@ -14,9 +14,9 @@ CnosDB supports alarm management. Through CnosDB alarm management, you can view 
 
 ## Principle of Implementation
 
-For the time series data stored in CnosDB, cnos-alert component executes sql query regularly according to the configuration file submitted by the user, compares the query result with the threshold, and sends the query result that triggers the alarm to the user specified receiving terminal.
-sql查询：
-标准的cnosdb-sql查询语句，考虑到告警的使用场景，一般都是带有time相关where子句。
+The cnos-alert component executes the sql query at regular intervals according to the configuration file submitted by the user, compares the query result with the threshold value, and sends the query result triggering the alarm to the user's specified receiving terminal.
+SQL query:
+Standard cnosdb-sql query statement, considering the usage scenario of alarms, generally comes with a where clause related to time.
 阈值：
 配置时需要指定sql查询返回值的一个字段，为这个字段设置一个触发告警的阈值，目前支持大于、小于、等于、区间内、区间外五类阈值形式。
 通知接收终端：
