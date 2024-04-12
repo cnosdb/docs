@@ -19,7 +19,7 @@ import TabItem from '@theme/TabItem';
 avg(expression)
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -46,7 +46,7 @@ SELECT station, avg(temperature) FROM air group by station;
 count(expression)
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -73,7 +73,7 @@ SELECT station, count(temperature) FROM air group by station;
 max(expression)
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -105,7 +105,7 @@ SELECT station, max(temperature) FROM air group by station;
 median(expression)
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -131,7 +131,7 @@ SELECT  median(temperature) FROM air;
 min(expression)
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -157,7 +157,7 @@ SELECT  min(temperature) FROM air;
 sum(expression)
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -184,7 +184,7 @@ Query took 0.035 seconds.
 array_agg(expression [ORDER BY expression])
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -257,7 +257,7 @@ SELECT array_agg(temperature ORDER BY temperature ASC) from sample;
 first_value(expression [ORDER BY expression])
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -284,7 +284,7 @@ SELECT station, first_value(temperature ORDER BY time) FROM air GROUP BY station
 last_value(expression [ORDER BY expression])
 ```
 
-| Parameters   | 描述                                     |
+| Parameters   | Description                            |
 | ------------ | -------------------------------------- |
 | `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 
@@ -311,7 +311,7 @@ SELECT station, last_value(temperature ORDER BY time) FROM air GROUP BY station;
 increase(time_expression, expression ORDER BY time_expression)
 ```
 
-| Parameters        | 描述                                     |
+| Parameters        | Description                            |
 | ----------------- | -------------------------------------- |
 | `time_expression` | 必需为 `time` 列。                          |
 | `expression`      | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -341,7 +341,7 @@ SELECT station, INCREASE(time, temperature ORDER BY time) FROM air GROUP BY stat
 corr(expression1, expression2)
 ```
 
-| Parameters    | 描述                                    |
+| Parameters    | Description                           |
 | ------------- | ------------------------------------- |
 | `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -368,7 +368,7 @@ SELECT corr(temperature, pressure) FROM air;
 covar(expression1, expression2)
 ```
 
-| Parameters    | 描述                                    |
+| Parameters    | Description                           |
 | ------------- | ------------------------------------- |
 | `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -395,7 +395,7 @@ SELECT covar(temperature, pressure) FROM air;
 covar_pop(expression1, expression2)
 ```
 
-| Parameters    | 描述                                    |
+| Parameters    | Description                           |
 | ------------- | ------------------------------------- |
 | `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -422,7 +422,7 @@ SELECT covar_pop(temperature, pressure) FROM air;
 covar_samp(expression1, expression2)
 ```
 
-| Parameters    | 描述                                    |
+| Parameters    | Description                           |
 | ------------- | ------------------------------------- |
 | `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
 | `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -449,7 +449,7 @@ SELECT covar_samp(temperature, pressure) FROM air;
 stddev(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -475,7 +475,7 @@ SELECT stddev(temperature) FROM air;
 stddev_pop(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -501,7 +501,7 @@ SELECT stddev_pop(temperature) FROM air;
 stddev_samp(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -527,7 +527,7 @@ SELECT stddev_samp(temperature) FROM air;
 var(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -553,7 +553,7 @@ SELECT var(temperature) FROM air;
 var_pop(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -579,7 +579,7 @@ SELECT var_pop(temperature) FROM air;
 var_samp(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -607,7 +607,7 @@ SELECT var_samp(temperature) FROM air;
 approx_distinct(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -635,7 +635,7 @@ SELECT approx_distinct(station) AS approx_unique_station FROM air;
 approx_median(expression)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 
@@ -661,7 +661,7 @@ SELECT approx_median(temperature) as approx_median_temperature FROM air;
 approx_percentile_cont(expression, percentile, centroids)
 ```
 
-| Parameters   | 描述                              |
+| Parameters   | Description                     |
 | ------------ | ------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
 | `percentile` | 要计算的百分位数。必须是 0 到 1（含）之间的浮点值。    |
@@ -693,7 +693,7 @@ SELECT approx_percentile_cont(temperature, 0.1,100) FROM air;
 approx_percentile_cont_with_weight(expression, weight, percentile)
 ```
 
-| Parameters   | 描述                                  |
+| Parameters   | Description                         |
 | ------------ | ----------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合     |
 | `weight`     | 用作权重的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
@@ -725,7 +725,7 @@ SELECT approx_percentile_cont_with_weight(temperature, 0.1,0.5) FROM air;
 sample(expression, n)
 ```
 
-| Parameters   | 描述                 |
+| Parameters   | Description        |
 | ------------ | ------------------ |
 | `expression` | 要操作的表达式。必需是表中的某一列。 |
 | `n`          | 要返回的记录数量。          |
@@ -759,7 +759,7 @@ SELECT sample(temperature, 5) FROM air;
 asap_smooth(time, value, resolution ORDER BY time)
 ```
 
-| Parameters   | 描述                    |
+| Parameters   | Description           |
 | ------------ | --------------------- |
 | `time`       | 每个数据点的时间戳。            |
 | `value`      | 每个时间戳的值。              |
