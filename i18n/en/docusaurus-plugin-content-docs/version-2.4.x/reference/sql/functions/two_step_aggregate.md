@@ -31,10 +31,10 @@ import TabItem from '@theme/TabItem';
 stats_agg(y, x)
 ```
 
-| 选项  | 描述                 |
-| --- | ------------------ |
-| `y` | 要进行统计聚合的数据集中的`y`值。 |
-| `x` | 要进行统计聚合的数据集中的`x`值。 |
+| Options | Description        |
+| ------- | ------------------ |
+| `y`     | 要进行统计聚合的数据集中的`y`值。 |
+| `x`     | 要进行统计聚合的数据集中的`x`值。 |
 
 <details>
   <summary>查看 <code>stats_agg</code> 示例</summary>
@@ -91,7 +91,7 @@ SELECT stats_agg(y, x) FROM test_stats;
 
 **`stats_agg` 支持以下二次聚合的函数**
 
-| 函数                                   | 描述                                |
+| 函数                                   | Description                       |
 | ------------------------------------ | --------------------------------- |
 | `num_vals`                           | 计算二维统计总量中的数值个数。                   |
 | `average_y`, `average_x`             | 计算二维统计聚合后指定维度的平均值。                |
@@ -137,7 +137,7 @@ SELECT stddev_samp_x(stats_agg(y, x)) FROM test_stats;
 gauge_agg(time, numeric_expression)
 ```
 
-| 选项                   | 描述                                 |
+| Options              | Description                        |
 | -------------------- | ---------------------------------- |
 | `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -163,7 +163,7 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 
 <TabItem value="Community" label="社区版">
 
-| 函数             | 描述                                            |
+| 函数             | Description                                   |
 | -------------- | --------------------------------------------- |
 | `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。 |
 | `time_delta`   | 获取持续时间，最后一个 Gauge 的时间减去第一个 Gauge 的时间。         |
@@ -175,7 +175,7 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 
 <TabItem value="Enterprise" label="企业版">
 
-| 函数             | 描述                                            |
+| 函数             | Description                                   |
 | -------------- | --------------------------------------------- |
 | `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。 |
 | `time_delta`   | 获取持续时间，最后一个 Gauge 的时间减去第一个 Gauge 的时间。         |
@@ -199,7 +199,7 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 compact_state_agg(time_expression, state)
 ```
 
-| 选项                | 描述                                 |
+| Options           | Description                        |
 | ----------------- | ---------------------------------- |
 | `time_expression` | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -239,7 +239,7 @@ SELECT compact_state_agg(time, state) FROM states;
 
 **以上示例将状态数据汇总在一起，以便进一步分析，`compact_state_agg` 支持如下二次聚合函数：**
 
-| 函数                            | 描述                               |
+| 函数                            | Description                      |
 | ----------------------------- | -------------------------------- |
 | [`duration_in`](#duration_in) | 统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间。 |
 
@@ -249,7 +249,7 @@ SELECT compact_state_agg(time, state) FROM states;
 duration_in(state_agg_data, state [,begin_time, interval_time]) 
 ```
 
-| 选项               | 描述                                                                              |
+| Options          | Description                                                                     |
 | ---------------- | ------------------------------------------------------------------------------- |
 | `state_agg_data` | `state_agg_data` 函数返回的结果集。                                                      |
 | `state`          | any 与 compact_state_agg 的 state 类型相同。 |
@@ -316,7 +316,7 @@ SELECT state_agg(time, state) FROM states;
 
 **以上示例将状态数据汇总在一起，以便进一步分析，`state_agg` 支持如下二次聚合函数：**
 
-| 函数                                         | 描述                               |
+| 函数                                         | Description                      |
 | ------------------------------------------ | -------------------------------- |
 | [`duration_in`](#duration_in-1)            | 统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间。 |
 | [state_at](#state_at) | 统计一时刻所处的状态。                      |
@@ -327,7 +327,7 @@ SELECT state_agg(time, state) FROM states;
 duration_in(state_agg_data, state [,begin_time, interval_time]) 
 ```
 
-| 选项               | 描述                                          |
+| Options          | Description                                 |
 | ---------------- | ------------------------------------------- |
 | `state_agg_data` | `state_agg` 函数返回的结果集。                       |
 | `state`          | `any` 与 `compact_state_agg` 的 `state` 类型相同。 |
@@ -378,7 +378,7 @@ SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:0
 state_at(state_agg_data, time_expression)
 ```
 
-| 选项                | 描述                                 |
+| Options           | Description                        |
 | ----------------- | ---------------------------------- |
 | `state_agg_data`  | `state_agg` 函数返回的结果集。              |
 | `time_expression` | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
@@ -451,18 +451,18 @@ SELECT candlestick_agg(time, price, volume) FROM tick;
 
 **可以在上述示例中分别提取开盘价、收盘价等。支持的函数有：**
 
-| 函数           | 描述         |
-| ------------ | ---------- |
-| `close`      | 收盘价。       |
-| `close_time` | 收盘时间。      |
-| `high`       | 最高价。       |
-| `high_time`  | 最高价时间。     |
-| `low`        | 最低价。       |
-| `low_time`   | 最低价时间。     |
-| `open`       | 开盘价。       |
-| `open_time`  | 开盘时间。      |
-| `volume`     | 总成加量。      |
-| `vwap`       | 成交量加权平均价格。 |
+| 函数           | Description |
+| ------------ | ----------- |
+| `close`      | 收盘价。        |
+| `close_time` | 收盘时间。       |
+| `high`       | 最高价。        |
+| `high_time`  | 最高价时间。      |
+| `low`        | 最低价。        |
+| `low_time`   | 最低价时间。      |
+| `open`       | 开盘价。        |
+| `open_time`  | 开盘时间。       |
+| `volume`     | 总成加量。       |
+| `vwap`       | 成交量加权平均价格。  |
 
 <details>
   <summary>查看示例</summary>
