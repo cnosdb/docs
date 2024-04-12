@@ -4,21 +4,13 @@ sidebar_position: 4
 
 # Data Migration
 
-This article mainly introduces how to use DataX based on the cnosdbwriter plugin to import OpenTSDB data into CnosDB.
+This article describes how to use DataX to import data from other data sources into CnosDB.
 
 ## Migration Tool DataX
 
-DataX is Alibaba's open source offline data synchronization tool/platform,
-which can achieve efficient data synchronization between various heterogeneous data sources.
+DataX is Alibaba's open source offline data synchronization tool/platform that enables efficient data synchronization between various heterogeneous data sources .
 
-In order to deal with the differences between different data sources,
-DataX abstracts the synchronization of different data sources into Reader plugins
-that read data from the source data source,
-and Writer plugins that write data to the target side.
-The DataX framework provides general functions such as type conversion and performance statistics between reading and writing plugins.
-Users only need to define Reader plug-in and Writer plug-in through the configuration file,
-which can easily realize heterogeneous data synchronization.
-A typical DataX configuration file looks like this:RequiredDataX 的配置文件一般如下所示：
+In order to cope with the differences of different data sources, DataX abstracts the synchronization of different data sources into a Reader plug-in that reads data from the source data source and a Writer plug-in that writes data to the target, and the common functions such as type conversion and performance statistics between the read and write plug-ins are provided by the DataX framework.Users can easily synchronize heterogeneous data by defining the Reader plug-in and the Writer plug-in through configuration files.The configuration file of DataX is generally as follows:
 
 ```json
 {
@@ -26,24 +18,24 @@ A typical DataX configuration file looks like this:RequiredDataX 的配置文件
         "content": [
             {
                 "reader": {
-                    Reader configuration
+                    Reader 配置
                     ...
                 },
                 "writer": {
-                    Writer configuration
+                    Writer 配置
                     ...
                 }
             }
         ],
         "setting": {
-            other configuration
+            其他配置
             ...
         }
     }
 }
 ```
 
-We provide a Writer plugin CnosDBWriter that you can configure to import data from other data sources into CnosDB via DataX.
+We provide a Writer plugin, CnosDBWriter, which you can configure to import data from other data sources into CnosDB via DataX.
 
 ## Introduction to the cnosdbwriter plugin
 
@@ -55,7 +47,7 @@ The plugin cnosdbwriter generates schema-less write statements and sends them to
 
 ### Plugin configuration
 
-| Plugin configuration | 描述                                                                                                                                                                                                                                                                                                   | 是否必选 | Default Value                        |
+| Plugin configuration | Description                                                                                                                                                                                                                                                                                          | 是否必选 | Default Value                        |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ------------------------------------ |
 | cnosdbWriteAPI       | API of CnosDB write URL, string                                                                                                                                                                                                                                                                      | No   | `http://127.0.0.1:8902/api/v1/write` |
 | tenant               | 租户，字符串                                                                                                                                                                                                                                                                                               | No   | `cnosdb`                             |
