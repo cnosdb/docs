@@ -14,7 +14,7 @@ sidebar_position: 3
 ascii(str)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 
@@ -42,7 +42,7 @@ SELECT ascii('abc');
 bit_length(str)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 
@@ -70,7 +70,7 @@ SELECT bit_length('abc');
 btrim(str[, trim_str])
 ```
 
-| Parameters | 描述                                                      |
+| Parameters | Description                                             |
 | ---------- | ------------------------------------------------------- |
 | `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                    |
 | `trim_str` | 从输入字符串的开头和结尾处修剪的字符串表达式。可以是常量、列或函数，以及算术运算符的任意组合。默认为空白字符。 |
@@ -107,7 +107,7 @@ SELECT btrim('111abc111','1');
 concat(separator, str[, ..., str_n])
 ```
 
-| Parameters  | 描述                                     |
+| Parameters  | Description                            |
 | ----------- | -------------------------------------- |
 | `separator` | 用于在串联字符串之间插入的分隔符。                      |
 | `str`       | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
@@ -137,7 +137,7 @@ SELECT concat('a', 'b', 'c');
 concat_ws(separator, str[, ..., str_n])
 ```
 
-| Parameters  | 描述                                     |
+| Parameters  | Description                            |
 | ----------- | -------------------------------------- |
 | `separator` | 用于在串联字符串之间插入的分隔符。                      |
 | `str`       | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
@@ -167,7 +167,7 @@ SELECT concat_ws(' ', 'a', 'b', 'c');
 chr(expression)
 ```
 
-| Parameters   | 描述                                                            |
+| Parameters   | Description                                                   |
 | ------------ | ------------------------------------------------------------- |
 | `expression` | 包含要操作的 ASCII 或 Unicode 代码值的表达式。可以是常量、列或函数，也可以是算术或字符串运算符的任意组合。 |
 
@@ -195,7 +195,7 @@ SELECT chr(20005);
 initcap(str)
 ```
 
-| Parameters | 描述                          |
+| Parameters | Description                 |
 | ---------- | --------------------------- |
 | `str`      | 可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
 
@@ -229,7 +229,7 @@ SELECT initcap('hello world');
 left(str, n)
 ```
 
-| Parameters | 描述                                     |
+| Parameters | Description                            |
 | ---------- | -------------------------------------- |
 | `str`      | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
 | `n`        | 要返回的字符数。                               |
@@ -304,7 +304,7 @@ SELECT lower('CNOSDB');
 lpad(str, n[, padding_str])
 ```
 
-| Parameters    | 描述                                         |
+| Parameters    | Description                                |
 | ------------- | ------------------------------------------ |
 | `str`         | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。     |
 | `n`           | 要填充的字符串长度。                                 |
@@ -334,7 +334,7 @@ SELECT lpad('abc', 10, '1');
 ltrim(str[, trim_str])
 ```
 
-| Parameters | 描述                                                    |
+| Parameters | Description                                           |
 | ---------- | ----------------------------------------------------- |
 | `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                  |
 | `trim_str` | 从输入字符串的开头开始修剪的字符串表达式。可以是常量、列或函数，以及算术运算符的任意组合。默认为空白字符。 |
@@ -387,7 +387,7 @@ SELECT octet_length('Hello');
 repeat(str, n)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `str`      | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 | `n`        | 重复输入字符串的次数。                          |
@@ -414,7 +414,7 @@ SELECT repeat('a', 5);
 replace(str, substr, replacement)
 ```
 
-| Parameters    | 描述                                         |
+| Parameters    | Description                                |
 | ------------- | ------------------------------------------ |
 | `str`         | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。       |
 | `substr`      | 要替换输入字符串的子串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
@@ -464,7 +464,7 @@ SELECT reverse('hello');
 right(str, n)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `str`      | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 | `n`        | 要返回的字符数。                             |
@@ -493,7 +493,7 @@ SELECT right('aaabbb', 3);
 rpad(str, n[, padding_str])
 ```
 
-| Parameters    | 描述                                         |
+| Parameters    | Description                                |
 | ------------- | ------------------------------------------ |
 | `str`         | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。       |
 | `n`           | 要填充的字符串长度。                                 |
@@ -547,7 +547,7 @@ SELECT rtrim('aaabbb', 'b');
 split_part(str, delimiter, pos)
 ```
 
-| Parameters  | 描述                                   |
+| Parameters  | Description                          |
 | ----------- | ------------------------------------ |
 | `str`       | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 | `delimiter` | 要分割的字符串或字符。                          |
@@ -621,7 +621,7 @@ SELECT strpos('abcdef', 'def');
 substr(str, start_pos[, length])
 ```
 
-| Parameters  | 描述                                   |
+| Parameters  | Description                          |
 | ----------- | ------------------------------------ |
 | `str`       | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 | `start_pos` | 子字符串开始的字符位置。字符串中第一个字符的位置为 1。         |
@@ -649,7 +649,7 @@ SELECT substr('abcdef', 4, 3);
 to_hex(int)
 ```
 
-| Parameters | 描述                                 |
+| Parameters | Description                        |
 | ---------- | ---------------------------------- |
 | `int`      | 要转换的整数表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
@@ -675,7 +675,7 @@ SELECT to_hex(100);
 translate(str, chars, translation)
 ```
 
-| Parameters    | 描述                                   |
+| Parameters    | Description                          |
 | ------------- | ------------------------------------ |
 | `str`         | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 | `char`        | 要翻译的字符。                              |
@@ -703,7 +703,7 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 trim(str)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 
@@ -731,7 +731,7 @@ SELECT trim('    abc    ');
 upper(str)
 ```
 
-| Parameters | 描述                                   |
+| Parameters | Description                          |
 | ---------- | ------------------------------------ |
 | `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
 
