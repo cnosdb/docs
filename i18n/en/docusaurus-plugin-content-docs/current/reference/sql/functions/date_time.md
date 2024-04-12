@@ -80,7 +80,7 @@ SELECT current_time();
 date_bin(interval, expression, origin-timestamp)
 ```
 
-| Parameters         | 描述                                                                   |
+| Parameters         | Description                                                          |
 | ------------------ | -------------------------------------------------------------------- |
 | `interval`         |                                                                      |
 | `expression`       | 要操作的时间表达式。可以是常量、列或函数。                                                |
@@ -112,7 +112,7 @@ SELECT date_bin(INTERVAL '15' MINUTE, TIMESTAMP '2024-01-01T18:18:18Z');
 date_trunc(precision, expression)
 ```
 
-| Parameters   | 描述                                                                                 |
+| Parameters   | Description                                                                        |
 | ------------ | ---------------------------------------------------------------------------------- |
 | `precision`  | 截断到的时间精度。支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`。 |
 | `expression` | 要操作的时间表达式。可以是常量、列或函数。                                                              |
@@ -143,7 +143,7 @@ SELECT date_trunc('month', time) AS month, avg(temperature) AS avg_temperature F
 date_part(part, expression)
 ```
 
-| 选项           | 描述                                                                                                                                                         |
+| Options      | Description                                                                                                                                                |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `part`       | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
 | `expression` | 要操作的时间表达式。可以是常量、列或函数。                                                                                                                                      |
@@ -169,7 +169,7 @@ SELECT date_part('month', '2024-05-13') AS month;
 extract(field FROM source)
 ```
 
-| 选项       | 描述                                                                                                                                                         |
+| Options  | Description                                                                                                                                                |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `field`  | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
 | `source` | 要操作的时间表达式。可以是常量、列或函数。                                                                                                                                      |
@@ -197,7 +197,7 @@ SELECT extract(month FROM  '2024-05-13') AS month;
 to_timestamp(expression[, ..., format_n])
 ```
 
-| 选项           | 描述                                                                            |
+| Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
@@ -224,7 +224,7 @@ select to_timestamp('2023-01-31T09:26:56.123456789-05:00');
 to_timestamp_millis(expression[, ..., format_n])
 ```
 
-| 选项           | 描述                                                                            |
+| Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
@@ -251,7 +251,7 @@ select to_timestamp_millis('2023-01-31T09:26:56.123456789-05:00');
 to_timestamp_micros(expression[, ..., format_n])
 ```
 
-| 选项           | 描述                                                                            |
+| Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
@@ -278,7 +278,7 @@ select to_timestamp_micros('2023-01-31T09:26:56.123456789-05:00');
 to_timestamp_seconds(expression[, ..., format_n])
 ```
 
-| 选项           | 描述                                                                            |
+| Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
@@ -305,7 +305,7 @@ select to_timestamp_seconds('2023-01-31T09:26:56.123456789-05:00');
 from_unixtime(expression)
 ```
 
-| 选项           | 描述                               |
+| Options      | Description                      |
 | ------------ | -------------------------------- |
 | `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
