@@ -55,7 +55,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                                                                                                                     | 默认                                        | 环境变量                                                      | 描述                                                                                                                          |
+| Parameters                                                                                                                                                     | 默认                                        | 环境变量                                                      | Description                                                                                                                 |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | reporting_disabled                                                                                                                        | `false`                                   | `CNOSDB_REPORTING_DISABLED`                               | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
 | `raft_logs_to_keep` When using raft protocol for replication; How many raft logs each replication group keeps and how often to take snapshots. | `5000`                                    | `CNOSDB_RAFT_LOGS_TO_KEEP`                                | Raft 日志保留条数，且每隔这些次数写入做一次 snapshot                                                                                           |
@@ -89,7 +89,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                       | 默认          | 环境变量                                                                                           | 描述                                                                                                                       |
+| Parameters                                                       | 默认          | 环境变量                                                                                           | Description                                                                                                              |
 | ---------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | max_server_connections | `10240`     | Maximum concurrent connection request, default is 10240.                       | 最大并发连接请求数。                                                                                                               |
 | query_sql_limit        | `16777216`  | The maximum SQL accounting when the request is requested, default is 16777216. | 每个 SQL 查询请求的最大字节数，单位：Bytes                                                                                               |
@@ -110,7 +110,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                                                                                                                                                          | 默认                                                                     | 环境变量                                                                                                                                                                | 描述                                                                                                       |
+| Parameters                                                                                                                                                                                          | 默认                                                                     | 环境变量                                                                                                                                                                | Description                                                                                              |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | path                                                                                                                                                                                                | HintedOff storage directory, default: `/tmp/cnosdb/hh` | The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows: | Data storage location                                                                                    |
 | max_summary_size                                                                                                                                          | `128M`                                                                 | Maximum accumulated write WAL tasks, default: 64                                                                                                    | 单个 Summary 日志的最大大小。                                                                                      |
@@ -135,7 +135,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                                         | 默认                    | 环境变量                                                                                                                                                                | 描述                                                                                                                                   |
+| Parameters                                                                         | 默认                    | 环境变量                                                                                                                                                                | Description                                                                                                                          |
 | ---------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | enabled                                                                            | `true`                | **TOML TABLE**                                                                                                                                                      | 是否启用 WAL。                                                                                                                            |
 | path                                                                               | `/var/lib/cnosdb/wal` | The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows: | WAL 存储目录。                                                                                                                            |
@@ -155,7 +155,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                     | 默认                                                                                     | 环境变量                                                                        | 描述                            |
+| Parameters                                                     | 默认                                                                                     | 环境变量                                                                        | Description                   |
 | -------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------- |
 | max_buffer_size      | `128M`                                                                                 | Maximum cache size, default: 134217728                      | 最大的活跃缓存大小。                    |
 | max_immutable_number | `4`                                                                                    | Number of concurrent processing of handoff data, default: 3 | 最大的非活跃缓存数量。                   |
@@ -171,7 +171,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters | 默认                                                  | 环境变量                                                                                                                                                                | 描述                                                             |
+| Parameters | 默认                                                  | 环境变量                                                                                                                                                                | Description                                                    |
 | ---------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | level      | `info`                                              | `CNOSDB_LEVEL`                                                                                                                                                      | Log level（debug、info、error、warn, default: info |
 | path       | log storage path,default:`data/log` | The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows: | Remote log path                                                |
@@ -186,7 +186,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                      | 默认 | 环境变量                | 描述                          |
+| Parameters                      | 默认 | 环境变量                | Description                 |
 | ------------------------------- | -- | ------------------- | --------------------------- |
 | tls_config | 无  | `CNOSDB_TLS_CONFIG` | Optional, TLS configuration |
 
@@ -200,7 +200,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                       | 默认 | 环境变量                 | 描述                      |
+| Parameters                       | 默认 | 环境变量                 | Description             |
 | -------------------------------- | -- | -------------------- | ----------------------- |
 | certificate                      | 无  | `CNOSDB_CERTIFICATE` | TLS service certificate |
 | private_key | 无  | **TOML KEY**         | TLS service private key |
@@ -215,7 +215,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                                                        | 默认               | 环境变量                                                                                                        | 描述                                       |
+| Parameters                                                                                        | 默认               | 环境变量                                                                                                        | Description                              |
 | ------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | `name`                                                                                            | ClusterName      | Operating system type and architecture run by database instance.                            | name                                     |
 | `[meta_init]`: example initializes related configuration information of Meta node | `127.0.0.1:8901` | `CNOSDB_META_SERVICE_ADDR`                                                                                  | Remote Meta Service port                 |
@@ -235,7 +235,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters | 默认                   | 环境变量                                                                                                                                                                | 描述                                                              |
+| Parameters | 默认                   | 环境变量                                                                                                                                                                | Description                                                     |
 | ---------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | `enable`   | `true`               | **TOML Value**                                                                                                                                                      | Is the HIntedOff service enabled, default: true |
 | path       | `/var/lib/cnosdb/hh` | The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows: | HintedOff 存储目录。                                                 |
@@ -259,7 +259,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters  | 默认     | 环境变量                          | 描述                                                                                               |
+| Parameters  | 默认     | 环境变量                          | Description                                                                                      |
 | ----------- | ------ | ----------------------------- | ------------------------------------------------------------------------------------------------ |
 | cache       | `1024` | `[cache]` cache configuration | cache size (bit) before sending and forwarding, default: 1028 |
 | concurrency | `8`    | `CNOSDB_CONCURRENCY`          | 处理转发请求的并发数。                                                                                      |
@@ -279,7 +279,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                                               | 默认   | 环境变量                           | 描述                                    |
+| Parameters                                                                               | 默认   | 环境变量                           | Description                           |
 | ---------------------------------------------------------------------------------------- | ---- | ------------------------------ | ------------------------------------- |
 | report_time_interval_secs | `30` | Database instance running time | 此节点上报心跳、磁盘余量等信息到 `meta` 服务的时间间隔，单位：秒。 |
 
@@ -293,7 +293,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                 | 默认      | 环境变量                                             | 描述                                                   |
+| Parameters                                                 | 默认      | 环境变量                                             | Description                                          |
 | ---------------------------------------------------------- | ------- | ------------------------------------------------ | ---------------------------------------------------- |
 | node_id                               | `1001`  | Interval for checking whether a node is abnormal | Interval for checking the heartbeat status of a node |
 | cold_data_server | `false` | `CNOSDB_COLD_DATA_SERVER`                        | 是否停止在此节点上创建 Vnode。                                   |
@@ -309,7 +309,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                   | 默认      | 环境变量                        | 描述                                                                                                                                   |
+| Parameters                                                   | 默认      | 环境变量                        | Description                                                                                                                          |
 | ------------------------------------------------------------ | ------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | auto_generate_span | `false` | `CNOSDB_AUTO_GENERATE_SPAN` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
@@ -323,7 +323,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters | 默认 | 环境变量                                                                                                                                                                | 描述                  |
+| Parameters | 默认 | 环境变量                                                                                                                                                                | Description         |
 | ---------- | -- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
 | path       | 无  | The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows: | trace log file path |
 
@@ -337,7 +337,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                       | 默认   | 环境变量                                                                             | 描述                                                                                                                                                                                                  |
+| Parameters                                                       | 默认   | 环境变量                                                                             | Description                                                                                                                                                                                         |
 | ---------------------------------------------------------------- | ---- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | jaeger_agent_endpoint  | 无    | `CNOSDB_JAEGER_AGENT_ENDPOINT`                                                   | the Jaeger agent endpoint.eg: http://localhost:14268/api/traces例如：http://localhost:14268/api/traces |
 | max_concurrent_exports | 2    | `reporting_disabled` Whether to turn off information collection. | trace 上报器的并行度。默认值为 2                                                                                                                                                                                |
@@ -355,7 +355,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                     | 默认                     | 环境变量                                                              | 描述                                                                              |
+| Parameters                     | 默认                     | 环境变量                                                              | Description                                                                     |
 | ------------------------------ | ---------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | Node ID                        | `1`                    | If this field is true, it means storing metrics information to db | `id` : id of Meta node, the value must be unique in the cluster |
 | host                           | `127.0.0.1`            | **Note**: If close information collection         | 用于和其他节点通信的 `host`                                                               |
@@ -373,7 +373,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters | 默认                                                  | 环境变量                                                                                                                                                                | 描述                                                             |
+| Parameters | 默认                                                  | 环境变量                                                                                                                                                                | Description                                                    |
 | ---------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | level      | `info`                                              | `CNOSDB_LEVEL`                                                                                                                                                      | Log level（debug、info、error、warn, default: info |
 | path       | log storage path,default:`data/log` | The configuration file of the Meta node is in the same format as the Data node and consists of several TOML key-value pairs and tables, as follows: | Remote log path                                                |
@@ -388,7 +388,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                            | 默认                          | 环境变量                                                                | 描述                                    |
+| Parameters                            | 默认                          | 环境变量                                                                | Description                           |
 | ------------------------------------- | --------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
 | cluster_name     | ClusterName                 | The CnosDB collects information to better improve the product       | Cluster Name                          |
 | admin_user       | `root`                      | `snapshot_path`: snapshot storage path of Meta node | User name of the system administrator |
@@ -405,7 +405,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                                                           | 默认  |                                     | 描述                        |
+| Parameters                                                           | 默认  |                                     | Description               |
 | -------------------------------------------------------------------- | --- | ----------------------------------- | ------------------------- |
 | heartbeat_recheck_interval | 300 | `CNOSDB_HEARTBEAT_RECHECK_INTERVAL` | 多久检查一次CnosDB节点的状态，单位：秒。   |
 | heartbeat_expired_interval | 300 | `CNOSDB_HEARTBEAT_EXPIRED_INTERVAL` | CnosDB节点多久未上报心跳认定异常，单位：秒。 |
