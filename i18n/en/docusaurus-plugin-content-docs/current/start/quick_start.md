@@ -1,6 +1,5 @@
 ---
-title: Quick start
-order: 3
+sidebar_position: 2
 ---
 
 # Quick start
@@ -118,7 +117,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
 
 You can use `DISTINCT` after the `SELECT` keyword to remove duplicate fields and return only the de-duplicated values.
-Alias Column ExpressionWhen this option is not specified, the default value is `ALL`.
+Using `ALL` returns all duplicate values in the field.When this option is not specified, the default value is `ALL`.
 
 **Example**
 
@@ -375,11 +374,11 @@ FROM air LIMIT 3 OFFSET 3;
 WITH cte AS cte_query_definiton [, ...] query
 ```
 
-可选。Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows:
-Alias TableThe following rules for use by CTE are:
+Optional.The WITH clause contains one or more common expressions CTE (Common Table Expression).
+The CTE acts as a temporary table in the current runtime environment that you can refer to in subsequent queries.The following rules for use by CTE are:
 
 - CTE in the same WITH clause must have a unique name.
-- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause:
+- A CTE defined in a WITH clause is available only to other CTEs defined thereafter in the same WITH clause.
   Assume A is the first CTE, B is the second CTE:
 
 **Example**
@@ -807,40 +806,3 @@ DESCRIBE DATABASE public;
 | 365 Days | 1     | 365 Days       | 1       | NS        |
 +----------+-------+----------------+---------+-----------+
 ```
-
-[//]: # "## **EXISTS**"
-[//]: # "EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。"
-[//]: # "Example:"
-[//]: # "```sql"
-[//]: # "SELECT id  FROM date"
-[//]: # "WHERE EXISTS (SELECT 1 FROM shop"
-[//]: # "WHERE date.id = shop.id)"
-[//]: # "ORDER BY id;"
-[//]: # "```"
-[//]: # "# **DCL (None)**"
-[//]: # "```sql"
-[//]: # "DESCRIBE table_name"
-[//]: # "```"
-[//]: # "TODO SHOW"
-[//]: # "# **SHOW**"
-[//]: # "## **SHOW VARIABLE**"
-[//]: # "```sql"
-[//]: # "-- only support show tables"
-[//]: # "-- SHOW TABLES is not supported unless information_schema is enabled"
-[//]: # "SHOW TABLES"
-[//]: # "```"
-[//]: # "## **SHOW COLUMNS**"
-[//]: #
-[//]: # "```sql"
-[//]: # "-- SHOW COLUMNS with WHERE or LIKE is not supported"
-[//]: # "-- SHOW COLUMNS is not supported unless information_schema is enabled"
-[//]: # "-- treat both FULL and EXTENDED as the same"
-[//]: # "SHOW [ EXTENDED ] [ FULL ]"
-[//]: # "{ COLUMNS | FIELDS }"
-[//]: # "{ FROM | IN }"
-[//]: # "table_name"
-[//]: # "```"
-[//]: # "## **SHOW CREATE TABLE**"
-[//]: # "```sql"
-[//]: # "SHOW CREATE TABLE table_name"
-[//]: # "```"
