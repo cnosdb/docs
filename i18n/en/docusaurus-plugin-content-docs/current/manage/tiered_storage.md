@@ -5,7 +5,7 @@ sidebar_position: 5
 # Tiered Storage
 
 :::tip
-仅企业版支持
+Only Enterprise Edition supports
 :::
 
 In the actual service scenario, there are multiple data disks on one machine at the same time. Therefore, it is necessary to give full play to the capabilities of these disks to improve the throughput of the system.
