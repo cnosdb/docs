@@ -2,7 +2,7 @@
 sidebar_position: 12
 ---
 
-# 资源管理
+# Resource Management
 
 CnosDB has added resource management function, which will monitor some complex and multistep resource operations, and will retry when the operation fails until it succeeds.
 
