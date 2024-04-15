@@ -51,7 +51,7 @@ Executing the following command in the shell will generate a data file locally i
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-## 导入数据
+## Import data
 
 - **Start the CLI**
   ```shell
