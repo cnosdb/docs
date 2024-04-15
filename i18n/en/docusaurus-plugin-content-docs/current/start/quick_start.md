@@ -346,7 +346,7 @@ FROM air OFFSET 10;
 ```
 
 `OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip. The format is `LIMIT n OFFSET m`, or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
-Alias
+其中：LIMIT n控制输出n行数据，OFFSET m表示在开始返回数据之前跳过的行数。
 OFFSET 0 is equivalent to omitting the OFFSET clause.
 
 **Example**
