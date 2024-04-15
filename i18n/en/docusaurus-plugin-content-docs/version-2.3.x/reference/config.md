@@ -223,7 +223,7 @@ Whether to enable Wal, default: false
 
 ### \[trace.jaeger] (optional)
 
-| Parameters                                                       | 默认   | 说明                                                                                                                                                                                                  |
+| Parameters                                                       | 默认   | Description                                                                                                                                                                                         |
 | ---------------------------------------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | jaeger_agent_endpoint  | 无    | the Jaeger agent endpoint.eg: http://localhost:14268/api/traces例如：http://localhost:14268/api/traces |
 | max_concurrent_exports | 2    | trace 上报器的并行度。默认值为 2                                                                                                                                                                                |
