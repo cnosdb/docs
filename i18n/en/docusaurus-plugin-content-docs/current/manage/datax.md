@@ -82,7 +82,7 @@ Notice:
     }
     ```
 
-  - `Bool`:Boolean type.Assuming that columns 3 and 4 of the table are Field, and the Field names are "usage_min" and "usage_max", then you can set it up like this:
+  - The configuration item fields specifies which columns of the table type data correspond to the CnosDB field column.Assuming that columns 3 and 4 of the table are Field, and the Field names are "usage_min" and "usage_max", then you can set it up like this:
 
     ```json
     "fields": {
@@ -91,15 +91,15 @@ Notice:
     }
     ```
 
-  - The timeIndex configuration option specifies which columns correspond to the CnosDB time column in the table type of data. Suppose the table has column 0, Time, and we set it like this:Preparation
+  - The configuration item timeIndex specifies which columns of the table type data correspond to the CnosDB time column.Assuming the 0th column of the table is Time, you can set it like this:
 
     ```json
     "timeIndex": 0
     ```
 
-- 配置项 precision 对应 Reader 插件提供的 time 精度，默认为毫秒。The precision configuration option corresponds to the time precision provided by the Reader plug-in, which defaults to milliseconds. Since CnosDB uses nanoseconds for storage by default, sometimes CnosDBWriter will convert the time.
+- The configuration item 'precision' corresponds to the time precision provided by the Reader plugin, with the default being milliseconds.The precision configuration option corresponds to the time precision provided by the Reader plug-in, which defaults to milliseconds. Since CnosDB uses nanoseconds for storage by default, sometimes CnosDBWriter will convert the time.
 
-- The tagsExtra configuration is in the format `{tag name: tag value}`. If the defined Tag exists in the input data, it will be ignored, and the Tag in the input data will be used instead. The following example adds `host=localhost` and `source=datax` tags to each row:以下示例表示为每一行数据增加 `host=localhost` 与 `source=datax` 两个 Tag：
+- The tagsExtra configuration is in the format `{tag name: tag value}`. If the defined Tag exists in the input data, it will be ignored, and the Tag in the input data will be used instead. The following example adds `host=localhost` and `source=datax` tags to each row:The following example shows adding the `host=localhost` and `source=datax` tags to each line of data:
 
   ```json
   { "host": "localhost", "source": "datax"  }
@@ -107,7 +107,7 @@ Notice:
 
 - The format configuration option can also be set to `opentsdb`, in which case CnosDBWriter will assume that the input data has only one column, and the format is OpenTSDB JSON format write request. There is no need to configure the table, tags, fields, timeIndex. The data will be parsed from the JSON OpenTSDB write request.
 
-  - The fieldsExtra configuration is applied at this point in the format `{source column: {"table": target table, "field": target column}}`. The following example shows that the data of OpenTSDB column `cpu_usage` is written to the data column `usage` of CnosDB table以下示例表示将 OpenTSDB column `cpu_usage` 的数据写入 CnosDB 的表 `table` 的 数据列 `usage` 中：
+  - The configuration item fieldsExtra takes effect at this point, in the format `{ source column: { "table": target table, "field": target column } }`.The following example shows writing the data of OpenTSDB column `cpu_usage` to the column `usage` of the table `table` in CnosDB:
 
     ```json
     { "cpu_usage": { "table": "cpu", "field": "usage" } }
@@ -115,13 +115,13 @@ Notice:
 
 ### Data type conversion
 
-DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换). These internal types are as follows:这些内部类型如下：
+DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换). These internal types are as follows:The internal types are as follows:
 
 - `Long`:Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
 - `Double`:Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
 - `String`:String type, underlying unlimited length, using the Universal character set (Unicode).
 - `Date`:Date type.
-- `Bool`：布尔值。
+- `Bool`: Boolean value.
 - `Bytes`:Binary, which can hold unstructured data such as MP3s.
 
 CnosDBWriter will convert these internal types to CnosDB internal data types with the following conversion rules:
@@ -138,7 +138,7 @@ CnosDBWriter will convert these internal types to CnosDB internal data types wit
 
 ## Example - Importing CnosDB from OpenTSDB
 
-### 前置条件
+### Prerequisites
 
 - Install Python 2 or 3, JDK 1.8 and DataX, see [DataX Docs - Quick Start](https://github.com/alibaba/DataX/blob/master/userGuid.md#quick-start).
 - Install CnosDB as described in the [Deployment](../deploy) section.
@@ -176,7 +176,7 @@ Then the corresponding Reader plugin OpenTSDBReader configuration is as follows:
 
 The time precision is not written in the OpenTSDBReader configuration but in the precision entry of the CnosDBWriter configuration provided.
 
-Tenant: `cnosdb`By default, the configuration item column will be used as the table name for CnosDB. Finally, `cpu_usage_nice` and `cpu_usage_idle` tables will be generated in CnosDB, and the metrics will be written to the `value` column of both tables. We can configure fieldsExtra to write `cpu_usage_nice` to the same CnosDB table as `cpu_usage_idle`, as shown in the fieldsExtra configuration below.而通过配置 fieldsExtra，可以将 `cpu_usage_nice` 与 `cpu_usage_idle` 写入 CnosDB 的同一个表中，详见下方对 fieldsExtra 的配置。
+By default, the configuration item column will be used as the table name for CnosDB.Eventually the `cpu_usage_nice` and `cpu_usage_idle` tables will be generated in CnosDB and the metrics data will be written to the `value` columns of both tables in a fixed manner.By configuring fieldsExtra, `cpu_usage_nice` and `cpu_usage_idle` can be written to the same table in CnosDB, see below for the configuration of fieldsExtra.
 
 The data in OpenTSDB is as follows:
 
@@ -235,7 +235,7 @@ curl 'http://localhost:4242/api/query?start=2023/06/01-00:00:00&end=2023/06/01-0
 Suppose we have a running CnosDB with the following parameters:
 
 - API Address: `http://127.0.0.1:8902/api/v1/write`
-- 租户：`cnosdb`
+- Tenant: `cnosdb`
 - Database: `public`
 - User: `root`
 - Password: `root`
@@ -360,7 +360,7 @@ SELECT * FROM cpu ORDER BY time ASC;
 
 ### Check the status of the import task:
 
-The log files for DataX jobs are located by default in the `{YOUR_DATAX_HOME}/log` directory. In these log files, we can view the start time, end time, status of the task, and any output and error messages. In addition, the import progress can be obtained by querying the exported table in CnosDB:在这些日志文件中，我们可以查看任务的启动时间、结束时间、状态以及任何输出和错误消息。此外，可以通过在 CnosDB 中查询导出的表来获取导入进度：
+The log files for DataX job runs are located in the `{YOUR_DATAX_HOME}/log` directory by default.In these log files, we can see the start time, end time, status of the task, and any output and error messages.In addition, you can obtain the import progress by querying the exported table in CnosDB.
 
 ```sql
 SELECT COUNT(usage_idle) as c FROM "cpu";
