@@ -4,9 +4,9 @@ sidebar_position: 5
 
 # Manage
 
-本章节介绍了集群管理相关的内容，包含了集群的升级、集群的迁移、集群的扩容、集群的缩容等。
+This chapter introduces content related to cluster management, including cluster upgrades, cluster migration, cluster scaling, and cluster downsizing.
 
-同时还有集群的备份和恢复、集群的监控、集群的日志等。
+Also includes cluster backup and recovery, cluster monitoring, cluster logs, etc.
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
