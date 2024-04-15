@@ -97,9 +97,9 @@ Notice:
     "timeIndex": 0
     ```
 
-- The configuration item 'precision' corresponds to the time precision provided by the Reader plugin, with the default being milliseconds.The precision configuration option corresponds to the time precision provided by the Reader plug-in, which defaults to milliseconds. Since CnosDB uses nanoseconds for storage by default, sometimes CnosDBWriter will convert the time.
+- The configuration item 'precision' corresponds to the time precision provided by the Reader plugin, with the default being milliseconds.CnosDB will convert time by default because CnosDBWRitter will be stored by default.
 
-- The tagsExtra configuration is in the format `{tag name: tag value}`. If the defined Tag exists in the input data, it will be ignored, and the Tag in the input data will be used instead. The following example adds `host=localhost` and `source=datax` tags to each row:The following example shows adding the `host=localhost` and `source=datax` tags to each line of data:
+- The tagsExtra configuration is in the format `{tag name: tag value}`. If the defined Tag exists in the input data, it will be ignored, and the Tag in the input data will be used instead. The following example shows adding the `host=localhost` and `source=datax` tags to each line of data:
 
   ```json
   { "host": "localhost", "source": "datax"  }
@@ -115,7 +115,7 @@ Notice:
 
 ### Data type conversion
 
-DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换). These internal types are as follows:The internal types are as follows:
+DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换).The internal types are as follows:
 
 - `Long`:Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
 - `Double`:Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
