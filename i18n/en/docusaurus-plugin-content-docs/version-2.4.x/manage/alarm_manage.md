@@ -20,8 +20,8 @@ Standard cnosdb-sql query statement, considering the usage scenario of alarms, g
 Threshold:
 When configuring, you need to specify a field that the SQL query returns, and set a threshold for triggering an alarm on this field. Currently, five types of threshold forms are supported: greater than, less than, equal to, within range, and outside range.
 Notification receiving terminal：
-currently supports slack, twitter and twitter types.
-History history：
+Currently, slack and twitter are supported.
+History:
 All queries triggering a warning and notifications will be recorded in cnosdb.
 User configured warning rules are recorded in the user locator json file.
 ![Principle of Alarm Component](/img/cnos-alert.png)
@@ -585,7 +585,7 @@ curl --location 'http://localhost:30001/api/v1/alert/config/rule' \
                     {
                         "name": "slack",
                         "receiver": "https://hooks.slack.com/services/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",
-                        "format": "{{dbname}}{{sql}}{{name}}{{period}}{{description}}{{threshold}}",
+                        "format": "{{dbname}}{{sql}}{{name}}{{period}}{{description}}{{threshold}}",# 添加要展示在通知中的参数值，目前支持这六个参数
                         "tool": "slack"
                     }
                 ],
