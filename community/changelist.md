@@ -1,5 +1,24 @@
 # 发行说明
 
+## v2.3.5.1
+
+发布日期：2024年04月10日
+
+### 功能优化
+
+- limit 下推到 RecordBatch 进行读取 [#2040](https://github.com/cnosdb/cnosdb/pull/2040)
+- 添加了 BloomFillter [#2039](https://github.com/cnosdb/cnosdb/pull/2039)
+- 改进了 delta_compactions [#2046](https://github.com/cnosdb/cnosdb/pull/2046)
+- 添加了 delta_compactions 的指标和一些改进 [#2055](https://github.com/cnosdb/cnosdb/pull/2055)
+
+### 错误修复
+
+- 修复了 count(tag) 在分布式中的问题 [#2011](https://github.com/cnosdb/cnosdb/pull/2011)
+- 修复了 cnosdb 在 Windows 上重启失败的问题 [#2029](https://github.com/cnosdb/cnosdb/pull/2029)
+- 修复了 pread 和 pwrite [#2041](https://github.com/cnosdb/cnosdb/pull/2041)
+- 修复了可以为角色分配不存在数据库的读写权限的问题 [#2047](https://github.com/cnosdb/cnosdb/pull/2047)
+- 修复了多线程写入时索引丢失数据的问题 [#2057](https://github.com/cnosdb/cnosdb/pull/2057)
+
 ## v2.3.5 Aquarius
 
 发布日期：2024年03月06日

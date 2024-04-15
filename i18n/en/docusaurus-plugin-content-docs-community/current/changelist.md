@@ -1,5 +1,24 @@
 # Releases
 
+## Version 2.3.5.1
+
+Release Date: April 10, 2024
+
+### Improvements
+
+- Optimized limit to push down to RecordBatch for reading [#2040](https://github.com/cnosdb/cnosdb/pull/2040)
+- Added BloomFillter [#2039](https://github.com/cnosdb/cnosdb/pull/2039)
+- Improved delta_compactions [#2046](https://github.com/cnosdb/cnosdb/pull/2046)
+- Added metrics and some improvements for delta_compactions [#2055](https://github.com/cnosdb/cnosdb/pull/2055)
+
+### Bug Fixes
+
+- Fixed the issue of count(tag) in distributed systems [#2011](https://github.com/cnosdb/cnosdb/pull/2011)
+- Fixed the restart failure issue of cnosdb on Windows [#2029](https://github.com/cnosdb/cnosdb/pull/2029)
+- Fixed pread and pwrite [#2041](https://github.com/cnosdb/cnosdb/pull/2041)
+- Fixed the issue of assigning read and write permissions to roles for non-existent databases [#2047](https://github.com/cnosdb/cnosdb/pull/2047)
+- Fixed the data loss issue when indexing during multi-threaded writes [#2057](https://github.com/cnosdb/cnosdb/pull/2057)
+
 ## v2.3.5 Aquarius
 
 Release：March 06, 2024
