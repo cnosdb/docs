@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# 导入导出
+# Import and Export
 
 CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
 
