@@ -101,7 +101,7 @@ Notice:
 
 ### Data type conversion
 
-DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换). These internal types are as follows:The internal types are as follows:
+DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换).The internal types are as follows:
 
 - `Long`:Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
 - `Double`:Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
