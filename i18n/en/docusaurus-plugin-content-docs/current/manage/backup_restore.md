@@ -6,8 +6,9 @@ sidebar_position: 3
 
 The CnosDB backup and restore tool is a command line tool for exporting, importing, and migrating CnosDB cluster data.This tool supports the backup of metadata and user data, as well as data migration between clusters.
 
-::: tip
-数据导出后会产生多个文件：`meta_data.src`，`schema_data.src` 以及 数据文件。
+:::tip
+
+Data export produces more than one file: `meta_data.src`, `schema_data.src` and data files.
 
 The `meta_data.src`, `schema_data.src` file will be exported to the node running the `cnosdb-imexport` command.
 
