@@ -6,7 +6,8 @@ sidebar_position: 3
 
 CnosDB 备份和还原工具是一个用于导出、导入和迁移 CnosDB 集群数据的命令行工具。该工具支持备份元数据和用户数据，以及在不同集群之间进行数据迁移。
 
-::: tip
+:::tip
+
 数据导出后会产生多个文件：`meta_data.src`，`schema_data.src` 以及 数据文件。
 
 `meta_data.src`，`schema_data.src` 文件会导出到 `cnosdb-imexport` 命令运行的节点。
