@@ -8,33 +8,33 @@ sidebar_position: 12
 Only Enterprise Edition supports
 :::
 
-对于重要的线上生产，需要支持跨区域级别的容灾。CnosDB的多副本特性搭配合理的数据分布策略可以满足这个目标。
+For important online production, cross-regional level disaster recovery support is required.The multi-replica feature of CnosDB, combined with a reasonable data distribution policy, can meet this goal.
 
-## 数据分布的两个维度
+## Two dimensions of data distribution
 
-rack：机架维度，一般指同一个机房的同一个机架上的数据节点。
+rack: Rack dimension, generally refers to the data nodes on the same rack in the same data center.
 
-dc：  数据中心维度，一般指一个机房、一个数据中心。
+dc: Data center dimension, generally refers to a computer room, a data center.
 
-## 策略类型
+## Policy Type
 
-### 简单策略
+### Simple Policy
 
-副本数据放置同一个rack上
-名称：simple
-参数：dc、rack
+Replica data placement on the same rack
+Name: simple
+Parameters: dc, rack
 
-所有副本都放置在dc1的rack1的机器上
+All replicas are placed on machines in rack1 of dc1
 
 ```SQL
 create placement_policy policy1 WITH rule simple dc 'dc1' rack 'rack1';
 ```
 
-### 感知Rack策略
+### Perceive Rack Policy
 
-副本数据尽可能放置在同一个dc的不同rack上
-名称：rack_aware
-参数：dc、以及rack列表
+Replica data should be placed on different racks within the same dc as much as possible
+Name: rack_aware
+Parameters: dc, and list of racks
 
 所有副本都放置在dc1的rack1-4的不同机架上
 
