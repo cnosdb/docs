@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Data Type
+# Data Types
 
-CnosDB's SQL is implemented using Apache Arrow DataFusion, DataFusion uses Arrow types to execute queries, and the data types stored in CnosDB are mapped to SQL data types when queried.
+CnosDB SQL is implemented using Apache Arrow DataFusion, DataFusion uses Arrow types to execute queries, and the data types stored in CnosDB are mapped to SQL data types when queried.
 
 You can see the corresponding Arrow type for any SQL expression using the arrow_typeof function. For example:
 
@@ -41,21 +41,21 @@ CnosDB can only store partial data types, for detailed information please refer 
 
 ## Numeric Types
 
-| SQL Data Types                      | Arrow Data Type |
-| ----------------------------------- | --------------- |
-| `TINYINT`                           | `Int8`          |
-| `SMALLINT`                          | `Int16`         |
-| `INT` 或 `INTEGER`                   | `Int32`         |
-| `BIGINT`                            | `Int64`         |
-| `TINYINT UNSIGNED`                  | `UInt8`         |
-| `SMALLINT UNSIGNED`                 | `UInt16`        |
-| `INT UNSIGNED` 或 `INTEGER UNSIGNED` | `UInt32`        |
-| `BIGINT UNSIGNED`                   | `UInt64`        |
-| `FLOAT`                             | `Float32`       |
-| `REAL`                              | `Float32`       |
-| `DOUBLE`                            | `Float64`       |
+| SQL Data Types                       | Arrow Data Type |
+| ------------------------------------ | --------------- |
+| `TINYINT`                            | `Int8`          |
+| `SMALLINT`                           | `Int16`         |
+| `INT` or `INTEGER`                   | `Int32`         |
+| `BIGINT`                             | `Int64`         |
+| `TINYINT UNSIGNED`                   | `UInt8`         |
+| `SMALLINT UNSIGNED`                  | `UInt16`        |
+| `INT UNSIGNED` or `INTEGER UNSIGNED` | `UInt32`        |
+| `BIGINT UNSIGNED`                    | `UInt64`        |
+| `FLOAT`                              | `Float32`       |
+| `REAL`                               | `Float32`       |
+| `DOUBLE`                             | `Float64`       |
 
-## 日期和时间
+## Date/Time Types
 
 | SQL Data Types | Arrow Data Type               |
 | -------------- | ----------------------------- |
@@ -64,23 +64,23 @@ CnosDB can only store partial data types, for detailed information please refer 
 | `TIMESTAMP`    | `Timestamp(Nanosecond, None)` |
 | `INTERVAL`     | `Interval(MonthDayNano)`      |
 
-## 布尔类型
+## Boolean Types
 
 | SQL Data Types | Arrow Data Type |
 | -------------- | --------------- |
 | `BOOLEAN`      | `Boolean`       |
 
-## 二进制类型
+## Binary Types
 
 | SQL Data Types | Arrow Data Type |
 | -------------- | --------------- |
 | `BYTEA`        | `Binary`        |
 
-## 地理空间类型
+## Geo Types
 
-CnosDB 使用 [WKT（Well-known text）](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)支持 \*\*地理空间类型（[Geometry](https://en.wikipedia.org/wiki/Geometry)）\*\*的数据查询。
+CnosDB uses [WKT (Well-known text)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) to support **geospatial type ([Geometry](https://en.wikipedia.org/wiki/Geometry))** data queries.
 
-| 几何类型                 | Syntax                                                                               |
+| Geometry types       | Syntax                                                                               |
 | -------------------- | ------------------------------------------------------------------------------------ |
 | `Point`              | `POINT (<x1> <y1>)`                                                                  |
 | `LineString`         | `LINESTRING (<x1> <y1>, <x2> <y2>, ...)`                                             |
@@ -90,7 +90,7 @@ CnosDB 使用 [WKT（Well-known text）](https://en.wikipedia.org/wiki/Well-know
 | `MultiPolygon`       | `MULTIPOLYGON (((<x1> <y1>, <x2> <y2>, ...)), ((<x1> <y1>, <x2> <y2>, ...)))`        |
 | `GeometryCollection` | `GEOMETRYCOLLECTION (<geometry tag1> <wkt data1>, <geometry tag2> <wkt data2>, ...)` |
 
-## 不支持的 SQL 类型
+## Unsupported SQL Types
 
 | SQL Data Types | Arrow Data Type |
 | -------------- | --------------- |
@@ -107,11 +107,11 @@ CnosDB 使用 [WKT（Well-known text）](https://en.wikipedia.org/wiki/Well-know
 | `SET`          | Unsupported     |
 | `DATETIME`     | Unsupported     |
 
-## 支持的 Arrow 类型
+## Supported Arrow Types
 
 > The following types are supported by the `ARROW_TYPEOF` function:
 
-| Arrow 类型                                                                                                 |
+| Arrow Types                                                                                              |
 | -------------------------------------------------------------------------------------------------------- |
 | `Null`                                                                                                   |
 | `Boolean`                                                                                                |
