@@ -396,7 +396,7 @@ SELECT 'Hello, ' || 'CnosDB!';
 | 3  | =、>=、<=、&lt>、!=、>、<（比较运算符） |
 | 4  | NOT                                            |
 | 5  | AND                                            |
-| 5  | BETWEEN、IN、LIKE、OR                             |
+| 6  | BETWEEN、IN、LIKE、OR                             |
 
 ## 保留字
 
