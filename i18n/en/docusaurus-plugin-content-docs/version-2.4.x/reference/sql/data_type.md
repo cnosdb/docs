@@ -2,11 +2,11 @@
 sidebar_position: 1
 ---
 
-# 数据类型
+# Data Type
 
-CnosDB 的 SQL 使用 Apache Arrow DataFusion 实现，DataFusion 使用 Arrow 类型来执行查询，存储在 CnosDB 中的数据类型在查询时会被映射成 SQL 数据类型。
+CnosDB's SQL is implemented using Apache Arrow DataFusion, DataFusion uses Arrow types to execute queries, and the data types stored in CnosDB are mapped to SQL data types when queried.
 
-您可以通过 `arrow_typeof` 函数查询字段的 Arrow 数据数据类型，如下所示：
+You can see the corresponding Arrow type for any SQL expression using the arrow_typeof function. For example:
 
 ```sql {1}
 SELECT arrow_typeof('Hello CnosDB!');
@@ -17,7 +17,7 @@ SELECT arrow_typeof('Hello CnosDB!');
 +-------------------------------------+
 ```
 
-也可以将 SQL 表达式中的内容转换为指定的 Arrow 类型，比如将 `Timestamp` 类型转换为 `Date32`：
+You can also convert the content in the SQL expression to a specified Arrow type, such as converting `Timestamp` type to `Date32`:
 
 ```sql {1}
 SELECT arrow_cast(now(), 'Date32');
@@ -28,53 +28,53 @@ SELECT arrow_cast(now(), 'Date32');
 +------------+
 ```
 
-CnosDB 只能存储部分数据类型，详细内容请查看 [`CREATE DATABASE`](ddl#create-database)。
+CnosDB can only store partial data types, for detailed information please refer to [`CREATE DATABASE`](ddl#create-database).
 
-## 字符类型
+## Character Types
 
-| SQL 数据类型  | Arrow 数据类型 |
-| --------- | ---------- |
-| `CHAR`    | `Utf8`     |
-| `VARCHAR` | `Utf8`     |
-| `TEXT`    | `Utf8`     |
-| `STRING`  | `Utf8`     |
+| SQL Data Types | Arrow Data Type |
+| -------------- | --------------- |
+| `CHAR`         | `Utf8`          |
+| `VARCHAR`      | `Utf8`          |
+| `TEXT`         | `Utf8`          |
+| `STRING`       | `Utf8`          |
 
-## 数值类型
+## Numeric Types
 
-| SQL 数据类型                            | Arrow 数据类型 |
-| ----------------------------------- | ---------- |
-| `TINYINT`                           | `Int8`     |
-| `SMALLINT`                          | `Int16`    |
-| `INT` 或 `INTEGER`                   | `Int32`    |
-| `BIGINT`                            | `Int64`    |
-| `TINYINT UNSIGNED`                  | `UInt8`    |
-| `SMALLINT UNSIGNED`                 | `UInt16`   |
-| `INT UNSIGNED` 或 `INTEGER UNSIGNED` | `UInt32`   |
-| `BIGINT UNSIGNED`                   | `UInt64`   |
-| `FLOAT`                             | `Float32`  |
-| `REAL`                              | `Float32`  |
-| `DOUBLE`                            | `Float64`  |
+| SQL Data Types                      | Arrow Data Type |
+| ----------------------------------- | --------------- |
+| `TINYINT`                           | `Int8`          |
+| `SMALLINT`                          | `Int16`         |
+| `INT` 或 `INTEGER`                   | `Int32`         |
+| `BIGINT`                            | `Int64`         |
+| `TINYINT UNSIGNED`                  | `UInt8`         |
+| `SMALLINT UNSIGNED`                 | `UInt16`        |
+| `INT UNSIGNED` 或 `INTEGER UNSIGNED` | `UInt32`        |
+| `BIGINT UNSIGNED`                   | `UInt64`        |
+| `FLOAT`                             | `Float32`       |
+| `REAL`                              | `Float32`       |
+| `DOUBLE`                            | `Float64`       |
 
 ## 日期和时间
 
-| SQL 数据类型    | Arrow 数据类型                    |
-| ----------- | ----------------------------- |
-| `DATE`      | `Date32`                      |
-| `TIME`      | `Time64(Nanosecond)`          |
-| `TIMESTAMP` | `Timestamp(Nanosecond, None)` |
-| `INTERVAL`  | `Interval(MonthDayNano)`      |
+| SQL Data Types | Arrow Data Type               |
+| -------------- | ----------------------------- |
+| `DATE`         | `Date32`                      |
+| `TIME`         | `Time64(Nanosecond)`          |
+| `TIMESTAMP`    | `Timestamp(Nanosecond, None)` |
+| `INTERVAL`     | `Interval(MonthDayNano)`      |
 
 ## 布尔类型
 
-| SQL 数据类型  | Arrow 数据类型 |
-| --------- | ---------- |
-| `BOOLEAN` | `Boolean`  |
+| SQL Data Types | Arrow Data Type |
+| -------------- | --------------- |
+| `BOOLEAN`      | `Boolean`       |
 
 ## 二进制类型
 
-| SQL 数据类型 | Arrow 数据类型 |
-| -------- | ---------- |
-| `BYTEA`  | `Binary`   |
+| SQL Data Types | Arrow Data Type |
+| -------------- | --------------- |
+| `BYTEA`        | `Binary`        |
 
 ## 地理空间类型
 
@@ -92,20 +92,20 @@ CnosDB 使用 [WKT（Well-known text）](https://en.wikipedia.org/wiki/Well-know
 
 ## 不支持的 SQL 类型
 
-| SQL 数据类型    | Arrow 数据类型  |
-| ----------- | ----------- |
-| `UUID`      | Unsupported |
-| `BLOB`      | Unsupported |
-| `CLOB`      | Unsupported |
-| `BINARY`    | Unsupported |
-| `VARBINARY` | Unsupported |
-| `REGCLASS`  | Unsupported |
-| `NVARCHAR`  | Unsupported |
-| `CUSTOM`    | Unsupported |
-| `ARRAY`     | Unsupported |
-| `ENUM`      | Unsupported |
-| `SET`       | Unsupported |
-| `DATETIME`  | Unsupported |
+| SQL Data Types | Arrow Data Type |
+| -------------- | --------------- |
+| `UUID`         | Unsupported     |
+| `BLOB`         | Unsupported     |
+| `CLOB`         | Unsupported     |
+| `BINARY`       | Unsupported     |
+| `VARBINARY`    | Unsupported     |
+| `REGCLASS`     | Unsupported     |
+| `NVARCHAR`     | Unsupported     |
+| `CUSTOM`       | Unsupported     |
+| `ARRAY`        | Unsupported     |
+| `ENUM`         | Unsupported     |
+| `SET`          | Unsupported     |
+| `DATETIME`     | Unsupported     |
 
 ## 支持的 Arrow 类型
 
