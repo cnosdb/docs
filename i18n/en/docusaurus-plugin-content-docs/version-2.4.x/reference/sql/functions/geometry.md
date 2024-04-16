@@ -98,7 +98,7 @@ ST_Distance(geometry1, gemometry2)
 <details>
   <summary>查看 <code>ST_Distance</code> 示例</summary>
 
-\*\*计算两点之间的距离。**Example**
+**计算两点之间的距离。**
 
 ```sql {1}
 SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
@@ -109,7 +109,7 @@ SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
 +--------------------------------------------------------------------------+
 ```
 
-\*\*计算点到线的直线距离。**Example**
+**计算点到线的直线距离。**
 
 ```sql {1}
 SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
@@ -120,7 +120,7 @@ SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
 +--------------------------------------------------------------------------+
 ```
 
-\*\*计算平面和平面之间的距离。**Example**
+**计算平面和平面之间的距离。**
 
 ```sql {1}
 SELECT ST_Distance('POLYGON((0 2,1 1,0 -1,0 2))', 'POLYGON((-1 -3,-2 -1,0 -3,-1 -3))');
