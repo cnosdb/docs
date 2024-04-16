@@ -51,7 +51,7 @@ db_option: {
 
 After data is cooled, the `migrate` thread in meta will migrate data from hot nodes to cold nodes. The `migrate` thread periodically checks whether there is data to be migrated. The timing can be modified using the `auto_migrate_vnodes_duration` configuration item in the meta configuration file. The unit of this configuration item is seconds, and the default value is 0, which means that tiered storage is not enabled. The timing for periodic checks can be set according to practical needs. It is recommended to set the minimum check time to 1800 seconds, which is `auto_migrate_vnodes_duration = 1800`.
 
-**需要注意**
+**Note**
 
 - After data is cooled, data is migrated from the hot node to the cold node. However, the cooling degree of data is defined by users. Users can modify the cooling period of db to change the cooling degree of data.
 
