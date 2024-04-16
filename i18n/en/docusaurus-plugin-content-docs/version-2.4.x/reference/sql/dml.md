@@ -27,13 +27,13 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 <details>
   <summary>查看 <code>INSERT</code> 示例</summary>
 
-\*\*插入一条记录。**Example**
+**插入一条记录。**
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES(new(), 'XiaoMaiDao', 56, 69, 77);
 ```
 
-\*\*插入多条记录。**Example**
+**插入多条记录。**
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
@@ -41,7 +41,7 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
 
-\*\*根据查询结果插入记录。**Example**
+**根据查询结果插入记录。**
 
 1. 创建一个新表。
 
@@ -88,7 +88,7 @@ assignment clause :
 <details>
   <summary>查看 <code>UPDATE</code> 示例</summary>
 
-\*\*更新 `air` 表中的 `TAG` 列的数据，将符合条件 `station = 'LianYunGang'` 的记录修改成 `station = 'ShangHai'`。**Example**
+**更新 `air` 表中的 `TAG` 列的数据，将符合条件 `station = 'LianYunGang'` 的记录修改成 `station = 'ShangHai'`。**
 
 ```sql
 UPDATE air SET station = 'ShangHai' where station = 'LianYunGang';
