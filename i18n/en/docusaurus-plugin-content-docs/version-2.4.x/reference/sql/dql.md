@@ -68,7 +68,7 @@ SELECT station, avg_temperature FROM x;
 <details>
   <summary>查看 <code>DISTINCT</code> 和 <code>ALL</code> 示例</summary>
 
-\*\*`DISTINCT` 和 `ALL` 对于 `TAG` 类型的列没有效果。**Example**
+**`DISTINCT` 和 `ALL` 对于 `TAG` 类型的列没有效果。**
 
 ```sql {1}
 SELECT DISTINCT station FROM air;
@@ -92,7 +92,7 @@ SELECT station FROM air;
 
 无论是否使用 `DISTINCT`，`TAG` 类型的列都会主动去重复。
 
-\*\*`DISTINCT` 和 `ALL` 只对 `FIELD` 类型的列有效果。**Example**
+**`DISTINCT` 和 `ALL` 只对 `FIELD` 类型的列有效果。**
 
 以下的  `temperature` 列有多条相同的记录。
 
@@ -131,7 +131,7 @@ SELECT DISTINCT temperature FROM air WHERE temperature = 50;
 
 `FROM` 子句用于指定要从中检索数据的 `table` 或 `table` 表达式。即要从中选择数据的 `table`。通过在 `FROM` 子句中指定 `table` 的名称，可以告诉数据库系统从哪里获取数据。
 
-\*\*指定 `table` 名称。**Example**
+**指定 `table` 名称。**
 
 <details>
   <summary>查看示例</summary>
@@ -152,7 +152,7 @@ Query took 0.069 seconds.
 
 </details>
 
-\*\*使用 `VALUE` 构建临时表。**Example**
+**使用 `VALUE` 构建临时表。**
 
 <details>
   <summary>查看示例</summary>
@@ -585,7 +585,7 @@ EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 | `ANALYZE` | 执行查询。       |
 | `VERBOSE` | 显示详细信息。     |
 
-\*\*返回语句的执行计划。**Example**
+**返回语句的执行计划。**
 
 ```sql
 EXPLAIN SELECT station,avg(temperature) FROM air GROUP BY station;
@@ -614,7 +614,7 @@ EXPLAIN SELECT station,avg(temperature) FROM air GROUP BY station;
 
 </details>
 
-\*\*返回语句的执行计划和指标。**Example**
+**返回语句的执行计划和指标。**
 
 ```sql
 EXPLAIN ANALYZE SELECT station,avg(temperature) FROM air GROUP BY station;
@@ -640,7 +640,7 @@ EXPLAIN ANALYZE SELECT station,avg(temperature) FROM air GROUP BY station;
 
 </details>
 
-\*\*返回语句的详细执行计划和指标。**Example**
+**返回语句的详细执行计划和指标。**
 
 ```sql
 EXPLAIN ANALYZE VERBOSE SELECT station,avg(temperature) FROM air GROUP BY station;
