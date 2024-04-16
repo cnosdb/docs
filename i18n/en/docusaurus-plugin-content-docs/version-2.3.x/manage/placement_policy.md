@@ -2,7 +2,7 @@
 sidebar_position: 12
 ---
 
-# 数据分布策略
+# Placement Policy
 
 :::tip
 Only Enterprise Edition supports
@@ -42,25 +42,25 @@ All replicas are placed on machines in different racks of rack1-4 in dc1
 create placement_policy policy2 WITH rule rack_aware dc 'dc1' rack 'rack1,rack2,rack3,rack4';
 ```
 
-### 感知DC策略
+### Perceive DC Policy
 
-副本数据尽可能放置在不同dc上
-名称：dc_aware
-参数：dc列表
+Replica data should be placed on different dcs as much as possible
+Name: dc_aware
+Parameters: list of dc
 
-所有副本尽可能放置在dc1-4的机器上
+All replicas should be placed on machines in dc1-4 as much as possible
 
 ```SQL
 create placement_policy policy3 WITH rule dc_aware dc 'dc1,dc2,dc3,dc4';
 ```
 
-**需要注意**
+**Note**
 
-副本放置策略隶属于租户，同一个租户下，策略名字唯一。
+The placement policy belongs to the tenant, and within the same tenant, the policy name is unique.
 
-## 策略关联
+## Policy Associations
 
-创建/修改Database时可以指定放置策略的名字进行关联，如果不指定放置策略按照现有逻辑处理，就是不感知dc与rack。
+When creating/modifying a Database, you can associate it with a specified placement policy name. If no placement policy is specified, the existing logic will be followed, which means it is not aware of the data center and rack.
 
 ```SQL
 create database db with replica 2 placement_policy 'policy1';
@@ -68,9 +68,9 @@ create database db with replica 2 placement_policy 'policy1';
 2.3.5版本: alter database db set placement_policy 'policy2';
 ```
 
-## 策略查看
+## View Policy
 
-可以通过系统表来查看当前租户下的策略和使用情况
+You can view the policies and usage under the current tenant through the system tables
 
 ```SQL
 select * from information_schema.placement_policys;
@@ -83,18 +83,18 @@ select * from information_schema.placement_policys;
 +---------+-----------+-----------------+-------------------------+------------+
 ```
 
-## 策略的修改和删除
+## Modification and deletion of policies
 
-当没有database使用策略时，可以进行drop/alter
+When there is no database usage policy, drop/alter can be performed
 
 ```SQL
 drop placement_policy policy1;
 alter placement_policy policy2 SET rule dc_aware dc 'dc1,dc2,dc3,dc4';
 ```
 
-## Node标签
+## Node Label
 
-节点在加入集群的时候通过配置文件指定所属的dc和rack，并且可以通过show datanodes进行查看
+When a node joins the cluster, it specifies its belonging dc and rack through the configuration file, and can be viewed by using show datanodes.
 
 ```
 location = "/dc1/rack1"
