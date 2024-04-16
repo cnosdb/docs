@@ -161,7 +161,7 @@ In our test scenario, InfluxDB can but do wrokers = 100(100 concurrent scenarios
 | 5000       | 66            | 512              | 61                  | 480              |
 | 2500       | 53            | 420              | 57                  | 450              |
 | 1000       | 43            | 330              | 49                  | 389              |
-| 1          | 5             | 48               | 2.5 | 15               |
+| 1          | 6             | 48               | 2.5 | 15               |
 
 We take the data in Benchmark when database writing levels off which is valued at the sum of two clients.
 
@@ -181,7 +181,7 @@ In addition, CnosDB supports higher concurrent numbers, and we also test the per
 | 5000       | 67            | 518              |
 | 2500       | 60            | 463              |
 | 1000       | 49            | 382              |
-| 1          | 5             | 47               |
+| 1          | 6             | 47               |
 
 With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling.
 
