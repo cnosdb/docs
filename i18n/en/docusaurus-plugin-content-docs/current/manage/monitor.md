@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 10
 ---
 
 # Monitor
@@ -104,8 +104,8 @@ The size of the Http return data
 | DATABASE                     | Database name                               |
 | NODE_ID | ID of data node                             |
 | TENANT                       | Tenant name the database belongs to         |
-| Database                     | DatabaseName                                |
-| User                         | DatabaseName                                |
+| Database                     | Database name                               |
+| User                         | User name                                   |
 | VALUE                        | The total size of the read traffic in Bytes |
 
 ### HTTP_QUERIES
@@ -130,7 +130,7 @@ This metric keeps track of the number of Http queries a user makes.
 | DATABASE                     | Database name                       |
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
-| USER                         | DatabaseName                        |
+| USER                         | User name                           |
 | VALUE                        | Query times                         |
 
 ### HTTP_WRITES
@@ -155,8 +155,8 @@ This metric records the number of times a user writes via Http.
 | DATABASE                     | Database name                       |
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
-| USER                         | DatabaseName                        |
-| VALUE                        | 用户写入次数                              |
+| USER                         | User name                           |
+| VALUE                        | User write times                    |
 
 ### HTTP_QUERY_DURATION
 
@@ -180,7 +180,7 @@ Time spent querying through the Http interface.
 | DATABASE                     | Database name                       |
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
-| USER                         | DatabaseName                        |
+| USER                         | User name                           |
 | LE                           | Less than this time, in ms          |
 | VALUE                        | Times                               |
 
@@ -206,7 +206,7 @@ Time taken to write through the Http interface.
 | DATABASE                     | Database name                       |
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
-| USER                         | DatabaseName                        |
+| USER                         | User name                           |
 | LE                           | Less than this time, in ms          |
 | VALUE                        | Times                               |
 
