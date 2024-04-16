@@ -229,25 +229,25 @@ GRANT {READ | WRITE | ALL} ON DATABASE database_name TO ROLE role_name;
 <details>
   <summary>查看示例</summary>
 
-\*\*创建一个名为 `rrr` 的角色。**Example**
+**创建一个名为 `rrr` 的角色。**
 
 ```sql
 CREATE ROLE rrr INHERIT member;
 ```
 
-\*\*授予角色 `rrr` 读取数据库 `air` 的权限。**Example**
+**授予角色 `rrr` 读取数据库 `air` 的权限。**
 
 ```sql
 GRANT READ ON DATABASE air TO ROLE rrr;
 ```
 
-\*\*授予角色 `rr r` 读写数据库 `wind` 的权限。**Example**
+**授予角色 `rr r` 读写数据库 `wind` 的权限。**
 
 ```sql
 GRANT WRITE ON DATABASE wind TO ROLE rrr;
 ```
 
-\*\*授予角色 `rrr` 关于数据库 `sea` 的所有权限。**Example**
+**授予角色 `rrr` 关于数据库 `sea` 的所有权限。**
 
 ```sql
 GRANT ALL ON DATABASE sea TO ROLE rrr;
@@ -268,7 +268,7 @@ REVOKE {WRITE | READ | FULL} ON DATABASE database_name FROM role_name;
 <details>
   <summary>查看示例</summary>
 
-\*\*撤销 `rrr`读取数据库 `air` 的权限。**Example**
+**撤销 `rrr`读取数据库 `air` 的权限。**
 
 ```sql
 REVOKE READ ON DATABASE air FROM rrr;
