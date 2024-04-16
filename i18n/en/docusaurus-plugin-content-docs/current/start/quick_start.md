@@ -117,7 +117,7 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...];
 ```
 
 You can use `DISTINCT` after the `SELECT` keyword to remove duplicate fields and return only the de-duplicated values.
-Alias Column ExpressionWhen this option is not specified, the default value is `ALL`.
+Using `ALL` returns all duplicate values in the field.When this option is not specified, the default value is `ALL`.
 
 **Example**
 
@@ -346,7 +346,7 @@ FROM air OFFSET 10;
 ```
 
 `OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip. The format is `LIMIT n OFFSET m`, or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
-Alias
+Among them: LIMIT n controls the output of n rows of data, OFFSET m indicates the number of rows to skip before starting to return data.
 OFFSET 0 is equivalent to omitting the OFFSET clause.
 
 **Example**
@@ -374,11 +374,11 @@ FROM air LIMIT 3 OFFSET 3;
 WITH cte AS cte_query_definiton [, ...] query
 ```
 
-可选。Optional. The WITH clause contains one or more commonly used expressions CTE (Common Table Expression). CTE acts as a temporary table in the current running environment, which you can refer to in subsequent queries.The rules for using CTE are as follows:
-Alias TableThe following rules for use by CTE are:
+Optional.The WITH clause contains one or more common expressions CTE (Common Table Expression).
+The CTE acts as a temporary table in the current runtime environment that you can refer to in subsequent queries.The following rules for use by CTE are:
 
 - CTE in the same WITH clause must have a unique name.
-- The CTE defined in the WITH clause can only be used for other CTEs in the same WITH clause defined later. Suppose A is the first CTE in the clause and B is the second CTE in the clause:
+- A CTE defined in a WITH clause is available only to other CTEs defined thereafter in the same WITH clause.
   Assume A is the first CTE, B is the second CTE:
 
 **Example**
