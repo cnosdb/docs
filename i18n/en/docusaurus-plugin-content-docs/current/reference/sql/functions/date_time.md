@@ -91,7 +91,7 @@ date_bin(interval, expression, origin-timestamp)
 <details>
   <summary>查看 <code>date_bin</code> 示例</summary>
 
-\*\*如果您将数据分箱为 15 分钟间隔，则输入时间戳 `2024-01-01T18:18:18Z` 将更新为其所在 15 分钟分箱的开始时间：`2024-01-01T18:15:00Z` 。**Example**
+**如果您将数据分箱为 15 分钟间隔，则输入时间戳 `2024-01-01T18:18:18Z` 将更新为其所在 15 分钟分箱的开始时间：`2024-01-01T18:15:00Z` 。**
 
 ```sql {1}
 SELECT date_bin(INTERVAL '15' MINUTE, TIMESTAMP '2024-01-01T18:18:18Z');
@@ -153,7 +153,7 @@ date_part(part, expression)
 <details>
   <summary>查看 <code>date_part</code> 示例</summary>
 
-\*\*从日期中提取月份。**Example**
+**从日期中提取月份。**
 
 ```sql
 SELECT date_part('month', '2024-05-13') AS month;
@@ -177,7 +177,7 @@ extract(field FROM source)
 <details>
   <summary>查看 <code>extract</code> 示例</summary>
 
-\*\*从日期中提取月份。**Example**
+**从日期中提取月份。**
 
 ```sql
 SELECT extract(month FROM  '2024-05-13') AS month;
