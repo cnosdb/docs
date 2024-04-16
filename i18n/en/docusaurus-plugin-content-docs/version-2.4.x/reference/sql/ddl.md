@@ -34,13 +34,13 @@ db_option: {
 <details>
   <summary>查看 <code>CREATE DATABASE</code> 示例</summary>
 
-\*\*创建一个数据库，且保留策略为无限长。**Example**
+**创建一个数据库，且保留策略为无限长。**
 
 ```sql
 CREATE DATABASE oceanic_station;
 ```
 
-\*\*创建一个数据库，设置过期时间为 180 天，且每个时间窗口为 7 天。**Example**
+**创建一个数据库，设置过期时间为 180 天，且每个时间窗口为 7 天。**
 
 > 数据过期策略请参考 [分片规则](../concept_design/arch#数据管理)
 
@@ -48,13 +48,13 @@ CREATE DATABASE oceanic_station;
 CREATE DATABASE oceanic_station WITH TTL '180d' SHARD 1 VNODE_DURATION '7d';
 ```
 
-\*\*设置 Vnode 复制因子数量。**Example**
+**设置 Vnode 复制因子数量。**
 
 ```sql
 CREATE DATABASE oceanic_station WITH SHARD 2;
 ```
 
-\*\*设置时间戳精度。**Example**
+**设置时间戳精度。**
 
 > 时间精度只允许在创建数据库时指定，且后续不能更改。
 
@@ -96,7 +96,7 @@ field_codec_type:
 <details>
   <summary>查看 <code>CREATE TABLE</code> 示例</summary>
 
-\*\*创建一个表。**Example**
+**创建一个表。**
 
 创建表时 `time` 字段可以省略。
 
@@ -109,7 +109,7 @@ CREATE TABLE air(
 );
 ```
 
-\*\*创建一个表，并指定压缩算法。**Example**
+**创建一个表，并指定压缩算法。**
 
 指定 `visibility` 的压缩算法为 `QUANTILE`，`temperature` 不压缩，`pressure` 使用默认压缩算法。
 
@@ -161,7 +161,7 @@ tb_option: {
 <details>
   <summary>查看 <code>CREATE EXTERNAL TABLE</code> 示例</summary>
 
-\*\*创建一个外部表，并指定一个本地 `CSV` 文件。**Example**
+**创建一个外部表，并指定一个本地 `CSV` 文件。**
 
 创建外部表可以使用所有 [数据类型](data_type) （不包括 `INTERVAL` 等一些特殊类型）中的类型，且不受 CnosDB 固有模型的约束。
 
@@ -218,7 +218,7 @@ db_option: {
 <details>
   <summary>查看 <code>ALTER DATABASE</code> 示例</summary>
 
-\*\*修改 `TTL`。**Example**
+**修改 `TTL`。**
 
 ```sql
 ALTER DATABASE oceanic_station SET TTL '30d';
@@ -261,31 +261,31 @@ alter_table_option: {
 <details>
   <summary>查看 <code>ALTER TABLE</code> 示例</summary>
 
-\*\*添加一个 `TAG` 类型的列。**Example**
+**添加一个 `TAG` 类型的列。**
 
 ```sql
 ALTER TABLE air ADD TAG height;
 ```
 
-\*\*添加一个 `FIELD` 类型的列，并指定压缩算法。**Example**
+**添加一个 `FIELD` 类型的列，并指定压缩算法。**
 
 ```sql
 ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
 ```
 
-\*\*修改 `humidity` 的压缩算法为 `QUANTILE`。**Example**
+**修改 `humidity` 的压缩算法为 `QUANTILE`。**
 
 ```sql
 ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ```
 
-\*\*删除 `humidity`。**Example**
+**删除 `humidity`。**
 
 ```sql
 ALTER TABLE air DROP humidity;
 ```
 
-\*\*重命名列名。**Example**
+**重命名列名。**
 
 ```sql
 ALTER TABLE air RENAME COLUMN height to height_v2;
@@ -306,13 +306,13 @@ DROP DATABASE [IF EXISTS] db_name [AFTER <duration>];
 <details>
   <summary>查看 <code>DROP DATABASE</code> 示例</summary>
 
-\*\*删除数据库，且数据库会被立即删除。**Example**
+**删除数据库，且数据库会被立即删除。**
 
 ```sql
 DROP DATABASE oceanic_station;
 ```
 
-\*\*删除数据库，并设置数据库在 3 天后被删除。**Example**
+**删除数据库，并设置数据库在 3 天后被删除。**
 
 ```sql
 DROP DATABASE oceanic_station AFTER '3';
