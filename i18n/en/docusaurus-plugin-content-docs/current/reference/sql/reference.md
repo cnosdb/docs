@@ -464,7 +464,7 @@ SELECT 'Hello, ' || 'CnosDB!';
 expr BETWEEN expr AND expr
 ```
 
-\*\*返回 `air` 表中 `perssure` 字段在 50 - 60 之间的记录。**Example**
+**返回 `air` 表中 `perssure` 字段在 50 - 60 之间的记录。**
 
 ```sql
 SELECT DISTINCT perssure FROM air WHERE perssure BETWEEN 50 AND 60;
@@ -480,7 +480,7 @@ SELECT DISTINCT perssure FROM air WHERE perssure BETWEEN 50 AND 60;
 
 :::
 
-\*\*判断 `air` 表中 `temperature` 字段的值被  `(68, 69)` 包含。**Example**
+**判断 `air` 表中 `temperature` 字段的值被  `(68, 69)` 包含。**
 
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
@@ -497,7 +497,7 @@ CASE
 END;
 ```
 
-\*\*查看示例。**Example**
+**查看示例。**
 
 ```sql
 SELECT DISTINCT 
