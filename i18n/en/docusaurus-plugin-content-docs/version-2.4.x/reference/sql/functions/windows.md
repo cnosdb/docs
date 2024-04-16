@@ -247,7 +247,7 @@ time - n * slide_duration, time + window_duration - n * slide_duration
 <details>
   <summary>查看示例</summary>
 
-\*\*创建示例数据集。**Example**
+**创建示例数据集。**
 
 ```sql {1-3}
 CREATE TABLE test(a BIGINT, TAGS(b));
