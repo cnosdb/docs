@@ -103,10 +103,10 @@ Notice:
 
 DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换).The internal types are as follows:
 
-- `Long`:Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
+- `Long`: Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
 - `Double`:Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
-- `String`:String type, underlying unlimited length, using the Universal character set (Unicode).
-- `Date`:Date type.
+- `String`: String type, underlying unlimited length, using the Universal character set (Unicode).
+- `Date`: Date type.
 - `Bool`: Boolean value.
 - `Bytes`:Binary, which can hold unstructured data such as MP3s.
 
@@ -141,7 +141,7 @@ Suppose we have a running OpenTSDB and the data to be exported is as follows:
 - Metric: `sys.cpu.nice`
 - Start Time: `2023-06-01 00:00:00`
 - End Time: `2023-06-02 00:00:00`
-- Time Accuracy: ms
+- Precision: ms
 
 Then the corresponding Reader plugin OpenTSDBReader configuration is as follows:
 
