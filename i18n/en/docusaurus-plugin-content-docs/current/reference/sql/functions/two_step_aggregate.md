@@ -39,7 +39,7 @@ stats_agg(y, x)
 <details>
   <summary>查看 <code>stats_agg</code> 示例</summary>
 
-\*\*示例数据集。**Example**
+**示例数据集。**
 
 ```sql {1}
 SELECT * FROM test_stats;
@@ -59,7 +59,7 @@ SELECT * FROM test_stats;
 +-------------------------------+---+---+
 ```
 
-\*\*使用 `stats_agg` 聚合结果。**Example**
+**使用 `stats_agg` 聚合结果。**
 
 ```sql {1}
 SELECT stats_agg(y, x) FROM test_stats;
@@ -348,7 +348,7 @@ SELECT duration_in(state_agg(time, state), 'running') FROM states;
 +------------------------------------------------------------------+
 ```
 
-\*\*统计从 '2020-01-01 11:00:00' 开始 'running' 状态的持续时间。**Example**
+**统计从 '2020-01-01 11:00:00' 开始 'running' 状态的持续时间。**
 
 ```sql {1}
 SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00') FROM states;
@@ -359,7 +359,7 @@ SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:0
 +----------------------------------------------------------------------------------------------+
 ```
 
-\*\*统计 从2020-01-01 11:00:00 开始的四天内 'running' 状态的持续时间。**Example**
+**统计 从2020-01-01 11:00:00 开始的四天内 'running' 状态的持续时间。**
 
 ```sql {1}
 SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00', interval '4 day') FROM states;
@@ -436,7 +436,7 @@ SELECT * FROM tick;
 +-------------------------+-------+--------+
 ```
 
-\*\*使用 `candlestick_agg` 进行聚合。**Example**
+**使用 `candlestick_agg` 进行聚合。**
 
 ```sql {1}
 SELECT candlestick_agg(time, price, volume) FROM tick;
