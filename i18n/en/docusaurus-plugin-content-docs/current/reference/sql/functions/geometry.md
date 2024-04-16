@@ -8,7 +8,7 @@ import APITable from '@site/src/components/APITable';
 
 空间函数是用于处理和操作三维空间数据的函数集合。
 
-CnosDB 使用 [WKT（Well-known text）](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)支持 \*\*地理空间类型（[Geometry](https://en.wikipedia.org/wiki/Geometry)）\*\*的数据查询。
+CnosDB uses [WKT (Well-known text)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) to support **geospatial type ([Geometry](https://en.wikipedia.org/wiki/Geometry))** data queries.
 
 支持的类型请参考 [地理空间类型](../data_type.md#地理空间类型)
 
@@ -26,7 +26,7 @@ CnosDB 使用 [WKT（Well-known text）](https://en.wikipedia.org/wiki/Well-know
 <APITable>
 ```
 
-| 几何类型                 | 图片                                               | Example                                                                                                                    |
+| Geometry types       | 图片                                               | Example                                                                                                                    |
 | -------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | `Point`              | ![](/img/sql/SFA_Point.svg.png)                  | `POINT (30 10)`                                                                                                            |
 | `LineString`         | ![](/img/sql/102px-SFA_LineString.svg.png)       | `LINESTRING (30 10, 10 30, 40 40)`                                                                                         |
