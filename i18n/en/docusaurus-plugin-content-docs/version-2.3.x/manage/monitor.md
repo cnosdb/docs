@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 10
 ---
 
 # Monitor
@@ -176,8 +176,8 @@ The size of the Http return data
 | DATABASE                     | Database name                                                   |
 | NODE_ID | ID of data node                                                 |
 | TENANT                       | Tenant name the database belongs to                             |
-| Database                     | DatabaseName                                                    |
-| User                         | DatabaseName                                                    |
+| Database                     | Database name                                                   |
+| User                         | User name                                                       |
 | VALUE                        | The total size of the read traffic in Bytes                     |
 
 ### USER_QUERIES
@@ -202,7 +202,7 @@ The times the user queries from the database.
 | DATABASE                     | Database name                       |
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
-| USER                         | DatabaseName                        |
+| USER                         | User name                           |
 | VALUE                        | 用户查询次数                              |
 
 ### USER_WRITES
@@ -227,8 +227,8 @@ The times the user writes to the database.
 | DATABASE                     | Database name                       |
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
-| USER                         | DatabaseName                        |
-| VALUE                        | 用户写入次数                              |
+| USER                         | User name                           |
+| VALUE                        | User write times                    |
 
 ## Prometheus Monitor
 
