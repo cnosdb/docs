@@ -2,17 +2,17 @@
 sidebar_position: 6
 ---
 
-# 数据控制语言
+# DCL
 
-是用来控制数据库用户访问权限。
+Is used to control the access rights of database users.
 
-只有拥有系统权限的用户才能添加用户和租户。
+Only users with system permissions can add users and tenants.
 
-只有担任租户下 owner 角色的用户或拥有系统权限的用户才能添加租户下的角色，并赋予用户角色。
+Only a user who holds the role of owner under a tenant or a user with system permissions can add a role under a tenant and give a user a role.
 
 ## `CREATE TENANT`
 
-`CREATE TENANT` 用于在 CnosDB 中创建一个新的租户。CnosDB 允许单个实例同时为多个客户（即租户）提供服务，每个客户都被视为一个独立的租户。
+`CREATE TENANT` is used to create a new tenant in CnosDB.CnosDB allows a single instance to serve multiple clients (i.e. tenants) at the same time, with each client being treated as an independent tenant.
 
 ```sql
 CREATE TENANT [IF NOT EXISTS] tenant_name
@@ -21,10 +21,10 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
        [_limiter = <limiter_config>]];
 ```
 
-| Options      | Description                                             |
-| ------------ | ------------------------------------------------------- |
-| `drop_after` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d`       |
-| `_limiter`   | 限制租户资源用量，详细内容请参考 [租户资源](../../manage/resource_limit.md) |
+| Options      | Description                                                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `drop_after` | Delete tenant delay time, default is immediate deletion, supports: `d`, `h`, `m`, when no unit is provided, default is `d` |
+| `_limiter`   | Limit tenant resource usage, for more details please refer to [Tenant Resources](../../manage/resource_limit.md)                           |
 
 <details>
   <summary>查看示例</summary>
@@ -37,9 +37,9 @@ CREATE TENANT test;
 
 ## `CREATE USER`
 
-`CREATE USER ` 用于创建新用户。
+`CREATE USER` is used to create a new user.
 
-通过使用 `CREATE USER` 语句，管理员可以在 CnosDB 中创建新用户，并为其分配相应的权限和角色。新用户可以用于访问数据库、执行查询、更新数据等操作，具体权限取决于管理员为用户分配的权限级别。
+By using the `CREATE USER` statement, administrators can create new users in CnosDB and assign them corresponding permissions and roles.New users can be used to access databases, execute queries, update data, etc. The specific permissions depend on the permission level assigned to the user by the administrator.
 
 ```sql
 CREATE USER [IF NOT EXISTS] user_name
@@ -49,11 +49,11 @@ CREATE USER [IF NOT EXISTS] user_name
 [GRANTED_ADMIN=true,] [COMMENT = '']];
 ```
 
-| Options                | Description                           |
-| ---------------------- | ------------------------------------- |
-| `MUST_CHANGE_PASSWORD` | 第一次登录时是否需要更改密码，默认为 `false`。           |
-| `GRANTED_ADMIN`        | 用户是否为 `admin` 用户，`admin` 用于整个实例的所有权限。 |
-| `RSA_PUBLIC_KEY`       | 上传用户 `RSA` 算法的公钥，用于登录验证。              |
+| Options                | Description                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------ |
+| `MUST_CHANGE_PASSWORD` | Whether to change the password on the first login, default is `false`.           |
+| `GRANTED_ADMIN`        | Whether the user is a `admin` user, or `admin` is used for all of the instances. |
+| `RSA_PUBLIC_KEY`       | Upload the public key of the user `RSA` algorithm for login authentication.      |
 
 <details>
   <summary>查看示例</summary>
@@ -66,18 +66,18 @@ CREATE USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true,
 
 ## `CREATE ROLE`
 
-`CREATE ROLE` 用于创建新角色。
+`CREATE ROLE` is used to create new roles.
 
-通过使用 `CREATE ROLE` 语句，管理员可以定义新的角色，并为这些角色分配相应的权限。角色在数据库中可以用于组织用户并授予一组特定的权限，从而简化权限管理和控制访问级别。
+By using the `CREATE ROLE` statement, administrators can define new roles and assign permissions to these roles.Roles can be used in the database for organizing users and granting a specific set of permissions to simplify the administration and control access levels.
 
 ```sql
 CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 ```
 
-| Options  | Description                             |
-| -------- | --------------------------------------- |
-| `owner`  | 租户下默认的角色，创建新角色时必需继承 `owner` 或 `member`。 |
-| `member` | 租户下默认的角色，创建新角色时必需继承 `owner` 或 `member`。 |
+| Options  | Description                                                                                                              |
+| -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `owner`  | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
+| `member` | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
 
 <details>
   <summary>查看示例</summary>
@@ -90,9 +90,9 @@ CREATE ROLE owner_role INHERIT owner;
 
 ## `ALTER TENANT`
 
-`ALTER TENANT` 用于修改租户（tenant）的属性或配置。
+The `ALTER TENANT` is used to modify the tenant properties or configuration.
 
-通过 `ALTER TENANT` 命令，可以对租户的属性进行修改，例如更改租户的配置、调整资源限制等。
+With the `ALTER TENANT` command, the tenant properties can be modified, such as changing the tenant's configuration, adjusting resource limits, etc.
 
 ```sql
 ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
@@ -101,10 +101,10 @@ sql_option: option_name = value
 option: {COMMENT/DROP_AFTER/_LIMITER}
 ```
 
-| Options | Description  |
-| ------- | ------------ |
-| `SET`   | 为租户添加或修改属性。  |
-| `UNSET` | 撤销租户内的配置或属性。 |
+| Options | Description                                                               |
+| ------- | ------------------------------------------------------------------------- |
+| `SET`   | Add or modify attributes for tenants.                     |
+| `UNSET` | Revoke the configuration or properties within the tenant. |
 
 <details>
   <summary>查看示例</summary>
@@ -117,9 +117,9 @@ ALTER TENANT test SET COMMENT = 'abc';
 
 ## `ALTER USER`
 
-`ALTER USER` 用于修改现有用户的语句。
+`ALTER USER` is used to modify statements for existing users.
 
-通过使用 `ALTER USER` 语句，管理员可以更改用户的属性、权限和配置。这包括修改用户的密码、更改用户的角色、调整用户的权限等操作。
+By using the `ALTER USER` statement, administrators can change a user's properties, permissions, and configurations.This includes operations such as modifying user passwords, changing user roles, adjusting user permissions, etc.
 
 ```sql
 ALTER USER user_name {SET sql_option};
@@ -128,9 +128,9 @@ sql_option: option_name = option_value
 option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
-| Options | Description |
-| ------- | ----------- |
-| `SET`   | 为租户添加或修改属性。 |
+| Options | Description                                           |
+| ------- | ----------------------------------------------------- |
+| `SET`   | Add or modify attributes for tenants. |
 
 <details>
   <summary>查看示例</summary>
@@ -143,19 +143,19 @@ ALTER USER tester SET PASSWORD = 'aaa';
 
 ## `DROP TENANT`
 
-DROP TENANT 用于删除租户（tenant）及其相关的数据和配置。
+DROP TENANT is used to delete a tenant and its related data and configuration.
 
-通过 `DROP TENANT` 命令，可以删除特定的租户，包括该租户拥有的所有数据、配置、用户等内容。
+Through the `DROP TENANT` command, you can delete a specific tenant, including all data, configurations, users, and other content owned by the tenant.
 
-在执行 `DROP TENANT` 操作之前，通常需要谨慎考虑，因为该操作将永久删除租户及其所有相关数据。
+Before executing the `DROP TENANT` operation, it is usually necessary to consider it carefully, as this operation will permanently delete the tenant and all its related data.
 
 ```sql
 DROP TENANT tenant_name [AFTER duration];
 ```
 
-| Options | Description                                                                                                  |
-| ------- | ------------------------------------------------------------------------------------------------------------ |
-| `ALTER` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d`，删除期间租户会被禁用，`ALTER` 的优先级高于 `CREATE TANANT` 中的 `DROP_AFTER`。 |
+| Options | Description                                                                                                                                                                                                                                                                          |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ALTER` | Delete tenant delay time, default immediate deletion, support: `d`, `h`, `m`, when no unit is specified, default is `d`, during deletion period the tenant will be disabled, the priority of `ALTER` is higher than `DROP_AFTER` in `CREATE TANANT`. |
 
 <details>
   <summary>查看示例</summary>
@@ -168,9 +168,9 @@ DROP TENANT test AFTER '7d';
 
 ## `DROP USER`
 
-`DROP USER` 用于删除现有用户。
+`DROP USER` is used to delete an existing user.
 
-通过使用 `DROP USER` 语句，数据库管理员可以永久删除数据库中的特定用户，包括用户的登录凭证、权限和配置信息。
+By using the `DROP USER` statement, a database administrator can permanently delete specific users from the database, including the user's login credentials, permissions, and configuration information.
 
 ```sql
 DROP USER [IF EXISTS] user_name;
@@ -187,12 +187,12 @@ DROP USER IF EXISTS tester;
 
 ## `DROP ROLE`
 
-`DROP ROLE` 用于删除现有角色。
+`DROP ROLE` is used to delete existing roles.
 
-通过使用 `DROP ROLE` 语句，管理员可以永久删除数据库中的特定角色，包括该角色所拥有的权限和配置信息。删除角色时，角色分配给用户的权限可能会被撤销。
+By using the `DROP ROLE` statement, administrators can permanently delete specific roles from the database, including the permissions and configuration information associated with the role.When deleting a role, the permissions assigned to users may be revoked.
 
 :::tip
-当删除角色时，对应角色的租户成员的权限会被同时撤销。 然而，租户成员和其角色之间的绑定关系不会同步删除（即仅角色会失效）。
+When a role is deleted, the permissions of the corresponding tenant members will be revoked at the same time. However, the binding relationship between tenant members and their roles will not be synchronized deletion (only roles will become invalid).
 :::
 
 ```sql
