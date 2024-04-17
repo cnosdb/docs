@@ -134,7 +134,7 @@ SELECT DISTINCT temperature FROM air WHERE temperature = 50;
 **指定 `table` 名称。**
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT * FROM air;
@@ -155,7 +155,7 @@ Query took 0.069 seconds.
 **使用 `VALUE` 构建临时表。**
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 SELECT *
@@ -177,7 +177,7 @@ FROM
 `WHERE` 子句通常与 [比较运算符](reference.md#比较运算符) 和 [逻辑运算符](reference.md#逻辑运算符) 一起使用，以构建复杂的筛选条件。
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT * FROM air WHERE temperature > 60;
@@ -315,7 +315,7 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 在使用 `GROUP BY` 子句时，查询结果将根据指定的列值进行分组，并且每个组将具有相同的值。这使得可以在每个组上应用聚合函数，以便获取每个组的汇总信息。
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT station, avg(temperature) FROM air GROUP BY station;
@@ -336,7 +336,7 @@ SELECT station, avg(temperature) FROM air GROUP BY station;
 当使用 `GROUP BY` 子句对查询结果进行分组后，`HAVING` 子句允许在分组后的结果集上进一步筛选数据。它类似于` WHERE` 子句，但 `WHERE` 子句用于筛选行，而 `HAVING` 子句用于筛选组。
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT station, avg(temperature)  AS avg_t FROM air GROUP BY station HAVING avg_t > 65;
@@ -470,7 +470,7 @@ ORDER BY 子句用于对查询结果按指定列进行排序。
 通过使用 `ORDER BY` 子句，可以对查询结果按一个或多个列的值进行排序，可以指定升序（`ASC`）或降序（`DESC`）排列顺序。默认情况下，`ORDER BY` 子句按升序排列。
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT * FROM air ORDER BY temperature DESC limit 10;
@@ -494,7 +494,7 @@ SELECT * FROM air ORDER BY temperature DESC limit 10;
 在 SQL 查询中，`LIMIT` 子句用于指定要返回的行数，从而控制查询结果集的大小。通过使用 `LIMIT`，可以限制返回的行数，以便只获取需要的数据行。
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT * FROM air LIMIT 10;
@@ -523,7 +523,7 @@ SELECT * FROM air LIMIT 10;
 在 SQL 查询中，`OFFSET` 用于指定要跳过的行数，而 `LIMIT` 用于指定要返回的行数。通过结合使用 `OFFSET` 和 `LIMIT`，可以实现分页功能，从查询结果中获取指定范围的数据。
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT * FROM air LIMIT 3 OFFSET 3;
