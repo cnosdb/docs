@@ -465,7 +465,7 @@ SELECT candlestick_agg(time, price, volume) FROM tick;
 | `vwap`       | 成交量加权平均价格。  |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql {1}
 SELECT close(candlestick_agg(time,price,volume)) AS close_price FROM tick;
