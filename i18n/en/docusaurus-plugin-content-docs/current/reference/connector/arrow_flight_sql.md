@@ -57,7 +57,7 @@ The flow chart is as follows:
 ## Different Client Usage
 
 :::tip
-本章节分别介绍不同客户端的使用方式。
+This section provides a separate description of how different clients are used.
 :::
 
 <Tabs>
