@@ -95,7 +95,7 @@ InfluxDB is the default configuration except [data] and [meta]
 
 ## Specific Steps
 
-1. Install the db environment, go environment, etc. of the corresponding machine in advance, and ensure normal connection.
+1. The db environment of the corresponding machine is installed in advance, the go's environment, etc. to ensure proper connectivity.
 
 2. Install CnosDB：
 
