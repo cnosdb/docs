@@ -25,7 +25,7 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
 | `_limiter` | Limit tenant resource usage, for more details please refer to [Tenant Resources](../../manage/resource_limit.md) |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 CREATE TENANT test;
@@ -54,7 +54,7 @@ CREATE USER [IF NOT EXISTS] user_name
 | `RSA_PUBLIC_KEY`       | Upload the public key of the user `RSA` algorithm for login authentication.      |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 CREATE USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true, COMMENT = 'test';
@@ -78,7 +78,7 @@ CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
 | `member` | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 CREATE ROLE owner_role INHERIT owner;
@@ -105,7 +105,7 @@ option: {COMMENT/_LIMITER}
 | `UNSET` | Revoke the configuration or properties within the tenant. |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 ALTER TENANT test SET COMMENT = 'abc';
@@ -131,7 +131,7 @@ option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 | `SET`   | Add or modify attributes for tenants. |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 ALTER USER tester SET PASSWORD = 'aaa';
@@ -152,7 +152,7 @@ DROP TENANT tenant_name;
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 DROP TENANT test;
@@ -171,7 +171,7 @@ DROP USER [IF EXISTS] user_name;
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 DROP USER IF EXISTS tester;
@@ -194,7 +194,7 @@ DROP ROLE role_name;
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 ```sql
 DROP USER IF EXISTS tester;
@@ -204,44 +204,44 @@ DROP USER IF EXISTS tester;
 
 ## `GRANT`
 
-`GRANT` 用于授予用户或角色权限。
+`GRANT` is used to grant permissions to users or roles.
 
-通过使用 `GRANT` 命令，数据库管理员可以向用户或角色授予特定的权限，这样可以控制用户或角色对数据库对象的访问和操作权限。
+By using the `GRANT` command, the database administrator can grant specific permissions to users or roles, thus controlling their access and operation permissions on database objects.
 
-权限支持的粒度如下
+The granularity supported by permissions is as follows
 
-| Options | Description  |
-| ------- | ------------ |
-| `READ`  | 对数据库读的权限。    |
-| `WRITE` | 对数据库读写的权限。   |
-| `ALL`   | 对数据库增删改查的权限。 |
+| Options | Description                                                                           |
+| ------- | ------------------------------------------------------------------------------------- |
+| `READ`  | Permission of reading the database.                                   |
+| `WRITE` | Permission of reading and writing the database.                       |
+| `ALL`   | Permission of adding, deleting, modifying, and querying the database. |
 
 ```sql
 GRANT {READ | WRITE | ALL} ON DATABASE database_name TO ROLE role_name;
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
-**创建一个名为 `rrr` 的角色。**
+**Create a character named `rrr`.**
 
 ```sql
 CREATE ROLE rrr INHERIT member;
 ```
 
-**授予角色 `rrr` 读取数据库 `air` 的权限。**
+Grant the role `rrr` the permission to read the database `air`.\*\*
 
 ```sql
 GRANT READ ON DATABASE air TO ROLE rrr;
 ```
 
-**授予角色 `rr r` 读写数据库 `wind` 的权限。**
+Grant the role `rr r` permission to read and write the `wind` database.\*\*
 
 ```sql
 GRANT WRITE ON DATABASE wind TO ROLE rrr;
 ```
 
-**授予角色 `rrr` 关于数据库 `sea` 的所有权限。**
+Grant the role `rrr` all permissions regarding the database `sea`.\*\*
 
 ```sql
 GRANT ALL ON DATABASE sea TO ROLE rrr;
@@ -251,18 +251,18 @@ GRANT ALL ON DATABASE sea TO ROLE rrr;
 
 ## `REVOKE`
 
-`REVOKE` 在数据库管理系统中用于撤销用户或角色权限。
+`REVOKE` is used in database management systems to revoke user or role permissions.
 
-通过使用 `REVOKE` 命令，数据库管理员可以从用户或角色中撤销之前授予的权限，以限制其对数据库对象的访问或操作权限。`REVOKE` 命令通常与 `GRANT` 命令结合使用，用于管理和调整用户或角色的权限。
+By using the `REVOKE` command, a database administrator can revoke previously granted permissions from users or roles to restrict their access or operation permissions on database objects.The `REVOKE` command is commonly used in conjunction with the `GRANT` command to manage and adjust the permissions of users or roles.
 
 ```sql
 REVOKE {WRITE | READ | FULL} ON DATABASE database_name FROM role_name;
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
-**撤销 `rrr`读取数据库 `air` 的权限。**
+Revoke the permission to read database `air` for `rrr`.\*\*
 
 ```sql
 REVOKE READ ON DATABASE air FROM rrr;
