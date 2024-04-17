@@ -4,7 +4,7 @@
 
 | Status Code | Description                                                                                                      |
 | ----------- | ---------------------------------------------------------------------------------------------------------------- |
-| 200         | Body                                                                                                             |
+| 200         | Request Succeeded.                                                                               |
 | 204         | Request successful, asynchronous operation called successfully, no request result returned.      |
 | 400         | Request failed, parameter error or missing.                                                      |
 | 401         | Request failed, username or password incorrect, or user does not exist.                          |
@@ -16,15 +16,15 @@
 | 500         | Request failed, query timeout or exception caused by external environment.                       |
 | 503         | Request failed, service unavailable.                                                             |
 
-## 接口列表
+## Interface List
 
 ### `/api/v1/write`
 
-#### 请求方法
+#### Request Method
 
 - `POST`
 
-#### 请求头
+#### Request header
 
 - `Authorization: Basic`
 
@@ -36,7 +36,7 @@
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `precision`: Time precision (optional, acceptable values are `ms`, `us`, `ns`).
 
-#### 请求体
+#### Request body
 
 - Line Protocol: For details on the line protocol, you can refer [here](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_tutorial/).
 
@@ -64,11 +64,11 @@ date: Sat, 08 Oct 2022 07:03:33 GMT{'\n'}
 
 ### `/api/v1/sql`
 
-#### 请求方法
+#### Request Method
 
 - `POST`
 
-#### 请求头
+#### Request header
 
 - `Authorization: Basic`
 
@@ -78,7 +78,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT{'\n'}
 
 - `db`: Database name (optional, default is `public`).
 - API Endpoints
-- `chunked`: Whether to stream the result data. Default is `false`.默认为`false`。
+- `chunked`: Whether to stream the result data.Default is `false`.
 
 #### Example
 
@@ -108,7 +108,7 @@ date: Sat, 08 Oct 2022 07:17:06 GMT
 
 ### `/api/v1/ping`
 
-#### 请求方法
+#### Request Method
 
 - `GET`
 - `HEAD`
@@ -123,8 +123,8 @@ curl -G 'http://localhost:8902/api/v1/ping'
 
 ```json
 {
-  "version":"2.x.x",
-  "status":"healthy"
+"version":"2.x.x",
+"status":"healthy"
 }
 ```
 
@@ -134,11 +134,11 @@ curl -G 'http://localhost:8902/api/v1/ping'
 
 ### `/api/v1/opentsdb/write`
 
-#### 请求方法
+#### Request Method
 
 - `POST`
 
-#### 请求头
+#### Request header
 
 - `Authorization: Basic`
 
@@ -150,7 +150,7 @@ curl -G 'http://localhost:8902/api/v1/ping'
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `precision`: Time precision (optional, acceptable values are `ms`, `us`, `ns`).
 
-#### 请求体
+#### Request body
 
 ```text
 <metric> <timestamp> <value> <tagk_1>=<tagv_1>[ <tagk_n>=<tagv_n>]
@@ -181,11 +181,11 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 ### `/apv/v1/es/write`
 
-#### 请求方法
+#### Request Method
 
 - `POST`
 
-#### 请求头
+#### Request header
 
 - `Authorization: Basic`
 
@@ -195,14 +195,14 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 - `db`: Database name (optional, default is `public`).
 - `tenant`: Tenant name (optional, default is `cnosdb`).
-- `table`: 表名称 (必填)
-- `msg_field`: 输入日志中消息列 (可选, 默认`_msg`。 如果同时没有`_msg`列和`msg_field`会报错)
-- `time_field`: 输入日志中时间列 (可选， 默认`_time`。 如果同时没有使用当前时间)
+- `table`: Table Name (required)
+- `msg_field`: Enter the message column in the log (optional, default `_msg`. If `_msg` and `msg_field` are not available at the same time
+- `time_field`: Enter the time column in the log (optional, default`_time`. If current time is not used)
 
-#### 请求体
+#### Request body
 
-- ES bulk格式 目前仅支持 index和create，其中create会建表，如果表存在会报错并且后续指令不再执行；index则是无表就创建写入，有表就直接写入
-  参考:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+- ES bulk format currently supports only indexes and creates, in which create forms will form and write if they exist and subsequent instructions are not executed; indexes are written without a tabul, and are written directly to
+  reference:[bulk](https://www.elastic.co/guidelin/en/elasticsearch/reference/current/docs-bulk.html).
 
 #### Example
 
