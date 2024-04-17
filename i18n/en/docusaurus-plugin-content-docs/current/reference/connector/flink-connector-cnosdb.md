@@ -10,10 +10,10 @@ This connector provides a sink that can send data to CnosDB.
 ## Dependency requirements
 
 Requires CnosDB 2.1.0 or later.
-Requires Java 1.8 or later.
-
+Requires Java version 1.8 or higher.
 
 First add the dependency to your project:
+
 ```xml
 <dependency>
     <groupId>com.cnosdb</groupId>
@@ -35,7 +35,7 @@ CnosDBConfig cnosDBConfig = CnosDBConfig.builder()
                 .build();
 ```
 
-Create CnosDBSink and add it to the Sink of Stream. 
+Create CnosDBSink and add it to the Sink of Stream.
 
 ```java
 dataStream.addSink(new CnosDBSink(cnosDBConfig);
@@ -50,4 +50,3 @@ new CnosDBPoint(measurement, timestamp, tags, fields);
 ## Sample code
 
 Sample code is [here](https://github.com/cnosdb/flink-connector-cnosdb/blob/main/src/examples/src/main/java/org/apache/flink/streaming/examples/cnosdb/CnosDBSinkExample.java)
-
