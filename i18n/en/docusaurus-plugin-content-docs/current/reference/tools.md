@@ -5,9 +5,9 @@ order: 7
 
 # Tools
 
-## 客户端命令行程序
+## Client Command Line
 
-可以使用下列命令启动客户端命令行程序。
+The following command can be used to start the client command line program.
 
 ```shell
     cnosdb-cli <options>
