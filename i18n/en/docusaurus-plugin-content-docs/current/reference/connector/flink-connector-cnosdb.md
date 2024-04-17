@@ -10,8 +10,7 @@ This connector provides a sink that can send data to CnosDB.
 ## Dependency requirements
 
 Requires CnosDB 2.1.0 or later.
-Requires Java 1.8 or later.
-需要 Java 1.8 以上版本。
+Requires Java version 1.8 or higher.
 
 First add the dependency to your project:
 
