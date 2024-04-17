@@ -5,7 +5,7 @@ order: 1
 
 # Python
 
-随着分布式新版本的发布，细心的小伙伴们想必已经发现CnosDB 2.0已经全面支持了Python。通过调用连接器cnos-connector， 实现了CnosDB 2.0与Python 的连接。With the release of the new version of the distribution, attentive friends will have noticed that CnosDB 2.0 has fully supported Python. cnos-connector enables the connection between CnosDB 2.0 and Python by calling the connector cnos-connector. cnos-connector encapsulates the requests to CnosDB, making it simpler and easier to use CnosDB in Python. It makes using CnosDB in Python environment more concise and easy to use. At the same time, cnos-connector provides a [PEP 249](https://peps.python.org/pep-0249/) compliant programming interface, which makes it easier to interact with SQLAlchemy and pandas.同时，cnos-connector提供了符合 [PEP 249](https://peps.python.org/pep-0249/) 的编程接口，更易与 SQLAlchemy 以及 pandas 进行交互。
+With the release of the new version of distributed, attentive friends must have noticed that CnosDB 2.0 now fully supports Python.By calling the connector cnos-connector, the connection between CnosDB 2.0 and Python is achieved.The cnos-connector encapsulated requests for CnosDB to make the use of CnosDB in Python environment more concise and user-friendly.At the same time, cnos-connector provides a programming interface that complies with [PEP 249](https://peps.python.org/pep-0249/), making it easier to interact with SQLAlchemy and pandas.
 
 cnos-connector is fully open source and the source code is located on [GitHub](https://github.com/cnosdb/cnosdb-client-python).
 
@@ -80,7 +80,7 @@ pip install cnos-connector
 
   conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 
-  conn.create_database_with_ttl("ocean")
+  conn.create_database_with_ttl("ocean", "100000d")
   conn.switch_database("ocean")
 
   conn.write_lines([line0, line1, line2])
@@ -144,7 +144,7 @@ def create_user(self, user, password)
 
 # DROP DATABASE database_name;
 def drop_database(self, database_name)
-    
+
 # DROP TABLE table_name;
 def drop_table(self, table_name)
 
