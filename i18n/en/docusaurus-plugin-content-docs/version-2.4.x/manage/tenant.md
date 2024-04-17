@@ -10,7 +10,7 @@ All the following operations are performed in the CnosDB Cli.
 
 CnosDB provides a tenant system and a user system.
 
-- 只有拥有系统权限的用户才能添加用户和租户。
+- Only users with system permissions can add users and tenants.
 
 - Only a user who holds the role of owner under a tenant or a user with system permissions can add a role under a tenant and give a user a role.
 
