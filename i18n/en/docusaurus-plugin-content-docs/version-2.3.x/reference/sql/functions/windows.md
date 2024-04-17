@@ -245,7 +245,7 @@ time - n * slide_duration, time + window_duration - n * slide_duration
 :::
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 **创建示例数据集。**
 
@@ -341,7 +341,7 @@ interpolate(<expression>)
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 以下示例使用此 [示例数据集](#示例数据集)
 
@@ -406,7 +406,7 @@ locf(<expression>)
 ```
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 以下示例使用此 [示例数据集](#示例数据集)
 
