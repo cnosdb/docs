@@ -13,22 +13,22 @@ The configuration adopts TOML syntax.
 
 > TOML Syntax Reference: [https://toml.io](https://toml.io/cn/v1.0.0)
 
-You can use `cnosdb config` command to create a default config file (v2.2.0), for example:
+You can use the `cnosdb config` command to create a default configuration file, for example:
 
 ```shell
 cnosdb config > /tmp/config.toml
 ```
 
-You can use `cnosdb check server-config <path>` command to check a config file (v2.2.0), for example:
+Use the `cnosdb check server-config <path>` command to check if the configuration file is valid, for example:
 
 ```shell
 cnosdb check server-config /tmp/config.toml
 ```
 
-Whether to enable Wal, default: false
+Start the configuration file using the `cnosdb` command:
 
 ```
-`[deployment]` CnosDB startup configuration (v2.2.0)
+cnosdb --config ./cnosdb.conf
 ```
 
 ## The detailed configuration file description is as follows:
@@ -39,123 +39,123 @@ Whether to enable Wal, default: false
 
 <TabItem value="Community" label="社区版">
 
-| Parameters                              | 默认                                        | Description                                                                                                                 |
-| --------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| reporting_disabled | `false`                                   | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
-| `host` Node host.       | `host`: host of Meta node | 用来和其他节点通信。                                                                                                                  |
+| Parameters           | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reporting_disabled` | `false`     | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
+| `host`               | `localhost` | Used to communicate with other nodes.                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 </TabItem>
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                              | 默认                                        | Description                                                                                                                 |
-| --------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| reporting_disabled | `false`                                   | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
-| `host` Node host.       | `host`: host of Meta node | 用来和其他节点通信。                                                                                                                  |
-| `license_file`                          | `/etc/cnosdb/license.json`                | 用于指定 `License` 文件位置。                                                                                                        |
+| Parameters           | Default                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reporting_disabled` | `false`                    | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
+| `host`               | `localhost`                | Used to communicate with other nodes.                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `license_file`       | `/etc/cnosdb/license.json` | 用于指定 `License` 文件位置。                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 </TabItem>
 
 </Tabs>
 
-### \[deployment]
+### `[deployment]`
 
-| Parameters | 默认                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| mode       | `[query]` query interface configuration | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv`  `tskv` : Deploying only tskv engine requires specifying a meta address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
-| cpu        | `10`                                    | 节点运行所使用的 cpu 核数                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| memory     | `16`                                    | 节点运行所使用的最大内存，单位：（G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Parameters | Default      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `query_tskv` | Deployment mode, optional: `tskv`, `query`, `query_tskv`, `singleton`.  `tskv`: Deploying only the `tskv` engine requires specifying a Meta service address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
+| `cpu`      | `10`         | Number of CPU cores used by the node to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `memory`   | `16`         | Maximum memory used by the node during operation, unit: (G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
-### \[query]
+### `[query]`
 
-| Parameters                                                       | 默认          | Description                                                                                                              |
-| ---------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ |
-| max_server_connections | `10240`     | 最大并发连接请求数。                                                                                                               |
-| query_sql_limit        | `16777216`  | 每个 SQL 查询请求的最大字节数，单位：Bytes                                                                                               |
-| write_sql_limit        | `167772160` | line_protocol request, the maximum number of bytes in the request body, default: 16 |
-| auth_enabled                                | `false`     | Whether to start checking user permissions, default is false.                                            |
-| `read_timeout_ms`                                                | `3000`      | `query` 访问 `tskv` 的超时时间，单位：`ms`                                                                                          |
-| `write_timeout_ms`                                               | `3000`      | 向 `tskv` 写入数据时的超时时间，单位：`ms`.                                                                             |
-| `[wal]` write pre-log configuration                              | `1`         | 准备流计算任务的 CPU 数量                                                                                                          |
-| `[log]` runs log configuration                                   | `2`         | 执行流计算任务的 CPU 数量                                                                                                          |
+| Parameters                                                       | Default     | Description                                                                                    |
+| ---------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------- |
+| max_server_connections | `10240`     | Maximum number of concurrent connection requests.                              |
+| `query_sql_limit`                                                | `16777216`  | Maximum number of bytes per SQL query request, unit: Bytes                     |
+| `write_sql_limit`                                                | `167772160` | Maximum number of bytes per Line Protocol to write to the request, unit: Bytes |
+| `auth_enabled`                                                   | `false`     | Whether to start checking user permissions, default is false.                  |
+| `read_timeout_ms`                                                | `3000`      | `query` visits the timeout of `tskv` in units: `ms`                            |
+| `write_timeout_ms`                                               | `3000`      | 向 `tskv` 写入数据时的超时时间，单位：`ms`.                                                   |
+| `stream_trigger_cpu`                                             | `1`         | Number of CPUs to prepare streams for computing tasks                                          |
+| `stream_executor_cpu`                                            | `2`         | Number of CPUs to perform stream calculation tasks                                             |
 
-### \[storage]
+### `[storage]`
 
-| Parameters                                                                                                                                                                                          | 默认                                                                     | Description                                                                                              |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| path                                                                                                                                                                                                | HintedOff storage directory, default: `/tmp/cnosdb/hh` | Data storage location                                                                                    |
-| max_summary_size                                                                                                                                          | `128M`                                                                 | 单个 Summary 日志的最大大小。                                                                                      |
-| base_file_size                                                                                                                                            | `16M`                                                                  | Single file data size, default: 16M                                                      |
-| flush_req_channel_cap                                                                                                                | `16`                                                                   | 累积的 flush 任务上限。                                                                                          |
-| Maximum cache size, default: 134217728                                                                                                                                              | `32`                                                                   | 每个 vnode 中打开的文件句柄（用于查询）的最大计数。                                                                            |
-| max_level                                                                                                                                                                      | `4`                                                                    | LSM&amp;apos;s maximum number of layers, value range 0-4, default: 4 |
-| compact_trigger_file_num                                                                                                             | `4`                                                                    | 触发 compaction 所需的文件数量。                                                                                   |
-| compact_trigger_cold_duration                                                                                                        | `1h`                                                                   | 时间段内未操作，则触发 compaction。                                                                                  |
-| max_compact_size                                                                                                                                          | `2G`                                                                   | compaction 最多选择的文件大小。                                                                                    |
-| max_concurrent_compaction                                                                                                                                 | `4`                                                                    | 最多同时进行的 compaction 任务数量。                                                                                 |
-| strict_write                                                                                                                                                                   | `false`                                                                | 是否开启严格写入。                                                                                                |
-| `using_raft_replication` Raft protocol is used for replica replication. Note: it is not stable at present, so it is not recommended for online use. | `128M`                                                                 | `COPY INTO`导出时触发落盘的内存大小 。                                                                                |
+| Parameters                                             | Default                   | Description                                                                                              |
+| ------------------------------------------------------ | ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `path`                                                 | `/etc/cnosdb/cnosdb.conf` | Data storage location                                                                                    |
+| `max_summary_size`                                     | `128M`                    | Maximum size of a single Summary log.                                                    |
+| `base_file_size`                                       | `16M`                     | Single file data size, default: 16M                                                      |
+| `flush_req_channel_cap`                                | `16`                      | Cumulative flush task ceiling.                                                           |
+| Maximum cache size, default: 134217728 | `32`                      | 每个 vnode 中打开的文件句柄（用于查询）的最大计数。                                                                            |
+| `max_level`                                            | `4`                       | LSM&amp;apos;s maximum number of layers, value range 0-4, default: 4 |
+| `compact_trigger_file_num`                             | `4`                       | Number of files to trigger compaction.                                                   |
+| `compact_trigger_cold_duration`                        | `1h`                      | Compatibility is triggered when no action is taken during the time period.               |
+| `max_compact_size`                                     | `2G`                      | Maximum selected file size for compaction.                                               |
+| `max_concurrent_compaction`                            | `4`                       | Maximum number of compaction tasks to be performed simultaneously.                       |
+| `strict_write`                                         | `false`                   | Whether to enable strict writing.                                                        |
+| `copyinto_trigger_flush_size`                          | `128M`                    | `COPY INTO` Export triggers the memory size of the disk.                                 |
 
-### \[wal]
+### `[wal]`
 
-| Parameters                                                                         | 默认                    | Description                                                                                                                          |
+| Parameters                                                                         | Default               | Description                                                                                                                          |
 | ---------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| enabled                                                                            | `true`                | 是否启用 WAL。                                                                                                                            |
-| path                                                                               | `/var/lib/cnosdb/wal` | WAL 存储目录。                                                                                                                            |
-| wal_req_channel_cap | `64`                  | 累积的写 WAL 任务上限。                                                                                                                       |
-| max_file_size                            | `1G`                  | The maximum size of a single WAL, default: 1G                                                                        |
-| The number of files required to trigger the compaction, default: 4 | `2G`                  | 所有 WAL 的大小达到该数值时，触发 flush。                                                                                                           |
-| sync                                                                               | `false`               | 是否为每次写入进行同步。                                                                                                                         |
-| sync_interval                                                 | `0`                   | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing |
+| `enabled`                                                                          | `true`                | Whether to enable WAL.                                                                                               |
+| `path`                                                                             | `/var/lib/cnosdb/wal` | WAL storage directory.                                                                                               |
+| `wal_req_channel_cap`                                                              | `64`                  | Cumulative write WAL task ceiling.                                                                                   |
+| `max_file_size`                                                                    | `1G`                  | The maximum size of a single WAL, default: 1G                                                                        |
+| The number of files required to trigger the compaction, default: 4 | `2G`                  | Flash when all WAL sizes reach this value.                                                                           |
+| `sync`                                                                             | `false`               | Whether to sync for each writing.                                                                                    |
+| `sync_interval`                                                                    | `0`                   | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing |
 
-### \[cache]
+### `[cache]`
 
-| Parameters                                                     | 默认         | Description      |
-| -------------------------------------------------------------- | ---------- | ---------------- |
-| max_buffer_size      | `128M`     | 最大的活跃缓存大小。       |
-| max_immutable_number | `4`        | 最大的非活跃缓存数量。      |
-| `partition`                                                    | 等于系统`CPU`数 | memcache 缓存的分区数量 |
+| Parameters             | Default    | Description                                       |
+| ---------------------- | ---------- | ------------------------------------------------- |
+| `max_buffer_size`      | `128M`     | Maximum active cache size.        |
+| `max_immutable_number` | `4`        | Maximum number of inactive cache. |
+| `partition`            | 等于系统`CPU`数 | memcache 缓存的分区数量                                  |
 
-### \[log]
+### `[log]`
 
-| Parameters    | 默认                                                  | Description                                                    |
-| ------------- | --------------------------------------------------- | -------------------------------------------------------------- |
-| level         | `info`                                              | Log level（debug、info、error、warn, default: info |
-| path          | log storage path,default:`data/log` | Remote log path                                                |
-| `tokio_trace` | `{ addr = "127.0.0.1:6669" }`                       | Tokio 跟踪，默认处于关闭状态。                                             |
+| Parameters    | Default                       | Description                                                    |
+| ------------- | ----------------------------- | -------------------------------------------------------------- |
+| `level`       | `info`                        | Log level（debug、info、error、warn, default: info |
+| `path`        | `/var/log/cnosdb`             | Remote log path                                                |
+| `tokio_trace` | `{ addr = "127.0.0.1:6669" }` | Tokio 跟踪，默认处于关闭状态。                                             |
 
-### \[security]
+### `[security]`
 
-| Parameters                      | 默认 | Description                 |
-| ------------------------------- | -- | --------------------------- |
-| tls_config | 无  | Optional, TLS configuration |
+| Parameters   | Default | Description       |
+| ------------ | ------- | ----------------- |
+| `tls_config` | None    | TLS Configuration |
 
-### \[security.tls_config]
+### `[security.tls_config]` (optional)
 
-| Parameters                       | 默认 | Description             |
-| -------------------------------- | -- | ----------------------- |
-| certificate                      | 无  | TLS service certificate |
-| private_key | 无  | TLS service private key |
+| Parameters    | Default | Description             |
+| ------------- | ------- | ----------------------- |
+| `certificate` | None    | TLS service certificate |
+| `private_key` | None    | TLS service private key |
 
-### \[cluster]
+### `[cluster]`
 
-| Parameters                                                                                        | 默认               | Description                               |
-| ------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------- |
-| `name`                                                                                            | ClusterName      | name                                      |
-| `[meta_init]`: example initializes related configuration information of Meta node | `127.0.0.1:8901` | Remote Meta Service port                  |
-| http_listen_port                                        | `8902`           | HTTP service listening port               |
-| grpc_listen_port                                        | `8903`           | GRPC service listening port               |
-| flight_rpc_listen_port             | `8904`           | Flight RPC service listening port         |
-| tcp_listen_port                                         | `8905`           | TCP service listening port                |
-| meta_service_port                                       | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。 |
+| Parameters               | Default          | Description                               |
+| ------------------------ | ---------------- | ----------------------------------------- |
+| `name`                   | `cluster_xxx`    | name                                      |
+| `meta_service_addr`      | `127.0.0.1:8901` | Remote Meta Service port                  |
+| `http_listen_port`       | `8902`           | HTTP service listening port               |
+| `grpc_listen_port`       | `8903`           | GRPC service listening port               |
+| `flight_rpc_listen_port` | `8904`           | Flight RPC service listening port         |
+| `tcp_listen_port`        | `8905`           | TCP service listening port                |
+| `vector_listen_port`     | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。 |
 
-### \[hintedoff]
+### `[hintedoff]`
 
-| Parameters | 默认                   | Description                                                     |
-| ---------- | -------------------- | --------------------------------------------------------------- |
-| `enable`   | `true`               | Is the HIntedOff service enabled, default: true |
-| path       | `/var/lib/cnosdb/hh` | HintedOff 存储目录。                                                 |
-| threads    | `3`                  | 处理hinted handoff数据的并发数。                                         |
+| Parameters | Default              | Description                                                                |
+| ---------- | -------------------- | -------------------------------------------------------------------------- |
+| `enable`   | `true`               | Is the HIntedOff service enabled, default: true            |
+| `path`     | `/var/lib/cnosdb/hh` | HintedOff storage directory.                               |
+| `threads`  | `3`                  | Number of conjunctions to process the Hinted handoff data. |
 
 <Tabs groupId="editions">
 
@@ -165,71 +165,71 @@ Whether to enable Wal, default: false
 
 <TabItem value="Enterprise" label="企业版">
 
-### \[subscription]
+### `[subscription]`
 
-| Parameters  | 默认     | Description                                                                                      |
-| ----------- | ------ | ------------------------------------------------------------------------------------------------ |
-| cache       | `1024` | cache size (bit) before sending and forwarding, default: 1028 |
-| concurrency | `8`    | 处理转发请求的并发数。                                                                                      |
-| timeout     | `1000` | 转发请求的超时时间，单位：秒。                                                                                  |
+| Parameters    | Default | Description                                                                                      |
+| ------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `cache`       | `1024`  | cache size (bit) before sending and forwarding, default: 1028 |
+| `concurrency` | `8`     | Number of parallel requests to process forward requests.                         |
+| `timeout`     | `1000`  | Timeout for forward request, unit: seconds.                      |
 
 </TabItem>
 
 </Tabs>
 
-### \[heartbeat]
+### `[heartbeat]`
 
-| Parameters                                                                               | 默认   | Description                           |
-| ---------------------------------------------------------------------------------------- | ---- | ------------------------------------- |
-| report_time_interval_secs | `30` | 此节点上报心跳、磁盘余量等信息到 `meta` 服务的时间间隔，单位：秒。 |
+| Parameters                 | Default | Description                                                                                                                                           |
+| -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report_time_interval_sec` | `30`    | Time interval between reporting heart, disk balance and other information on this node to `meta` service in: seconds. |
 
-### \[node_basic]
+### `[node_basic]`
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
 
-| Parameters                                                 | 默认      | Description                                          |
-| ---------------------------------------------------------- | ------- | ---------------------------------------------------- |
-| node_id                               | `1001`  | Interval for checking the heartbeat status of a node |
-| cold_data_server | `false` | 是否停止在此节点上创建 Vnode。                                   |
-| store_metrics                         | `true`  | 是否统计此节点的使用情况并存储到 `usage_schema` 数据库。                 |
+| Parameters         | Default | Description                                                                                          |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`          | `1001`  | Interval for checking the heartbeat status of a node                                                 |
+| `cold_data_server` | `false` | Whether to stop creating Vnode on this node.                                         |
+| `store_metrics`    | `true`  | Whether to track the usage of this node and store it in the `usage_schema` database. |
 
 </TabItem>
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                                                 | 默认        | Description                                          |
-| ---------------------------------------------------------- | --------- | ---------------------------------------------------- |
-| node_id                               | `1001`    | Interval for checking the heartbeat status of a node |
-| cold_data_server | `false`   | 是否停止在此节点上创建 Vnode。                                   |
-| store_metrics                         | `true`    | 是否统计此节点的使用情况并存储到 `usage_schema` 数据库。                 |
-| `location`                                                 | `default` | 定义实例部署位置。                                            |
+| Parameters         | Default   | Description                                                                                          |
+| ------------------ | --------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`          | `1001`    | Interval for checking the heartbeat status of a node                                                 |
+| `cold_data_server` | `false`   | Whether to stop creating Vnode on this node.                                         |
+| `store_metrics`    | `true`    | Whether to track the usage of this node and store it in the `usage_schema` database. |
+| `location`         | `default` | 定义实例部署位置。                                                                                            |
 
 </TabItem>
 
 </Tabs>
 
-### \[trace]
+### `[trace]`
 
-| Parameters                                                   | 默认      | Description                                                                                                                          |
-| ------------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| auto_generate_span | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
+| Parameters           | Default | Description                                                                                                                          |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `auto_generate_span` | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
-### \[trace.log] (optional)
+### `[trace.log]` (optional)
 
-| Parameters | 默认 | Description         |
-| ---------- | -- | ------------------- |
-| path       | 无  | trace log file path |
+| Parameters | Default | Description         |
+| ---------- | ------- | ------------------- |
+| `path`     | None    | trace log file path |
 
-### \[trace.jaeger] (optional)
+### `[trace.jaeger]` (optional)
 
-| Parameters                                                       | 默认   | Description                                                                                                                                                                                         |
-| ---------------------------------------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| jaeger_agent_endpoint  | 无    | the Jaeger agent endpoint.eg: http://localhost:14268/api/traces例如：http://localhost:14268/api/traces |
-| max_concurrent_exports | 2    | trace 上报器的并行度。默认值为 2                                                                                                                                                                                |
-| max_queue_size         | 4096 | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096如果队列已满，它会丢弃 span。                                                              |
+| Parameters               | Default | Description                                                                                                                                                                   |
+| ------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jaeger_agent_endpoint`  | None    | the Jaeger agent endpoint。eg: http://localhost:14268/api/traces                                                               |
+| `max_concurrent_exports` | 2       | The parallelism of the reporter on trace.Default value is 2                                                                                                   |
+| `max_queue_size`         | 4096    | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096If the queue is full, it will drop span. |
 
-## `meta` 文件描述
+## `meta` file description
 
 ### Configuration
 
@@ -237,11 +237,11 @@ Whether to enable Wal, default: false
 
 <TabItem value="Community" label="社区版">
 
-| Parameters                                                    | 默认                              | Description                                                                     |
+| Parameters                                                    | Default                         | Description                                                                     |
 | ------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------- |
-| Node ID                                                       | `1`                             | `id` : id of Meta node, the value must be unique in the cluster |
-| host                                                          | `127.0.0.1`                     | 用于和其他节点通信的 `host`                                                               |
-| port                                                          | `8901`                          | 用于和其他节点通信的 `port`                                                               |
+| id                                                            | `1`                             | `id` : id of Meta node, the value must be unique in the cluster |
+| host                                                          | `127.0.0.1`                     | `host` for communication with other nodes                                       |
+| port                                                          | `8901`                          | `port` for communicating with other nodes                                       |
 | trace parallelism of the reporter, default value is 2         | `/var/lib/cnosdb/meta/snapshot` |                                                                                 |
 | Remote log path                                               | `/var/lib/cnosdb/meta/journal`  |                                                                                 |
 | snapshot_per_events | `500`                           |                                                                                 |
@@ -250,11 +250,11 @@ Whether to enable Wal, default: false
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                                                                                        | 默认                              | Description                                                                     |
+| Parameters                                                                                        | Default                         | Description                                                                     |
 | ------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------- |
 | `id`                                                                                              | `1`                             | `id` : id of Meta node, the value must be unique in the cluster |
-| `host` Node host.                                                                 | `127.0.0.1`                     | 用于和其他节点通信的 `host`                                                               |
-| `port`                                                                                            | `8901`                          | 用于和其他节点通信的 `port`                                                               |
+| `host`                                                                                            | `127.0.0.1`                     | `host` for communication with other nodes                                       |
+| `port`                                                                                            | `8901`                          | `port` for communicating with other nodes                                       |
 | `license_file`                                                                                    | `/etc/cnosdb/license.json`      | 用于指定 `License` 文件位置。                                                            |
 | `snapshot_path`: snapshot storage path of Meta node                               | `/var/lib/cnosdb/meta/snapshot` |                                                                                 |
 | `journal_path`: journal storage path of Meta node                                 | `/var/lib/cnosdb/meta/journal`  |                                                                                 |
@@ -265,25 +265,25 @@ Whether to enable Wal, default: false
 
 </Tabs>
 
-### \[log]
+### `[log]`
 
-| Parameters | 默认                                                  | Description                                                    |
-| ---------- | --------------------------------------------------- | -------------------------------------------------------------- |
-| level      | `info`                                              | Log level（debug、info、error、warn, default: info |
-| path       | log storage path,default:`data/log` | Remote log path                                                |
+| Parameters | Default           | Description                                                    |
+| ---------- | ----------------- | -------------------------------------------------------------- |
+| `level`    | `info`            | Log level（debug、info、error、warn, default: info |
+| `path`     | `/var/log/cnosdb` | Remote log path                                                |
 
-### \[meta_init]
+### `[meta_init]`
 
-| Parameters                            | 默认                          | Description                           |
-| ------------------------------------- | --------------------------- | ------------------------------------- |
-| cluster_name     | ClusterName                 | Cluster Name                          |
-| admin_user       | `root`                      | User name of the system administrator |
-| system_tenant    | `cnosdb`                    | Name of the default tenant            |
-| default_database | `["public","usage_schema"]` | Default database created              |
+| Parameters         | Default                     | Description                           |
+| ------------------ | --------------------------- | ------------------------------------- |
+| `cluster_name`     | `cluster_xxx`               | Cluster Name                          |
+| `admin_user`       | `root`                      | User name of the system administrator |
+| `system_tenant`    | `cnosdb`                    | Name of the default tenant            |
+| `default_database` | `["public","usage_schema"]` | Default database created              |
 
-### \[heartbeat]
+### `[heartbeat]`
 
-| Parameters                                                           | 默认  | Description               |
-| -------------------------------------------------------------------- | --- | ------------------------- |
-| heartbeat_recheck_interval | 300 | 多久检查一次CnosDB节点的状态，单位：秒。   |
-| heartbeat_expired_interval | 300 | CnosDB节点多久未上报心跳认定异常，单位：秒。 |
+| Parameters                   | Default | Description                                                                                                         |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
+| `heartbeat_recheck_interval` | 300     | How often to check the status of CnosDB nodes, in seconds.                                          |
+| `heartbeat_expired_interval` | 300     | How long has the CnosDB node not reported an abnormal heartbeat determination, measured in seconds. |
