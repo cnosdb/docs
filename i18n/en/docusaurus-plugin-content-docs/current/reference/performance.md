@@ -17,7 +17,7 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 
 |                          | CnosDB                                                                                                                                           | InfluxDB                                                                                                                                         |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Version                  | 2.0.1                                                                                                            | 1.8.10                                                                                                           |
+| Version                  | 2.3.0                                                                                                            | 1.8.10                                                                                                           |
 | Machine                  | 1                                                                                                                                                | 1                                                                                                                                                |
 | Configuration            | 3.10.0-1160.81.1.el7.x86_64 | 3.10.0-1160.81.1.el7.x86_64 |
 | Operating System Version | CentOS Linux release 7.9.2009 (Core)                                                          | CentOS Linux release 7.9.2009 (Core)                                                          |
@@ -49,8 +49,8 @@ CnosDB and InfluxDB only modified the storage folder paths for Data, Wall, and M
 
 | Usage | Determine the PRNG-seed | Number of devices to generate | Start timestamp                                      | End timestamp                                        | Interval between readings per device | Target database | Data Size | Rows       |
 | ----- | ----------------------- | ----------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ------------------------------------ | --------------- | --------- | ---------- |
-| iot   | 67                      | 75                            | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 57                                   | CnosDB          | 8G        | 37,342,964 |
-| iot   | 67                      | 75                            | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 57                                   | InfluxDB        | 8G        | 37,342,964 |
+| iot   | 123                     | 100                           | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 50s                                  | CnosDB          | 8G        | 37,342,964 |
+| iot   | 123                     | 100                           | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 50s                                  | InfluxDB        | 8G        | 37,342,964 |
 
 ### 5. Test Scheme
 
@@ -58,11 +58,11 @@ This test program looks primarily at: to keep the same batch-size below from two
 
 | batch-size | workers |
 | ---------- | ------- |
-| 1000       | 49      |
-| 2500       | 49      |
-| 2500       | 10      |
-| 5000       | 3       |
-| 20000      | 3       |
+| 1000       | 30      |
+| 3000       | 30      |
+| 3000       | 10      |
+| 5000       | 8       |
+| 20000      | 8       |
 
 ## Test medium term
 
@@ -98,21 +98,21 @@ go build
 ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8902"   --batch-size=<batch_size_num> --workers=<workers_num>
 ```
 
-6. Download InfluxDB, modify configurations in `etc/influxdb/influxdb.conf`, run
+6. Execute load to InfluxDB:
 
 ```shell
-cd tsdb-comparisons/cmd/load_influx
+cd tsdb-comparisons/cmd/load_cnosdb
 go build
-./load_influx --do-abort-on-exist=false --do-create-db=true --gzip=false --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"  --batch-size=<batch_size_num> --workers=<workers_num>
+./load_influx --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"   --batch-size=<batch_size_num> --workers=<workers_num>
 ```
 
 ## Test Results
 
-|            |         | CnosDB                    |                            | InfluxDB                  |                            | With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling. |
-| ---------- | ------- | ------------------------- | -------------------------- | ------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| batch-size | workers | overall row/s             | overall metric/s           | overall row/s             | overall metric/s           |                                                                                                                                                            |
-| 1000       | 49      | 102089.67 | 807526.66  | 93781.54  | 741809.55  | 518                                                                                                                                                        |
-| 2500       | 49      | 137468.17 | 607 463 382                | 106206.98 | 840094.40  | 330                                                                                                                                                        |
-| 2500       | 10      | 211845.94 | 1675695.81 | 158378.11 | 1252766.68 | 43                                                                                                                                                         |
-| 5000       | 3       | 176883.43 | 1399143.30 | 162338.48 | 1284093.14 | 518                                                                                                                                                        |
-| 20000      | 3       | 174757.78 | 1382329.47 | 604 68 420                | 1270551.00 | 518                                                                                                                                                        |
+|            |         | CnosDB                    |                            | InfluxDB                  |                            | Performance Multiples |
+| ---------- | ------- | ------------------------- | -------------------------- | ------------------------- | -------------------------- | --------------------- |
+| batch-size | workers | overall row/s             | overall metric/s           | overall row/s             | overall metric/s           |                       |
+| 1000       | 30      | 102089.67 | 807526.66  | 93781.54  | 741809.55  | 1.08  |
+| 3000       | 30      | 137468.17 | 1087369.62 | 106206.98 | 840094.40  | 1.29  |
+| 3000       | 10      | 211845.94 | 1675695.81 | 158378.11 | 1252766.68 | 1.33  |
+| 5000       | 8       | 176883.43 | 1399143.30 | 162338.48 | 1284093.14 | 1.08  |
+| 20000      | 8       | 174757.78 | 1382329.47 | 160626.45 | 1270551.00 | 1.08  |
