@@ -62,7 +62,7 @@ completeness(time_expresion, numeric_expression)
 | `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 以下示例使用本文开始的 [示例数据集](#示例数据集)
 
@@ -103,7 +103,7 @@ $$
 :::
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 以下示例使用本文开始的[示例数据集](#示例数据集)
 
@@ -142,7 +142,7 @@ $$
 :::
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 以下示例使用本文开始的[示例数据集](#示例数据集)
 
@@ -180,7 +180,7 @@ $$
 :::
 
 <details>
-  <summary>查看示例</summary>
+  <summary>View example</summary>
 
 以下示例使用本文开始的[示例数据集](#示例数据集)
 
