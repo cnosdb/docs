@@ -217,8 +217,8 @@ This section introduces the configuration method and usage of each configuration
 
 | Parameters               | Default          | Environment Variables           | Description                                                  |
 | ------------------------ | ---------------- | ------------------------------- | ------------------------------------------------------------ |
-| `name`                   | `cluster_xxx`    | `CNOSDB_NAME`                   | name                                                         |
-| `meta_service_addr`      | `127.0.0.1:8901` | `CNOSDB_META_SERVICE_ADDR`      | Remote Meta Service port                                     |
+| `name`                   | `cluster_xxx`    | `CNOSDB_NAME`                   | Node name                                                    |
+| `meta_service_addr`      | `127.0.0.1:8901` | `CNOSDB_META_SERVICE_ADDR`      | Remote `meta` Service port                                   |
 | `http_listen_port`       | `8902`           | `CNOSDB_HTTP_LISTEN_PORT`       | HTTP service listening port                                  |
 | `grpc_listen_port`       | `8903`           | `CNOSDB_GRPC_LISTEN_PORT`       | GRPC service listening port                                  |
 | `flight_rpc_listen_port` | `8904`           | `CNOSDB_FLIGHT_RPC_LISTEN_PORT` | Flight RPC service listening port                            |
