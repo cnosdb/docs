@@ -2,27 +2,27 @@
 sidebar_position: 2
 ---
 
-# 参考
+# Reference
 
-CnosDB 中的标识符、文字和运算操作符的用法，以及一些SQL中常用的运算符。同时还介绍了运算符的优先级和一些其他相关内容。
+The usage of identifiers, literals, and arithmetic operators in CnosDB, as well as some commonly used operators in SQL.At the same time, it also introduces the priority of operators and some other related content.
 
-## 标识符
+## Identifiers
 
-用于命名数据库对象，例如 `table`、`column` 名称。
+Used to name database objects, such as `table` and `column` names.
 
-## 引用
+## Quoting
 
-在 [标识符](#标识符) 上使用双引号区分大小写，在字符串文字上使用单引号。
+Use double quotes on [identifiers](#identifiers) to treat them as case-sensitive. Use single quotes on string literals.
 
-不带引号的标识符在 CnosDB 中不区分大小写。
+Identifiers without quotation marks are not case-sensitive in CnosDB.
 
-## 文字
+## Literals
 
-文字是不由 [标识符](#标识符) 标识的显式值。
+A literal is an explicit value not represented by an [identifier](#identifiers).
 
-#### 字符串文字
+#### String literals
 
-字符串文字使用单引号括起来。
+String literals are surrounded by single quotes.
 
 ```sql
 'station'
@@ -31,9 +31,9 @@ CnosDB 中的标识符、文字和运算操作符的用法，以及一些SQL中�
 'avg temperature'
 ```
 
-#### 数字文字
+#### Numeric literals
 
-数字文字是正数或负数，可以是精确数字或浮点数。
+Number literals are positive or negative numbers that are either exact numbers or floats.
 
 ```sql
 -- Integers
@@ -50,32 +50,32 @@ CnosDB 中的标识符、文字和运算操作符的用法，以及一些SQL中�
 -100.56
 ```
 
-#### 日期和时间文字
+#### Date and time literals
 
-支持以下日期和时间文字。
+The following date and time literals are supported:
 
 ```sql
 '2022-01-31T06:30:30.123Z'     -- RFC3339
 '2022-01-31T06:30:30.123'      -- RFC3339-like
 '2022-01-31 06:30:30.123'      -- RFC3339-like
-'2022-01-31 06:30:30'          -- RFC3339-like, 没有小数点后的秒
-1643610630123000000            -- 将 Unix epoch 纳秒转换为时间戳
+'2022-01-31 06:30:30'          -- RFC3339-like, no fractional seconds
+1643610630123000000            -- Unix epoch nanosecond cast to a timestamp
 ```
 
-#### Boolean 文字
+#### Boolean literals
 
-Boolean 文字是 `true` 或 `false`
+Boolean literals are either `true` or `false`.
 
-#### 持续时间单位
+#### Duration units
 
-间隔文字指定长度或时间单位。
+Interval literals specify a length or unit of time.
 
 ```sql
 INTERVAL '6 minute'
 INTERVAL '12 day 6 hour 30 minute'
 ```
 
-支持以下时间单位：
+The following units of time are supported:
 
 - nanoseconds
 - microseconds
@@ -90,13 +90,13 @@ INTERVAL '12 day 6 hour 30 minute'
 - decade
 - century
 
-## 运算操作符
+## Operators
 
-### 算数运算符
+### Arithmetic operators
 
 #### -
 
-加法。
+Addition.
 
 ```sql {1}
 SELECT 1 + 2;
@@ -109,7 +109,7 @@ SELECT 1 + 2;
 
 **-**
 
-减法。
+Subtraction.
 
 ```sql {1}
 SELECT 4 - 3;
@@ -122,7 +122,7 @@ SELECT 4 - 3;
 
 **\***
 
-乘法。
+Multiplication.
 
 ```sql {1}
 SELECT 2 * 3;
@@ -135,7 +135,7 @@ SELECT 2 * 3;
 
 **/**
 
-除法。
+Division.
 
 ```sql {1}
 SELECT 8 / 4;
@@ -148,7 +148,7 @@ SELECT 8 / 4;
 
 **%**
 
-取模。
+Modulus.
 
 ```sql {1}
 SELECT 7 % 3;
@@ -159,11 +159,11 @@ SELECT 7 % 3;
 +---------------------+
 ```
 
-### 比较运算符
+### Comparison Operators
 
 **=**
 
-等于。
+Equal to.
 
 ```sql {1}
 SELECT 1 = 1;
@@ -175,7 +175,7 @@ SELECT 1 = 1;
 
 **!=**
 
-不等于。
+Not equal to.
 
 ```sql {1}
 SELECT 1 != 2;
@@ -188,7 +188,7 @@ SELECT 1 != 2;
 
 **<**
 
-小于。
+Less than.
 
 ```sql {1}
 SELECT 3 < 4;
@@ -201,7 +201,7 @@ SELECT 3 < 4;
 
 **<=**
 
-小于或等于。
+Less than or equal to.
 
 ```sql {1}
 SELECT 3 <= 3;
@@ -214,7 +214,7 @@ SELECT 3 <= 3;
 
 **>**
 
-大于。
+Greater than.
 
 ```sql {1}
 SELECT 6 > 5;
@@ -227,7 +227,7 @@ SELECT 6 > 5;
 
 **>=**
 
-大于或等于。
+Less than or equal to.
 
 ```sql {1}
 SELECT 5 >= 5;
@@ -240,7 +240,7 @@ SELECT 5 >= 5;
 
 **IS DISTINCT FROM**
 
-保证比较结果是 `true` 或 `false` 并且不是空集。
+Ensure that the comparison result is `true` or `false` and not an empty set.
 
 ```sql {1}
 SELECT 0 IS DISTINCT FROM NULL;
@@ -253,7 +253,7 @@ SELECT 0 IS DISTINCT FROM NULL;
 
 **IS NOT DISTINCT FROM**
 
-`IS DISTINCT FROM` 的否定条件。
+Negation condition of `IS DISTINCT FROM`.
 
 ```sql {1}
 SELECT NULL IS NOT DISTINCT FROM NULL;
@@ -266,7 +266,7 @@ SELECT NULL IS NOT DISTINCT FROM NULL;
 
 **~**
 
-正则表达式匹配。
+Matches a regular expression.
 
 ```sql {1}
 SELECT 'cnosdb' ~ '^cnosdb(-cli)*';
@@ -279,7 +279,7 @@ SELECT 'cnosdb' ~ '^cnosdb(-cli)*';
 
 **~**\*
 
-正则表达式，不区分大小写匹配
+Matches a regular expression (case-insensitive).
 
 ```sql {1}
 SELECT 'cnosdb' ~* '^CNOSDB(-cli)*';
@@ -292,7 +292,7 @@ SELECT 'cnosdb' ~* '^CNOSDB(-cli)*';
 
 **!~**
 
-与 **～** 相反。
+In contrast to **～**.
 
 ```sql {1}
 SELECT 'cnosdb' !~ '^CNOSDB(-cli)*';
@@ -305,7 +305,7 @@ SELECT 'cnosdb' !~ '^CNOSDB(-cli)*';
 
 **!~**\*
 
-与 **～**\* 相反。
+In contrast to **～**\*.
 
 ```sql {1}
 SELECT 'cnosdb' !~* '^CNOSDB(-cli)+';
@@ -316,7 +316,7 @@ SELECT 'cnosdb' !~* '^CNOSDB(-cli)+';
 +-------------------------------------------+
 ```
 
-### 逻辑运算符
+### Logical operators
 
 **AND**
 
@@ -340,11 +340,11 @@ SELECT false OR true;
 +---------------------------------+
 ```
 
-### 位运算符
+### Bitwise operators
 
 **&**
 
-按位与
+Bitwise and
 
 ```sql {1}
 SELECT 5 & 3;
@@ -357,7 +357,7 @@ SELECT 5 & 3;
 
 **｜**
 
-按位或
+Bitwise or
 
 ```sql {1}
 SELECT 5 | 3;
@@ -368,11 +368,11 @@ SELECT 5 | 3;
 +---------------------+
 ```
 
-### 其他运算符
+### Other Operators
 
 **||**
 
-字符串连接。
+String concatenation.
 
 ```sql {1}
 SELECT 'Hello, ' || 'CnosDB!';
