@@ -2,21 +2,21 @@
 sidebar_position: 4
 ---
 
-# 数据操纵语言
+# Data Manipulation Language
 
-是用来操纵数据库中存储的数据。
+Is used to manipulate data stored in a database.
 
 ## `INSERT`
 
 :::tip
 
-CnosDB 要求插入的数据列必须要有时间戳，且 `VALUES` 列表必须为[常量](reference.md#常量)。 如果有列没有被选中，那么值为`NULL`。
+CnosDB requires the inserted data columns to have a timestamp and the `VALUES` list must be [constant](reference.md#constants). If a column is not selected, the value is `NULL`.
 
-时间列不能为`NULL`，`TAG` 列和 `FIELD` 列可以为`NULL`。
+The time column cannot be `NULL`, `TAG` column and `FIELD` column can be `NULL`.
 
-例如`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
+For example, `INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
-如果 `VALUES` 列表需要表达式，请使用 `INSERT SELECT` 语法。
+If the `VALUES` list needs an expression, use the `INSERT SELECT` syntax.
 
 :::
 
@@ -25,15 +25,15 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 ```
 
 <details>
-  <summary>查看 <code>INSERT</code> 示例</summary>
+  <summary>View the <code>INSERT</code> example</summary>
 
-**插入一条记录。**
+**Insert a record.**
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES(new(), 'XiaoMaiDao', 56, 69, 77);
 ```
 
-**插入多条记录。**
+**Insert multiple records.**
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
@@ -41,9 +41,9 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
 
-**根据查询结果插入记录。**
+**Insert records based on query results.**
 
-1. 创建一个新表。
+1. Create a new table.
 
 ```sql
 CREATE TABLE air_visibility (
@@ -52,7 +52,7 @@ CREATE TABLE air_visibility (
 );
 ```
 
-2. 根据查询结果将记录插入 `air_visibility` 中。
+2. Insert records into `air_visibility` based on query results.
 
 ```sql
 INSERT air_visibility (TIME, station, visibility) SELECT TIME, station, visibility FROM air;
