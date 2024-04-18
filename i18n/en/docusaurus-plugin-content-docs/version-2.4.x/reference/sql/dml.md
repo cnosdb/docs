@@ -2,21 +2,21 @@
 sidebar_position: 4
 ---
 
-# 数据操纵语言
+# Data Manipulation Language
 
-是用来操纵数据库中存储的数据。
+Is used to manipulate data stored in a database.
 
 ## `INSERT`
 
 :::tip
 
-CnosDB 要求插入的数据列必须要有时间戳，且 `VALUES` 列表必须为[常量](reference.md#常量)。 如果有列没有被选中，那么值为`NULL`。
+CnosDB requires the inserted data columns to have a timestamp and the `VALUES` list must be [constant](reference.md#constants). If a column is not selected, the value is `NULL`.
 
-时间列不能为`NULL`，`TAG` 列和 `FIELD` 列可以为`NULL`。
+The time column cannot be `NULL`, `TAG` column and `FIELD` column can be `NULL`.
 
-例如`INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
+For example, `INSERT INTO air (TIME, station, visibility) VALUES(1666132800000000000, NULL, NULL)`
 
-如果 `VALUES` 列表需要表达式，请使用 `INSERT SELECT` 语法。
+If the `VALUES` list needs an expression, use the `INSERT SELECT` syntax.
 
 :::
 
@@ -25,15 +25,15 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 ```
 
 <details>
-  <summary>查看 <code>INSERT</code> 示例</summary>
+  <summary>View the <code>INSERT</code> example</summary>
 
-**插入一条记录。**
+**Insert a record.**
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES(new(), 'XiaoMaiDao', 56, 69, 77);
 ```
 
-**插入多条记录。**
+**Insert multiple records.**
 
 ```sql
 INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
@@ -41,9 +41,9 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 76);
 ```
 
-**根据查询结果插入记录。**
+**Insert records based on query results.**
 
-1. 创建一个新表。
+1. Create a new table.
 
 ```sql
 CREATE TABLE air_visibility (
@@ -52,7 +52,7 @@ CREATE TABLE air_visibility (
 );
 ```
 
-2. 根据查询结果将记录插入 `air_visibility` 中。
+2. Insert records into `air_visibility` based on query results.
 
 ```sql
 INSERT air_visibility (TIME, station, visibility) SELECT TIME, station, visibility FROM air;
@@ -64,17 +64,17 @@ INSERT air_visibility (TIME, station, visibility) SELECT TIME, station, visibili
 
 :::tip
 
-不能同时更新 `TAG` 列和 `FIELD` 列
+Cannot update `TAG` column and `FIELD` column simultaneously.
 
-CnosDB支持更新 `TAG` 列值为 NULL。
+CnosDB supports updating `TAG` column values to NULL.
 
-`value_expression` 只能为编译期能确定值的表达式，如：'常量'、'1 + 2'、'CAST('1999-12-31 00:00:00.000' as timestamp)' 等。
+`value_expression` can only be an expression with a value that can be determined at compile time, such as: 'constant', '1 + 2', 'CAST('1999-12-31 00:00:00.000' as timestamp)' etc.
 
-`where_clause` 中不能包含 field 列或 time 列，且不能为空，如果想更新表中所有数据，需要使用 'where true'，这代表你接受在表数据量比较大时带来的性能问题。
+`where_clause` cannot contain field column or time column, must not be empty, if you want to update all data in the table, use 'where true', which means you accept the performance issues when the table data is large.
 
-不支持修改成已经存在 series（所有的 `TAG` 列值构成 series）。
+Cannot modify to an existing series (all `TAG` column values form a series).
 
-避免在写入数据时执行更新 `TAG` 操作，可能会引起 series 冲突。
+Avoid performing `TAG` operations when writing data, as it may cause series conflicts.
 
 :::
 
@@ -86,15 +86,15 @@ assignment clause :
 ```
 
 <details>
-  <summary>查看 <code>UPDATE</code> 示例</summary>
+  <summary>View the <code>UPDATE</code> example</summary>
 
-**更新 `air` 表中的 `TAG` 列的数据，将符合条件 `station = 'LianYunGang'` 的记录修改成 `station = 'ShangHai'`。**
+**Update the data in the `TAG` column of the `air` table, changing records that meet the condition `station = 'LianYunGang'` to `station = 'ShangHai'`.**
 
 ```sql
 UPDATE air SET station = 'ShangHai' where station = 'LianYunGang';
 ```
 
-**按时间和数值范围更新数据**
+**Update Data by Time and Numerical Range**
 
 ```sql
 UPDATE air SET pressure = pressure + 100 where pressure = 68 and time < '2023-01-14T16:03:00';
@@ -106,7 +106,7 @@ UPDATE air SET pressure = pressure + 100 where pressure = 68 and time < '2023-01
 
 :::tip
 
-不能删除以 `FIELD` 类型列为条件的数据。
+Cannot delete data with `FIELD` type columns as conditions.
 
 :::
 
@@ -115,21 +115,21 @@ DELETE FROM table_name where_clause
 ```
 
 <details>
-  <summary>查看 <code>DELETE</code> 示例</summary>
+  <summary>View the <code>DELETE</code> example</summary>
 
-**以 `TAG` 类型列和时间作为条件**
+**Using `TAG` type columns and time as conditions**
 
 ```sql
 DELETE FROM air WHERE station = 'LianYunGang' and time < '2023-01-14T16:03:00';
 ```
 
-**以 `FILED` 类型列作为条件**
+**Using `FIELD` type columns as conditions**
 
 ```sql
 DELETE FROM air WHERE temperature > 0;
 ```
 
-将返回以下结果：
+The following results will be returned:
 
 ```json
 422 Unprocessable Entity, details: {"error_code":"010005","error_message":"This feature is not implemented: Filtering on the field column on the tskv table in delete statement"}
