@@ -144,8 +144,8 @@ cnosdb --config ./cnosdb.conf
 
 | Parameters               | Default          | Description                                                  |
 | ------------------------ | ---------------- | ------------------------------------------------------------ |
-| `name`                   | `cluster_xxx`    | name                                                         |
-| `meta_service_addr`      | `127.0.0.1:8901` | Remote Meta Service port                                     |
+| `name`                   | `cluster_xxx`    | Node name                                                    |
+| `meta_service_addr`      | `127.0.0.1:8901` | Remote `meta` Service port                                   |
 | `http_listen_port`       | `8902`           | HTTP service listening port                                  |
 | `grpc_listen_port`       | `8903`           | GRPC service listening port                                  |
 | `flight_rpc_listen_port` | `8904`           | Flight RPC service listening port                            |
