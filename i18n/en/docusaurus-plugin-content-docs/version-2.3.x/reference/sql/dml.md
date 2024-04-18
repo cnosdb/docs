@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Data Manipulation Language
+# DML
 
 Is used to manipulate data stored in a database.
 
