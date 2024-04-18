@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # DDL
 
-用来定义数据库结构和组织。
+Used to define the structure and organization of the database.
 
 ## `CREATE DATABASE`
 
@@ -98,7 +98,7 @@ field_codec_type:
 
 **Create a table.**
 
-创建表时 `time` 字段可以省略。
+The `time` field can be omitted when creating a table.
 
 ```sql
 CREATE TABLE air(
@@ -109,11 +109,11 @@ CREATE TABLE air(
 );
 ```
 
-**创建一个表，并指定压缩算法。**
+**Create a table and specify the compression algorithm.**
 
-指定 `visibility` 的压缩算法为 `QUANTILE`，`temperature` 不压缩，`pressure` 使用默认压缩算法。
+Specify the compression algorithm of `visibility` as `QUANTILE`, do not compress `temperature`, and use the default compression algorithm for `pressure`.
 
-不同的数据类型可以指定不同的压缩算法，支持列表请参考 [压缩算法](../concept_design/compress)
+Different data types can specify different compression algorithms, for supported list please refer to [Compression Algorithm](../concept_design/compress).
 
 ```sql
 CREATE TABLE air(
@@ -124,7 +124,7 @@ CREATE TABLE air(
 );
 ```
 
-如果需要对创建之后的表进行其他操作，请参考 [`INSERT`](dml#insert)、 [`ALTER TABLE`](#alter-table)、[`DROP TABLE`](#drop-table)。
+If you need to perform other operations on the table created, please refer to [`INSERT`](dml#insert), [`ALTER TABLE`](#alter-table), [`DROP TABLE`](#drop-table).
 
 </details>
 
@@ -159,11 +159,11 @@ tb_option: {
 | `LOCATION`        | Location of the associated file, supports directories.                                |
 
 <details>
-  <summary>查看 <code>CREATE EXTERNAL TABLE</code> 示例</summary>
+  <summary>View the <code>CREATE EXTERNAL TABLE</code> example</summary>
 
-**创建一个外部表，并指定一个本地 `CSV` 文件。**
+**Create an external table and specify a local `CSV` file.**
 
-创建外部表可以使用所有 [数据类型](data_type) （不包括 `INTERVAL` 等一些特殊类型）中的类型，且不受 CnosDB 固有模型的约束。
+External tables can use all [data types](data_type) (excluding `INTERVAL` and some other special types) and are not constrained by the CnosDB native model.
 
 ```sql
 CREATE EXTERNAL TABLE cpu (
@@ -216,17 +216,17 @@ db_option: {
 ```
 
 <details>
-  <summary>查看 <code>ALTER DATABASE</code> 示例</summary>
+  <summary>View the <code>ALTER DATABASE</code> example</summary>
 
-**修改 `TTL`。**
+**Modify `TTL`.**
 
 ```sql
 ALTER DATABASE oceanic_station SET TTL '30d';
 ```
 
-\*\*修改 `VNODE_DURATION` \*\*。
+\*\*Modify `VNODE_DURATION` \*\*.
 
-修改 `VNODE_DURATION` 不会对已有的 Vnode 造成影响。
+Modifying `VNODE_DURATION` will not affect existing Vnodes.
 
 ```
 ALTER DATABASE oceanic_station SET VNODE_DURATION '7d';
@@ -259,33 +259,33 @@ alter_table_option: {
 ```
 
 <details>
-  <summary>查看 <code>ALTER TABLE</code> 示例</summary>
+  <summary>View the <code>ALTER TABLE</code> example</summary>
 
-**添加一个 `TAG` 类型的列。**
+**Add a column of type `TAG`.**
 
 ```sql
 ALTER TABLE air ADD TAG height;
 ```
 
-**添加一个 `FIELD` 类型的列，并指定压缩算法。**
+**Add a column of type `FIELD` and specify the compression algorithm.**
 
 ```sql
 ALTER TABLE air ADD FIELD humidity DOUBLE CODEC(DEFAULT);
 ```
 
-**修改 `humidity` 的压缩算法为 `QUANTILE`。**
+**Modify the compression algorithm of `humidity` to `QUANTILE`.**
 
 ```sql
 ALTER TABLE air ALTER humidity SET CODEC(QUANTILE);
 ```
 
-**删除 `humidity`。**
+**Delete `humidity`.**
 
 ```sql
 ALTER TABLE air DROP humidity;
 ```
 
-**重命名列名。**
+**Rename the column name.**
 
 ```sql
 ALTER TABLE air RENAME COLUMN height to height_v2;
@@ -304,23 +304,23 @@ DROP DATABASE [IF EXISTS] db_name [AFTER <duration>];
 | `AFTER` | Set the delay deletion time. When set to `AFTER`, the database will enter the disabled phase until the duration ends. The database will be removed from the disk. Before the duration ends, recovery can be done using the `RECOVER DATABASE` syntax.The default unit is `d`, supporting `d`, `h`, `m` |
 
 <details>
-  <summary>查看 <code>DROP DATABASE</code> 示例</summary>
+  <summary>View the <code>DROP DATABASE</code> example</summary>
 
-**删除数据库，且数据库会被立即删除。**
+**Delete the database, and the database will be immediately deleted.**
 
 ```sql
 DROP DATABASE oceanic_station;
 ```
 
-**删除数据库，并设置数据库在 3 天后被删除。**
+**Delete the database and set it to be deleted after 3 days.**
 
 ```sql
 DROP DATABASE oceanic_station AFTER '3';
 ```
 
-**撤回删除数据库**
+**Revoke the deletion of the database**
 
-在数据库没有在被真正删除之前，即在 `AFTER` 持续时间结束之前，删除操作可以撤回。
+The deletion operation can be revoked before the database is actually deleted, i.e., before the `AFTER` duration ends.
 
 ```sql
 RECOVER DATABASE oceanic_station;
@@ -335,7 +335,7 @@ DROP TABLE [ IF EXISTS ] tb_name;
 ```
 
 <details>
-  <summary>查看 <code>DROP TABLE</code> 示例</summary>
+  <summary>View the <code>DROP TABLE</code> example</summary>
 
 ```sql
 DROP TABLE air;
