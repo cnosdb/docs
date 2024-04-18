@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# 数据定义语言
+# DDL
 
 用来定义数据库结构和组织。
 
@@ -23,40 +23,40 @@ db_option: {
 }
 ```
 
-| Options          | Description                                                            |
-| ---------------- | ---------------------------------------------------------------------- |
-| `TTL`            | 数据过期时间，默认无限保存，支持的单位：`d`、`h`、`m`。示例：`TTL 10d`、`TTL 180m`。               |
-| `SHARD`          | 表示分片个数，默认：`1`。                                                         |
-| `VNODE_DURATION` | 数据在 SHARD 中的时间窗口长度，默认 365 天，支持的单位：`d`、`h`、`m`。示例：`TTL 10d`、`TTL 180m`。 |
-| `REPLICA`        | 数据在集群中的复本数，默认为 `1`。（备注：副本数必须小于且等于集群中 `tskv` 节点的数据）。                    |
-| `PRECISION`      | 数据库的时间戳精度，默认为 `ns`。支持的单位：`ms`、`us`、`ns`                                |
+| Options          | Description                                                                                                                                                                                                                              |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TTL`            | Data expiration time, default unlimited storage, supported units: `d`, `h`, `m`.Example: `TTL 10d`, `TTL 180m`.                                                          |
+| `SHARD`          | Indicates the number of shards, default: `1`.                                                                                                                                                            |
+| `VNODE_DURATION` | The time window length of the data in SHARD, default 365 days, supported units: `d`, `h`, `m`.Example: `TTL 10d`, `TTL 180m`.                                            |
+| `REPLICA`        | The number of replicas of the data in the cluster, default is `1`.(Note: The number of copies must be less than or equal to the data nodes of `tskv` in the cluster). |
+| `PRECISION`      | The timestamp precision of the database, default is `ns`.Supported units: `ms`, `us`, `ns`                                                                                                               |
 
 <details>
-  <summary>查看 <code>CREATE DATABASE</code> 示例</summary>
+  <summary>View the <code>CREATE DATABASE</code> example</summary>
 
-**创建一个数据库，且保留策略为无限长。**
+**Create a database, and retain the policy as unlimited length.**
 
 ```sql
 CREATE DATABASE oceanic_station;
 ```
 
-**创建一个数据库，设置过期时间为 180 天，且每个时间窗口为 7 天。**
+**Create a database, set the expiration time to 180 days, and each time window to 7 days.**
 
-> 数据过期策略请参考 [分片规则](../concept_design/arch#数据管理)
+> For data expiration policy, please refer to [Sharding Rules](../concept_design/arch#data_management)
 
 ```sql
 CREATE DATABASE oceanic_station WITH TTL '180d' SHARD 1 VNODE_DURATION '7d';
 ```
 
-**设置 Vnode 复制因子数量。**
+**Set the Vnode replication factor quantity.**
 
 ```sql
 CREATE DATABASE oceanic_station WITH SHARD 2;
 ```
 
-**设置时间戳精度。**
+**Set the timestamp precision.**
 
-> 时间精度只允许在创建数据库时指定，且后续不能更改。
+> The time precision can only be specified when creating the database and cannot be changed afterwards.
 
 ```sql
 CREATE DATABASE oceanic_station WITH PRECISION 'ms';
@@ -66,7 +66,7 @@ CREATE DATABASE oceanic_station WITH PRECISION 'ms';
 
 ## `CREATE TABLE`
 
-`CREATE TABLE` 使用 CnosDB TSKV 存储数据，支持部分 SQL 数据类型进行存储，如下：
+`CREATE TABLE` uses CnosDB TSKV to store data, supporting storage of some SQL data types as follows:
 
 - `BIGINT`
 
@@ -80,7 +80,7 @@ CREATE DATABASE oceanic_station WITH PRECISION 'ms';
 
 - `DOUBLE`
 
-此外，CnosDB 表的结构需要遵循一定的规范，请参考 [基础概念](../concept_design/basic_concent)。
+In addition, the structure of the CnosDB table needs to follow certain specifications, please refer to [Basic Concepts](../concept_design/basic_concent).
 
 ```sql
 CREATE TABLE [IF NOT EXISTS] tb_name
@@ -94,9 +94,9 @@ field_codec_type:
 ```
 
 <details>
-  <summary>查看 <code>CREATE TABLE</code> 示例</summary>
+  <summary>View the <code>CREATE TABLE</code> example</summary>
 
-**创建一个表。**
+**Create a table.**
 
 创建表时 `time` 字段可以省略。
 
@@ -130,7 +130,7 @@ CREATE TABLE air(
 
 ## `CREATE EXTERNAL TABLE`
 
-> 外部表是只读的，不能执行 DML 操作。
+> The external table is read-only and cannot perform DML operations.
 
 ```sql
 -- Column definitions can not be specified for PARQUET files
@@ -150,13 +150,13 @@ tb_option: {
 }
 ```
 
-| Options           | Description                                      |
-| ----------------- | ------------------------------------------------ |
-| `STORED AS`       | 指定文件的格式，支持  `PARQUET`、`NDJSON`、`CSV`、`AVRO`。     |
-| `WITH HEADER ROW` | 仅在 `STORED AS CSV` 时生效，用于指定 `CSV` 文件中的 `Header`。 |
-| `DELIMITER`       | 仅在 `STORED AS CSV` 时生效，用于指定 `CSV` 文件中的分隔符。       |
-| `PARTITIONED BY`  | 创建表时指定的列来进行分区。                                   |
-| `LOCATION`        | 关联的文件的位置，支持目录。                                   |
+| Options           | Description                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| `STORED AS`       | Specify the format of the file, supporting `PARQUET`, `NDJSON`, `CSV`, `AVRO`.        |
+| `WITH HEADER ROW` | Only effective when `STORED AS CSV`, used to specify the `Header` in the `CSV` file.  |
+| `DELIMITER`       | Only effective when `STORED AS CSV`, used to specify the delimiter in the `CSV` file. |
+| `PARTITIONED BY`  | Partitioning by the columns specified when creating the table.                        |
+| `LOCATION`        | Location of the associated file, supports directories.                                |
 
 <details>
   <summary>查看 <code>CREATE EXTERNAL TABLE</code> 示例</summary>
@@ -183,7 +183,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 ## `CREATE STREAM TABLE `
 
 :::tip
-需要一个 `source` 表，STREAM 表不支持 `ALTER`
+Need a `source` table, STREAM table does not support `ALTER`
 :::
 
 ```sql
@@ -195,11 +195,11 @@ field_definition:
     column_name data_type
 ```
 
-**相关语法：**[`DROP TABLE`](#drop-table)
+**Syntax:**[`DROP TABLE`](#drop-table)
 
 ## `ALTER DATABASE`
 
-> `ALTER DATABASE` 可以修改数据库中设定的所有参数（不包含 `PRECISION`），你可以通过 [DESCRIBE DATABASE](dql#describe) 命令查询当前数据库参数设置。
+> `ALTER DATABASE` can modify all parameters set in the database (excluding `PRECISION`), you can query the current database parameter settings using the [DESCRIBE DATABASE](dql#describe) command.
 
 ```sql
 ALTER DATABASE db_name [alter_db_options]
@@ -240,7 +240,7 @@ ALTER DATABASE oceanic_station SET VNODE_DURATION '7d';
 
 支持修改/删除 `FIELD` 类型的列，可以通过 [`DESCRIBE TABLE`](dql#describe) 语法查询列类型。
 
-不支持修改列名 `time`。
+Do not support modifying the column name `time`.
 
 :::
 
