@@ -405,10 +405,10 @@ SELECT floor(-3.1);
 gcd(expression_x, expression_y)
 ```
 
-| Parameters     | Description                |
-| -------------- | -------------------------- |
-| `expression_x` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters     | Description                                                                                          |
+| -------------- | ---------------------------------------------------------------------------------------------------- |
+| `expression_x` | Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。                                                                           |
 
 <details>
   <summary>查看 <code>gcd</code> 示例</summary>
@@ -432,10 +432,10 @@ SELECT gcd(24,36);
 lcm(expression_x, expression_y)
 ```
 
-| Parameters     | Description                |
-| -------------- | -------------------------- |
-| `expression_x` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters     | Description                                                                                          |
+| -------------- | ---------------------------------------------------------------------------------------------------- |
+| `expression_x` | Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。                                                                           |
 
 <details>
   <summary>查看 <code>lcm</code> 示例</summary>
@@ -486,10 +486,10 @@ log(base, numeric_expression)
 log(numeric_expression)
 ```
 
-| Parameters           | Description                          |
-| -------------------- | ------------------------------------ |
-| `base`               | 基数：可以是常数、列或函数，也可以是算术运算符的任意组合。        |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                    |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `base`               | 基数：可以是常数、列或函数，也可以是算术运算符的任意组合。                                                                                  |
+| `numeric_expression` | 要操作的数字表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>log</code> 示例</summary>
@@ -618,9 +618,9 @@ SELECT power(10, 2);
 radians(numeric_expression)
 ```
 
-| Parameters           | Description                          |
-| -------------------- | ------------------------------------ |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                    |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | 要操作的数字表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>radians</code> 示例</summary>
@@ -666,10 +666,10 @@ SELECT random();
 round(numeric_expression[, decimal_places])
 ```
 
-| Parameters           | Description                          |
-| -------------------- | ------------------------------------ |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `decimal_places`     | 小数位：可选。要舍入的小数位数。默认为 0。               |
+| Parameters           | Description                                                                                                    |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | 要操作的数字表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `decimal_places`     | 小数位：可选。要舍入的小数位数。默认为 0。                                                                                         |
 
 <details>
   <summary>查看 <code>round</code> 示例</summary>
@@ -693,9 +693,9 @@ SELECT round(2.3);
 signum(numeric_expression)
 ```
 
-| Parameters           | Description                |
-| -------------------- | -------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>signum</code> 示例</summary>
@@ -719,9 +719,9 @@ SELECT signum(10);
 sin(numeric_expression)
 ```
 
-| Parameters           | Description                |
-| -------------------- | -------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>sin</code> 示例</summary>
@@ -746,9 +746,9 @@ SELECT sin(5);
 sinh(numeric_expression)
 ```
 
-| Parameters           | Description                |
-| -------------------- | -------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>sinh</code> 示例</summary>
@@ -772,9 +772,9 @@ SELECT sinh(2);
 sqrt(numeric_expression)
 ```
 
-| Parameters           | Description                |
-| -------------------- | -------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>sqrt</code> 示例</summary>
@@ -798,9 +798,9 @@ SELECT sqrt(25);
 tan(numeric_expression)
 ```
 
-| Parameters           | Description                |
-| -------------------- | -------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>tan</code> 示例</summary>
@@ -824,9 +824,9 @@ SELECT tan(10);
 tanh(numeric_expression)
 ```
 
-| Parameters           | Description                |
-| -------------------- | -------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters           | Description                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>tanh</code> 示例</summary>
@@ -852,7 +852,7 @@ trunc(numeric_expression[, decimal_places])
 
 | Parameters           | Description                                                                                              |
 | -------------------- | -------------------------------------------------------------------------------------------------------- |
-| `numeric_expression` | 可以是常量、列或函数，也可以是算术运算符的任意组合。                                                                               |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators.     |
 | `decimal_places`     | 小数位：可选。要截断到的小数位数。默认为 0（截断为整数）。如果`decimal_places`是正整数，则截断小数点右侧的数字。如果`decimal_places`是负整数，则用`0`替换小数点左边的数字。 |
 
 <details>
