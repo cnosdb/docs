@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Reference
 
-CnosDB 中的标识符、字面量和运算操作符的用法，以及一些SQL中常用的运算符。At the same time, it also introduces the priority of operators and some other related content.
+The usage of identifiers, literals, and arithmetic operators in CnosDB, as well as some commonly used operators in SQL.Also introduces the precedence of operators and some other related content.
 
 ## Identifiers
 
@@ -12,17 +12,17 @@ Used to name database objects, such as `table` and `column` names.
 
 ## Quoting
 
-在 [标识符](#标识符) 上使用双引号区分大小写，在字符串字面量上使用单引号。
+Use double quotes on [identifiers](#identifiers) to treat them as case-sensitive. Use single quotes on string literals.
 
 Identifiers without quotation marks are not case-sensitive in CnosDB.
 
-## 字面量
+## Literals
 
-字面量是不由 [标识符](#标识符) 标识的显式值。
+A literal is an explicit value not represented by an [identifier](#identifiers).
 
-#### 字符串字面量
+#### String literals
 
-字符串字面量使用单引号括起来。
+String literals are surrounded by single quotes.
 
 ```sql
 'station'
@@ -31,9 +31,9 @@ Identifiers without quotation marks are not case-sensitive in CnosDB.
 'avg temperature'
 ```
 
-#### 数字字面量
+#### Numeric Literals
 
-数字字面量是正数或负数，可以是精确数字或浮点数。
+Number literals are positive or negative numbers that are either exact numbers or floats.
 
 ```sql
 -- Integers
@@ -50,9 +50,9 @@ Identifiers without quotation marks are not case-sensitive in CnosDB.
 -100.56
 ```
 
-#### 日期和时间字面量
+#### Date/Time Types Literals
 
-支持以下日期和时间字面量。
+The following date and time literals are supported:
 
 ```sql
 '2022-01-31T06:30:30.123Z'     -- RFC3339
@@ -62,13 +62,13 @@ Identifiers without quotation marks are not case-sensitive in CnosDB.
 1643610630123000000            -- Unix epoch nanosecond cast to a timestamp
 ```
 
-#### Boolean 字面量
+#### Boolean literals
 
-Boolean 字面量是 `true` 或 `false`
+Boolean literals are either `true` or `false`.
 
 #### Duration units
 
-间隔字面量指定长度或时间单位。
+Interval literals specify a length or unit of time.
 
 ```sql
 INTERVAL '6 minute'
