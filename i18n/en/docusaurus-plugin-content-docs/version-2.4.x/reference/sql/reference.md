@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Reference
 
-The usage of identifiers, literals, and arithmetic operators in CnosDB, as well as some commonly used operators in SQL.At the same time, it also introduces the priority of operators and some other related content.
+The usage of identifiers, literals, and arithmetic operators in CnosDB, as well as some commonly used operators in SQL.Also introduces the precedence of operators and some other related content.
 
 ## Identifiers
 
