@@ -2,9 +2,9 @@
 sidebar_position: 5
 ---
 
-# 数据查询语言
+# DQL
 
-用来从数据库中检索数据。
+Used to retrieve data from the database.
 
 ```sql
 [ WITH with_query [, ...] ]
@@ -36,11 +36,11 @@ SELECT [ ALL | DISTINCT ] select_expression [, ...]
 
 ### `WITH`
 
-`WITH` 子句允许为查询提供名称并按名称引用它们。
+The `WITH` clause allows you to provide names for queries and reference them by name.
 
-`WITH` 子句用于创建临时命名的结果集，也称为 公共表表达式（[CTE](https://learnsql.com/blog/what-is-common-table-expression/)）。
+The `WITH` clause is used to create a temporary named result set, also known as a Common Table Expression ([CTE](https://learnsql.com/blog/what-is-common-table-expression/)).
 
-通过使用 `WITH` 关键字，可以在 SQL 查询中定义一个临时的结果集，并为其指定一个名称。这个临时结果集可以在查询的其他部分中被引用，从而使查询更清晰、可读性更高，并且可以避免重复性的子查询。
+By using the `WITH` keyword, you can define a temporary result set in an SQL query and assign it a name.This temporary result set can be referenced in other parts of the query, making the query clearer, more readable, and avoiding repetitive subqueries.
 
 ```sql
 WITH x AS (SELECT a, MAX(b) AS b FROM t GROUP BY a)
@@ -48,7 +48,7 @@ SELECT a, b FROM x;
 ```
 
 <details>
-  <summary>查看 <code>WITH</code> 示例</summary>
+  <summary>View the <code>WITH</code> example</summary>
 
 ```sql
 WITH x AS (SELECT station, avg(temperature) AS avg_temperature FROM air GROUP BY station)
@@ -59,11 +59,11 @@ SELECT station, avg_temperature FROM x;
 
 ## `SELECT`
 
-`SELECT` 子句用于从数据库中检索数据。
+The `SELECT` clause is used to retrieve data from a database.
 
-在 SQL 查询中，`SELECT` 语句用于指定要返回的列，以及要从中检索数据的 `table`。通过使用 `SELECT` 关键字，可以选择特定列或所有列，并从中检索数据。
+In SQL queries, the `SELECT` statement is used to specify the columns to be returned and the `table` from which to retrieve data.By using the `SELECT` keyword, you can select specific columns or all columns and retrieve data from them.
 
-可以添加 `DISTINCT` 返回所有不同的行，默认为 `ALL`。
+You can add `DISTINCT` to return all distinct rows, default is `ALL`.
 
 <details>
   <summary>查看 <code>DISTINCT</code> 和 <code>ALL</code> 示例</summary>
@@ -580,19 +580,19 @@ SHOW QUERIES;
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
 ```
 
-| Options   | Description |
-| --------- | ----------- |
-| `ANALYZE` | 执行查询。       |
-| `VERBOSE` | 显示详细信息。     |
+| Options   | Description                                   |
+| --------- | --------------------------------------------- |
+| `ANALYZE` | Execute query.                |
+| `VERBOSE` | Display detailed information. |
 
-**返回语句的执行计划。**
+**Detailed execution plan and metrics for the return statement.**
 
 ```sql
 EXPLAIN SELECT station,avg(temperature) FROM air GROUP BY station;
 ```
 
 <details>
-  <summary>查看 <code>EXPLAIN</code> 返回结果</summary>
+  <summary>View <code>EXPLAIN</code> Back to Results</summary>
 
 ```
 +---------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -614,14 +614,14 @@ EXPLAIN SELECT station,avg(temperature) FROM air GROUP BY station;
 
 </details>
 
-**返回语句的执行计划和指标。**
+**Detailed execution plan and metrics for the return statement.**
 
 ```sql
 EXPLAIN ANALYZE SELECT station,avg(temperature) FROM air GROUP BY station;
 ```
 
 <details>
-  <summary>查看 <code>EXPLAIN ANALYZE</code> 返回结果</summary>
+  <summary>View the <code>EXPLAIN ANALYZE</code> query results</summary>
 
 ```
 +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -640,14 +640,14 @@ EXPLAIN ANALYZE SELECT station,avg(temperature) FROM air GROUP BY station;
 
 </details>
 
-**返回语句的详细执行计划和指标。**
+**Detailed execution plan and metrics for the return statement.**
 
 ```sql
 EXPLAIN ANALYZE VERBOSE SELECT station,avg(temperature) FROM air GROUP BY station;
 ```
 
 <details>
-  <summary>查看 <code>EXPLAIN ANALYZE VERBOSE</code> 返回结果</summary>
+  <summary>View the <code>EXPLAIN ANALYZE VERBOSE</code> query results</summary>
 
 ```
 +------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -678,14 +678,14 @@ EXPLAIN ANALYZE VERBOSE SELECT station,avg(temperature) FROM air GROUP BY statio
 
 ## `DESCRIBE`
 
-描述数据库的参数以及表的 schema。
+Describe the parameters of the database and the schema of the table.
 
 ```sql
 DESCRIBE {DATABASE db_name | TABLE tb_name};
 ```
 
 <details>
-  <summary>查看 <code>DESCRIBE</code> 示例</summary>
+  <summary>View the <code>DESCRIBE</code> example</summary>
 
 ```sql
 DESCRIBE DATABASE public;
