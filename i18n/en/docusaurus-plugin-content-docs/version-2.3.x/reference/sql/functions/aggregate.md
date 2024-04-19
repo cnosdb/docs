@@ -19,9 +19,9 @@ import TabItem from '@theme/TabItem';
 avg(expression)
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>avg</code> 示例</summary>
@@ -46,9 +46,9 @@ SELECT station, avg(temperature) FROM air group by station;
 count(expression)
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>count</code> 示例</summary>
@@ -73,9 +73,9 @@ SELECT station, count(temperature) FROM air group by station;
 max(expression)
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>max</code> 示例</summary>
@@ -105,9 +105,9 @@ SELECT station, max(temperature) FROM air group by station;
 median(expression)
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>median</code> 示例</summary>
@@ -131,9 +131,9 @@ SELECT  median(temperature) FROM air;
 min(expression)
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>min</code> 示例</summary>
@@ -157,9 +157,9 @@ SELECT  min(temperature) FROM air;
 sum(expression)
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>sum</code> 示例</summary>
@@ -184,9 +184,9 @@ Query took 0.035 seconds.
 array_agg(expression [ORDER BY expression])
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>array_agg</code> 示例</summary>
@@ -257,9 +257,9 @@ SELECT array_agg(temperature ORDER BY temperature ASC) from sample;
 first_value(expression [ORDER BY expression])
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>first_value</code> 示例</summary>
@@ -284,9 +284,9 @@ SELECT station, first_value(temperature ORDER BY time) FROM air GROUP BY station
 last_value(expression [ORDER BY expression])
 ```
 
-| Parameters   | Description                            |
-| ------------ | -------------------------------------- |
-| `expression` | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>last_value</code> 示例</summary>
@@ -311,10 +311,10 @@ SELECT station, last_value(temperature ORDER BY time) FROM air GROUP BY station;
 increase(time_expression, expression ORDER BY time_expression)
 ```
 
-| Parameters        | Description                            |
-| ----------------- | -------------------------------------- |
-| `time_expression` | 必需为 `time` 列。                          |
-| `expression`      | 要对其进行操作的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters        | Description                                                                                                                                   |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_expression` | 必需为 `time` 列。                                                                                                                                 |
+| `expression`      | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>mode</code> 示例</summary>
@@ -341,10 +341,10 @@ SELECT station, INCREASE(time, temperature ORDER BY time) FROM air GROUP BY stat
 corr(expression1, expression2)
 ```
 
-| Parameters    | Description                           |
-| ------------- | ------------------------------------- |
-| `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters    | Description                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>corr</code> 示例</summary>
@@ -368,10 +368,10 @@ SELECT corr(temperature, pressure) FROM air;
 covar(expression1, expression2)
 ```
 
-| Parameters    | Description                           |
-| ------------- | ------------------------------------- |
-| `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters    | Description                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>covar</code> 示例</summary>
@@ -395,10 +395,10 @@ SELECT covar(temperature, pressure) FROM air;
 covar_pop(expression1, expression2)
 ```
 
-| Parameters    | Description                           |
-| ------------- | ------------------------------------- |
-| `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters    | Description                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>covar_pop</code> 示例</summary>
@@ -422,10 +422,10 @@ SELECT covar_pop(temperature, pressure) FROM air;
 covar_samp(expression1, expression2)
 ```
 
-| Parameters    | Description                           |
-| ------------- | ------------------------------------- |
-| `expression1` | 要操作的第一个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `expression1` | 要操作的第二个表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
+| Parameters    | Description                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>covar_samp</code> 示例</summary>
@@ -693,11 +693,11 @@ SELECT approx_percentile_cont(temperature, 0.1,100) FROM air;
 approx_percentile_cont_with_weight(expression, weight, percentile)
 ```
 
-| Parameters   | Description                         |
-| ------------ | ----------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合     |
-| `weight`     | 用作权重的表达式。可以是常量、列或函数，也可以是算术运算符的任意组合。 |
-| `percentile` | 要计算的百分位数。必须是介于 0 和 1（含）之间的浮点值。      |
+| Parameters   | Description                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------------- |
+| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合                                                                               |
+| `weight`     | 用作权重的表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `percentile` | 要计算的百分位数。必须是介于 0 和 1（含）之间的浮点值。                                                                                |
 
 :::tip
 如果存在此数字或更少的唯一值，则可以期待确切的结果。质心数量越多，近似值就越准确，但需要更多的内存来计算。
