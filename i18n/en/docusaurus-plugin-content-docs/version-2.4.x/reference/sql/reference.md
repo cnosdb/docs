@@ -385,24 +385,24 @@ SELECT 'Hello, ' || 'CnosDB!';
 
 ### 运算符优先级
 
-如果一个复杂表达式有多个运算符，则运算符优先级将确定操作序列。 执行顺序可能对结果值有明显的影响。
+If a complex expression has multiple operators, the operator precedence will determine the sequence of operations. The execution order may have a significant impact on the result value.
 
-运算符的优先级别如下表中所示。 在较低级别的运算符之前先对较高级别的运算符进行求值。 在下表中，1 代表最高级别，8 代表最低级别。
+The priority of operators is shown in the table below. Evaluate higher-level operators before lower-level operators. In the table below, 1 represents the highest level, and 8 represents the lowest level.
 
-| 级别 | 运算符                                            |
-| -- | ---------------------------------------------- |
-| 1  | \*（乘）、/（除）、%（取模）                               |
-| 2  | +（正）、-（负）、+（加）、+（串联）、-（减）                      |
-| 3  | =、>=、<=、&lt>、!=、>、<（比较运算符） |
-| 4  | NOT                                            |
-| 5  | AND                                            |
-| 6  | BETWEEN、IN、LIKE、OR                             |
+| Level | Operators                                                                                                                                                    |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1     | - (multiply), / (divide), % (modulo)                                                                |
+| 2     | * (positive), - (negative), + (add), + (series), - (subtract) |
+| 3     | =、>=、<=、&lt>、!=、>、<（比较运算符）                                                                                                               |
+| 4     | NOT                                                                                                                                                          |
+| 5     | AND                                                                                                                                                          |
+| 6     | BETWEEN、IN、LIKE、OR                                                                                                                                           |
 
-## 保留字
+## Reserved words
 
-## 表达式
+## Expression
 
-表达式是符号和运算符的一种组合，CnosDB 处理该组合以获得单个数据值。 简单表达式可以是一个常量、变量、列或标量函数。 可以用运算符将两个或更多的简单表达式联接起来组成复杂表达式。
+An expression is a combination of symbols and operators that CnosDB processes to obtain a single data value. A simple expression can be a constant, variable, column, or scalar function. You can use operators to combine two or more simple expressions into a complex expression.
 
 ```sql
 <expresion> :: = { 
@@ -416,55 +416,55 @@ SELECT 'Hello, ' || 'CnosDB!';
 }
 ```
 
-#### 常量
+#### Constant
 
-表示单个特定数据值的符号。详细内容请参考 [文字](#文字)
+Symbol representing a specific data value.For detailed content, please refer to [text](#text)
 
-#### 标量函数
+#### Scalar function
 
 请参考 [函数](./functions)
 
 #### 单目运算符
 
-| 运算符           | Description                                                   |
+| Operators     | Description                                                   |
 | ------------- | ------------------------------------------------------------- |
 | `NOT`         | 如果子表达式为 `true`，则整个表达式 `false`，如果整个表达式为 `false`，则整个表达式为`true`。 |
 | `IS NULL`     | 如果子表达式为 `null`，则整个表达式为 `true`。                                |
 | `IS NOT NULL` | 如果子表达式为 `null`，则整个表达式为 `false`。                               |
 
-#### 二元运算符
+#### Binary Operators
 
-二元运算符和两个表达式组合在一起，可以组成一个新的表达式。
+Binary operators combine two expressions to form a new expression.
 
-支持的二元运算符有：
+Supported binary operators are:
 
-| 运算符                           | Description                                         |
-| ----------------------------- | --------------------------------------------------- |
-| `+`                           | 数字类型表达式相加。                                          |
-| `-`                           | 数字类型表达式相减。                                          |
-| `*`                           | 数字类型表达式相乘。                                          |
-| `/`                           | 数字类型表达式相除。                                          |
-| `%`                           | 整数类型表达式取余。                                          |
-| \|&#124   | 字符串类型表达式拼接。                                         |
-| `=`                           | 比较表达式是否相等。                                          |
-| `!=`、&lt> | 比较表达式是否不相等。                                         |
-| `<`                           | 比较表达式是否小于。                                          |
-| `<=`                          | 比较表达式是否小于等于。                                        |
-| `>`                           | 比较表达式是否大于。                                          |
-| `>=`                          | 比较表达式是否大于等于。                                        |
-| `AND`                         | 先求左表达式的值，如果为 `true`，计算右表达式的值，都为 `true` 为`true`。     |
-| `OR`                          | 先求左表达式的值，如果为 `false`，计算右表达式的值，都为 `false` 为 `false`。 |
-| `LIKE`                        | 判断左表达式是否符合右表达式的模式。                                  |
+| Operators                     | Description                                                                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `+`                           | Add numerical type expressions.                                                                                                                 |
+| `-`                           | Subtract numerical type expressions.                                                                                                            |
+| `*`                           | Multiply numerical type expressions.                                                                                                            |
+| `/`                           | Divide numerical type expressions.                                                                                                              |
+| `%`                           | Integer type expression takes remainder.                                                                                                        |
+| \|&#124   | String type expression splicing.                                                                                                                |
+| `=`                           | Compare if the expressions are equal.                                                                                                           |
+| `!=`、&lt> | Compare if the expressions are not equal.                                                                                                       |
+| `<`                           | Compare if the expression is less than.                                                                                                         |
+| `<=`                          | Compare if the expression is less than or equal to.                                                                                             |
+| `>`                           | Compare if the expressions are greater than.                                                                                                    |
+| `>=`                          | Compare if the expressions are greater than or equal to.                                                                                        |
+| `AND`                         | First, evaluate the left expression, if it is `true`, calculate the value of the right expression, if both are `true`, the result is `true`.    |
+| `OR`                          | First, evaluate the left expression, if it is `false`, calculate the value of the right expression, if both are `false`, the result is `false`. |
+| `LIKE`                        | Determine if the left expression matches the pattern of the right expression.                                                                   |
 
 #### `BETWEEN AND`
 
-等价于 `WHERE >= expr AND WHERE <= expr`
+Equivalent to `WHERE >= expr AND WHERE <= expr`
 
 ```sql
 expr BETWEEN expr AND expr
 ```
 
-**返回 `air` 表中 `perssure` 字段在 50 - 60 之间的记录。**
+**Return records in the `air` table where the `pressure` field is between 50 - 60.**
 
 ```sql
 SELECT DISTINCT perssure FROM air WHERE perssure BETWEEN 50 AND 60;
@@ -472,15 +472,15 @@ SELECT DISTINCT perssure FROM air WHERE perssure BETWEEN 50 AND 60;
 
 #### `IN`
 
-判断列表中是否有值与表达式相等。
+Determine if there is a value in the list that is equal to the expression.
 
 :::tip
 
-`IN` 列表暂时只支持常量。
+The `IN` list currently only supports constants.
 
 :::
 
-**判断 `air` 表中 `temperature` 字段的值被  `(68, 69)` 包含。**
+**Determine if the value of the `temperature` field in the `air` table is contained within `(68, 69)`.**
 
 ```sql
 SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
@@ -488,7 +488,7 @@ SELECT station, temperature, visibility FROM air WHERE temperature  IN (68, 69);
 
 #### `CASE WHEN`
 
-当表达式需要按照不同情况获取不同的值时，可以使用 `CASE WHEN` 表达式。
+When the expression needs to obtain different values according to different situations, you can use the `CASE WHEN` expression.
 
 ```sql
 CASE
@@ -497,7 +497,7 @@ CASE
 END;
 ```
 
-**查看示例。**
+**View example.**
 
 ```sql
 SELECT DISTINCT 
@@ -507,15 +507,15 @@ SELECT DISTINCT
 FROM AIR;
 ```
 
-## 注释
+## Comments
 
-- 单行注释使用双连字符 `--` 符号。单行注释以换行符结尾。
-- 多行注释以 `/*` 开头，以 `*/` 结尾。
+- Single-line comments use double hyphen `--` symbol.Single-line comments end with a newline character.
+- Multi-line comments start with `/*` and end with `*/`.
 
 ```sql
--- 单行注释
+-- Single-line comment
 
 /* 
- * 多行注释
+ * Multi-line comment
  */
 ```
