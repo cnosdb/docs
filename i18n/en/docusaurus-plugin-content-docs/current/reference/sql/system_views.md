@@ -2,13 +2,13 @@
 sidebar_position: 8
 ---
 
-# 系统视图
+# System Views
 
-CnosDB 提供了系统视图用来查看集群状态和集群 Schema 信息。
+CnosDB provides system views to view cluster status and cluster schema information.
 
-- `cluster_schema` ：用于存放集群信息。
-- `information_schema`：用于存放租户信息。
-- `usage_schema`：用户存放用量信息。
+- `cluster_schema` : Used to store cluster information.
+- `information_schema`: Used to store tenant information.
+- `usage_schema`: User stores usage information.
 
 ## cluster_schema
 
