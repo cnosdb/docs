@@ -110,7 +110,7 @@ median(expression)
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>median</code> 示例</summary>
+  <summary>View <code>median</code> Example</summary>
 
 ```sql {1}
 SELECT  median(temperature) FROM air;
@@ -125,7 +125,7 @@ SELECT  median(temperature) FROM air;
 
 ### min
 
-返回指定列中的最小值。
+Returns the minimum value in the specified column.
 
 ```sql
 min(expression)
@@ -136,7 +136,7 @@ min(expression)
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>min</code> 示例</summary>
+  <summary>View <code>min</code> Example</summary>
 
 ```sql {1}
 SELECT  min(temperature) FROM air;
@@ -151,7 +151,7 @@ SELECT  min(temperature) FROM air;
 
 ### sum
 
-返回指定列中所有值的总和。
+Returns the sum of all values in the specified column.
 
 ```sql
 sum(expression)
@@ -162,7 +162,7 @@ sum(expression)
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>sum</code> 示例</summary>
+  <summary>View <code>sum</code> Example</summary>
 
 ```sql {1}
 SELECT  sum(temperature) FROM air;
@@ -178,7 +178,7 @@ Query took 0.035 seconds.
 
 ### array_agg
 
-返回从表达式元素创建的数组。如果给出了排序要求，则按所需排序的顺序插入元素。
+Returns an array created from expression elements.If sorting requirements are given, insert elements in the order required for sorting.
 
 ```sql
 array_agg(expression [ORDER BY expression])
@@ -189,9 +189,9 @@ array_agg(expression [ORDER BY expression])
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>array_agg</code> 示例</summary>
+  <summary>View <code>array_agg</code> Example</summary>
 
-假设表中的内容如下：
+Assume the content in the table is as follows:
 
 ```sql {1}
 SELECT time,temperature FROM air ORDER BY time limit 10;
@@ -211,14 +211,14 @@ SELECT time,temperature FROM air ORDER BY time limit 10;
 +---------------------+-------------+
 ```
 
-运行如下 SQL：
+Run the following SQL:
 
 ```sql {1,2}
 WITH  sample AS (SELECT time,temperature FROM air ORDER BY time limit 10)
 SELECT array_agg(temperature) from sample;
 ```
 
-结果将是：
+The result will be:
 
 ```sql
 +--------------------------------------------------------------+
@@ -228,16 +228,16 @@ SELECT array_agg(temperature) from sample;
 +--------------------------------------------------------------+
 ```
 
-这个结果是一个数组，包含了表中所有行的温度值。
+This result is an array containing the temperature values of all rows in the table.
 
-`array_agg` 还可以与 `ORDER BY` 子句结合使用，以确定数组中值的顺序，如果我们想让得到 `temperature` 按升序排列的数组，可以这样写：
+`array_agg` can also be used in conjunction with the `ORDER BY` clause to determine the order of values in the array. If we want the resulting array of `temperature` to be sorted in ascending order, we can write it like this:
 
 ```sql {1,2}
 WITH  sample AS (SELECT time,temperature FROM air ORDER BY time limit 10)
 SELECT array_agg(temperature ORDER BY temperature ASC) from sample;
 ```
 
-这将返回
+This will return
 
 ```sql
 +--------------------------------------------------------------+
@@ -251,7 +251,7 @@ SELECT array_agg(temperature ORDER BY temperature ASC) from sample;
 
 ### first_value
 
-根据请求的顺序返回聚合组中的第一个元素。如果未给出排序，则从组中返回任意元素。
+Return the first element in the aggregate group in the order of the request.If no order is specified, returns an arbitrary element from the group.
 
 ```sql
 first_value(expression [ORDER BY expression])
@@ -262,7 +262,7 @@ first_value(expression [ORDER BY expression])
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>first_value</code> 示例</summary>
+  <summary>View <code>first_value</code> Example</summary>
 
 ```sql {1}
 SELECT station, first_value(temperature ORDER BY time) FROM air GROUP BY station;
@@ -278,7 +278,7 @@ SELECT station, first_value(temperature ORDER BY time) FROM air GROUP BY station
 
 ### last_value
 
-根据请求的顺序返回聚合组中的第一个元素。如果未给出排序，则从组中返回任意元素。
+Return the first element in the aggregate group in the order of the request.If no order is specified, returns an arbitrary element from the group.
 
 ```sql
 last_value(expression [ORDER BY expression])
@@ -313,7 +313,7 @@ increase(time_expression, expression ORDER BY time_expression)
 
 | Parameters        | Description                                                                                                                                   |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `time_expression` | 必需为 `time` 列。                                                                                                                                 |
+| `time_expression` | Must be for the `time` column.                                                                                                |
 | `expression`      | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
