@@ -80,18 +80,18 @@ Calculate the time interval and return the starting point of the interval closes
 date_bin(interval, expression, origin-timestamp)
 ```
 
-| Parameters         | Description                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------ |
-| `interval`         |                                                                                            |
-| `expression`       | The time expression to operate.可以是常量、列或函数。                                 |
-| `origin-timestamp` | Optional.用于确定 bin 边界的起点。如果未指定，则默认为 `1970-01-01T00:00:00Z`（UTC 中的 UNIX 纪元）。 |
+| Parameters         | Description                                                                                                                                                                                                    |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `interval`         |                                                                                                                                                                                                                |
+| `expression`       | The time expression to operate.Can be a constant, column, or function.                                                                                                         |
+| `origin-timestamp` | Optional.The starting point for determining the bin boundaries.If not specified, it defaults to `1970-01-01T00:00:00Z` (UNIX epoch in UTC). |
 
-支持的 `interval` 时间单位请参考 [持续时间单位](../reference.md#持续时间单位)
+Please refer to [duration units](../reference.md#duration-units) for supported `interval` time units
 
 <details>
-  <summary>查看 <code>date_bin</code> 示例</summary>
+  <summary>View <code>date_bin</code> Example</summary>
 
-**如果您将数据分箱为 15 分钟间隔，则输入时间戳 `2024-01-01T18:18:18Z` 将更新为其所在 15 分钟分箱的开始时间：`2024-01-01T18:15:00Z` 。**
+**If you bin the data into 15-minute intervals, entering the timestamp `2024-01-01T18:18:18Z` will be updated to the start time of its 15-minute bin: `2024-01-01T18:15:00Z`.**
 
 ```sql {1}
 SELECT date_bin(INTERVAL '15' MINUTE, TIMESTAMP '2024-01-01T18:18:18Z');
@@ -106,21 +106,21 @@ SELECT date_bin(INTERVAL '15' MINUTE, TIMESTAMP '2024-01-01T18:18:18Z');
 
 ## date_trunc
 
-将时间戳值截断为指定的精度。
+Truncate the timestamp value to the specified precision.
 
 ```sql
 date_trunc(precision, expression)
 ```
 
-| Parameters   | Description                                                                        |
-| ------------ | ---------------------------------------------------------------------------------- |
-| `precision`  | 截断到的时间精度。支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`。 |
-| `expression` | The time expression to operate.可以是常量、列或函数。                         |
+| Parameters   | Description                                                                                                                                                         |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `precision`  | The precision of the truncated time.Support: `year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`. |
+| `expression` | The time expression to operate.Can be a constant, column, or function.                                                              |
 
-别名：`datetrunc`
+Alias: `datetrunc`
 
 <details>
-  <summary>查看 <code>date_trunc</code> 示例</summary>
+  <summary>View <code>date_trunc</code> Example</summary>
 
 ```sql {1}
 SELECT date_trunc('month', time) AS month, avg(temperature) AS avg_temperature FROM air GROUP BY month;
@@ -137,23 +137,23 @@ SELECT date_trunc('month', time) AS month, avg(temperature) AS avg_temperature F
 
 ## date_part
 
-以整数形式返回日期的指定部分。
+Returns the specified part of the date in integer form.
 
 ```sql
 date_part(part, expression)
 ```
 
-| Options      | Description                                                                                                                                                |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `part`       | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
-| `expression` | The time expression to operate.可以是常量、列或函数。                                                                                                 |
+| Options      | Description                                                                                                                                                                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `part`       | A part of the date to be returned.Support:  `year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`. |
+| `expression` | The time expression to operate.Can be a constant, column, or function.                                                                                                                                |
 
-别名：`datepart`
+Alias: `datepart`
 
 <details>
-  <summary>查看 <code>date_part</code> 示例</summary>
+  <summary>View <code>date_part</code> Example</summary>
 
-**从日期中提取月份。**
+**Extract the month from the date.**
 
 ```sql
 SELECT date_part('month', '2024-05-13') AS month;
@@ -163,21 +163,21 @@ SELECT date_part('month', '2024-05-13') AS month;
 
 ## extract
 
-以整数形式从时间值返回子字段。与 [`date_part`](#date_part)类似，但参数不同。
+Return subfields from a time value in integer form.Similar to [`date_part`](#date_part), but with different parameters.
 
 ```sql
 extract(field FROM source)
 ```
 
-| Options  | Description                                                                                                                                                |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `field`  | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
-| `source` | The time expression to operate.可以是常量、列或函数。                                                                                                 |
+| Options  | Description                                                                                                                                                                                                                           |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `field`  | A part of the date to be returned.Support:  `year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`. |
+| `source` | The time expression to operate.Can be a constant, column, or function.                                                                                                                                |
 
 <details>
-  <summary>查看 <code>extract</code> 示例</summary>
+  <summary>View <code>extract</code> Example</summary>
 
-**从日期中提取月份。**
+**Extract the month from the date.**
 
 ```sql
 SELECT extract(month FROM  '2024-05-13') AS month;
@@ -187,23 +187,23 @@ SELECT extract(month FROM  '2024-05-13') AS month;
 
 ## to_timestamp
 
-将值转换为时间戳（`YYYY-MM-DDT00:00:00Z`）。支持字符串、整数、无符号整数和双精度浮点数类型作为输入。如果没有提供[Chrono格式]，字符串将按照RFC3339（例如`2023-07-20T05:44:00`）解析。整数、无符号整数和双精度浮点数被解释为自Unix纪元（`1970-01-01T00:00:00Z`）以来的秒数。返回相应的时间戳。
+Converts the value to a timestamp (`YYYY-MM-DDT00:00:00Z`).Supports string, integer, unsigned integer, and double-precision floating-point number types as input.If [Chrono format] is not provided, the string will be parsed according to RFC3339 (e.g. `2023-07-20T05:44:00`).Integers, unsigned integers, and double-precision floating-point numbers are interpreted as the number of seconds since the Unix epoch (`1970-01-01T00:00:00Z`).Return the corresponding timestamp.
 
 :::tip
-`to_timestamp`返回时间戳（纳秒）。整数输入支持的范围在`-9223372037`到`9223372036`之间。字符串输入支持的范围在`1677-09-21T00:12:44.0`到`2262-04-11T23:47:16.0`之间。请对超出支持范围的输入使用 `to_timestamp_seconds`。
+`to_timestamp` returns a timestamp (in nanoseconds).The range supported for integer input is between `-9223372037` and `9223372036`.The range supported for string input is between `1677-09-21T00:12:44.0` and `2262-04-11T23:47:16.0`.Please use `to_timestamp_seconds` for inputs that are beyond the supported range.
 :::
 
 ```sql
 to_timestamp(expression[, ..., format_n])
 ```
 
-| Options      | Description                                                                   |
-| ------------ | ----------------------------------------------------------------------------- |
-| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
-| `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
+| Options      | Description                                                                                                                                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.                                                                                                                                  |
+| `format_n`   | Optional Chrono format string used to parse the expression.Will attempt formats in the order they appear and return the first successful format.If no format can successfully parse the expression, an error will be returned. |
 
 <details>
-  <summary>查看 <code>to_timestamp</code> 示例</summary>
+  <summary>View <code>to_timestamp</code> Example</summary>
 
 ```sql {1}
 select to_timestamp('2023-01-31T09:26:56.123456789-05:00');
@@ -218,19 +218,19 @@ select to_timestamp('2023-01-31T09:26:56.123456789-05:00');
 
 ## to_timestamp_millis
 
-将值转换为时间戳（`YYYY-MM-DDT00:00:00.000Z`）。支持字符串、整数和无符号整数类型作为输入。如果没有提供Chrono格式，字符串将按照RFC3339（例如`2023-07-20T05:44:00`）解析。整数和无符号整数被解释为自Unix纪元（`1970-01-01T00:00:00Z`）以来的毫秒数。返回相应的时间戳。
+Converts the value to a timestamp (`YYYY-MM-DDT00:00:00.000Z`).Supports string, integer, and unsigned integer types as input.If [Chrono format] is not provided, the string will be parsed according to RFC3339 (e.g. `2023-07-20T05:44:00`).Integers and unsigned integers are interpreted as the number of milliseconds since the Unix epoch (`1970-01-01T00:00:00Z`).Return the corresponding timestamp.
 
 ```sql
 to_timestamp_millis(expression[, ..., format_n])
 ```
 
-| Options      | Description                                                                   |
-| ------------ | ----------------------------------------------------------------------------- |
-| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
-| `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
+| Options      | Description                                                                                                                                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.                                                                                                                                  |
+| `format_n`   | Optional Chrono format string used to parse the expression.Will attempt formats in the order they appear and return the first successful format.If no format can successfully parse the expression, an error will be returned. |
 
 <details>
-  <summary>查看 <code>to_timestamp_millis</code> 示例</summary>
+  <summary>View <code>to_timestamp_millis</code> Example</summary>
 
 ```sql {1}
 select to_timestamp_millis('2023-01-31T09:26:56.123456789-05:00');
@@ -245,19 +245,19 @@ select to_timestamp_millis('2023-01-31T09:26:56.123456789-05:00');
 
 ## to_timestamp_micros
 
-将值转换为时间戳（`YYYY-MM-DDT00:00:00.000000Z`）。支持字符串、整数和无符号整数类型作为输入。如果没有提供Chrono格式，字符串将按照RFC3339（例如`2023-07-20T05:44:00`）解析。整数和无符号整数被解释为自Unix纪元（`1970-01-01T00:00:00Z`）以来的微秒数。返回相应的时间戳。
+Converts the value to a timestamp (`YYYY-MM-DDT00:00:00.000000Z`).Supports string, integer, and unsigned integer types as input.If [Chrono format] is not provided, the string will be parsed according to RFC3339 (e.g. `2023-07-20T05:44:00`).Integers and unsigned integers are interpreted as the number of microseconds since the Unix epoch (`1970-01-01T00:00:00Z`).Return the corresponding timestamp.
 
 ```sql
 to_timestamp_micros(expression[, ..., format_n])
 ```
 
-| Options      | Description                                                                   |
-| ------------ | ----------------------------------------------------------------------------- |
-| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
-| `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
+| Options      | Description                                                                                                                                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.                                                                                                                                  |
+| `format_n`   | Optional Chrono format string used to parse the expression.Will attempt formats in the order they appear and return the first successful format.If no format can successfully parse the expression, an error will be returned. |
 
 <details>
-  <summary>查看 <code>to_timestamp_micros</code> 示例</summary>
+  <summary>View <code>to_timestamp_micros</code> Example</summary>
 
 ```sql {1}
 select to_timestamp_micros('2023-01-31T09:26:56.123456789-05:00');
@@ -272,19 +272,19 @@ select to_timestamp_micros('2023-01-31T09:26:56.123456789-05:00');
 
 ## to_timestamp_seconds
 
-将值转换为时间戳（`YYYY-MM-DDT00:00:00.000Z`）。支持字符串、整数和无符号整数类型作为输入。如果没有提供Chrono格式，字符串将按照RFC3339（例如`2023-07-20T05:44:00`）解析。整数和无符号整数被解释为自Unix纪元（`1970-01-01T00:00:00Z`）以来的秒数。返回相应的时间戳。
+Converts the value to a timestamp (`YYYY-MM-DDT00:00:00.000Z`).Supports string, integer, and unsigned integer types as input.If [Chrono format] is not provided, the string will be parsed according to RFC3339 (e.g. `2023-07-20T05:44:00`).Integers and unsigned integers are interpreted as the number of seconds since the Unix epoch (`1970-01-01T00:00:00Z`).Return the corresponding timestamp.
 
 ```sql
 to_timestamp_seconds(expression[, ..., format_n])
 ```
 
-| Options      | Description                                                                   |
-| ------------ | ----------------------------------------------------------------------------- |
-| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
-| `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
+| Options      | Description                                                                                                                                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.                                                                                                                                  |
+| `format_n`   | Optional Chrono format string used to parse the expression.Will attempt formats in the order they appear and return the first successful format.If no format can successfully parse the expression, an error will be returned. |
 
 <details>
-  <summary>查看 <code>to_timestamp_seconds</code> 示例</summary>
+  <summary>View <code>to_timestamp_seconds</code> Example</summary>
 
 ```sql {1}
 select to_timestamp_seconds('2023-01-31T09:26:56.123456789-05:00');
@@ -299,15 +299,15 @@ select to_timestamp_seconds('2023-01-31T09:26:56.123456789-05:00');
 
 ## from_unixtime
 
-将整数转换为RFC3339时间戳格式（`YYYY-MM-DDT00:00:00.000000000Z`）。整数和无符号整数被解释为自Unix纪元（`1970-01-01T00:00:00Z`）以来的秒数，返回相应的时间戳。
+Converts the integer to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).Integers and unsigned integers are interpreted as the number of microseconds since the Unix epoch (`1970-01-01T00:00:00Z`), returning the corresponding timestamp.
 
 ```sql
 from_unixtime(expression)
 ```
 
-| Options      | Description                                                       |
-| ------------ | ----------------------------------------------------------------- |
-| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Options      | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 ```sql {1}
 SELECT from_unixtime(1672531200);
