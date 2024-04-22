@@ -2,20 +2,20 @@
 sidebar_position: 4
 ---
 
-# 日期和时间函数
+# Date/Time Functions
 
-时间和日期函数是用于处理和操作时间和日期数据的函数集合。它们包括获取当前时间、日期格式化、时间比较和计算时间间隔等操作。时间和日期函数可以帮助你处理时间相关的任务，如计算日期差异、定时任务和日历功能等。
+The time and date functions are a collection of functions used to handle and manipulate time and date data.They include operations such as getting the current time, formatting dates, comparing times, and calculating time intervals.Time and date functions can help you handle time-related tasks, such as calculating date differences, scheduling tasks, and calendar functions, etc.
 
 ## now
 
-返回当前 UTC 时间戳。
+Return the current UTC timestamp.
 
 ```sql
 now()
 ```
 
 <details>
-  <summary>查看 <code>now()</code> 示例</summary>
+  <summary>View <code>now()</code> Example</summary>
 
 ```sql {1}
 SELECT now();
@@ -30,14 +30,14 @@ SELECT now();
 
 ## current_date
 
-返回当前 UTC 日期。
+Return the current UTC date.
 
 ```sql
 current_date()
 ```
 
 <details>
-  <summary>查看 <code>current_date</code> 示例</summary>
+  <summary>View <code>current_date</code> Example</summary>
 
 ```sql {1}
 SELECT current_date();
@@ -52,14 +52,14 @@ SELECT current_date();
 
 ## current_time
 
-返回当前 UTC 时间。
+Return the current UTC time.
 
 ```sql
 current_time()
 ```
 
 <details>
-  <summary>查看 <code>current_date</code> 示例</summary>
+  <summary>View <code>current_date</code> Example</summary>
 
 ```sql {1}
 SELECT current_time();
@@ -74,17 +74,17 @@ SELECT current_time();
 
 ## date_bin
 
-计算时间间隔并返回最接近指定时间戳的间隔的起点。通过将行分组到基于时间的“箱”或“窗口”并应用聚合或选择器函数，使用 `date_bin` 对时间序列数据进行下采样到每个窗口。
+Calculate the time interval and return the starting point of the interval closest to the specified timestamp.By grouping rows into time-based 'bins' or 'windows' and applying aggregation or selector functions, downsample time series data to each window using `date_bin`.
 
 ```sql
 date_bin(interval, expression, origin-timestamp)
 ```
 
-| Parameters         | Description                                                          |
-| ------------------ | -------------------------------------------------------------------- |
-| `interval`         |                                                                      |
-| `expression`       | 要操作的时间表达式。可以是常量、列或函数。                                                |
-| `origin-timestamp` | 可选。用于确定 bin 边界的起点。如果未指定，则默认为 `1970-01-01T00:00:00Z`（UTC 中的 UNIX 纪元）。 |
+| Parameters         | Description                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| `interval`         |                                                                                            |
+| `expression`       | The time expression to operate.可以是常量、列或函数。                                 |
+| `origin-timestamp` | Optional.用于确定 bin 边界的起点。如果未指定，则默认为 `1970-01-01T00:00:00Z`（UTC 中的 UNIX 纪元）。 |
 
 支持的 `interval` 时间单位请参考 [持续时间单位](../reference.md#持续时间单位)
 
@@ -115,7 +115,7 @@ date_trunc(precision, expression)
 | Parameters   | Description                                                                        |
 | ------------ | ---------------------------------------------------------------------------------- |
 | `precision`  | 截断到的时间精度。支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`。 |
-| `expression` | 要操作的时间表达式。可以是常量、列或函数。                                                              |
+| `expression` | The time expression to operate.可以是常量、列或函数。                         |
 
 别名：`datetrunc`
 
@@ -146,7 +146,7 @@ date_part(part, expression)
 | Options      | Description                                                                                                                                                |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `part`       | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
-| `expression` | 要操作的时间表达式。可以是常量、列或函数。                                                                                                                                      |
+| `expression` | The time expression to operate.可以是常量、列或函数。                                                                                                 |
 
 别名：`datepart`
 
@@ -172,7 +172,7 @@ extract(field FROM source)
 | Options  | Description                                                                                                                                                |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `field`  | 要返回的日期的一部分。支持：支持：`year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond`, `nanosecond`, `dow`, `doy`, `epoch`。 |
-| `source` | 要操作的时间表达式。可以是常量、列或函数。                                                                                                                                      |
+| `source` | The time expression to operate.可以是常量、列或函数。                                                                                                 |
 
 <details>
   <summary>查看 <code>extract</code> 示例</summary>
