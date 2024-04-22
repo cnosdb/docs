@@ -383,7 +383,7 @@ SELECT 'Hello, ' || 'CnosDB!';
 +------------------------------------+
 ```
 
-### 运算符优先级
+### Operators Precedence
 
 If a complex expression has multiple operators, the operator precedence will determine the sequence of operations. The execution order may have a significant impact on the result value.
 
@@ -418,19 +418,19 @@ An expression is a combination of symbols and operators that CnosDB processes to
 
 #### Constant
 
-Symbol representing a specific data value.详细内容请参考 [字面量](#字面量)
+Symbol representing a specific data value.For detailed information, please refer to [Literas](#literals)
 
 #### Scalar function
 
-请参考 [函数](./functions)
+Please refer to [functions](./functions)
 
-#### 单目运算符
+#### Unary Operators
 
-| Operators     | Description                                                   |
-| ------------- | ------------------------------------------------------------- |
-| `NOT`         | 如果子表达式为 `true`，则整个表达式 `false`，如果整个表达式为 `false`，则整个表达式为`true`。 |
-| `IS NULL`     | 如果子表达式为 `null`，则整个表达式为 `true`。                                |
-| `IS NOT NULL` | 如果子表达式为 `null`，则整个表达式为 `false`。                               |
+| Operators     | Description                                                                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NOT`         | If the subexpression is `true`, the entire expression is `false`; if the entire expression is `false`, the entire expression is `true`. |
+| `IS NULL`     | If the subexpression is `null`, the entire expression is `true`.                                                                        |
+| `IS NOT NULL` | If the subexpression is `null`, the entire expression is `false`.                                                                       |
 
 #### Binary Operators
 
