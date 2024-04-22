@@ -8,18 +8,18 @@ Conditional functions are a collection of functions used to perform different op
 
 ## coalesce
 
-返回其第一个非 `null` 参数。如果所有参数都为 `null`，则返回 `null`。此函数通常用于将默认值替换为 `null` 值。
+Returns its first non-null argument.If all parameters are `null`, then return `null`.This function is typically used to replace default values with `null` values.
 
 ```sql
 coalesce(expression1[, ..., expression_n])
 ```
 
-| Parameters                       | Description                                                                                                                                    |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `expression1`,    `expression_n` | 如果前面的表达式为 `null`，则使用的表达式。Can be a constant, column, or function, and any combination of arithmetic operators.根据需要传递尽可能多的表达式参数。 |
+| Parameters                       | Description                                                                                                                                                                                                                                     |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression1`,    `expression_n` | If the previous expression is `null`, then use the expression.Can be a constant, column, or function, and any combination of arithmetic operators.Pass as many expression parameters as needed. |
 
 <details>
-  <summary>查看 <code>coalesce</code> 示例</summary>
+  <summary>View <code>coalesce</code> Example</summary>
 
 ```sql {1}
 SELECT coalesce(temperature, null, station) FROM air;
@@ -46,16 +46,16 @@ SELECT coalesce(temperature, null, station) FROM air;
 
 ## nullif
 
-如果 `expression1` 等于 `expression2`，则返回` null`;否则，它将返回 `expression1`。可用于执行 `coalesce` 的逆运算。
+If `expression1` is equal to `expression2`, it returns `null`; otherwise, it will return `expression1`.The inverse operation that can be used to perform `coalesce`.
 
 ```sql
 nullif(expression1, expression2)
 ```
 
-| Parameters    | Description                                                                                                                         |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `expression1` | 如果等于 `expression2`，则要比较并返回的表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression2` | 要与 `expression1` 进行比较的表达式。Can be a constant, column, or function, and any combination of arithmetic operators.      |
+| Parameters    | Description                                                                                                                                                                                |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression1` | If equal to `expression2`, the expression to be compared and returned.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `expression2` | The expression to compare with `expression1`.Can be a constant, column, or function, and any combination of arithmetic operators.                          |
 
 <details>
   <summary>View <code>nullif</code> Example</summary>
