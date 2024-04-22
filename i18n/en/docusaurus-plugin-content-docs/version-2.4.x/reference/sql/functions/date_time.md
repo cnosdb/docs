@@ -199,7 +199,7 @@ to_timestamp(expression[, ..., format_n])
 
 | Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
+| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
 
 <details>
@@ -226,7 +226,7 @@ to_timestamp_millis(expression[, ..., format_n])
 
 | Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
+| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
 
 <details>
@@ -253,7 +253,7 @@ to_timestamp_micros(expression[, ..., format_n])
 
 | Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
+| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
 
 <details>
@@ -280,7 +280,7 @@ to_timestamp_seconds(expression[, ..., format_n])
 
 | Options      | Description                                                                   |
 | ------------ | ----------------------------------------------------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                              |
+| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。             |
 | `format_n`   | 可选的 Chrono 格式字符串，用于解析表达式。将按照格式出现的顺序尝试格式，并返回第一个成功的格式。如果没有任何格式能够成功解析表达式，则会返回错误。 |
 
 <details>
@@ -305,9 +305,9 @@ select to_timestamp_seconds('2023-01-31T09:26:56.123456789-05:00');
 from_unixtime(expression)
 ```
 
-| Options      | Description                      |
-| ------------ | -------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Options      | Description                                                       |
+| ------------ | ----------------------------------------------------------------- |
+| `expression` | Expression to operate on.可以是常量、列或函数，以及算术运算符的任意组合。 |
 
 ```sql {1}
 SELECT from_unixtime(1672531200);
