@@ -56,10 +56,10 @@ $$
 completeness(time_expresion, numeric_expression)
 ```
 
-| Options              | Description                                                             |
-| -------------------- | ----------------------------------------------------------------------- |
-| `time_expresion`     | The time expression to operate.可以是常量、列或函数，以及算术运算符的任意组合。 |
-| `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                      |
+| Options              | Description                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
 
 <details>
   <summary>View example</summary>
@@ -87,10 +87,10 @@ SELECT completeness(time, value) FROM wzz;
 consistency(time_expresion, numeric_expression)
 ```
 
-| Options              | Description                                                             |
-| -------------------- | ----------------------------------------------------------------------- |
-| `time_expresion`     | The time expression to operate.可以是常量、列或函数，以及算术运算符的任意组合。 |
-| `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                      |
+| Options              | Description                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
 
 :::tip
 
@@ -126,10 +126,10 @@ SELECT consistency(time, value) FROM wzz;
 timeliness(time_expresion, numeric_expression)
 ```
 
-| Options              | Description                                                             |
-| -------------------- | ----------------------------------------------------------------------- |
-| `time_expresion`     | The time expression to operate.可以是常量、列或函数，以及算术运算符的任意组合。 |
-| `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                      |
+| Options              | Description                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
 
 :::tip
 
@@ -165,10 +165,10 @@ SELECT timeliness(time, value) FROM wzz;
 validity(time_expresion, numeric_expression)
 ```
 
-| Options              | Description                                                             |
-| -------------------- | ----------------------------------------------------------------------- |
-| `time_expresion`     | The time expression to operate.可以是常量、列或函数，以及算术运算符的任意组合。 |
-| `numeric_expression` | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。                                      |
+| Options              | Description                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
 
 :::tip
 首先统计数据的行数 cnt 。然后进行缺失值填充，去除其中的 NaN 和 Inf 。然后通过自定义计算方法得到计数 valuecnt、variationcnt、speedcnt、speedchangecnt 。则有效性 validity 的计算公式：
