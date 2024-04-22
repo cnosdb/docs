@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 Aggregate functions are commonly used functions in databases for aggregating calculations and summaries.They take a set of values as input and return a single aggregated result.Aggregate functions can be used to perform various operations, such as calculating totals, averages, maximums, minimums, etc.
 
-## 通用
+## General
 
 ### avg
 
@@ -289,7 +289,7 @@ last_value(expression [ORDER BY expression])
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>last_value</code> 示例</summary>
+  <summary>View <code>last_value</code> Example</summary>
 
 ```sql {1}
 SELECT station, last_value(temperature ORDER BY time) FROM air GROUP BY station;
@@ -305,7 +305,7 @@ SELECT station, last_value(temperature ORDER BY time) FROM air GROUP BY station;
 
 ### increase
 
-计算范围向量中时间序列的增量，类似 Prometheus 中的 [increase](https://prometheus.io/docs/prometheus/latest/querying/functions/#increase) 函数。
+Calculate the increment of the time series in the range vector, similar to the [increase](https://prometheus.io/docs/prometheus/latest/querying/functions/#increase) function in Prometheus.
 
 ```sql
 increase(time_expression, expression ORDER BY time_expression)
@@ -317,7 +317,7 @@ increase(time_expression, expression ORDER BY time_expression)
 | `expression`      | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>mode</code> 示例</summary>
+  <summary>View <code>mode</code> Example</summary>
 
 ```sql {1}
 SELECT station, INCREASE(time, temperature ORDER BY time) FROM air GROUP BY station ORDER BY station;
@@ -331,23 +331,23 @@ SELECT station, INCREASE(time, temperature ORDER BY time) FROM air GROUP BY stat
 
 </details>
 
-## 统计
+## Statistics
 
 ### corr
 
-计算两个列之间的皮尔逊相关系数，这是衡量两个变量线性相关程度的一种方法。皮尔逊相关系数的值介于 -1 和 1 之间，其中 1 表示完全正相关，-1 表示完全负相关，0 表示没有线性相关。
+Calculate the Pearson correlation coefficient between two columns, which is a method of measuring the degree of linear correlation between two variables.The value of Pearson correlation coefficient ranges between -1 and 1, where 1 indicates perfect positive correlation, -1 indicates perfect negative correlation, and 0 indicates no linear correlation.
 
 ```sql
 corr(expression1, expression2)
 ```
 
-| Parameters    | Description                                                                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters    | Description                                                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression1` | The first expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators.  |
+| `expression1` | The second expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>corr</code> 示例</summary>
+  <summary>View <code>corr</code> Example</summary>
 
 ```sql {1}
 SELECT corr(temperature, pressure) FROM air;
@@ -362,19 +362,19 @@ SELECT corr(temperature, pressure) FROM air;
 
 ### covar
 
-返回一组数字对的协方差。
+Return a set of covariance of number pairs.
 
 ```sql
 covar(expression1, expression2)
 ```
 
-| Parameters    | Description                                                                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters    | Description                                                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression1` | The first expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators.  |
+| `expression1` | The second expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>covar</code> 示例</summary>
+  <summary>View <code>covar</code> Example</summary>
 
 ```sql {1}
 SELECT covar(temperature, pressure) FROM air;
@@ -389,19 +389,19 @@ SELECT covar(temperature, pressure) FROM air;
 
 ### covar_pop
 
-返回一组数字对的总体协方差。
+Return the total covariance of a set of number pairs.
 
 ```sql
 covar_pop(expression1, expression2)
 ```
 
-| Parameters    | Description                                                                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters    | Description                                                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression1` | The first expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators.  |
+| `expression1` | The second expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>covar_pop</code> 示例</summary>
+  <summary>View <code>covar_pop</code> Example</summary>
 
 ```sql {1}
 SELECT covar_pop(temperature, pressure) FROM air;
@@ -416,19 +416,19 @@ SELECT covar_pop(temperature, pressure) FROM air;
 
 ### covar_samp
 
-返回一组数对的样本协方差。
+Return a set of sample covariance of number pairs.
 
 ```sql
 covar_samp(expression1, expression2)
 ```
 
-| Parameters    | Description                                                                                                     |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `expression1` | 要操作的第一个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression1` | 要操作的第二个表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters    | Description                                                                                                                                           |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression1` | The first expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators.  |
+| `expression1` | The second expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>covar_samp</code> 示例</summary>
+  <summary>View <code>covar_samp</code> Example</summary>
 
 ```sql {1}
 SELECT covar_samp(temperature, pressure) FROM air;
@@ -443,18 +443,18 @@ SELECT covar_samp(temperature, pressure) FROM air;
 
 ### stddev
 
-返回一组数字的标准差。
+Returns the standard deviation of a set of numbers.
 
 ```sql
 stddev(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>stddev</code> 示例</summary>
+  <summary>View <code>stddev</code> Example</summary>
 
 ```sql {1}
 SELECT stddev(temperature) FROM air;
@@ -469,18 +469,18 @@ SELECT stddev(temperature) FROM air;
 
 ### stddev_pop
 
-返回一组数字的总体标准差。
+Returns the overall standard deviation of a set of numbers.
 
 ```sql
 stddev_pop(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>stddev_pop</code> 示例</summary>
+  <summary>View <code>stddev_pop</code> Example</summary>
 
 ```sql {1}
 SELECT stddev_pop(temperature) FROM air;
@@ -495,18 +495,18 @@ SELECT stddev_pop(temperature) FROM air;
 
 ### stddev_samp
 
-返回一组数字的样本标准差。
+Returns the sample standard deviation of a set of numbers.
 
 ```sql
 stddev_samp(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>stddev_samp</code> 示例</summary>
+  <summary>View <code>stddev_samp</code> Example</summary>
 
 ```sql {1}
 SELECT stddev_samp(temperature) FROM air;
@@ -521,18 +521,18 @@ SELECT stddev_samp(temperature) FROM air;
 
 ### var
 
-返回一组数字的统计方差。
+Return a set of statistical variances for a set of numbers.
 
 ```sql
 var(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>var</code> 示例</summary>
+  <summary>View <code>var</code> Example</summary>
 
 ```sql {1}
 SELECT var(temperature) FROM air;
@@ -547,18 +547,18 @@ SELECT var(temperature) FROM air;
 
 ### var_pop
 
-返回一组数字的统计总体方差。
+Return the total population variance of a set of numbers.
 
 ```sql
 var_pop(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>var_pop</code> 示例</summary>
+  <summary>View <code>var_pop</code> Example</summary>
 
 ```sql {1}
 SELECT var_pop(temperature) FROM air;
@@ -573,18 +573,18 @@ SELECT var_pop(temperature) FROM air;
 
 ### var_samp
 
-返回一组数字的统计样本方差。
+Returns the statistical sample variance of a set of numbers.
 
 ```sql
 var_samp(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>var_samp</code> 示例</summary>
+  <summary>View <code>var_samp</code> Example</summary>
 
 ```sql {1}
 SELECT var_samp(temperature) FROM air;
@@ -597,24 +597,24 @@ SELECT var_samp(temperature) FROM air;
 
 </details>
 
-## 近似
+## Approx
 
 ### approx_distinct
 
-返回使用 HyperLogLog 算法计算的不同输入值的近似数量。
+Returns the approximate number of distinct input values calculated using the HyperLogLog algorithm.
 
 ```sql
 approx_distinct(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>approx_distinct</code> 示例</summary>
+  <summary>View <code>asap_smooth</code> Example</summary>
 
-这条 SQL 查询语句使用了` approx_distinct` 函数来估计` air` 表中 `station` 列的唯一值数量。`approx_distinct(station)` 的作用是计算大致有多少个不同的 `station` 值存在于 `air` 表中。查询结果显示的 `approx_unique_station` 值为 2，这意味着根据 `approx_distinct` 函数的估计，`air` 表中大约有 2 个不同的气象站（即 `station` 列的唯一值数量大约为 2）。
+This SQL query uses the `approx_distinct` function to estimate the number of unique values in the `station` column of the `air` table.The function of `approx_distinct(station)` is to calculate approximately how many different `station` values exist in the `air` table.The query result shows that the `approx_unique_station` value is 2, which means that according to the estimate of the `approx_distinct` function, there are approximately 2 different meteorological stations in the `air` table (i.e. the number of unique values in the `station` column is approximately 2).
 
 ```sql {1}
 SELECT approx_distinct(station) AS approx_unique_station FROM air;
@@ -629,18 +629,18 @@ SELECT approx_distinct(station) AS approx_unique_station FROM air;
 
 ### approx_median
 
-返回输入值的近似中位数（第 50 个百分位）。它是 `approx_percentile_cont(x, 0.5)` 的别名。
+Returns the approximate median of the input values (the 50th percentile).It is an alias for `approx_percentile_cont(x, 0.5)`.
 
 ```sql
 approx_median(expression)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
+| Parameters   | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>approx_median</code> 示例</summary>
+  <summary>View <code>approx_median</code> Example</summary>
 
 ```sql {1}
 SELECT approx_median(temperature) as approx_median_temperature FROM air;
@@ -655,24 +655,24 @@ SELECT approx_median(temperature) as approx_median_temperature FROM air;
 
 ### approx_percentile_cont
 
-使用 t-digest 算法返回输入值的近似百分位。
+Returns the weighted approximate percentile of the input values using the t-digest algorithm.
 
 ```sql
 approx_percentile_cont(expression, percentile, centroids)
 ```
 
-| Parameters   | Description                     |
-| ------------ | ------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合 |
-| `percentile` | 要计算的百分位数。必须是 0 到 1（含）之间的浮点值。    |
-| `centroids`  | 可选，t-digest 算法中使用的质心数。默认值为 100。 |
+| Parameters   | Description                                                                                                                                    |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.  |
+| `percentile` | The percentile to be calculated.Must be a floating point value between 0 and 1 (inclusive). |
+| `centroids`  | Optional, the centroid number used in the t-digest algorithm.Default value is 100.                             |
 
 :::tip
-如果存在此数字或更少的唯一值，则可以期待确切的结果。质心数量越多，近似值就越准确，但需要更多的内存来计算。
+If there are this number or fewer unique values, exact results can be expected.The more centroids there are, the more accurate the approximate value, but more memory is needed for calculation.
 :::
 
 <details>
-  <summary>查看 <code>approx_percentile_cont</code> 示例</summary>
+  <summary>View <code>approx_percentile_cont</code> Example</summary>
 
 ```sql {1}
 SELECT approx_percentile_cont(temperature, 0.1,100) FROM air;
@@ -687,24 +687,24 @@ SELECT approx_percentile_cont(temperature, 0.1,100) FROM air;
 
 ### approx_percentile_cont_with_weight
 
-使用t-digest算法返回输入值的加权近似百分位数。
+Returns the weighted approximate percentile of the input values using the t-digest algorithm.
 
 ```sql
 approx_percentile_cont_with_weight(expression, weight, percentile)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要操作的表达式。可以是常量、列或函数，以及算术运算符的任意组合                                                                               |
-| `weight`     | 用作权重的表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `percentile` | 要计算的百分位数。必须是介于 0 和 1（含）之间的浮点值。                                                                                |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.    |
+| `weight`     | Expression used as a weight.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `percentile` | The percentile to be calculated.Must be a floating point value between 0 and 1 (inclusive).   |
 
 :::tip
-如果存在此数字或更少的唯一值，则可以期待确切的结果。质心数量越多，近似值就越准确，但需要更多的内存来计算。
+If there are this number or fewer unique values, exact results can be expected.The more centroids there are, the more accurate the approximate value, but more memory is needed for calculation.
 :::
 
 <details>
-  <summary>查看 <code>approx_percentile_cont_with_weight</code> 示例</summary>
+  <summary>View <code>approx_percentile_cont_with_weight</code> Example</summary>
 
 ```sql {1}
 SELECT approx_percentile_cont_with_weight(temperature, 0.1,0.5) FROM air;
@@ -719,19 +719,19 @@ SELECT approx_percentile_cont_with_weight(temperature, 0.1,0.5) FROM air;
 
 ### sample
 
-从给定的列中随机选择 n 条记录。
+Select n random records from the given column.
 
 ```sql
 sample(expression, n)
 ```
 
-| Parameters   | Description        |
-| ------------ | ------------------ |
-| `expression` | 要操作的表达式。必需是表中的某一列。 |
-| `n`          | 要返回的记录数量。          |
+| Parameters   | Description                                                                             |
+| ------------ | --------------------------------------------------------------------------------------- |
+| `expression` | Expression to operate on.Must be a column in the table. |
+| `n`          | Number of records to be returned.                                       |
 
 <details>
-  <summary>查看 <code>sample</code> 示例</summary>
+  <summary>View <code>sample</code> Example</summary>
 
 ```sql {1}
 SELECT sample(temperature, 5) FROM air;
@@ -753,20 +753,20 @@ SELECT sample(temperature, 5) FROM air;
 
 ### asap_smooth
 
-`asap_smooth` 函数用于时间序列数据的平滑处理，ASAP（As Smooth As Possible）平滑算法旨在快速平滑时间序列数据，同时保持数据中的关键趋势和模式，使得数据的可视化更加清晰，而不会因过度平滑而丢失重要信息。
+The `asap_smooth` function is used for smoothing time series data. The ASAP (As Smooth As Possible) smoothing algorithm aims to quickly smooth time series data while preserving key trends and patterns in the data, making the visualization of the data clearer without losing important information due to excessive smoothing.
 
 ```sql
 asap_smooth(time, value, resolution ORDER BY time)
 ```
 
-| Parameters   | Description           |
-| ------------ | --------------------- |
-| `time`       | 每个数据点的时间戳。            |
-| `value`      | 每个时间戳的值。              |
-| `resolution` | 要返回的大概点数。确定结果图的水平分辨率。 |
+| Parameters   | Description                                                                                                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `time`       | Timestamp of each data point.                                                                            |
+| `value`      | The value of each timestamp.                                                                             |
+| `resolution` | Approximate points to return.Determine the horizontal resolution of the resulting image. |
 
 <details>
-  <summary>查看 <code>asap_smooth</code> 示例</summary>
+  <summary>View <code>asap_smooth</code> Example</summary>
 
 ```sql {1}
 SELECT asap_smooth(time, pressure, 10) FROM air GROUP BY date_trunc('month', time);
