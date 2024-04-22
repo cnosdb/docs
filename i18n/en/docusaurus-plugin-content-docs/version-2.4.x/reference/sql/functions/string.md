@@ -70,10 +70,10 @@ SELECT bit_length('abc');
 btrim(str[, trim_str])
 ```
 
-| Parameters | Description                                             |
-| ---------- | ------------------------------------------------------- |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                    |
-| `trim_str` | 从输入字符串的开头和结尾处修剪的字符串表达式。可以是常量、列或函数，以及算术运算符的任意组合。默认为空白字符。 |
+| Parameters | Description                                                                                                                         |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                                                                                                |
+| `trim_str` | 从输入字符串的开头和结尾处修剪的字符串表达式。Can be a constant, column, or function, and any combination of arithmetic operators.默认为空白字符。 |
 
 <details>
   <summary>查看 <code>btrim</code> 示例</summary>
@@ -334,10 +334,10 @@ SELECT lpad('abc', 10, '1');
 ltrim(str[, trim_str])
 ```
 
-| Parameters | Description                                           |
-| ---------- | ----------------------------------------------------- |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                  |
-| `trim_str` | 从输入字符串的开头开始修剪的字符串表达式。可以是常量、列或函数，以及算术运算符的任意组合。默认为空白字符。 |
+| Parameters | Description                                                                                                                       |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                                                                                              |
+| `trim_str` | 从输入字符串的开头开始修剪的字符串表达式。Can be a constant, column, or function, and any combination of arithmetic operators.默认为空白字符。 |
 
 <details>
   <summary>查看 <code>ltrim</code> 示例</summary>
@@ -649,9 +649,9 @@ SELECT substr('abcdef', 4, 3);
 to_hex(int)
 ```
 
-| Parameters | Description                        |
-| ---------- | ---------------------------------- |
-| `int`      | 要转换的整数表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters | Description                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------------- |
+| `int`      | 要转换的整数表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
   <summary>查看 <code>to_hex</code> 示例</summary>
