@@ -2,24 +2,24 @@
 sidebar_position: 1
 ---
 
-# 数学函数
+# Math Functions
 
-数学函数是用于执行各种数学运算和计算的函数集合。它们包括基本的算术运算函数（如加法、减法、乘法、除法），三角函数（如正弦、余弦、正切）、指数函数、对数函数等。这些函数可以帮助你进行数值计算、解决数学问题和创建数学模型。
+Math functions are a collection of functions used to perform various mathematical operations and calculations.They include basic arithmetic functions (such as addition, subtraction, multiplication, division), trigonometric functions (such as sin, cos, tan), exponential functions, logarithmic functions, etc.These functions can help you perform numerical calculations, solve mathematical problems, and create mathematical models.
 
 ## abs
 
-返回数值的绝对值。
+Returns the absolute value of a number.
 
 ```sql
 abs(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>abs</code> 示例</summary>
+  <summary>View <code>abs</code> Example</summary>
 
 ```sql {1}
 SELECT abs(-10);
@@ -34,18 +34,18 @@ SELECT abs(-10);
 
 ## acos
 
-返回数值反余弦。
+Return the inverse cosine of a number.
 
 ```
 acos(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>acos</code> 示例</summary>
+  <summary>View <code>acos</code> Example</summary>
 
 ```sql {1}
 SELECT acos(0.5);
@@ -60,18 +60,18 @@ SELECT acos(0.5);
 
 ## acosh
 
-返回数字的面积双曲余弦或反双曲余弦。
+Returns the hyperbolic cosine or hyperbolic cosecant of a number.
 
 ```sql
 acosh(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>acosh</code> 示例</summary>
+  <summary>View <code>acosh</code> Example</summary>
 
 ```sql {1}
 SELECT acosh(10);
@@ -86,18 +86,18 @@ SELECT acosh(10);
 
 ## asin
 
-返回数字的反正弦。
+Returns the arcsine of a number.
 
 ```sql
 asin(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>asin</code> 示例</summary>
+  <summary>View <code>asin</code> Example</summary>
 
 ```sql {1}
 SELECT asin(1);
@@ -112,18 +112,18 @@ SELECT asin(1);
 
 ## asinh
 
-返回数字的面积双曲正弦或反双曲正弦。
+Returns the area hyperbolic sine or inverse hyperbolic sine of a number.
 
 ```sql
 asinh(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>asinh</code> 示例</summary>
+  <summary>View <code>asinh</code> Example</summary>
 
 ```sql {1}
 SELECT asinh(1);
@@ -138,18 +138,18 @@ SELECT asinh(1);
 
 ## atan
 
-返回数字的反正切。
+Returns the arctangent of a number.
 
 ```sql
 atan(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>atan</code> 示例</summary>
+  <summary>View <code>atan</code> Example</summary>
 
 ```sql {1}
 SELECT atan(1);
@@ -164,18 +164,18 @@ SELECT atan(1);
 
 ## atanh
 
-返回数字的面积双曲正切或反双曲正切。
+Returns the hyperbolic tangent or inverse hyperbolic tangent of a number.
 
 ```sql
 atanh(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>atanh</code> 示例</summary>
+  <summary>View <code>atanh</code> Example</summary>
 
 ```sql {1}
 SELECT atanh(0.3);
@@ -190,19 +190,19 @@ SELECT atanh(0.3);
 
 ## atan2
 
-返回 `expression_y / expression_x` 的反正切
+Return the arctangent of `expression_y / expression_x`
 
 ```sql
 atan2(expression_y, expression_x)
 ```
 
-| Parameters     | Description                           |
-| -------------- | ------------------------------------- |
-| `expression_y` | 要操作的第一个数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
-| `expression_x` | 要操作的第二个数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters     | Description                                                                                                                                                     |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression_y` | The first numerical expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators.  |
+| `expression_x` | The second numerical expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>atan2</code> 示例</summary>
+  <summary>View <code>atan2</code> Example</summary>
 
 ```sql {1}
 SELECT atan2(10, 2);
@@ -217,18 +217,18 @@ SELECT atan2(10, 2);
 
 ## cbrt
 
-返回数字的立方根。
+Return the cube root of a number.
 
 ```sql
 cbrt(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>cbrt</code> 示例</summary>
+  <summary>View <code>cbrt</code> Example</summary>
 
 ```sql {1}
 SELECT cbrt(8);
@@ -243,18 +243,18 @@ SELECT cbrt(8);
 
 ## ceil
 
-向上取整。
+Round up.
 
 ```
 ceil(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>ceil</code> 示例</summary>
+  <summary>View <code>ceil</code> Example</summary>
 
 ```sql {1}
 SELECT ceil(1.6);
@@ -269,18 +269,18 @@ SELECT ceil(1.6);
 
 ## cos
 
-返回数值的余弦。
+Returns the cosine of a number.
 
 ```
 cos(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>cos</code> 示例</summary>
+  <summary>View <code>cos</code> Example</summary>
 
 ```sql {1}
 SELECT cos(1);
@@ -295,18 +295,18 @@ SELECT cos(1);
 
 ## cosh
 
-返回数值的双曲余弦。
+Returns the hyperbolic cosine of a number.
 
 ```
 cosh(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>cosh</code> 示例</summary>
+  <summary>View <code>cosh</code> Example</summary>
 
 ```sql {1}
 SELECT cosh(2);
@@ -321,18 +321,18 @@ SELECT cosh(2);
 
 ## exp
 
-返回数字的以 e 为底的指数。
+Returns the exponential of a number with base e.
 
 ```
 exp(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>exp</code> 示例</summary>
+  <summary>View <code>exp</code> Example</summary>
 
 ```sql {1}
 SELECT exp(1);
@@ -347,18 +347,18 @@ SELECT exp(1);
 
 ## factorial
 
-阶乘。如果值小于 2，则返回 1。
+Factorial.If the value is less than 2, return 1.
 
 ```sql
 factorial(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>factorial</code> 示例</summary>
+  <summary>View <code>factorial</code> Example</summary>
 
 ```sql {1}
 SELECT factorial(5);
@@ -373,18 +373,18 @@ SELECT factorial(5);
 
 ## floor
 
-向下取整。
+Floor.
 
 ```sql
 floor(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>floor</code> 示例</summary>
+  <summary>View <code>floor</code> Example</summary>
 
 ```sql {1}
 SELECT floor(-3.1);
@@ -399,7 +399,7 @@ SELECT floor(-3.1);
 
 ## gcd
 
-返回 `expression_x` 和 `expression_y` 的最大公约数。如果两个输入均为零，则返回 0。
+Returns the greatest common divisor of `expression_x` and `expression_y`.If both inputs are zero, return 0.
 
 ```sql
 gcd(expression_x, expression_y)
@@ -408,10 +408,10 @@ gcd(expression_x, expression_y)
 | Parameters     | Description                                                                                          |
 | -------------- | ---------------------------------------------------------------------------------------------------- |
 | `expression_x` | Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。                                                                           |
+| `expression_y` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>gcd</code> 示例</summary>
+  <summary>View <code>gcd</code> Example</summary>
 
 ```sql {1}
 SELECT gcd(24,36);
@@ -426,7 +426,7 @@ SELECT gcd(24,36);
 
 ## lcm
 
-返回 `expression_x` 和 `expression_y` 的最小公倍数。如果任一输入值为零，则返回 0。
+Returns the least common multiple of `expression_x` and `expression_y`.If any input value is zero, return 0.
 
 ```sql
 lcm(expression_x, expression_y)
@@ -435,10 +435,10 @@ lcm(expression_x, expression_y)
 | Parameters     | Description                                                                                          |
 | -------------- | ---------------------------------------------------------------------------------------------------- |
 | `expression_x` | Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `expression_y` | 可以是常数、列或函数，也可以是算术运算符的任意组合。                                                                           |
+| `expression_y` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>lcm</code> 示例</summary>
+  <summary>View <code>lcm</code> Example</summary>
 
 ```sql {1}
 SELECT lcm(4, 7);
@@ -453,18 +453,18 @@ SELECT lcm(4, 7);
 
 ## ln
 
-返回数字的自然对数。
+Returns the natural logarithm of a number.
 
 ```sql
 ln(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>ln</code> 示例</summary>
+  <summary>View <code>ln</code> Example</summary>
 
 ```sql {1}
 SELECT ln(5);
@@ -479,20 +479,20 @@ SELECT ln(5);
 
 ## log
 
-返回数字的 x 底对数。可以提供指定的基数，或者如果省略，则采用数字的基数 10。
+Returns the base x logarithm of a number.Can provide a specified radix, or if omitted, defaults to a radix of 10.
 
 ```sql
 log(base, numeric_expression)
 log(numeric_expression)
 ```
 
-| Parameters           | Description                                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `base`               | 基数：可以是常数、列或函数，也可以是算术运算符的任意组合。                                                                                  |
-| `numeric_expression` | 要操作的数字表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `base`               | Cardinality: Can be a constant, column, or function, and any combination of arithmetic operators.             |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>log</code> 示例</summary>
+  <summary>View <code>log</code> Example</summary>
 
 ```sql {1}
 SELECT log(10, 2);
@@ -507,18 +507,18 @@ SELECT log(10, 2);
 
 ## log10
 
-返回数字的以 10 为底的对数。
+Returns the base 10 logarithm of a number.
 
 ```sql {1}
 log10(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>log10</code> 示例</summary>
+  <summary>View <code>log10</code> Example</summary>
 
 ```sql {1}
 SELECT log10(2);
@@ -533,18 +533,18 @@ SELECT log10(2);
 
 ## log2
 
-返回一个数字的基 2 对数。
+Return the base 2 logarithm of a number.
 
 ```sql
 log2(numeric_expression)
 ```
 
-| Parameters           | Description                        |
-| -------------------- | ---------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>log2</code> 示例</summary>
+  <summary>View <code>log2</code> Example</summary>
 
 ```sql {1}
 SELECT log2(2);
@@ -559,14 +559,14 @@ SELECT log2(2);
 
 ## pi
 
-返回 π 的近似值。
+Return the approximate value of π.
 
 ```sql
 pi()
 ```
 
 <details>
-  <summary>查看 <code>pi</code> 示例</summary>
+  <summary>View <code>pi</code> Example</summary>
 
 ```sql {1}
 SELECT pi();
@@ -581,19 +581,19 @@ SELECT pi();
 
 ## power
 
-返回基数表达式的指数幂。
+Returns the exponentiation of a base expression.
 
 ```sql
 power(base, exponent)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `base`     | 要操作的数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。   |
-| `exponent` | 要运算的指数数值表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Parameters | Description                                                                                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `base`     | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.                                  |
+| `exponent` | The numerical expression of the exponent to be calculated.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>power</code> 示例</summary>
+  <summary>View <code>power</code> Example</summary>
 
 ```sql {1}
 SELECT power(10, 2);
@@ -608,22 +608,22 @@ SELECT power(10, 2);
 
 ## pow
 
-[power](#power) 的别名
+Alias for [power](#power)
 
 ## radians
 
-将度数转换为弧度。
+Converts degrees to radians.
 
 ```sql
 radians(numeric_expression)
 ```
 
-| Parameters           | Description                                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>radians</code> 示例</summary>
+  <summary>View <code>radians</code> Example</summary>
 
 ```sql {1}
 SELECT radians(10);
@@ -638,14 +638,14 @@ SELECT radians(10);
 
 ## random
 
-返回 0 -1 范围内的随机浮点值。随机种子对于每一行都是唯一的。
+Returns a random floating-point value within the range of 0 to -1.The random seed is unique for each row.
 
 ```sql
 random()
 ```
 
 <details>
-  <summary>查看 <code>random</code> 示例</summary>
+  <summary>View <code>random</code> Example</summary>
 
 ```sql {1}
 SELECT random();
@@ -660,19 +660,19 @@ SELECT random();
 
 ## round
 
-将数字四舍五入为最接近的整数。
+Round the number to the nearest integer.
 
 ```
 round(numeric_expression[, decimal_places])
 ```
 
-| Parameters           | Description                                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `numeric_expression` | 要操作的数字表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
-| `decimal_places`     | 小数位：可选。要舍入的小数位数。默认为 0。                                                                                         |
+| Parameters           | Description                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
+| `decimal_places`     | Decimal places: Optional.Number of decimal places to round to.Default is 0.   |
 
 <details>
-  <summary>查看 <code>round</code> 示例</summary>
+  <summary>View <code>round</code> Example</summary>
 
 ```sql {1}
 SELECT round(2.3);
@@ -687,7 +687,7 @@ SELECT round(2.3);
 
 ## signum
 
-返回数字的符号。负数返回 `-1`。零和正数返回 `1`。
+Return the sign of a number.Negative numbers return `-1`.Zero and positive number return `1`.
 
 ```sql
 signum(numeric_expression)
@@ -698,7 +698,7 @@ signum(numeric_expression)
 | `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>signum</code> 示例</summary>
+  <summary>View <code>signum</code> Example</summary>
 
 ```sql {1}
 SELECT signum(10);
@@ -713,7 +713,7 @@ SELECT signum(10);
 
 ## sin
 
-返回一个数字的正弦值。
+Return the sine value of a number.
 
 ```sql
 sin(numeric_expression)
@@ -724,7 +724,7 @@ sin(numeric_expression)
 | `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>sin</code> 示例</summary>
+  <summary>View <code>sin</code> Example</summary>
 
 ```sql {1}
 SELECT sin(5);
@@ -740,7 +740,7 @@ SELECT sin(5);
 
 ## sinh
 
-返回一个数字的双曲正弦值。
+Returns the hyperbolic sine of a number.
 
 ```sql
 sinh(numeric_expression)
@@ -751,7 +751,7 @@ sinh(numeric_expression)
 | `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>sinh</code> 示例</summary>
+  <summary>View <code>sinh</code> Example</summary>
 
 ```sql {1}
 SELECT sinh(2);
@@ -766,7 +766,7 @@ SELECT sinh(2);
 
 ## sqrt
 
-返回一个数字的平方根。
+Return the square root of a number.
 
 ```sql
 sqrt(numeric_expression)
@@ -777,7 +777,7 @@ sqrt(numeric_expression)
 | `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>sqrt</code> 示例</summary>
+  <summary>View <code>sqrt</code> Example</summary>
 
 ```sql {1}
 SELECT sqrt(25);
@@ -792,7 +792,7 @@ SELECT sqrt(25);
 
 ## tan
 
-返回一个数字的正切值。
+Returns the tangent value of a number.
 
 ```sql
 tan(numeric_expression)
@@ -803,7 +803,7 @@ tan(numeric_expression)
 | `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>tan</code> 示例</summary>
+  <summary>View <code>tan</code> Example</summary>
 
 ```sql {1}
 SELECT tan(10);
@@ -818,7 +818,7 @@ SELECT tan(10);
 
 ## tanh
 
-返回一个数字的双曲正切值。
+Return the hyperbolic tangent value of a number.
 
 ```sql
 tanh(numeric_expression)
@@ -829,7 +829,7 @@ tanh(numeric_expression)
 | `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>tanh</code> 示例</summary>
+  <summary>View <code>tanh</code> Example</summary>
 
 ```sql {1}
 SELECT tanh(10);
@@ -844,19 +844,19 @@ SELECT tanh(10);
 
 ## trunc
 
-将数字截断为整数或截断至指定的小数位。
+Truncate a number to an integer or truncate to the specified number of decimal places.
 
 ```sql
 trunc(numeric_expression[, decimal_places])
 ```
 
-| Parameters           | Description                                                                                              |
-| -------------------- | -------------------------------------------------------------------------------------------------------- |
-| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators.     |
-| `decimal_places`     | 小数位：可选。要截断到的小数位数。默认为 0（截断为整数）。如果`decimal_places`是正整数，则截断小数点右侧的数字。如果`decimal_places`是负整数，则用`0`替换小数点左边的数字。 |
+| Parameters           | Description                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `numeric_expression` | Can be a constant, column, or function, and any combination of arithmetic operators.                                                                                                                                                                                                                                                                                                                             |
+| `decimal_places`     | Decimal places: Optional.The number of decimal places to truncate to.Default is 0 (truncated to an integer).If `decimal_places` is a positive integer, truncate digits to the right of the decimal point.If `decimal_places` is a negative integer, replace digits to the left of the decimal point with `0`. |
 
 <details>
-  <summary>查看 <code>trunc</code> 示例</summary>
+  <summary>View <code>trunc</code> Example</summary>
 
 ```sql {1}
 SELECT trunc(3.1415926, 2);
