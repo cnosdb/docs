@@ -5,15 +5,15 @@ sidebar_position: 5
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 聚合函数
+# Aggregate Functions
 
-聚合函数是数据库中常用的函数，用于对数据进行聚合计算和汇总。它们接收一组值作为输入，并返回一个单一的聚合结果。聚合函数可以用于执行各种操作，例如计算总和、平均值、最大值、最小值等。
+Aggregate functions are commonly used functions in databases for aggregating calculations and summaries.They take a set of values as input and return a single aggregated result.Aggregate functions can be used to perform various operations, such as calculating totals, averages, maximums, minimums, etc.
 
 ## 通用
 
 ### avg
 
-返回指定列中数值的平均值。
+Returns the average of the values in the specified column.
 
 ```sql
 avg(expression)
@@ -24,7 +24,7 @@ avg(expression)
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>avg</code> 示例</summary>
+  <summary>View <code>avg</code> Example</summary>
 
 ```sql {1}
 SELECT station, avg(temperature) FROM air group by station;
@@ -40,7 +40,7 @@ SELECT station, avg(temperature) FROM air group by station;
 
 ### count
 
-返回指定列中的行数。
+Returns the number of rows in the specified column.
 
 ```sql
 count(expression)
@@ -51,7 +51,7 @@ count(expression)
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>count</code> 示例</summary>
+  <summary>View <code>count</code> Example</summary>
 
 ```sql {1}
 SELECT station, count(temperature) FROM air group by station;
@@ -67,7 +67,7 @@ SELECT station, count(temperature) FROM air group by station;
 
 ### max
 
-返回指定列中的行数。
+Returns the number of rows in the specified column.
 
 ```sql
 max(expression)
@@ -78,7 +78,7 @@ max(expression)
 | `expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>max</code> 示例</summary>
+  <summary>View <code>max</code> Example</summary>
 
 ```sql {1}
 SELECT station, max(temperature) FROM air group by station;
@@ -95,7 +95,7 @@ SELECT station, max(temperature) FROM air group by station;
 
 ### mean
 
-[`avg`](#avg) 的别名。
+Alias for [`avg`](#avg).
 
 ### median
 
