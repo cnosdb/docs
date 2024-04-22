@@ -2,9 +2,9 @@
 sidebar_position: 2
 ---
 
-# 条件函数
+# Conditional Functions
 
-条件函数是用于根据特定条件执行不同操作的函数集合。它们包括条件语句，可以帮助你根据不同的情况选择执行不同的代码逻辑。条件函数对于实现程序的流程控制和决策非常有用。
+Conditional functions are a collection of functions used to perform different operations based on specific conditions.They include conditional statements, which can help you choose to execute different code logic based on different situations.Conditional functions are very useful for implementing program flow control and decision making.
 
 ## coalesce
 
@@ -58,7 +58,7 @@ nullif(expression1, expression2)
 | `expression2` | 要与 `expression1` 进行比较的表达式。Can be a constant, column, or function, and any combination of arithmetic operators.      |
 
 <details>
-  <summary>查看 <code>nullif</code> 示例</summary>
+  <summary>View <code>nullif</code> Example</summary>
 
 ```sql {1}
 SELECT nullif(temperature, 70) FROM air;
