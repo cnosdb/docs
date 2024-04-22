@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# 函数
+# Function
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
