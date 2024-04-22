@@ -331,9 +331,9 @@ SELECT station, avg(temperature) FROM air GROUP BY station;
 
 ## `HAVING`
 
-`HAVING` 子句通常与 `GROUP BY` 子句一起使用，用于过滤基于聚合函数计算结果的组。
+The `HAVING` clause is usually used together with the `GROUP BY` clause to filter groups based on the results of aggregate functions.
 
-当使用 `GROUP BY` 子句对查询结果进行分组后，`HAVING` 子句允许在分组后的结果集上进一步筛选数据。它类似于` WHERE` 子句，但 `WHERE` 子句用于筛选行，而 `HAVING` 子句用于筛选组。
+When using the `GROUP BY` clause to group the query results, the `HAVING` clause allows further filtering of data on the grouped result set.It is similar to the `WHERE` clause, but the `WHERE` clause is used to filter rows, while the `HAVING` clause is used to filter groups.
 
 <details>
   <summary>View example</summary>
@@ -351,12 +351,12 @@ SELECT station, avg(temperature)  AS avg_t FROM air GROUP BY station HAVING avg_
 
 ## `ROLLUP`
 
-`ROLLUP`  用于生成包含超级聚合行的多维聚合数据的操作符。
+`ROLLUP` is an operator used to generate multidimensional aggregate data that includes super-aggregate rows.
 
-在 SQL 中，`ROLLUP` 用于对 `GROUP BY` 子句中的列进行多层次的汇总。它会生成包含每个层次的合计行的结果。`ROLLUP` 从最右边的列开始，逐渐向左侧添加列进行汇总，直到生成一个包含所有行的总计行。
+In SQL, `ROLLUP` is used to perform multi-level aggregation on columns in the `GROUP BY` clause.It will generate results containing the total rows of each level.`ROLLUP` starts from the rightmost column and gradually adds columns to the left for summarization until a total row containing all rows is generated.
 
 <details>
-  <summary>查看 <code>CUBE</code> 示例</summary>
+  <summary>View <code>CUBE</code> Example</summary>
 
 ```sql
 SELECT station, visibility, avg(temperature) FROM air GROUP BY ROLLUP (station, visibility);
@@ -375,14 +375,14 @@ SELECT station, visibility, avg(temperature) FROM air GROUP BY ROLLUP (station, 
 
 ## `CUBE`
 
-`CUBE` 用于生成所有可能的组合的多维聚合数据的操作符。
+`CUBE` is an operator used to generate multidimensional aggregated data for all possible combinations.
 
-在 SQL 中，`CUBE` 用于对 `GROUP BY` 子句中的列进行多维聚合，生成所有可能的组合。它会生成包含每个列的合计行的结果，从单个列到所有列的组合。
+In SQL, `CUBE` is used to perform multi-dimensional aggregation on columns in the `GROUP BY` clause, generating all possible combinations.It will generate results containing total rows for each column, from a single column to combinations of all columns.
 
-使用 `CUBE` 可以生成比 `ROLLUP` 更多的汇总数据，因为它会考虑所有可能的组合，而不仅仅是从右向左逐渐添加列进行汇总。
+Using `CUBE` can generate more summary data than `ROLLUP`, as it considers all possible combinations, not just adding columns from right to left for summary.
 
 <details>
-  <summary>查看 <code>CUBE</code> 示例</summary>
+  <summary>View <code>CUBE</code> Example</summary>
 
 ```sql {1}
 SELECT station, visibility, avg(temperature)
@@ -407,14 +407,14 @@ GROUP BY CUBE (station, visibility);
 
 ## `UNION`
 
-`UNION` 子句用于合并两个或多个 `SELECT` 语句的结果集并去除重复的行。
+The `UNION` clause is used to combine the result sets of two or more `SELECT` statements and remove duplicate rows.
 
-通过使用 `UNION` 关键字，可以将多个 `SELECT` 查询的结果集合并为一个结果集。需要注意的是，使用 `UNION` 时，要求每个 `SELECT` 查询返回相同数量和类型的列，以便能够正确地合并结果集。
+By using the `UNION` keyword, you can combine the result sets of multiple `SELECT` queries into one result set.It should be noted that when using `UNION`, each `SELECT` query is required to return the same number and type of columns in order to merge the result sets correctly.
 
-除了 `UNION` 还有 `UNION ALL`，它也用于合并结果集，但不会去除重复的行。`UNION ALL` 比 `UNION` 更快，因为它不执行去重操作。
+In addition to `UNION`, there is also `UNION ALL`, which is used to combine result sets without removing duplicate rows.`UNION ALL` is faster than `UNION` because it does not perform deduplication operations.
 
 <details>
-  <summary>查看 <code>UNION ALL</code> 示例</summary>
+  <summary>View <code>UNION ALL</code> Example</summary>
 
 ```sql {1-3}
 SELECT visibility FROM air WHERE temperature < 60
@@ -439,7 +439,7 @@ SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
 </details>
 
 <details>
-  <summary>查看 <code>UNION</code> 示例</summary>
+  <summary>View <code>UNION</code> Example</summary>
 
 ```sql {1-3}
 SELECT visibility FROM air WHERE temperature < 60
@@ -465,9 +465,9 @@ SELECT visibility FROM air WHERE temperature > 50 LIMIT 10;
 
 ## `ORDER BY`
 
-ORDER BY 子句用于对查询结果按指定列进行排序。
+The ORDER BY clause is used to sort the query results by the specified column.
 
-通过使用 `ORDER BY` 子句，可以对查询结果按一个或多个列的值进行排序，可以指定升序（`ASC`）或降序（`DESC`）排列顺序。默认情况下，`ORDER BY` 子句按升序排列。
+By using the `ORDER BY` clause, you can sort the query results by the value of one or more columns, and specify the ascending (`ASC`) or descending (`DESC`) order of arrangement.By default, the `ORDER BY` clause sorts in ascending order.
 
 <details>
   <summary>View example</summary>
@@ -489,9 +489,9 @@ SELECT * FROM air ORDER BY temperature DESC limit 10;
 
 ## `LIMIT`
 
-`LIMIT` 子句，用于限制查询结果返回的行数。
+`LIMIT` clause, used to restrict the number of rows returned in the query result.
 
-在 SQL 查询中，`LIMIT` 子句用于指定要返回的行数，从而控制查询结果集的大小。通过使用 `LIMIT`，可以限制返回的行数，以便只获取需要的数据行。
+In SQL queries, the `LIMIT` clause is used to specify the number of rows to return, thus controlling the size of the query result set.By using `LIMIT`, you can limit the number of rows returned to only retrieve the data rows you need.
 
 <details>
   <summary>View example</summary>
@@ -518,9 +518,9 @@ SELECT * FROM air LIMIT 10;
 
 ## `OFFSET`
 
-`OFFSET` 子句通常与 `LIMIT` 结合使用，用于指定从查询结果中跳过多少行开始返回数据
+The `OFFSET` clause is usually used in conjunction with `LIMIT` to specify how many rows to skip before returning data from the query result
 
-在 SQL 查询中，`OFFSET` 用于指定要跳过的行数，而 `LIMIT` 用于指定要返回的行数。通过结合使用 `OFFSET` 和 `LIMIT`，可以实现分页功能，从查询结果中获取指定范围的数据。
+In SQL queries, `OFFSET` is used to specify the number of rows to skip, while `LIMIT` is used to specify the number of rows to return.By combining `OFFSET` and `LIMIT`, pagination functionality can be achieved to retrieve data within a specified range from query results.
 
 <details>
   <summary>View example</summary>
@@ -540,7 +540,7 @@ SELECT * FROM air LIMIT 3 OFFSET 3;
 
 ## `SHOW`
 
-`SHOW` 不是标准 SQL 命令，而是 CnosDB 提供的指令，用于显示数据库对象或元数据信息。
+`SHOW` is not a standard SQL command, but a command provided by CnosDB for displaying database objects or metadata information.
 
 ```sql
 SHOW {DATABASES | TABLES | QUERIES}
