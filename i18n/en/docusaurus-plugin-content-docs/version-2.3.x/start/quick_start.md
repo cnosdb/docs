@@ -375,7 +375,7 @@ FROM air LIMIT 3 OFFSET 3;
 WITH cte AS cte_query_definiton [, ...] query
 ```
 
-可选。The WITH clause contains one or more common expressions CTE (Common Table Expression).
+Optional.The WITH clause contains one or more common expressions CTE (Common Table Expression).
 The CTE acts as a temporary table in the current runtime environment that you can refer to in subsequent queries.The following rules for use by CTE are:
 
 - CTE in the same WITH clause must have a unique name.
