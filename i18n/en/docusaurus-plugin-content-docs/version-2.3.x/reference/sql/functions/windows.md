@@ -115,7 +115,7 @@ UNBOUNDED FOLLOWING
 
 RANGE 和 GROUPS 模式需要 ORDER BY 子句（对于 RANGE，ORDER BY 必须恰好指定一列）。
 
-## 聚合函数
+## Aggregate Functions
 
 所有[聚合函数](./aggregate.md)都可以用作窗口函数。
 
