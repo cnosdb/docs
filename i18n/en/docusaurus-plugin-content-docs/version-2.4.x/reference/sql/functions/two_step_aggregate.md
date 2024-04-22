@@ -199,9 +199,9 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 compact_state_agg(time_expression, state)
 ```
 
-| Options           | Description                        |
-| ----------------- | ---------------------------------- |
-| `time_expression` | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Options           | Description                                                             |
+| ----------------- | ----------------------------------------------------------------------- |
+| `time_expression` | The time expression to operate.可以是常量、列或函数，以及算术运算符的任意组合。 |
 
 <details>
   <summary>查看 <code>compact_state_agg</code> 示例</summary>
@@ -378,10 +378,10 @@ SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:0
 state_at(state_agg_data, time_expression)
 ```
 
-| Options           | Description                        |
-| ----------------- | ---------------------------------- |
-| `state_agg_data`  | `state_agg` 函数返回的结果集。              |
-| `time_expression` | 要操作的时间表达式。可以是常量、列或函数，以及算术运算符的任意组合。 |
+| Options           | Description                                                             |
+| ----------------- | ----------------------------------------------------------------------- |
+| `state_agg_data`  | `state_agg` 函数返回的结果集。                                                   |
+| `time_expression` | The time expression to operate.可以是常量、列或函数，以及算术运算符的任意组合。 |
 
 <details>
   <summary>查看 <code>state_at</code> 示例</summary>
