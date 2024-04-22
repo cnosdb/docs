@@ -548,7 +548,7 @@ SHOW {DATABASES | TABLES | QUERIES}
 
 ## `SHOW SERIES`
 
-返回指定 `table` 的 `series` 列表。
+Returns the `series` list of the specified `table`.
 
 ```sql
 SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [limit_clause] 
@@ -556,7 +556,7 @@ SHOW SERIES [ON database_name] FROM table_name [WHERE expr] [order_by_clause] [l
 
 ## `SHOW TAG VALUES`
 
-根据条件过滤 `TAG` 类型列中的数据。
+Filter data in the `TAG` type column based on conditions.
 
 ```sql
 SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_key>" | [[NOT] IN ("<tag_key1>", ..)]] [WHERE expr] [order_by_clause] [limit_clause];
@@ -564,17 +564,17 @@ SHOW TAG VALUES [ON database_name] FROM table_name WITH KEY [<operator> "<tag_ke
 
 ## `SHOW QUERIES`
 
-获取当前正在运行的 SQL 任务。
+Get the current running SQL task.
 
 ```sql
 SHOW QUERIES;
 ```
 
-如果您想查看更详细的信息，可以运行 `SELECT * FROM information_schema.queries`
+If you want to see more detailed information, you can run `SELECT * FROM information_schema.queries`
 
 ## `EXPLAIN`
 
-返回指定 SQL 语句的逻辑和物理执行计划。
+Return the logical and physical execution plan of the specified SQL statement.
 
 ```sql
 EXPLAIN [ ANALYZE ] [ VERBOSE ] <statement>;
