@@ -26,7 +26,7 @@ CnosDB uses [WKT (Well-known text)](https://en.wikipedia.org/wiki/Well-known_tex
 <APITable>
 ```
 
-| Geometry types       | 图片                                               | Example                                                                                                                    |
+| Geometry types       | image                                            | Example                                                                                                                    |
 | -------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | `Point`              | ![](/img/sql/SFA_Point.svg.png)                  | `POINT (30 10)`                                                                                                            |
 | `LineString`         | ![](/img/sql/102px-SFA_LineString.svg.png)       | `LINESTRING (30 10, 10 30, 40 40)`                                                                                         |
@@ -52,7 +52,7 @@ ST_AsBinary(geometry)
 ```
 
 <details>
-  <summary>查看 <code>ST_AsBinary</code> 示例</summary>
+  <summary>View <code>ST_AsBinary</code> Example</summary>
 
 ```sql {1}
 SELECT ST_AsBinary('POINT(0 3)');
@@ -67,14 +67,14 @@ SELECT ST_AsBinary('POINT(0 3)');
 
 ## ST_GeomFromWKB
 
-把 [WKB](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) 格式二进制转为 Geometry 类型
+Convert Well-known Binary (WKB) format binary to Geometry type
 
 ```sql
 ST_GeomFromWKB(wkb)
 ```
 
 <details>
-  <summary>查看 <code>ST_GeomFromWKB</code> 示例</summary>
+  <summary>View <code>ST_GeomFromWKB</code> Example</summary>
 
 ```sql {1}
 SELECT ST_GeomFromWKB(ST_AsBinary('POINT(0 3)'));
@@ -96,9 +96,9 @@ ST_Distance(geometry1, gemometry2)
 ```
 
 <details>
-  <summary>查看 <code>ST_Distance</code> 示例</summary>
+  <summary>View <code>ST_Distance</code> Example</summary>
 
-**计算两点之间的距离。**
+**Calculate the distance between two points.**
 
 ```sql {1}
 SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
@@ -109,7 +109,7 @@ SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
 +--------------------------------------------------------------------------+
 ```
 
-**计算点到线的直线距离。**
+Calculate the straight-line distance from a point to a line.\*\*
 
 ```sql {1}
 SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
@@ -120,7 +120,7 @@ SELECT ST_Distance('POINT(0 0)', 'LINESTRING (30 10, 10 30, 40 40)');
 +--------------------------------------------------------------------------+
 ```
 
-**计算平面和平面之间的距离。**
+**Calculate the distance between planes.**
 
 ```sql {1}
 SELECT ST_Distance('POLYGON((0 2,1 1,0 -1,0 2))', 'POLYGON((-1 -3,-2 -1,0 -3,-1 -3))');
@@ -135,10 +135,10 @@ SELECT ST_Distance('POLYGON((0 2,1 1,0 -1,0 2))', 'POLYGON((-1 -3,-2 -1,0 -3,-1 
 
 ## ST_Area
 
-返回几何对象 2D 投影的笛卡尔面积。面积单位与用于表示输入几何体坐标的单位相同。 对于 `Point`、`LineString`、`MultiPoint` 和 `MultiLineString、Line`，此函数返回 0。 对于几何体集合，它返回集合中几何体的面积之和。
+返回几何对象 2D 投影的笛卡尔面积。面积单位与用于表示输入几何体坐标的单位相同。 For `Point`, `LineString`, `MultiPoint`, and `MultiLineString, Line`, this function returns 0. 对于几何体集合，它返回集合中几何体的面积之和。
 
 :::tip
-部分几何图形不支持计算面积，对这些几何体计算面积会返回 0，如：`Point`、`MultiPoint`、`LineString`、`MultiLineString、Line`。 如果参数内容格式非法，返回值为 `NULL`。
+部分几何图形不支持计算面积，对这些几何体计算面积会返回 0，如：`Point`、`MultiPoint`、`LineString`、`MultiLineString、Line`。 If the parameter content format is invalid, the return value is `NULL`.
 :::
 
 ```sql
@@ -146,7 +146,7 @@ ST_Area(geometry)
 ```
 
 <details>
-  <summary>查看 <code>ST_Area</code> 示例</summary>
+  <summary>View <code>ST_Area</code> Example</summary>
 
 ```sql {1}
 SELECT ST_Area('POLYGON ((40 40, 20 45, 45 30, 40 40))');
@@ -164,7 +164,7 @@ SELECT ST_Area('POLYGON ((40 40, 20 45, 45 30, 40 40))');
 比较两个几何体，如果两个几何体完全相同，则返回 `true`。
 
 :::tip
-`ST_Equals(A, B)` 等价于 `ST_Within(A, B)` && `ST_Within(B, A)`
+`ST_Equals(A, B)` is equivalent to `ST_Within(A, B)` && `ST_Within(B, A)`
 :::
 
 ```sql
@@ -172,7 +172,7 @@ ST_Equals(A, B)
 ```
 
 <details>
-  <summary>查看 <code>ST_Area</code> 示例</summary>
+  <summary>View <code>ST_Area</code> Example</summary>
 
 ```sql {1}
 select ST_Equals('LINESTRING(0 0, 10 10)', 'LINESTRING(0 0, 5 5, 10 10)') st_equals;
@@ -194,7 +194,7 @@ ST_Contains(A, B)
 ```
 
 <details>
-  <summary>查看 <code>ST_Contains</code> 示例</summary>
+  <summary>View <code>ST_Contains</code> Example</summary>
 
 ```sql {1}
 select ST_Contains('POLYGON((0 0,0 3,3 0,0 0))', 'POLYGON((0 0,0 1,1 0,0 0))') st_contains;
@@ -214,7 +214,7 @@ select ST_Contains('POLYGON((0 0,0 3,3 0,0 0))', 'POLYGON((0 0,0 1,1 0,0 0))') s
 `ST_Intersects(A, B)`
 
 <details>
-  <summary>查看 <code>ST_Intersects</code> 示例</summary>
+  <summary>View <code>ST_Intersects</code> Example</summary>
 
 ```sql {1}
 select ST_Intersects('LINESTRING(3 2, 7 6)', 'LINESTRING(3 4, 8 4)') st_intersects;
@@ -234,7 +234,7 @@ select ST_Intersects('LINESTRING(3 2, 7 6)', 'LINESTRING(3 4, 8 4)') st_intersec
 `ST_Disjoint(A, B)`
 
 <details>
-  <summary>查看 <code>ST_Disjoint</code> 示例</summary>
+  <summary>View <code>ST_Disjoint</code> Example</summary>
 
 ```sql {1}
 select ST_Disjoint('LINESTRING(0 0,-3 -3)', 'LINESTRING(0 1,1 0)');
@@ -249,14 +249,14 @@ select ST_Disjoint('LINESTRING(0 0,-3 -3)', 'LINESTRING(0 1,1 0)');
 
 ## ST_Within
 
-如果给定的Geometry对象A完全在对象B之内，则返回 `true`。
+Returns `true` if the given Geometry object A is completely inside object B.
 
 ```sql
 ST_Within(A, B)
 ```
 
 <details>
-  <summary>查看 <code>ST_Within</code> 示例</summary>
+  <summary>View <code>ST_Within</code> Example</summary>
 
 ```sql {1}
 select ST_Within('POLYGON((1 1, 1 2, 2 2, 2 1, 1 1))', 'POLYGON((0 0, 0 3, 3 3, 3 0, 0 0))');
