@@ -66,9 +66,9 @@ In SQL queries, the `SELECT` statement is used to specify the columns to be retu
 You can add `DISTINCT` to return all distinct rows, default is `ALL`.
 
 <details>
-  <summary>查看 <code>DISTINCT</code> 和 <code>ALL</code> 示例</summary>
+  <summary>View examples of <code>DISTINCT</code> and <code>ALL</code></summary>
 
-**`DISTINCT` 和 `ALL` 对于 `TAG` 类型的列没有效果。**
+**`DISTINCT` and `ALL` have no effect on columns of type `TAG`.**
 
 ```sql {1}
 SELECT DISTINCT station FROM air;
@@ -90,11 +90,11 @@ SELECT station FROM air;
 +-------------+
 ```
 
-无论是否使用 `DISTINCT`，`TAG` 类型的列都会主动去重复。
+Whether `DISTINCT` is used or not, columns of type `TAG` will actively deduplicate.
 
-**`DISTINCT` 和 `ALL` 只对 `FIELD` 类型的列有效果。**
+**`DISTINCT` and `ALL` have no effect on columns of type `FIELD`.**
 
-以下的  `temperature` 列有多条相同的记录。
+There are multiple records with the same value in the 'temperature' column below.
 
 ```sql {1}
 SELECT temperature FROM air WHERE temperature = 50;
@@ -114,7 +114,7 @@ SELECT temperature FROM air WHERE temperature = 50;
 +-------------+
 ```
 
-如果使用 `DISTINCT` 对 `temperature` 列中的记录去重，则只会返回一条记录。
+If you use `DISTINCT` to deduplicate the records in the `temperature` column, only one record will be returned.
 
 ```sql {1}
 SELECT DISTINCT temperature FROM air WHERE temperature = 50;
@@ -129,9 +129,9 @@ SELECT DISTINCT temperature FROM air WHERE temperature = 50;
 
 ## `FROM`
 
-`FROM` 子句用于指定要从中检索数据的 `table` 或 `table` 表达式。即要从中选择数据的 `table`。通过在 `FROM` 子句中指定 `table` 的名称，可以告诉数据库系统从哪里获取数据。
+The `FROM` clause is used to specify the `table` or `table` expression from which to retrieve data.Select the `table` from which to choose data.By specifying the name of the `table` in the `FROM` clause, you can tell the database system where to retrieve data from.
 
-**指定 `table` 名称。**
+Specify the `table` name.\*\*
 
 <details>
   <summary>View example</summary>
@@ -152,7 +152,7 @@ Query took 0.069 seconds.
 
 </details>
 
-**使用 `VALUE` 构建临时表。**
+**Build a temporary table using `VALUE`.**
 
 <details>
   <summary>View example</summary>
@@ -170,11 +170,11 @@ FROM
 
 ## `WHERE`
 
-`WHERE` 子句用于筛选满足指定条件的行数据。
+The `WHERE` clause is used to filter rows that meet the specified conditions.
 
-当使用 `SELECT` 语句从数据库中检索数据时，可以通过 `WHERE` 子句指定条件，以便只返回满足条件的行。这样可以对数据进行过滤，只选择符合特定条件的数据行。
+When using the `SELECT` statement to retrieve data from the database, you can specify conditions with the `WHERE` clause to only return rows that meet the conditions.This allows for filtering data, selecting only data rows that meet specific conditions.
 
-`WHERE` 子句通常与 [比较运算符](reference.md#比较运算符) 和 [逻辑运算符](reference.md#逻辑运算符) 一起使用，以构建复杂的筛选条件。
+The `WHERE` clause is typically used with [comparison operators](reference.md#comparison-operators) and [logical operators](reference.md#logical-operators) to construct complex filtering criteria.
 
 <details>
   <summary>View example</summary>
@@ -196,12 +196,12 @@ SELECT * FROM air WHERE temperature > 60;
 
 ## `JOIN`
 
-`JOIN` 子句可以连接多个表的数据。支持以下连接：
+The `JOIN` clause can join data from multiple tables.Support the following join:
 
 `INNER JOIN`, `LEFT OUTER JOIN`， `RIGHT OUTER JOIN`， `FULL OUTER JOIN`
 
 <details>
-  <summary>查看<code>INNER JOIN</code>示例</summary>
+  <summary>View<code>INNER JOIN</code>Example</summary>
 
 ```sql {1}
 SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
@@ -218,7 +218,7 @@ SELECT * FROM air INNER JOIN sea ON air.temperature = sea.temperature;
 </details>
 
 <details>
-  <summary>查看<code>LEFT JOIN</code>示例</summary>
+  <summary>View<code>LEFT JOIN</code>Example</summary>
 
 ```sql {1}
 SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
@@ -245,7 +245,7 @@ SELECT * FROM air LEFT JOIN sea ON air.temperature = sea.temperature;
 </details>
 
 <details>
-  <summary>查看<code>RIGHT JOIN</code>示例</summary>
+  <summary>View<code>RIGHT JOIN</code>Example</summary>
 
 ```sql {1}
 SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
@@ -272,7 +272,7 @@ SELECT * FROM air RIGHT JOIN sea ON air.temperature = sea.temperature;
 </details>
 
 <details>
-  <summary>查看<code>FULL JOIN</code>示例</summary>
+  <summary>View<code>FULL JOIN</code>Example</summary>
 
 ```sql {1}
 SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
@@ -310,9 +310,9 @@ SELECT * FROM air FULL JOIN sea ON air.temperature = sea.temperature;
 
 ## `GROUP BY`
 
-用于将查询结果按指定列进行分组。通过使用 `GROUP BY` 子句，可以对查询结果进行分组，并且通常与聚合函数（如 `count`、`sum`、`avg` 等）一起使用，以便在每个组上执行聚合操作。
+Used to group query results by specified columns.By using the `GROUP BY` clause, you can group the query results and typically use it with aggregate functions (such as `count`, `sum`, `avg`, etc.) to perform aggregation operations on each group.
 
-在使用 `GROUP BY` 子句时，查询结果将根据指定的列值进行分组，并且每个组将具有相同的值。这使得可以在每个组上应用聚合函数，以便获取每个组的汇总信息。
+When using the `GROUP BY` clause, the query results will be grouped based on the specified column values, and each group will have the same value.This allows you to apply aggregate functions on each group to obtain summary information for each group.
 
 <details>
   <summary>View example</summary>
