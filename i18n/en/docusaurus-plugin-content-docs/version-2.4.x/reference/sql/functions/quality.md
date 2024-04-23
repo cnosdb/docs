@@ -2,7 +2,7 @@
 sidebar_position: 9
 ---
 
-# 质量函数
+# Quality functions
 
 用于评估时间序列数据的质量
 
