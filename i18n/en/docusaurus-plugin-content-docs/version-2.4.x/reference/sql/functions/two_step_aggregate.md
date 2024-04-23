@@ -91,28 +91,28 @@ SELECT stats_agg(y, x) FROM test_stats;
 
 **`stats_agg` supports the following functions for two-step aggregation**
 
-| Function                             | Description                                                                                                     |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| `num_vals`                           | Calculate the number of values in a two-dimensional statistical aggregate.                      |
-| `average_y`, `average_x`             | Calculate the average from a two-dimensional statistical aggregate for the dimension specified. |
-| `sum_y`,` sum_x`                     | Calculate the sum from a two-dimensional statistical aggregate for the dimension specified.     |
-| `stddev_samp_y`, `stddev_samp_x`     | 计算二维统计聚合后指定维度的标准差，方式为 sample。                                                                                   |
-| `stddev_pop_y`, `stddev_pop_x`       | 计算二维统计聚合后指定维度的标准差，方式为 population。                                                                               |
-| `var_samp_y`,` var_samp_x`           | 计算二维统计聚合后指定维度的方差，方式为 sample。                                                                                    |
-| `var_pop_y`,` var_pop_x`             | 计算二维统计聚合后指定维度的方差，方式为 population。                                                                                |
-| `skewness_samp_y`, `skewness_samp_x` | 计算二维统计聚合后指定维度的偏度值，方式为 sample。                                                                                   |
-| `skewness_pop_y`, `skewness_pop_x`   | 计算二维统计聚合后指定维度的偏度值，方式为 population。                                                                               |
-| `kurtosis_samp_y`,` kurtosis_samp_x` | 计算二维统计聚合后指定维度的峰度值，方式为 sample。                                                                                   |
-| `kurtosis_pop_y`, `kurtosis_pop_x`   | 计算二维统计聚合后指定维度的峰度值，方式为 population。                                                                               |
-| `correlation`                        | 计算二维统计聚合后的相关。                                                                                                   |
-| `covariance_samp`, `covariance_pop`  | 计算二维统计聚合后的协方差。                                                                                                  |
-| `determination_coeff`                | 计算二维统计聚合后的决定系数。                                                                                                 |
-| `slope`                              | 根据二维统计聚合，计算线性拟合线的斜率。                                                                                            |
-| `intercept`                          | 计算二维统计聚合后y的截距。                                                                                                  |
-| `x_intercept`                        | 计算二维统计聚合后x的截距。                                                                                                  |
+| Function                             | Description                                                                                                                                              |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `num_vals`                           | Calculate the number of values in a two-dimensional statistical aggregate.                                                               |
+| `average_y`, `average_x`             | Calculate the average from a two-dimensional statistical aggregate for the dimension specified.                                          |
+| `sum_y`,` sum_x`                     | Calculate the sum from a two-dimensional statistical aggregate for the dimension specified.                                              |
+| `stddev_samp_y`, `stddev_samp_x`     | Calculate the standard deviation of the specified dimension after two-dimensional statistical aggregation, with the method being sample. |
+| `stddev_pop_y`, `stddev_pop_x`       | Calculate the standard deviation from a two-dimensional statistical aggregate for the dimension specified, method is population.         |
+| `var_samp_y`,` var_samp_x`           | 计算二维统计聚合后指定维度的方差，方式为 sample。                                                                                                                             |
+| `var_pop_y`,` var_pop_x`             | Calculate the variance from a two-dimensional statistical aggregate for the dimension specified, method is population.                   |
+| `skewness_samp_y`, `skewness_samp_x` | Calculate the skewness value of the specified dimension after two-dimensional statistical aggregation, with the method being sample.     |
+| `skewness_pop_y`, `skewness_pop_x`   | Calculate the skewness value of the specified dimension after two-dimensional statistical aggregation, method is population.             |
+| `kurtosis_samp_y`,` kurtosis_samp_x` | Calculate the kurtosis value of the specified dimension after two-dimensional statistical aggregation, with the method being sample.     |
+| `kurtosis_pop_y`, `kurtosis_pop_x`   | Calculate the kurtosis value of the specified dimension after aggregating two-dimensional statistics, method is population.              |
+| `correlation`                        | Calculate the correlation after two-dimensional statistical aggregation.                                                                 |
+| `covariance_samp`, `covariance_pop`  | Calculate the covariance after two-dimensional statistical aggregation.                                                                  |
+| `determination_coeff`                | Calculate the determination coefficient after two-dimensional statistical aggregation.                                                   |
+| `slope`                              | Calculate the slope of the linear regression line based on two-dimensional statistical aggregation.                                      |
+| `intercept`                          | Calculate the intercept of y after two-dimensional statistical aggregation.                                                              |
+| `x_intercept`                        | Calculate the intercept of x after two-dimensional statistical aggregation.                                                              |
 
 <details>
-  <summary>查看二次聚合的示例</summary>
+  <summary>View Sample</summary>
 
 ```sql {1}
 SELECT stddev_samp_x(stats_agg(y, x)) FROM test_stats;
@@ -131,7 +131,7 @@ SELECT stddev_samp_x(stats_agg(y, x)) FROM test_stats;
 
 ### gauge_agg
 
-分析 Gauge数据。与 Counter 不同，Gauge可以减少也可以增加。
+Analyze Gauge data.Unlike Counter, Gauge can decrease as well as increase.
 
 ```sql
 gauge_agg(time, numeric_expression)
