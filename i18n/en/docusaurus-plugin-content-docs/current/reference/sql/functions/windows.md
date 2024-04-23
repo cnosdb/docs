@@ -28,7 +28,7 @@ SELECT station,temperature, avg(temperature) OVER (partition by station) from ai
 
 A window function call always contains an `OVER` clause directly following the window function’s name and argument(s).This is what syntactically distinguishes it from a normal function or non-window aggregate.The OVER clause determines exactly how the rows of the query are split up for processing by the window function.The PARTITION BY clause within OVER divides the rows into groups, or partitions, that share the same values of the PARTITION BY expression(s).For each row, the window function is computed across the rows that fall into the same partition as the current row.The previous example showed how to count the average of a column per partition.
 
-You can also use `ORDER BY` in `OVER` to control the order in which window functions process rows.(The `ORDER BY` clause doesn't even have to match the output order of rows.) Here's an example:
+You can also control the order in which rows are processed by window functions using `ORDER BY` within `OVER`.(The window ORDER BY does not even have to match the order in which the rows are output.) Here is an example:
 
 ```sql {1-3}
 SELECT station, visibility, temperature,
@@ -45,7 +45,7 @@ FROM air limit 5;
 +-------------+------------+-------------+--------+
 ```
 
-还有一个与窗口函数相关的重要概念：对于每一行，其分区内都有一组行，称为窗口框架。某些窗口函数仅作用于窗框的行，而不是整个分区。以下是在查询中使用窗口框架的示例：
+There is another important concept associated with window functions: for each row, there is a set of rows within its partition called its window frame.Some window functions act only on the rows of the window frame, rather than of the whole partition.Here is an example of using window frames in queries:
 
 ```sql {1-5}
 SELECT station, visibility, temperature,
@@ -64,7 +64,7 @@ ORDER BY visibility ASC;
 +-------------+------------+-------------+------+---------+
 ```
 
-当查询涉及多个窗口函数时，可以使用单独的 `OVER` 子句写出每个窗口函数，但如果多个函数需要相同的窗口行为，则这是重复的且容易出错。相反，每个窗口行为都可以在 `WINDOW` 子句中命名，然后在 `OVER` 中引用。例如：
+When a query involves multiple window functions, it is possible to write out each one with a separate `OVER` clause, but this is duplicative and error-prone if the same windowing behavior is wanted for several functions.Instead, each windowing behavior can be named in a `WINDOW` clause and then referenced in `OVER`.For example:
 
 ```sql {1-3}
 SELECT sum(temperature) OVER w, avg(temperature) OVER w
@@ -83,7 +83,7 @@ WINDOW w AS (PARTITION BY station ORDER BY temperature DESC);
 
 ## Syntax
 
-OVER 子句的语法是
+The syntax of the OVER clause is
 
 ```sql
 function([expression])
@@ -94,14 +94,14 @@ function([expression])
     )
 ```
 
-其中`frame_clause`是以下之一：
+Where `frame_clause` is one of the following:
 
 ```sql
   { RANGE | ROWS | GROUPS } frame_start
   { RANGE | ROWS | GROUPS } BETWEEN frame_start AND frame_end
 ```
 
-并且`frame_start` 和`frame_end`可以是其中之一
+And `frame_start` and `frame_end` can be one of them
 
 ```sql
 UNBOUNDED PRECEDING
@@ -111,13 +111,13 @@ offset FOLLOWING
 UNBOUNDED FOLLOWING
 ```
 
-其中`offset`是一个非负整数。
+Where `offset` is a non-negative integer.
 
-RANGE 和 GROUPS 模式需要 ORDER BY 子句（对于 RANGE，ORDER BY 必须恰好指定一列）。
+RANGE and GROUPS modes require an ORDER BY clause (for RANGE, ORDER BY must specify exactly one column).
 
 ## Aggregate Functions
 
-所有[聚合函数](./aggregate.md)都可以用作窗口函数。
+All [aggregate functions](./aggregate.md) can be used as window functions.
 
 ## 排名函数
 
