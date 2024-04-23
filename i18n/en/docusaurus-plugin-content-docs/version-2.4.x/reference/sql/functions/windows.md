@@ -2,11 +2,11 @@
 sidebar_position: 7
 ---
 
-# 窗口函数
+# Window Functions
 
-窗口函数对与当前行以某种方式相关的一组表行执行计算。这与可以使用聚合函数完成的计算类型相当。但是，窗口函数不会像非窗口聚合调用那样导致行分组为单个输出行。相反，行保留其单独的标识。在这些现象背后，窗口函数不仅能够访问查询结果的当前行。
+A window function performs a calculation across a set of table rows that are somehow related to the current row.This is comparable to the type of calculation that can be done with an aggregate function.However, window functions do not cause rows to become grouped into a single output row like non-window aggregate calls would.Instead, the rows retain their separate identities.Behind the scenes, the window function is able to access more than just the current row of the query result
 
-以下示例展示了如何将每个温度值与所在地区平均温度进行比较：
+The following example demonstrates how to compare each temperature value with the average temperature of the region:
 
 ```sql {1}
 SELECT station,temperature, avg(temperature) OVER (partition by station) from air;
@@ -26,9 +26,9 @@ SELECT station,temperature, avg(temperature) OVER (partition by station) from ai
 +------------+-------------+----------------------+
 ```
 
-窗口函数调用始终包含直接跟在窗口函数名称和参数后面的 `OVER` 子句。这就是它在语法上与普通函数或非窗口聚合的区别。`OVER` 子句准确确定如何分割查询的行以供窗口函数处理。`OVER` 中的 `PARTITION BY` 子句将行划分为组或分区，这些组或分区共享 `PARTITION BY` 表达式的相同值。对于每一行，都会跨与当前行属于同一分区的行计算窗口函数。前面的示例展示了如何计算每个分区的列的平均值。
+A window function call always contains an `OVER` clause directly following the window function’s name and argument(s).This is what syntactically distinguishes it from a normal function or non-window aggregate.The OVER clause determines exactly how the rows of the query are split up for processing by the window function.The PARTITION BY clause within OVER divides the rows into groups, or partitions, that share the same values of the PARTITION BY expression(s).For each row, the window function is computed across the rows that fall into the same partition as the current row.The previous example showed how to count the average of a column per partition.
 
-您还可以使用 `OVER` 中的 `ORDER BY` 来控制窗口函数处理行的顺序。（窗口 `ORDER BY` 甚至不必匹配行的输出顺序。）下面是一个示例：
+You can also use `ORDER BY` in `OVER` to control the order in which window functions process rows.(The `ORDER BY` clause doesn't even have to match the output order of rows.) Here's an example:
 
 ```sql {1-3}
 SELECT station, visibility, temperature,
@@ -305,10 +305,10 @@ time_window_gapfill(<time column>, <window_duration>[, <sliding_duration>[, <sta
 - `interpolate`
 - `locf`
 
-#### 示例数据集
+#### Sample Data
 
 <details>
-  <summary>点击查看</summary>
+  <summary>View example</summary>
 
 ```sql {1-3}
 CREATE TABLE m2(f0 BIGINT, f1 DOUBLE, TAGS(t0, t1, t2));
