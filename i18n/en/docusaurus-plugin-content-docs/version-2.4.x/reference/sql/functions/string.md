@@ -8,18 +8,18 @@ String functions are a collection of functions used to handle and manipulate tex
 
 ## ascii
 
-返回字符串中第一个字符的 ASCII 值。
+Returns the ASCII value of the first character in a string.
 
 ```sql
 ascii(str)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
+| Parameters | Description                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>ascii</code> 示例</summary>
+  <summary>View <code>ascii</code> Example</summary>
 
 ```sql {1}
 SELECT ascii('abc');
@@ -32,22 +32,22 @@ SELECT ascii('abc');
 
 </details>
 
-**相关函数**：[chr](#chr)
+**Related functions**: [chr](#chr)
 
 ## bit_length
 
-返回字符串的位长度。
+Returns the bit length of a string.
 
 ```sql
 bit_length(str)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
+| Parameters | Description                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>bit_length</code> 示例</summary>
+  <summary>View <code>bit_length</code> Example</summary>
 
 ```sql {1}
 SELECT bit_length('abc');
@@ -60,23 +60,23 @@ SELECT bit_length('abc');
 
 </details>
 
-**相关函数**：[length](#length)，[octet_length](#octet_length)
+**Related functions**: [length](#length), [octet_length](#octet_length)
 
 ## btrim
 
-从字符串的开头和结尾修剪指定的修剪字符串。如果未提供修剪字符串，则从输入字符串的开头和结尾删除所有空格。
+Trims the specified trim string from the start and end of a string.If no trim string is provided, all whitespace is removed from the start and end of the input string.
 
 ```sql
 btrim(str[, trim_str])
 ```
 
-| Parameters | Description                                                                                                                         |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                                                                                                |
-| `trim_str` | 从输入字符串的开头和结尾处修剪的字符串表达式。Can be a constant, column, or function, and any combination of arithmetic operators.默认为空白字符。 |
+| Parameters | Description                                                                                                                                                                                                                                    |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators.                                                                                               |
+| `trim_str` | String expression to trim from the beginning and end of the input string.Can be a constant, column, or function, and any combination of arithmetic operators.Default is whitespace characters. |
 
 <details>
-  <summary>查看 <code>btrim</code> 示例</summary>
+  <summary>View <code>btrim</code> Example</summary>
 
 ```sql {1}
 SELECT btrim('111abc111','1');
@@ -89,32 +89,32 @@ SELECT btrim('111abc111','1');
 
 </details>
 
-**相关函数**：[ltrim](#ltrim)，[rtrim](#rtrim)，[trim](#trim)
+**Related functions**: [ltrim](#ltrim), [rtrim](#rtrim), [trim](#trim)
 
 ## char_length
 
-[length](#length) 的别名
+Alias of [length](#length)
 
 ## character_length
 
-[length](#length) 的别名
+Alias of [length](#length)
 
 ## concat
 
-将多个字符串连接在一起。
+Concatenates multiple strings together.
 
 ```sql
 concat(separator, str[, ..., str_n])
 ```
 
-| Parameters  | Description                            |
-| ----------- | -------------------------------------- |
-| `separator` | 用于在串联字符串之间插入的分隔符。                      |
-| `str`       | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
-| `str_n`     | 要连接的后续字符串列或文本字符串。                      |
+| Parameters  | Description                                                                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `separator` | Separator used to insert between concatenated strings.                                                                            |
+| `str`       | String expression to concatenate.Can be a constant, column, or function, and any combination of string operators. |
+| `str_n`     | Subsequent string column or literal string to concatenate.                                                                        |
 
 <details>
-  <summary>查看 <code>concat</code> 示例</summary>
+  <summary>View <code>concat</code> Example</summary>
 
 ```sql {1}
 SELECT concat('a', 'b', 'c');
@@ -127,24 +127,24 @@ SELECT concat('a', 'b', 'c');
 
 </details>
 
-**相关函数**：[concat_ws](#concat_ws)
+**Related functions**: [concat_ws](#concat_ws)
 
 ## concat_ws
 
-使用指定的分隔符将多个字符串连接在一起。
+Concatenates multiple strings together with the specified separator.
 
 ```sql
 concat_ws(separator, str[, ..., str_n])
 ```
 
-| Parameters  | Description                            |
-| ----------- | -------------------------------------- |
-| `separator` | 用于在串联字符串之间插入的分隔符。                      |
-| `str`       | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
-| `str_n`     | 要连接的后续字符串列或文本字符串。                      |
+| Parameters  | Description                                                                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `separator` | Separator used to insert between concatenated strings.                                                                            |
+| `str`       | String expression to concatenate.Can be a constant, column, or function, and any combination of string operators. |
+| `str_n`     | Subsequent string column or literal string to concatenate.                                                                        |
 
 <details>
-  <summary>查看 <code>concat_ws</code> 示例</summary>
+  <summary>View <code>concat_ws</code> Example</summary>
 
 ```sql {1}
 SELECT concat_ws(' ', 'a', 'b', 'c');
@@ -157,22 +157,22 @@ SELECT concat_ws(' ', 'a', 'b', 'c');
 
 </details>
 
-**相关函数**：[concat](#concat)
+**Related functions**: [concat](#concat)
 
 ## chr
 
-返回具有指定 ASCII 或 Unicode 代码值的字符。
+Returns the character with the specified ASCII or Unicode code value.
 
 ```sql
 chr(expression)
 ```
 
-| Parameters   | Description                                                   |
-| ------------ | ------------------------------------------------------------- |
-| `expression` | 包含要操作的 ASCII 或 Unicode 代码值的表达式。可以是常量、列或函数，也可以是算术或字符串运算符的任意组合。 |
+| Parameters   | Description                                                                                                                                                                                         |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | Expression containing the ASCII or Unicode code values to operate on.Can be a constant, column, or function, and any combination of arithmetic or string operators. |
 
 <details>
-  <summary>查看 <code>chr</code> 示例</summary>
+  <summary>View <code>chr</code> Example</summary>
 
 ```sql {1}
 SELECT chr(20005);
@@ -185,22 +185,22 @@ SELECT chr(20005);
 
 </details>
 
-**相关函数**：[ascii](#ascii)
+**Related functions**: [ascii](#ascii)
 
 ## initcap
 
-将输入字符串中每个单词的第一个字符大写。单词由非字母数字字符分隔。
+Capitalize the first character of each word in the input string.Words are separated by non-alphanumeric characters.
 
 ```sql
 initcap(str)
 ```
 
-| Parameters | Description                 |
-| ---------- | --------------------------- |
-| `str`      | 可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
+| Parameters | Description                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------ |
+| `str`      | Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>initcap</code> 示例</summary>
+  <summary>View <code>initcap</code> Example</summary>
 
 ```sql {1}
 SELECT initcap('hello world');
@@ -215,27 +215,27 @@ SELECT initcap('hello world');
 
 </details>
 
-**相关函数：**[lower](#lower)，[upper](#upper)
+**Related functions:**[lower](#lower)，[upper](#upper)
 
 ## instr
 
-[strpos](#strpos) 的别名。
+Alias of [strpos](#strpos).
 
 ## left
 
-从字符串左侧开始返回指定数量的字符。
+Returns a specified number of characters starting from the left side of the string.
 
 ```sql
 left(str, n)
 ```
 
-| Parameters | Description                            |
-| ---------- | -------------------------------------- |
-| `str`      | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
-| `n`        | 要返回的字符数。                               |
+| Parameters | Description                                                                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | String expression to concatenate.Can be a constant, column, or function, and any combination of string operators. |
+| `n`        | Number of characters to return.                                                                                                   |
 
 <details>
-  <summary>查看 <code>left</code> 示例</summary>
+  <summary>View <code>left</code> Example</summary>
 
 ```sql {1}
 SELECT left('abcde', 3);
@@ -250,14 +250,14 @@ SELECT left('abcde', 3);
 
 ## length
 
-返回字符串中的长度。
+Returns the number of characters in a string.
 
 ```sql
 length(str)
 ```
 
 <details>
-  <summary>查看 <code>length</code> 示例</summary>
+  <summary>View <code>length</code> Example</summary>
 
 ```sql
 SELECT length('Hello CnosDB!');
@@ -270,18 +270,18 @@ SELECT length('Hello CnosDB!');
 
 </details>
 
-**相关函数：**[bit_length](#bit_length),[octet_length](#octet_length)
+**Related functions**: [bit_length](#bit_length),[octet_length](#octet_length)
 
 ## lower
 
-将字符串转换为小写。
+Convert string to lower-case.
 
 ```sql
 lower(str)
 ```
 
 <details>
-  <summary>查看 <code>lower</code> 示例</summary>
+  <summary>View <code>lower</code> Example</summary>
 
 ```sql
 SELECT lower('CNOSDB');
@@ -294,24 +294,24 @@ SELECT lower('CNOSDB');
 
 </details>
 
-**相关函数：**[initcap](#initcap),[upper](#upper)
+**Related functions:**[initcap](#initcap),[upper](#upper)
 
 ## lpad
 
-用另一个字符串将字符串的左侧填充到指定的字符串长度。
+Pads the left side of a string with another string to a specified string length.
 
 ```sql
 lpad(str, n[, padding_str])
 ```
 
-| Parameters    | Description                                |
-| ------------- | ------------------------------------------ |
-| `str`         | 要连接的字符串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。     |
-| `n`           | 要填充的字符串长度。                                 |
-| `padding_str` | 要填充的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。默认为空格。 |
+| Parameters    | Description                                                                                                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`         | String expression to concatenate.Can be a constant, column, or function, and any combination of string operators.                                 |
+| `n`           | String length to pad to.                                                                                                                                          |
+| `padding_str` | String expression to pad with.Can be a constant, column, or function, and any combination of string operators.Default is a space. |
 
 <details>
-  <summary>查看 <code>lpad</code> 示例</summary>
+  <summary>View <code>lpad</code> Example</summary>
 
 ```sql {1}
 SELECT lpad('abc', 10, '1');
@@ -324,23 +324,23 @@ SELECT lpad('abc', 10, '1');
 
 </details>
 
-**相关函数：**[rpad](#rpad)
+**Related functions:**[rpad](#rpad)
 
 ## ltrim
 
-删除字符串中左边的空格。
+Remove the spaces on the left side of the string.
 
 ```
 ltrim(str[, trim_str])
 ```
 
-| Parameters | Description                                                                                                                       |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。                                                                                              |
-| `trim_str` | 从输入字符串的开头开始修剪的字符串表达式。Can be a constant, column, or function, and any combination of arithmetic operators.默认为空白字符。 |
+| Parameters | Description                                                                                                                                                                                                                            |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators.                                                                                       |
+| `trim_str` | String expression to trim from the beginning of the input string.Can be a constant, column, or function, and any combination of arithmetic operators.Default is whitespace characters. |
 
 <details>
-  <summary>查看 <code>ltrim</code> 示例</summary>
+  <summary>View <code>ltrim</code> Example</summary>
 
 ```sql {1}
 SELECT ltrim('   abc');
@@ -353,18 +353,18 @@ SELECT ltrim('   abc');
 
 </details>
 
-**相关函数：**[btrim](#btrim),[rtrim](#btrim),[trim](#trim)
+**Related functions**: [btrim](#btrim),[rtrim](#btrim),[trim](#trim)
 
 ## octet_length
 
-返回字符串的长度（以字节为单位）。
+Returns the length of a string (in bytes).
 
 ```sql
 octet_length(str)
 ```
 
 <details>
-  <summary>查看 <code>octet_length</code> 示例</summary>
+  <summary>View <code>octet_length</code> Example</summary>
 
 ```sql {1}
 SELECT octet_length('Hello');
@@ -377,23 +377,23 @@ SELECT octet_length('Hello');
 
 </details>
 
-**相关函数：**[bit_length](#bit_length),[length](#bit_length)
+**Related functions**: [bit_length](#bit_length),[length](#bit_length)
 
 ## repeat
 
-返回一个字符串，其中输入字符串重复指定的次数。
+Returns a string with an input string repeated a specified number.
 
 ```
 repeat(str, n)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `str`      | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
-| `n`        | 重复输入字符串的次数。                          |
+| Parameters | Description                                                                                                                                  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | String expression to repeat.Can be a constant, column, or function, and any combination of string operators. |
+| `n`        | Number of times to repeat the input string.                                                                                  |
 
 <details>
-  <summary>查看 <code>repeat</code> 示例</summary>
+  <summary>View <code>repeat</code> Example</summary>
 
 ```sql {1}
 SELECT repeat('a', 5);
@@ -408,20 +408,20 @@ SELECT repeat('a', 5);
 
 ## replace
 
-将字符串中所有出现的指定子字符串替换为新的子字符串。
+Replaces all occurrences of a specified substring in a string with a new substring.
 
 ```
 replace(str, substr, replacement)
 ```
 
-| Parameters    | Description                                |
-| ------------- | ------------------------------------------ |
-| `str`         | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。       |
-| `substr`      | 要替换输入字符串的子串表达式。可以是常量、列或函数，也可以是字符串运算符的任意组合。 |
-| `replacement` | 替换子字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。        |
+| Parameters    | Description                                                                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`         | String expression to repeat.Can be a constant, column, or function, and any combination of string operators.                         |
+| `substr`      | Substring expression to replace in the input string.Can be a constant, column, or function, and any combination of string operators. |
+| `replacement` | Replacement substring expression.Can be a constant, column, or function, and any combination of string operators.                    |
 
 <details>
-  <summary>查看 <code>replace</code> 示例</summary>
+  <summary>View <code>replace</code> Example</summary>
 
 ```sql {1}
 SELECT replace('aaa', 'a', 'b');
@@ -436,14 +436,14 @@ SELECT replace('aaa', 'a', 'b');
 
 ## reverse
 
-反转字符串的字符顺序。
+Reverse the order of characters in the string.
 
 ```sql
 reverse(str)
 ```
 
 <details>
-  <summary>查看 <code>reverse</code> 示例</summary>
+  <summary>View <code>reverse</code> Example</summary>
 
 ```sql {1}
 SELECT reverse('hello');
@@ -458,19 +458,19 @@ SELECT reverse('hello');
 
 ## right
 
-从字符串右侧返回指定数量的字符。
+Returns a specified number of characters from the right side of a string.
 
 ```sql
 right(str, n)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `str`      | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
-| `n`        | 要返回的字符数。                             |
+| Parameters | Description                                                                                                                                  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`      | String expression to repeat.Can be a constant, column, or function, and any combination of string operators. |
+| `n`        | Number of characters to return.                                                                                              |
 
 <details>
-  <summary>查看 <code>right</code> 示例</summary>
+  <summary>View <code>repeat</code> Example</summary>
 
 ```sql {1}
 SELECT right('aaabbb', 3);
@@ -483,24 +483,24 @@ SELECT right('aaabbb', 3);
 
 </details>
 
-**相关函数：**[left](#left)
+**Related functions:**[left](#left)
 
 ## rpad
 
-用另一个字符串将字符串的右侧填充到指定的字符串长度。
+Pads the right side of a string with another string to a specified string length.
 
 ```sql
 rpad(str, n[, padding_str])
 ```
 
-| Parameters    | Description                                |
-| ------------- | ------------------------------------------ |
-| `str`         | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。       |
-| `n`           | 要填充的字符串长度。                                 |
-| `padding_str` | 要填充的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。默认为空格。 |
+| Parameters    | Description                                                                                                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`         | String expression to repeat.Can be a constant, column, or function, and any combination of string operators.                                      |
+| `n`           | String length to pad to.                                                                                                                                          |
+| `padding_str` | String expression to pad with.Can be a constant, column, or function, and any combination of string operators.Default is a space. |
 
 <details>
-  <summary>查看 <code>rpad</code> 示例</summary>
+  <summary>View <code>rpad</code> Example</summary>
 
 ```sql {1}
 SELECT rpad('aaa', 10, 'b');
@@ -513,18 +513,18 @@ SELECT rpad('aaa', 10, 'b');
 
 </details>
 
-**相关函数：**[lpad](#lpad)
+**Related functions:**[lpad](#lpad)
 
 ## rtrim
 
-从字符串中删除右侧空格。
+Remove trailing spaces from a string.
 
 ```sql
 rtrim(str)
 ```
 
 <details>
-  <summary>查看 <code>rtrim</code> 示例</summary>
+  <summary>View <code>rtrim</code> Example</summary>
 
 ```sql {1}
 SELECT rtrim('aaabbb', 'b');
@@ -537,24 +537,24 @@ SELECT rtrim('aaabbb', 'b');
 
 </details>
 
-**相关函数：**[btrim](#btrim), [ltrim](#ltrim), [trim](#trim)
+**Related functions**: [btrim](#btrim), [ltrim](#ltrim), [trim](#trim)
 
 ## split_part
 
-根据指定分隔符分割字符串，并返回指定位置的子字符串。
+Splits a string based on a specified delimiter and returns the substring in the specified position.
 
 ```sql
 split_part(str, delimiter, pos)
 ```
 
-| Parameters  | Description                          |
-| ----------- | ------------------------------------ |
-| `str`       | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
-| `delimiter` | 要分割的字符串或字符。                          |
-| `pos`       | 要返回的部分的位置。                           |
+| Parameters  | Description                                                                                                                                  |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`       | String expression to repeat.Can be a constant, column, or function, and any combination of string operators. |
+| `delimiter` | String or character to split on.                                                                                             |
+| `pos`       | Position of the part to return.                                                                                              |
 
 <details>
-  <summary>查看 <code>split_part</code> 示例</summary>
+  <summary>View <code>split_part</code> Example</summary>
 
 ```sql {1}
 SELECT split_part('abc|def|ghi', '|', 2);
@@ -569,14 +569,14 @@ SELECT split_part('abc|def|ghi', '|', 2);
 
 ## starts_with
 
-测试字符串是否以子字符串开头。
+Tests if a string starts with a substring.
 
 ```sql
 starts_with(str, substr)
 ```
 
 <details>
-  <summary>查看 <code>split_part</code> 示例</summary>
+  <summary>View <code>split_part</code> Example</summary>
 
 ```sql
 SELECT starts_with('abcdefg', 'abc');
@@ -591,16 +591,16 @@ SELECT starts_with('abcdefg', 'abc');
 
 ## strpos
 
-返回字符串中指定子字符串的起始位置。位置从 1 开始。如果字符串中不存在该子字符串，则该函数返回 0。
+Returns the starting position of a specified substring in a string.Positions begin at 1.If the substring does not exist in the string, the function returns 0.
 
 ```sql
 strpos(str, substr)
 ```
 
-等价于 [instr](#instr)
+Equivalent to [instr](#instr)
 
 <details>
-  <summary>查看 <code>strpos</code> 示例</summary>
+  <summary>View <code>strpos</code> Example</summary>
 
 ```sql {1}
 SELECT strpos('abcdef', 'def');
@@ -615,20 +615,20 @@ SELECT strpos('abcdef', 'def');
 
 ## substr
 
-从字符串中的特定起始位置提取指定数量的字符的子字符串。
+Extracts a substring of a specified number of characters from a specific starting position in a string.
 
 ```sql
 substr(str, start_pos[, length])
 ```
 
-| Parameters  | Description                          |
-| ----------- | ------------------------------------ |
-| `str`       | 要重复的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
-| `start_pos` | 子字符串开始的字符位置。字符串中第一个字符的位置为 1。         |
-| `length`    | 要提取的字符数。如果未指定，则返回起始位置之后的字符串的其余部分。    |
+| Parameters  | Description                                                                                                                                  |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `str`       | String expression to repeat.Can be a constant, column, or function, and any combination of string operators. |
+| `start_pos` | Character position to start the substring at.The first character in the string has a position of 1.          |
+| `length`    | Number of characters to extract.If not specified, returns the rest of the string after the start position.   |
 
 <details>
-  <summary>查看 <code>substr</code> 示例</summary>
+  <summary>View <code>substr</code> Example</summary>
 
 ```sql {1}
 SELECT substr('abcdef', 4, 3);
@@ -643,18 +643,18 @@ SELECT substr('abcdef', 4, 3);
 
 ## to_hex
 
-将整数转换为十六进制字符串。
+Converts an integer to a hexadecimal string.
 
 ```sql
 to_hex(int)
 ```
 
-| Parameters | Description                                                                                                    |
-| ---------- | -------------------------------------------------------------------------------------------------------------- |
-| `int`      | 要转换的整数表达式。Can be a constant, column, or function, and any combination of arithmetic operators. |
+| Parameters | Description                                                                                                                                        |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `int`      | Integer expression to convert.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>to_hex</code> 示例</summary>
+  <summary>View <code>to_hex</code> Example</summary>
 
 ```sql {1}
 SELECT to_hex(100);
@@ -669,20 +669,20 @@ SELECT to_hex(100);
 
 ## translate
 
-将字符串中的字符翻译为指定的翻译字符。
+Translates characters in a string to specified translation characters.
 
 ```sql
 translate(str, chars, translation)
 ```
 
-| Parameters    | Description                          |
-| ------------- | ------------------------------------ |
-| `str`         | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
-| `char`        | 要翻译的字符。                              |
-| `translation` | 翻译字符。翻译字符仅替换字符串中相同位置的字符。             |
+| Parameters    | Description                                                                                                                                      |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `str`         | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
+| `char`        | Characters to translate.                                                                                                         |
+| `translation` | Translation characters.Translation characters replace only characters at the same position in the chars string.  |
 
 <details>
-  <summary>查看 <code>translate</code> 示例</summary>
+  <summary>View <code>translate</code> Example</summary>
 
 ```sql {1}
 SELECT translate('aaabbb', 'bbb', 'ccc');
@@ -697,18 +697,18 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 
 ## trim
 
-删除字符串中的前导空格和尾随空格。
+Remove leading and trailing spaces from a string.
 
 ```sql
 trim(str)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
+| Parameters | Description                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>trim</code> 示例</summary>
+  <summary>View <code>trim</code> Example</summary>
 
 ```sql {1}
 SELECT trim('    abc    ');
@@ -721,22 +721,22 @@ SELECT trim('    abc    ');
 
 </details>
 
-**相关函数：**[btrim](#btrim), [ltrim](#ltrim), [rtrim](#rtrim)
+**Related functions**: [btrim](#btrim), [ltrim](#ltrim), [rtrim](#rtrim)
 
 ## upper
 
-将字符串转换为大写。
+Converts a string to upper-case.
 
 ```sql
 upper(str)
 ```
 
-| Parameters | Description                          |
-| ---------- | ------------------------------------ |
-| `str`      | 要操作的字符串表达式。可以是常量、列或函数，以及字符串运算符的任意组合。 |
+| Parameters | Description                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>upper</code> 示例</summary>
+  <summary>View <code>substr</code> Example</summary>
 
 ```sql {1}
 SELECT upper('cnosdb');
@@ -749,18 +749,18 @@ SELECT upper('cnosdb');
 
 </details>
 
-相关函数：[initcap](#initcap), [lower](#lower)
+Related functions:\*\*[initcap](#initcap), [lower](#lower)
 
 ## uuid
 
-返回每行唯一的 UUID v4 字符串值。
+Returns UUID v4 string value which is unique per row.
 
 ```sql
 uuid()
 ```
 
 <details>
-  <summary>查看 <code>uuid</code> 示例</summary>
+  <summary>View <code>uuid</code> Example</summary>
 
 ```sql {1}
 SELECT uuid();
