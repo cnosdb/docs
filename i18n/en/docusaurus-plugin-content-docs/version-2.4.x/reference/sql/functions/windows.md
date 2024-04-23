@@ -119,11 +119,11 @@ RANGE and GROUPS modes require an ORDER BY clause (for RANGE, ORDER BY must spec
 
 All [aggregate functions](./aggregate.md) can be used as window functions.
 
-## 排名函数
+## Ranking Functions
 
 ### row_number
 
-返回其分区内的当前行数，从1开始计数。
+Number of the current row within its partition, counting from 1.
 
 ```sql
 row_number()
@@ -131,7 +131,7 @@ row_number()
 
 ### rank
 
-返回当前行的排名，包含间隔;即对等组中第一行的 row_number 。
+Rank of the current row with gaps; same as row_number of its first peer.
 
 ```sql
 rank()
@@ -139,7 +139,7 @@ rank()
 
 ### dense_rank
 
-返回当前行的排名，不包括间隔;这个功能有效地计数对等组。
+Rank of the current row without gaps; this function counts peer groups.
 
 ```sql
 dense_rank()
@@ -147,13 +147,13 @@ dense_rank()
 
 ### ntile
 
-返回一个从1到参数值的整数，并将分区划分为尽可能相等的值。
+Integer ranging from 1 to the argument value, dividing the partition as equally as possible.
 
 ```sql
 ntile(expression)
 ```
 
-## 分析函数
+## Analytical functions
 
 ### cume_dist
 
