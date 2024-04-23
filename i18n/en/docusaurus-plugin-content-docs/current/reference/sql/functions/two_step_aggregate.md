@@ -98,7 +98,7 @@ SELECT stats_agg(y, x) FROM test_stats;
 | `sum_y`,` sum_x`                     | Calculate the sum from a two-dimensional statistical aggregate for the dimension specified.                                              |
 | `stddev_samp_y`, `stddev_samp_x`     | Calculate the standard deviation of the specified dimension after two-dimensional statistical aggregation, with the method being sample. |
 | `stddev_pop_y`, `stddev_pop_x`       | Calculate the standard deviation from a two-dimensional statistical aggregate for the dimension specified, method is population.         |
-| `var_samp_y`,` var_samp_x`           | 计算二维统计聚合后指定维度的方差，方式为 sample。                                                                                                                             |
+| `var_samp_y`,` var_samp_x`           | Calculate the variance of the specified dimension after two-dimensional statistical aggregation, with the method being sample.           |
 | `var_pop_y`,` var_pop_x`             | Calculate the variance from a two-dimensional statistical aggregate for the dimension specified, method is population.                   |
 | `skewness_samp_y`, `skewness_samp_x` | Calculate the skewness value of the specified dimension after two-dimensional statistical aggregation, with the method being sample.     |
 | `skewness_pop_y`, `skewness_pop_x`   | Calculate the skewness value of the specified dimension after two-dimensional statistical aggregation, method is population.             |
@@ -142,7 +142,7 @@ gauge_agg(time, numeric_expression)
 | `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>gauge_agg</code> 示例</summary>
+  <summary>View <code>gauge_agg</code> Example</summary>
 
 ```sql {1}
 SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
@@ -157,35 +157,35 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 
 </details>
 
-**`gauge_agg` 支持以下二次聚合的函数**
+**`gauge_agg` supports the following functions for two-step aggregation**
 
 <Tabs groupId="editions">
 
 <TabItem value="Community" label="社区版">
 
-| Function       | Description                                   |
-| -------------- | --------------------------------------------- |
-| `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。 |
-| `time_delta`   | 获取持续时间，最后一个 Gauge 的时间减去第一个 Gauge 的时间。         |
-| `rate`         | 计算 Gauge 变化和时间变化的比率。                          |
-| `idelta_left`  | 计算 Gauge 最早的瞬时变化。这等于第二个值减去第一个值。               |
-| `idelta_right` | 计算 Gauge 最晚的瞬时变化。这等于最后一个值值减去倒数第二个值。           |
+| Function       | Description                                                                                                                                                                       |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `delta`        | Obtain the changes of Gauge within a period of time.This is a simple increment, calculated by subtracting the last seen value from the first one. |
+| `time_delta`   | Get the duration, subtract the time of the last Gauge from the time of the first Gauge.                                                                           |
+| `rate`         | Calculate the ratio of Gauge changes to time changes.                                                                                                             |
+| `idelta_left`  | Calculate the earliest instantaneous change of Gauge.This is equal to the second value minus the first value.                                     |
+| `idelta_right` | Calculate the latest instantaneous change of Gauge.This is equal to the last value minus the penultimate value.                                   |
 
 </TabItem>
 
 <TabItem value="Enterprise" label="企业版">
 
-| Function       | Description                                   |
-| -------------- | --------------------------------------------- |
-| `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。 |
-| `time_delta`   | 获取持续时间，最后一个 Gauge 的时间减去第一个 Gauge 的时间。         |
-| `rate`         | 计算 Gauge 变化和时间变化的比率。                          |
-| `first_time`   | 取得 Gauge 中最小的时间戳。                             |
-| `last_time`    | 取得 Gauge 中最大的时间戳。                             |
-| `first_val`    | 取得 Gauge 中最小时间戳对应的值。                          |
-| `last_val`     | 取得 Gauge 中最大时间戳对应的值。                          |
-| `idelta_left`  | 计算 Gauge 最早的瞬时变化。这等于第二个值减去第一个值。               |
-| `idelta_right` | 计算 Gauge 最晚的瞬时变化。这等于最后一个值值减去倒数第二个值。           |
+| Function       | Description                                                                                                                                                                       |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `delta`        | Obtain the changes of Gauge within a period of time.This is a simple increment, calculated by subtracting the last seen value from the first one. |
+| `time_delta`   | Get the duration, subtract the time of the last Gauge from the time of the first Gauge.                                                                           |
+| `rate`         | Calculate the ratio of Gauge changes to time changes.                                                                                                             |
+| `first_time`   | Get the minimum timestamp in the Gauge.                                                                                                                           |
+| `last_time`    | Get the maximum timestamp in the Gauge.                                                                                                                           |
+| `first_val`    | Get the value corresponding to the minimum timestamp in the Gauge.                                                                                                |
+| `last_val`     | Get the value corresponding to the maximum timestamp in the Gauge.                                                                                                |
+| `idelta_left`  | Calculate the earliest instantaneous change of Gauge.This is equal to the second value minus the first value.                                     |
+| `idelta_right` | Calculate the latest instantaneous change of Gauge.This is equal to the last value minus the penultimate value.                                   |
 
 </TabItem>
 
@@ -193,7 +193,7 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 
 ### compact_state_agg
 
-给定一个在离散状态之间切换的系统或值，汇总每个状态所花费的时间。例如，您可以使用`compact_state_agg`函数来跟踪系统在`error`、`running`或`starting`状态下花费的时间。
+Given a system or value that switches between discrete states, summarize the time spent in each state.For example, you can use the `compact_state_agg` function to track the time the system spends in `error`, `running`, or `starting` states.
 
 ```sql
 compact_state_agg(time_expression, state)
@@ -204,9 +204,9 @@ compact_state_agg(time_expression, state)
 | `time_expression` | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>compact_state_agg</code> 示例</summary>
+  <summary>View <code>compact_state_agg</code> Example</summary>
 
-**示例数据集如下：**
+**The example dataset is as follows:**
 
 ```sql {1,2,3}
 CREATE TABLE states(state STRING);
@@ -224,7 +224,7 @@ SELECT * FROM states;
 +---------------------+----------+
 ```
 
-**使用 `compact_state_agg` 函数聚合：**
+**Aggregate using the `compact_state_agg` function:**
 
 ```sql {1}
 SELECT compact_state_agg(time, state) FROM states;
@@ -237,11 +237,11 @@ SELECT compact_state_agg(time, state) FROM states;
 
 </details>
 
-**以上示例将状态数据汇总在一起，以便进一步分析，`compact_state_agg` 支持如下二次聚合函数：**
+**The above example aggregates the state data together for further analysis, `compact_state_agg` supports the following two-step aggregation functions:**
 
-| Function                      | Description                      |
-| ----------------------------- | -------------------------------- |
-| [`duration_in`](#duration_in) | 统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间。 |
+| Function                      | Description                                                                                                                            |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| [`duration_in`](#duration_in) | Calculate the duration of a certain state, or calculate the duration of a certain state within a specific time period. |
 
 #### duration_in
 
@@ -249,15 +249,15 @@ SELECT compact_state_agg(time, state) FROM states;
 duration_in(state_agg_data, state [,begin_time, interval_time]) 
 ```
 
-| Options          | Description                                                                     |
-| ---------------- | ------------------------------------------------------------------------------- |
-| `state_agg_data` | `state_agg_data` 函数返回的结果集。                                                      |
-| `state`          | any 与 compact_state_agg 的 state 类型相同。 |
-| `begin_time`     | 可选，指定时间段内的开始时间。                                                                 |
-| `interval_time`  | 可选，指定时间段的持续时间，不指定时，时间段为无穷大。                                                     |
+| Options          | Description                                                                                                           |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `state_agg_data` | Result set returned by the `state_agg_data` function.                                                 |
+| `state`          | The state type of any is the same as compact_state_agg.     |
+| `begin_time`     | Optional, specifies the start time within the specified time period.                                  |
+| `interval_time`  | Optional, specifies the duration of the time period, when not specified, the time period is infinite. |
 
 <details>
-  <summary>查看 <code>duration_in</code> 示例</summary>
+  <summary>View <code>duration_in</code> Example</summary>
 
 ```sql {1}
 SELECT duration_in(compact_state_agg(time, state), 'running') FROM states;
@@ -272,18 +272,18 @@ SELECT duration_in(compact_state_agg(time, state), 'running') FROM states;
 
 ### state_agg
 
-给定一个在离散状态之间切换的系统或值，跟踪状态之间的转换。
+Given a system or value that switches between discrete states, track transitions between states.
 
 ```sql
 state_agg(time_expression, state)
 ```
 
-统计每个状态所花费的时间。
+Calculate the time spent in each state.
 
 <details>
-  <summary>查看 <code>state_agg</code> 示例</summary>
+  <summary>View <code>state_agg</code> Example</summary>
 
-**示例数据集如下：**
+**The example dataset is as follows:**
 
 ```sql {1,2,3}
 CREATE TABLE states(state STRING);
@@ -301,7 +301,7 @@ SELECT * FROM states;
 +---------------------+----------+
 ```
 
-**使用 `state_agg` 函数聚合：**
+**Use `state_agg` function to aggregate:**
 
 ```sql {1}
 SELECT state_agg(time, state) FROM states;
@@ -314,12 +314,12 @@ SELECT state_agg(time, state) FROM states;
 
 </details>
 
-**以上示例将状态数据汇总在一起，以便进一步分析，`state_agg` 支持如下二次聚合函数：**
+**The above example aggregates the state data together for further analysis, `state_agg` supports the following two-step aggregation functions:**
 
-| Function                                   | Description                      |
-| ------------------------------------------ | -------------------------------- |
-| [`duration_in`](#duration_in-1)            | 统计某个状态的持续时间，或统计某个状态在某个时间段内的持续时间。 |
-| [state_at](#state_at) | 统计一时刻所处的状态。                      |
+| Function                                   | Description                                                                                                                            |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| [`duration_in`](#duration_in-1)            | Calculate the duration of a certain state, or calculate the duration of a certain state within a specific time period. |
+| [state_at](#state_at) | Statistics are in a state of affairs at a time.                                                                        |
 
 #### duration_in
 
@@ -327,17 +327,17 @@ SELECT state_agg(time, state) FROM states;
 duration_in(state_agg_data, state [,begin_time, interval_time]) 
 ```
 
-| Options          | Description                                 |
-| ---------------- | ------------------------------------------- |
-| `state_agg_data` | `state_agg` 函数返回的结果集。                       |
-| `state`          | `any` 与 `compact_state_agg` 的 `state` 类型相同。 |
-| `begin_time`     | 可选，指定时间段内的开始时间。                             |
-| `interval_time`  | 可选，指定时间段的持续时间，不指定时，时间段为无穷大。                 |
+| Options          | Description                                                                                                           |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `state_agg_data` | Result set returned by the `state_agg` function.                                                      |
+| `state`          | The state type of `any` is the same as `compact_state_agg`.                                           |
+| `begin_time`     | Optional, specifies the start time within the specified time period.                                  |
+| `interval_time`  | Optional, specifies the duration of the time period, when not specified, the time period is infinite. |
 
 <details>
-  <summary>查看 <code>duration_in</code> 示例</summary>
+  <summary>View <code>duration_in</code> Example</summary>
 
-\*\*统计 'running' 状态的持续时间。
+\*\*Calculate the duration of the 'running' status.
 
 ```sql {1}
 SELECT duration_in(state_agg(time, state), 'running') FROM states;
@@ -348,7 +348,7 @@ SELECT duration_in(state_agg(time, state), 'running') FROM states;
 +------------------------------------------------------------------+
 ```
 
-**统计从 '2020-01-01 11:00:00' 开始 'running' 状态的持续时间。**
+**Calculate the duration of the 'running' state starting from '2020-01-01 11:00:00'.**
 
 ```sql {1}
 SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00') FROM states;
@@ -359,7 +359,7 @@ SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:0
 +----------------------------------------------------------------------------------------------+
 ```
 
-**统计 从2020-01-01 11:00:00 开始的四天内 'running' 状态的持续时间。**
+**Calculate the duration of the 'running' state starting from 2020-01-01 11:00:00 within four days.**
 
 ```sql {1}
 SELECT duration_in(state_agg(time, state), 'running', Timestamp '2020-01-01 11:00:00', interval '4 day') FROM states;
@@ -380,11 +380,11 @@ state_at(state_agg_data, time_expression)
 
 | Options           | Description                                                                                                                                         |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state_agg_data`  | `state_agg` 函数返回的结果集。                                                                                                                               |
+| `state_agg_data`  | Result set returned by the `state_agg` function.                                                                                    |
 | `time_expression` | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 
 <details>
-  <summary>查看 <code>state_at</code> 示例</summary>
+  <summary>View <code>state_at</code> Example</summary>
 
 ```sql {1}
 SELECT state_at(state_agg(time, state), Timestamp '2020-01-01 10:30:00') FROM states;
@@ -407,16 +407,16 @@ SELECT state_at(state_agg(time, state), Timestamp '2020-01-01 10:30:00') FROM st
 
 ### candlestick_agg
 
-进行金融资产数据分析，能得到股票的开盘价和收盘价，以及最低和最高价。
+Conduct financial asset data analysis, can obtain the opening and closing prices of stocks, as well as the lowest and highest prices.
 
 ```sql
 candlestick_agg(time, price, volume)
 ```
 
 <details>
-  <summary>查看 <code>candlestick_agg</code> 示例</summary>
+  <summary>View <code>candlestick_agg</code> Example</summary>
 
-**示例数据集如下：**
+**The example dataset is as follows:**
 
 ```sql {1-3}
 CREATE TABLE IF NOT EXISTS tick(price bigint ,volume bigint);
@@ -436,7 +436,7 @@ SELECT * FROM tick;
 +-------------------------+-------+--------+
 ```
 
-**使用 `candlestick_agg` 进行聚合。**
+**Use `candlestick_agg` for aggregation.**
 
 ```sql {1}
 SELECT candlestick_agg(time, price, volume) FROM tick;
@@ -449,20 +449,20 @@ SELECT candlestick_agg(time, price, volume) FROM tick;
 
 </details>
 
-**可以在上述示例中分别提取开盘价、收盘价等。支持的函数有：**
+**You can extract the opening price, closing price, etc. separately in the above example.Supported functions include:**
 
-| Function     | Description |
-| ------------ | ----------- |
-| `close`      | 收盘价。        |
-| `close_time` | 收盘时间。       |
-| `high`       | 最高价。        |
-| `high_time`  | 最高价时间。      |
-| `low`        | 最低价。        |
-| `low_time`   | 最低价时间。      |
-| `open`       | 开盘价。        |
-| `open_time`  | 开盘时间。       |
-| `volume`     | 总成加量。       |
-| `vwap`       | 成交量加权平均价格。  |
+| Function     | Description                                    |
+| ------------ | ---------------------------------------------- |
+| `close`      | Closing price.                 |
+| `close_time` | Closing time.                  |
+| `high`       | High price.                    |
+| `high_time`  | High price time.               |
+| `low`        | Low price.                     |
+| `low_time`   | Low price time.                |
+| `open`       | Opening price.                 |
+| `open_time`  | Opening time.                  |
+| `volume`     | Total cumulative.              |
+| `vwap`       | Volume Weighted Average Price. |
 
 <details>
   <summary>View example</summary>
