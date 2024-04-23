@@ -2,9 +2,9 @@
 sidebar_position: 3
 ---
 
-# 字符串函数
+# String Functions
 
-字符串函数是用于处理和操作文本字符串的函数集合。它们包括字符串连接、字符串分割、字符串查找和替换、字符串长度计算等操作。字符串函数可以帮助你处理和转换文本数据，进行字符串匹配和处理。
+String functions are a collection of functions used to handle and manipulate text strings.They include operations such as string concatenation, string splitting, string searching and replacing, and string length calculation.String functions can help you manipulate and transform text data, perform string matching and processing.
 
 ## ascii
 
