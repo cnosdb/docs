@@ -2,14 +2,14 @@
 sidebar_position: 10
 ---
 
-# 其他函数
+# Other Functions
 
-其他功能函数包括一些不属于以上分类的通用函数。
+Other functional functions include some general functions that do not belong to the above categories.
 
 ## arrow_cast
 
-`arrow_cast` 的作用是将数据从一种类型转换为另一种类型。
+The purpose of `arrow_cast` is to convert data from one type to another type.
 
 ## arrow_typeof
 
-返回表达式的底层 [Arrow 数据类型](../data_type#支持的-arrow-类型)。
+Return the underlying [Arrow data type](../data_type#supported-arrow-types) of the expression.
