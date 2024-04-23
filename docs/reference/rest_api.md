@@ -181,7 +181,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 ... ...
 ```
 
-### `/apv/v1/es/write`
+### `/api/v1/es/write`
 
 #### 请求方法
 
@@ -198,22 +198,21 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - `db`：数据库名称（可选，默认 `public`）
 - `tanent`：租户名称（可选，默认`cnosdb`）
 - `table`: 表名称 (必填)
-- `msg_field`: 输入日志中消息列 (可选, 默认`_msg`。 如果同时没有`_msg`列和`msg_field`会报错)
-- `time_field`: 输入日志中时间列 (可选， 默认`_time`。 如果同时没有使用当前时间)
+- `time_column`: 指定日志中时间列名称 (可选, 默认`time`。 如果同时没有`time`列和`time_column`会使用当前时间)
+- `tag_columns`: 指定日志中多个tag列 (可选，如果没有指定则全部按field列存储)
 
 #### 请求体
 
-- ES bulk格式 目前仅支持 index和create，其中create会建表，如果表存在会报错并且后续指令不再执行；index则是无表就创建写入，有表就直接写入
+- ES bulk格式，目前仅支持index和create，其中create会建表，如果表存在会报错并且后续指令不再执行；index则是无表就创建写入，有表就直接写入
 参考:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
 #### 请求示例
 
 ```bash
-echo '{"create":{}}
-{"msg":"test", "time":"2024-03-27T02:51:11.687Z"}
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
+{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"index":{}}
-{"msg":"test", "time":"2024-03-27T02:51:11.688Z"}
-' | curl -X POST -u "username:password" --data-binary @- 'http://127.0.0.1:8902/api/v1/es/write?table=test&msg_field=msg&time_field=time'
+{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
 #### 请求成功
@@ -221,9 +220,20 @@ echo '{"create":{}}
 HTTP/1.1 200 OK
 content-length: 0
 date: Sat, 08 Oct 2022 06:59:38 GMT
+```
 
-or
+```bash
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
+{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
+{"create":{}}
+{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
+```
+第二个create指令执行时发现表存在，因此第一个指令执行成功，第二个指令执行失败
 
+```
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
 The 2th command fails because the table tablename already exists and cannot be created repeatedly
 ```
 
