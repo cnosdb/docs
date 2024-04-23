@@ -5,9 +5,9 @@ sidebar_position: 6
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# 两步聚合
+# Two-step aggregation
 
-首先，通过使用聚合函数创建一个中间聚合，而不是在一步中计算最终结果。然后，使用分析函数计算最终结果。
+First, create an intermediate aggregation by using aggregate functions instead of calculating the final result in one step.Then, calculate the final result using analytic functions.
 
 <Tabs groupId="editions">
 
@@ -19,11 +19,11 @@ import TabItem from '@theme/TabItem';
 
 ### stats_agg
 
-对二维数据执行线性回归分析，例如计算相关系数和协方差。 并且还可以分别计算每个维度的常见统计数据，将数据聚合成中间统计聚合形式，以便进行进一步计算。
+Perform linear regression analysis on two-dimensional data, such as calculating correlation coefficients and covariance. And you can also separately calculate the common statistical data of each dimension, aggregate the data into an intermediate statistical aggregation form for further calculation.
 
 :::tip
 
-只有 `x` 和 `y` 都不为空时才会纳入聚合。
+Aggregation will only occur when both `x` and `y` are not empty.
 
 :::
 
@@ -31,15 +31,15 @@ import TabItem from '@theme/TabItem';
 stats_agg(y, x)
 ```
 
-| Options | Description        |
-| ------- | ------------------ |
-| `y`     | 要进行统计聚合的数据集中的`y`值。 |
-| `x`     | 要进行统计聚合的数据集中的`x`值。 |
+| Options | Description                                                                           |
+| ------- | ------------------------------------------------------------------------------------- |
+| `y`     | The `y` values in the dataset to be used for statistical aggregation. |
+| `x`     | The `x` values in the dataset to be used for statistical aggregation. |
 
 <details>
-  <summary>查看 <code>stats_agg</code> 示例</summary>
+  <summary>View <code>stats_agg</code> Example</summary>
 
-**示例数据集。**
+**Sample Data.**
 
 ```sql {1}
 SELECT * FROM test_stats;
@@ -59,7 +59,7 @@ SELECT * FROM test_stats;
 +-------------------------------+---+---+
 ```
 
-**使用 `stats_agg` 聚合结果。**
+**Use `stats_agg` to aggregate results.**
 
 ```sql {1}
 SELECT stats_agg(y, x) FROM test_stats;
@@ -70,7 +70,7 @@ SELECT stats_agg(y, x) FROM test_stats;
 +------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
-**以上结果返回了一个结果集，每个返回值的解释分别为：**
+**The above results returned a result set, with explanations for each return value respectively:**
 
 ```sql
 { 
@@ -89,27 +89,27 @@ SELECT stats_agg(y, x) FROM test_stats;
 
  
 
-**`stats_agg` 支持以下二次聚合的函数**
+**`stats_agg` supports the following functions for two-step aggregation**
 
-| Function                             | Description                       |
-| ------------------------------------ | --------------------------------- |
-| `num_vals`                           | 计算二维统计总量中的数值个数。                   |
-| `average_y`, `average_x`             | 计算二维统计聚合后指定维度的平均值。                |
-| `sum_y`,` sum_x`                     | 计算二维统计聚合后指定维度的和，方式为 population。   |
-| `stddev_samp_y`, `stddev_samp_x`     | 计算二维统计聚合后指定维度的标准差，方式为 sample。     |
-| `stddev_pop_y`, `stddev_pop_x`       | 计算二维统计聚合后指定维度的标准差，方式为 population。 |
-| `var_samp_y`,` var_samp_x`           | 计算二维统计聚合后指定维度的方差，方式为 sample。      |
-| `var_pop_y`,` var_pop_x`             | 计算二维统计聚合后指定维度的方差，方式为 population。  |
-| `skewness_samp_y`, `skewness_samp_x` | 计算二维统计聚合后指定维度的偏度值，方式为 sample。     |
-| `skewness_pop_y`, `skewness_pop_x`   | 计算二维统计聚合后指定维度的偏度值，方式为 population。 |
-| `kurtosis_samp_y`,` kurtosis_samp_x` | 计算二维统计聚合后指定维度的峰度值，方式为 sample。     |
-| `kurtosis_pop_y`, `kurtosis_pop_x`   | 计算二维统计聚合后指定维度的峰度值，方式为 population。 |
-| `correlation`                        | 计算二维统计聚合后的相关。                     |
-| `covariance_samp`, `covariance_pop`  | 计算二维统计聚合后的协方差。                    |
-| `determination_coeff`                | 计算二维统计聚合后的决定系数。                   |
-| `slope`                              | 根据二维统计聚合，计算线性拟合线的斜率。              |
-| `intercept`                          | 计算二维统计聚合后y的截距。                    |
-| `x_intercept`                        | 计算二维统计聚合后x的截距。                    |
+| Function                             | Description                                                                                                     |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `num_vals`                           | Calculate the number of values in a two-dimensional statistical aggregate.                      |
+| `average_y`, `average_x`             | Calculate the average from a two-dimensional statistical aggregate for the dimension specified. |
+| `sum_y`,` sum_x`                     | Calculate the sum from a two-dimensional statistical aggregate for the dimension specified.     |
+| `stddev_samp_y`, `stddev_samp_x`     | 计算二维统计聚合后指定维度的标准差，方式为 sample。                                                                                   |
+| `stddev_pop_y`, `stddev_pop_x`       | 计算二维统计聚合后指定维度的标准差，方式为 population。                                                                               |
+| `var_samp_y`,` var_samp_x`           | 计算二维统计聚合后指定维度的方差，方式为 sample。                                                                                    |
+| `var_pop_y`,` var_pop_x`             | 计算二维统计聚合后指定维度的方差，方式为 population。                                                                                |
+| `skewness_samp_y`, `skewness_samp_x` | 计算二维统计聚合后指定维度的偏度值，方式为 sample。                                                                                   |
+| `skewness_pop_y`, `skewness_pop_x`   | 计算二维统计聚合后指定维度的偏度值，方式为 population。                                                                               |
+| `kurtosis_samp_y`,` kurtosis_samp_x` | 计算二维统计聚合后指定维度的峰度值，方式为 sample。                                                                                   |
+| `kurtosis_pop_y`, `kurtosis_pop_x`   | 计算二维统计聚合后指定维度的峰度值，方式为 population。                                                                               |
+| `correlation`                        | 计算二维统计聚合后的相关。                                                                                                   |
+| `covariance_samp`, `covariance_pop`  | 计算二维统计聚合后的协方差。                                                                                                  |
+| `determination_coeff`                | 计算二维统计聚合后的决定系数。                                                                                                 |
+| `slope`                              | 根据二维统计聚合，计算线性拟合线的斜率。                                                                                            |
+| `intercept`                          | 计算二维统计聚合后y的截距。                                                                                                  |
+| `x_intercept`                        | 计算二维统计聚合后x的截距。                                                                                                  |
 
 <details>
   <summary>查看二次聚合的示例</summary>
