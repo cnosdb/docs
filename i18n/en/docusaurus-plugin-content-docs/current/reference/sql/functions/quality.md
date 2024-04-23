@@ -4,12 +4,12 @@ sidebar_position: 9
 
 # Quality functions
 
-用于评估时间序列数据的质量
+Used to assess the quality of time series data
 
-## 示例数据集
+## Sample Data
 
 <details>
-  <summary>点击查看</summary>
+  <summary>View example</summary>
 
 ```sql {1-3}
 CREATE TABLE wzz(value double);
@@ -40,11 +40,11 @@ SELECT * FROM wzz;
 
 ## completeness
 
-用于计算时间序列的完整性，其衡量的是数据不缺失的比例。
+Used to calculate the integrity of time series, which measures the proportion of data that is not missing.
 
 :::tip
 
-函数 completeness 首先统计数据的行数 cnt 。然后考虑了数据列中可能出现的 NaN 和 Inf 的情况，对其进行线性平滑处理，同时统计上述两种特殊值计数 specialcnt 。再通过扫描数据统计缺失计数 misscnt 。则完整性 completeness 的计算公式
+The function `completeness` first counts the number of rows of data, cnt.Then consider the possibility of NaN and Inf in the data column, perform linear smoothing on them, and count the special values specialcnt.Then scan the data to calculate the missing count misscnt.The formula for calculating completeness is
 
 $$
 1 - \frac{misscnt + specialcnt} {cnt + misscnt}
@@ -64,9 +64,9 @@ completeness(time_expresion, numeric_expression)
 <details>
   <summary>View example</summary>
 
-以下示例使用本文开始的 [示例数据集](#示例数据集)
+The following example uses the [example data](#example-data) that starts this document.
 
-**查询时序数据的完整性：**
+**Querying the integrity of time series data:**
 
 ```sql {1}
 SELECT completeness(time, value) FROM wzz;
@@ -81,7 +81,7 @@ SELECT completeness(time, value) FROM wzz;
 
 ## consistency
 
-计算时间序列的一致性，其衡量的是时序数据均匀分布的不密集冗余的比例。
+Calculate the consistency of time series, which measures the proportion of sparsely redundant evenly distributed time series data.
 
 ```sql
 consistency(time_expresion, numeric_expression)
@@ -94,7 +94,7 @@ consistency(time_expresion, numeric_expression)
 
 :::tip
 
-同函数 `completeness` ，经过缺失值填充后，通过扫描数据统计出冗余计数 redundancy 。则一致性 consistency 的计算公式：
+With the same function `completeness`, after missing value filling, redundancy is calculated by scanning the data for redundant counts.The calculation formula for consistency consistency is:
 
 $$
 1 - \frac{redundancycnt} {cnt}
@@ -105,7 +105,7 @@ $$
 <details>
   <summary>View example</summary>
 
-以下示例使用本文开始的[示例数据集](#示例数据集)
+The following example uses the [example data](#example-data) that starts this document.
 
 ```sql {1}
 SELECT consistency(time, value) FROM wzz;
@@ -120,7 +120,7 @@ SELECT consistency(time, value) FROM wzz;
 
 ## timeliness
 
-用于计算时间序列的时效性，其衡量的是时序数据按时到达不延迟的比例。
+Used to calculate the timeliness of time series, which measures the proportion of timely arrival of time series data without delay.
 
 ```sql
 timeliness(time_expresion, numeric_expression)
@@ -133,7 +133,7 @@ timeliness(time_expresion, numeric_expression)
 
 :::tip
 
-同函数 `completeness` ，经过缺失值填充后，通过扫描数据统计出延迟计数 latecnt 。则时效性 `timeliness` 的计算公式：
+With the same function `completeness`, after missing value filling, latecnt is calculated by scanning the data for redundant counts.The calculation formula for timeliness `timeliness`:
 
 $$
 1 - \frac{latecnt}{cnt}
@@ -144,7 +144,7 @@ $$
 <details>
   <summary>View example</summary>
 
-以下示例使用本文开始的[示例数据集](#示例数据集)
+The following example uses the [example data](#example-data) that starts this document.
 
 ```sql {1}
 SELECT timeliness(time, value) FROM wzz;
@@ -159,7 +159,7 @@ SELECT timeliness(time, value) FROM wzz;
 
 ## validity
 
-用于计算时间序列的有效性，其衡量的是数据满足约束条件的比例。
+Used to calculate the effectiveness of time series, which measures the proportion of data satisfying the constraints.
 
 ```sql
 validity(time_expresion, numeric_expression)
@@ -182,7 +182,7 @@ $$
 <details>
   <summary>View example</summary>
 
-以下示例使用本文开始的[示例数据集](#示例数据集)
+The following example uses the [example data](#example-data) that starts this document.
 
 ```sql {1}
 SELECT validity(time, value) FROM wzz;
