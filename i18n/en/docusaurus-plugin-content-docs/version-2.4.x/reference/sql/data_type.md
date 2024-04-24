@@ -76,7 +76,7 @@ CnosDB can only store partial data types, for detailed information please refer 
 | -------------- | --------------- |
 | `BYTEA`        | `Binary`        |
 
-## Geo Types
+## Geospatial Type
 
 CnosDB uses [WKT (Well-known text)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) to support **geospatial type ([Geometry](https://en.wikipedia.org/wiki/Geometry))** data queries.
 
