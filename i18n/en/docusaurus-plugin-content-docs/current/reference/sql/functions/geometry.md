@@ -4,13 +4,13 @@ sidebar_position: 8
 
 import APITable from '@site/src/components/APITable';
 
-# 地理空间函数
+# Geospatial Functions
 
-空间函数是用于处理和操作三维空间数据的函数集合。
+Geospatial functions are a collection of functions used to handle and manipulate three-dimensional spatial data.
 
 CnosDB uses [WKT (Well-known text)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) to support **geospatial type ([Geometry](https://en.wikipedia.org/wiki/Geometry))** data queries.
 
-支持的类型请参考 [地理空间类型](../data_type.md#地理空间类型)
+Please refer to [Geospatial Types](../data_type.md#Geospatial_Types) for supported types
 
 ```sql
 <geometry tag> <wkt data>
@@ -45,7 +45,7 @@ CnosDB uses [WKT (Well-known text)](https://en.wikipedia.org/wiki/Well-known_tex
 
 ## ST_AsBinary
 
-将空间几何对象 Geometry 以 [WKB](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) 格式返回。
+Return the spatial geometry object Geometry in [WKB](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) format.
 
 ```sql
 ST_AsBinary(geometry)
@@ -89,7 +89,7 @@ SELECT ST_GeomFromWKB(ST_AsBinary('POINT(0 3)'));
 
 ## ST_Distance
 
-返回两个几何体的 2D 投影之间的最小欧氏距离。
+Returns the minimum Euclidean distance between the 2D projections of two geometric shapes.
 
 ```sql
 ST_Distance(geometry1, gemometry2)
@@ -135,10 +135,10 @@ SELECT ST_Distance('POLYGON((0 2,1 1,0 -1,0 2))', 'POLYGON((-1 -3,-2 -1,0 -3,-1 
 
 ## ST_Area
 
-返回几何对象 2D 投影的笛卡尔面积。面积单位与用于表示输入几何体坐标的单位相同。 For `Point`, `LineString`, `MultiPoint`, and `MultiLineString, Line`, this function returns 0. 对于几何体集合，它返回集合中几何体的面积之和。
+Returns the Cartesian area of the 2D projection of the geometric object.The unit of area is the same as the unit used to represent the coordinates of the input geometry. For `Point`, `LineString`, `MultiPoint`, and `MultiLineString, Line`, this function returns 0. For a collection of geometric shapes, it returns the sum of the areas of the shapes in the collection.
 
 :::tip
-部分几何图形不支持计算面积，对这些几何体计算面积会返回 0，如：`Point`、`MultiPoint`、`LineString`、`MultiLineString、Line`。 If the parameter content format is invalid, the return value is `NULL`.
+Some geometric shapes do not support area calculation, calculating the area of these geometric objects will return 0, such as: `Point`, `MultiPoint`, `LineString`, `MultiLineString, Line`. If the parameter content format is invalid, the return value is `NULL`.
 :::
 
 ```sql
@@ -161,7 +161,7 @@ SELECT ST_Area('POLYGON ((40 40, 20 45, 45 30, 40 40))');
 
 ## ST_Equals
 
-比较两个几何体，如果两个几何体完全相同，则返回 `true`。
+Compare two geometric shapes, if two geometric shapes are exactly the same, return `true`.
 
 :::tip
 `ST_Equals(A, B)` is equivalent to `ST_Within(A, B)` && `ST_Within(B, A)`
@@ -187,7 +187,7 @@ select ST_Equals('LINESTRING(0 0, 10 10)', 'LINESTRING(0 0, 5 5, 10 10)') st_equ
 
 ## ST_Contains
 
-如果几何对象A包含几何对象B，返回 `true`。
+If geometric object A contains geometric object B, return `true`.
 
 ```sql
 ST_Contains(A, B)
@@ -209,7 +209,7 @@ select ST_Contains('POLYGON((0 0,0 3,3 0,0 0))', 'POLYGON((0 0,0 1,1 0,0 0))') s
 
 ## ST_Intersects
 
-如果两个几何对象相交，则返回 `true`。
+If two geometric objects intersect, return `true`.
 
 `ST_Intersects(A, B)`
 
@@ -229,7 +229,7 @@ select ST_Intersects('LINESTRING(3 2, 7 6)', 'LINESTRING(3 4, 8 4)') st_intersec
 
 ## ST_Disjoint
 
-如果两个几何对象不相接，返回 `true`。
+If two geometric objects do not intersect, return `true`.
 
 `ST_Disjoint(A, B)`
 
