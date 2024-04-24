@@ -42,6 +42,24 @@ alter user dev set granted_admin = true;
 alter user dev set granted_admin = false;
 ```
 
+**赋予用户一个角色**
+
+> 为角色添加权限请参考 [`GRANT`](../reference/sql/dcl#grant)
+
+```sql
+ALTER TENANT cnosdb ADD USER user_a AS rrr;
+```
+
+此时用户 `user_a` 就被赋予了租户 `cnsodb` 的 `rrr` 角色。
+
+**移除用户身上的角色**
+
+```sql
+ALTER TENANT cnosdb REMOVE USER user_a;
+```
+
+此时用户 `user_a` 就失去了租户 `cnosdb` 下角色 `rrr`，将不再能访问租户中的任何信息。
+
 **租户**是 CnosDB 中共享相同数据库实例的独立组织或个体，每个租户拥有自己的数据和资源，与其他租户之间相互隔离。
 
 **用户**是可以连接到数据库的账户，每个用户具有特定的权限，这些权限来源于租户下的角色。同一个账户可以在不同的组织下担任不同的职务，这映射的即是 CnosDB 中 租户，角色，和用户之间的关系。
