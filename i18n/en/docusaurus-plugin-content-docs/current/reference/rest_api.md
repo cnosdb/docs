@@ -196,13 +196,13 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - `db`: Database name (optional, default is `public`).
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
-- `time_column`: 指定日志中时间列名称 (可选, 默认`time`。 如果同时没有`time`列和`time_column`会使用当前时间)
-- `tag_columns`: 指定日志中多个tag列 (可选，如果没有指定则全部按field列存储)
+- `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
+- `tag_columns`: Specifies multiple tag columns in the log (optional, if not specified, all will be stored in field columns)
 
 #### Request body
 
-- ES bulk格式，目前仅支持index和create，其中create会建表，如果表存在会报错并且后续指令不再执行；index则是无表就创建写入，有表就直接写入
-  参考:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+- ES bulk format currently supports only indexes and creates, in which create forms will form and write if they exist and subsequent instructions are not executed; indexes are written without a tabul, and are written directly to
+  reference:[bulk](https://www.elastic.co/guidelin/en/elasticsearch/reference/current/docs-bulk.html).
 
 #### Example
 
@@ -228,7 +228,7 @@ curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?tab
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
-第二个create指令执行时发现表存在，因此第一个指令执行成功，第二个指令执行失败
+The first instruction executed successfully when the second create instruction found the table already exists, so the first instruction succeeded and the second instruction failed
 
 ```
 HTTP/1.1 200 OK
