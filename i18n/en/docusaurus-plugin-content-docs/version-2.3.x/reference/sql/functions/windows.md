@@ -157,7 +157,7 @@ ntile(expression)
 
 ### cume_dist
 
-返回累积分布，也就是(当前行之前或对等的分区行数)/(总的分区行数)。取值范围为1/N 到 1。
+Return cumulative distribution, that is, (the number of rows before or equal to the current row)/(total number of rows in the partition).The value range is from 1/N to 1.
 
 ```sql
 cume_dist()
@@ -165,7 +165,7 @@ cume_dist()
 
 ### percent_rank
 
-返回当前行的相对排名，即(rank - 1) / (总的分区行数 - 1)。因此，该值的范围从0到1(包含在内)。
+Returns the relative ranking of the current row, i.e. (rank - 1) / (total number of partition rows - 1).Therefore, the value range is from 0 to 1 (inclusive).
 
 ```sql
 percent_rank()
@@ -173,7 +173,7 @@ percent_rank()
 
 ### lag
 
-返回分区中在当前行之前offset行的value;如果没有这样的行，则返回default(必须与value相兼容的类型)。 offset和default都是针对当前行求值的。 如果省略，offset默认为1，default为NULL。
+Return the value of the offset rows before the current row in the partition; if there is no such row, return default (must be compatible with the value type). Both offset and default are evaluated against the current row. If omitted, offset defaults to 1, default to NULL.
 
 ```sql
 lag(expression, offset, default)
@@ -181,7 +181,7 @@ lag(expression, offset, default)
 
 ### lead
 
-返回分区中在当前行之后offset行的value； 如果没有这样的行，则返回default(必须与value兼容的类型)。 offset和default都是针对当前行求值的。 如果省略，offset默认为1，default为NULL。
+Return the value of the offset rows after the current row in the partition; if there is no such row, return default (must be compatible with the value type). Both offset and default are evaluated against the current row. If omitted, offset defaults to 1, default to NULL.
 
 ```sql
 lead(expression, offset, default)
@@ -189,7 +189,7 @@ lead(expression, offset, default)
 
 ### first_value
 
-返回在窗口框架的第一行求得的value。
+Returns the value obtained in the first row of the window frame.
 
 ```sql
 first_value(expression)
@@ -197,7 +197,7 @@ first_value(expression)
 
 ### last_value
 
-返回在窗口框架的最后一行求得的value。
+Returns the value obtained in the last row of the window frame.
 
 ```sql
 last_value(expression)
