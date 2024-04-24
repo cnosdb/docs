@@ -24,7 +24,7 @@ SELECT current_user();
 
 ## current_tenant
 
-返回当前数据库会话的租户名。
+Returns the tenant name of the current database session.
 
 ```sql
 SELECT current_tenant();
@@ -32,7 +32,7 @@ SELECT current_tenant();
 
 ## current_role
 
-当前用户在当前租户下的角色(不存在会返回NULL)
+The role of the current user in the current tenant (NULL will be returned if it does not exist)
 
 ```sql
 SELECT current_role();
@@ -40,7 +40,7 @@ SELECT current_role();
 
 ## current_database
 
-返回当前操作的数据库名称。
+Return the name of the current database operation.
 
 ```sql
 SELECT current_database();
@@ -48,7 +48,7 @@ SELECT current_database();
 
 ## @@cluster_name
 
-集群名称。
+Cluster name.
 
 ```sql
 SELECT @@cluster_name;
@@ -56,7 +56,7 @@ SELECT @@cluster_name;
 
 ## @@server_version
 
-服务器版本。
+Server version.
 
 ```
 SELECT @@server_version;
@@ -64,7 +64,7 @@ SELECT @@server_version;
 
 ## @@deployment_mode
 
-部署模式。
+Deployment mode.
 
 ```sql
 SELECT @@deployment_mode;
@@ -72,7 +72,7 @@ SELECT @@deployment_mode;
 
 ## @@node_id
 
-当前节点 ID。
+Current node ID.
 
 ```sql
 SELECT @@node_id;
