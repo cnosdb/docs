@@ -201,8 +201,8 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 #### Request body
 
-- ES bulk format currently supports only indexes and creates, in which create forms will form and write if they exist and subsequent instructions are not executed; indexes are written without a tabul, and are written directly to
-  reference:[bulk](https://www.elastic.co/guidelin/en/elasticsearch/reference/current/docs-bulk.html).
+- ES bulk format, currently only supports index and create, where create will create a table, if the table exists an error will be reported and subsequent instructions will not be executed; index is to write without a table, directly write if there is a table
+  reference:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
 #### Example
 
