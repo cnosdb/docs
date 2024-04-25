@@ -180,7 +180,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 
 </details>
 
-## `CREATE STREAM TABLE `
+## `CREATE STREAM TABLE`
 
 :::tip
 Need a `source` table, STREAM table does not support `ALTER`
