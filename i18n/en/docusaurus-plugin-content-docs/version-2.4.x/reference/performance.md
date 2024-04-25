@@ -33,7 +33,7 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 
 2. Install CnosDB:
 
-   参照部署文档：[Docker安装CnosDB](../deploy)
+   Refer to the deployment document: [Docker Install CnosDB](../deploy)
 
 3. Test InfluxDB writes
 
