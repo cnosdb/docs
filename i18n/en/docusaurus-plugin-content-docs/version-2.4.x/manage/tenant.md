@@ -44,7 +44,7 @@ CREATE
 TENANT [IF NOT EXISTS] tenant_name WITH [comment = ''];
 ```
 
-_limiter： 限制租户资源用量，可以参见[租户资源](https://docs.cnosdb.com/zh/latest/manage/resource_limit)
+_limiter: Limits the amount of tenant resources that can be used, see [Tenant Resources](https://docs.cnosdb.com/en/latest/manage/resource_limit)
 
 **Example**
 
@@ -97,7 +97,7 @@ DROP TENANT tenant_name [AFTER '7d'];
 
 When not with AFTER, it will be deleted immediately.
 
-When with AFTER, it is delayed deletion, which will be deleted after the specified time. The time supports days (d), hours (h), and minutes (m), such as 10d, 50h, 100m. When there is no unit, the default is day. The tenant is not visible and unavailable during the delayed deletion period.延迟删除期间租户不可见且不可用。
+When with AFTER, it is delayed deletion, which will be deleted after the specified time. The time supports days (d), hours (h), and minutes (m), such as 10d, 50h, 100m. When there is no unit, the default is day. The tenant is not visible and unavailable during the delayed deletion period.During the delay deletion period, the tenant is not visible and not accessible.
 
 #### Syntax
 
