@@ -7,25 +7,25 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import APITable from '@site/src/components/APITable';
 
-This chapter introduces the method of configuring CnosDB configuration.
+CnosDB Meta Configuration
 
 The configuration adopts TOML syntax.
 
 > TOML Syntax Reference: [https://toml.io](https://toml.io/cn/v1.0.0)
 
-You can use the `cnosdb config` command to create a default configuration file, for example:
+You can use `cnosdb config` command to create a default config file (v2.2.0), for example:
 
 ```shell
 cnosdb run config > ./config.toml
 ```
 
-Use the `cnosdb check server-config <path>` command to check if the configuration file is valid, for example:
+You can use `cnosdb check server-config <path>` command to check a config file (v2.2.0), for example:
 
 ```shell
 cnosdb check server-config ./config.toml
 ```
 
-Start the configuration file using the `cnosdb` command:
+Whether to enable Wal, default: false
 
 > If the user does not specify, the program first looks for the configuration in `/etc/cnosdb/cnosdb.conf`, `$HOME/cnosdb/cnosdb.conf`, and if not found, uses the default configuration.
 
@@ -33,7 +33,7 @@ Start the configuration file using the `cnosdb` command:
 cnosdb --config ./cnosdb.conf
 ```
 
-The priority of configurations in CnosDB is: specified parameters > environment variables > specified configuration file > `/etc/cnosdb/cnosdb.conf` > `$HOME/cnosdb/cnosdb.conf` > default configuration
+You can set this as True to shut down information collection at the top of the configuration file.
 
 ## Environment Variables
 
@@ -49,7 +49,7 @@ CNOSDB_REPORTING_DISABLED=false
 
 This section introduces the configuration method and usage of each configuration.
 
-### Configuration
+### `[trace]` fFull link tracing configuration
 
 ```mdx-code-block
 <APITable>
@@ -73,11 +73,11 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters | Default                    | Environment Variables | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---------- | -------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | `query_tskv`               | `CNOSDB_MODE`         | Deployment mode, optional: `tskv`, `query`, `query_tskv`, `singleton`.  `tskv`: Deploying only the `tskv` engine requires specifying a Meta service address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
-| `cpu`      | Equivalent Node Core Count | `CNOSDB_CPU`          | Number of CPU cores used by the node to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `memory`   | Equivalent nodes CPU       | `CNOSDB_MEMORY`       | Maximum memory used by the node during operation, unit: (G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Parameters | Default                    | Environment Variables | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------- | -------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `query_tskv`               | `CNOSDB_MODE`         | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv`  `tskv` : Deploying only tskv engine requires specifying a meta address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
+| `cpu`      | Equivalent Node Core Count | `CNOSDB_CPU`          | Number of CPU cores used by the node to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `memory`   | Equivalent nodes CPU       | `CNOSDB_MEMORY`       | Maximum memory used by the node during operation, unit: (G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ```mdx-code-block
 </APITable>
@@ -186,15 +186,15 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters   | Default | Environment Variables | Description       |
-| ------------ | ------- | --------------------- | ----------------- |
-| `tls_config` | None    | `CNOSDB_TLS_CONFIG`   | TLS Configuration |
+| Parameters   | Default | Environment Variables | Description                 |
+| ------------ | ------- | --------------------- | --------------------------- |
+| `tls_config` | None    | `CNOSDB_TLS_CONFIG`   | Optional, TLS configuration |
 
 ```mdx-code-block
 </APITable>
 ```
 
-### `[security.tls_config]` (optional)
+### \[security.tls_config]
 
 ```mdx-code-block
 <APITable>
@@ -317,7 +317,7 @@ This section introduces the configuration method and usage of each configuration
 </APITable>
 ```
 
-### `[trace.log]` (optional)
+### \[trace.log] (optional)
 
 ```mdx-code-block
 <APITable>
@@ -331,7 +331,7 @@ This section introduces the configuration method and usage of each configuration
 </APITable>
 ```
 
-### `[trace.jaeger]` (optional)
+### \[trace.jaeger] (optional)
 
 ```mdx-code-block
 <APITable>
@@ -349,7 +349,7 @@ This section introduces the configuration method and usage of each configuration
 
 ## `meta` file description
 
-### Configuration
+### `[trace]` fFull link tracing configuration
 
 ```mdx-code-block
 <APITable>
