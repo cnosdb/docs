@@ -41,23 +41,23 @@ alter user dev set granted_admin = true;
 alter user dev set granted_admin = false;
 ```
 
-**赋予用户一个角色**
+**Assign a role to the user**
 
-> 为角色添加权限请参考 [`GRANT`](../reference/sql/dcl#grant)
+> To add permissions to a role, please refer to [`GRANT`](../reference/sql/dcl#grant)
 
 ```sql
 ALTER TENANT cnosdb ADD USER user_a AS rrr;
 ```
 
-此时用户 `user_a` 就被赋予了租户 `cnsodb` 的 `rrr` 角色。
+At this time, the user `user_a` is assigned the `rrr` role of the `cnsodb` tenant.
 
-**移除用户身上的角色**
+**Remove roles from users**
 
 ```sql
 ALTER TENANT cnosdb REMOVE USER user_a;
 ```
 
-此时用户 `user_a` 就失去了租户 `cnosdb` 下角色 `rrr`，将不再能访问租户中的任何信息。
+At this time, user `user_a` loses the role `rrr` under the tenant `cnosdb`, and will no longer be able to access any information in the tenant.
 
 **Tenant** is an independent organization or individual in CnosDB that shares the same database instance. Each tenant has its own data and resources, isolated from other tenants.
 
