@@ -29,7 +29,7 @@ CnosDB 在 meta 集群中做了如下的一些优化：
 **Tskv**：存储服务，主要负责数据的存储和 sql 物理计划的执行。
 
 ## 数据管理
-Cnosdb 中对于数据的管理采用的是 **DB+Time_range** 分片规则，通过在[建库](../../reference/sql.md#创建数据库)的时候指定 bucket 数量来设置分片数，并利用时序数据的自身属性（timeline），按照设定的间隔将时间数据切割成 Vnode ，最后将每个 Vnode 落入到 bucket 当中进行存储，图示如下。
+Cnosdb 中对于数据的管理采用的是 **DB+Time_range** 分片规则，通过在[建库](../../reference/sql/ddl.md#create-database)的时候指定 bucket 数量来设置分片数，并利用时序数据的自身属性（timeline），按照设定的间隔将时间数据切割成 Vnode ，最后将每个 Vnode 落入到 bucket 当中进行存储，图示如下。
 
 ![数据分片](/img/buket.jpg)
 

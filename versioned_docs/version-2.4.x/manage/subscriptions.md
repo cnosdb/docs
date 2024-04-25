@@ -135,7 +135,7 @@ DROP SUBSCRIPTION test ON public;
 
 ## 将数据发送到 telegraf
 
-> 关于 Telegraf 的使用方法，以及如何安装 Telegraf，见 [Telegraf 章节](/eco-integration/index/telegraf#cnos-telegraf)。
+> 关于 Telegraf 的使用方法，以及如何安装 Telegraf，见 [Telegraf 章节](/eco-integration/telegraf#cnos-telegraf)。
 
 修改 `telegraf` 配置文件，增加如下配置，监听 `8803`端口
 

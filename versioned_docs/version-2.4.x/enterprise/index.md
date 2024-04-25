@@ -12,14 +12,14 @@ sidebar_position: 7
 
 - [订阅管理](../manage/subscriptions.md)
 
-- [节点管理](../manage/node_manage.md)
+- [集群管理](../manage/cluster_manage.md)
 
 - [告警管理](../manage/alarm_manage.md)
 
 - [数据分布策略](../manage/placement_policy.md)
 
 - 高阶函数
-  - [candlestick_agg](../reference/sql.md#candlestick-agg)
-  * [gauge_agg](../reference/sql.md#gauge-agg)
-  * [asap_smooth](../reference/sql.md#asap-smooth)
-  * [stats_agg](../reference/sql.md#stats-agg)
+    - [candlestick_agg](../reference/sql/functions/two_step_aggregate#candlestick_agg)
+    * [gauge_agg](../reference/sql/functions/two_step_aggregate#gauge_agg)
+    * [asap_smooth](../reference/sql/functions/aggregate#asap_smooth)
+    * [stats_agg](../reference/sql/functions/two_step_aggregate#state_agg)

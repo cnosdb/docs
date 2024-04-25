@@ -37,7 +37,7 @@ CREATE TENANT test;
 
 ## `CREATE USER`
 
-`CREATE USER ` 用于创建新用户。
+`CREATE USER` 用于创建新用户。
 
 通过使用 `CREATE USER` 语句，管理员可以在 CnosDB 中创建新用户，并为其分配相应的权限和角色。新用户可以用于访问数据库、执行查询、更新数据等操作，具体权限取决于管理员为用户分配的权限级别。
 
