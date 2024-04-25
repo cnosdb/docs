@@ -13,19 +13,19 @@ The configuration adopts TOML syntax.
 
 > TOML Syntax Reference: [https://toml.io](https://toml.io/cn/v1.0.0)
 
-You can use the `cnosdb config` command to create a default configuration file, for example:
+You can use `cnosdb config` command to create a default config file (v2.2.0), for example:
 
 ```shell
 cnosdb config > /tmp/config.toml
 ```
 
-Use the `cnosdb check server-config <path>` command to check if the configuration file is valid, for example:
+You can use `cnosdb check server-config <path>` command to check a config file (v2.2.0), for example:
 
 ```shell
 cnosdb check server-config /tmp/config.toml
 ```
 
-Start the configuration file using the `cnosdb` command:
+Whether to enable Wal, default: false
 
 ```
 cnosdb --config ./cnosdb.conf
@@ -33,7 +33,7 @@ cnosdb --config ./cnosdb.conf
 
 ## The detailed configuration file description is as follows:
 
-### Configuration
+### `[trace]` fFull link tracing configuration
 
 <Tabs groupId="editions">
 
@@ -64,11 +64,11 @@ cnosdb --config ./cnosdb.conf
 
 ## `[deployment]`
 
-| Parameters | Default      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | `query_tskv` | Deployment mode, optional: `tskv`, `query`, `query_tskv`, `singleton`.  `tskv`: Deploying only the `tskv` engine requires specifying a Meta service address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
-| `cpu`      | `10`         | Number of CPU cores used by the node to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `memory`   | `16`         | Maximum memory used by the node during operation, unit: (G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Parameters | Default      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `query_tskv` | Deployment mode, select from [`tskv`,`query`, `query_tskv`, `singleton`], default: `query_tskv`  `tskv` : Deploying only tskv engine requires specifying a meta address. `query` : Deploying only the query engine requires specifying a meta address. `query_tskv` : Both query and tskv engines are deployed, and a meta address needs to be specified. `singleton` : Deploying a standalone version without specifying a meta address. |
+| `cpu`      | `10`         | Number of CPU cores used by the node to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `memory`   | `16`         | Maximum memory used by the node during operation, unit: (G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ### `[query]`
 
@@ -129,11 +129,11 @@ cnosdb --config ./cnosdb.conf
 
 ### `[security]`
 
-| Parameters   | Default | Description       |
-| ------------ | ------- | ----------------- |
-| `tls_config` | None    | TLS Configuration |
+| Parameters   | Default | Description                 |
+| ------------ | ------- | --------------------------- |
+| `tls_config` | None    | Optional, TLS configuration |
 
-### `[security.tls_config]` (optional)
+### \[security.tls_config]
 
 | Parameters    | Default | Description             |
 | ------------- | ------- | ----------------------- |
@@ -200,13 +200,13 @@ cnosdb --config ./cnosdb.conf
 | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `auto_generate_span` | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
-### `[trace.log]` (optional)
+### \[trace.log] (optional)
 
 | Parameters | Default           | Description         |
 | ---------- | ----------------- | ------------------- |
 | `path`     | `/var/log/cnosdb` | trace log file path |
 
-### `[trace.jaeger]` (optional)
+### \[trace.jaeger] (optional)
 
 | Parameters               | Default                                    | Description                                                                                                                                                                   |
 | ------------------------ | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -216,7 +216,7 @@ cnosdb --config ./cnosdb.conf
 
 ## `meta` file description
 
-### Configuration
+### `[trace]` fFull link tracing configuration
 
 <Tabs groupId="editions">
 
