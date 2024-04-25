@@ -809,7 +809,7 @@ DESCRIBE DATABASE public;
 ```
 
 [//]: # "## **EXISTS**"
-[//]: # "EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。"
+[//]: # "EXISTS tests whether rows exist in a subquery and returns true when the subquery returns at least one row.If NOT is specified, this condition will return true when the subquery does not return any rows."
 [//]: # "Example:"
 [//]: # "```sql"
 [//]: # "SELECT id  FROM date"
