@@ -110,6 +110,6 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 
 > 有关更多关于数据库的操作请查看：
 >
-> [SQL](../reference/sql.md)
+> [SQL](../reference/sql/index.md)
 >
 > [编程接口](../develop/api.md)

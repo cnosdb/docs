@@ -134,7 +134,7 @@ DROP SUBSCRIPTION test ON public;
 
 ## Send data to telegraf
 
-> You can refer to [Telegraf](/eco-integration/index/telegraf#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
+> You can refer to [Telegraf](/eco-integration/telegraf#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
 
 Modify the `telegraf` configuration file, add the following configuration to listen on port `8803`
 
