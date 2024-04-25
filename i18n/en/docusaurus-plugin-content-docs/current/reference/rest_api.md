@@ -4,7 +4,7 @@
 
 | Status Code | Description                                                                                                      |
 | ----------- | ---------------------------------------------------------------------------------------------------------------- |
-| 200         | Request Succeeded.                                                                               |
+| 200         | Body                                                                                                             |
 | 204         | Request successful, asynchronous operation called successfully, no request result returned.      |
 | 400         | Request failed, parameter error or missing.                                                      |
 | 401         | Request failed, username or password incorrect, or user does not exist.                          |
@@ -32,7 +32,7 @@
 
 #### Parameters
 
-- `db`: Database name (optional, default is `public`).
+- Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `precision`: Time precision (optional, acceptable values are `ms`, `us`, `ns`).
 
@@ -76,9 +76,9 @@ date: Sat, 08 Oct 2022 07:03:33 GMT{'\n'}
 
 #### Parameters
 
-- `db`: Database name (optional, default is `public`).
+- Method
 - API Endpoints
-- `chunked`: Whether to stream the result data.Default is `false`.
+- `chunked`: Whether to stream the result data. Default is `false`.Default is `false`.
 
 #### Example
 
@@ -146,7 +146,7 @@ curl -G 'http://localhost:8902/api/v1/ping'
 
 #### Parameters
 
-- `db`: Database name (optional, default is `public`).
+- Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `precision`: Time precision (optional, acceptable values are `ms`, `us`, `ns`).
 
@@ -193,7 +193,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 #### Parameters
 
-- `db`: Database name (optional, default is `public`).
+- Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
 - `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
