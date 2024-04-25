@@ -238,7 +238,7 @@ ALTER DATABASE oceanic_station SET VNODE_DURATION '7d';
 
 :::tip
 
-支持修改/删除 `FIELD` 类型的列，可以通过 [`DESCRIBE TABLE`](dql#describe) 语法查询列类型。
+Support modifying/deleting columns of `FIELD` types, column types can be queried using the [`DESCRIBE TABLE`](dql#describe) syntax.
 
 Do not support modifying the column name `time`.
 
