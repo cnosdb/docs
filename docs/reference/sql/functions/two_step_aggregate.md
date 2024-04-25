@@ -161,22 +161,6 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 
 **`gauge_agg` 支持以下二次聚合的函数**
 
-<Tabs groupId="editions">
-
-<TabItem value="Community" label="社区版">
-
-| 函数           | 描述                                                         |
-| -------------- | ------------------------------------------------------------ |
-| `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。 |
-| `time_delta`   | 获取持续时间，最后一个 Gauge 的时间减去第一个 Gauge 的时间。 |
-| `rate`         | 计算 Gauge 变化和时间变化的比率。                            |
-| `idelta_left`  | 计算 Gauge 最早的瞬时变化。这等于第二个值减去第一个值。      |
-| `idelta_right` | 计算 Gauge 最晚的瞬时变化。这等于最后一个值值减去倒数第二个值。 |
-
-</TabItem>
-
-<TabItem value="Enterprise" label="企业版">
-
 | 函数           | 描述                                                         |
 | -------------- | ------------------------------------------------------------ |
 | `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。 |
@@ -188,10 +172,6 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 | `last_val`     | 取得 Gauge 中最大时间戳对应的值。                            |
 | `idelta_left`  | 计算 Gauge 最早的瞬时变化。这等于第二个值减去第一个值。      |
 | `idelta_right` | 计算 Gauge 最晚的瞬时变化。这等于最后一个值值减去倒数第二个值。 |
-
-</TabItem>
-
-</Tabs>
 
 ### compact_state_agg
 
