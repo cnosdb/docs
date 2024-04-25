@@ -48,21 +48,19 @@ curl -i -u "username:password" -XPOST "http://localhost:8902/api/v1/write?db=exa
 
 ##### 请求成功
 
-<pre>
-  <a/>
+```
   HTTP/1.1 200 OK{'\n'}
   content-length: 0{'\n'}
   date: Sat, 08 Oct 2022 06:59:38 GMT{'\n'}
-</pre>
+```
 
 ##### 请求失败
 
-<pre>
-  <a/>
+```
 HTTP/1.1 500 Internal Server Error{'\n'}
 content-length: 0{'\n'}
 date: Sat, 08 Oct 2022 07:03:33 GMT{'\n'}
-</pre>
+```
 
 ### `/api/v1/sql`
 
