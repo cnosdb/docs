@@ -99,39 +99,41 @@ curl -X POST http:/127.0.0.1:30001/api/v1/alert/config/rule
 
 ```shell
 {
-    "tenant": "cnosdb", # 被查询数据所在cnosdb中的租户
-    "data": {
-        "enabled": "on", # 告警规则的初始执行状态，【“on”， “off“】
-        "dbname": "public", #  被查询数据所在数据库
-        "sqlType": 1, # 选择sql类型，本地推荐 1，使用sqlCmd参数中的完整sql进行查询
-        "sqlCmd": "select cpu, avg(usage_user) from cpu where time >= now() - interval '20' SECOND group by cpu", # 与sqlType 1配合使用
-        "period": "15s", # 查询执行周期，由数字➕ 【‘s'，’m‘，’h‘，’d‘】组成
-        "thresholds": [ # 阈值设置
+    “tenant”: “cnosdb”, # the tenant in cnosdb where the queried data resides
+    “data”: {
+        “enabled”: “on”, # Initial execution status of the alert rule, [“on”, “off”
+        “dbname”: “public”, # Database of the queried data
+        “sqlType”: 1, # Select the sql type, locally 1 is recommended, use the full sql in the sqlCmd parameter to query.
+        “sqlCmd”: “select cpu, avg(usage_user) from cpu where time >= now() - interval ‘20’ SECOND group by cpu”, # work with sqlType 1
+        “period”: “15s”, # Query execution period, composed of ➕ ['s', 'm', 'h', 'd'].
+        “thresholds”: [ # Threshold setting
             {
-                "checks": [ # 查询结果需要进行的检查
+                “checks”: [ # Checks to be performed on the query result.
                     {
-                        "value": "0.2", # 一个比较值
-                        "operator": 1 # 一个比较运算，-2: 小于等于， -1: 小于， 0: 等于， 1: 大于， 2: 大于等于
+                        “value”: “0.2”, # a comparison value
+                        “operator”: 1 # A comparison operator, -2: less than, -1: less than, 0: equal to, 1: greater than, 2: greater than
                     }
-                ],
-                "period": "Automation", # 通知任务执行周期，【’Automation', 'Hourly', 'Daily','Weekly']，其中Automation为一分钟一次
-                "severity": "Medium", # 告警级别
-                "endtools": [ # 接收终端
+                ], “period”: “Automation”.
+                “period”: “Automation”, # Notify the task execution period, ['Automation', 'Hourly', 'Daily', 'Weekly'], where Automation is once a minute.
+                “severity”: “Medium”, # alert level
+                “endtools”: [ # receiving endpoints
                     {
-                        "name": "slack", # 终端命名
-                        "receiver": "https://hooks.slack.com/services/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", # slack需要用户提供webhookurl，twitter则需要用户提供校验key
-                        "format": "", # 配置通知内容的格式，具体参考后续示例
-                        "tool": "slack" # 终端类型
+                        “name”: “slack”, # Terminal name
+                        “receiver”: “https://hooks.slack.com/services/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”, # slack requires a webhook url from the user, twitter requires a checksum key from the user Twitter requires the user to provide a verification key
+                        “format”: “”, # Configure the format of the notification content, refer to the following example
+                        “tool”: “slack” # Terminal type.
                     }
-                ],
-                "checkrelation": 0 # checks可以有多个，通过relation确定check之间的逻辑关系，0为或运算，1为与运算
+                ], # Configure the format of the notification content, refer to the following example.
+                “checkrelation”: 0 # Checks can be multiple, the logical relationship between checks is determined by the relation, 0 is an or operation, 1 is an and operation.
             }
         ],
-        "name": "cpu new", # rule名字
-        "description": "cpu local demo", # 描述
-        "field": "AVG(cpu.usage_user)", # 查询结果被用来比较的字段
+        “name”: “cpu new”, # rule name
+        “description”: “cpu local demo”, # description
+        “field”: “AVG(cpu.usage_user)”, # Field that the query results are compared against
     }
 }
+
+Translated with DeepL.com (free version)
 ```
 
 **Request Succeeded**
