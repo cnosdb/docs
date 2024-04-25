@@ -314,9 +314,9 @@ cnosdb-tool inspect wal [OPTIONS] <PATH>
 - `--from-seq <NUMBER>` - start global sequence number of the data block.
 - `--to-seq <NUMBER>` - end global sequence number of the data block.
 - `--action <ACTION>` - filter data by action, options: `write`，`delete`，`delete-vnode`，`delete-table`，`update-series-keys`。
-- `--tenant <STRING>` - filter data by Tenant.
+- `--tenant <STRING>` - filter data blocks by Tenant.
 - `--db <STRING>` - filter data by Database.
-- `--vnode <NUMBER>` - filter data by Vnode.
+- `--vnode <NUMBER>` - filter data blocks by Vnode.
 - `--table <STRING>` - filter data by Table.
 
 Examples:
@@ -445,8 +445,8 @@ Options:
 - `<PATH>` - file path.
 - `--from` - start position of the data block.
 - `--to` - end position of the data block.
-- `--tenant <STRING>` - filter data by Tenant.
-- `--vnode <NUMBER>` - filter data by Vnode.
+- `--tenant <STRING>` - filter data blocks by Tenant.
+- `--vnode <NUMBER>` - filter data blocks by Vnode.
 
 Examples:
 
