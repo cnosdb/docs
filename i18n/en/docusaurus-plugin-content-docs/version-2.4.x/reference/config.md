@@ -39,12 +39,12 @@ cnosdb --config ./cnosdb.conf
 
 <TabItem value="Community" label="社区版">
 
-| Parameters               | Default     | Description                                                                                                                                                                                                                                                                          |
-| ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `reporting_disabled`     | `false`     | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.每24小时上报一次数据，每条包含的字段为： 实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
-| `raft_logs_to_keep`      | `5000`      | Raft 日志保留条数，且每隔这些次数写入做一次 snapshot。                                                                                                                                                                                                                                                   |
-| `using_raft_replication` | `false`     | Whether to enable the Raft replication algorithm                                                                                                                                                                                                                                     |
-| `host`                   | `localhost` | Used to communicate with other nodes.                                                                                                                                                                                                                                |
+| Parameters               | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reporting_disabled`     | `false`     | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
+| `raft_logs_to_keep`      | `5000`      | Raft log retention count, and take a snapshot every these times written.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `using_raft_replication` | `false`     | Whether to enable the Raft replication algorithm                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `host`                   | `localhost` | Used to communicate with other nodes.                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 </TabItem>
 
@@ -174,7 +174,7 @@ cnosdb --config ./cnosdb.conf
 | ------------- | ------- | ------------------------------------------------------------------------------------------------ |
 | `cache`       | `1024`  | cache size (bit) before sending and forwarding, default: 1028 |
 | `concurrency` | `8`     | Number of parallel requests to process forward requests.                         |
-| `timeout`     | `300`   | 转发请求的超时时间，单位：`s`。                                                                                |
+| `timeout`     | `300`   | Timeout for forward request, unit: `s`.                          |
 
 </TabItem>
 
@@ -182,9 +182,9 @@ cnosdb --config ./cnosdb.conf
 
 ### `[heartbeat]`
 
-| Parameters                 | Default | Description                             |
-| -------------------------- | ------- | --------------------------------------- |
-| `report_time_interval_sec` | `30`    | 此节点上报心跳、磁盘余量等信息到 `meta` 服务的时间间隔，单位：`s`。 |
+| Parameters                 | Default | Description                                                                                                                                           |
+| -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report_time_interval_sec` | `30`    | Time interval between reporting heart, disk balance and other information on this node to `meta` service in: seconds. |
 
 ### `[node_basic]`
 
