@@ -1,6 +1,5 @@
 ---
-title: Python
-order: 1
+sidebar_position: 1
 ---
 
 # Python
@@ -80,7 +79,7 @@ pip install cnos-connector
 
   conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 
-  conn.create_database_with_ttl("ocean")
+  conn.create_database_with_ttl("ocean", "100000d")
   conn.switch_database("ocean")
 
   conn.write_lines([line0, line1, line2])

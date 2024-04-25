@@ -1,6 +1,5 @@
 ---
-title: 性能测试
-order: 9
+sidebar_position: 7
 ---
 
 # 性能测试

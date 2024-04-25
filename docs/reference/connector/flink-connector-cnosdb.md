@@ -1,6 +1,5 @@
 ---
-title: Flink 连接器
-order: 3
+sidebar_position: 3
 ---
 
 # Flink 连接器

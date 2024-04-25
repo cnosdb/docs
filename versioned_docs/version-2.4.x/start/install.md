@@ -1,6 +1,5 @@
 ---
-title: 安装
-order: 2
+sidebar_position: 1
 ---
 
 # 安装

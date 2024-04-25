@@ -1,6 +1,5 @@
 ---
-title: SQL语法参考手册
-order: 5
+sidebar_position: 3
 ---
 
 # SQL语法参考手册

@@ -1,6 +1,5 @@
 ---
-title: 快速开始
-order: 3
+sidebar_position: 2
 ---
 
 # 快速开始
