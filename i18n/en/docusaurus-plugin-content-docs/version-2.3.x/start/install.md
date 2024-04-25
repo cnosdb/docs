@@ -121,6 +121,6 @@ curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 
 > For more information about database operations, please refer to:
 >
-> [SQL](../reference/sql.md)
+> [SQL](../reference/sql/index.md)
 >
 > [Programming Interface](../develop/api.md)
