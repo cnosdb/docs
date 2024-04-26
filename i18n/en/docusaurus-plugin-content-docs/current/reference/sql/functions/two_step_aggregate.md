@@ -87,7 +87,7 @@ SELECT stats_agg(y, x) FROM test_stats;
 }
 ```
 
- 
+</details>
 
 **`stats_agg` supports the following functions for two-step aggregation**
 
@@ -123,7 +123,7 @@ SELECT stddev_samp_x(stats_agg(y, x)) FROM test_stats;
 +-----------------------------------------------------+
 ```
 
- 
+</details>
 
 </TabItem>
 
