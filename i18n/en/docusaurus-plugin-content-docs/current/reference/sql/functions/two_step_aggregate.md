@@ -159,17 +159,17 @@ SELECT gauge_agg(time, pressure) FROM air GROUP BY date_trunc('month', time);
 
 **`gauge_agg` supports the following functions for two-step aggregation**
 
-| Function       | Description                                                                                                                                                                       |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `delta`        | Obtain the changes of Gauge within a period of time.This is a simple increment, calculated by subtracting the last seen value from the first one. |
-| `time_delta`   | Get the duration, subtract the time of the last Gauge from the time of the first Gauge.                                                                           |
-| `rate`         | Calculate the ratio of Gauge changes to time changes.                                                                                                             |
-| `first_time`   | Get the minimum timestamp in the Gauge.                                                                                                                           |
-| `last_time`    | Get the maximum timestamp in the Gauge.                                                                                                                           |
-| `first_val`    | Get the value corresponding to the minimum timestamp in the Gauge.                                                                                                |
-| `last_val`     | Get the value corresponding to the maximum timestamp in the Gauge.                                                                                                |
-| `idelta_left`  | Calculate the earliest instantaneous change of Gauge.This is equal to the second value minus the first value.                                     |
-| `idelta_right` | Calculate the latest instantaneous change of Gauge.This is equal to the last value minus the penultimate value.                                   |
+| Function       | Description                                                                                                                                     |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `delta`        | 获取一段时间内Gauge的变化。这是简单的增量，通过从第一个值减去最后一个看到的值来计算。                                                                                                   |
+| `time_delta`   | 获取持续时间，最后一个 Gauge 的时间减去第一个 Gauge 的时间。                                                                                                           |
+| `rate`         | 计算 Gauge 变化和时间变化的比率。                                                                                                                            |
+| `first_time`   | Get the minimum timestamp in the Gauge.                                                                                         |
+| `last_time`    | Get the maximum timestamp in the Gauge.                                                                                         |
+| `first_val`    | Get the value corresponding to the minimum timestamp in the Gauge.                                                              |
+| `last_val`     | Get the value corresponding to the maximum timestamp in the Gauge.                                                              |
+| `idelta_left`  | Calculate the earliest instantaneous change of Gauge.This is equal to the second value minus the first value.   |
+| `idelta_right` | Calculate the latest instantaneous change of Gauge.This is equal to the last value minus the penultimate value. |
 
 ### compact_state_agg
 
