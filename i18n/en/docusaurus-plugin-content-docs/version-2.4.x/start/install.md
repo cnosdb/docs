@@ -1,6 +1,5 @@
 ---
-title: Install
-order: 2
+sidebar_position: 1
 ---
 
 # Install
