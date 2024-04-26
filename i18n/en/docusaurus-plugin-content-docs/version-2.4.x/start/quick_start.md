@@ -1,6 +1,5 @@
 ---
-title: Quick start
-order: 3
+sidebar_position: 2
 ---
 
 # Quick start
@@ -347,7 +346,7 @@ FROM air OFFSET 10;
 ```
 
 `OFFSET` can be used with the `LIMIT` statement to specify the number of lines to skip. The format is `LIMIT n OFFSET m`, or it can be abbreviated as LIMIT n, m. LIMIT n controls the output of n rows of data, and OFFSET m indicates the number of rows skipped before starting to return data. OFFSET 0 has the same effect as omitting the OFFSET clause.
-Alias
+Among them: LIMIT n controls the output of n rows of data, OFFSET m indicates the number of rows to skip before starting to return data.
 OFFSET 0 is equivalent to omitting the OFFSET clause.
 
 **Example**
@@ -807,40 +806,3 @@ DESCRIBE DATABASE public;
 | 365 Days | 1     | 365 Days       | 1       | NS        |
 +----------+-------+----------------+---------+-----------+
 ```
-
-[//]: # "## **EXISTS**"
-[//]: # "EXISTS tests whether rows exist in a subquery and returns true when the subquery returns at least one row.If NOT is specified, this condition will return true when the subquery does not return any rows."
-[//]: # "Example:"
-[//]: # "```sql"
-[//]: # "SELECT id  FROM date"
-[//]: # "WHERE EXISTS (SELECT 1 FROM shop"
-[//]: # "WHERE date.id = shop.id)"
-[//]: # "ORDER BY id;"
-[//]: # "```"
-[//]: # "# **DCL (None)**"
-[//]: # "```sql"
-[//]: # "DESCRIBE table_name"
-[//]: # "```"
-[//]: # "TODO SHOW"
-[//]: # "# **SHOW**"
-[//]: # "## **SHOW VARIABLE**"
-[//]: # "```sql"
-[//]: # "-- only support show tables"
-[//]: # "-- SHOW TABLES is not supported unless information_schema is enabled"
-[//]: # "SHOW TABLES"
-[//]: # "```"
-[//]: # "## **SHOW COLUMNS**"
-[//]: #
-[//]: # "```sql"
-[//]: # "-- SHOW COLUMNS with WHERE or LIKE is not supported"
-[//]: # "-- SHOW COLUMNS is not supported unless information_schema is enabled"
-[//]: # "-- treat both FULL and EXTENDED as the same"
-[//]: # "SHOW [ EXTENDED ] [ FULL ]"
-[//]: # "{ COLUMNS | FIELDS }"
-[//]: # "{ FROM | IN }"
-[//]: # "table_name"
-[//]: # "```"
-[//]: # "## **SHOW CREATE TABLE**"
-[//]: # "```sql"
-[//]: # "SHOW CREATE TABLE table_name"
-[//]: # "```"
