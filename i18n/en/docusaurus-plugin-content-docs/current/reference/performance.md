@@ -79,7 +79,7 @@ git clone https://github.com/cnosdb/cnosdb.git
 generate_data --use-case="iot" --seed=123 --scale=4000 --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2022-02-01T00:00:00Z" --log-interval="10s" --format="influxdb" ｜ gzip > /tmp/influxdb-data.gz
 ```
 
-3. www.cnosdb.com
+3. Start CnosDB
 
 ```shell
 docker run --name cnosdb -p 8902:8902 -d --cpus=8 --memory=32g cnosdb/cnosdb:community-latest cnosdb run -M singleton
