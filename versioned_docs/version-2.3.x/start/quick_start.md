@@ -1,6 +1,5 @@
 ---
-title: 快速开始
-order: 3
+sidebar_position: 2
 ---
 
 # 快速开始
@@ -302,7 +301,7 @@ FROM air OFFSET 10;
     +---------------------+-------------+------------+-------------+----------+
 
 `OFFSET`可以和`LIMIT`语句配合使用，用于指定跳过的行数，格式为`LIMIT n OFFSET m`。
-其中：LIMIT n控制输出m行数据，OFFSET m表示在开始返回数据之前跳过的行数。
+其中：LIMIT n控制输出n行数据，OFFSET m表示在开始返回数据之前跳过的行数。
 OFFSET 0与省略OFFSET子句效果相同。
 
 **示例**
@@ -692,40 +691,3 @@ DESCRIBE DATABASE public;
     +----------+-------+----------------+---------+-----------+
     | 365 Days | 1     | 365 Days       | 1       | NS        |
     +----------+-------+----------------+---------+-----------+
-
-[//]: # (## **EXISTS**)
-[//]: # (EXISTS 条件测试子查询中是否存在行，并在子查询返回至少一个行时返回 true。如果指定 NOT，此条件将在子查询未返回任何行时返回 true。)
-[//]: # (示例：)
-[//]: # (```sql)
-[//]: # (SELECT id  FROM date)
-[//]: # (WHERE EXISTS &#40;SELECT 1 FROM shop)
-[//]: # (WHERE date.id = shop.id&#41;)
-[//]: # (ORDER BY id;)
-[//]: # (```)
-[//]: # (# **DCL &#40;无&#41;**)
-[//]: # (```sql)
-[//]: # (DESCRIBE table_name)
-[//]: # (```)
-[//]: # (TODO SHOW)
-[//]: # (# **SHOW**)
-[//]: # (## **SHOW VARIABLE**)
-[//]: # (```sql)
-[//]: # (-- only support show tables)
-[//]: # (-- SHOW TABLES is not supported unless information_schema is enabled)
-[//]: # (SHOW TABLES)
-[//]: # (```)
-[//]: # (## **SHOW COLUMNS**)
-[//]: # ()
-[//]: # (```sql)
-[//]: # (-- SHOW COLUMNS with WHERE or LIKE is not supported)
-[//]: # (-- SHOW COLUMNS is not supported unless information_schema is enabled)
-[//]: # (-- treat both FULL and EXTENDED as the same)
-[//]: # (SHOW [ EXTENDED ] [ FULL ])
-[//]: # ({ COLUMNS | FIELDS })
-[//]: # ({ FROM | IN })
-[//]: # (table_name)
-[//]: # (```)
-[//]: # (## **SHOW CREATE TABLE**)
-[//]: # (```sql)
-[//]: # (SHOW CREATE TABLE table_name)
-[//]: # (```)
