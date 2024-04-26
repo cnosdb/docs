@@ -1,13 +1,12 @@
 ---
-title: Benchmark
-order: 9
+sidebar_position: 7
 ---
 
 # Benchmark
 
 To present CnosDB performance more intuitively, we do performance test of CnosDB and InfluxDB of the same time series database by using [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons).
 
-## 基本信息
+## Basic Information
 
 |                         |                     CnosDB                     |                                  InfluxDB                                  |
 | ----------------------- | :--------------------------------------------: | :------------------------------------------------------------------------: |
