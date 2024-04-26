@@ -64,8 +64,8 @@ When creating/modifying a Database, you can associate it with a specified placem
 
 ```SQL
 create database db with replica 2 placement_policy 'policy1';
-2.3.4版本: alter database db with placement_policy 'policy2';
-2.3.5版本: alter database db set placement_policy 'policy2';
+Version 2.3.4: alter database db with placement_policy 'policy2';
+Version 2.3.5: alter database db set placement_policy 'policy2';
 ```
 
 ## View Policy
