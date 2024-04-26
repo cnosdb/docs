@@ -2,12 +2,10 @@
 sidebar_position: 7
 ---
 
-# Enterprise
+# Enterprise Edition feature
 
-Enterprise features:
-
-::: tip
-To try out the Enterprise features, please contact <a class="color-fg-default" itemprop="email" href="mailto:contact@cnosdb.com">contact@cnosdb.com</a>
+:::tip
+To try out the Enterprise Edition features, please [contact us](https://jinshuju.net/f/qrj9lq).
 :::
 
 - [Tiered Storage](../manage/tiered_storage.md)
@@ -18,8 +16,10 @@ To try out the Enterprise features, please contact <a class="color-fg-default" i
 
 - [Alarm Manage](../manage/alarm_manage.md)
 
-- Advanced SQL
-    - [candlestick_agg](../reference/sql.md#candlestick-agg)
-    * [gauge_agg](../reference/sql.md#gauge-agg)
-    * [asap_smooth](../reference/sql.md#asap-smooth)
-    * [stats_agg](../reference/sql.md#stats-agg)
+- [Placement policy](../manage/placement_policy.md)
+
+- Advanced Functions
+  - [candlestick_agg](../reference/sql.md#candlestick-agg)
+  * [gauge_agg](../reference/sql.md#gauge-agg)
+  * [asap_smooth](../reference/sql.md#asap-smooth)
+  * [stats_agg](../reference/sql.md#stats-agg)

@@ -1,25 +1,16 @@
 ---
-title: Data Migration
-order: 10
+sidebar_position: 4
 ---
 
 # Data Migration
 
-This article mainly introduces how to use DataX based on the cnosdbwriter plugin to import OpenTSDB data into CnosDB.
+This article describes how to use DataX to import data from other data sources into CnosDB.
 
 ## Migration Tool DataX
 
-DataX is Alibaba's open source offline data synchronization tool/platform,
-which can achieve efficient data synchronization between various heterogeneous data sources.
+DataX is Alibaba's open source offline data synchronization tool/platform that enables efficient data synchronization between various heterogeneous data sources.
 
-In order to deal with the differences between different data sources,
-DataX abstracts the synchronization of different data sources into Reader plugins
-that read data from the source data source,
-and Writer plugins that write data to the target side.
-The DataX framework provides general functions such as type conversion and performance statistics between reading and writing plugins.
-Users only need to define Reader plug-in and Writer plug-in through the configuration file,
-which can easily realize heterogeneous data synchronization.
-A typical DataX configuration file looks like this:
+In order to cope with the differences of different data sources, DataX abstracts the synchronization of different data sources into a Reader plug-in that reads data from the source data source and a Writer plug-in that writes data to the target, and the common functions such as type conversion and performance statistics between the read and write plug-ins are provided by the DataX framework.Users can easily synchronize heterogeneous data by defining the Reader plug-in and the Writer plug-in through configuration files.The configuration file of DataX is generally as follows:
 
 ```json
 {
@@ -27,25 +18,24 @@ A typical DataX configuration file looks like this:
         "content": [
             {
                 "reader": {
-                    Reader configuration
+                    Reader 配置
                     ...
                 },
                 "writer": {
-                    Writer configuration
+                    Writer 配置
                     ...
                 }
             }
         ],
         "setting": {
-            other configuration
+            其他配置
             ...
         }
     }
 }
 ```
 
-We provide a Writer plugin CnosDBWriter that you can configure to import data from other data sources into CnosDB via DataX.
-
+We provide a Writer plugin, CnosDBWriter, which you can configure to import data from other data sources into CnosDB via DataX.
 
 ## Introduction to the cnosdbwriter plugin
 
@@ -57,105 +47,91 @@ The plugin cnosdbwriter generates schema-less write statements and sends them to
 
 ### Plugin configuration
 
-| Parameter      | Description                                                                                                                                                                                                             | Required | Default Value                        |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------------------------------------|
-| cnosdbWriteAPI | API of CnosDB write URL, string                                                                                                                                                                                         | No       | `http://127.0.0.1:8902/api/v1/write` |
-| tenant         | Tenant, string                                                                                                                                                                                                          | No       | `cnosdb`                             |
-| database       | Database, string                                                                                                                                                                                                        | No       | `public`                             |
-| username       | Username, string                                                                                                                                                                                                        | No       | `root`                               |
-| password       | Password, string                                                                                                                                                                                                        | No       | `root`                               |
-| batchSize      | Maximum number of rows written to CnosDB per batch, unsigned integer                                                                                                                                                    | No       | `1000`                               |
-| bufferSize     | Maximum number of bytes written to CnosDB per batch, unsigned integer                                                                                                                                                   | No       | `8388608`                            |
-| format         | The format used by the Reader, string This configuration is required if the Reader uses a special format, such as opentsdbreader. Optional values are `datax`, `opentsdb`.                                              | No       | `datax`                              |
-| table          | Table, string; No configuration is required when format is `opentsdb`.                                                                                                                                                  | Yes      | -                                    |
-| tags           | The Map type, which maps the Tag name to the sequence number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`. See the instructions below for the format details. | Yes      | -                                    |
-| fields         | The Map type, which maps the Field name to the number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`. See the instructions below for the format details.        | Yes      | -                                    |
-| timeIndex      | The time field corresponds to the sequence number of the input column, which is an unsigned integer starting from 0. Only works if format is `datax`.                                                                   | Yes      | -                                    |
-| precision      | The timestamp accuracy of the input data, a string The optional values are `s`, `ms`, `us`, and `ns` for seconds, milliseconds, microseconds, and nanoseconds, respectively.                                            | No       | `ms`                                 |
-| tagsExtra      | Map type, configured with additional tags, as an additional column for each row of data, and imported into CnosDB. See the instructions below for the format details.                                                   | No       | -                                    |
-| fieldsExtra    | Map type to configure which tables and columns of CnosDB the data from some columns of reader is output to. Only works if format is `opentsdb`. See the instructions below for the format details.                      | No       | -                                    |
+| Plugin configuration | Description                                                                                                                                                                                                                                                                                                                                                  | Required or Not | Default Value                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------------------------------ |
+| cnosdbWriteAPI       | API of CnosDB write URL, string                                                                                                                                                                                                                                                                                                                              | No              | `http://127.0.0.1:8902/api/v1/write` |
+| tenant               | Tenant, string                                                                                                                                                                                                                                                                                                                                               | No              | `cnosdb`                             |
+| database             | Database, string                                                                                                                                                                                                                                                                                                                                             | No              | `public`                             |
+| username             | Username, string                                                                                                                                                                                                                                                                                                                                             | No              | `root`                               |
+| password             | Password, string                                                                                                                                                                                                                                                                                                                                             | No              | `root`                               |
+| batchSize            | Maximum number of rows written to CnosDB per batch, unsigned integer                                                                                                                                                                                                                                                                                         | No              | `1000`                               |
+| bufferSize           | Maximum number of bytes written to CnosDB per batch, unsigned integer                                                                                                                                                                                                                                                                                        | No              | `8388608`                            |
+| format               | The format used by the Reader, string This configuration is required if the Reader uses a special format, such as opentsdbreader. Optional values are `datax`, `opentsdb`.                                                                                                                                                   | No              | `datax`                              |
+| table                | Table, string; No configuration is required when format is `opentsdb`.                                                                                                                                                                                                                                                                       | Yes             | -                                    |
+| tags                 | The Map type, which maps the Tag name to the sequence number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`. See the instructions below for the format details.See the instructions below for the format details. | Yes             | *                                    |
+| fields               | The Map type, which maps the Field name to the number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`. See the instructions below for the format details.See the instructions below for the format details.        | Yes             | -                                    |
+| timeIndex            | The fieldsExtra configuration is applied at this point in the format `{source column: {"table": target table, "field": target column}}`. The following example shows that the data of OpenTSDB column `cpu_usage` is written to the data column `usage` of CnosDB table                                                                      | Yes             | *                                    |
+| precision            | The timestamp accuracy of the input data, a string The optional values are `s`, `ms`, `us`, and `ns` for seconds, milliseconds, microseconds, and nanoseconds, respectively.                                                                                                                                                                 | No              | `ms`                                 |
 
 Notice:
 
-- When any condition of batchSize and bufferSzie is met, the batch data will be sent to CnosDB immediately, and the buffer will be cleared. For example, when batchSize=1000 and bufferSize=1048576, if the number of rows in the buffer reaches 1000, the data will be sent even if it does not reach 1MB; When the buffer reaches 1MB, if the number of rows does not reach 1000, it will also be sent.
+- When any conditions of the configuration items batchSize and bufferSize are met, the batch data is immediately sent to CnosDB and the buffer is cleared.For example, when batchSize=1000 and bufferSize=1048576, if the number of rows in the buffer reaches 1000, the data will be sent even if it does not reach 1MB; and when the buffer reaches 1MB, the data will be sent even if the number of rows does not reach 1000.
 
-- The default value of format is `datax`, CnosdbWriter will assume that the data format is a table type, so you need to manually set the three configuration items table, tags, fields, timeIndex.
+- The default value of the configuration item format is datax. In this case, the CnosdbWriter assumes the data format is tabular, so you need to manually set the three configuration items: table, tags, fields, and timeIndex.
 
-    - The configuration table specifies which CnosDB table the data should be output to.
+  - The configuration table specifies which CnosDB table the data should be output to.
 
-    - The tags configuration option specifies which columns correspond to CnosDB tag columns in the table type of data. Suppose the first and second columns of the table contain tags with names "host" and "unit", respectively:
+  - The configuration item tags specifies which columns of the table type data correspond to the CnosDB tag column.Assuming the first and second columns of the table are tags, with tag names 'host' and 'unit', you can set it like this:
 
-      ```json
-      "tags": {
-          "host": 1,
-          "unit": 2
-      }
-      ```
+    ```json
+    "tags": {
+        "host": 1,
+        "unit": 2
+    }
+    ```
 
-    - The fields configuration option specifies which columns correspond to CnosDB field columns for table-type data. Suppose the third and fourth columns of the table are fields with the names "usage_min" and "usage_max".You can set them like this:
+  - The configuration item fields specifies which columns of the table type data correspond to the CnosDB field column.Assuming that columns 3 and 4 of the table are Field, and the Field names are "usage_min" and "usage_max", then you can set it up like this:
 
-      ```json
-      "fields": {
-          "usage_min": 3,
-          "usage_max": 4
-      }
-      ```
+    ```json
+    "fields": {
+        "usage_min": 3,
+        "usage_max": 4
+    }
+    ```
 
-    - The timeIndex configuration option specifies which columns correspond to the CnosDB time column in the table type of data. Suppose the table has column 0, Time, and we set it like this:
+  - The configuration item timeIndex specifies which columns of the table type data correspond to the CnosDB time column.Assuming the 0th column of the table is Time, you can set it like this:
 
-      ```json
-      "timeIndex": 0
-      ```
-
-- The precision configuration option corresponds to the time precision provided by the Reader plug-in, which defaults to milliseconds. Since CnosDB uses nanoseconds for storage by default, sometimes CnosDBWriter will convert the time.
-
-- The tagsExtra configuration is in the format `{tag name: tag value}`. If the defined Tag exists in the input data, it will be ignored, and the Tag in the input data will be used instead. The following example adds `host=localhost` and `source=datax` tags to each row:
-
-  ```json
-  { "host": "localhost", "source": "datax"  }
-  ```
+    ```json
+    "timeIndex": 0
+    ```
 
 - The format configuration option can also be set to `opentsdb`, in which case CnosDBWriter will assume that the input data has only one column, and the format is OpenTSDB JSON format write request. There is no need to configure the table, tags, fields, timeIndex. The data will be parsed from the JSON OpenTSDB write request.
 
-    - The fieldsExtra configuration is applied at this point in the format `{source column: {"table": target table, "field": target column}}`. The following example shows that the data of OpenTSDB column `cpu_usage` is written to the data column `usage` of CnosDB table
-
-      ```json
-      { "cpu_usage": { "table": "cpu", "field": "usage" } }
-      ```
+- The configuration item 'precision' corresponds to the time precision provided by the Reader plugin, with the default being milliseconds.Tenant: `cnosdb`
 
 ### Data type conversion
 
-DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换). These internal types are as follows:
+DataX converts the types of Reader to internal types in order to normalize the type conversion operations between source and destination and ensure that the data is not distorted. See [DataX Docs - Type Conversion](https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md#类型转换).The internal types are as follows:
 
-- `Long`:Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
+- `Long`: Fixed-point numbers (Int, Short, Long, BigInteger, etc.).
 - `Double`:Floating-point numbers (Float, Double, BigDecimal(infinite precision), etc.).
-- `String`:String type, underlying unlimited length, using the Universal character set (Unicode).
-- `Date`:Date type.
-- `Bool`:Boolean type.
+- `String`: String type, underlying unlimited length, using the Universal character set (Unicode).
+- `Date`: Date type.
+- `Bool`: Boolean value.
 - `Bytes`:Binary, which can hold unstructured data such as MP3s.
 
 CnosDBWriter will convert these internal types to CnosDB internal data types with the following conversion rules:
 
-| DataX Internal Type    | CnosDB Data Type      |
-|------------------------|-----------------------|
+| DataX Internal Type    | CnosDB Data Type                         |
+| ---------------------- | ---------------------------------------- |
 | Date （time column）     | TIMESTAMP(NANOSECOND) |
-| Date （not time column） | BIGINT                |
-| Long                   | BIGINT                |
-| Double                 | DOUBLE                |
-| Bytes                  | Unsupported           |
-| String                 | STRING                |
-| Bool                   | BOOLEAN               |
+| Date （not time column） | BIGINT                                   |
+| Long                   | BIGINT                                   |
+| Double                 | DOUBLE                                   |
+| Bytes                  | Unsupported                              |
+| String                 | STRING                                   |
+| Bool                   | BOOLEAN                                  |
 
 ## Example - Importing CnosDB from OpenTSDB
 
-### Preparation
+### Prerequisites
 
 - Install Python 2 or 3, JDK 1.8 and DataX, see [DataX Docs - Quick Start](https://github.com/alibaba/DataX/blob/master/userGuid.md#quick-start).
 - Install CnosDB as described in the [Deployment](../deploy) section.
 
 We assume that DataX is installed in the path `{YOUR_DATAX_HOME}`.
 
-### Configuration
+### Parameter
 
 #### Reader Plugin OpenTSDBReader Configuration
 
@@ -165,7 +141,7 @@ Suppose we have a running OpenTSDB and the data to be exported is as follows:
 - Metric: `sys.cpu.nice`
 - Start Time: `2023-06-01 00:00:00`
 - End Time: `2023-06-02 00:00:00`
-- Time Accuracy: ms
+- Precision: ms
 
 Then the corresponding Reader plugin OpenTSDBReader configuration is as follows:
 
@@ -186,7 +162,7 @@ Then the corresponding Reader plugin OpenTSDBReader configuration is as follows:
 
 The time precision is not written in the OpenTSDBReader configuration but in the precision entry of the CnosDBWriter configuration provided.
 
-By default, the configuration item column will be used as the table name for CnosDB. Finally, `cpu_usage_nice` and `cpu_usage_idle` tables will be generated in CnosDB, and the metrics will be written to the `value` column of both tables. We can configure fieldsExtra to write `cpu_usage_nice` to the same CnosDB table as `cpu_usage_idle`, as shown in the fieldsExtra configuration below.
+By default, the configuration item column will be used as the table name for CnosDB. Finally, `cpu_usage_nice` and `cpu_usage_idle` tables will be generated in CnosDB, and the metrics will be written to the `value` column of both tables. We can configure fieldsExtra to write `cpu_usage_nice` to the same CnosDB table as `cpu_usage_idle`, as shown in the fieldsExtra configuration below.{ "cpu_usage": { "table": "cpu", "field": "usage" } }
 
 The data in OpenTSDB is as follows:
 
@@ -280,7 +256,6 @@ Then the corresponding CnosDBWriter configuration is as follows:
 
 1. We create a DataX configuration file and populate the reader and writer entries with the previous OpenTSDBReader and CnosDBWriter configurations. Save as `{YOUR_DATAX_HOME}/bin/opentsdb_to_cnosdb.json`:
 
-
 ```json
 {
     "job": {
@@ -337,7 +312,7 @@ python ./datax.py ./opentsdb_to_cnosdb.json
 
 The output is as follows:
 
-```txt
+```
 ...
 2023-07-01 12:34:56.789 [job-0] INFO  JobContainer -
 任务启动时刻                    : 2023-07-01 12:34:55
@@ -371,7 +346,7 @@ SELECT * FROM cpu ORDER BY time ASC;
 
 ### Check the status of the import task:
 
-The log files for DataX jobs are located by default in the `{YOUR_DATAX_HOME}/log` directory. In these log files, we can view the start time, end time, status of the task, and any output and error messages. In addition, the import progress can be obtained by querying the exported table in CnosDB:
+The log files for DataX job runs are located in the `{YOUR_DATAX_HOME}/log` directory by default.In these log files, we can see the start time, end time, status of the task, and any output and error messages.In addition, you can obtain the import progress by querying the exported table in CnosDB.
 
 ```sql
 SELECT COUNT(usage_idle) as c FROM "cpu";
@@ -389,7 +364,3 @@ You can shut down the import task by terminating the DataX process:
 ```sh
 pkill datax
 ```
-
-
-
-

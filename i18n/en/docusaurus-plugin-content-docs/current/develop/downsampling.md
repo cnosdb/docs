@@ -2,17 +2,21 @@
 sidebar_position: 4
 ---
 
-# Downsampling
+# Automatic Downsampling
 
-The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems.A more natural solution would be to lower data samples.
+The data write cycle is generally based on the actual table write frequency, which is usually related to the device that collects the data, sometimes it may need to process a large number of data points per second, and processing so much data for a long time may cause storage problems.A more natural solution would be to lower data samples.A more natural solution would be to lower data samples.
 
 Downsampling in the timing database refers to the downsampling of timing data, the original fine-grained data downsampling to get the coarser-grained data, in order to save storage costs, downsampling data will only retain some statistical characteristics of the original data.This chapter describes how to use CnosDB for automated data sampling.
 
-### Definition
-
 Stream Query:is a special query in CnosDB for processing stream data calculation, the stream query requires that the SELECT function must contain the GROUP BY time() phrase.
 
-> Note: This article does not describe the syntax of how to create a stream query in detail, for more details, please click [Stream](../reference/sql.md#stream) query to jump to the corresponding interface.
+Before enabling the flow query, you need to create a flow table view. For syntax, please refer to [`CREATE STREAM TABLE`](../reference/sql/ddl#create-stream-table). The following is an example using the `air` table as the source table:
+
+```sql
+CREATE STREAM TABLE air_stream(time TIMESTAMP, station STRING, pressure DOUBLE, temperature DOUBLE, visibility DOUBLE) 
+    WITH (db = 'oceanic_station', table = 'air', event_time_column = 'time')
+    engine = tskv;
+```
 
 ### Data Samples
 
@@ -36,6 +40,14 @@ Query took 0.028 seconds.
 
 Assuming that the frequency of air meter data writing is 1min, but we only want to know the change of each index every 1h, such as the maximum value of the pressure, the average value of the temperature, the sum of the temperature, and the number of data rows in the specified time window.Then the corresponding sql is created as follows:
 
+You need to first create a table to receive the query results:
+
+```sql
+CREATE TABLE air_down_sampling_1hour(max_pressure DOUBLE, avg_temperature DOUBLE, sum_temperature DOUBLE, count_pressure BIGINT, TAGS(station));
+```
+
+Query in the flow table view and write the down sampled results to the target table.
+
 ```sql
 INSERT INTO air_down_sampling_1hour(time, station, max_pressure, avg_temperature, sum_temperature, count_pressure) 
 SELECT 
@@ -50,6 +62,8 @@ GROUP BY date_bin(INTERVAL '1' HOUR, time, TIMESTAMP '2023-01-14T16:00:00'), sta
 ```
 
 ### Results
+
+Execute `\w oceanic_station.txt` to write data to the `air` table (please refer to [Quick Start](../start/quick_start#download_data) for sample data). The streaming task will write data to the target table `air_down_sampling_1hour` in real time.
 
 ```sql
 SELECT * FROM air_down_sampling_1hour LIMIT 10;

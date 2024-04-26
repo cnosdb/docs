@@ -1,6 +1,5 @@
 ---
-title: Benchmark
-order: 9
+sidebar_position: 7
 ---
 
 # Benchmark
@@ -9,18 +8,17 @@ To present CnosDB performance more intuitively, we do performance test of CnosDB
 
 ## Basic Information
 
-|          |     CnosDB     |          InfluxDB          |
-| -------- | :------------: | :------------------------: |
-| Version     |     2.0.1      |           1.8.10           |
-| Implementation language |      rust      |             go             |
-| Official website     | www.cnosdb.com | https://www.influxdata.com |
+|                         |                     CnosDB                     |                                  InfluxDB                                  |
+| ----------------------- | :--------------------------------------------: | :------------------------------------------------------------------------: |
+| Version                 |      2.0.1     |                   1.8.10                   |
+| Implementation language |                      rust                      |                                     go                                     |
+| Official website        | www.cnosdb.com | https://www.influxdata.com |
 
 ## Testing Environment
 
 To avoid being affected by network bandwidth while better simulating multi- tenant scenarios, our service side server opens a virtual machine as service side machines, while the client machine opens two Benchmark clients simultaneously and writes data to different databases of the service side virtual machine, CanosDB, or InfluxDB
 
 All tests run on our servers, with the following configurations:
-
 
 1. Service side server：32 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz（memory：255.65 GB）
 
@@ -33,8 +31,6 @@ All tests run on our servers, with the following configurations:
    Other directory disk performance of virtual machines is as follows:
 
    ![](/img/other_bench.png)
-
-
 
 2. Client server: 32 CPUs x Intel (R) Xion (R) Gold 5218 CPU @ 2.30GHz (memory 256)
 
@@ -110,9 +106,9 @@ InfluxDB is the default configuration except [data] and [meta]
 
    Modify partial configurations in the `config/config.toml`, run
 
-    ````
-    cargo run --release run --cpu 64
-    ````
+   ```
+   cargo run --release run --cpu 64
+   ```
 
    Download InfluxDB, modify configurations in `etc/influxdb/influxdb.conf`, run
 
@@ -132,9 +128,9 @@ InfluxDB is the default configuration except [data] and [meta]
 
    Compile Running Generated Data
 
-   	cd tsdb-comparisons/cmd/generate_data
-   	go build
-   	./generate_data --use-case="iot" --seed=123 --scale=100          --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2023-01-01T00:00:00Z" --log-interval="50s" --format="influx"   > <file_path>/data.txt
+   cd tsdb-comparisons/cmd/generate_data
+   go build
+   ./generate_data --use-case="iot" --seed=123 --scale=100          --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2023-01-01T00:00:00Z" --log-interval="50s" --format="influx"   > \<file_path>/data.txt
 
 4. Test CnosDB writes
 
@@ -156,15 +152,15 @@ InfluxDB is the default configuration except [data] and [meta]
 
 In our test scenario, InfluxDB can but do wrokers = 100(100 concurrent scenarios), with the test results as follows (row and metric units: 10,000):
 
-|            | CnosDB        |                  | InfluxDB      |                  |
-|------------|---------------|------------------|---------------|------------------|
-| batch-size | overall row/s | overall metric/s | overall row/s | overall metric/s |
-| 20000      | 75            | 604              |               |                  |
-| 10000      | 68            | 538              | 54            | 420              |
-| 5000       | 66            | 512              | 61            | 480              |
-| 2500       | 53            | 420              | 57            | 450              |
-| 1000       | 43            | 330              | 49            | 389              |
-| 1          | 6             | 48               | 2.5           | 15               |
+|            | CnosDB        |                  | InfluxDB            |                  |
+| ---------- | ------------- | ---------------- | ------------------- | ---------------- |
+| batch-size | overall row/s | overall metric/s | overall row/s       | overall metric/s |
+| 20000      | 75            | 604              |                     |                  |
+| 10000      | 68            | 538              | 54                  | 420              |
+| 5000       | 66            | 512              | 61                  | 480              |
+| 2500       | 53            | 420              | 57                  | 450              |
+| 1000       | 43            | 330              | 49                  | 389              |
+| 1          | 6             | 48               | 2.5 | 15               |
 
 We take the data in Benchmark when database writing levels off which is valued at the sum of two clients.
 
@@ -177,7 +173,7 @@ So we did not test the performance of InfluxDB in this case, but you can see tha
 In addition, CnosDB supports higher concurrent numbers, and we also test the performance of CnosDB under workrs = 200 (200 concurrent scenarios). The results are as follows (row and metric units: 10,000):
 
 |            | CnosDB        |                  |
-|------------|---------------|------------------|
+| ---------- | ------------- | ---------------- |
 | batch-size | overall row/s | overall metric/s |
 | 20000      | 75            | 601              |
 | 10000      | 75            | 607              |

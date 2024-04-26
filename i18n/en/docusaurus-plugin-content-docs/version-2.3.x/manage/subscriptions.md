@@ -1,13 +1,22 @@
 ---
-title: Subscriptions
-order: 9
+sidebar_position: 5
 ---
+
+# Subscription Management
 
 :::tip
 Only Enterprise Edition supports
 :::
 
-The data can be replicated to another CnosDB cluster by subscription, and the data replication will help to improve the fault tolerance and reliability of the whole system. CnosDB supports managing subscriptions through SQL, and CnosDB supports subscribing through Telegraf or another CnosDB cluster.
+CnosDB subscription can write data from local endpoint to remote endpoint, can be used with another CnosDB instance or Telegraf.CnosDB distributes subscriptions using traffic replication.
+
+Supported distributed traffic:
+
+- `/api/v1/write`
+
+- `INSERT` in `/api/v1/sql`
+
+> Before distributing data to the CnosDB instance, please create the table in advance, otherwise data loss will occur.
 
 ## Create Subscription
 
@@ -15,20 +24,29 @@ We can use `CREATE SUBSCRIPTION` to create a subscription.
 
 ### Syntax
 
-```
-CREATE SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_nmae>" ["<host_name>"]
+```sql
+CREATE SUBSCRIPTION <subscription_name> 
+ON <database_name> 
+DESTINATIONS <ALL|ANY> "<end_point>" ["<end_point>"]
+[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[FILTER_BY <Expr>]];
 ```
 
-Note:
-1. `host_name` indicates the `host_name` of the grpc service of the CnosDB node that subscribing to this node.
-   All the data written to the specified database, CnosDB, will be copied and distributed to the host node.
-1. `ALL` Indicates the data replication mode. Currently, only `ALL` is supported.
+:::note
+
+`DESTINATIONS`: defines the destination location where data is written, `ALL` indicates data is written to all endpoints, `ANY` indicates round-robin writing to multiple endpoints, `end_point` indicates the target endpoint for writing (the `host` of the CnosDB instance and the `grpc_listen_port` in the configuration file, for example: `127.0.0.1:8903`).
+
+`ON`: Set the subscribed list and columns in the table.
+
+`FILTER_BY`: Filter the records that need to be distributed using conditions, for example: `FILTER_BY WHERE station = 'XiaoMaiDao'`.
+
+:::
 
 ### Example
 
 For example, the partial configuration of the CnosDB node that accepts the distributed data is as follows:
 
-```
+```sql
 [cluster]
 meta_service_addr = ["127.0.0.1:8901"]
 
@@ -37,11 +55,21 @@ grpc_listen_port = 8903
 
 The SQL for creating the subscription in the current CnosDB is as follows:
 
-```
+```sql
 CREATE SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903"
 ```
 
 At this time, if any data is written to the current CnosDB node, the data will be synchronized copied and forwarded to `127.0.0.1:8903`.
+
+If you need to filter the data, you can add the keyword `FILTER_BY`:
+
+```sql
+create subscription test 
+on public
+DESTINATIONS ALL "127.0.0.1:8903"
+on air(time,station,pressure) 
+FILTER_BY where station = 'XiaoMaiDao';
+```
 
 ## Alter Subscription
 
@@ -49,35 +77,41 @@ We can use `ALTER SUBSCRIPTION` to alter the subscription.
 
 ### Syntax
 
-```
-ALTER SUBSCRIPTION <subscription_name> ON <database_name> DESTINATIONS ALL "<host_name>" ["<host_name>"]。
+```sql
+ALTER SUBSCRIPTION <subscription_name> 
+ON <database_name> 
+DESTINATIONS <ALL|ANY> "<end_point>" ["<end_point>"]
+[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[FILTER_BY <Expr>]];
 ```
 
 ### Example
 
-```
-ALTER SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913"
+```sql
+ALTER SUBSCRIPTION test ON public DESTINATIONS ALL "127.0.0.1:8903" "127.0.0.1:8913";
 ```
 
-You can modify host_name in this way, and note that modifying by `ALTER SUBSCRIPTION` overwrites it directly. If you do not want to delete host_name, ALL previous host_name needs to be added after `DESTINATIONS ALL`.
+You can modify `end_point` in this way, and note that modifying by `ALTER SUBSCRIPTION` overwrites it directly. If you do not want to delete the previous `end_point`, all previous `end_point` needs to be added after `DESTINATIONS ALL`.
 
 ## Show Subscription
 
-We can use `SHOW SUBSCRIPTION` to show the subscription information.
+We can use `SHOW SUBSCRIPTION` to view subscription information.
 
 ### Syntax
 
-```
+```sql
 SHOW SUBSCRIPTION ON <database_name>
 ```
 
 ### Example
 
-```
-SHOW SUBSCRIPTION ON public
+```sql
+SHOW SUBSCRIPTION ON public;
 ```
 
-```
+Output result:
+
+```sql
 SUBSCRIPTION,DESTINATIONS,MODE
 test,"127.0.0.1:8902,127.0.0.1:8903",ALL
 ```
@@ -88,54 +122,44 @@ We can use `DROP SUBSCRIPTION` to drop the subscription.
 
 ### Syntax
 
-```
+```sql
 DROP SUBSCRIPTION <subscription_name> ON <database_name>
 ```
 
 ### Example
 
-```
-DROP SUBSCRIPTION test ON public
-```
-
-## Subscription Distribution Through Telegraf
-
-### Install Telegraf
-
-You can refer to [Telegraf](/eco-integration/telegraf#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
-
-### Telegraf Configuration
-
-Supposing that we've started CnosDB and created a subscription, set `DESTINATIONS` to `127.0.0.1:8803` :
-
-```sh
-> SHOW SUBSCRIPTION ON public;
-+--------------+----------------+-------------+
-| Subscription | DESTINATIONS   | Concurrency |
-+--------------+----------------+-------------+
-| sub_tr_1003  | 127.0.0.1:8803 | ALL         |
-+--------------+----------------+-------------+
+```sql
+DROP SUBSCRIPTION test ON public;
 ```
 
-Add the input plug-in `cnosdb` in the configuration file of Telegraf, and configure the listening address and port number as follows:
+## Send data to telegraf
+
+> You can refer to [Telegraf](/eco-integration/telegraf#cnos-telegraf) to know how to use Telegraf and how to install Telegraf.
+
+Modify the `telegraf` configuration file, add the following configuration to listen on port `8803`
 
 ```toml
 [[inputs.cnosdb]]
 service_address = ":8803"
 ```
 
-Configure the output plug-in `http` to distribute messages. If there is another CnosDB instance with an HTTP listening port number of `127.0.0.1:8912`, we can forward the subscription message to that instance with the following configuration.
+Create subscription in CnosDB
 
-```toml
-[[outputs.http]]
-url = "http://127.0.0.1:8912/api/v1/write?db=destination"
-timeout = "5s"
-method = "POST"
-username = "admin"
-password = "admin"
-data_format = "influx"
-use_batch_format = true
-content_encoding = "identity"
-idle_conn_timeout = 10
+> Assuming the telegraf location is at `127.0.0.1`.
+
+```sql
+CREATE SUBSCRIPTION sub_test ON public DESTINATIONS ALL "127.0.0.1:8803";
 ```
 
+Query subscription
+
+```sh
+> SHOW SUBSCRIPTION ON public;
++--------------+----------------+------+
+| SUBSCRIPTION | DESTINATIONS   | MODE |
++--------------+----------------+------+
+| sub_test     | 127.0.0.1:8803 | ALL  |
++--------------+----------------+------+
+```
+
+Now, you can use `telegraf` to send data to any location.

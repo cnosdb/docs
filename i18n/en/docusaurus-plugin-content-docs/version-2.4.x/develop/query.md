@@ -1,12 +1,13 @@
 ---
-title: Query Data
-order: 4
+sidebar_position: 3
 ---
 
 # Query Data
 
-CnosDB supports a variety of query access methods, some examples are provided below. Contains common programming languages such as Java, Python, Rust, Golang, C++.
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
+CnosDB supports a variety of query access methods, some examples are provided below.Contains common programming languages such as Java, Python, Rust, Golang, C++
 
 ## HTTP API Query
 
@@ -28,9 +29,8 @@ curl -i -u "cnosdb:" -H "Accept: application/json" \
 -d "SELECT * FROM air LIMIT 10;"
 ```
 
-::: tabs#language
-
-@tab Golang#Golang
+<Tabs>
+<TabItem value="go" label="Golang">
 
 ```go
 package main
@@ -54,12 +54,12 @@ func main() {
         panic(err)
     }
 
-    // add Authorization header
+    // 添加 Authorization 头部
     authStr := username + ":" + password
     encodedAuth := base64.StdEncoding.EncodeToString([]byte(authStr))
     req.Header.Set("Authorization", "Basic "+encodedAuth)
 
-    // add Accept header
+    // 添加 Accept 头部
     req.Header.Set("Accept", "application/json")
 
     resp, err := client.Do(req)
@@ -68,7 +68,7 @@ func main() {
     }
     defer resp.Body.Close()
 
-    // print response
+    // 输出响应的状态码和响应体
     fmt.Println("Status Code:", resp.StatusCode)
     fmt.Println("Response Body:")
     buf := new(bytes.Buffer)
@@ -77,7 +77,9 @@ func main() {
 }
 ```
 
-@tab Python#Python
+</TabItem>
+
+<TabItem value="py" label="Python">
 
 ```python
 import requests
@@ -98,7 +100,9 @@ response = requests.post(url, auth=(username, password), headers=headers, json=d
 print(response.text)
 ```
 
-@tab Java#Java
+</TabItem>
+
+<TabItem value="java" label="Java">
 
 ```java
 import java.io.BufferedReader;
@@ -116,12 +120,12 @@ public class CurlToJava {
         String cnosdbPort = "<cnosdb_port>";
         String dbName = "<database_name>";
         String sqlStatement = "<your SQL statement>";
-        
+
         String apiUrl = "http://" + cnosdbUrl + ":" + cnosdbPort + "/api/v1/sql?db=" + dbName + "&pretty=true";
         String auth = username + ":" + password;
         byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes());
         String authHeaderValue = "Basic " + new String(encodedAuth);
-        
+
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -141,8 +145,11 @@ public class CurlToJava {
         connection.disconnect();
     }
 }
+```
 
-@tab Rust#Rust
+</TabItem>
+
+<TabItem value="rust" label="Rust">
 
 ```rust
 use reqwest::header::{Authorization, HeaderValue, ACCEPT};
@@ -161,7 +168,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "http://{}:{}/api/v1/sql?db={}&pretty=true",
         cdb_url, cdb_port, database_name
     );
-    
+
     let client = reqwest::Client::new();
     let res = client
         .post(&url)
@@ -179,7 +186,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 ```
 
-@tab C++#C++
+</TabItem>
+
+<TabItem value="c++" label="C++">
 
 ```cpp
 #include <iostream>
@@ -221,6 +230,6 @@ int main() {
 }
 ```
 
-:::
+</TabItem>
 
-Related Content:
+</Tabs>

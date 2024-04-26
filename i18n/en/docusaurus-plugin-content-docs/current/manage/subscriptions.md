@@ -106,7 +106,7 @@ SHOW SUBSCRIPTION ON <database_name>
 ### Example
 
 ```sql
-SHOW SUBSCRIPTION ON public
+SHOW SUBSCRIPTION ON public;
 ```
 
 Output result:
@@ -155,11 +155,11 @@ Query subscription
 
 ```sh
 > SHOW SUBSCRIPTION ON public;
-+--------------+----------------+-------------+
-| Subscription | DESTINATIONS   | Concurrency |
-+--------------+----------------+-------------+
-| sub_tr_1003  | 127.0.0.1:8803 | ALL         |
-+--------------+----------------+-------------+
++--------------+----------------+------+
+| SUBSCRIPTION | DESTINATIONS   | MODE |
++--------------+----------------+------+
+| sub_test     | 127.0.0.1:8803 | ALL  |
++--------------+----------------+------+
 ```
 
 Now, you can use `telegraf` to send data to any location.

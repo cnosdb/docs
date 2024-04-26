@@ -1,6 +1,5 @@
 ---
-title: Arrow Flight SQL
-order: 2
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -57,9 +56,7 @@ The flow chart is as follows:
 ## Different Client Usage
 
 :::tip
-
 This section provides a separate description of how different clients are used.
-
 :::
 
 <Tabs>

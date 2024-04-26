@@ -51,7 +51,7 @@ store: #告警、通知记录保存所在cnosdb配置
 
 ## API Description
 
-# `/api/http/ping`
+### `/api/http/ping`
 
 **Description**
 

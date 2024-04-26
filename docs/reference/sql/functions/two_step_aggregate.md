@@ -89,7 +89,7 @@ SELECT stats_agg(y, x) FROM test_stats;
 }
 ```
 
-</details> 
+</details>
 
 **`stats_agg` 支持以下二次聚合的函数**
 
@@ -125,7 +125,7 @@ SELECT stddev_samp_x(stats_agg(y, x)) FROM test_stats;
 +-----------------------------------------------------+
 ```
 
-</details> 
+</details>
 
 </TabItem>
 

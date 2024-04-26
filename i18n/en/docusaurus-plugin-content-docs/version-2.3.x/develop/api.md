@@ -1,7 +1,9 @@
 ---
-title: Connect to CnosDB
-order: 2
+sidebar_position: 1
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Connect to CnosDB
 
@@ -20,7 +22,7 @@ curl -X POST "http://<cnosdb_url>:<cnosdb_port>/api/v1/sql?db=<database_name>&pr
 
 #### Example
 
- ```shell
+```shell
 curl -X POST "http://127.0.0.1:8902/api/v1/sql?db=public&pretty=true" \
   -u "root:" \
   -H "Content-Type: application/x-www-form-urlencoded" \
@@ -30,13 +32,12 @@ curl -X POST "http://127.0.0.1:8902/api/v1/sql?db=public&pretty=true" \
     pressure DOUBLE,
     TAGS(station)
   );"
- ```
+```
 
 #### Use programming languages
 
-::: tabs#language
-
-@tab Rust#Rust
+<Tabs>
+<TabItem value="rust" label="Rust">
 
 The sample code uses [reqwest](https://crates.io/crates/reqwest) to build Http requests.
 
@@ -63,7 +64,7 @@ let password = "";
 let http_client = reqwest::Client::new();
 let request = http_client
     .request(Method::POST, url)
-    // username and password
+    //用户名和密码
     .basic_auth::<&str, &str>(user_name, Some(password))
     .body(sql)
     .build()
@@ -80,7 +81,9 @@ let success = response.status().is_success();
 let result = response.text().await.unwrap();
 ```
 
-@tab Golang#Golang
+</TabItem>
+
+<TabItem value="go" label="Golang">
 
 The sample code uses [fasthttp](https://github.com/valyala/fasthttp) as a dependency.
 
@@ -100,7 +103,7 @@ CREATE TABLE air (
 );`
 ```
 
-Construct the http request：
+Construct the http request:
 
 ```go
 func basicAuth(username, password string) string {
@@ -115,62 +118,118 @@ req.SetBody([]byte(query1))
 req.SetRequestURI(url)
 ```
 
-Send the http request:
+Send http's request:
 
 ```go
 cli := fasthttp.Client{}
 resp := fasthttp.Response{}
 err := cli.Do(req, &resp)
 if err != nil {
-   return
+    return
+}
+fmt.Println(resp.StatusCode())
+```
+
+The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
+The sample code uses [fasthttp](https://github.com/valyala/fasthttp) as a dependency.
+
+Following are the parameters required to construct the http request.
+
+```go
+user := "cnosdb"
+pwd := ""
+// db means database, we use default db 'public'
+url := "http://127.0.0.1:8902/" + "api/v1/sql?db=public&pretty=true"
+query1 := `
+CREATE TABLE air (
+  visibility DOUBLE,****
+  temperature DOUBLE,
+  pressure DOUBLE,
+  TAGS(station)
+);`
+```
+
+Construct the http request:
+
+```go
+func basicAuth(username, password string) string {
+    auth := username + ":" + password
+    return "Basic " + base64.StdEncoding.EncodeToString([]byte(auth))
+}
+
+req := fasthttp.AcquireRequest()
+req.Header.SetMethod("POST")
+req.Header.Set("Authorization", basicAuth(user, pwd))
+req.SetBody([]byte(query1))
+req.SetRequestURI(url)
+```
+
+Send http's request:
+
+```go
+cli := fasthttp.Client{}
+resp := fasthttp.Response{}
+err := cli.Do(req, &resp)
+if err != nil {
+    return
 }
 fmt.Println(resp.StatusCode())
 ```
 
 The status code of the response will indicate whether the SQL is executed successfully, 200 representing success.
 
-@tab Java#Java
+</TabItem>
+
+<TabItem value="java" label="Java">
 
 Use [Apache Http Components Apache](https://hc.apache.org/) as a dependency.
 
 ```java
 public static void main(String[] args) {
-        String database = "public";
-        String name = "cnosdb";
-        String pwd = "";
-        String query = "CREATE TABLE air (" +
-        "visibility DOUBLE," +
-        "temperature DOUBLE," +
-        "pressure DOUBLE," +
-        "TAGS(station)" +
-        ");";
-        String url = "http://127.0.0.1:8902/";
-        try {
+    String database = "public";
+    String name = "cnosdb";
+    String pwd = "";
+    String query = "CREATE TABLE air (" +
+            "visibility DOUBLE," +
+            "temperature DOUBLE," +
+            "pressure DOUBLE," +
+            "TAGS(station)" +
+            ");";
+    String url = "http://127.0.0.1:8902/";
+
+    try {
         CloseableHttpClient client = HttpClients.createDefault();
         URIBuilder builder = new URIBuilder(url + "api/v1/sql");
-        // set the query parameter
+
+        // 查询的db放到url参数上
         builder.setParameter("db", database);
         HttpPost httpPost = new HttpPost(builder.build());
-        // add basic auth
+
+        //用户名密码编码到Authorization头
         String nameAndPwd = name + ":" + pwd;
         byte[] encodedAuth = Base64.encodeBase64(
         nameAndPwd.getBytes(StandardCharsets.ISO_8859_1));
         String auth = "Basic " + new String(encodedAuth);
         httpPost.setHeader(HttpHeaders.AUTHORIZATION, auth);
-        // set request body
+
+        // 语句放在body上
         StringEntity stringEntity = new StringEntity(query);
         httpPost.setEntity(stringEntity);
+
         CloseableHttpResponse resp = client.execute(httpPost);
-        // if status code is not 200, request fail
+        // 状态码不为200，执行失败
         if (resp.getStatusLine().getStatusCode() != 200) {
-        System.out.println("Request Fail");
+            System.out.println("Request Fail");
         }
-        // get the error message and return
+        // 获取错误信息或返回结果
         String res = IOUtils.toString(resp.getEntity().getContent());
         System.out.println(res);
-        } catch (Exception e) {
-        }
-        }
+    } catch (Exception e) {
+
+    }
+}
 ```
 
-:::
+</TabItem>
+
+</Tabs>

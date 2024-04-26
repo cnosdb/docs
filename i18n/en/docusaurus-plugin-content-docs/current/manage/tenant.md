@@ -41,6 +41,24 @@ alter user dev set granted_admin = true;
 alter user dev set granted_admin = false;
 ```
 
+**Assign a role to the user**
+
+> To add permissions to a role, please refer to [`GRANT`](../reference/sql/dcl#grant)
+
+```sql
+ALTER TENANT cnosdb ADD USER user_a AS rrr;
+```
+
+At this time, the user `user_a` is assigned the `rrr` role of the `cnsodb` tenant.
+
+**Remove roles from users**
+
+```sql
+ALTER TENANT cnosdb REMOVE USER user_a;
+```
+
+At this time, user `user_a` loses the role `rrr` under the tenant `cnosdb`, and will no longer be able to access any information in the tenant.
+
 **Tenant** is an independent organization or individual in CnosDB that shares the same database instance. Each tenant has its own data and resources, isolated from other tenants.
 
 **User** is an account that can connect to the database, each user has specific permissions, these permissions come from the roles under the tenant.The same account can hold different roles in different organizations, which maps to the relationship between tenants, roles, and users in CnosDB.
