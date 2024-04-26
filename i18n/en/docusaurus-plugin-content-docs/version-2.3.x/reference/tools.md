@@ -1,6 +1,5 @@
 ---
-title: Tools
-order: 7
+sidebar_position: 6
 ---
 
 # Tools
