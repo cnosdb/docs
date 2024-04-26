@@ -1,6 +1,5 @@
 ---
-title: Arrow Flight SQL
-order: 2
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -57,7 +56,9 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 ## 不同客户端的使用方式
 
-:::info 本章节分别介绍不同客户端的使用方式。
+:::tip
+本章节分别介绍不同客户端的使用方式。
+:::
 
 <Tabs>
 <TabItem value="c++" label="C++">
@@ -214,6 +215,127 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
 </TabItem>
 
+<TabItem value="golang" label="Golang">
+
+- #### 添加依赖
+
+  在go.mod中写入依赖
+
+   ```go
+   require (
+     github.com/apache/arrow/go/v10 v10.0.1
+     google.golang.org/grpc v1.51.0
+   )
+   ```
+
+- #### 创建Flight SQL客户端
+
+   ```go
+   addr := "127.0.0.1:8904"
+   var dialOpts = []grpc.DialOption{
+     grpc.WithTransportCredentials(insecure.NewCredentials()),
+   }
+   cl, err := flightsql.NewClient(addr, nil, nil, dialOpts...)
+   if err != nil {
+     fmt.Print(err)
+     return
+   }
+   ```
+  addr 为CnosDB配置项`flight_rpc_listen_addr`指定的地址
+
+- #### 设置连接凭证，并取得已经验证的上下文
+
+   ```go
+   ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root:", "")
+   if err != nil {
+     fmt.Print(err)
+     return
+   }
+   ```
+
+- #### 在已经验证的上下文中执行SQL，取得FlightInfo
+
+   ```go
+   info, err := cl.Execute(ctx, "SELECT now();")
+   if err != nil {
+     fmt.Print(err)
+     return
+   }
+   ```
+
+- #### 根据FlightInfo取得数据Reader
+
+   ```go
+   // 目前CnosDb仅实现了一个EndPoint
+   rdr, err := cl.DoGet(ctx, info.GetEndpoint()[0].Ticket)
+   if err != nil {
+     fmt.Print(err)
+     fmt.Println(35)
+     return
+   }
+   defer rdr.Release()
+   ```
+
+- #### 操作Reader打印数据
+
+   ```go
+   n := 0
+   for rdr.Next() {
+     record := rdr.Record()
+     for i, col := range record.Columns() {
+       fmt.Printf("rec[%d][%q]: %v\n", n, record.ColumnName(i), col)
+     }
+     record.Column(0)
+     n++
+   }
+   ```
+
+#### 全部代码
+  ```go
+    addr := "127.0.0.1:8904"
+	var dialOpts = []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	cl, err := flightsql.NewClient(addr, nil, nil, dialOpts...)
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	ctx, err := cl.Client.AuthenticateBasicToken(context.Background(), "root:", "")
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	info, err := cl.Execute(ctx, "SELECT now();")
+	if err != nil {
+		fmt.Print(err)
+		return
+	}
+
+	// 目前CnosDb仅实现了一个EndPoint
+	rdr, err := cl.DoGet(ctx, info.GetEndpoint()[0].Ticket)
+	if err != nil {
+		fmt.Print(err)
+		fmt.Println(35)
+		return
+	}
+	defer rdr.Release()
+
+	n := 0
+	for rdr.Next() {
+		record := rdr.Record()
+		for i, col := range record.Columns() {
+			fmt.Printf("rec[%d][%q]: %v\n", n, record.ColumnName(i), col)
+		}
+		record.Column(0)
+		n++
+	}
+  ```
+
+</TabItem>
+
 <TabItem value="java" label="Java">
 
 - #### 添加依赖
@@ -229,28 +351,28 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        <version>10.0.1</version>
        <type>pom</type>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-sql -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
        <artifactId>flight-sql</artifactId>
        <version>10.0.1</version>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
      <dependency>
        <groupId>org.slf4j</groupId>
        <artifactId>slf4j-api</artifactId>
        <version>2.0.5</version>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-core -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
        <artifactId>arrow-memory-netty</artifactId>
        <version>10.0.1</version>
      </dependency>
-   
+
      <!-- https://mvnrepository.com/artifact/org.apache.arrow/flight-core -->
      <dependency>
        <groupId>org.apache.arrow</groupId>
@@ -300,7 +422,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    FlightClient client = FlightClient.builder(allocator, clientLocation).build();
    FlightSqlClient sqlClinet = new FlightSqlClient(client);
-  ```
+   ```
 
 - #### 配置认证
 
@@ -478,10 +600,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
    ```java
    package org.example;
-   
+
    import java.sql.*;
    import java.util.Properties;
-   
+
    public class Main {
      public static void main(String[] args) {
        final Properties properties = new Properties();
@@ -505,14 +627,14 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
          statement.executeUpdate("INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES\n" +
                                  "    (1666165200290401000, 'XiaoMaiDao', 56, 69, 77);");
          ResultSet resultSet = statement.executeQuery("select * from air limit 1;");
-   
+
          while (resultSet.next()) {
            Timestamp column1 = resultSet.getTimestamp(1);
            String column2 = resultSet.getString(2);
            Double column3 = resultSet.getDouble(3);
            Double column4 = resultSet.getDouble(4);
            Double column5 = resultSet.getDouble(5);
-   
+
            System.out.printf("%s %s %f %f %f", column1, column2, column3, column4, column5);
          }
        } catch (SQLException e) {
@@ -520,25 +642,27 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        }
      }
    }
-   
+
    ```
 
 </TabItem>
 
 <TabItem value="rust" label="Rust">
 
+代码运行在异步环境下。
+
 - #### 添加依赖
 
    ```toml
-   arrow = {version = "28.0.0", features = ["prettyprint"] }
-   arrow-flight = {version = "28.0.0", features = ["flight-sql-experimental"]}
-   tokio = "1.23.0"
+   arrow = { version = "42.0.0", features = ["prettyprint"] }
+   arrow-flight = {version = "42.0.0", features = ["flight-sql-experimental"]}
+   tokio = "1.35"
    futures = "0.3.25"
-   prost-types = "0.11.2"
-   tonic = "0.8.3"
-   prost = "0.11.3"
+   prost-types = "0.11.9"
+   tonic = "0.9.2"
+   prost = "0.11.9"
    http-auth-basic = "0.3.3"
-   base64 = "0.13.1"
+   base64 = "0.21.7"
    ```
 
 - #### 创建FlightServerClient
@@ -560,7 +684,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
      AUTHORIZATION.as_str(),
      AsciiMetadataValue::try_from(format!(
        "Basic {}",
-       base64::encode(format!("{}:{}", "root", ""))
+       BASE64_STANDARD.encode(format!("{}:{}", "root", ""))
      ))
      .expect("metadata construct fail"),
    );
@@ -575,9 +699,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```rust
    let cmd = CommandStatementQuery {
      query: "select 1;".to_string(),
+     transaction_id: None,
    };
-   let pack = prost_types::Any::pack(&cmd).expect("pack");
-   let fd = FlightDescriptor::new_cmd(pack.encode_to_vec());
+   
+   let fd = FlightDescriptor::new_cmd(cmd.as_any().encode_to_vec());
 
    let mut req = Request::new(fd);
    req.metadata_mut().insert(
@@ -600,7 +725,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        let resp = client.do_get(ticket).await.expect("do_get");
        let mut stream = resp.into_inner();
        let mut dictionaries_by_id = HashMap::new();
-   
+
        let mut record_batches = Vec::new();
        while let Some(Ok(flight_data)) = stream.next().await {
          let message =
@@ -609,7 +734,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            ipc::MessageHeader::Schema => {
              println!("a schema when messages are read",);
            }
-   
+
            ipc::MessageHeader::RecordBatch => {
              let record_batch = flight_data_to_arrow_batch(
                &flight_data,
@@ -621,7 +746,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
            ipc::MessageHeader::DictionaryBatch => {
              let ipc_batch = message.header_as_dictionary_batch().unwrap();
-   
+
              reader::read_dictionary(
                &Buffer::from(flight_data.data_body),
                ipc_batch,
@@ -636,7 +761,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
            }
          }
        }
-   
+
        println!(
          "{}",
          arrow::util::pretty::pretty_format_batches(&record_batches).expect("print")
@@ -657,7 +782,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    use arrow::ipc;
    use arrow::ipc::{reader, root_as_message};
    use arrow_flight::flight_service_client::FlightServiceClient;
-   use arrow_flight::sql::{CommandStatementQuery, ProstAnyExt};
+   use arrow_flight::sql::{CommandStatementQuery, ProstMessageExt};
    use arrow_flight::utils::flight_data_to_arrow_batch;
    use arrow_flight::{FlightDescriptor, HandshakeRequest, IpcMessage};
    use futures::StreamExt;
@@ -666,6 +791,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    use tonic::codegen::http::header::AUTHORIZATION;
    use tonic::metadata::AsciiMetadataValue;
    use tonic::Request;
+   use base64::prelude::{Engine, BASE64_STANDARD};
 
    #[tokio::main]
    async fn main() {
@@ -682,7 +808,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        AUTHORIZATION.as_str(),
        AsciiMetadataValue::try_from(format!(
          "Basic {}",
-         base64::encode(format!("{}:{}", "root", ""))
+         BASE64_STANDARD.encode(format!("{}:{}", "root", ""))
        ))
        .expect("metadata construct fail"),
      );
@@ -693,9 +819,10 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
 
      let cmd = CommandStatementQuery {
        query: "select 1;".to_string(),
+       transaction_id: None,
      };
-     let pack = prost_types::Any::pack(&cmd).expect("pack");
-     let fd = FlightDescriptor::new_cmd(pack.encode_to_vec());
+   
+     let fd = FlightDescriptor::new_cmd(cmd.as_any().encode_to_vec());
 
      let mut req = Request::new(fd);
      req.metadata_mut().insert(
@@ -791,7 +918,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
    ```
    [ODBC Data Sources]
    CNOSDB=Arrow Flight SQL ODBC Driver
-  
+
    [CNOSDB]
    Description=ODBC Driver DSN for Arrow Flight SQL developed by Dremio
    Driver=Arrow Flight SQL ODBC Driver
@@ -920,7 +1047,7 @@ FlightEndPoint 没有定义顺序，如果数据集是排序的，
        SQLGetData(hsmt, 3, SQL_C_DOUBLE, &visibility, 0, NULL);
        SQLGetData(hsmt, 4, SQL_C_DOUBLE, &temperature, 0, NULL);
        SQLGetData(hsmt, 5, SQL_C_DOUBLE, &pressure, 0, NULL);
-       printf("%d-%02d-%02dT%02d:%02d:%02d, %s, %.2lf, %.2lf, %.2lf\n", time.year, time.month, time.day, time.hour, tme.minute, time.second, station, visibility, temperature, pressure);
+       printf("%d-%02d-%02dT%02d:%02d:%02d, %s, %.2lf, %.2lf, %.2lf\n", time.year, time.month, time.day, time.hour, time.minute, time.second, station, visibility, temperature, pressure);
      } else {
       break;
      }

@@ -1,8 +1,8 @@
 ---
-title: 配置
-order: 6
-
+sidebar_position: 4
 ---
+
+# 配置
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

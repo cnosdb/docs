@@ -1,6 +1,5 @@
 ---
-title: 工具
-order: 7
+sidebar_position: 6
 ---
 
 # 工具
