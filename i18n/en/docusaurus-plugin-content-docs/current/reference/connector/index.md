@@ -1,7 +1,5 @@
 ---
-title: Connector
-order: 3
-index: false
+sidebar_position: 5
 ---
 
 # Connector
