@@ -1,6 +1,5 @@
 ---
-title: Flink Connector
-order: 3
+sidebar_position: 3
 ---
 
 # Flink Connector
