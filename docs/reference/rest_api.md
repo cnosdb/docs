@@ -198,6 +198,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - `db`：数据库名称（可选，默认 `public`）
 - `tanent`：租户名称（可选，默认`cnosdb`）
 - `table`: 表名称 (必填)
+- `have_es_command`: 表示日志中是否有index和create (可选, 默认true)
 - `time_column`: 指定日志中时间列名称 (可选, 默认`time`。 如果同时没有`time`列和`time_column`会使用当前时间)
 - `tag_columns`: 指定日志中多个tag列 (可选，如果没有指定则全部按field列存储)
 
@@ -212,6 +213,18 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
 {"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"index":{}}
+{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
+```
+
+#### 请求成功
+```
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
+```
+
+```bash
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&have_es_command=false&time_column=date&tag_columns=node_id,operator_system' -d '{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
