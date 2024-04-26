@@ -203,7 +203,7 @@ The times the user queries from the database.
 | NODE_ID | ID of data node                     |
 | TENANT                       | Tenant name the database belongs to |
 | USER                         | User name                           |
-| VALUE                        | 用户查询次数                              |
+| VALUE                        | User Query times                    |
 
 ### USER_WRITES
 
