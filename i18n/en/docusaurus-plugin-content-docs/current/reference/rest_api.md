@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # REST API
 
 ## Status Code
@@ -196,6 +200,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
+- `have_es_command`: 表示日志中是否有index和create (可选, 默认true)
 - `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
 - `tag_columns`: Specifies multiple tag columns in the log (optional, if not specified, all will be stored in field columns)
 
@@ -210,6 +215,19 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
 {"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"index":{}}
+{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
+```
+
+#### Successful
+
+```
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
+```
+
+```bash
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&have_es_command=false&time_column=date&tag_columns=node_id,operator_system' -d '{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
