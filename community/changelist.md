@@ -1,5 +1,17 @@
 # 发行说明
 
+## v2.3.5.2
+
+发布日期：2034年04月17日
+
+### 错误修复
+
+- 修复了dependbot安全问题 [#2069](https://github.com/cnosdb/cnosdb/pull/2069)
+- 修复了禁止其他用户修改根用户信息的问题 [#2070](https://github.com/cnosdb/cnosdb/pull/2070)
+- 修复了指标可以删除 vnode 信息的问题 [#2048](https://github.com/cnosdb/cnosdb/pull/2048)
+- 修复了串行构建倒排索引问题 [#2072](https://github.com/cnosdb/cnosdb/pull/2072)
+- 修复了加载布隆过滤器死锁的问题 [#2073](https://github.com/cnosdb/cnosdb/pull/2073)
+
 ## v2.3.5.1
 
 发布日期：2024年04月10日

@@ -11,3 +11,5 @@
 
 /en/latest/deploy/install.html#start-a-cnosdb-cluster /docs/deploy  301
 /en/latest/versatility/collect/prometheus /en/eco-integration/prometheus 301
+
+/guide/quick_start.html    /docs/start/quick_start 301
