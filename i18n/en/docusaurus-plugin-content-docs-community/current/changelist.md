@@ -1,5 +1,17 @@
 # Releases
 
+## v2.3.5.2
+
+Release Date: April 17, 2024
+
+### Bug Fixes
+
+- Fixed dependbot security issue [#2069](https://github.com/cnosdb/cnosdb/pull/2069)
+- Fixed issue that prevented other users from modifying root user information [#2070](https://github.com/cnosdb/cnosdb/pull/2070)
+- Fixed issue where indicators could delete vnode info [#2048](https://github.com/cnosdb/cnosdb/pull/2048)
+- Fixed issue with serial build of inverted indexes [#2072](https://github.com/cnosdb/cnosdb/pull/2072)
+- Fixed issue with loading Bloom filter deadlocks [#2073](https://github.com/cnosdb/cnosdb/pull/2073)
+
 ## Version 2.3.5.1
 
 Release Date: April 10, 2024
