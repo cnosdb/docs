@@ -40,7 +40,7 @@ All tests run on our servers, with the following configurations:
 
 ## Configuration
 
-The configuration of the CosDB is as follows:
+The configuration of the CnosDB is as follows:
 
 ```
 [storage]
