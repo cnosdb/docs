@@ -118,7 +118,7 @@ InfluxDB is the default configuration except [data] and [meta]
    ./influxd run -config ../../etc/influxdb/influxdb.conf
    ```
 
-3. Tsdb-comparisons generate data
+3. tsdb-comparisons generate data
 
    Pull the code off GitHub.
 
@@ -170,7 +170,7 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client:
 
 So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
 
-In addition, CnosDB supports higher concurrent numbers, and we also test the performance of CnosDB under workrs = 200 (200 concurrent scenarios). The results are as follows (row and metric units: 10,000):
+In addition, CnosDB supports higher concurrent numbers, and we also test the performance of CnosDB under workers = 200 (200 concurrent scenarios). The results are as follows (row and metric units: 10,000):
 
 |            | CnosDB        |                  |
 | ---------- | ------------- | ---------------- |
