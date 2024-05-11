@@ -17,12 +17,12 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 |                          | CnosDB                                                                                                                                           | InfluxDB                                                                                                                                         |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Version                  | 2.3.0                                                                                                            | 1.8.10                                                                                                           |
-| Machine                  | 1台                                                                                                                                               | 1台                                                                                                                                               |
+| Machine                  | 1                                                                                                                                                | 1                                                                                                                                                |
 | Configuration            | 3.10.0-1160.81.1.el7.x86_64 | 3.10.0-1160.81.1.el7.x86_64 |
 | Operating System Version | CentOS Linux release 7.9.2009 (Core)                                                          | CentOS Linux release 7.9.2009 (Core)                                                          |
-| CPU                      | 32核 Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz                                  | 32核 Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz                                  |
+| CPU                      | 32-core Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz                              | 32-core Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz                              |
 | Memory                   | 256G                                                                                                                                             | 256G                                                                                                                                             |
-| Disk                     | 1块SSD盘(1T)                                                                                                                    | 1块SSD盘(1T)                                                                                                                    |
+| Disk                     | 1 SDD (1T)                                                                                                                    | 1 SDD (1T)                                                                                                                    |
 
 > Note: CnosDB and InfluxDB are internal to the container, the CPU number is 8, and the memory limit is 32G.
 
@@ -79,7 +79,7 @@ git clone https://github.com/cnosdb/cnosdb.git
 generate_data --use-case="iot" --seed=123 --scale=4000 --timestamp-start="2022-01-01T00:00:00Z" --timestamp-end="2022-02-01T00:00:00Z" --log-interval="10s" --format="influxdb" ｜ gzip > /tmp/influxdb-data.gz
 ```
 
-3. www.cnosdb.com
+3. Start CnosDB
 
 ```shell
 docker run --name cnosdb -p 8902:8902 -d --cpus=8 --memory=32g cnosdb/cnosdb:community-latest cnosdb run -M singleton

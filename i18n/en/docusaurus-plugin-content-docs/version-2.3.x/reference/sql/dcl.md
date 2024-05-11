@@ -235,7 +235,7 @@ Grant the role `rrr` the permission to read the database `air`.\*\*
 GRANT READ ON DATABASE air TO ROLE rrr;
 ```
 
-Grant the role `rr r` permission to read and write the `wind` database.\*\*
+Grant the role `rrr` permission to read and write the `wind` database.\*\*
 
 ```sql
 GRANT WRITE ON DATABASE wind TO ROLE rrr;

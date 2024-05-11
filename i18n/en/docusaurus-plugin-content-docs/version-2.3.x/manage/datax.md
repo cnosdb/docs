@@ -47,21 +47,21 @@ The plugin cnosdbwriter generates schema-less write statements and sends them to
 
 ### Plugin configuration
 
-| Plugin configuration | Description                                                                                                                                                                                                                                                                                                                                                  | Required or Not | Default Value                        |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ------------------------------------ |
-| cnosdbWriteAPI       | API of CnosDB write URL, string                                                                                                                                                                                                                                                                                                                              | No              | `http://127.0.0.1:8902/api/v1/write` |
-| tenant               | Tenant, string                                                                                                                                                                                                                                                                                                                                               | No              | `cnosdb`                             |
-| database             | Database, string                                                                                                                                                                                                                                                                                                                                             | No              | `public`                             |
-| username             | Username, string                                                                                                                                                                                                                                                                                                                                             | No              | `root`                               |
-| password             | Password, string                                                                                                                                                                                                                                                                                                                                             | No              | `root`                               |
-| batchSize            | Maximum number of rows written to CnosDB per batch, unsigned integer                                                                                                                                                                                                                                                                                         | No              | `1000`                               |
-| bufferSize           | Maximum number of bytes written to CnosDB per batch, unsigned integer                                                                                                                                                                                                                                                                                        | No              | `8388608`                            |
-| format               | The format used by the Reader, string This configuration is required if the Reader uses a special format, such as opentsdbreader. Optional values are `datax`, `opentsdb`.                                                                                                                                                   | No              | `datax`                              |
-| table                | Table, string; No configuration is required when format is `opentsdb`.                                                                                                                                                                                                                                                                       | Yes             | -                                    |
-| tags                 | The Map type, which maps the Tag name to the sequence number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`. See the instructions below for the format details.See the instructions below for the format details. | Yes             | *                                    |
-| fields               | The Map type, which maps the Field name to the number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`. See the instructions below for the format details.See the instructions below for the format details.        | Yes             | -                                    |
-| timeIndex            | The fieldsExtra configuration is applied at this point in the format `{source column: {"table": target table, "field": target column}}`. The following example shows that the data of OpenTSDB column `cpu_usage` is written to the data column `usage` of CnosDB table                                                                      | Yes             | *                                    |
-| precision            | The timestamp accuracy of the input data, a string The optional values are `s`, `ms`, `us`, and `ns` for seconds, milliseconds, microseconds, and nanoseconds, respectively.                                                                                                                                                                 | No              | `ms`                                 |
+| Plugin configuration | Description                                                                                                                                                                                                                                                                        | Required or Not | Default Value                        |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------------------------------------ |
+| cnosdbWriteAPI       | API of CnosDB write URL, string                                                                                                                                                                                                                                                    | No              | `http://127.0.0.1:8902/api/v1/write` |
+| tenant               | Tenant, string                                                                                                                                                                                                                                                                     | No              | `cnosdb`                             |
+| database             | Database, string                                                                                                                                                                                                                                                                   | No              | `public`                             |
+| username             | Username, string                                                                                                                                                                                                                                                                   | No              | `root`                               |
+| password             | Password, string                                                                                                                                                                                                                                                                   | No              | `root`                               |
+| batchSize            | Maximum number of rows written to CnosDB per batch, unsigned integer                                                                                                                                                                                                               | No              | `1000`                               |
+| bufferSize           | Maximum number of bytes written to CnosDB per batch, unsigned integer                                                                                                                                                                                                              | No              | `8388608`                            |
+| format               | The format used by the Reader, string This configuration is required if the Reader uses a special format, such as opentsdbreader. Optional values are `datax`, `opentsdb`.                                                                         | No              | `datax`                              |
+| table                | Table, string; No configuration is required when format is `opentsdb`.                                                                                                                                                                                             | Yes             | -                                    |
+| tags                 | The Map type, which maps the Tag name to the number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`.See the instructions below for the format details.   | Yes             | *                                    |
+| fields               | The Map type, which maps the Field name to the number of the corresponding input column (unsigned integer, starting from 0). Only works if format is `datax`.See the instructions below for the format details. | Yes             | -                                    |
+| timeIndex            | The time field corresponds to the sequence number of the input column, which is an unsigned integer starting from 0; only needs to be configured when format is `opentsdb`.                                                                                        | Yes             | *                                    |
+| precision            | The timestamp accuracy of the input data, a string The optional values are `s`, `ms`, `us`, and `ns` for seconds, milliseconds, microseconds, and nanoseconds, respectively.                                                                                       | No              | `ms`                                 |
 
 Notice:
 
@@ -97,7 +97,7 @@ Notice:
 
 - The format configuration option can also be set to `opentsdb`, in which case CnosDBWriter will assume that the input data has only one column, and the format is OpenTSDB JSON format write request. There is no need to configure the table, tags, fields, timeIndex. The data will be parsed from the JSON OpenTSDB write request.
 
-- The configuration item 'precision' corresponds to the time precision provided by the Reader plugin, with the default being milliseconds.Tenant: `cnosdb`
+- The configuration item 'precision' corresponds to the time precision provided by the Reader plugin, with the default being milliseconds.CnosDB will sometimes require time conversion because it will be stored in nuns.
 
 ### Data type conversion
 
@@ -151,8 +151,7 @@ Then the corresponding Reader plugin OpenTSDBReader configuration is as follows:
     "parameter": {
         "endpoint": "http://localhost:4242",
         "column": [
-            "cpu_usage_nice",
-            "cpu_usage_idle"
+            "cpu_usage_nice"
         ],
         "beginDateTime": "2023-06-01 00:00:00",
         "endDateTime": "2023-06-02 00:00:00"
@@ -162,7 +161,7 @@ Then the corresponding Reader plugin OpenTSDBReader configuration is as follows:
 
 The time precision is not written in the OpenTSDBReader configuration but in the precision entry of the CnosDBWriter configuration provided.
 
-By default, the configuration item column will be used as the table name for CnosDB. Finally, `cpu_usage_nice` and `cpu_usage_idle` tables will be generated in CnosDB, and the metrics will be written to the `value` column of both tables. We can configure fieldsExtra to write `cpu_usage_nice` to the same CnosDB table as `cpu_usage_idle`, as shown in the fieldsExtra configuration below.{ "cpu_usage": { "table": "cpu", "field": "usage" } }
+By default, the configuration item column will be used as the table name for CnosDB.In CnosDB, a table named `cpu_usage_nice` will eventually be created, and metric data will be consistently written to the `value` column of the `cpu_usage_nice` table.
 
 The data in OpenTSDB is as follows:
 
@@ -187,30 +186,6 @@ curl 'http://localhost:4242/api/query?start=2023/06/01-00:00:00&end=2023/06/01-0
             "1685548880000": 32.713946,
             "1685548890000": 37.621445,
             "1685548900000": 26.837964,
-        }
-    }
-]
-
-curl 'http://localhost:4242/api/query?start=2023/06/01-00:00:00&end=2023/06/01-01:00:00&m=none:cpu_usage_idle' ｜jq
-[
-    {
-        "metric": "cpu_usage_nice",
-        "tags": {
-            "host": "myhost",
-            "cpu": "cpu0"
-        },
-        "aggregateTags": [],
-        "dps": {
-            "1685548810000": 26.837964,
-            "1685548820000": 37.621445,
-            "1685548830000": 32.713946,
-            "1685548840000": 27.269705,
-            "1685548850000": 1.509054,
-            "1685548860000": 19.758805,
-            "1685548870000": 4.885149,
-            "1685548880000": 0.0,
-            "1685548890000": 0.0,
-            "1685548900000": 0.0,
         }
     }
 ]
@@ -240,14 +215,6 @@ Then the corresponding CnosDBWriter configuration is as follows:
         "username": "root",
         "password": "root",
         "format": "opentsdb",
-        "fieldsExtra": {
-            "cpu_usage_nice": {
-                "table": "cpu", "field": "usage_nice"
-            },
-            "cpu_usage_idle": {
-                "table": "cpu", "field": "usage_idle"
-            }
-        }
     }
 }
 ```
@@ -266,8 +233,7 @@ Then the corresponding CnosDBWriter configuration is as follows:
                     "parameter": {
                         "endpoint": "http://localhost:4242",
                         "column": [
-                            "cpu_usage_nice",
-                            "cpu_usage_idle"
+                            "cpu_usage_nice"
                         ],
                         "beginDateTime": "2023-06-01 00:00:00",
                         "endDateTime": "2023-06-02 00:00:00"
@@ -281,15 +247,7 @@ Then the corresponding CnosDBWriter configuration is as follows:
                         "database": "public",
                         "username": "root",
                         "password": "root",
-                        "format": "opentsdb",
-                        "fieldsExtra": {
-                            "cpu_usage_nice": {
-                                "table": "cpu", "field": "usage_nice"
-                            },
-                            "cpu_usage_idle": {
-                                "table": "cpu", "field": "usage_idle"
-                            }
-                        }
+                        "format": "opentsdb"
                     }
                 }
             }
@@ -319,29 +277,29 @@ The output is as follows:
 任务结束时刻                    : 2023-07-01 12:34:56
 任务总计耗时                    :                  1s
 任务平均流量                    :              508B/s
-记录写入速度                    :             20rec/s
-读出记录总数                    :                  20
+记录写入速度                    :             10rec/s
+读出记录总数                    :                  10
 读写失败总数                    :                   0
 ```
 
 The data in CnosDB is as follows:
 
 ```sql
-SELECT * FROM cpu ORDER BY time ASC;
-+---------------------+--------+------+------------+------------+
-| time                | host   | cpu  | usage_nice | usage_idle |
-+---------------------+--------+------+------------+------------+
-| 2023-06-01T00:00:10 | myhost | cpu0 | 0.0        | 26.837964  |
-| 2023-06-01T00:00:20 | myhost | cpu0 | 0.0        | 37.621445  |
-| 2023-06-01T00:00:30 | myhost | cpu0 | 0.0        | 32.713946  |
-| 2023-06-01T00:00:40 | myhost | cpu0 | 1.509054   | 27.269705  |
-| 2023-06-01T00:00:50 | myhost | cpu0 | 4.885149   | 1.509054   |
-| 2023-06-01T00:01:00 | myhost | cpu0 | 19.758805  | 19.758805  |
-| 2023-06-01T00:01:10 | myhost | cpu0 | 27.269705  | 4.885149   |
-| 2023-06-01T00:01:20 | myhost | cpu0 | 32.713946  | 0.0        |
-| 2023-06-01T00:01:30 | myhost | cpu0 | 37.621445  | 0.0        |
-| 2023-06-01T00:01:40 | myhost | cpu0 | 26.837964  | 0.0        |
-+---------------------+--------+------+------------+------------+
+SELECT * FROM cpu_usage_nice ORDER BY time ASC;
++---------------------+--------+------+-----------+
+| time                | host   | cpu  | value     |
++---------------------+--------+------+-----------+
+| 2023-06-01T00:00:10 | myhost | cpu0 | 0.0       |
+| 2023-06-01T00:00:20 | myhost | cpu0 | 0.0       |
+| 2023-06-01T00:00:30 | myhost | cpu0 | 0.0       |
+| 2023-06-01T00:00:40 | myhost | cpu0 | 1.509054  |
+| 2023-06-01T00:00:50 | myhost | cpu0 | 4.885149  |
+| 2023-06-01T00:01:00 | myhost | cpu0 | 19.758805 |
+| 2023-06-01T00:01:10 | myhost | cpu0 | 27.269705 |
+| 2023-06-01T00:01:20 | myhost | cpu0 | 32.713946 |
+| 2023-06-01T00:01:30 | myhost | cpu0 | 37.621445 |
+| 2023-06-01T00:01:40 | myhost | cpu0 | 26.837964 |
++---------------------+--------+------+-----------+
 ```
 
 ### Check the status of the import task:
@@ -349,7 +307,7 @@ SELECT * FROM cpu ORDER BY time ASC;
 The log files for DataX job runs are located in the `{YOUR_DATAX_HOME}/log` directory by default.In these log files, we can see the start time, end time, status of the task, and any output and error messages.In addition, you can obtain the import progress by querying the exported table in CnosDB.
 
 ```sql
-SELECT COUNT(usage_idle) as c FROM "cpu";
+SELECT COUNT(*) as c FROM "cpu_usage_nice";
 +----+
 | c  |
 +----+

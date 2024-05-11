@@ -200,7 +200,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
-- `have_es_command`: 表示日志中是否有index和create (可选, 默认true)
+- `have_es_command`: Indicates whether there is index and create in the log (optional, default true)
 - `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
 - `tag_columns`: Specifies multiple tag columns in the log (optional, if not specified, all will be stored in field columns)
 
