@@ -30,7 +30,7 @@ EOF
 更新并下载软件：
 
 ```shell
-sudo yum update & yum install -y cnosdb cnosdb-meta
+sudo yum update && yum install -y cnosdb cnosdb-meta
 ```
 
 </TabItem>
