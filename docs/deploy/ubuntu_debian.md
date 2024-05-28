@@ -24,7 +24,7 @@ echo "deb [signed-by=/etc/apt/trusted.gpg.d/cnosdb.gpg] https://repo.cnosdb.com/
 更新并下载软件：
 
 ```shell
-sudo apt-get update & apt-get -y install cnosdb cnosdb-meta
+sudo apt-get update && apt-get -y install cnosdb cnosdb-meta
 ```
 
 </TabItem>
