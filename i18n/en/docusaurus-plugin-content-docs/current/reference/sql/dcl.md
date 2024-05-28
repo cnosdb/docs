@@ -71,13 +71,13 @@ CREATE USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true,
 By using the `CREATE ROLE` statement, administrators can define new roles and assign permissions to these roles.Roles can be used in the database for organizing users and granting a specific set of permissions to simplify the administration and control access levels.
 
 ```sql
-CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
+CREATE ROLE [IF NOT EXISTS] role_name [INHERIT {owner | member}];
 ```
 
-| Options  | Description                                                                                                              |
-| -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `owner`  | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
-| `member` | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
+| Options  | Description                             |
+| -------- | --------------------------------------- |
+| `owner`  | 租户下默认的角色，创建新角色时可以继承 `owner` 或 `member`。 |
+| `member` | 租户下默认的角色，创建新角色时可以继承 `owner` 或 `member`。 |
 
 <details>
   <summary>View example</summary>
