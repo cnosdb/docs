@@ -72,13 +72,13 @@ CREATE USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true,
 通过使用 `CREATE ROLE` 语句，管理员可以定义新的角色，并为这些角色分配相应的权限。角色在数据库中可以用于组织用户并授予一组特定的权限，从而简化权限管理和控制访问级别。
 
 ```sql
-CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
+CREATE ROLE [IF NOT EXISTS] role_name [INHERIT {owner | member}];
 ```
 
 | 选项     | 描述                                                         |
 | -------- | ------------------------------------------------------------ |
-| `owner`  | 租户下默认的角色，创建新角色时必需继承 `owner` 或 `member`。 |
-| `member` | 租户下默认的角色，创建新角色时必需继承 `owner` 或 `member`。 |
+| `owner`  | 租户下默认的角色，创建新角色时可以继承 `owner` 或 `member`。 |
+| `member` | 租户下默认的角色，创建新角色时可以继承 `owner` 或 `member`。 |
 
 <details>
   <summary>查看示例</summary>
