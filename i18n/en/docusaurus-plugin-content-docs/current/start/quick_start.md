@@ -22,7 +22,7 @@ Executing the following command in the shell will generate a local data file nam
 curl -o oceanic_station.txt https://dl.cnosdb.com/sample/oceanic_station.txt
 ```
 
-### Import data
+### Import Data
 
 - **Start the CLI**
   ```shell
