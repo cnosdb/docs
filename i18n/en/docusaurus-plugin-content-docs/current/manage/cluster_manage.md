@@ -122,9 +122,9 @@ CHECKSUM GROUP 5
 
 CnosDB supports resource management, will monitor some complex and multi-step resources, and will retry when the operation fails until successful.
 
-当前支持的资源包括：`DropTenant`、`DropDatabase`、`DropTable`、`DropColumn`、`AddColumn`、`AlterColumn`、`UpdateTagValue`
+The currently supported resources include: `DropTenant`, `DropDatabase`, `DropTable`, `DropColumn`, `AddColumn`, `AlterColumn`, `RenameTagName`, `UpdateTagValue`
 
-所对应的命令为：`DROP TENANT`、`DROP DATABASE`、`DROP TABLE`、`DROP COLUMN`、`ADD COLUMN`、`ALTER COLUMN`、`UPDATE`
+The corresponding commands are: `DROP TENANT`, `DROP DATABASE`, `DROP TABLE`, `DROP COLUMN`, `ADD COLUMN`, `ALTER COLUMN`, `REMOTE COLUMN`
 
 The system table `information_schema.resource_status` stores the status of resources:
 
