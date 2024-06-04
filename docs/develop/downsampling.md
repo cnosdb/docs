@@ -8,7 +8,7 @@ sidebar_position: 4
 
 降采样在时序数据库中指对时序数据进行降频，将原本细粒度的数据降频后得到较粗粒度的数据，以此节约存储成本，降采样后的数据只会保留原始数据的一些统计特征。本章将描述如何使用CnosDB实现自动化数据采样。
 
-流查询：是CnosDB中一种用于处理流式数据计算的特殊查询，流查询要求```SELECT```函数中必须包含```GROUP BY time()```字句。
+流查询（流计算）：是CnosDB中一种用于处理流式数据计算的特殊查询，流查询要求```SELECT```函数中必须包含```GROUP BY time()```字句。
 
 启用流查询之前需要创建一个流表视图，语法请参考 [`CREATE STREAM TABLE`](../reference/sql/ddl#create-stream-table) ，以下是一个以 `air` 表为原表的示例：
 
