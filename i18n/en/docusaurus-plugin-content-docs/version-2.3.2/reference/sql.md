@@ -784,7 +784,7 @@ delete from air where station = 'LianYunGang' and time < '2023-01-14T16:03:00';
 
 ## **Data Query**
 
-CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction), We support most of the SQL syntax of DataFusion.
+CnosDBSQL is inspired by [DataFusion](https://datafusion.apache.org/), We support most of the SQL syntax of DataFusion.
 
 #### Note
 
