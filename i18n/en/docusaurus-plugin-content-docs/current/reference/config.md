@@ -10,11 +10,11 @@ import APITable from '@site/src/components/APITable';
 
 本章节介绍配置 CnosDB 配置的方法。
 
-CnosDB 的配置文件为 TOML 格式。
+The configuration adopts TOML syntax.
 
-> TOML 语法参考：[https://toml.io](https://toml.io/cn/v1.0.0)
+> TOML Syntax Reference: [https://toml.io](https://toml.io/cn/v1.0.0)
 
-使用 `cnosdb config` 命令来创建默认的配置文件，如：
+Use the `cnosdb config` command to create default configuration files, For example:
 
 ```shell
 cnosdb run config > ./config.toml
