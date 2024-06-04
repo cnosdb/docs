@@ -10,15 +10,24 @@ sidebar_position: 7
 若 CnosDB 在公开访问的端点上运行，强烈建议启用认证，否则数据将对任何未经身份验证的用户公开。
 :::
 
-CnosDB 中有初始的租户（cnosdb）和用户（root），如果需要开启身份认证，需要完成以下两步操作：
+CnosDB 中有初始的租户（cnosdb）和用户（root），如果需要开启身份认证，需要打开配置：
 
-**第一步：为用户 root 设置密码。**
+**修改配置文件中的 `auth_enabled=true` ，并启动实例。**
+
+此时，通过cnosdb-cli --user root --password登录并输入默认密码。root用户的默认密码是'root'，可以通过meta的配置文件修改。
+在开启认证的情况下，must_change_password为true的用户需要修改密码才能正常进行其他操作，root默认为true，其他用户默认为false。
+
+**为用户 root 设置新密码。**
 
 ```sql
 ALTER USER root SET PASSWORD='CnosDB#!';
 ```
 
-**第二步：修改配置文件中的 `auth_enabled=true` ，并重启实例。**
+**修改 `must_change_password=true`，要求下次登录时必须修改密码才能正常进行其他操作。**
+
+```sql
+ALTER USER user1 SET must_change_password=true;
+```
 
 admin 权限在 CnosDB 中分为两种：初始 admin 权限，被授予的 admin 权限。
 
