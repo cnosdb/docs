@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="Community" label="社区版">
 
 ```shell
-docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest
 ```
 
 </TabItem>
@@ -27,7 +27,7 @@ Please contact us to obtain the installation package for the enterprise version.
 :::
 
 ```shell
-docker run --name cnosdb -p 8902:8902 -d <enterprise-image> cnosdb run -M singleton
+docker run --name cnosdb -p 8902:8902 -d <enterprise-image>
 ```
 
 </TabItem>

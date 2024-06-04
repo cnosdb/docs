@@ -16,7 +16,7 @@ For other installation methods, please see [Installing CnosDB](https://www.docke
 2. Start the container with Docker
 
     ```shell
-    docker run --name cnosdb -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+    docker run --name cnosdb -d cnosdb/cnosdb:community-latest
     ```
 
 3. Enter the container
