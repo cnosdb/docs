@@ -15,7 +15,7 @@ CnosDB 中有初始的租户（cnosdb）和用户（root），如果需要开启
 **第一步：修改配置文件中的 `auth_enabled=true` ，并启动实例。**
 
 此时，通过cnosdb-cli --user root --password登录并输入默认密码。root用户的默认密码是'root'，可以通过meta的配置文件修改。
-在启动认证的情况下，不论是root还是其他用户的首次登录，都需要修改默认密码才可以进行其他操作。
+在启动认证的情况下，首次登录需要修改默认密码才可以进行其他操作。如果想其他用户也是这种效果，可以修改user字段must_change_password为true
 
 **第二步：为用户 root 设置新密码。**
 
