@@ -10,20 +10,20 @@ This chapter introduces the setting and management of identity authentication au
 If CnosDB is running on a public endpoint, it is strongly recommended to enable authentication, otherwise the data will be exposed to any unauthenticated users.
 :::
 
-CnosDB 中有初始的租户（cnosdb）和用户（root），如果需要开启身份认证，需要打开配置：
+CnosDB has an initial tenant (cnosdb) and user (root) and needs to open configuration: if you need to enable authentication
 
-**修改配置文件中的 `auth_enabled=true` ，并启动实例。**
+**Modify `auth_enabled=true` in the configuration file and start an instance.**
 
-此时，通过cnosdb-cli --user root --password登录并输入默认密码。root用户的默认密码是'root'，可以通过meta的配置文件修改。
-在开启认证的情况下，must_change_password为true的用户需要修改密码才能正常进行其他操作，root默认为true，其他用户默认为false。
+At this point, login with cnosdb-cli --user root --password and enter the default password.The default password for root users is 'root', which can be changed by meta profile.
+When authenticating is enabled, ust_change_password needs to be changed for true users, root defaults to true and false.
 
-**为用户 root 设置新密码。**
+**Set a new password for user root.**
 
 ```sql
 ALTER USER root SET PASSWORD='CnosDB#!';
 ```
 
-**修改 `must_change_password=true`，要求下次登录时必须修改密码才能正常进行其他操作。**
+**Modify `must_change_password=true`. Require you to change your password next time you log in to perform other actions properly.**
 
 ```sql
 ALTER USER user1 SET must_change_password=true;
