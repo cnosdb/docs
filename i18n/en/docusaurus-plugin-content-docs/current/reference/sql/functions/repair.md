@@ -2,17 +2,17 @@
 sidebar_position: 10
 ---
 
-# 修复函数
+# Repair Function
 
-用于时间序列数据的修复
+Repair for time series data
 
 ## timestamp_repair
 
-负责修复时间戳序列
+Responsible for repairing timestamp sequences
 
 :::tip
 
-函数timestamp_repair首先通过Mode、Cluster、Median以及自定义数值方式确定时间戳间隔interval，然后使用Linear、Mode方法确定修复后时间戳的开始值start。通过动态规划算法对修复代价进行优化，过程中有插入、删除、不变三种操作，最终得到最优的修复序列。
+Function timestamp_repair first determines timestamp interval by Mode, Cluster, Median, and custom values, and then uses Linear and Mode methods to determine the start value of the timestamp after fixing.Optimize the repair cost through dynamic programming algorithm, with three operations including insertion, deletion, and remain unchanged, and finally obtain the optimal repair sequence.
 :::
 
 ```sql
@@ -23,13 +23,13 @@ timestamp_repair(time_expresion, numeric_expression, arg_expression)
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 | `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
-| `arg_expression`     | 参数表达式。必须是字符串常量，多个参数之间用`&`链接                                                                                                                         |
+| `arg_expression`     | Parameter expression.Must be a string constant, with multiple parameters linked by `&`                                              |
 
-| Parameters   | Description                                                                       |
-| ------------ | --------------------------------------------------------------------------------- |
-| `method`     | 推算标准时间间隔的方法，取值为 'median', 'mode' 或 'cluster'，仅在interval缺省时有效。在缺省情况下，将使用中位数方法进行推算。 |
-| `interval`   | 标准时间间隔（单位是毫秒），是一个正整数。在缺省情况下，将根据指定的方法推算。                                           |
-| `start_mode` | 起始时间戳的推算方法，取值为 'linear' 或 'mode'，缺省情况下使用 'mode'。                                  |
+| Parameters   | Description                                                                                                                                                                                                                              |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `method`     | Method to estimate the standard time interval, taking a value of 'median', 'mode', or 'cluster', only valid when interval is missing.In the default case, the median method will be used for estimation. |
+| `interval`   | 标准时间间隔（单位是毫秒），是一个正整数。In the default case, calculations will be based on the specified method.                                                                                                                            |
+| `start_mode` | Calculation method of the start timestamp, taking the value 'linear' or 'mode', with 'mode' being used by default.                                                                                                       |
 
 <details>
   <summary>View example</summary>
@@ -59,11 +59,11 @@ SELECT timestamp_repair(time, value, 'method=mode&start_mode=linear') FROM wzz;
 
 ## value_fill
 
-负责填充值列缺失的数据
+Responsible for filling in missing data in the value column
 
 :::tip
 
-函数value_fill根据输入的参数Method来决定值填充的方法，方法有Mean、Previous、Linear、AR、MA五种。
+The function value_fill determines the method of value filling based on the input parameter Method, with five methods including Mean, Previous, Linear, AR, and MA.
 :::
 
 ```sql
@@ -74,11 +74,11 @@ value_fill(time_expresion, numeric_expression, arg_expression)
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 | `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
-| `arg_expression`     | 参数表达式。必须是字符串常量，多个参数之间用`&`链接                                                                                                                         |
+| `arg_expression`     | Parameter expression.Must be a string constant, with multiple parameters linked by `&`                                              |
 
-| Parameters | Description                                                             |
-| ---------- | ----------------------------------------------------------------------- |
-| `method`   | 填补缺失值的方法，取值为 'mean', 'previous', 'linear', 'ar', 'ma'，缺省情况下使用 'linear'。 |
+| Parameters | Description                                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `method`   | Method for filling missing values, with values 'mean', 'previous', 'linear', 'ar', 'ma', defaults to 'linear'. |
 
 <details>
   <summary>View example</summary>
@@ -112,11 +112,11 @@ SELECT value_fill(time, value, 'method=mean') FROM wzz;
 
 ## value_repair
 
-负责修复值列的数据
+Responsible for repairing the data in the value column
 
 :::tip
 
-函数value_repair使用Screen算法和LsGreedy算法，对时间戳和值之间的不一致性或缺失进行修复。首先，Screen算法据时间戳间隔的中位数确定修复窗口的宽度，在保持修复后数据在一定范围内的情况下进行修复。LsGreedy算法则通过计算速度的变化，并使用贪心策略进行修复。此外，实现了一些辅助函数用于计算中位数、中位数绝对偏差以及值的变化。
+The function value_repair uses the Screen algorithm and the LsGreedy algorithm to repair inconsistencies or missing values between timestamps and values.First, the Screen algorithm determines the width of the repair window based on the median of the timestamp intervals, repairing the data while keeping it within a certain range after the repair.The LsGreedy algorithm fixes by calculating the change in velocity and using a greedy strategy.In addition, some auxiliary functions have been implemented to calculate the median, median absolute deviation, and value changes.
 :::
 
 ```sql
@@ -127,15 +127,15 @@ value_repair(time_expresion, numeric_expression, arg_expression)
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `time_expresion`     | The time expression to operate.Can be a constant, column, or function, and any combination of arithmetic operators. |
 | `numeric_expression` | Expression to operate on.Can be a constant, column, or function, and any combination of arithmetic operators.       |
-| `arg_expression`     | 参数表达式。必须是字符串常量，多个参数之间用`&`链接                                                                                                                         |
+| `arg_expression`     | Parameter expression.Must be a string constant, with multiple parameters linked by `&`                                              |
 
-| Parameters  | Description                                                                  |
-| ----------- | ---------------------------------------------------------------------------- |
-| `method`    | 修复时采用的方法，取值为 'Screen' 或 'LsGreedy'. 在缺省情况下，使用 Screen 方法进行修复。 |
-| `min_speed` | 该参数仅在使用 Screen 方法时有效。当速度小于该值时会被视作数值异常点加以修复。在缺省情况下为中位数减去三倍绝对中位差。              |
-| `max_speed` | 该参数仅在使用 Screen 方法时有效。当速度大于该值时会被视作数值异常点加以修复。在缺省情况下为中位数加上三倍绝对中位差。              |
-| `center`    | 该参数仅在使用 LsGreedy 方法时有效。对速度变化分布建立的高斯模型的中心。在缺省情况下为 0。                          |
-| `sigma`     | 该参数仅在使用 LsGreedy 方法时有效。对速度变化分布建立的高斯模型的标准差。在缺省情况下为绝对中位差。                      |
+| Parameters  | Description                                                                                                                                                                                                                                                                                   |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `method`    | The method used for repair, with a value of 'Screen' or 'LsGreedy'. By default, the Screen method is used for repair.                                                                                                                                         |
+| `min_speed` | This parameter is only valid when using the Screen method.When the speed is less than this value, it will be considered as a numerical outlier and repaired.Subtract three times the absolute median deviation from the median by default.    |
+| `max_speed` | This parameter is only valid when using the Screen method.When the speed is greater than this value, it will be considered as a numerical outlier and repaired.Subtract three times the absolute median deviation from the median by default. |
+| `center`    | 该参数仅在使用 LsGreedy 方法时有效。对速度变化分布建立的高斯模型的中心。在缺省情况下为 0。                                                                                                                                                                                                                                           |
+| `sigma`     | 该参数仅在使用 LsGreedy 方法时有效。对速度变化分布建立的高斯模型的标准差。在缺省情况下为绝对中位差。                                                                                                                                                                                                                                       |
 
 <details>
   <summary>View example</summary>
