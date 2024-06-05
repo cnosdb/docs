@@ -30,7 +30,7 @@ INSERT [INTO] tb_name [ ( column_name [, ...] ) ] VALUES (  const [, ...] ) [, .
 **Insert a record.**
 
 ```sql
-INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES(new(), 'XiaoMaiDao', 56, 69, 77);
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES(now(), 'XiaoMaiDao', 56, 69, 77);
 ```
 
 **Insert multiple records.**
