@@ -28,7 +28,7 @@ timestamp_repair(time_expresion, numeric_expression, arg_expression)
 | Parameters   | Description                                                                                                                                                                                                                              |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `method`     | Method to estimate the standard time interval, taking a value of 'median', 'mode', or 'cluster', only valid when interval is missing.In the default case, the median method will be used for estimation. |
-| `interval`   | 标准时间间隔（单位是毫秒），是一个正整数。In the default case, calculations will be based on the specified method.                                                                                                                            |
+| `interval`   | Standard time interval (in milliseconds), is a positive integer.In the default case, calculations will be based on the specified method.                                              |
 | `start_mode` | Calculation method of the start timestamp, taking the value 'linear' or 'mode', with 'mode' being used by default.                                                                                                       |
 
 <details>
@@ -134,8 +134,8 @@ value_repair(time_expresion, numeric_expression, arg_expression)
 | `method`    | The method used for repair, with a value of 'Screen' or 'LsGreedy'. By default, the Screen method is used for repair.                                                                                                                                         |
 | `min_speed` | This parameter is only valid when using the Screen method.When the speed is less than this value, it will be considered as a numerical outlier and repaired.Subtract three times the absolute median deviation from the median by default.    |
 | `max_speed` | This parameter is only valid when using the Screen method.When the speed is greater than this value, it will be considered as a numerical outlier and repaired.Subtract three times the absolute median deviation from the median by default. |
-| `center`    | 该参数仅在使用 LsGreedy 方法时有效。对速度变化分布建立的高斯模型的中心。在缺省情况下为 0。                                                                                                                                                                                                                                           |
-| `sigma`     | 该参数仅在使用 LsGreedy 方法时有效。对速度变化分布建立的高斯模型的标准差。在缺省情况下为绝对中位差。                                                                                                                                                                                                                                       |
+| `center`    | This parameter is only valid when using the LsGreedy method.Center of the Gaussian model established for the speed change distribution.Default to 0 in the absence of a value.                                                                |
+| `sigma`     | This parameter is only valid when using the LsGreedy method.The Gaussian model for the distribution of speed changes is not standardized.Absolute median difference in default settings.                                                      |
 
 <details>
   <summary>View example</summary>
