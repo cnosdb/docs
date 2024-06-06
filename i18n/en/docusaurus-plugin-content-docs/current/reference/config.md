@@ -104,16 +104,17 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters               | 默认          | 环境变量                                  | Description                          |
-| ------------------------ | ----------- | ------------------------------------- | ------------------------------------ |
-| `max_server_connections` | `10240`     | `CNOSDB_QUERY_MAX_SERVER_CONNECTIONS` | 最大并发连接请求数。                           |
-| `query_sql_limit`        | `16777216`  | `CNOSDB_QUERY_QUERY_SQL_LIMIT`        | 每个 SQL 查询请求的最大字节数，单位：Bytes           |
-| `write_sql_limit`        | `167772160` | `CNOSDB_QUERY_WRITE_SQL_LIMIT`        | 每个 Line Protocol 写入请求的最大字节数，单位：Bytes |
-| `auth_enabled`           | `false`     | `CNOSDB_QUERY_AUTH_ENABLED`           | 是否检查用户的权限。                           |
-| `read_timeout`           | `3000ms`    | `CNOSDB_QUERY_READ_TIMEOUT`           | `query` 访问 `tskv` 的超时时间，单位：`ms`      |
-| `write_timeout`          | `3000ms`    | `CNOSDB_QUERY_WRITE_TIMEOUT`          | 向 `tskv` 写入数据时的超时时间，单位：`ms`          |
-| `stream_trigger_cpu`     | `1`         | `CNOSDB_QUERY_STREAM_TRIGGER_CPU`     | 准备流计算任务的 CPU 数量                      |
-| `stream_executor_cpu`    | `2`         | `CNOSDB_QUERY_STREAM_EXECUTOR_CPU`    | 执行流计算任务的 CPU 数量                      |
+| Parameters               | 默认          | 环境变量                                  | Description                                                                                         |
+| ------------------------ | ----------- | ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `max_server_connections` | `10240`     | `CNOSDB_QUERY_MAX_SERVER_CONNECTIONS` | 最大并发连接请求数。                                                                                          |
+| `query_sql_limit`        | `16777216`  | `CNOSDB_QUERY_QUERY_SQL_LIMIT`        | 每个 SQL 查询请求的最大字节数，单位：Bytes                                                                          |
+| `write_sql_limit`        | `167772160` | `CNOSDB_QUERY_WRITE_SQL_LIMIT`        | 每个 Line Protocol 写入请求的最大字节数，单位：Bytes                                                                |
+| `auth_enabled`           | `false`     | `CNOSDB_QUERY_AUTH_ENABLED`           | 是否检查用户的权限。                                                                                          |
+| `read_timeout`           | `3000ms`    | `CNOSDB_QUERY_READ_TIMEOUT`           | `query` 访问 `tskv` 的超时时间，单位：`ms`                                                                     |
+| `write_timeout`          | `3000ms`    | `CNOSDB_QUERY_WRITE_TIMEOUT`          | 向 `tskv` 写入数据时的超时时间，单位：`ms`                                                                         |
+| `stream_trigger_cpu`     | `1`         | `CNOSDB_QUERY_STREAM_TRIGGER_CPU`     | 准备流计算任务的 CPU 数量                                                                                     |
+| `stream_executor_cpu`    | `2`         | `CNOSDB_QUERY_STREAM_EXECUTOR_CPU`    | 执行流计算任务的 CPU 数量                                                                                     |
+| `sql_record_timeout`     | `10s`       | `CNOSDB_QUERY_SQL_RECORD_TIMEOUT`     | sql被记录到cluster_schema.sql_history表的最低执行时间 |
 
 ```mdx-code-block
 </APITable>
