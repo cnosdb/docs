@@ -69,7 +69,7 @@ generate_data --use-case="iot" --seed=123 --scale=4000 --timestamp-start="2022-0
 ```
 3. 启动CnosDB
 ```shell
-docker run --name cnosdb -p 8902:8902 -d --cpus=8 --memory=32g cnosdb/cnosdb:community-latest cnosdb run -M singleton
+docker run --name cnosdb -p 8902:8902 -d --cpus=8 --memory=32g cnosdb/cnosdb:community-latest
 ```
 4. 启动InfluxDB
 ```shell

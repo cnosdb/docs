@@ -30,7 +30,7 @@ This page provides some instructions for installing, starting, and configuring C
 @tab Docker
 
 ```bash
-docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-2.3 cnosdb run -M singleton
+docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-2.3
 ```
 
 @tab Ubuntu & Debian
