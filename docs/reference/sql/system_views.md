@@ -34,6 +34,28 @@ SELECT * FROM cluster_schema.users;
 +-----------+----------+--------------------------------------------------------------------------------+
 ```
 
+### sql_history
+
+```sql
+DESC TABLE cluster_schema.sql_history;
++-----------------+-----------------------+-------------+-------------------+
+| column_name     | data_type             | column_type | compression_codec |
++-----------------+-----------------------+-------------+-------------------+
+| time            | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| tenant_id       | STRING                | TAG         | DEFAULT           |
+| tenant_name     | STRING                | TAG         | DEFAULT           |
+| user_id         | STRING                | TAG         | DEFAULT           |
+| user_name       | STRING                | TAG         | DEFAULT           |
+| duration        | DOUBLE                | FIELD       | DEFAULT           |
+| error_count     | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
+| processed_count | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
+| query_id        | STRING                | FIELD       | DEFAULT           |
+| query_text      | STRING                | FIELD       | DEFAULT           |
+| query_type      | STRING                | FIELD       | DEFAULT           |
+| state           | STRING                | FIELD       | DEFAULT           |
++-----------------+-----------------------+-------------+-------------------+
+```
+
 ## information_schema
 
 ### databases
