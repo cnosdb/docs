@@ -20,6 +20,5 @@ sidebar_position: 7
 
 - 高阶函数
     - [candlestick_agg](../reference/sql/functions/two_step_aggregate#candlestick_agg)
-    * [gauge_agg](../reference/sql/functions/two_step_aggregate#gauge_agg)
     * [asap_smooth](../reference/sql/functions/aggregate#asap_smooth)
     * [stats_agg](../reference/sql/functions/two_step_aggregate#state_agg)
