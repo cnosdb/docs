@@ -7,7 +7,7 @@ order: 2
 
 tskv 主要承担数据和索引的存储，对 Node 节点上所有 Vnode 进行管理， 每个 Vnode 负责某个 Database 里的部分数据。在 Vnode 中主要有 3 个模块组成 WAL，IndexEngine 和 DataEngine。
 
-![tskv](/static/img/tskv.png)
+![tskv](/img/tskv.png)
 
 ### Index Engine
 
@@ -47,7 +47,7 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
 
     - HashMap<SeriesID, SeriesKey>：用于根据 SeriesID 获取 SeriesKey。
     - HashMap<SeriesKeyHash, SeriesID>: SeriesKeyHash 为 SeriesKey 的 hash 值，通过 SeriesKeyHash 获取 SeriesID。主要用于根据 SeriesKey 获取 SeriesID。
-    - HashMap<TableName, HashMap<TagKey, BtreeMap<TagValue, RoaringBitmap\<SeriesID>>>>: 倒排索引，根据给定的 TableName，以及 TagKey 和 TagValue 获取所有的 SeriesID。
+    - HashMap<TableName, HashMap<TagKey, BtreeMap<TagValue, RoaringBitmap\<SeriesID\>>>>: 倒排索引，根据给定的 TableName，以及 TagKey 和 TagValue 获取所有的 SeriesID。
 
 索引数据与索引数据结构均会在写输入时根据写入的数据进行构建。
 
@@ -64,7 +64,7 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
   
   在写入数据时，先将数据写入 WAL，然后再写入 VnodeState 的内存 cache 中，当 Node 宕机时，可以通过 WAL 恢复内存数据，以及 Raft 的状态。
 
-  ![wal](/static/img/wal.png)
+  ![wal](/img/wal.png)
   
 
 - #### VnodeState 模块
@@ -78,7 +78,7 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
 - #### TSM 模块
   TSM 模块主要是对 TSM 文件的设计。每个 TSM 文件包含了多个 Chunk， 为了保证读取时不会太放大，每个 Chunk 按行数分了多个 ColumnGroup， 每个 ClomunGroup 包含了多个 Page， Page为最小的读取单元，存储了一列的部分数据。TSM 文件的读取是按照 Chunk -> ColumnGroup -> Page 的顺序进行的。文件末尾存储了文件的元信息，如文件的版本号，文件的大小，和当前文件数据的一些索引信息等。
   
-  ![tsm](/static/img/tsm.png)
+  ![tsm](/img/tsm.png)
 
 
 - #### Compaction 模块
@@ -96,4 +96,4 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
       - 清理已过期或被标记删除的文件。
       - 减小读放大，维护 VnodeState 中与层级有关的元数据。
   
-  ![compaction](/static/img/compaction.png)
+  ![compaction](/img/compaction.png)
