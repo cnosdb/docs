@@ -58,7 +58,14 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
 每个 Vnode 为一个 LSM Tree，用于存储时序数据，同时每个 Vnode 又作为一个 Raft 节点。 所以在设计上每个 Vnode 主要由以下模块构成
 
 - #### WAL 模块
-  WAL 模块在 Vnode 中既作为 LSM Tree 的 Write Ahead Log 模块，又作为 Raft 协议的 Raft Entry Log 模块。在写入数据时，先将数据写入 WAL，然后再写入 VnodeState 的内存 cache 中，当 Node 宕机时，可以通过 WAL 恢复内存数据，以及 Raft 的状态。
+  WAL 模块主要有两个功能
+  1. 作为 LSM Tree 的 Write Ahead Log 模块，用于持久化数据。
+  2. 作为 Raft 协议的 Raft Entry Log 模块，用于持久化 Raft 协议的日志。
+  
+  在写入数据时，先将数据写入 WAL，然后再写入 VnodeState 的内存 cache 中，当 Node 宕机时，可以通过 WAL 恢复内存数据，以及 Raft 的状态。
+
+  ![wal](/static/img/wal.png)
+  
 
 - #### VnodeState 模块
   VnodeState 模块是 LSM Tree 的内存 cache，还保存了 LSM Tree 在磁盘上的元数据信息，如 LSM Tree 磁盘层级，TSM文件位置，TSMReader 的缓存等。同时也是 Raft 协议状态机实际执行的地方，当 Raft 协议的日志被提交时，会在 VnodeState 上执行对应的操作。
@@ -77,7 +84,8 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
 - #### Compaction 模块
   - ##### Flush
     当 VnodeState 内存达到配置文件指定的阈值时，会触发 flush 操作，将内存中的数据打包为一个 flush request，发送到处理 flush 请求的线程中，写入到 TSM 文件。同时会生成对应的 `version_edit`，存储在 summary 文件中。
-  
+
+    Flush 过程将内存的 Memcache 按 series 切分，转为 DataBlock，将 DataBlock 编码转为 Chunk，再将 Chunk 写入 TSM 文件。
   - ##### compaction
 
     每隔一段时间（时间跨度配置在 Config 文件中），以及 Flush 请求结束时，会开始检查是否需要进行 compaction。当层级文件数目过多时，将同一层级的多个 TSM 文件进行合并，生成一个新的 TSM 文件，存储到下一个层级中。
@@ -87,3 +95,5 @@ SELECT xxx from table where tag1= value1 && tag2=value2 [and time > aaa and time
       - 把小的 tsm 文件进行聚合生成较大的 tsm 文件。
       - 清理已过期或被标记删除的文件。
       - 减小读放大，维护 VnodeState 中与层级有关的元数据。
+  
+  ![compaction](/static/img/compaction.png)
