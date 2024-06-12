@@ -277,8 +277,7 @@ nohup ./target/release/cnosdb run --config ./config/config_8902.toml -M singleto
 | SQL                                      | CnosDB 2.3.4.4 | OpenTSDB 2.4.1 | 
 |----------------------------------------- |--------------- |--------------- |
 | 5个月每分钟的最大usage_user值: select date_bin(INTERVAL '1' MINUTE,time, TIMESTAMP '2018-01-01T00:00:00'), max(usage_user) from cpu where hostname = 'host_0' and time >= '2018-01-01T00:00:00Z' and time <= '2018-06-01T00:00:00Z' group by date_bin(INTERVAL '1' MINUTE,time, TIMESTAMP '2018-01-01T00:00:00') limit 10;           | 19ms       | 1845ms             |
-| 2个月每分钟的最大usage_user值: select date_bin(INTERVAL '1' MINUTE,time, TIMESTAMP '2018-01-01T00:00:00'), max(usage_user) from cpu where hostname = 'host_0' and time >= '2018-01-01T00:00:00Z' and time <= '2018-03-01T00:00:00Z' group by date_bin(INTERVAL '1' MINUTE,time, TIMESTAMP '2018-01-01T00:00:00') 
-limit 10;           | 17ms       | 269ms              |
+| 2个月每分钟的最大usage_user值: select date_bin(INTERVAL '1' MINUTE,time, TIMESTAMP '2018-01-01T00:00:00'), max(usage_user) from cpu where hostname = 'host_0' and time >= '2018-01-01T00:00:00Z' and time <= '2018-03-01T00:00:00Z' group by date_bin(INTERVAL '1' MINUTE,time, TIMESTAMP '2018-01-01T00:00:00') limit 10;           | 17ms       | 269ms              |
 
 ##### 压缩比测试结果
 
