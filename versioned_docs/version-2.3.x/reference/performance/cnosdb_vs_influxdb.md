@@ -1,16 +1,21 @@
 ---
-sidebar_position: 7
+sidebar_position: 1
 ---
 
-# 性能测试
+# CnosDB vs InfluxDB
 
-为了更直观的呈现 CnosDB 的性能，我们使用 [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) 测试工具，在[CnosDB 2.3.0](https://github.com/cnosdb/cnosdb) 和 [InfluxDB 1.8.10](https://github.com/influxdata/influxdb) 之间做了写入性能测试的对比，下面是测试结论和测试细节信息。
-## 测试结论
+我们使用 [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) 测试工具，对两个产品进行测试。
+
+## CnosDB 2.3.0 vs InfluxDB 1.8.10
+
+在[CnosDB 2.3.0](https://github.com/cnosdb/cnosdb) 和 [InfluxDB 1.8.10](https://github.com/influxdata/influxdb) 之间做了写入性能测试的对比，下面是测试结论和测试细节信息。
+
+### 测试结论
 
 在保持同等batch-size大小，提高导入并发（至30）；保持同等导入并发，提高batch-size大小（至2w）；两种测试条件下，测试结果显示CnosDB的导入性能均要略优于InfluxDB。
 
-## 测试前期
-### 1.测试环境准备
+### 测试前期
+#### 1.测试环境准备
 |            | CnosDB                                        | InfluxDB                                     |
 | ---------- | --------------------------------------------- | -------------------------------------------- |
 | 版本        | 2.3.0                                         |   1.8.10                                     |
@@ -22,30 +27,30 @@ sidebar_position: 7
 | 磁盘        | 1块SSD盘(1T)                                  |  1块SSD盘(1T)                                  | 
 >注：CnosDB和InfluxDB均为容器内部署，CPU核数为8，内存限制为32G。
 
-### 2.测试实例准备
+#### 2.测试实例准备
 
 1. 提前安装好对应机器的db环境，go环境等，确保可以正常连接。
 
 2. 安装 CnosDB
 
-   参照部署文档：[Docker安装CnosDB](../deploy)
+   参照部署文档：[Docker安装CnosDB](../start/install.md)
 
 3. 安装 InfluxDB
 
    参照官网：[InfluxDB 1.8.10](https://github.com/influxdata/influxdb) 
 
-### 3.配置项检查及修改
+#### 3.配置项检查及修改
 
      CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
 
-### 4.数据集准备
+#### 4.数据集准备
 
 | 用例 | 确定性生成的PRNG种子 | 要生成的设备数量 | 开始时间戳             | 结束时间戳             | 每台设备每次读数时间间隔 | 目标数据库 | 数据量大小  | 数据行数    |
 | --- | ------------------ | ------------- | -------------------- | -------------------- | -------------------- |---------- | --------- | ---------- |
 | iot | 123                | 100           | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 50s                  | CnosDB    | 8G        | 37,342,964 |
 | iot | 123                | 100           | 2023-01-01T00:00:00Z | 2023-05-01T00:00:00Z | 50s                  | InfluxDB  | 8G        | 37,342,964 |
 
-### 5.测试方案
+#### 5.测试方案
 
 此次测试方案主要从两个角度考量：保持同等batch-size下，测试导入并发；保持同等导入并发大小，测试batch-size。
 
@@ -57,7 +62,7 @@ sidebar_position: 7
 | 5000       |  8      |
 | 20000      |  8      |
 
-## 测试中期
+### 测试中期
 
 1. 生成CnosDB数据集
 ```shell
@@ -88,7 +93,7 @@ go build
 ./load_influx --do-abort-on-exist=false --do-create-db=false --gzip=false        --file=<file_path>/data.txt  --db-name=<db_name> --urls="http://<ip>:8086"   --batch-size=<batch_size_num> --workers=<workers_num>
 ```
 
-## 测试结果
+### 测试结果
 
 |            |         | CnosDB        |                  | InfluxDB      |                  | 性能倍数| 
 | ---------- | ------- |-------------- | ---------------- | ------------- | ---------------- | ------ |
