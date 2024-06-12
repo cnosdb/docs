@@ -196,7 +196,7 @@ systemctl start postgresql-14
 | SQL                                      | CnosDB 2.4.1 | TimeScaleDB 2.10.1 | 
 |----------------------------------------- |------------- |------------------- |
 | select count (*) from readings           | 1.221s       | 4.413s             |
-| 1年时间聚合查询（select count(*), max(latitude), min(latitude), avg(latitude) from readings where ts >= '2020-01-01 00:00:00.000000' and ts <= '2021-01-01 00:00:00.000000';） | 12.138s      | 3.564s            |
+| 1年时间聚合查询（select count(*), max(latitude), min(latitude), avg(latitude) from readings where ts >= '2020-01-01 00:00:00.000000' and ts <= '2021-01-01 00:00:00.000000';） | 3.564s      | 12.138s            |
 
 ##### 压缩比测试结果
 
