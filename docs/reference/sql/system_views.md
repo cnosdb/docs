@@ -370,3 +370,90 @@ DESCRIBE TABLE usage_schema.http_response_time;
 | value       | DOUBLE                | FIELD       | DEFAULT           |
 +-------------+-----------------------+-------------+-------------------+
 ```
+
+### read_meta_count
+
+```sql
+DESCRIBE TABLE usage_schema.read_meta_count;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### read_meta_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.read_meta_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### write_meta_count
+
+```sql
+DESCRIBE TABLE usage_schema.write_meta_count;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### write_meta_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.write_meta_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### watch_meta_count
+
+```sql
+DESCRIBE TABLE usage_schema.watch_meta_count;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### watch_meta_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.watch_meta_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
