@@ -1,7 +1,35 @@
 ---
-title: Raft复制
-order: 4
+title: 数据分片与复制
+order: 3
 ---
+
+
+## 数据分片与复制
+
+CnosDB 2.0 的分片规则基于Time-range。它采用 DB + Time_range 的分片规则将数据放入对应的 Bucket 中。Bucket 是一个虚拟逻辑单元。每个 Bucket 由以下主要的属性组成。 Bucket 会根据用户配置创建多个分片，把数据打散（默认情况下数据的分片 Shard Num 是 1）。
+> 「db， shardid， time_range， create_time， end_time， List\<Vnode\>」
+
+Vnode 是一个虚拟的运行单元，并被分布到一个具体的 Node 上。每个 Vnode 是一个单独的LSM Tree。 其对应的 tsfamily结构体是一个独立的运行单元。
+
+![数据分片](/img/buket.jpg)
+
+### 复制组（replicaset）
+
+数据的高可用通过数据 replicaset 维护。 每个 db 都会有一个自己的复制组。它表示数据冗余份数。 同一个 bucket 内的一组 Vnode 组成了 一个复制组， 他们之间具有相同的数据和倒排索引信息。
+
+### 放置规则 （place rule）
+
+为了解决并发故障的可能性，meta 节点在创建 bucket 的时候，可能需要确保数据副本位于使用不同 node、机架、电源、控制器和物理位置的设备上，考虑不同租户会在不同 region 进行访问数据，需要将 Vnode 按照最优成本的方式进行调度排放。
+
+### 数据分隔策略
+
+在 Node 上不同租户的数据是在物理上进行分割的。
+
+`/User/db/bucket/replicaset_id/vnode_id`
+
+![数据分割目录存储](/img/data_path.jpg)
+
+
 
 # Raft复制算法基本概念
 
@@ -28,7 +56,7 @@ order: 4
 
 在CnosDB v2.4版本中引入了Raft复制算法，每个Replica Set是一个Raft复制组，整个系统是一个Multi-Raft模式运行。
 
-#### 数据写入流程 
+#### 数据写入流程
 
 - 根据租户、Database以及时间戳确定写入哪个Bucket。
 - 根据Series Key进行Hash确定写入哪个Replica Set，也就是哪个Raft复制组。
@@ -40,3 +68,7 @@ order: 4
 - 添加一个副本
 - 删除一个副本
 - 移动一个副本
+
+
+
+
