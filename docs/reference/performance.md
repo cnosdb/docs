@@ -112,7 +112,7 @@ go build
 
 ### CnosDB vs TimeScaleDB
 
-CnosDB支持原生HTTP接口写入Line Protocol协议数据，TimescaleDB不支持原生HTTP接口写入Line Protocol协议数据，因此采用了不同的数据源
+CnosDB支持原生HTTP接口写入Line Protocol协议数据，TimeScaleDB不支持原生HTTP接口写入Line Protocol协议数据，因此采用了不同的数据源
 
 #### CnosDB 2.4.1 vs TimeScaleDB 2.10.1
 
@@ -200,11 +200,11 @@ systemctl start postgresql-14
 
 ##### 压缩比测试结果
 
-|              | CnosDB 2.4.1  | TimeScaleDB 2.10.1 | 
-|------------  |-------------- |------------------- |
-| 原始数据      | 164G          | 201G               |
-| 写入后落盘数据 | 22G           | 26G                |
-| 压缩比        | 7.45          | 7.7307             |
+|              | CnosDB 2.4.1 | TimeScaleDB 2.10.1 | 
+|------------  |------------- |------------------- |
+| 原始数据      | 201G         | 164G               |
+| 写入后落盘数据 | 26G          | 22G                |
+| 压缩比        | 7.7307       | 7.45               |
 
 ### CnosDB vs OpenTSDB
 
