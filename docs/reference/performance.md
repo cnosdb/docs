@@ -116,7 +116,7 @@ CnosDB支持原生HTTP接口写入Line Protocol协议数据，TimescaleDB不支�
 
 #### CnosDB 2.4.1 vs TimeScaleDB 2.10.1
 
-在[CnosDB 2.4.1](https://github.com/cnosdb/cnosdb) 和 [TimeScaleDB 2.10.1](https://github.com/timescale/timescaledb) 之间做了写入和查询性能测试的对比，下面是测试结论和测试细节信息。
+在[CnosDB 2.4.1](https://github.com/cnosdb/cnosdb) 和 [TimeScaleDB 2.10.1](https://github.com/timescale/timescaledb) 之间做了写入、查询和压缩比性能测试的对比，下面是测试结论和测试细节信息。
 
 ##### 测试结论
 
@@ -126,7 +126,9 @@ CnosDB支持原生HTTP接口写入Line Protocol协议数据，TimescaleDB不支�
 ###### 1.测试环境准备
 
 CPU：64 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
+
 内存：256 GB
+
 硬盘：SSD NVMe 协议
 
 ###### 2.测试实例准备
@@ -149,23 +151,22 @@ CPU：64 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
 
 | 用例 | 确定性生成的PRNG种子 | 要生成的设备数量 | 开始时间戳             | 结束时间戳             | 每台设备每次读数时间间隔 | 目标数据库 | 数据量大小  | 数据行数    |
 | --- | ------------------ | ------------- | -------------------- | -------------------- | -------------------- |---------- | --------- | ---------- |
-| iot | 123                | 100           | 2021-01-01T00:00:00Z | 2022-01-01T00:00:00Z | 6.3s                  | CnosDB    | 201G        | 450721871 |
-| iot | 123                | 100           | 2021-01-01T00:00:00Z | 2022-01-01T00:00:00Z | 6.3s                  | TimeScaleDB  | 164G        | 450,729,188 |
+| iot | 123                | 100           | 2020-01-01T00:00:00Z | 2021-01-01T00:00:00Z | 6.3s                  | CnosDB    | 201G        | 450,721,871 |
+| iot | 123                | 100           | 2020-01-01T00:00:00Z | 2021-01-01T00:00:00Z | 6.3s                  | TimeScaleDB  | 164G        | 450,729,188 |
 
 ##### 测试中期
 
-TimeScaleDB
-[测试工具](https://github.com/timescale/tsbs)
-CnosDB
-[测试工具](https://github.com/cnosdb/tsdb-comparisons)
+[TimeScaleDB测试工具](https://github.com/timescale/tsbs)
+
+[CnosDB测试工具](https://github.com/cnosdb/tsdb-comparisons)
 
 1. 生成CnosDB数据集
 ```shell
-generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2021-01-01T00:00:00Z" --timestamp-end="2022-01-07T00:00:00Z" --log-interval="6.3s" --format="cnosdb" | gzip > cnosdb-iot-123-100-2021-data.gz
+generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2020-01-01T00:00:00Z" --timestamp-end="2021-01-07T00:00:00Z" --log-interval="6.3s" --format="cnosdb" | gzip > cnosdb-iot-123-100-2021-data.gz
 ```
 2. 生成TimeScaleDB数据集
 ```shell
-tsbs_generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2021-01-01T00:00:00Z" --timestamp-end="2022-01-01T00:00:00Z" --log-interval="6.3s" --format="timescaledb" | gzip > timescaledb-iot-123-100-2021-data.gz
+tsbs_generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2020-01-01T00:00:00Z" --timestamp-end="2021-01-01T00:00:00Z" --log-interval="6.3s" --format="timescaledb" | gzip > timescaledb-iot-123-100-2021-data.gz
 ```
 3. 启动CnosDB
 ```shell
@@ -195,11 +196,7 @@ systemctl start postgresql-14
 | SQL                                      | CnosDB 2.4.1 | TimeScaleDB 2.10.1 | 
 |----------------------------------------- |------------- |------------------- |
 | select count (*) from readings           | 1.221s       | 4.413s             |
-| 1年时间聚合查询（select count(*), 
-  max(latitude), min(latitude), 
-  avg(latitude) from readings 
-  where ts >= '2020-01-01 00:00:00.000000' 
-  and ts <= '2021-01-01 00:00:00.000000';） | 12.138s      | 3.564s            |
+| 1年时间聚合查询（select count(*), max(latitude), min(latitude), avg(latitude) from readings where ts >= '2020-01-01 00:00:00.000000' and ts <= '2021-01-01 00:00:00.000000';） | 12.138s      | 3.564s            |
 
 ##### 压缩比测试结果
 
