@@ -14,23 +14,23 @@ CnosDB支持原生HTTP接口写入Line Protocol协议数据，TimeScaleDB不支�
 
 在写入、查询和压缩比方面，CnosDB均更优于TimeScaleDB
 
-### Test CnosDB writes
+### 测试前期
 
-#### Testing Environment
+#### 1. Test Environment Preparedness
 
 CPU：64 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
 
-内存：256 GB
+Memory: 256 GB
 
-硬盘：SSD NVMe 协议
+Disk: SSD NVMe Protocol
 
 #### 2. Test case preparation
 
-1. 提前安装好对应机器的db环境，确保可以正常连接。
+1. The db environment of the corresponding machine is installed in advance to ensure proper connectivity.
 
 2. Install CnosDB:
 
-   参照部署文档：[安装CnosDB](../start/install.md)
+   Refer to the deployment document: [Install CnosDB](../start/install.md)
 
 3. 安装 TimeScaleDB
 
