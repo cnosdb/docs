@@ -330,6 +330,198 @@ Count
 | TENANT   | Database 所属的租户名称 |
 | VALUE    | 数据的总大小,单位Byte    |
 
+### HTTP_FLOW
+
+#### 名称
+
+http_flow
+
+#### 种类
+
+Count
+
+#### 描述
+
+通过http协议访问的request body和response body之和
+
+#### 标签
+
+| 字段     | 描述               |
+|---------|--------------------|
+| time    | 记录的时间           |
+| api     | api名称             |
+| host    | 节点的ip地址         |
+| node_id | 节点的id            |
+| value   | 数据的总大小,单位Byte |
+
+### HTTP_RESPONSE_TIME
+
+#### 名称
+
+http_response_time
+
+#### 种类
+
+Histogram
+
+#### 描述
+
+通过http协议访问的耗时
+
+#### 标签
+
+| 字段     | 描述               |
+|---------|--------------------|
+| time    | 记录的时间           |
+| api     | api名称             |
+| host    | 节点的ip地址         |
+| le      | 小于此时间,单位ms     |
+| node_id | 节点的id            |
+| value   | 次数                |
+
+## Meta节点监控指标
+
+### READ_META_COUNT
+
+#### 名称
+
+read_meta_count
+
+#### 种类
+
+Count
+
+#### 描述
+
+读取meta的次数
+
+#### 标签
+
+| 字段     | 描述            |
+|---------|-----------------|
+| time    | 记录的时间       |
+| addr    | meta服务地址     |
+| node_id | 访问meta的节点id |
+| value   | 读取次数         |
+
+### READ_META_RESPONSE_TIME
+
+#### 名称
+
+read_meta_response_time
+
+#### 种类
+
+Histogram
+
+#### 描述
+
+读取meta的耗时
+
+#### 标签
+
+| 字段     | 描述            |
+|---------|---------------- |
+| time    | 记录的时间       |
+| addr    | meta服务地址     |
+| node_id | 访问meta的节点id |
+| le      | 小于此时间,单位ms |
+| value   | 次数             |
+
+### WRITE_META_COUNT
+
+#### 名称
+
+write_meta_count
+
+#### 种类
+
+Count
+
+#### 描述
+
+写入meta的次数
+
+#### 标签
+
+| 字段     | 描述            |
+|---------|-----------------|
+| time    | 记录的时间       |
+| addr    | meta服务地址     |
+| node_id | 访问meta的节点id |
+| value   | 写入次数         |
+
+### WRITE_META_RESPONSE_TIME
+
+#### 名称
+
+write_meta_response_time
+
+#### 种类
+
+Histogram
+
+#### 描述
+
+写入meta的耗时
+
+#### 标签
+
+| 字段     | 描述            |
+|---------|---------------- |
+| time    | 记录的时间       |
+| addr    | meta服务地址     |
+| node_id | 访问meta的节点id |
+| le      | 小于此时间,单位ms |
+| value   | 次数             |
+
+### WATCH_META_COUNT
+
+#### 名称
+
+watch_meta_count
+
+#### 种类
+
+Count
+
+#### 描述
+
+访问meta的次数
+
+#### 标签
+
+| 字段     | 描述            |
+|---------|-----------------|
+| time    | 记录的时间       |
+| addr    | meta服务地址     |
+| node_id | 访问meta的节点id |
+| value   | 访问次数         |
+
+### WATCH_META_RESPONSE_TIME
+
+#### 名称
+
+watch_meta_response_time
+
+#### 种类
+
+Histogram
+
+#### 描述
+
+访问meta的耗时
+
+#### 标签
+
+| 字段     | 描述            |
+|---------|---------------- |
+| time    | 记录的时间       |
+| addr    | meta服务地址     |
+| node_id | 访问meta的节点id |
+| le      | 小于此时间,单位ms |
+| value   | 次数             |
+
 ## Prometheus 采集
 
 只需要在Prometheus配置文件处加上Job。
