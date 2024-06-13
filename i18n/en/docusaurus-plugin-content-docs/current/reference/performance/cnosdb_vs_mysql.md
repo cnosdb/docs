@@ -10,11 +10,11 @@ sidebar_position: 2
 
 ### Conclusion
 
-在写入、查询和压缩比方面，CnosDB均更优于MySQL
+CnosDB is better than MySQL for writing, query and compression
 
-### Test CnosDB writes
+### Pre-test
 
-#### Testing Environment
+#### 1. Test Environment Preparedness
 
 |                          | CnosDB                                                                                                                                           | MySQL                                                                                                                                            |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -28,15 +28,15 @@ sidebar_position: 2
 
 #### 2. Test case preparation
 
-1. 提前安装好对应机器的db环境，确保可以正常连接。
+1. The db environment of the corresponding machine is installed in advance to ensure proper connectivity.
 
 2. Install CnosDB:
 
-   参照部署文档：[安装CnosDB](../start/install.md)
+   Refer to the deployment document: [Install CnosDB](../start/install.md)
 
-3. 安装 MySQL
+3. Install MySQL
 
-   参照官网：[MySQL 5.6](https://www.mysql.com/cn/downloads/)
+   Reference network: [MySQL 5.6] (https://www.mysql.com/cn/downloads/)
 
 #### 3) Configuration Check & Modify
 
