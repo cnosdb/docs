@@ -330,6 +330,198 @@ The size of the data written via sql, including INSERT, COPY statements
 | TENANT                       | Tenant name the database belongs to |
 | VALUE                        | Data size in bytes                  |
 
+### HTTP_FLOW
+
+#### Name
+
+http_flow
+
+#### Category
+
+Count
+
+#### Description
+
+通过http协议访问的request body和response body之和
+
+#### Tag
+
+| Field                        | Description        |
+| ---------------------------- | ------------------ |
+| time                         | Time of record     |
+| api                          | api名称              |
+| host                         | 节点的ip地址            |
+| node_id | 节点的id              |
+| value                        | Data size in bytes |
+
+### HTTP_RESPONSE_TIME
+
+#### Name
+
+http_response_time
+
+#### Category
+
+Histogram
+
+#### Description
+
+通过http协议访问的耗时
+
+#### Tag
+
+| Field                        | Description                |
+| ---------------------------- | -------------------------- |
+| time                         | Time of record             |
+| api                          | api名称                      |
+| host                         | 节点的ip地址                    |
+| le                           | Less than this time, in ms |
+| node_id | 节点的id                      |
+| value                        | Times                      |
+
+## Meta节点监控指标
+
+### READ_META_COUNT
+
+#### Name
+
+read_meta_count
+
+#### Category
+
+Count
+
+#### Description
+
+读取meta的次数
+
+#### Tag
+
+| Field                        | Description    |
+| ---------------------------- | -------------- |
+| time                         | Time of record |
+| addr                         | meta服务地址       |
+| node_id | 访问meta的节点id    |
+| value                        | 读取次数           |
+
+### READ_META_RESPONSE_TIME
+
+#### Name
+
+read_meta_response_time
+
+#### Category
+
+Histogram
+
+#### Description
+
+读取meta的耗时
+
+#### Tag
+
+| Field                        | Description                |
+| ---------------------------- | -------------------------- |
+| time                         | Time of record             |
+| addr                         | meta服务地址                   |
+| node_id | 访问meta的节点id                |
+| le                           | Less than this time, in ms |
+| value                        | Times                      |
+
+### WRITE_META_COUNT
+
+#### Name
+
+write_meta_count
+
+#### Category
+
+Count
+
+#### Description
+
+写入meta的次数
+
+#### Tag
+
+| Field                        | Description    |
+| ---------------------------- | -------------- |
+| time                         | Time of record |
+| addr                         | meta服务地址       |
+| node_id | 访问meta的节点id    |
+| value                        | 写入次数           |
+
+### WRITE_META_RESPONSE_TIME
+
+#### Name
+
+write_meta_response_time
+
+#### Category
+
+Histogram
+
+#### Description
+
+写入meta的耗时
+
+#### Tag
+
+| Field                        | Description                |
+| ---------------------------- | -------------------------- |
+| time                         | Time of record             |
+| addr                         | meta服务地址                   |
+| node_id | 访问meta的节点id                |
+| le                           | Less than this time, in ms |
+| value                        | Times                      |
+
+### WATCH_META_COUNT
+
+#### Name
+
+watch_meta_count
+
+#### Category
+
+Count
+
+#### Description
+
+访问meta的次数
+
+#### Tag
+
+| Field                        | Description    |
+| ---------------------------- | -------------- |
+| time                         | Time of record |
+| addr                         | meta服务地址       |
+| node_id | 访问meta的节点id    |
+| value                        | 访问次数           |
+
+### WATCH_META_RESPONSE_TIME
+
+#### Name
+
+watch_meta_response_time
+
+#### Category
+
+Histogram
+
+#### Description
+
+访问meta的耗时
+
+#### Tag
+
+| Field                        | Description                |
+| ---------------------------- | -------------------------- |
+| time                         | Time of record             |
+| addr                         | meta服务地址                   |
+| node_id | 访问meta的节点id                |
+| le                           | Less than this time, in ms |
+| value                        | Times                      |
+
 ## Prometheus Monitor
 
 Just add Job at the Prometheus configuration file.
