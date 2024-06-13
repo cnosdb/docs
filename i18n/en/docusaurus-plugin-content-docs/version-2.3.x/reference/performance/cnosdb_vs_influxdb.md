@@ -14,9 +14,9 @@ sidebar_position: 3
 
 When the batch-size is set to 20,000, InfluxDB returns an error on the client: `{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`, So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
 
-### Test CnosDB writes
+### 测试前期
 
-#### Testing Environment
+#### 1. Test Environment Preparedness
 
 |                          | CnosDB                                                                                                                                           | InfluxDB                                                                                                                                         |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -32,7 +32,7 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 
 #### 2. Test case preparation
 
-1. Install the db environment, go environment, etc. of the corresponding machine in advance, and ensure normal connection.
+1. 提前安装好对应机器的db环境，go环境等，确保可以正常连接。
 
 2. Install CnosDB:
 
@@ -40,14 +40,12 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 
 3. Test InfluxDB writes
 
-   wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10_linux_amd64.tar.gz
-   tar xvfz influxdb-1.8.10_linux_amd64.tar.gz
-   ./influxd run -config ../../etc/influxdb/influxdb.conf
+   Reference: [InfluxDB 1.8.10] (https://github.com/influxdata/influxdb)
 
 #### 3) Configuration Check & Modify
 
 ```
-CnosDB and InfluxDB only modified the storage folder paths for Data, Wall, and Meta, while keeping the rest as default. This will not be repeated here.
+ CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
 ```
 
 #### 4. Dataset preparation
