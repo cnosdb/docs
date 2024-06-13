@@ -14,7 +14,7 @@ CnosDB has an initial tenant (cnosdb) and user (root) and needs to open configur
 
 **Modify `auth_enabled=true` in the configuration file and start an instance.**
 
-At this point, login with cnosdb-cli --user root --password and enter the default password.The default password for root users is 'root', which can be changed by meta profile.
+At this point, login with cnosdb-cli --user root --password and enter the default password.The default password for root users is 'root', Which can be changed by meta config file.
 When authenticating is enabled, ust_change_password needs to be changed for true users, root defaults to true and false.
 
 **Set a new password for user root.**
