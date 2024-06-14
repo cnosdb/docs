@@ -12,7 +12,7 @@ Comparative performance testing between [CnosDB 2.4](https://github.com/cnosdb/c
 
 CnosDB is better than MySQL for writing, query and compression
 
-### 测试前期
+### Pre-test
 
 #### 1. Test Environment Preparedness
 
@@ -46,53 +46,53 @@ CnosDB and MySQL only modified the storage folder paths for Data, Wal, and Meta,
 
 #### 4. Dataset preparation
 
-1. 数据集行数：410522759
-2. 数据集文件格式：csv
-3. 数据集大小：39G
+1. Rows: 410522759
+2. Format: CSV
+3. Size: 39G
 
-测试数据schema
+Test data schema
 
-| Field                                                              | MySQL类型                         | CnosDB类型  |
-| ------------------------------------------------------------------ | ------------------------------- | --------- |
-| time                                                               | BIGINT                          | TIMESTAMP |
-| device_version                                | VARCHAR(255) | TAG       |
-| driver                                                             | VARCHAR(255) | TAG       |
-| fleet                                                              | VARCHAR(255) | TAG       |
-| model                                                              | VARCHAR(255) | TAG       |
-| elevation                                                          | VARCHAR(255) | TAG       |
-| fuel_capacity                                 | DOUBLE                          | DOUBLE    |
-| fuel_consumption                              | DOUBLE                          | DOUBLE    |
-| grade                                                              | DOUBLE                          | DOUBLE    |
-| heading                                                            | DOUBLE                          | DOUBLE    |
-| latitude                                                           | DOUBLE                          | DOUBLE    |
-| load_capacity                                 | DOUBLE                          | DOUBLE    |
-| longitude                                                          | DOUBLE                          | DOUBLE    |
-| nominal_fuel_consumption | DOUBLE                          | DOUBLE    |
-| velocity                                                           | DOUBLE                          | DOUBLE    |
+| Field                                                              | MySQL Type                      | CnosDB Type |
+| ------------------------------------------------------------------ | ------------------------------- | ----------- |
+| time                                                               | BIGINT                          | TIMESTAMP   |
+| device_version                                | VARCHAR(255) | TAG         |
+| driver                                                             | VARCHAR(255) | TAG         |
+| fleet                                                              | VARCHAR(255) | TAG         |
+| model                                                              | VARCHAR(255) | TAG         |
+| elevation                                                          | VARCHAR(255) | TAG         |
+| fuel_capacity                                 | DOUBLE                          | DOUBLE      |
+| fuel_consumption                              | DOUBLE                          | DOUBLE      |
+| grade                                                              | DOUBLE                          | DOUBLE      |
+| heading                                                            | DOUBLE                          | DOUBLE      |
+| latitude                                                           | DOUBLE                          | DOUBLE      |
+| load_capacity                                 | DOUBLE                          | DOUBLE      |
+| longitude                                                          | DOUBLE                          | DOUBLE      |
+| nominal_fuel_consumption | DOUBLE                          | DOUBLE      |
+| velocity                                                           | DOUBLE                          | DOUBLE      |
 
 ### Test medium term
 
-1. 向CnosDB写入数据：
+1. Write data to CnosDB:
 
 ```shell
 COPY INTO readings FROM '/data/data/csv/cnodb-iot-seed-123-scale-100-2017_csv/cnodb-iot-seed-123-scale-100-2017_readings_no_blank.csv' 
 FILE_FORMAT = (TYPE = 'CSV', DELIMITER = ',');
 ```
 
-2. 向MySQL写入数据：
+2. Write data to MySQL:
 
 ```shell
 load data local infile '/data/data/csv/cnodb-iot-seed-123-scale-100-2017_csv/cnodb-iot-seed-123-scale-100-2017_readings_no_blank.csv' 
 into table readings character set utf8  fields terminated by ',' lines terminated by '\n' ignore 1 lines;
 ```
 
-### 写入测试结果
+### Write Test Results
 
 |            | CnosDB 2.4 | MySQL 5.6 |
 | ---------- | -------------------------- | ------------------------- |
 | write time | 11 min 1 s                 | 1 hour 55 min 20 s        |
 
-### 查询测试结果
+### Query Test Results
 
 | SQL                                                                                                                                                                      | CnosDB 2.4 | MySQL 5.6       |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | ------------------------------- |
@@ -101,10 +101,10 @@ into table readings character set utf8  fields terminated by ',' lines terminate
 | select count(\*), max(latitude), min(latitude), avg(latitude) from readings                  | 3.5 sec    | 5 min 46 sec                    |
 | sselect count(\*), max(latitude), min(latitude), avg(latitude) from readings group by driver | 9.4 sec    | 7 min 3.47 sec  |
 
-### 压缩比测试结果
+### Compression Ratio Test Result
 
-|         | CnosDB 2.4 | MySQL 5.6 |
-| ------- | -------------------------- | ------------------------- |
-| 原始数据    | 39G                        | 39G                       |
-| 写入后落盘数据 | 15G                        | 62G                       |
-| 压缩比     | 2.6        | 0.6       |
+|                                          | CnosDB 2.4 | MySQL 5.6 |
+| ---------------------------------------- | -------------------------- | ------------------------- |
+| Original Data                            | 39G                        | 39G                       |
+| Data written to disk after being written | 15G                        | 62G                       |
+| Compression ratio                        | 2.6        | 0.6       |
