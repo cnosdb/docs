@@ -4,17 +4,17 @@ sidebar_position: 3
 
 # CnosDB vs InfluxDB
 
-我们使用 [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) 测试工具，对两个产品进行测试。
+We use [tsdb-comparisons](https://github.com/cnosdb/tsdb-comparisons) test tool to test two products.
 
 ## CnosDB 2.3.0 vs InfluxDB 1.8.10
 
-在[CnosDB 2.3.0](https://github.com/cnosdb/cnosdb) 和 [InfluxDB 1.8.10](https://github.com/influxdata/influxdb) 之间做了写入性能测试的对比，下面是测试结论和测试细节信息。
+A comparison of written performance tests was made between [CnosDB 2.3.0](https://github.com/cnosdb/cnosdb) and [InfluxDB 1.8.10] (https://github.com/influxdata/influxdb) followed by the test conclusions and test details.
 
 ### Conclusion
 
 When the batch-size is set to 20,000, InfluxDB returns an error on the client: `{"error":"engine: cache-max-memory-size exceeded: (1074767264/1073741824)"}`, So we did not test the performance of InfluxDB in this case, but you can see that CnosDB is better than InfluxDB in most scenarios.
 
-### 测试前期
+### Pre-test
 
 #### 1. Test Environment Preparedness
 
@@ -32,7 +32,7 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 
 #### 2. Test case preparation
 
-1. 提前安装好对应机器的db环境，go环境等，确保可以正常连接。
+1. Install the corresponding machine's db environment, go environment, etc. in advance to ensure that you can connect properly.
 
 2. Install CnosDB:
 
@@ -45,7 +45,7 @@ When the batch-size is set to 20,000, InfluxDB returns an error on the client: `
 #### 3) Configuration Check & Modify
 
 ```
- CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
+CnosDB and InfluxDB only modified the storage folder paths for Data, Wal, and Meta, while keeping the rest as default. This will not be repeated here.
 ```
 
 #### 4. Dataset preparation
@@ -111,11 +111,11 @@ go build
 
 ### Test Results
 
-|            |         | CnosDB                    |                            | InfluxDB                  |                            | With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling. |
-| ---------- | ------- | ------------------------- | -------------------------- | ------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| batch-size | workers | overall row/s             | overall metric/s           | overall row/s             | overall metric/s           |                                                                                                                                                            |
-| 1000       | 30      | 102089.67 | 807526.66  | 93781.54  | 741809.55  | 1.08                                                                                                                                       |
-| 3000       | 30      | 137468.17 | 1087369.62 | 106206.98 | 840094.40  | 1.29                                                                                                                                       |
-| 3000       | 10      | 211845.94 | 1675695.81 | 158378.11 | 1252766.68 | 1.33                                                                                                                                       |
-| 5000       | 8       | 176883.43 | 1399143.30 | 162338.48 | 1284093.14 | 1.08                                                                                                                                       |
-| 20000      | 8       | 174757.78 | 1382329.47 | 160626.45 | 1270551.00 | 1.08                                                                                                                                       |
+|            |         | CnosDB                    |                            | InfluxDB                  |                            | Performance Multiples |
+| ---------- | ------- | ------------------------- | -------------------------- | ------------------------- | -------------------------- | --------------------- |
+| batch-size | workers | overall row/s             | overall metric/s           | overall row/s             | overall metric/s           |                       |
+| 1000       | 30      | 102089.67 | 807526.66  | 93781.54  | 741809.55  | 1.08  |
+| 3000       | 30      | 137468.17 | 1087369.62 | 106206.98 | 840094.40  | 1.29  |
+| 3000       | 10      | 211845.94 | 1675695.81 | 158378.11 | 1252766.68 | 1.33  |
+| 5000       | 8       | 176883.43 | 1399143.30 | 162338.48 | 1284093.14 | 1.08  |
+| 20000      | 8       | 174757.78 | 1382329.47 | 160626.45 | 1270551.00 | 1.08  |
