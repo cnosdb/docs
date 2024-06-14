@@ -4,17 +4,17 @@ sidebar_position: 3
 
 # CnosDB vs TimeScaleDB
 
-CnosDB支持原生HTTP接口写入Line Protocol协议数据，TimeScaleDB不支持原生HTTP接口写入Line Protocol协议数据，因此采用了不同的数据源
+CnosDB supports writing Line Protocol protocol data through native HTTP interface, while TimeScaleDB does not support writing Line Protocol protocol data through native HTTP interface, so it uses different data sources
 
 ## CnosDB 2.4.1 vs TimeScaleDB 2.10.1
 
-在[CnosDB 2.4.1](https://github.com/cnosdb/cnosdb) 和 [TimeScaleDB 2.10.1](https://github.com/timescale/timescaledb) 之间做了写入、查询和压缩比性能测试的对比，下面是测试结论和测试细节信息。
+Comparative performance testing between [CnosDB 2.4.1](https://github.com/cnosdb/cnosdb) and [TimeScaleDB 2.10.1](https://github.com/timescale/timescaledb) has been conducted on write, query, and compression ratio performance, below are the test conclusions and test details information.
 
 ### Conclusion
 
-在写入、查询和压缩比方面，CnosDB均更优于TimeScaleDB
+CnosDB is better than TimeScaleDB for writing, query and compression
 
-### 测试前期
+### Pre-test
 
 #### 1. Test Environment Preparedness
 
@@ -32,14 +32,14 @@ Disk: SSD NVMe Protocol
 
    Refer to the deployment document: [Install CnosDB](../start/install.md)
 
-3. 安装 TimeScaleDB
+3. Install TimeScaleDB
 
-   参照官网：[TimeScaleDB 2.10.1](https://docs.timescale.com/self-hosted/latest/install/installation-linux/)
+   Refer to the official website: [TimeScaleDB 2.10.1](https://docs.timescale.com/self-hosted/latest/install/installation-linux/)
 
 #### 3) Configuration Check & Modify
 
 ```
- CnosDB和TimeScaleDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
+CnosDB and TimeScaleDB only modified the storage folder paths for Data, Wal, and Meta, while keeping the rest as default. This will not be repeated here.
 ```
 
 #### 4. Dataset preparation
@@ -51,9 +51,9 @@ Disk: SSD NVMe Protocol
 
 ### Test medium term
 
-[TimeScaleDB测试工具](https://github.com/timescale/tsbs)
+[TimeScaleDB Testing Tool](https://github.com/timescale/tsbs)
 
-[CnosDB测试工具](https://github.com/cnosdb/tsdb-comparisons)
+[CnosDB Testing Tool](https://github.com/cnosdb/tsdb-comparisons)
 
 1. Tsdb-comparisons generate data
 
@@ -61,7 +61,7 @@ Disk: SSD NVMe Protocol
 generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2020-01-01T00:00:00Z" --timestamp-end="2021-01-07T00:00:00Z" --log-interval="6.3s" --format="cnosdb" | gzip > cnosdb-iot-123-100-2021-data.gz
 ```
 
-2. 生成TimeScaleDB数据集
+2. Generate TimeScaleDB dataset
 
 ```shell
 tsbs_generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="2020-01-01T00:00:00Z" --timestamp-end="2021-01-01T00:00:00Z" --log-interval="6.3s" --format="timescaledb" | gzip > timescaledb-iot-123-100-2021-data.gz
@@ -73,7 +73,7 @@ tsbs_generate_data --use-case="iot" --seed=123 --scale=100 --timestamp-start="20
 nohup ./target/release/cnosdb run --config ./config/config_8902.toml -M singleton &
 ```
 
-4. 启动TimeScaleDB
+4. Start TimeScaleDB
 
 ```shell
 systemctl start postgresql-14
@@ -85,19 +85,19 @@ systemctl start postgresql-14
 ./load_cnosdb --do-abort-on-exist=false --do-create-db=false --gzip=false --file=cnodb-iot-seed-123-scale-100-2021 --db-name=<db_name> --urls="http://<ip>:8902" --batch-size=<batch_size_num> --workers=<workers_num>
 ```
 
-6. 执行load到TimeScaleDB：
+6. Execute load to TimeScaleDB:
 
 ```shell
 ./bin/tsbs_load_timescaledb --postgres="sslmode=disable" --host="localhost" --port=5432 --pass="password" --user="postgres" --file="./timescaledb-iot-123-100-2021-data" --db-name="benchmark" --batch-size=<batch_size_num> --workers=<workers_num>
 ```
 
-### 写入测试结果
+### Write Test Results
 
-| CnosDB 2.4.1 | TimeScaleDB 2.10.1 | With the increase of concurrent numbers, performance in some scenarios will also be improved, and CnosDB performance has a higher ceiling. |
-| -------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 110w~150w row/s              | 60~63w row/s                       | 2                                                                                                                                                          |
+| CnosDB 2.4.1 | TimeScaleDB 2.10.1 | Performance Multiples |
+| -------------------------------------------- | -------------------------------------------------- | --------------------- |
+| 110w~150w row/s              | 60~63w row/s                       | 2                     |
 
-### 查询测试结果
+### Query Test Results
 
 | SQL                                                                                                                                                                                                                                                                                                                                                  | CnosDB 2.4.1 | TimeScaleDB 2.10.1 |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------- |
@@ -108,10 +108,10 @@ systemctl start postgresql-14
 | 180天时间聚合查询（select count(\*), max(latitude), min(latitude), avg(latitude) from readings where ts >= '2020-01-01 00:00:00.000000' and ts <= '2021-01-01 00:00:00.000000';） | 2.313s                       | 13.827 s                           |
 | 1年时间聚合查询（select count(\*), max(latitude), min(latitude), avg(latitude) from readings where ts >= '2020-01-01 00:00:00.000000' and ts <= '2021-01-01 00:00:00.000000';）   | 3.564s                       | 28.063 s                           |
 
-### 压缩比测试结果
+### Compression Ratio Test Result
 
-|         | CnosDB 2.4.1 | TimeScaleDB 2.10.1 |
-| ------- | -------------------------------------------- | -------------------------------------------------- |
-| 原始数据    | 201G                                         | 164G                                               |
-| 写入后落盘数据 | 26G                                          | 22G                                                |
-| 压缩比     | 7.7307                       | 7.45                               |
+|                                          | CnosDB 2.4.1 | TimeScaleDB 2.10.1 |
+| ---------------------------------------- | -------------------------------------------- | -------------------------------------------------- |
+| Original Data                            | 201G                                         | 164G                                               |
+| Data written to disk after being written | 26G                                          | 22G                                                |
+| Compression ratio                        | 7.7307                       | 7.45                               |
