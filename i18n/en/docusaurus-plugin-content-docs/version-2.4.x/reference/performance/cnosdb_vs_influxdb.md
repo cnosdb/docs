@@ -12,7 +12,7 @@ Comparative performance testing between [CnosDB 2.4.1](https://github.com/cnosdb
 
 Under the same data conditions, test results show that the query performance of CnosDB and InfluxDB have their own advantages and disadvantages.
 
-### 测试前期
+### Pre-test
 
 #### 1. Test Environment Preparedness
 
@@ -24,7 +24,7 @@ Disk: SSD NVMe Protocol
 
 #### 2. Test case preparation
 
-1. 提前安装好对应机器的db环境，go环境等，确保可以正常连接。
+1. Install the corresponding machine's db environment, go environment, etc. in advance to ensure that you can connect properly.
 
 2. Install CnosDB:
 
@@ -37,7 +37,7 @@ Disk: SSD NVMe Protocol
 #### 3) Configuration Check & Modify
 
 ```
- CnosDB和InfluxDB均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
+CnosDB and InfluxDB only modified the storage folder paths for Data, Wal, and Meta, while keeping the rest as default. This will not be repeated here.
 ```
 
 #### 4. Dataset preparation
