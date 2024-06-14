@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## CnosDB 2.4 vs MySQL 5.6
 
-在[CnosDB 2.4](https://github.com/cnosdb/cnosdb) 和 [MySQL 5.6](https://github.com/mysql/mysql-server) 之间做了写入、查询和压缩比性能测试的对比，下面是测试结论和测试细节信息。
+Comparative performance testing between [CnosDB 2.4](https://github.com/cnosdb/cnosdb) and [MySQL 5.6](https://github.com/mysql/mysql-server) has been conducted on write, query, and compression ratio performance, below are the test conclusions and test details information.
 
 ### Conclusion
 
@@ -41,7 +41,7 @@ CnosDB is better than MySQL for writing, query and compression
 #### 3) Configuration Check & Modify
 
 ```
- CnosDB和MySQL均只修改了Data、Wal、Meta的存储文件夹路径，其余均保持默认，此处不做赘述。
+CnosDB and MySQL only modified the storage folder paths for Data, Wal, and Meta, while keeping the rest as default. This will not be repeated here.
 ```
 
 #### 4. Dataset preparation
