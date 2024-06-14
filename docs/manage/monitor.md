@@ -330,6 +330,203 @@ Count
 | TENANT   | Database 所属的租户名称 |
 | VALUE    | 数据的总大小,单位Byte    |
 
+
+主从延迟
+raft_replication_delay
+tenant, database,replica_id,vnode_id
+Gauge
+Follower跟Leader延迟的消息条数
+
+Raft状态机应用进度
+raft_applied_index
+tenant, database,replica_id,vnode_id
+Gauge
+每个节点的raft状态机应用最新的index
+
+快照状态
+raft_snapshot_index
+tenant, database,replica_id,vnode_id
+Gauge
+每个节点快照基于哪条index创建的
+
+flushed状态
+raft_flushed_index
+tenant, database,replica_id,vnode_id
+Gauge
+每个节点最新的flush是基于哪个index做的
+
+wal index最小值
+raft_wal_index_min
+tenant, database,replica_id,vnode_id
+Gauge
+每个节点最老的wal对应的index
+
+wal index最大值
+raft_wal_index_max
+tenant, database,replica_id,vnode_id
+Gauge
+每个节点最新的wal对应的index
+
+### RAFT_APPLIED_INDEX
+
+#### 名称
+
+raft_applied_index
+
+#### 种类
+
+Gauge
+
+#### 描述
+
+每个节点的raft状态机应用最新的index
+
+#### 标签
+
+| 字段         | 描述                    |
+|-------------|------------------------|
+| TIME        | 记录的时间               |
+| DATABASE    | Database名称            |
+| NODE_ID     | Data节点的 ID           |
+| TENANT      | Database 所属的租户名称   |
+| REPLICA_ID  | 复制组的ID               |
+| VNODE_ID    | 所代表Raft节点ID         |
+| VALUE       | 对应Entry的Index        |
+
+
+### RAFT_FLUSHED_INDEX
+
+#### 名称
+
+raft_flushed_index
+
+#### 种类
+
+Gauge
+
+#### 描述
+
+每个节点的数据已经刷到磁盘所对应的index
+
+#### 标签
+
+| 字段         | 描述                    |
+|-------------|------------------------|
+| TIME        | 记录的时间               |
+| DATABASE    | Database名称            |
+| NODE_ID     | Data节点的 ID           |
+| TENANT      | Database 所属的租户名称   |
+| REPLICA_ID  | 复制组的ID               |
+| VNODE_ID    | 所代表Raft节点ID         |
+| VALUE       | 对应Entry的Index        |
+
+
+### RAFT_RAPLICATION_DELAY
+
+#### 名称
+
+raft_replication_delay
+
+#### 种类
+
+Gauge
+
+#### 描述
+
+每个节点同步数据与Leader的差距
+
+#### 标签
+
+| 字段         | 描述                    |
+|-------------|------------------------|
+| TIME        | 记录的时间               |
+| DATABASE    | Database名称            |
+| NODE_ID     | Data节点的 ID           |
+| TENANT      | Database 所属的租户名称   |
+| REPLICA_ID  | 复制组的ID               |
+| VNODE_ID    | 所代表Raft节点ID         |
+| VALUE       | 跟Leader差距条数         |
+
+
+### RAFT_SNAPSHOT_INDEX
+
+#### 名称
+
+raft_snapshot_index
+
+#### 种类
+
+Gauge
+
+#### 描述
+
+每个Raft节点最新的snapshot对应的Index
+
+#### 标签
+
+| 字段         | 描述                    |
+|-------------|------------------------|
+| TIME        | 记录的时间               |
+| DATABASE    | Database名称            |
+| NODE_ID     | Data节点的 ID           |
+| TENANT      | Database 所属的租户名称   |
+| REPLICA_ID  | 复制组的ID               |
+| VNODE_ID    | 所代表Raft节点ID         |
+| VALUE       | snapshot对应的Index     |
+
+### RAFT_WAL_INDEX_MAX
+
+#### 名称
+
+raft_wal_index_max
+
+#### 种类
+
+Gauge
+
+#### 描述
+
+每个Raft节点当前wal的最大Index
+
+#### 标签
+
+| 字段         | 描述                    |
+|-------------|------------------------|
+| TIME        | 记录的时间               |
+| DATABASE    | Database名称            |
+| NODE_ID     | Data节点的 ID           |
+| TENANT      | Database 所属的租户名称   |
+| REPLICA_ID  | 复制组的ID               |
+| VNODE_ID    | 所代表Raft节点ID         |
+| VALUE       | Wal当前最大Index        |
+
+### RAFT_WAL_INDEX_MIN
+
+#### 名称
+
+raft_wal_index_min
+
+#### 种类
+
+Gauge
+
+#### 描述
+
+每个Raft节点当前wal的最小Index
+
+#### 标签
+
+| 字段         | 描述                    |
+|-------------|------------------------|
+| TIME        | 记录的时间               |
+| DATABASE    | Database名称            |
+| NODE_ID     | Data节点的 ID           |
+| TENANT      | Database 所属的租户名称   |
+| REPLICA_ID  | 复制组的ID               |
+| VNODE_ID    | 所代表Raft节点ID         |
+| VALUE       | Wal当前最小Index        |
+
+
 ## Prometheus 采集
 
 只需要在Prometheus配置文件处加上Job。
