@@ -20,13 +20,13 @@ Use the `cnosdb config` command to create default configuration files, For examp
 cnosdb run config > ./cnosdb.conf
 ```
 
-使用 `cnosdb check server-config <path>` 命令来检查配置文件是否合法，如：
+Use the \`cnosdb check server-config <path>command to check if configuration file is valid, such as:
 
 ```shell
 cnosdb check server-config ./cnosdb.conf
 ```
 
-使用 `cnosdb` 命令指定配置文件启动：
+Use the `cnosdb` command to specify the configuration file to start:
 
 ```
 cnosdb --config ./cnosdb.conf
