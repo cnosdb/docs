@@ -342,16 +342,16 @@ Count
 
 #### Description
 
-通过http协议访问的request body和response body之和
+The sum of request body and response body accessed through the HTTP protocol
 
 #### Tag
 
 | Field                        | Description        |
 | ---------------------------- | ------------------ |
 | time                         | Time of record     |
-| api                          | api名称              |
-| host                         | 节点的ip地址            |
-| node_id | 节点的id              |
+| api                          | API name           |
+| host                         | Node's IP address  |
+| node_id | Node ID            |
 | value                        | Data size in bytes |
 
 ### HTTP_RESPONSE_TIME
@@ -366,20 +366,20 @@ Histogram
 
 #### Description
 
-通过http协议访问的耗时
+Time consumed by accessing via the HTTP protocol
 
 #### Tag
 
 | Field                        | Description                |
 | ---------------------------- | -------------------------- |
 | time                         | Time of record             |
-| api                          | api名称                      |
-| host                         | 节点的ip地址                    |
+| api                          | API name                   |
+| host                         | Node's IP address          |
 | le                           | Less than this time, in ms |
-| node_id | 节点的id                      |
+| node_id | Node ID                    |
 | value                        | Times                      |
 
-## Meta节点监控指标
+## Meta Node Monitor Metrics
 
 ### READ_META_COUNT
 
@@ -393,16 +393,16 @@ Count
 
 #### Description
 
-读取meta的次数
+Number of times meta is read
 
 #### Tag
 
-| Field                        | Description    |
-| ---------------------------- | -------------- |
-| time                         | Time of record |
-| addr                         | meta服务地址       |
-| node_id | 访问meta的节点id    |
-| value                        | 读取次数           |
+| Field                        | Description               |
+| ---------------------------- | ------------------------- |
+| time                         | Time of record            |
+| addr                         | Meta service address      |
+| node_id | Visit the node id of meta |
+| value                        | Number of Reads           |
 
 ### READ_META_RESPONSE_TIME
 
@@ -416,15 +416,15 @@ Histogram
 
 #### Description
 
-读取meta的耗时
+Time spent reading meta
 
 #### Tag
 
 | Field                        | Description                |
 | ---------------------------- | -------------------------- |
 | time                         | Time of record             |
-| addr                         | meta服务地址                   |
-| node_id | 访问meta的节点id                |
+| addr                         | Meta service address       |
+| node_id | Visit the node id of meta  |
 | le                           | Less than this time, in ms |
 | value                        | Times                      |
 
@@ -440,16 +440,16 @@ Count
 
 #### Description
 
-写入meta的次数
+Number of times meta is written
 
 #### Tag
 
-| Field                        | Description    |
-| ---------------------------- | -------------- |
-| time                         | Time of record |
-| addr                         | meta服务地址       |
-| node_id | 访问meta的节点id    |
-| value                        | 写入次数           |
+| Field                        | Description               |
+| ---------------------------- | ------------------------- |
+| time                         | Time of record            |
+| addr                         | Meta service address      |
+| node_id | Visit the node id of meta |
+| value                        | Number of written         |
 
 ### WRITE_META_RESPONSE_TIME
 
@@ -463,15 +463,15 @@ Histogram
 
 #### Description
 
-写入meta的耗时
+Time spent writing meta
 
 #### Tag
 
 | Field                        | Description                |
 | ---------------------------- | -------------------------- |
 | time                         | Time of record             |
-| addr                         | meta服务地址                   |
-| node_id | 访问meta的节点id                |
+| addr                         | Meta service address       |
+| node_id | Visit the node id of meta  |
 | le                           | Less than this time, in ms |
 | value                        | Times                      |
 
@@ -487,16 +487,16 @@ Count
 
 #### Description
 
-访问meta的次数
+Number of times meta is read
 
 #### Tag
 
-| Field                        | Description    |
-| ---------------------------- | -------------- |
-| time                         | Time of record |
-| addr                         | meta服务地址       |
-| node_id | 访问meta的节点id    |
-| value                        | 访问次数           |
+| Field                        | Description               |
+| ---------------------------- | ------------------------- |
+| time                         | Time of record            |
+| addr                         | Meta service address      |
+| node_id | Visit the node id of meta |
+| value                        | Visits                    |
 
 ### WATCH_META_RESPONSE_TIME
 
@@ -510,15 +510,15 @@ Histogram
 
 #### Description
 
-访问meta的耗时
+Time spent accessing meta
 
 #### Tag
 
 | Field                        | Description                |
 | ---------------------------- | -------------------------- |
 | time                         | Time of record             |
-| addr                         | meta服务地址                   |
-| node_id | 访问meta的节点id                |
+| addr                         | Meta service address       |
+| node_id | Visit the node id of meta  |
 | le                           | Less than this time, in ms |
 | value                        | Times                      |
 
@@ -531,7 +531,7 @@ scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'cnosdb'
     static_configs:
-      - targets: ['127.0.0.1:8902']
+      - targets: [ '127.0.0.1:8902' ]
 ```
 
 #### Parameter Description
