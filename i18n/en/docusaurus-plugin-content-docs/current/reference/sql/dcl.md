@@ -74,10 +74,10 @@ By using the `CREATE ROLE` statement, administrators can define new roles and as
 CREATE ROLE [IF NOT EXISTS] role_name [INHERIT {owner | member}];
 ```
 
-| Options  | Description                             |
-| -------- | --------------------------------------- |
-| `owner`  | 租户下默认的角色，创建新角色时可以继承 `owner` 或 `member`。 |
-| `member` | 租户下默认的角色，创建新角色时可以继承 `owner` 或 `member`。 |
+| Options  | Description                                                                                                              |
+| -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `owner`  | Default role for tenants. When creating a new role, you can inherit `owner` or `member`. |
+| `member` | Default role for tenants. When creating a new role, you can inherit `owner` or `member`. |
 
 <details>
   <summary>View example</summary>
@@ -216,11 +216,11 @@ By using the `GRANT` command, the database administrator can grant specific perm
 
 The granularity supported by permissions is as follows
 
-| Options | Description                                                     |
-| ------- | --------------------------------------------------------------- |
-| `READ`  | Permission of reading the database.             |
-| `WRITE` | Permission of reading and writing the database. |
-| `ALL`   | 对数据库读写和DDL操作的权限。                                                |
+| Options | Description                                                                           |
+| ------- | ------------------------------------------------------------------------------------- |
+| `READ`  | Permission of reading the database.                                   |
+| `WRITE` | Permission of reading and writing the database.                       |
+| `ALL`   | Permission of reading and writing and DDL operations on the database. |
 
 ```sql
 GRANT {READ | WRITE | ALL} ON DATABASE database_name TO ROLE role_name;
