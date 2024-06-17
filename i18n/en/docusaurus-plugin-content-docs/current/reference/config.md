@@ -46,22 +46,22 @@ To make these configuration settings available for CnosDB to use via environment
 CNOSDB_REPORTING_DISABLED=false
 ```
 
-## 文件描述
+## Description
 
-本节介绍每个配置的配置方式以及用途。
+This section introduces the configuration method and usage of each configuration.
 
-### 全局配置
+### Global
 
 ```mdx-code-block
 <APITable>
 ```
 
-| Parameters      | 默认            | Environment Variables  | Description                        |
-| --------------- | ------------- | ---------------------- | ---------------------------------- |
-| `node_id`       | `1001`        | `CNOSDB_NODE_ID`       | 节点 ID                              |
-| `host`          | `localhost`   | `CNOSDB_HOST`          | 用来和其他节点通信。                         |
-| `cluster_name`  | `cluster_xxx` | `CNOSDB_CLUSTER_NAME`  | 集群名字                               |
-| `store_metrics` | `true`        | `CNOSDB_STORE_METRICS` | 是否统计此节点的使用情况并存储到`usage_schema`数据库。 |
+| Parameters      | Default       | Environment Variables  | Description                                                                                          |
+| --------------- | ------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`       | `1001`        | `CNOSDB_NODE_ID`       | Node ID                                                                                              |
+| `host`          | `localhost`   | `CNOSDB_HOST`          | Used to communicate with other nodes.                                                |
+| `cluster_name`  | `cluster_xxx` | `CNOSDB_CLUSTER_NAME`  | Cluster Name                                                                                         |
+| `store_metrics` | `true`        | `CNOSDB_STORE_METRICS` | Whether to track the usage of this node and store it in the `usage_schema` database. |
 
 ```mdx-code-block
 </APITable>
@@ -73,11 +73,11 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters | 默认           | Environment Variables      | Description                                                                                                                                                                                                                                                                                         |
-| ---------- | ------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | `query_tskv` | `CNOSDB_DEPLOYMENT_MODE`   | 部署模式，可选项为： `tskv`, `query`, `query_tskv`, `singleton`。  `tskv`: 只部署 `tskv` 引擎，需要指定 Meta 服务地址。 `query`: 只部署 `query` 引擎，需要指定 `meta` 服务地址。 `query_tskv`: `query` 和 `tskv` 引擎都部署，需要指定 `meta` 服务地址。 `singleton`: 部署单机版，无需指定 `meta` 服务地址。 |
-| `cpu`      | 等同节点核心数      | `CNOSDB_DEPLOYMENT_CPU`    | 节点运行所使用的 cpu 核数                                                                                                                                                                                                                                                                                     |
-| `memory`   | 等同节点CPU数     | `CNOSDB_DEPLOYMENT_MEMORY` | 节点运行所使用的最大内存，单位：（G）                                                                                                                                                                                                                                                                                 |
+| Parameters | Default                    | Environment Variables      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------- | -------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `query_tskv`               | `CNOSDB_DEPLOYMENT_MODE`   | Deployment mode, Optional:  `tskv`, `query`, `query_tskv`, `singleton`.  `tskv`: Deploying only tskv engine requires specifying a meta address. `query`: Only deploy the `query` engine, a meta address needs to be specified. `query_tskv`: `query` and `tskv` engines are both deployed, a meta address needs to be specified. `singleton`: Deploying a standalone version without specifying a meta address. |
+| `cpu`      | Equivalent Node Core Count | `CNOSDB_DEPLOYMENT_CPU`    | Number of CPU cores used by the node to run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `memory`   | 等同节点CPU数                   | `CNOSDB_DEPLOYMENT_MEMORY` | Maximum memory used by the node during operation, unit: (G)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 ```mdx-code-block
 </APITable>
@@ -89,10 +89,10 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters             | 默认                   | Environment Variables              | Description                         |
-| ---------------------- | -------------------- | ---------------------------------- | ----------------------------------- |
-| `service_addr`         | `["127.0.0.1:8901"]` | `CNOSDB_META_SERVICE_ADDR`         | 远程 meta 服务地址。                       |
-| `report_time_interval` | `30s`                | `CNOSDB_META_REPORT_TIME_INTERVAL` | 此节点上报心跳、磁盘余量等信息到 meta 服务的时间间隔，单位：秒。 |
+| Parameters             | Default              | Environment Variables              | Description                                                                                                                                           |
+| ---------------------- | -------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `service_addr`         | `["127.0.0.1:8901"]` | `CNOSDB_META_SERVICE_ADDR`         | Remote `meta` Service port                                                                                                                            |
+| `report_time_interval` | `30s`                | `CNOSDB_META_REPORT_TIME_INTERVAL` | Time interval between reporting heart, disk balance and other information on this node to `meta` service in: seconds. |
 
 ```mdx-code-block
 </APITable>
@@ -104,17 +104,17 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters               | 默认          | Environment Variables                 | Description                                                                                         |
-| ------------------------ | ----------- | ------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `max_server_connections` | `10240`     | `CNOSDB_QUERY_MAX_SERVER_CONNECTIONS` | 最大并发连接请求数。                                                                                          |
-| `query_sql_limit`        | `16777216`  | `CNOSDB_QUERY_QUERY_SQL_LIMIT`        | 每个 SQL 查询请求的最大字节数，单位：Bytes                                                                          |
-| `write_sql_limit`        | `167772160` | `CNOSDB_QUERY_WRITE_SQL_LIMIT`        | 每个 Line Protocol 写入请求的最大字节数，单位：Bytes                                                                |
-| `auth_enabled`           | `false`     | `CNOSDB_QUERY_AUTH_ENABLED`           | 是否检查用户的权限。                                                                                          |
-| `read_timeout`           | `3000ms`    | `CNOSDB_QUERY_READ_TIMEOUT`           | `query` 访问 `tskv` 的超时时间，单位：`ms`                                                                     |
-| `write_timeout`          | `3000ms`    | `CNOSDB_QUERY_WRITE_TIMEOUT`          | 向 `tskv` 写入数据时的超时时间，单位：`ms`                                                                         |
-| `stream_trigger_cpu`     | `1`         | `CNOSDB_QUERY_STREAM_TRIGGER_CPU`     | 准备流计算任务的 CPU 数量                                                                                     |
-| `stream_executor_cpu`    | `2`         | `CNOSDB_QUERY_STREAM_EXECUTOR_CPU`    | 执行流计算任务的 CPU 数量                                                                                     |
-| `sql_record_timeout`     | `10s`       | `CNOSDB_QUERY_SQL_RECORD_TIMEOUT`     | sql被记录到cluster_schema.sql_history表的最低执行时间 |
+| Parameters               | Default     | Environment Variables                 | Description                                                                                                                                        |
+| ------------------------ | ----------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `max_server_connections` | `10240`     | `CNOSDB_QUERY_MAX_SERVER_CONNECTIONS` | Maximum number of concurrent connection requests.                                                                                  |
+| `query_sql_limit`        | `16777216`  | `CNOSDB_QUERY_QUERY_SQL_LIMIT`        | Maximum number of bytes per SQL query request, unit: Bytes                                                                         |
+| `write_sql_limit`        | `167772160` | `CNOSDB_QUERY_WRITE_SQL_LIMIT`        | Maximum number of bytes per Line Protocol to write to the request, unit: Bytes                                                     |
+| `auth_enabled`           | `false`     | `CNOSDB_QUERY_AUTH_ENABLED`           | Whether to start checking user permissions.                                                                                        |
+| `read_timeout`           | `3000ms`    | `CNOSDB_QUERY_READ_TIMEOUT`           | `query` visits the timeout of `tskv` in units: `ms`                                                                                |
+| `write_timeout`          | `3000ms`    | `CNOSDB_QUERY_WRITE_TIMEOUT`          | Timeout for writing to `tskv` in unit: `ms`                                                                                        |
+| `stream_trigger_cpu`     | `1`         | `CNOSDB_QUERY_STREAM_TRIGGER_CPU`     | Number of CPUs to prepare stream calculation tasks                                                                                                 |
+| `stream_executor_cpu`    | `2`         | `CNOSDB_QUERY_STREAM_EXECUTOR_CPU`    | Number of CPUs to execute stream calculation tasks                                                                                                 |
+| `sql_record_timeout`     | `10s`       | `CNOSDB_QUERY_SQL_RECORD_TIMEOUT`     | The lowest execution time of the sql is recorded in the cluster_schema.sql_history table |
 
 ```mdx-code-block
 </APITable>
@@ -126,14 +126,14 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                      | 默认                        | Environment Variables                          | Description                                                                            |
+| Parameters                      | Default                   | Environment Variables                          | Description                                                                            |
 | ------------------------------- | ------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `path`                          | `/etc/cnosdb/cnosdb.conf` | `CNOSDB_STORAGE_PATH`                          | 数据存储目录。                                                                                |
-| `max_summary_size`              | `128M`                    | `CNOSDB_STORAGE_MAX_SUMMARY_SIZE`              | 单个 Summary 日志的最大大小。                                                                    |
-| `base_file_size`                | `16M`                     | `CNOSDB_STORAGE_BASE_FILE_SIZE`                | 单个文件数据大小。                                                                              |
+| `path`                          | `/etc/cnosdb/cnosdb.conf` | `CNOSDB_STORAGE_PATH`                          | Data storage directory.                                                |
+| `max_summary_size`              | `128M`                    | `CNOSDB_STORAGE_MAX_SUMMARY_SIZE`              | Maximum size of a single Summary log.                                  |
+| `base_file_size`                | `16M`                     | `CNOSDB_STORAGE_BASE_FILE_SIZE`                | Single file data size.                                                 |
 | `flush_req_channel_cap`         | `16`                      | `CNOSDB_STORAGE_FLUSH_REQ_CHANNEL_CAP`         | 累积的 flush 任务上限。                                                                        |
 | `max_cache_readers`             | `32`                      | `CNOSDB_STORAGE_MAX_CACHE_READERS`             | 每个 vnode 中打开的文件句柄（用于查询）的最大计数。                                                          |
-| `max_level`                     | `4`                       | `CNOSDB_STORAGE_MAX_LEVEL`                     | LSM 的最大层数，取值范围 0-4。                                                                    |
+| `max_level`                     | `4`                       | `CNOSDB_STORAGE_MAX_LEVEL`                     | The maximum number of layers of the LSM, in the range 0-4.             |
 | `compact_trigger_file_num`      | `4`                       | `CNOSDB_STORAGE_COMPACT_TRIGGER_FILE_NUM`      | 触发 compaction 所需的文件数量。                                                                 |
 | `compact_trigger_cold_duration` | `1h`                      | `CNOSDB_STORAGE_COMPACT_TRIGGER_COLD_DURATION` | 时间段内未操作，则触发 compaction。                                                                |
 | `max_compact_size`              | `2G`                      | `CNOSDB_STORAGE_MAX_COMPACT_SIZE`              | compaction 最多选择的文件大小。                                                                  |
@@ -153,7 +153,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                      | 默认                    | Environment Variables                      | Description                                       |
+| Parameters                      | Default               | Environment Variables                      | Description                                       |
 | ------------------------------- | --------------------- | ------------------------------------------ | ------------------------------------------------- |
 | `enabled`                       | `true`                | `CNOSDB_WAL_ENABLED`                       | 是否启用 WAL。                                         |
 | `path`                          | `/var/lib/cnosdb/wal` | `CNOSDB_WAL_PATH`                          | WAL 存储目录。                                         |
@@ -173,7 +173,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters        | 默认      | Environment Variables          | Description                   |
+| Parameters        | Default | Environment Variables          | Description                   |
 | ----------------- | ------- | ------------------------------ | ----------------------------- |
 | `max_buffer_size` | `128M`  | `CNOSDB_CACHE_MAX_BUFFER_SIZE` | 最大的活跃缓存大小。                    |
 | `partition`       | 等同CPU数量 | `CNOSDB_CACHE_PARTITION`       | memcache 缓存的分区数量，默认值等于 CPU 数量 |
@@ -188,7 +188,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters       | 默认                | Environment Variables       | Description                              |
+| Parameters       | Default           | Environment Variables       | Description                              |
 | ---------------- | ----------------- | --------------------------- | ---------------------------------------- |
 | `level`          | `info`            | `CNOSDB_LOG_LEVEL`          | 日志等级（debug、info、error、warn）。             |
 | `path`           | `/var/log/cnosdb` | `CNOSDB_LOG_PATH`           | 日志存储目录。                                  |
@@ -205,10 +205,10 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters    | 默认 | Environment Variables                    | Description |
-| ------------- | -- | ---------------------------------------- | ----------- |
-| `certificate` | 无  | `CNOSDB_SECURITY_TLS_CONFIG_CERTIFICATE` | TLS 服务的证书   |
-| `private_key` | 无  | `CNOSDB_SECURITY_TLS_CONFIG_PRIVATE_KEY` | TLS 服务的私钥   |
+| Parameters    | Default | Environment Variables                    | Description |
+| ------------- | ------- | ---------------------------------------- | ----------- |
+| `certificate` | 无       | `CNOSDB_SECURITY_TLS_CONFIG_CERTIFICATE` | TLS 服务的证书   |
+| `private_key` | 无       | `CNOSDB_SECURITY_TLS_CONFIG_PRIVATE_KEY` | TLS 服务的私钥   |
 
 ```mdx-code-block
 </APITable>
@@ -220,7 +220,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters               | 默认      | Environment Variables                   | Description                                                                                                                 |
+| Parameters               | Default | Environment Variables                   | Description                                                                                                                 |
 | ------------------------ | ------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `http_listen_port`       | `8902`  | `CNOSDB_SERVICE_HTTP_LISTEN_PORT`       | HTTP 服务监听端口。                                                                                                                |
 | `grpc_listen_port`       | `8903`  | `CNOSDB_SERVICE_GRPC_LISTEN_PORT`       | GRPC 服务监听端口。                                                                                                                |
@@ -240,7 +240,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                    | 默认            | Environment Variables                        | Description                      |
+| Parameters                    | Default       | Environment Variables                        | Description                      |
 | ----------------------------- | ------------- | -------------------------------------------- | -------------------------------- |
 | `raft_logs_to_keep`           | `5000`        | `CNOSDB_CLUSTER_RAFT_LOGS_TO_KEEP`           | Raft日志保留条数，且每隔这些次数写入做一次snapshot。 |
 | `snapshot_holding_time`       | `3600s`       | `CNOSDB_CLUSTER_SNAPSHOT_HOLDING_TIME`       | Raft快照保留时间。                      |
@@ -268,11 +268,11 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters    | 默认     | Environment Variables | Description     |
-| ------------- | ------ | --------------------- | --------------- |
-| `cache`       | `1024` | `CNOSDB_CACHE`        | 处理转发请求的通道大小。    |
-| `concurrency` | `8`    | `CNOSDB_CONCURRENCY`  | 处理转发请求的并发数。     |
-| `timeout`     | `1000` | `CNOSDB_TIMEOUT`      | 转发请求的超时时间，单位：秒。 |
+| Parameters    | Default | Environment Variables | Description     |
+| ------------- | ------- | --------------------- | --------------- |
+| `cache`       | `1024`  | `CNOSDB_CACHE`        | 处理转发请求的通道大小。    |
+| `concurrency` | `8`     | `CNOSDB_CONCURRENCY`  | 处理转发请求的并发数。     |
+| `timeout`     | `1000`  | `CNOSDB_TIMEOUT`      | 转发请求的超时时间，单位：秒。 |
 
 ```mdx-code-block
 </APITable>
@@ -288,7 +288,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters               | 默认      | Environment Variables                 | Description                                                                     |
+| Parameters               | Default | Environment Variables                 | Description                                                                     |
 | ------------------------ | ------- | ------------------------------------- | ------------------------------------------------------------------------------- |
 | `auto_generate_span`     | `false` | `CNOSDB_TRACE_AUTO_GENERATE_SPAN`     | 是否自动生成root span，当客户端未携带span context时有效。                                         |
 | `max_spans_per_trace`    | 无       | `CNOSDB_TRACE_MAX_SPANS_PER_TRACE`    | trace中span和event总数的软限制。                                                         |
@@ -302,13 +302,13 @@ CNOSDB_REPORTING_DISABLED=false
 
 ## `meta` 文件描述
 
-### 全局配置
+### Global
 
 ```mdx-code-block
 <APITable>
 ```
 
-| Parameters                                                 | 默认                     | Environment Variables                     | Description            |
+| Parameters                                                 | Default                | Environment Variables                     | Description            |
 | ---------------------------------------------------------- | ---------------------- | ----------------------------------------- | ---------------------- |
 | id                                                         | `1`                    | `CNOSDB_META_ID`                          | `meta`节点的`id`，要求集群内唯一  |
 | host                                                       | `127.0.0.1`            | `CNOSDB_META_HOST`                        | 用于和其他节点通信的 `host`      |
@@ -331,7 +331,7 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters       | 默认                | Environment Variables            | Description                              |
+| Parameters       | Default           | Environment Variables            | Description                              |
 | ---------------- | ----------------- | -------------------------------- | ---------------------------------------- |
 | `level`          | `info`            | `CNOSDB_META_LOG_LEVEL`          | 日志等级（debug、info、error、warn）。             |
 | `path`           | `/var/log/cnosdb` | `CNOSDB_META_LOG_PATH`           | 日志存储目录。                                  |
@@ -348,12 +348,12 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters         | 默认                          | Environment Variables                    | Description |
-| ------------------ | --------------------------- | ---------------------------------------- | ----------- |
-| `cluster_name`     | `cluster_xxx`               | `CNOSDB_META_META_INIT_CLUSTER_NAME`     | 集群名字        |
-| `admin_user`       | `root`                      | `CNOSDB_META_META_INIT_ADMIN_USER`       | 系统管理员用户名    |
-| `system_tenant`    | `cnosdb`                    | `CNOSDB_META_META_INIT_SYSTEM_TENANT`    | 系统默认租户名字    |
-| `default_database` | `["public","usage_schema"]` | `CNOSDB_META_META_INIT_DEFAULT_DATABASE` | 默认创建的数据库    |
+| Parameters         | Default                     | Environment Variables                    | Description  |
+| ------------------ | --------------------------- | ---------------------------------------- | ------------ |
+| `cluster_name`     | `cluster_xxx`               | `CNOSDB_META_META_INIT_CLUSTER_NAME`     | Cluster Name |
+| `admin_user`       | `root`                      | `CNOSDB_META_META_INIT_ADMIN_USER`       | 系统管理员用户名     |
+| `system_tenant`    | `cnosdb`                    | `CNOSDB_META_META_INIT_SYSTEM_TENANT`    | 系统默认租户名字     |
+| `default_database` | `["public","usage_schema"]` | `CNOSDB_META_META_INIT_DEFAULT_DATABASE` | 默认创建的数据库     |
 
 ```mdx-code-block
 </APITable>
@@ -365,10 +365,10 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| Parameters                   | 默认  |                                                    | Description               |
-| ---------------------------- | --- | -------------------------------------------------- | ------------------------- |
-| `heartbeat_recheck_interval` | 300 | `CNOSDB_META_HEARTBEAT_HEARTBEAT_RECHECK_INTERVAL` | 多久检查一次CnosDB节点的状态，单位：秒。   |
-| `heartbeat_expired_interval` | 300 | `CNOSDB_META_HEARTBEAT_HEARTBEAT_EXPIRED_INTERVAL` | CnosDB节点多久未上报心跳认定异常，单位：秒。 |
+| Parameters                   | Default |                                                    | Description               |
+| ---------------------------- | ------- | -------------------------------------------------- | ------------------------- |
+| `heartbeat_recheck_interval` | 300     | `CNOSDB_META_HEARTBEAT_HEARTBEAT_RECHECK_INTERVAL` | 多久检查一次CnosDB节点的状态，单位：秒。   |
+| `heartbeat_expired_interval` | 300     | `CNOSDB_META_HEARTBEAT_HEARTBEAT_EXPIRED_INTERVAL` | CnosDB节点多久未上报心跳认定异常，单位：秒。 |
 
 ```mdx-code-block
 </APITable>
