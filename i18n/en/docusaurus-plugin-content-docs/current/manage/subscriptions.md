@@ -28,7 +28,7 @@ We can use `CREATE SUBSCRIPTION` to create a subscription.
 CREATE SUBSCRIPTION <subscription_name> 
 ON <database_name> 
 DESTINATIONS <ALL|ANY> "<end_point>" ["<end_point>"]
-[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[ON <table_name>(time, [tag_name, ...], <field_name>, [field_name, ..]) 
 [FILTER_BY <Expr>]];
 ```
 
@@ -81,7 +81,7 @@ We can use `ALTER SUBSCRIPTION` to alter the subscription.
 ALTER SUBSCRIPTION <subscription_name> 
 ON <database_name> 
 DESTINATIONS <ALL|ANY> "<end_point>" ["<end_point>"]
-[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[ON <table_name>(time, [tag_name, ...], <field_name>, [field_name, ..]) 
 [FILTER_BY <Expr>]];
 ```
 
@@ -112,8 +112,8 @@ SHOW SUBSCRIPTION ON public;
 Output result:
 
 ```sql
-SUBSCRIPTION,DESTINATIONS,MODE
-test,"127.0.0.1:8902,127.0.0.1:8903",ALL
+SUBSCRIPTION,DESTINATIONS,MODE,PROJECTION,SELECTION
+test,"127.0.0.1:8902,127.0.0.1:8903",ALL,,,
 ```
 
 ## Drop Subscription
@@ -155,11 +155,11 @@ Query subscription
 
 ```sh
 > SHOW SUBSCRIPTION ON public;
-+--------------+----------------+------+
-| SUBSCRIPTION | DESTINATIONS   | MODE |
-+--------------+----------------+------+
-| sub_test     | 127.0.0.1:8803 | ALL  |
-+--------------+----------------+------+
++--------------+-------------------------------+------+------------+-----------+
+| subscription | destinations                  | mode | projection | selection |
++--------------+-------------------------------+------+------------+-----------+
+| test         | 127.0.0.1:8913,127.0.0.1:8923 | ALL  |            |           |
++--------------+-------------------------------+------+------------+-----------+
 ```
 
 Now, you can use `telegraf` to send data to any location.
