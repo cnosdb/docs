@@ -331,7 +331,7 @@ scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'cnosdb'
     static_configs:
-      - targets: ['127.0.0.1:8902']
+      - targets: [ '127.0.0.1:8902' ]
 ```
 
 #### Parameter Description
