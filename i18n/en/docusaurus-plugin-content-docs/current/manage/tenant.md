@@ -10,15 +10,24 @@ This chapter introduces the setting and management of identity authentication au
 If CnosDB is running on a public endpoint, it is strongly recommended to enable authentication, otherwise the data will be exposed to any unauthenticated users.
 :::
 
-CnosDB instance starts with a tenant `cnosdb` and a user `root` by default.
+CnosDB has an initial tenant (cnosdb) and user (root) and needs to open configuration: if you need to enable authentication
 
-**Step 1: Set the password for user root.**
+**Modify `auth_enabled=true` in the configuration file and start an instance.**
+
+At this point, login with cnosdb-cli --user root --password and enter the default password.The default password for root users is 'root', Which can be changed by meta config file.
+When authenticating is enabled, ust_change_password needs to be changed for true users, root defaults to true and false.
+
+**Set a new password for user root.**
 
 ```sql
 ALTER USER root SET PASSWORD='CnosDB#!';
 ```
 
-**Step 2: Modify the `auth_enabled=true` in the configuration file and restart the instance.**
+**Modify `must_change_password=true`. Require you to change your password next time you log in to perform other actions properly.**
+
+```sql
+ALTER USER user1 SET must_change_password=true;
+```
 
 admin permissions are split into original admin permissions for the original: in CnosDB, granted to admin permissions.
 
