@@ -457,3 +457,106 @@ DESCRIBE TABLE usage_schema.watch_meta_response_time;
 | value       | DOUBLE                | FIELD       | DEFAULT           |
 +-------------+-----------------------+-------------+-------------------+
 ```
+
+
+### raft_applied_index
+
+```sql
+DESCRIBE TABLE usage_schema.raft_applied_index;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| database    | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| replica_id  | STRING                | TAG         | DEFAULT           |
+| tenant      | STRING                | TAG         | DEFAULT           |
+| vnode_id    | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### raft_applied_index
+
+```sql
+DESCRIBE TABLE usage_schema.raft_flushed_index;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| database    | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| replica_id  | STRING                | TAG         | DEFAULT           |
+| tenant      | STRING                | TAG         | DEFAULT           |
+| vnode_id    | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### raft_replication_delay
+
+```sql
+DESCRIBE TABLE usage_schema.raft_replication_delay;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| database    | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| replica_id  | STRING                | TAG         | DEFAULT           |
+| tenant      | STRING                | TAG         | DEFAULT           |
+| vnode_id    | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### raft_snapshot_index
+
+```sql
+DESCRIBE TABLE usage_schema.raft_snapshot_index;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| database    | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| replica_id  | STRING                | TAG         | DEFAULT           |
+| tenant      | STRING                | TAG         | DEFAULT           |
+| vnode_id    | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### raft_wal_index_max
+
+```sql
+DESCRIBE TABLE usage_schema.raft_wal_index_max;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| database    | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| replica_id  | STRING                | TAG         | DEFAULT           |
+| tenant      | STRING                | TAG         | DEFAULT           |
+| vnode_id    | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### raft_wal_index_min
+
+```sql
+DESCRIBE TABLE usage_schema.raft_wal_index_min;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| database    | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| replica_id  | STRING                | TAG         | DEFAULT           |
+| tenant      | STRING                | TAG         | DEFAULT           |
+| vnode_id    | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
