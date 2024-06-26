@@ -39,13 +39,13 @@ CnosDB-Operator 架构基于 Kubernetes Operator 模式，包括以下核心组�
 - 控制器（Controller）：负责监视和管理 CnosDB 资源。它根据资源的状态和规范，执行创建、更新和删除操作，以确保 CnosDB 集群的一致性和配置的正确性。
 - 架构图如下：
 
-- ![img](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/1GXn4BXoeLEoODQ4/img/daea38c5-989d-4524-977f-3261abd04046.png)
+- ![img](/img/reference_concept_design_cloud_1.png)
 
 #### 工作原理
 
 流程图如下：
 
-![img](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/1GXn4BXoeLEoODQ4/img/e065647a-163d-45d9-ad98-6b6934641d98.png)
+![img](/img/reference_concept_design_cloud_2.png)
 
 如图所示，operator以用户定义的cr为最终目标，通过监控集群资源的变化，不断与k8s的api交互，最终使集群内的资源达到用户期望的运行状态。
 
