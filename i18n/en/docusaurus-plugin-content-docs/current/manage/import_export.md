@@ -6,7 +6,7 @@ sidebar_position: 2
 
 CnosDB can export data to local or object storage using SQL `COPY INTO`, or import data from object storage and local file systems.
 
-Supported file formats include `CSV`, `JSON`, `PARQUET`, currently supported object storage includes `AWS S3`, `Google Cloud Storage`, `Azure Blob Storage`.
+支持的文件格式有`PARQUET`、`CSV`、`JSON`，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Azure Blob Storage` 。
 
 ## Export data
 
@@ -18,7 +18,7 @@ Supported file formats include `CSV`, `JSON`, `PARQUET`, currently supported obj
 COPY INTO <path>
 FROM [<database>.]<table_name>
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 ```
 
@@ -26,7 +26,7 @@ FILE_FORMAT = (
 
 | Name                             | Description                                                                                                                                                    |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                             | Set the file format to: `CSV`, `JSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| TYPE                             | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                        | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 
@@ -69,7 +69,7 @@ CONNECTION = (
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 ```
 
@@ -77,7 +77,7 @@ FILE_FORMAT = (
 
 | Name                                                    | Description                                                                                                                                                      |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                    | Set the file format to: `CSV`, `JSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                      |
+| TYPE                                                    | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                                |
 | DELIMITER                                               | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                                |
 | WITH_HEADER                        | Only supports `CSV`, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | region                                                  | AWS Region Code                                                                                                                                                  |
@@ -133,7 +133,7 @@ CONNECTION = (
   	[, private_key = '<string>']
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 ```
 
@@ -141,7 +141,7 @@ FILE_FORMAT = (
 
 | Name                                                   | Description                                                                                                                                                    |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                   | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                                                   | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                                              | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                       | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | gcs_base_url | Base URL of Google Cloud Store                                                                                                                                 |
@@ -151,7 +151,7 @@ FILE_FORMAT = (
 
 #### Example
 
-##### Export data as `NDJSON` to Google Cloud Storage
+##### 将数据导出成 `JSON` 存储到 Google Cloud Storage
 
 ```shell
 COPY INTO 'gcs://tmp/air'
@@ -163,7 +163,7 @@ CONNECTION = (
     private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
 )
 FILE_FORMAT = (
-    TYPE = 'NDJSON'
+    TYPE = 'JSON'
 );
 ```
 
@@ -198,7 +198,7 @@ CONNECTION = (
   	[, bearer_token = '<string>']
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 ```
 
@@ -208,7 +208,7 @@ FILE_FORMAT = (
 
 | Name                              | Description                                                                                                                                                    |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
@@ -257,10 +257,10 @@ FILE_FORMAT = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM '<path>'
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 COPY_OPTIONS (
     auto_infer_schema = true | false
@@ -271,7 +271,7 @@ COPY_OPTIONS (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                                                        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -314,7 +314,7 @@ COPY_OPTIONS = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 's3://<bucket>[/<path>]'
 CONNECTION = (
     region = '<string>'
@@ -324,7 +324,7 @@ CONNECTION = (
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
   auto_infer_schema = true | false
@@ -335,7 +335,7 @@ COPY_OPTIONS = (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `CSV`, `JSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| TYPE                                                        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -389,7 +389,7 @@ FILE_FORMAT = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 'gcs://<bucket>[/<path>]'
 CONNECTION = (
     gcs_base_url = '<string>' 
@@ -398,7 +398,7 @@ CONNECTION = (
   	[, private_key = '<string>']
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
   auto_infer_schema = true | false
@@ -409,7 +409,7 @@ COPY_OPTIONS = (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                                                        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -420,7 +420,7 @@ COPY_OPTIONS = (
 
 #### Example
 
-##### Import `NDJSON` data from Google Cloud Storage\`
+##### 将 ` Google Cloud Storage` 上的 `JSON` 数据导入
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -432,7 +432,7 @@ CONNECTION = (
     private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
 )
 FILE_FORMAT = (
-    TYPE = 'NDJSON'
+    TYPE = 'JSON'
 );
 ```
 
@@ -459,7 +459,7 @@ FILE_FORMAT = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 'azblob://<container>[/<path>]'
 CONNECTION = (
     account = '<string>' 
@@ -467,7 +467,7 @@ CONNECTION = (
   	[, bearer_token = '<string>']
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
   auto_infer_schema = true | false
@@ -478,7 +478,7 @@ COPY_OPTIONS = (
 
 | Name                              | Description                                                                                                                                                    |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
 | DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
