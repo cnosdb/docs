@@ -15,21 +15,56 @@ db_options:
     db_option ...
 
 db_option: {
-      TTL value
+      TTL duration
     | SHARD value
-    | VNODE_DURATION value
+    | VNODE_DURATION duration
     | REPLICA value
     | PRECISION {'ms' | 'us' | 'ns'}
+    | MAX_MEMCACHE_SIZE bytesnum
+    | MEMCACHE_PARTITIONS value
+    | WAL_MAX_FILE_SIZE bytesnum
+    | WAL_SYNC bool
+    | STRICT_WRITE bool 
+    | MAX_CACHE_READERS value
 }
 ```
 
-| Options          | Description                                                                                                                                                                                                                              |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `TTL`            | Data expiration time, default unlimited storage, supported units: `d`, `h`, `m`.Example: `TTL 10d`, `TTL 180m`.                                                          |
-| `SHARD`          | Indicates the number of shards, default: `1`.                                                                                                                                                            |
-| `VNODE_DURATION` | The time window length of the data in SHARD, default 365 days, supported units: `d`, `h`, `m`.Example: `TTL 10d`, `TTL 180m`.                                            |
-| `REPLICA`        | The number of replicas of the data in the cluster, default is `1`.(Note: The number of copies must be less than or equal to the data nodes of `tskv` in the cluster). |
-| `PRECISION`      | The timestamp precision of the database, default is `ns`.Supported units: `ms`, `us`, `ns`                                                                                                               |
+| Options               | Description                                                                                                                                                                                                                              |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TTL`                 | Duration。数据过期时间，默认为无限 `INF`。                                                                                                                                                                                                             |
+| `SHARD`               | Indicates the number of shards, default: `1`.                                                                                                                                                            |
+| `VNODE_DURATION`      | Duration。数据在 SHARD 中的时间窗口长度，默认 `'1y'`。                                                                                                                                                                                                   |
+| `REPLICA`             | The number of replicas of the data in the cluster, default is `1`.(Note: The number of copies must be less than or equal to the data nodes of `tskv` in the cluster). |
+| `PRECISION`           | The timestamp precision of the database, default is `ns`.Supported units: `ms`, `us`, `ns`                                                                                                               |
+| `MAX_MEMCACHE_SIZE`   | 数据库的最大缓存大小，默认为 `'512MiB'`,可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                            |
+| `MEMCACHE_PARTITIONS` | 数据库的缓存分区数，默认为 `1`,可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                                    |
+| `WAL_MAX_FILE_SIZE`   | 单个 WAL 文件的最大大小，默认为 `'1GiB'`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                          |
+| `WAL_SYNC`            | WAL 是否每次写入同步，默认为 `'false'`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                           |
+| `STRICT_WRITE`        | 是否开启严格写，即写入是否需要提前创建表，默认为 `'false'`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                   |
+| `MAX_CACHE_READERS`   | vnode的最大缓存的tsm reader，默认为 `32`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                       |
+
+### Duration 格式
+
+```
+'inf'为无限大的 Duration, 例如 create database oceanic_station with ttl 'inf'
+'nanos' | 'nsec' | 'ns' 为纳秒, 例如 with ttl '10ns'
+'usec' | 'us' 为微秒, 例如 with ttl '300us'
+'millis' | 'msec' | 'ms' 为毫秒, 例如 with ttl '90ms'
+'seconds' | 'second' | 'secs' | 'sec' | 's' 为秒, 例如 with ttl '30s'
+'minutes' | 'minute' | 'min' | 'mins' | 'm' 为分钟, 例如 with ttl '7000m'
+'hours' | 'hour' | 'hr' | 'hrs' | 'h' 为小时, 例如 with ttl '5h'
+'days' | 'day' | 'd' 为天, 例如 with ttl '365d'
+'weeks' | 'week' | 'w' 为周, 例如 with ttl '52w'
+'months' | 'month' | 'M' 为月, 例如 with ttl '12M'
+'years' | 'year' | 'y' 为年, 例如 with ttl '1y'
+```
+
+### BytesNum
+
+```
+'512MiB'、'1GiB'、'1KiB'、'1TiB'、'1PiB'、'1EiB'、'1ZiB'、'1YiB', 为二进制单位, 1M = 1024K
+'512MB'、'1GB'、'1KB'、'1TB'、'1PB'、'1EB'、'1ZB'、'1YB'，为十进制单位, 1M = 1000K
+```
 
 <details>
   <summary>View the <code>CREATE DATABASE</code> example</summary>
@@ -38,6 +73,12 @@ db_option: {
 
 ```sql
 CREATE DATABASE oceanic_station;
+```
+
+**创建一个数据库，指定参数。**
+
+```sql
+create database oceanic_station with ttl 'inf' shard 6 vnode_duration '2y1M' replica 1 precision 'us' max_memcache_size '128MiB' memcache_partitions 10 wal_max_file_size '300M' wal_sync 'true' strict_write 'true' max_cache_readers 100;
 ```
 
 **Create a database, set the expiration time to 180 days, and each time window to 7 days.**
