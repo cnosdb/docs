@@ -8,7 +8,7 @@ The data write cycle is generally based on the actual table write frequency, whi
 
 Downsampling in the timing database refers to the downsampling of timing data, the original fine-grained data downsampling to get the coarser-grained data, in order to save storage costs, downsampling data will only retain some statistical characteristics of the original data.This chapter describes how to use CnosDB for automated data sampling.
 
-Stream Query:is a special query in CnosDB for processing stream data calculation, the stream query requires that the SELECT function must contain the GROUP BY time() phrase.
+Stream querying (stream calculation): is a special query in CnosDB for processing streaming data calculations, which requires that the `SELECT` function must contain `GROUP BY time()`.
 
 Before enabling the flow query, you need to create a flow table view. For syntax, please refer to [`CREATE STREAM TABLE`](../reference/sql/ddl#create-stream-table). The following is an example using the `air` table as the source table:
 

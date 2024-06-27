@@ -71,13 +71,13 @@ CREATE USER IF NOT EXISTS tester WITH PASSWORD='xxx', MUST_CHANGE_PASSWORD=true,
 By using the `CREATE ROLE` statement, administrators can define new roles and assign permissions to these roles.Roles can be used in the database for organizing users and granting a specific set of permissions to simplify the administration and control access levels.
 
 ```sql
-CREATE ROLE [IF NOT EXISTS] role_name INHERIT {owner | member};
+CREATE ROLE [IF NOT EXISTS] role_name [INHERIT {owner | member}];
 ```
 
 | Options  | Description                                                                                                              |
 | -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `owner`  | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
-| `member` | Default role for tenants. You must inherit `owner` or `member` when creating a new role. |
+| `owner`  | Default role for tenants. When creating a new role, you can inherit `owner` or `member`. |
+| `member` | Default role for tenants. When creating a new role, you can inherit `owner` or `member`. |
 
 <details>
   <summary>View example</summary>
@@ -220,7 +220,7 @@ The granularity supported by permissions is as follows
 | ------- | ------------------------------------------------------------------------------------- |
 | `READ`  | Permission of reading the database.                                   |
 | `WRITE` | Permission of reading and writing the database.                       |
-| `ALL`   | Permission of adding, deleting, modifying, and querying the database. |
+| `ALL`   | Permission of reading and writing and DDL operations on the database. |
 
 ```sql
 GRANT {READ | WRITE | ALL} ON DATABASE database_name TO ROLE role_name;

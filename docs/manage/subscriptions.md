@@ -28,7 +28,7 @@ CnosDB 订阅可以将本地端点的数据写入到远程端点，可以和另�
 CREATE SUBSCRIPTION <subscription_name> 
 ON <database_name> 
 DESTINATIONS <ALL|ANY> "<end_point>" ["<end_point>"]
-[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[ON <table_name>(time, [tag_name, ...], <field_name>, [field_name, ..]) 
 [FILTER_BY <Expr>]];
 ```
 
@@ -83,7 +83,7 @@ FILTER_BY where station = 'XiaoMaiDao';
 ALTER SUBSCRIPTION <subscription_name> 
 ON <database_name> 
 DESTINATIONS <ALL|ANY> "<end_point>" ["<end_point>"]
-[ON <table_name>(time, <tag_name>,[tag_name, ...], <field_name>, [field_name, ..]) 
+[ON <table_name>(time, [tag_name, ...], <field_name>, [field_name, ..]) 
 [FILTER_BY <Expr>]];
 ```
 
@@ -113,8 +113,8 @@ SHOW SUBSCRIPTION ON public;
 输出结果：
 
 ```sql
-SUBSCRIPTION,DESTINATIONS,MODE
-test,"127.0.0.1:8902,127.0.0.1:8903",ALL
+SUBSCRIPTION,DESTINATIONS,MODE,PROJECTION,SELECTION
+test,"127.0.0.1:8902,127.0.0.1:8903",ALL,,,
 ```
 
 ## 删除订阅
@@ -156,11 +156,11 @@ CREATE SUBSCRIPTION sub_test ON public DESTINATIONS ALL "127.0.0.1:8803";
 
 ```sh
 > SHOW SUBSCRIPTION ON public;
-+--------------+----------------+------+
-| SUBSCRIPTION | DESTINATIONS   | MODE |
-+--------------+----------------+------+
-| sub_test     | 127.0.0.1:8803 | ALL  |
-+--------------+----------------+------+
++--------------+-------------------------------+------+------------+-----------+
+| subscription | destinations                  | mode | projection | selection |
++--------------+-------------------------------+------+------------+-----------+
+| test         | 127.0.0.1:8913,127.0.0.1:8923 | ALL  |            |           |
++--------------+-------------------------------+------+------------+-----------+
 ```
 
 现在，你可以使用 `telegraf` 将数据发送至任何位置。

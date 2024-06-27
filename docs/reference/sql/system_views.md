@@ -34,6 +34,28 @@ SELECT * FROM cluster_schema.users;
 +-----------+----------+--------------------------------------------------------------------------------+
 ```
 
+### sql_history
+
+```sql
+DESC TABLE cluster_schema.sql_history;
++-----------------+-----------------------+-------------+-------------------+
+| column_name     | data_type             | column_type | compression_codec |
++-----------------+-----------------------+-------------+-------------------+
+| time            | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| tenant_id       | STRING                | TAG         | DEFAULT           |
+| tenant_name     | STRING                | TAG         | DEFAULT           |
+| user_id         | STRING                | TAG         | DEFAULT           |
+| user_name       | STRING                | TAG         | DEFAULT           |
+| duration        | DOUBLE                | FIELD       | DEFAULT           |
+| error_count     | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
+| processed_count | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
+| query_id        | STRING                | FIELD       | DEFAULT           |
+| query_text      | STRING                | FIELD       | DEFAULT           |
+| query_type      | STRING                | FIELD       | DEFAULT           |
+| state           | STRING                | FIELD       | DEFAULT           |
++-----------------+-----------------------+-------------+-------------------+
+```
+
 ## information_schema
 
 ### databases
@@ -317,6 +339,125 @@ DESCRIBE TABLE usage_schema.vnode_disk_storage;
 | value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
 +-------------+-----------------------+-------------+-------------------+
 ```
+
+### http_flow
+
+```sql
+DESCRIBE TABLE usage_schema.http_flow;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| api         | STRING                | TAG         | DEFAULT           |
+| host        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### http_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.http_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| api         | STRING                | TAG         | DEFAULT           |
+| host        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### read_meta_count
+
+```sql
+DESCRIBE TABLE usage_schema.read_meta_count;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### read_meta_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.read_meta_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### write_meta_count
+
+```sql
+DESCRIBE TABLE usage_schema.write_meta_count;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### write_meta_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.write_meta_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### watch_meta_count
+
+```sql
+DESCRIBE TABLE usage_schema.watch_meta_count;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | BIGINT UNSIGNED       | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
+### watch_meta_response_time
+
+```sql
+DESCRIBE TABLE usage_schema.watch_meta_response_time;
++-------------+-----------------------+-------------+-------------------+
+| column_name | data_type             | column_type | compression_codec |
++-------------+-----------------------+-------------+-------------------+
+| time        | TIMESTAMP(NANOSECOND) | TIME        | DEFAULT           |
+| addr        | STRING                | TAG         | DEFAULT           |
+| le          | STRING                | TAG         | DEFAULT           |
+| node_id     | STRING                | TAG         | DEFAULT           |
+| value       | DOUBLE                | FIELD       | DEFAULT           |
++-------------+-----------------------+-------------+-------------------+
+```
+
 
 ### raft_applied_index
 

@@ -11,13 +11,8 @@ slug: /jaeger
 
 ```toml
 [trace]
-  auto_generate_span = false
-[trace.log]
-  path = '/tmp/cnosdb'
-[trace.jaeger]
-  jaeger_agent_endpoint = 'http://127.0.0.1:14268/api/traces'
-  max_concurrent_exports = 2
-  max_queue_size = 4096
+auto_generate_span = true
+otlp_endpoint = 'http://localhost:4317'
 ```
 
 ## 安装并启动 Jaeger
@@ -25,10 +20,8 @@ slug: /jaeger
 
 ```bash
 docker run -d --name jaeger \
--p 6831:6831/udp \
--p 6832:6832/udp \
+-p 4317:4317 \
 -p 16686:16686 \
--p 14268:14268 \
 jaegertracing/all-in-one:latest
 ```
 
@@ -40,10 +33,10 @@ jaegertracing/all-in-one:latest
 
 1. 在请求中添加 `span context`。
 
-> 可以设置配置文件中的 `auto_generate_span = true` 自动生成，如果需要分析特定的语句，请在请求中自定义 `uber-trace-id` 值，格式如下所示（详细格式说明请参考：[Propagation Format](https://www.jaegertracing.io/docs/1.46/client-libraries/#propagation-format)。
+> 可以设置配置文件中的 `auto_generate_span = true` 自动生成，如果需要分析特定的语句，请在请求中自定义 `cnosdb-trace-ctx` 值，格式如下所示（`cnosdb-trace-ctx: {trace-id}:{span-id}`）。
 
 ```bash
-uber-trace-id: 3a3a43:432e345:0:1
+cnosdb-trace-ctx: 3a3a43:432e345
 ```
 
 示例：
@@ -52,7 +45,7 @@ uber-trace-id: 3a3a43:432e345:0:1
 > 查询数据库 `oceanic_station` 中 `air` 表中的数据，并且按时间倒序排序，返回前 5 条数据 。
 
 ```bash
-curl -i -u "root:" -H "Accept: application/json" -H "uber-trace-id: 3a3a43:432e345:0:1" -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station&pretty=true" -d "select * from air order by time desc limit 5;"
+curl -i -u "root:" -H "Accept: application/json" -H "cnosdb-trace-ctx: 3a3a43:432e345" -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station&pretty=true" -d "select * from air order by time desc limit 5;"
 ```
 
 ## 使用仪表盘进行分析

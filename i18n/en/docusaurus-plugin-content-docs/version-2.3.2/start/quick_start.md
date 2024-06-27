@@ -5,7 +5,7 @@ order: 3
 
 # Quick Start
 
-CnosDBSQL is inspired by [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction), We support most of the SQL syntax of DataFusion.
+CnosDBSQL is inspired by [DataFusion](https://datafusion.apache.org/), We support most of the SQL syntax of DataFusion.
 
 **Note**: In order to query more efficiently, the order of each row may not be the same for queries without specified sorting
 

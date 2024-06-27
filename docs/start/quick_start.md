@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # 快速开始
 
-CnosDB SQL 的灵感来自于 [DataFusion](https://arrow.apache.org/datafusion/user-guide/introduction)，我们支持DataFusion的大部分SQL语法。
+CnosDB SQL 的灵感来自于 [DataFusion](https://datafusion.apache.org/)，我们支持DataFusion的大部分SQL语法。
 
 **注意**：为了查询能更高效，没有指定排序的查询，每次行顺序都不一定相同，如果需要按字段排序的话，请参看`ORDER BY`子句。
 

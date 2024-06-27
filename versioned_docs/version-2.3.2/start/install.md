@@ -14,7 +14,7 @@ sidebar_position: 1
 
 2. 使用 Docker 启动容器
   ```shell
-    docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest cnosdb run -M singleton
+    docker run --name cnosdb -p 8902:8902 -d cnosdb/cnosdb:community-latest
   ```
 
 3. 进入容器
