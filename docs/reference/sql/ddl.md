@@ -220,7 +220,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 :::
 
 ```sql
-CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
+CREATE STREAM TABLE [IF NOT EXISTS] table_name[(field_definition [, field_definition] ...)]
     WITH (db = 'db_name', table = 'table_name', event_time_column = 'time_column')
     engine = tskv;
 
