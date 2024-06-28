@@ -522,42 +522,6 @@ Histogram
 | le      | 小于此时间,单位ms |
 | value   | 次数             |
 
-主从延迟
-raft_replication_delay
-tenant, database,replica_id,vnode_id
-Gauge
-Follower跟Leader延迟的消息条数
-
-Raft状态机应用进度
-raft_applied_index
-tenant, database,replica_id,vnode_id
-Gauge
-每个节点的raft状态机应用最新的index
-
-快照状态
-raft_snapshot_index
-tenant, database,replica_id,vnode_id
-Gauge
-每个节点快照基于哪条index创建的
-
-flushed状态
-raft_flushed_index
-tenant, database,replica_id,vnode_id
-Gauge
-每个节点最新的flush是基于哪个index做的
-
-wal index最小值
-raft_wal_index_min
-tenant, database,replica_id,vnode_id
-Gauge
-每个节点最老的wal对应的index
-
-wal index最大值
-raft_wal_index_max
-tenant, database,replica_id,vnode_id
-Gauge
-每个节点最新的wal对应的index
-
 ### RAFT_APPLIED_INDEX
 
 #### 名称
