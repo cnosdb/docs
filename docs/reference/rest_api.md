@@ -185,7 +185,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 ... ...
 ```
 
-### `/api/v1/es/write`
+### `/api/v1/es/_bulk`
 
 #### 请求方法
 
@@ -202,7 +202,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - `db`：数据库名称（可选，默认 `public`）
 - `tanent`：租户名称（可选，默认`cnosdb`）
 - `table`: 表名称 (必填)
-- `have_es_command`: 表示日志中是否有index和create (可选, 默认true)
+- `log_type`: 表示日志中是否有index和create (可选, 默认true)
 - `time_column`: 指定日志中时间列名称 (可选, 默认`time`。 如果同时没有`time`列和`time_column`会使用当前时间)
 - `tag_columns`: 指定日志中多个tag列 (可选，如果没有指定则全部按field列存储)
 
@@ -211,10 +211,14 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - ES bulk格式，目前仅支持index和create，其中create会建表，如果表存在会报错并且后续指令不再执行；index则是无表就创建写入，有表就直接写入
 参考:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
+- Loki格式，参考[loki](https://grafana.com/docs/loki/latest/api/#post-lokiapiv1push)
+
+- ndjson格式，参考[json line](https://jsonlines.org/)
+
 #### 请求示例
 
 ```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
 {"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"index":{}}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
@@ -228,7 +232,7 @@ date: Sat, 08 Oct 2022 06:59:38 GMT
 ```
 
 ```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&have_es_command=false&time_column=date&tag_columns=node_id,operator_system' -d '{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table2&log_type=ndjson&time_column=date&tag_columns=node_id,operator_system' -d '{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
@@ -240,7 +244,20 @@ date: Sat, 08 Oct 2022 06:59:38 GMT
 ```
 
 ```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table2&log_type=loki' -d '
+{"streams": [{ "stream": { "instance": "host123", "job": "app42" }, "values": [ [ "0", "foo fizzbuzz bar" ] ] }]}'
+
+```
+
+#### 请求成功
+```
+HTTP/1.1 200 OK
+content-length: 0
+date: Sat, 08 Oct 2022 06:59:38 GMT
+```
+
+```bash
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table2&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
 {"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"create":{}}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
