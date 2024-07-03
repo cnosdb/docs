@@ -215,16 +215,8 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 
 - ndjson格式，参考[json line](https://jsonlines.org/)
 
-#### 请求示例
 
-```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
-{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
-{"index":{}}
-{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
-```
-
-#### 请求成功
+#### ndjson请求示例
 ```
 HTTP/1.1 200 OK
 content-length: 0
@@ -236,7 +228,7 @@ curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?tab
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
-#### 请求成功
+#### loki请求示例
 ```
 HTTP/1.1 200 OK
 content-length: 0
@@ -246,7 +238,15 @@ date: Sat, 08 Oct 2022 06:59:38 GMT
 ```bash
 curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table2&log_type=loki' -d '
 {"streams": [{ "stream": { "instance": "host123", "job": "app42" }, "values": [ [ "0", "foo fizzbuzz bar" ] ] }]}'
+```
 
+#### ES bulk请求示例
+
+```bash
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
+{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
+{"index":{}}
+{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
 #### 请求成功
