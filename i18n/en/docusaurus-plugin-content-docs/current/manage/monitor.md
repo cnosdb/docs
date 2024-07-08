@@ -534,7 +534,7 @@ Gauge
 
 #### Description
 
-每个节点的raft状态机应用最新的index
+The Raft state machine of each node should apply the latest index
 
 #### Tag
 
@@ -544,9 +544,9 @@ Gauge
 | DATABASE                        | Database name                       |
 | NODE_ID    | ID of data node                     |
 | TENANT                          | Tenant name the database belongs to |
-| REPLICA_ID | 复制组的ID                              |
-| VNODE_ID   | 所代表Raft节点ID                         |
-| VALUE                           | 对应Entry的Index                       |
+| REPLICA_ID | Duplicate group ID                  |
+| VNODE_ID   | The represented Raft node ID        |
+| VALUE                           | Index corresponding to Entry        |
 
 ### RAFT_FLUSHED_INDEX
 
@@ -560,7 +560,7 @@ Gauge
 
 #### Description
 
-每个节点的数据已经刷到磁盘所对应的index
+The data of each node has been flushed to the index corresponding to the disk
 
 #### Tag
 
@@ -570,9 +570,9 @@ Gauge
 | DATABASE                        | Database name                       |
 | NODE_ID    | ID of data node                     |
 | TENANT                          | Tenant name the database belongs to |
-| REPLICA_ID | 复制组的ID                              |
-| VNODE_ID   | 所代表Raft节点ID                         |
-| VALUE                           | 对应Entry的Index                       |
+| REPLICA_ID | Duplicate group ID                  |
+| VNODE_ID   | The represented Raft node ID        |
+| VALUE                           | Index corresponding to Entry        |
 
 ### RAFT_RAPLICATION_DELAY
 
@@ -586,19 +586,19 @@ Gauge
 
 #### Description
 
-每个节点同步数据与Leader的差距
+Synchronize data differences with the Leader for each node
 
 #### Tag
 
-| Field                           | Description                         |
-| ------------------------------- | ----------------------------------- |
-| TIME                            | Time of record                      |
-| DATABASE                        | Database name                       |
-| NODE_ID    | ID of data node                     |
-| TENANT                          | Tenant name the database belongs to |
-| REPLICA_ID | 复制组的ID                              |
-| VNODE_ID   | 所代表Raft节点ID                         |
-| VALUE                           | 跟Leader差距条数                         |
+| Field                           | Description                                  |
+| ------------------------------- | -------------------------------------------- |
+| TIME                            | Time of record                               |
+| DATABASE                        | Database name                                |
+| NODE_ID    | ID of data node                              |
+| TENANT                          | Tenant name the database belongs to          |
+| REPLICA_ID | Duplicate group ID                           |
+| VNODE_ID   | The represented Raft node ID                 |
+| VALUE                           | The difference in number of bars with Leader |
 
 ### RAFT_SNAPSHOT_INDEX
 
@@ -612,7 +612,7 @@ Gauge
 
 #### Description
 
-每个Raft节点最新的snapshot对应的Index
+Index of the latest snapshot corresponding to each Raft node
 
 #### Tag
 
@@ -622,9 +622,9 @@ Gauge
 | DATABASE                        | Database name                       |
 | NODE_ID    | ID of data node                     |
 | TENANT                          | Tenant name the database belongs to |
-| REPLICA_ID | 复制组的ID                              |
-| VNODE_ID   | 所代表Raft节点ID                         |
-| VALUE                           | snapshot对应的Index                    |
+| REPLICA_ID | Duplicate group ID                  |
+| VNODE_ID   | The represented Raft node ID        |
+| VALUE                           | Index corresponding to snapshot     |
 
 ### RAFT_WAL_INDEX_MAX
 
@@ -638,7 +638,7 @@ Gauge
 
 #### Description
 
-每个Raft节点当前wal的最大Index
+Maximum Index of current wal for each Raft node
 
 #### Tag
 
@@ -648,9 +648,9 @@ Gauge
 | DATABASE                        | Database name                       |
 | NODE_ID    | ID of data node                     |
 | TENANT                          | Tenant name the database belongs to |
-| REPLICA_ID | 复制组的ID                              |
-| VNODE_ID   | 所代表Raft节点ID                         |
-| VALUE                           | Wal当前最大Index                        |
+| REPLICA_ID | Duplicate group ID                  |
+| VNODE_ID   | The represented Raft node ID        |
+| VALUE                           | Wal current Minimum Index           |
 
 ### RAFT_WAL_INDEX_MIN
 
@@ -664,7 +664,7 @@ Gauge
 
 #### Description
 
-每个Raft节点当前wal的最小Index
+Minimum Index of current wal for each Raft node
 
 #### Tag
 
@@ -674,9 +674,9 @@ Gauge
 | DATABASE                        | Database name                       |
 | NODE_ID    | ID of data node                     |
 | TENANT                          | Tenant name the database belongs to |
-| REPLICA_ID | 复制组的ID                              |
-| VNODE_ID   | 所代表Raft节点ID                         |
-| VALUE                           | Wal当前最小Index                        |
+| REPLICA_ID | Duplicate group ID                  |
+| VNODE_ID   | The represented Raft node ID        |
+| VALUE                           | Wal current Minimum Index           |
 
 ## Prometheus Monitor
 
