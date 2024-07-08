@@ -20,7 +20,7 @@ Use the `cnosdb config` command to create default configuration files, For examp
 cnosdb run config > ./cnosdb.conf
 ```
 
-Use the \`cnosdb check server-config <path>command to check if configuration file is valid, such as:
+Use the `cnosdb check server-config <path>` command to check if the configuration file is legal, for example:
 
 ```shell
 cnosdb check server-config ./cnosdb.conf
