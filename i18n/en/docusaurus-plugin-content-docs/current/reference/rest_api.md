@@ -200,7 +200,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
-- `log_type`: 表示日志中是否有index和create (可选, 默认true)
+- `log_type`: Indicates whether there is index and create in the log (optional, default true)
 - `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
 - `tag_columns`: Specifies multiple tag columns in the log (optional, if not specified, all will be stored in field columns)
 
@@ -209,11 +209,11 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - ES bulk format, currently only supports index and create, where create will create a table, if the table exists an error will be reported and subsequent instructions will not be executed; index is to write without a table, directly write if there is a table
   reference:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
-- Loki格式，参考[loki](https://grafana.com/docs/loki/latest/api/#post-lokiapiv1push)
+- Loki format, refer to [loki](https://grafana.com/docs/loki/latest/api/#post-lokiapiv1push)
 
-- ndjson格式，参考[json line](https://jsonlines.org/)
+- ndjson format, refer to [json line](https://jsonlines.org/)
 
-#### ndjson请求示例
+#### ndjson request example
 
 ```
 HTTP/1.1 200 OK
@@ -226,7 +226,7 @@ curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?tab
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
-#### loki请求示例
+#### loki request example
 
 ```
 HTTP/1.1 200 OK
@@ -239,7 +239,7 @@ curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?tab
 {"streams": [{ "stream": { "instance": "host123", "job": "app42" }, "values": [ [ "0", "foo fizzbuzz bar" ] ] }]}'
 ```
 
-#### ES bulk请求示例
+#### ES bulk request example
 
 ```bash
 curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
