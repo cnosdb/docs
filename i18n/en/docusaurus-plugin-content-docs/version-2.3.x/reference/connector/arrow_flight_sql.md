@@ -64,8 +64,7 @@ This section provides a separate description of how different clients are used.
 
 - #### Installing Apache Arrow
 
-  You can find a detailed installation tutorial in the [official documentation](https://arrow.apache.org/datafusion/user-guide/introduction)
-  On Mac systems, it's easy to install with the brew command
+  You can find a detailed installation tutorial in the [official documentation](https://datafusion.apache.org/)
 
   ```shell
   brew install apache-arrow
