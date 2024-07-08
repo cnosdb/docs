@@ -6,7 +6,7 @@ sidebar_position: 2
 
 CnosDB can export data to local or object storage using SQL `COPY INTO`, or import data from object storage and local file systems.
 
-支持的文件格式有`PARQUET`、`CSV`、`JSON`，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Azure Blob Storage` 。
+Supported file formats include `PARQUET`, `CSV`, `JSON`, currently supported object storage includes `AWS S3`, `Google Cloud Storage`, `Azure Blob Storage`.
 
 ## Export data
 
@@ -26,7 +26,7 @@ FILE_FORMAT = (
 
 | Name                             | Description                                                                                                                                                    |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                             | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                             | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                        | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 
@@ -77,7 +77,7 @@ FILE_FORMAT = (
 
 | Name                                                    | Description                                                                                                                                                      |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                    | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                                |
+| TYPE                                                    | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                      |
 | DELIMITER                                               | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                                |
 | WITH_HEADER                        | Only supports `CSV`, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | region                                                  | AWS Region Code                                                                                                                                                  |
@@ -141,7 +141,7 @@ FILE_FORMAT = (
 
 | Name                                                   | Description                                                                                                                                                    |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                   | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                                                   | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                              | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                       | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | gcs_base_url | Base URL of Google Cloud Store                                                                                                                                 |
@@ -151,7 +151,7 @@ FILE_FORMAT = (
 
 #### Example
 
-##### 将数据导出成 `JSON` 存储到 Google Cloud Storage
+##### Export data as `JSON` to Google Cloud Storage
 
 ```shell
 COPY INTO 'gcs://tmp/air'
@@ -208,7 +208,7 @@ FILE_FORMAT = (
 
 | Name                              | Description                                                                                                                                                    |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
@@ -271,7 +271,7 @@ COPY_OPTIONS (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -335,7 +335,7 @@ COPY_OPTIONS = (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -409,7 +409,7 @@ COPY_OPTIONS = (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -420,7 +420,7 @@ COPY_OPTIONS = (
 
 #### Example
 
-##### 将 ` Google Cloud Storage` 上的 `JSON` 数据导入
+##### Import data from `Google Cloud Storage` with `JSON` data
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -478,7 +478,7 @@ COPY_OPTIONS = (
 
 | Name                              | Description                                                                                                                                                    |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')`                                                                                              |
+| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
