@@ -31,7 +31,7 @@ db_option: {
 
 | Options               | Description                                                                                                                                                                                                                              |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `TTL`                 | Duration。数据过期时间，默认为无限 `INF`。                                                                                                                                                                                                             |
+| `TTL`                 | Duration。Data expiration time, default is infinite `INF`.                                                                                                                                                                |
 | `SHARD`               | Indicates the number of shards, default: `1`.                                                                                                                                                            |
 | `VNODE_DURATION`      | Duration。数据在 SHARD 中的时间窗口长度，默认 `'1y'`。                                                                                                                                                                                                   |
 | `REPLICA`             | The number of replicas of the data in the cluster, default is `1`.(Note: The number of copies must be less than or equal to the data nodes of `tskv` in the cluster). |
