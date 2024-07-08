@@ -36,14 +36,14 @@ db_option: {
 | `VNODE_DURATION`      | Duration。The time window length of the data in SHARD, default `'1y'`.                                                                                                                                                    |
 | `REPLICA`             | The number of replicas of the data in the cluster, default is `1`.(Note: The number of copies must be less than or equal to the data nodes of `tskv` in the cluster). |
 | `PRECISION`           | The timestamp precision of the database, default is `ns`.Supported units: `ms`, `us`, `ns`                                                                                                               |
-| `MAX_MEMCACHE_SIZE`   | 数据库的最大缓存大小，默认为 `'512MiB'`,可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                            |
-| `MEMCACHE_PARTITIONS` | 数据库的缓存分区数，默认为 `1`,可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                                    |
-| `WAL_MAX_FILE_SIZE`   | 单个 WAL 文件的最大大小，默认为 `'1GiB'`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                          |
-| `WAL_SYNC`            | WAL 是否每次写入同步，默认为 `'false'`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                           |
-| `STRICT_WRITE`        | 是否开启严格写，即写入是否需要提前创建表，默认为 `'false'`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                   |
-| `MAX_CACHE_READERS`   | vnode的最大缓存的tsm reader，默认为 `32`，可使用配置文件指定每次创建时的默认值。                                                                                                                                                                                       |
+| `MAX_MEMCACHE_SIZE`   | The maximum cache size of the database, default is `'512MiB'`, you can use the configuration file to specify the default value each time it is created.                                                                  |
+| `MEMCACHE_PARTITIONS` | The cache partition number of the database, default is `1`, you can use the configuration file to specify the default value each time it is created.                                                                     |
+| `WAL_MAX_FILE_SIZE`   | The maximum size of a single WAL file, default is `'1GiB'`, you can use the configuration file to specify the default value each time it is created.                                                                     |
+| `WAL_SYNC`            | Whether WAL is synchronized every time it is written, default is `'false'`, you can use the configuration file to specify the default value each time it is created.                                                     |
+| `STRICT_WRITE`        | Whether to enable strict writing, that is, whether writing requires pre-creation of the table by default is `'false'`, you can use the configuration file to specify the default value each time it is created.          |
+| `MAX_CACHE_READERS`   | Maximum buffer TSM reader for vnode, default value is `32`, can specify default value each time it is created using configuration file.                                                                                  |
 
-### Duration 格式
+### Duration format
 
 ```
 'inf'为无限大的 Duration, 例如 create database oceanic_station with ttl 'inf'
@@ -75,7 +75,7 @@ db_option: {
 CREATE DATABASE oceanic_station;
 ```
 
-**创建一个数据库，指定参数。**
+**Create a database, specifying parameters.**
 
 ```sql
 create database oceanic_station with ttl 'inf' shard 6 vnode_duration '2y1M' replica 1 precision 'us' max_memcache_size '128MiB' memcache_partitions 10 wal_max_file_size '300M' wal_sync 'true' strict_write 'true' max_cache_readers 100;
