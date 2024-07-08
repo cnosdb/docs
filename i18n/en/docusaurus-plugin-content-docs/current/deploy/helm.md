@@ -12,4 +12,4 @@ helm repo update cnosdb
 helm install my-cnosdb cnosdb/cnosdb
 ```
 
-关于更多 CnosDB Helm Chart 请关注 [helm-chart](https://github.com/cnosdb/helm-chart/tree/main)
+For more information, please follow [helm-chart](https://github.com/cnosdb/helm-chart/tree/main)
