@@ -27,7 +27,7 @@ CPU：64 CPUs x Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
 
 2. 安装 CnosDB
 
-   参照部署文档：[安装CnosDB](../start/install.md)
+   参照部署文档：[安装CnosDB](../../start/install.md)
 
 3. 安装 InfluxDB
 
