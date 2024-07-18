@@ -3,73 +3,91 @@ title: Jaeger
 slug: /jaeger
 ---
 
+# Trace 介绍
 
-## 在 CnosDB 中启用 Jaeger 支持
+Trace，也被称为分布式链路追踪技术，是一种用于记录一个请求经过的所有系统的基本信息（如 IP、appkey、方法名）及系统间调用信息（如耗时、成功失败）的技术。在微服务架构盛行的当下，一次网络请求可能需要调用上百个微服务子系统。任何一个微服务子系统变慢，都会拖慢整个请求处理过程。有了 Trace 提供的这张有向图，我们就知道一个慢请求到底是在这张图的哪个节点上遭遇了失败或者慢响应。这对于我们分析性能问题个案有很大的帮助。
 
-取消 [trace]配置注释开启 Jaeger 跟踪功能。
-> 提示：如需使配置生效需要重启服务。
+![trace_span_arch](/img/jaeger/trace_span_arch.png)
 
-```toml
-[trace]
-auto_generate_span = true
-otlp_endpoint = 'http://localhost:4317'
+# CnosDB的适配
+
+CnosDB支持了opentelemetry-proto格式的写入和Jaeger的可视化查询，可以适配Grafana Jaeger插件
+
+## opentelemetry-proto格式数据写入
+
+opentelemetry提供了多种语言版本的export导出工具，可以使用这些工具很便捷的将trace数据写入到CnosDB中，以python版本的opentelemetry export工具举例：
+
+```opentelemetry export to CnosDB
+import base64
+from time import sleep
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+# Service name is required for most backends
+resource = Resource(attributes={
+    SERVICE_NAME: "test_service"
+})
+traceProvider = TracerProvider(resource=resource)
+
+# 用户名和密码
+username = "root"
+password = ""
+
+# 编码用户名和密码
+credentials = f"{username}:{password}"
+encoded_credentials = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
+
+# 创建包含身份验证信息的头
+headers = {
+    "Authorization": f"Basic {encoded_credentials}",
+    "tenant": "cnosdb",
+    "db": "public",
+    "table": "t1",
+}
+
+processor = BatchSpanProcessor(OTLPSpanExporter(
+    endpoint="http://192.168.0.50:31902/v1/traces",
+    headers=headers
+))
+traceProvider.add_span_processor(processor)
+
+trace.set_tracer_provider(traceProvider)
+
+for trace_index in range(10):
+    tracer = trace.get_tracer(f"test_trace_{trace_index}")
+    with tracer.start_as_current_span(f"trace_{trace_index}_parent_span") as parent_span:        
+         with tracer.start_as_current_span("child_span_1") as child_span_1:
+               with tracer.start_as_current_span("child_span_2") as child_span_2:
+                    tracer.start_as_current_span("child_span_3")
+
+# 关闭TracerProvider以确保所有span都已经被导出
+trace.get_tracer_provider().shutdown()
 ```
 
-## 安装并启动 Jaeger
-> 其他部署方式，请参考 [Jaeger 部署文档](https://www.jaegertracing.io/docs/deployment/)。
+导入成功后可以在CnosDB中查看到对应的数据表结构，表中的每一行都表示一个Span：
 
-```bash
-docker run -d --name jaeger \
--p 4317:4317 \
--p 16686:16686 \
-jaegertracing/all-in-one:latest
-```
+![trace_table_schema](/img/jaeger/trace_table_schema.png)
 
-成功启动后，使用浏览器访问 [http://127.0.0.1:16686](http://127.0.0.1:16686)。
+## Grafana可视化查询
 
-![jaeger](/img/jaeger_setup.png)
+1. 添加Jaeger插件作为数据源，在配置Jaeger插件时，修改为CnosDB地址，填写用户名密码，填写要查询的tenant、db、table
 
-## 跟踪 CnosDB 中的事件
+![jaeger_data_source](/img/jaeger/jaeger_data_source.png)
 
-1. 在请求中添加 `span context`。
+2. 添加好数据源后，创建dashboard，指定cnosdb为数据源，指定好Service Name就可以查询出该service下的trace。保存dashboard
 
-> 可以设置配置文件中的 `auto_generate_span = true` 自动生成，如果需要分析特定的语句，请在请求中自定义 `cnosdb-trace-ctx` 值，格式如下所示（`cnosdb-trace-ctx: {trace-id}:{span-id}`）。
+![trace_dashboard](/img/jaeger/trace_dashboard.png)
 
-```bash
-cnosdb-trace-ctx: 3a3a43:432e345
-```
+3. 点击traceid链接就可以跳转到trace的span关系图
 
-示例：
+![span_relation_graph](/img/jaeger/span_relation_graph.png)
 
-> 示例中的数据来源请参考：https://docs.cnosdb.com/zh/latest/start/quick_start \
-> 查询数据库 `oceanic_station` 中 `air` 表中的数据，并且按时间倒序排序，返回前 5 条数据 。
+# 示例展示
 
-```bash
-curl -i -u "root:" -H "Accept: application/json" -H "cnosdb-trace-ctx: 3a3a43:432e345" -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station&pretty=true" -d "select * from air order by time desc limit 5;"
-```
+部署了一个demo，通过上述步骤向CnosDB写入otlp trace数据，通过Grafana展示（用户名/密码：user1/user1）
 
-## 使用仪表盘进行分析
-
-![jaeger_dashboard](/img/jaeger_dashboard.png)
-
-1. 记录 Span：
-
-当客户端应用程序发送查询或写入请求到 CnosDB 数据库时，CnosDB 会将产生的 Span 记录发送给Jaeger 。每个 span 表示了请求的一个阶段，包括了处理时间、操作名称和其他相关信息。
-
-2. 选择 Service：
-
-在 Jaeger 用户界面的 Service 下拉框中，选择与 CnosDB 相关的服务（例如：cnosdb_singleton_1001）。
-
-3. 查找 Traces：
-
-在界面上，点击 "Find Traces" 按钮，系统将检索与选择的服务相关的所有 traces（追踪）。这将显示一系列的请求和对应的 spans。
-
-4. 分析 Trace 详情：
-
-点击所感兴趣的 trace，进入详细视图。在这个视图中，你将看到整个请求的流程，以及每个 span 执行的时间。这些时间信息将帮助你了解查询的每个步骤在处理时所花费的时间。
-
-5. 优化查询和系统：
-
-利用详细的时间记录，你可以精确地分析查询语句的性能。在正式的生产环境中，这将成为优化查询语句和改进系统性能的宝贵工具。通过分析每个 span 的执行时间，你可以找到可能导致延迟的步骤，从而采取针对性的优化措施。
-
-除此之外，Jaeger 还可以跟踪 CnosDB 的其他事件，请查看：[ISSUE 1272](https://github.com/cnosdb/cnosdb/issues/1272)
+![Grafana Jaeger plug-in](http://43.247.178.238:43000/d/QnKkERlSz/new-dashboard?orgId=1&from=now-5y&to=now)
