@@ -17,7 +17,7 @@ CnosDB支持了opentelemetry-proto格式的写入和Jaeger的可视化查询，�
 
 opentelemetry提供了多种语言版本的export导出工具，可以使用这些工具很便捷的将trace数据写入到CnosDB中，以python版本的opentelemetry export工具举例：
 
-```opentelemetry export to CnosDB
+```python
 import base64
 from time import sleep
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
@@ -50,7 +50,7 @@ headers = {
 }
 
 processor = BatchSpanProcessor(OTLPSpanExporter(
-    endpoint="http://192.168.0.50:31902/v1/traces",
+    endpoint="http://192.168.0.50:31902/api/v1/traces",
     headers=headers
 ))
 traceProvider.add_span_processor(processor)
