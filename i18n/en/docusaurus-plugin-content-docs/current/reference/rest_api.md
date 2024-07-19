@@ -277,3 +277,75 @@ The 2th command fails because the table tablename already exists and cannot be c
 ```
 {"error_code":"0100XX","error_message":"XXXXXXXXXXXXXXXXXXXXXXX"}
 ```
+
+### `/api/v1/traces`
+
+#### Request Method
+
+- `POST`
+
+#### Request header
+
+- `Authorization: Basic`
+
+  `basic64(user_name + ":" + password)`
+
+- `tenant`: Tenant name (optional, default is `cnosdb`).
+
+- Method
+
+- `table`: Table Name (required)
+
+#### 使用方法
+
+使用该接口写入opentelemetry trace数据，以下是python示例：
+
+```python
+import base64
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+# Service name is required for most backends
+resource = Resource(attributes={
+    SERVICE_NAME: "test_service"
+})
+traceProvider = TracerProvider(resource=resource)
+
+# 用户名和密码
+username = "root"
+password = ""
+
+# 编码用户名和密码
+credentials = f"{username}:{password}"
+encoded_credentials = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
+
+# 创建包含身份验证信息的头
+headers = {
+    "Authorization": f"Basic {encoded_credentials}",
+    "tenant": "cnosdb",
+    "db": "public",
+    "table": "t1",
+}
+
+processor = BatchSpanProcessor(OTLPSpanExporter(
+    endpoint="http://127.0.0.1:8902/api/v1/traces",
+    headers=headers
+))
+traceProvider.add_span_processor(processor)
+
+trace.set_tracer_provider(traceProvider)
+
+for trace_index in range(10):
+    tracer = trace.get_tracer(f"test_trace_{trace_index}")
+    with tracer.start_as_current_span(f"trace_{trace_index}_parent_span") as parent_span:        
+         with tracer.start_as_current_span("child_span_1") as child_span_1:
+               with tracer.start_as_current_span("child_span_2") as child_span_2:
+                    tracer.start_as_current_span("child_span_3")
+
+# 关闭TracerProvider以确保所有span都已经被导出
+trace.get_tracer_provider().shutdown()
+```
