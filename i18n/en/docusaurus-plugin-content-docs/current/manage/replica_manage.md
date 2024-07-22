@@ -4,6 +4,10 @@ sidebar_position: 13
 
 # 分片副本管理
 
+:::tip
+Only Enterprise Edition supports
+:::
+
 副本管理对于线上服务至关重要，CnosDB提供如下一些副本管理相关命令：
 
 - 副本分布查看
