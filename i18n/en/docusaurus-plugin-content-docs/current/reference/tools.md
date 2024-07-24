@@ -15,30 +15,38 @@ The following command can be used to start the client command line program.
 ### Program Parameters
 
 ```txt
--h, --host <STRING>         The host of CnosDB, default is 'localhost'
--P, --port <NUMBER>         The port of CnosDB, default is 8902
--u, --user <STRING>         The username, default is 'root'
--p, --password <STRING>     The password, default is empty
--d, --database <STRING>     The database to connect, default is 'public'
--t, --tenant <STRING>       The tenant, default is 'cnosdb'
-    --precision <PRECISION> The precision of time to write data, all optional values are 'ns', 'us', 'ms', if empty CnosDB will replace it with 'ns'
+-H, --host <STRING>         连接 CnosDB 的 host，默认为 'localhost'
+-P, --port <NUMBER>         连接 CnosDB 的端口，默认为 8902
+-u, --user <STRING>         用户名，默认为 'root'
+-p, --password <STRING>     密码，默认为空
+    --private-key-path <PRIVATE_KEY_PATH>
+                            连接 CnosDB 的私钥
+-d, --database <STRING>     连接的数据库，默认为 'public'
+-t, --tenant <STRING>       租户，默认为 'cnosdb'
+    --precision <PRECISION> 可选，写入数据的时间精度，所有可选值为 'ns'，'us'，'ms'，如果为空 CnosDB 会以 'ns' 替代
     --target-partitions <NUMBER>
-                            The number of partitions to execute the query, increasing the number of partitions can increase concurrency, if empty CnosDB will replace it with the number of CPU cores
+                            可选，执行查询的分片数，增加分片数可以增加并发，如果为空 CnosDB 会以 CPU 核数替代
 -s, --stream-trigger-interval <INTERVAL>
-                            The interval of Micro-Batch transmission. Optional values are 'once', or time period, such as '1m', '10s', '1m10s', etc.
-    --data-path             Specify a directory as the data storage location of the cnosdb-cli program, default is the directory of the executable program
--f, --file [<PATH> ...]     Optional, specify a script file. After the program starts, execute the script and exit. Can be used multiple times to specify multiple script files, execute them in order
-    --rc [<PATH> ...]       Specify a script file, default is '~/.cnosdbrc'. After the program starts, execute the script first. Can be used multiple times to specify multiple script files, execute them in order
-    --format <FORMAT>       The format of the query result, optional values are 'csv', 'tsv', 'table', 'json', 'nd-json', default is 'table'
--q, --quiet                 Whether to run in quiet mode, only output the result, not the execution time, default is false
--w, --write-line-protocol <PATH>
-                            Optional, specify a path to store line-protocol format files, import files into CnosDB, if the path is a directory, all files in the directory will be imported.
-    --ssl                   Whether to use HTTPS to connect to CnosDB, default is false
-    --unsafe-ssl            Whether to allow insecure HTTPS connections, default is false
-    --cacert <PATH>         Optional, specify a PEM format certificate file to verify the HTTPS connection. Can be used multiple times to specify multiple certificate files
-    --chunked               Whether to use chunked transfer to download the query result, default is false
--h, --help                  View help
--V, --version               View version
+                            可选，Micro-Batch 的传输间隔。可选值为 'once'，或时间段，如 '1m'，'10s'，'1m10s' 等
+    --data-path             指定一个目录，作为 cnosdb-cli 程序的数据存放位置，默认为执行程序的目录
+    --receive-data-encoding <RECEIVE_DATA_ENCODING>
+                            指定 CnosDB 服务端返回数据的压缩编码方式，默认不开启压缩，可选值为 'deflate', 'gzip', 'br', 'zstd'
+    --send-data-encoding <SEND_DATA_ENCODING>
+                            指定 CnosDB 客户端发送数据的压缩编码方式，默认不开启压缩，可选值为 'deflate', 'gzip', 'br', 'zstd'
+-f, --file [<PATH> ...]     可选，指定一个脚本文件。程序启动后，执行脚本并退出。可多次使用来指定多个脚本文件，依次执行
+    --rc [<PATH> ...]       指定一个脚本文件，默认为 '~/.cnosdbrc'。程序启动后首先执行该脚本。可多次使用来指定多个脚本文件，依次执行
+    --format <FORMAT>       输出查询结果的格式，可选值为 'csv'，'tsv'，'table'，'json'，'nd-json'，默认为 'table'
+-q, --quiet                 是否以安静模式运行，只输出结果，不输出执行时间，默认为 false
+-W, --write-line-protocol <PATH>
+                            可选，指定一个存储 line-protocol 格式文件的路径，将文件导入到 CnosDB，若路径为目录，则导入路径下的所有文件
+    --ssl                   是否使用 HTTPS 连接访问 CnosDB，默认为 false
+    --unsafe-ssl            是否允许不安全的 HTTPS 连接，默认为 false
+    --cacert <PATH>         可选，指定一个 PEM 格式的证书文件，用来校验 HTTPS 连接。可多次使用来指定多个证书文件
+    --chunked               是否使用分段传输来下载查询结果，默认为 false
+    --error-stop            在执行通过 -f, --file, --rc 命令指定的脚本文件时，若发生错误，是否不执行后续命令，立即退出 CnosDB 客户端，默认为 false
+    --process-cli-command   在执行通过 -f, --file, --rc 命令指定的脚本文件时，是否执行 CnosDB 客户端的命令（如 \c，\change_tenant），默认为 false，在遇到客户端命令时报错退出
+-h, --help                  查看帮助
+-V, --version               查看版本
 ```
 
 ### Usage
