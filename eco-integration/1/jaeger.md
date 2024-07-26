@@ -3,17 +3,17 @@ title: Jaeger
 slug: /jaeger
 ---
 
-# Trace 介绍
+## Trace 介绍
 
 Trace，也被称为分布式链路追踪技术，是一种用于记录一个请求经过的所有系统的基本信息（如 IP、appkey、方法名）及系统间调用信息（如耗时、成功失败）的技术。在微服务架构盛行的当下，一次网络请求可能需要调用上百个微服务子系统。任何一个微服务子系统变慢，都会拖慢整个请求处理过程。有了 Trace 提供的这张有向图，我们就知道一个慢请求到底是在这张图的哪个节点上遭遇了失败或者慢响应。这对于我们分析性能问题个案有很大的帮助。
 
 ![trace_span_arch](/img/jaeger/trace_span_arch.png)
 
-# CnosDB的适配
+## CnosDB 适配
 
 CnosDB支持了opentelemetry-proto格式的写入和Jaeger的可视化查询，可以适配Grafana Jaeger插件
 
-## opentelemetry-proto格式数据写入
+### opentelemetry-proto格式数据写入
 
 opentelemetry提供了多种语言版本的export导出工具，可以使用这些工具很便捷的将trace数据写入到CnosDB中，以python版本的opentelemetry export工具举例：
 
@@ -72,7 +72,7 @@ trace.get_tracer_provider().shutdown()
 
 ![trace_table_schema](/img/jaeger/trace_table_schema.png)
 
-## Grafana可视化查询
+### Grafana可视化查询
 
 1. 添加Jaeger插件作为数据源，在配置Jaeger插件时，修改为CnosDB地址，填写用户名密码，填写要查询的tenant、db、table
 
@@ -86,7 +86,7 @@ trace.get_tracer_provider().shutdown()
 
 ![span_relation_graph](/img/jaeger/span_relation_graph.png)
 
-# 示例展示
+### 示例展示
 
 部署了一个demo，通过上述步骤向CnosDB写入otlp trace数据，通过Grafana展示（用户名/密码：user1/user1）
 
