@@ -16,7 +16,7 @@ Only Enterprise Edition supports
 - 提升节点为主
 - 销毁复制组
 
-副本以及分片相关概念可以参见 [数据分片与复制](../../reference/concept_design/replica.md)
+副本以及分片相关概念可以参见 [数据分片与复制](../reference/concept_design/replica.md)
 
 ## 查看副本分布
 
