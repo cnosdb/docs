@@ -200,17 +200,17 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
-- `log_type`: 日志类型，包括`bulk`、`loki`和`ndjson`（可选，默认`bulk`）
+- `log_type`: Log type, including `bulk`, `loki`, and `ndjson` (optional, default `bulk`)
 - `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
 - `tag_columns`: Specifies multiple tag columns in the log (optional, if not specified, all will be stored in field columns)
 
 #### Request body
 
-- [ES bulk格式](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+- [ES bulk format](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
-- [Loki格式](https://grafana.com/docs/loki/latest/api/#post-lokiapiv1push)
+- [Loki format](https://grafana.com/docs/loki/latest/api/#post-lokiapiv1push)
 
-- [ndjson格式](https://jsonlines.org/)
+- [ndjson format](https://jsonlines.org/)
 
 #### ES bulk request example
 
@@ -253,9 +253,9 @@ curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?tab
 
 - `table`: Table Name (required)
 
-#### 使用方法
+#### Usage
 
-使用该接口写入opentelemetry trace数据，以下是python示例：
+Use this interface to write OpenTelemetry trace data, below is a Python example:
 
 ```python
 import base64
