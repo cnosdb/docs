@@ -30,7 +30,7 @@ Disk: SSD NVMe Protocol
 
 2. Install CnosDB:
 
-   参照部署文档：[安装CnosDB](../../start/install.md)
+   Refer to the deployment document: [Install CnosDB](../../start/install.md)
 
 3. Install TimeScaleDB
 
