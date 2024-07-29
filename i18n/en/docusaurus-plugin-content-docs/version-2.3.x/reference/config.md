@@ -40,20 +40,20 @@ cnosdb --config ./cnosdb.conf
 
 <TabItem value="Community" label="社区版">
 
-| Parameters           | Default     | Description                                                                                                                 |
-| -------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `reporting_disabled` | `false`     | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
-| `host`               | `localhost` | Used to communicate with other nodes.                                                                       |
+| Parameters           | Default     | Description                                                                                                                                                                                                                                                                                                             |
+| -------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reporting_disabled` | `false`     | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
+| `host`               | `localhost` | Used to communicate with other nodes.                                                                                                                                                                                                                                                                   |
 
 </TabItem>
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters           | Default                    | Description                                                                                                                 |
-| -------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `reporting_disabled` | `false`                    | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
-| `host`               | `localhost`                | Used to communicate with other nodes.                                                                       |
-| `license_file`       | `/etc/cnosdb/license.json` | 用于指定 `License` 文件位置。                                                                                                        |
+| Parameters           | Default                    | Description                                                                                                                                                                                                                                                                                                             |
+| -------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reporting_disabled` | `false`                    | 是否关闭 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
+| `host`               | `localhost`                | Used to communicate with other nodes.                                                                                                                                                                                                                                                                   |
+| `license_file`       | `/etc/cnosdb/license.json` | 用于指定 `License` 文件位置。                                                                                                                                                                                                                                                                                                    |
 
 </TabItem>
 
@@ -87,7 +87,7 @@ cnosdb --config ./cnosdb.conf
 | `path`                          | `/etc/cnosdb/cnosdb.conf` | Data storage directory.                                                                   |
 | `max_summary_size`              | `128M`                    | Maximum size of a single Summary log.                                                     |
 | `base_file_size`                | `16M`                     | Single file data size.                                                                    |
-| `flush_req_channel_cap`         | `16`                      | 累积的 flush 任务上限。                                                                                           |
+| `flush_req_channel_cap`         | `16`                      | Cumulative flush task ceiling.                                                            |
 | `max_cached_readers`            | `32`                      | The maximum count of file handles (for querying) opened in each vnode. |
 | `max_level`                     | `4`                       | The maximum number of layers of the LSM, in the range 0-4.                                |
 | `compact_trigger_file_num`      | `4`                       | Number of files to trigger compaction.                                                    |
@@ -140,15 +140,15 @@ cnosdb --config ./cnosdb.conf
 
 ### `[cluster]`
 
-| Parameters               | Default          | Description                                  |
-| ------------------------ | ---------------- | -------------------------------------------- |
-| `name`                   | `cluster_xxx`    | 节点名称。                                        |
-| `meta_service_addr`      | `127.0.0.1:8901` | 远程 `meta` 服务地址。                              |
-| `http_listen_port`       | `8902`           | HTTP service listening port. |
-| `grpc_listen_port`       | `8903`           | GRPC service listening port. |
-| `flight_rpc_listen_port` | `8904`           | Flight RPC 服务监听端口。                           |
-| `tcp_listen_port`        | `8905`           | TCP 服务监听端口。                                  |
-| `vector_listen_port`     | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。    |
+| Parameters               | Default          | Description                                        |
+| ------------------------ | ---------------- | -------------------------------------------------- |
+| `name`                   | `cluster_xxx`    | 节点名称。                                              |
+| `meta_service_addr`      | `127.0.0.1:8901` | 远程 `meta` 服务地址。                                    |
+| `http_listen_port`       | `8902`           | HTTP service listening port.       |
+| `grpc_listen_port`       | `8903`           | GRPC service listening port.       |
+| `flight_rpc_listen_port` | `8904`           | Flight RPC service listening port. |
+| `tcp_listen_port`        | `8905`           | TCP service listening port.        |
+| `vector_listen_port`     | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。          |
 
 ### `[hintedoff]`
 
@@ -168,11 +168,11 @@ cnosdb --config ./cnosdb.conf
 
 ### `[subscription]`
 
-| Parameters    | Default | Description             |
-| ------------- | ------- | ----------------------- |
-| `cache`       | `1024`  | 发送转发前写入cache的大小，单位：bits |
-| `concurrency` | `8`     | 处理转发请求的并发数。             |
-| `timeout`     | `1000`  | 转发请求的超时时间，单位：秒。         |
+| Parameters    | Default | Description                                                                 |
+| ------------- | ------- | --------------------------------------------------------------------------- |
+| `cache`       | `1024`  | 发送转发前写入cache的大小，单位：bits                                                     |
+| `concurrency` | `8`     | Number of concurrent requests to process forward requests.  |
+| `timeout`     | `1000`  | Timeout for forward request, unit: seconds. |
 
 </TabItem>
 
@@ -230,7 +230,7 @@ cnosdb --config ./cnosdb.conf
 | `max_concurrent_exports` | 2       | trace 上报器的并行度。默认值为 2                                                                           |
 | `max_queue_size`         | 4096    | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。                                                               |
 
-## `meta` 文件描述
+## `meta` file description
 
 ### Global
 
@@ -238,29 +238,29 @@ cnosdb --config ./cnosdb.conf
 
 <TabItem value="Community" label="社区版">
 
-| Parameters                                                    | Default                         | Description           |
-| ------------------------------------------------------------- | ------------------------------- | --------------------- |
-| id                                                            | `1`                             | `meta`节点的`id`，要求集群内唯一 |
-| host                                                          | `127.0.0.1`                     | 用于和其他节点通信的 `host`     |
-| port                                                          | `8901`                          | 用于和其他节点通信的 `port`     |
-| snapshot_path                            | `/var/lib/cnosdb/meta/snapshot` |                       |
-| journal_path                             | `/var/lib/cnosdb/meta/journal`  |                       |
-| snapshot_per_events | `500`                           |                       |
+| Parameters                                                    | Default                         | Description                                 |
+| ------------------------------------------------------------- | ------------------------------- | ------------------------------------------- |
+| id                                                            | `1`                             | `meta` node's `id`, requires unique cluster |
+| host                                                          | `127.0.0.1`                     | `host` for communication with other nodes   |
+| port                                                          | `8901`                          | `port` for communicating with other nodes   |
+| snapshot_path                            | `/var/lib/cnosdb/meta/snapshot` |                                             |
+| journal_path                             | `/var/lib/cnosdb/meta/journal`  |                                             |
+| snapshot_per_events | `500`                           |                                             |
 
 </TabItem>
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters                     | Default                         | Description           |
-| ------------------------------ | ------------------------------- | --------------------- |
-| `id`                           | `1`                             | `meta`节点的`id`，要求集群内唯一 |
-| `host`                         | `127.0.0.1`                     | 用于和其他节点通信的 `host`     |
-| `port`                         | `8901`                          | 用于和其他节点通信的 `port`     |
-| `license_file`                 | `/etc/cnosdb/license.json`      | 用于指定 `License` 文件位置。  |
-| `snapshot_path`                | `/var/lib/cnosdb/meta/snapshot` |                       |
-| `journal_path`                 | `/var/lib/cnosdb/meta/journal`  |                       |
-| `snapshot_per_events`          | `500`                           |                       |
-| `auto_migrate_vnodes_duration` | `0`                             |                       |
+| Parameters                     | Default                         | Description                                 |
+| ------------------------------ | ------------------------------- | ------------------------------------------- |
+| `id`                           | `1`                             | `meta` node's `id`, requires unique cluster |
+| `host`                         | `127.0.0.1`                     | `host` for communication with other nodes   |
+| `port`                         | `8901`                          | `port` for communicating with other nodes   |
+| `license_file`                 | `/etc/cnosdb/license.json`      | 用于指定 `License` 文件位置。                        |
+| `snapshot_path`                | `/var/lib/cnosdb/meta/snapshot` |                                             |
+| `journal_path`                 | `/var/lib/cnosdb/meta/journal`  |                                             |
+| `snapshot_per_events`          | `500`                           |                                             |
+| `auto_migrate_vnodes_duration` | `0`                             |                                             |
 
 </TabItem>
 
@@ -275,16 +275,16 @@ cnosdb --config ./cnosdb.conf
 
 ### `[meta_init]`
 
-| Parameters         | Default                     | Description  |
-| ------------------ | --------------------------- | ------------ |
-| `cluster_name`     | `cluster_xxx`               | Cluster Name |
-| `admin_user`       | `root`                      | 系统管理员用户名     |
-| `system_tenant`    | `cnosdb`                    | 系统默认租户名字     |
-| `default_database` | `["public","usage_schema"]` | 默认创建的数据库     |
+| Parameters         | Default                     | Description                           |
+| ------------------ | --------------------------- | ------------------------------------- |
+| `cluster_name`     | `cluster_xxx`               | Cluster Name                          |
+| `admin_user`       | `root`                      | User name of the system administrator |
+| `system_tenant`    | `cnosdb`                    | Name of the default tenant            |
+| `default_database` | `["public","usage_schema"]` | Default database created              |
 
 ### `[heartbeat]`
 
-| Parameters                   | Default | Description               |
-| ---------------------------- | ------- | ------------------------- |
-| `heartbeat_recheck_interval` | 300     | 多久检查一次CnosDB节点的状态，单位：秒。   |
-| `heartbeat_expired_interval` | 300     | CnosDB节点多久未上报心跳认定异常，单位：秒。 |
+| Parameters                   | Default | Description                                                                                                         |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
+| `heartbeat_recheck_interval` | 300     | How often to check the status of CnosDB nodes, in seconds.                                          |
+| `heartbeat_expired_interval` | 300     | How long has the CnosDB node not reported an abnormal heartbeat determination, measured in seconds. |
