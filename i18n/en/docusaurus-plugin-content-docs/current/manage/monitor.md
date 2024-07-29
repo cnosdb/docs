@@ -700,11 +700,11 @@ Change the `store_metrics` in [config](./cluster_expansion.md#configuration-clus
 
 ## Jaeger
 
-### 在 CnosDB 中启用 Jaeger 支持
+### Enable Jaeger support in CnosDB
 
-取消 [trace]配置注释开启 Jaeger 跟踪功能。
+Cancel [trace] configuration annotation to enable Jaeger tracking feature.
 
-> 提示：如需使配置生效需要重启服务。
+> Note: Restarting the service is required for the configuration to take effect.
 
 ```toml
 [trace]
@@ -712,9 +712,9 @@ auto_generate_span = true
 otlp_endpoint = 'http://localhost:4317'
 ```
 
-### 安装并启动 Jaeger
+### Install and start Jaeger
 
-> 其他部署方式，请参考 [Jaeger 部署文档](https://www.jaegertracing.io/docs/deployment/)。
+> For other deployment methods, please refer to the [Jaeger deployment documentation](https://www.jaegertracing.io/docs/deployment/)
 
 ```bash
 docker run -d --name jaeger \
@@ -723,15 +723,15 @@ docker run -d --name jaeger \
 jaegertracing/all-in-one:latest
 ```
 
-成功启动后，使用浏览器访问 [http://127.0.0.1:16686](http://127.0.0.1:16686)。
+After successful start-up, access [http://127.0.0.1:16686](http://127.0.0.1:16686) using a browser.
 
 ![jaeger](/img/jaeger_setup.png)
 
-### 跟踪 CnosDB 中的事件
+### Track events in CnosDB
 
-1. 在请求中添加 `span context`。
+1. Add `span context` in the request.
 
-> 可以设置配置文件中的 `auto_generate_span = true` 自动生成，如果需要分析特定的语句，请在请求中自定义 `cnosdb-trace-ctx` 值，格式如下所示（`cnosdb-trace-ctx: {trace-id}:{span-id}`）。
+> `auto_generate_span = true` can be set in the configuration file to generate automatically. If you need to analyze specific statements, please customize the `cnosdb-trace-ctx` value in the request, in the following format (`cnosdb-trace-ctx: {trace-id}:{span-id}`).
 
 ```bash
 cnosdb-trace-ctx: 3a3a43:432e345
@@ -739,35 +739,35 @@ cnosdb-trace-ctx: 3a3a43:432e345
 
 Example:
 
-> 示例中的数据来源请参考：https://docs.cnosdb.com/zh/latest/start/quick_start \
-> 查询数据库 `oceanic_station` 中 `air` 表中的数据，并且按时间倒序排序，返回前 5 条数据 。
+> For the data source of the example, please refer to: https://docs.cnosdb.com/en/latest/start/quick_start
+> Query the data in the `air` table of the `oceanic_station` database, and sort it in descending order by time, returning the top 5 records.
 
 ```bash
 curl -i -u "root:" -H "Accept: application/json" -H "cnosdb-trace-ctx: 3a3a43:432e345" -XPOST "http://127.0.0.1:8902/api/v1/sql?db=oceanic_station&pretty=true" -d "select * from air order by time desc limit 5;"
 ```
 
-### 使用仪表盘进行分析
+### Analyzing with a dashboard
 
 ![jaeger\_dashboard](/img/jaeger_dashboard.png)
 
-1. 记录 Span：
+1. Record Span:
 
-当客户端应用程序发送查询或写入请求到 CnosDB 数据库时，CnosDB 会将产生的 Span 记录发送给Jaeger 。每个 span 表示了请求的一个阶段，包括了处理时间、操作名称和其他相关信息。
+When a client application sends a query or write request to the CnosDB database, CnosDB sends the generated Span record to Jaeger.Each span represents a stage of the request, including processing time, operation name, and other relevant information.
 
-2. 选择 Service：
+2. Select Service:
 
-在 Jaeger 用户界面的 Service 下拉框中，选择与 CnosDB 相关的服务（例如：cnosdb_singleton_1001）。
+In the Service dropdown menu in the Jaeger user interface, select the service related to CnosDB (for example: cnosdb_singleton_1001).
 
-3. 查找 Traces：
+3. Find Traces:
 
-在界面上，点击 "Find Traces" 按钮，系统将检索与选择的服务相关的所有 traces（追踪）。这将显示一系列的请求和对应的 spans。
+On the interface, click the "Find Traces" button, and the system will retrieve all traces related to the selected service.This will display a series of requests and corresponding spans.
 
-4. 分析 Trace 详情：
+4. Analyze Trace details:
 
-点击所感兴趣的 trace，进入详细视图。在这个视图中，你将看到整个请求的流程，以及每个 span 执行的时间。这些时间信息将帮助你了解查询的每个步骤在处理时所花费的时间。
+Click on the trace of interest to enter the detailed view.In this view, you will see the entire process of the request, as well as the time each span takes to execute.These time information will help you understand the time spent on each step of the query processing.
 
-5. 优化查询和系统：
+5. Optimize queries and systems:
 
-利用详细的时间记录，你可以精确地分析查询语句的性能。在正式的生产环境中，这将成为优化查询语句和改进系统性能的宝贵工具。通过分析每个 span 的执行时间，你可以找到可能导致延迟的步骤，从而采取针对性的优化措施。
+By using detailed time records, you can accurately analyze the performance of query statements.In a formal production environment, this will become a valuable tool for optimizing query statements and improving system performance.By analyzing the execution time of each span, you can identify the steps that may cause delays, and take targeted optimization measures.
 
-除此之外，Jaeger 还可以跟踪 CnosDB 的其他事件，请查看：[ISSUE 1272](https://github.com/cnosdb/cnosdb/issues/1272)
+In addition, Jaeger can also track other events of CnosDB, please see: [ISSUE 1272](https://github.com/cnosdb/cnosdb/issues/1272)
