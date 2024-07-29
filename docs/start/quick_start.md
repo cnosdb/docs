@@ -592,7 +592,7 @@ SHOW QUERIES;
     | 36       | select * FROM air join sea ON air.temperature = sea.temperature; | 108709109615072923019194003831375742761 | root      | 13215126763611749424716665303609634152 | cnosdb      | SCHEDULING | 12.693345666 |
     +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql#queries-information-schema) 查看
+关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql/system_views#queries) 查看
 
 
 ## **EXPLAIN**
