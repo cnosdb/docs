@@ -126,22 +126,22 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters                      | Default                   | Environment Variables                          | Description                                                                            |
-| ------------------------------- | ------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `path`                          | `/etc/cnosdb/cnosdb.conf` | `CNOSDB_STORAGE_PATH`                          | Data storage directory.                                                |
-| `max_summary_size`              | `128M`                    | `CNOSDB_STORAGE_MAX_SUMMARY_SIZE`              | Maximum size of a single Summary log.                                  |
-| `base_file_size`                | `16M`                     | `CNOSDB_STORAGE_BASE_FILE_SIZE`                | Single file data size.                                                 |
-| `flush_req_channel_cap`         | `16`                      | `CNOSDB_STORAGE_FLUSH_REQ_CHANNEL_CAP`         | 累积的 flush 任务上限。                                                                        |
-| `max_cache_readers`             | `32`                      | `CNOSDB_STORAGE_MAX_CACHE_READERS`             | 每个 vnode 中打开的文件句柄（用于查询）的最大计数。                                                          |
-| `max_level`                     | `4`                       | `CNOSDB_STORAGE_MAX_LEVEL`                     | The maximum number of layers of the LSM, in the range 0-4.             |
-| `compact_trigger_file_num`      | `4`                       | `CNOSDB_STORAGE_COMPACT_TRIGGER_FILE_NUM`      | 触发 compaction 所需的文件数量。                                                                 |
-| `compact_trigger_cold_duration` | `1h`                      | `CNOSDB_STORAGE_COMPACT_TRIGGER_COLD_DURATION` | 时间段内未操作，则触发 compaction。                                                                |
-| `max_compact_size`              | `2G`                      | `CNOSDB_STORAGE_MAX_COMPACT_SIZE`              | compaction 最多选择的文件大小。                                                                  |
-| `max_concurrent_compaction`     | `4`                       | `CNOSDB_STORAGE_MAX_CONCURRENT_COMPACTION`     | 最多同时进行的 compaction 任务数量。                                                               |
-| `strict_write`                  | `false`                   | `CNOSDB_STORAGE_STRICT_WRITE`                  | 是否开启严格写入。                                                                              |
-| `reserve_space`                 | `0`                       | `CNOSDB_STORAGE_RESERVE_SPACE`                 | 系统的保留空间大小。                                                                             |
-| `copyinto_trigger_flush_size`   | `128M`                    | `CNOSDB_STORAGE_COPYINTO_TRIGGER_FLUSH_SIZE`   | `COPY INTO`导出时触发落盘的内存大小 。支持版本：>2.3.4.3 |
-| `max_datablock_size`            | `100KB`                   | `CNOSDB_STORAGE_MAX_DATABLOCK_SIZE`            | compaction时datablock的最大大小。                                                             |
+| Parameters                      | Default                   | Environment Variables                          | Description                                                                                                                                                         |
+| ------------------------------- | ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`                          | `/etc/cnosdb/cnosdb.conf` | `CNOSDB_STORAGE_PATH`                          | Data storage directory.                                                                                                                             |
+| `max_summary_size`              | `128M`                    | `CNOSDB_STORAGE_MAX_SUMMARY_SIZE`              | Maximum size of a single Summary log.                                                                                                               |
+| `base_file_size`                | `16M`                     | `CNOSDB_STORAGE_BASE_FILE_SIZE`                | Single file data size.                                                                                                                              |
+| `flush_req_channel_cap`         | `16`                      | `CNOSDB_STORAGE_FLUSH_REQ_CHANNEL_CAP`         | 累积的 flush 任务上限。                                                                                                                                                     |
+| `max_cache_readers`             | `32`                      | `CNOSDB_STORAGE_MAX_CACHE_READERS`             | The maximum count of file handles (for querying) opened in each vnode.                                                           |
+| `max_level`                     | `4`                       | `CNOSDB_STORAGE_MAX_LEVEL`                     | The maximum number of layers of the LSM, in the range 0-4.                                                                                          |
+| `compact_trigger_file_num`      | `4`                       | `CNOSDB_STORAGE_COMPACT_TRIGGER_FILE_NUM`      | Number of files to trigger compaction.                                                                                                              |
+| `compact_trigger_cold_duration` | `1h`                      | `CNOSDB_STORAGE_COMPACT_TRIGGER_COLD_DURATION` | Compaction is triggered when no action is taken during the time period.                                                                             |
+| `max_compact_size`              | `2G`                      | `CNOSDB_STORAGE_MAX_COMPACT_SIZE`              | Maximum selected file size for compaction.                                                                                                          |
+| `max_concurrent_compaction`     | `4`                       | `CNOSDB_STORAGE_MAX_CONCURRENT_COMPACTION`     | Maximum number of compaction tasks to be performed simultaneously.                                                                                  |
+| `strict_write`                  | `false`                   | `CNOSDB_STORAGE_STRICT_WRITE`                  | Whether to enable strict writing.                                                                                                                   |
+| `reserve_space`                 | `0`                       | `CNOSDB_STORAGE_RESERVE_SPACE`                 | The size of the retained space of the system.                                                                                                       |
+| `copyinto_trigger_flush_size`   | `128M`                    | `CNOSDB_STORAGE_COPYINTO_TRIGGER_FLUSH_SIZE`   | `COPY INTO` Export triggers the memory size of the disk.Supported version: >2.3.4.3 |
+| `max_datablock_size`            | `100KB`                   | `CNOSDB_STORAGE_MAX_DATABLOCK_SIZE`            | Maximum size of data block at the time it is computed.                                                                                              |
 
 ```mdx-code-block
 </APITable>
@@ -153,15 +153,15 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters                      | Default               | Environment Variables                      | Description                                       |
-| ------------------------------- | --------------------- | ------------------------------------------ | ------------------------------------------------- |
-| `enabled`                       | `true`                | `CNOSDB_WAL_ENABLED`                       | 是否启用 WAL。                                         |
-| `path`                          | `/var/lib/cnosdb/wal` | `CNOSDB_WAL_PATH`                          | WAL 存储目录。                                         |
-| `wal_req_channel_cap`           | `64`                  | `CNOSDB_WAL_WAL_REQ_CHANNEL_CAP`           | 累积的写 WAL 任务上限。                                    |
-| `max_file_size`                 | `1G`                  | `CNOSDB_WAL_MAX_FILE_SIZE`                 | 单个 WAL 的最大大小。                                     |
-| `flush_trigger_total_file_size` | `2G`                  | `CNOSDB_WAL_FLUSH_TRIGGER_TOTAL_FILE_SIZE` | 所有 WAL 的大小达到该数值时，触发 flush。                        |
-| `sync`                          | `false`               | `CNOSDB_WAL_SYNC`                          | 是否为每次写入进行同步。                                      |
-| `sync_interval`                 | `0`                   | `CNOSDB_WAL_SYNC_INTERVAL`                 | 同步 WAL 的时间间隔，即不主动同步，单位：`h`、`m`、`s`、`ms`、`us`、`ns` |
+| Parameters                      | Default               | Environment Variables                      | Description                                                                                                                                                                            |
+| ------------------------------- | --------------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`                       | `true`                | `CNOSDB_WAL_ENABLED`                       | Whether to enable WAL.                                                                                                                                                 |
+| `path`                          | `/var/lib/cnosdb/wal` | `CNOSDB_WAL_PATH`                          | WAL storage directory.                                                                                                                                                 |
+| `wal_req_channel_cap`           | `64`                  | `CNOSDB_WAL_WAL_REQ_CHANNEL_CAP`           | Cumulative write WAL task ceiling.                                                                                                                                     |
+| `max_file_size`                 | `1G`                  | `CNOSDB_WAL_MAX_FILE_SIZE`                 | Maximum size of a single WAL.                                                                                                                                          |
+| `flush_trigger_total_file_size` | `2G`                  | `CNOSDB_WAL_FLUSH_TRIGGER_TOTAL_FILE_SIZE` | Flash when all WAL sizes reach this value.                                                                                                                             |
+| `sync`                          | `false`               | `CNOSDB_WAL_SYNC`                          | Whether to sync for each writing.                                                                                                                                      |
+| `sync_interval`                 | `0`                   | `CNOSDB_WAL_SYNC_INTERVAL`                 | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing, Unit: `h`、`m`、`s`、`ms`、`us`、`ns` |
 
 ```mdx-code-block
 </APITable>
@@ -173,10 +173,10 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters        | Default | Environment Variables          | Description                   |
-| ----------------- | ------- | ------------------------------ | ----------------------------- |
-| `max_buffer_size` | `128M`  | `CNOSDB_CACHE_MAX_BUFFER_SIZE` | 最大的活跃缓存大小。                    |
-| `partition`       | 等同CPU数量 | `CNOSDB_CACHE_PARTITION`       | memcache 缓存的分区数量，默认值等于 CPU 数量 |
+| Parameters        | Default              | Environment Variables          | Description                                                               |
+| ----------------- | -------------------- | ------------------------------ | ------------------------------------------------------------------------- |
+| `max_buffer_size` | `128M`               | `CNOSDB_CACHE_MAX_BUFFER_SIZE` | Maximum active cache size.                                |
+| `partition`       | Equivalent nodes CPU | `CNOSDB_CACHE_PARTITION`       | Number of partitions to memcache cache, default value equals CPU quantity |
 
 ```mdx-code-block
 </APITable>
@@ -188,12 +188,12 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters       | Default           | Environment Variables       | Description                              |
-| ---------------- | ----------------- | --------------------------- | ---------------------------------------- |
-| `level`          | `info`            | `CNOSDB_LOG_LEVEL`          | 日志等级（debug、info、error、warn）。             |
-| `path`           | `/var/log/cnosdb` | `CNOSDB_LOG_PATH`           | 日志存储目录。                                  |
-| `max_file_count` | 无限制               | `CNOSDB_LOG_MAX_FILE_COUNT` | 最多保留日志文件数。                               |
-| `file_rotation`  | `daily`           | `CNOSDB_LOG_FILE_ROTATION`  | 日志文件切分时间间隔（daily、hourly、minutely、never）。 |
+| Parameters       | Default           | Environment Variables       | Description                                                                                                     |
+| ---------------- | ----------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `level`          | `info`            | `CNOSDB_LOG_LEVEL`          | Log Level (debug, info, error, warn).                                        |
+| `path`           | `/var/log/cnosdb` | `CNOSDB_LOG_PATH`           | Log storage directory.                                                                          |
+| `max_file_count` | Unlimited         | `CNOSDB_LOG_MAX_FILE_COUNT` | Maximum number of log files to keep.                                                            |
+| `file_rotation`  | `daily`           | `CNOSDB_LOG_FILE_ROTATION`  | Log files are split between time intervals (daily, hourly, minutely, never). |
 
 ```mdx-code-block
 </APITable>
@@ -205,10 +205,10 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters    | Default | Environment Variables                    | Description |
-| ------------- | ------- | ---------------------------------------- | ----------- |
-| `certificate` | 无       | `CNOSDB_SECURITY_TLS_CONFIG_CERTIFICATE` | TLS 服务的证书   |
-| `private_key` | 无       | `CNOSDB_SECURITY_TLS_CONFIG_PRIVATE_KEY` | TLS 服务的私钥   |
+| Parameters    | Default | Environment Variables                    | Description             |
+| ------------- | ------- | ---------------------------------------- | ----------------------- |
+| `certificate` | None    | `CNOSDB_SECURITY_TLS_CONFIG_CERTIFICATE` | TLS service certificate |
+| `private_key` | None    | `CNOSDB_SECURITY_TLS_CONFIG_PRIVATE_KEY` | TLS service private key |
 
 ```mdx-code-block
 </APITable>
@@ -222,8 +222,8 @@ This section introduces the configuration method and usage of each configuration
 
 | Parameters               | Default | Environment Variables                   | Description                                                                                                                 |
 | ------------------------ | ------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `http_listen_port`       | `8902`  | `CNOSDB_SERVICE_HTTP_LISTEN_PORT`       | HTTP 服务监听端口。                                                                                                                |
-| `grpc_listen_port`       | `8903`  | `CNOSDB_SERVICE_GRPC_LISTEN_PORT`       | GRPC 服务监听端口。                                                                                                                |
+| `http_listen_port`       | `8902`  | `CNOSDB_SERVICE_HTTP_LISTEN_PORT`       | HTTP service listening port.                                                                                |
+| `grpc_listen_port`       | `8903`  | `CNOSDB_SERVICE_GRPC_LISTEN_PORT`       | GRPC service listening port.                                                                                |
 | `grpc_enable_gzip`       | `false` | `CNOSDB_SERVICE_GRPC_ENABLE_GZIP`       | meta服务的接口数据传输，是否启用压缩                                                                                                        |
 | `flight_rpc_listen_port` | `8904`  | `CNOSDB_SERVICE_FLIGHT_RPC_LISTEN_PORT` | Flight RPC 服务监听端口。                                                                                                          |
 | `tcp_listen_port`        | `8905`  | `CNOSDB_SERVICE_TCP_LISTEN_PORT`        | TCP 服务监听端口。                                                                                                                 |
@@ -291,10 +291,10 @@ This section introduces the configuration method and usage of each configuration
 | Parameters               | Default | Environment Variables                 | Description                                                                     |
 | ------------------------ | ------- | ------------------------------------- | ------------------------------------------------------------------------------- |
 | `auto_generate_span`     | `false` | `CNOSDB_TRACE_AUTO_GENERATE_SPAN`     | 是否自动生成root span，当客户端未携带span context时有效。                                         |
-| `max_spans_per_trace`    | 无       | `CNOSDB_TRACE_MAX_SPANS_PER_TRACE`    | trace中span和event总数的软限制。                                                         |
+| `max_spans_per_trace`    | None    | `CNOSDB_TRACE_MAX_SPANS_PER_TRACE`    | trace中span和event总数的软限制。                                                         |
 | `batch_report_interval`  | `500ms` | `CNOSDB_TRACE_BATCH_REPORT_INTERVAL`  | 两个batch report之间的时间间隔。                                                          |
-| `batch_report_max_spans` | 无       | `CNOSDB_TRACE_BATCH_REPORT_MAX_SPANS` | batch report中span最大数量的软限制。                                                      |
-| `otlp_endpoint`          | 无       | `CNOSDB_TRACE_OTLP_ENDPOINT`          | OTLP collector的GRPC地址。例如：http://localhost:4317。 |
+| `batch_report_max_spans` | None    | `CNOSDB_TRACE_BATCH_REPORT_MAX_SPANS` | batch report中span最大数量的软限制。                                                      |
+| `otlp_endpoint`          | None    | `CNOSDB_TRACE_OTLP_ENDPOINT`          | OTLP collector的GRPC地址。例如：http://localhost:4317。 |
 
 ```mdx-code-block
 </APITable>
@@ -331,12 +331,12 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters       | Default           | Environment Variables            | Description                              |
-| ---------------- | ----------------- | -------------------------------- | ---------------------------------------- |
-| `level`          | `info`            | `CNOSDB_META_LOG_LEVEL`          | 日志等级（debug、info、error、warn）。             |
-| `path`           | `/var/log/cnosdb` | `CNOSDB_META_LOG_PATH`           | 日志存储目录。                                  |
-| `max_file_count` | 无限制               | `CNOSDB_META_LOG_MAX_FILE_COUNT` | 最多保留日志文件数。                               |
-| `file_rotation`  | `daily`           | `CNOSDB_META_LOG_FILE_ROTATION`  | 日志文件切分时间间隔（daily、hourly、minutely、never）。 |
+| Parameters       | Default           | Environment Variables            | Description                                                                                                     |
+| ---------------- | ----------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `level`          | `info`            | `CNOSDB_META_LOG_LEVEL`          | Log Level (debug, info, error, warn).                                        |
+| `path`           | `/var/log/cnosdb` | `CNOSDB_META_LOG_PATH`           | Log storage directory.                                                                          |
+| `max_file_count` | Unlimited         | `CNOSDB_META_LOG_MAX_FILE_COUNT` | Maximum number of log files to keep.                                                            |
+| `file_rotation`  | `daily`           | `CNOSDB_META_LOG_FILE_ROTATION`  | Log files are split between time intervals (daily, hourly, minutely, never). |
 
 ```mdx-code-block
 </APITable>
