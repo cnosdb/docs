@@ -26,11 +26,11 @@ FILE_FORMAT = (
 
 #### Parameter Description
 
-| Name                             | Description                                                                                                                 |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                             | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')` |
-| DELIMITER                        | Only support CSV, set file format, for example: `DELIMITER = ','`                                           |
-| WITH_HEADER | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                               |
+| Name                             | Description                                                                                                                                                    |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                             | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                        | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 
 #### Example
 
@@ -79,16 +79,16 @@ FILE_FORMAT = (
 
 #### Parameter Description
 
-| Name                                                           | Description                                                                                                                 |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                           | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')` |
-| DELIMITER                                                      | Only support CSV, set file format, for example: `DELIMITER = ','`                                           |
-| WITH_HEADER                               | 仅支持`CSV`，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                             |
-| region                                                         | AWS Region Code                                                                                                             |
-| access_key_id        | Access key ID                                                                                                               |
-| secret_key                                | Secret Key                                                                                                                  |
-| token                                                          | (Optional) Temporary Authorization Token                                                                 |
-| virtual_hosted_style | 是否启用 Virtual-Hosted Style 访问模式，默认为 `true`                                                                                   |
+| Name                                                           | Description                                                                                                                                                      |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                           | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                      |
+| DELIMITER                                                      | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                                |
+| WITH_HEADER                               | Only supports `CSV`, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| region                                                         | AWS Region Code                                                                                                                                                  |
+| access_key_id        | Access key ID                                                                                                                                                    |
+| secret_key                                | Secret Key                                                                                                                                                       |
+| token                                                          | (Optional) Temporary Authorization Token                                                                                                      |
+| virtual_hosted_style | Enable Virtual-Hosted Style access mode by default to `true`                                                                                                     |
 
 #### Example
 
@@ -146,15 +146,15 @@ FILE_FORMAT = (
 
 #### Parameter Description
 
-| Name                                                   | Description                                                                                                                 |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                   | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')` |
-| DELIMITER                                              | Only support CSV, set file format, for example: `DELIMITER = ','`                                           |
-| WITH_HEADER                       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                               |
-| gcs_base_url | Base URL of Google Cloud Store                                                                                              |
-| disable_oauth                     | (Optional) Whether to disable OAuth, default is `false`                                                  |
-| client_email                      | (Optional) The email address of the service account, only required when OAuth is not disabled            |
-| private_key                       | (Optional) The private key of the service account, only required when OAuth is not disabled              |
+| Name                                                   | Description                                                                                                                                                    |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                   | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                              | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER                       | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| gcs_base_url | Base URL of Google Cloud Store                                                                                                                                 |
+| disable_oauth                     | (Optional) Whether to disable OAuth, default is `false`                                                                                     |
+| client_email                      | (Optional) The email address of the service account, only required when OAuth is not disabled                                               |
+| private_key                       | (Optional) The private key of the service account, only required when OAuth is not disabled                                                 |
 
 #### Example
 
@@ -216,15 +216,15 @@ FILE_FORMAT = (
 
 > These parameters provide the information needed to connect to and authenticate with Azure storage accounts.Depending on the specific situation, you may authenticate using access_key, or authenticate using bearer_token.
 
-| Name                              | Description                                                                                                                                           |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                           |
-| DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                     |
-| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                                                         |
-| account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                  |
-| access_key   | Access key for storing accounts, used for authentication and authorization.                                                           |
-| bearer_token | The token required for authentication, which can be used in place of the access_key for authentication purposes. |
-| use_emulator | Defaults to `false`, when set to `true`, `url` uses environment variable `AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000`                       |
+| Name                              | Description                                                                                                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
+| access_key   | Access key for storing accounts, used for authentication and authorization.                                                                    |
+| bearer_token | The token required for authentication, which can be used in place of the access_key for authentication purposes.          |
+| use_emulator | Defaults to `false`, when set to `true`, `url` uses environment variable `AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000`                                |
 
 #### Example
 
@@ -281,12 +281,12 @@ COPY_OPTIONS = (
 
 #### Parameter Description
 
-| Name                                                        | Description                                                                                                                 |
-| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')` |
-| DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                           |
-| WITH_HEADER                            | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                               |
-| auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used   |
+| Name                                                        | Description                                                                                                                                                    |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
 
 #### Example
 
@@ -347,17 +347,17 @@ COPY_OPTIONS = (
 
 #### Parameter Description
 
-| Name                                                           | Description                                                                                                                 |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                           | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')` |
-| DELIMITER                                                      | Only support CSV, set file format, for example: `DELIMITER = ','`                                           |
-| WITH_HEADER                               | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                               |
-| auto_infer_schema    | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used   |
-| region                                                         | AWS Region Code                                                                                                             |
-| access_key_id        | Access key ID                                                                                                               |
-| secret_key                                | Secret Key                                                                                                                  |
-| token                                                          | (Optional) Temporary Authorization Token                                                                 |
-| virtual_hosted_style | 是否启用 Virtual-Hosted Style 访问模式，默认为 `true`                                                                                   |
+| Name                                                           | Description                                                                                                                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                           | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                                      | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER                               | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| auto_infer_schema    | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
+| region                                                         | AWS Region Code                                                                                                                                                |
+| access_key_id        | Access key ID                                                                                                                                                  |
+| secret_key                                | Secret Key                                                                                                                                                     |
+| token                                                          | (Optional) Temporary Authorization Token                                                                                                    |
+| virtual_hosted_style | Enable Virtual-Hosted Style access mode by default to `true`                                                                                                   |
 
 #### Example
 
@@ -424,20 +424,20 @@ COPY_OPTIONS = (
 
 #### Parameter Description
 
-| Name                                                        | Description                                                                                                                 |
-| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')` |
-| DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                           |
-| WITH_HEADER                            | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                               |
-| auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used   |
-| gcs_base_url      | Base URL of Google Cloud Store                                                                                              |
-| disable_oauth                          | (Optional) Whether to disable OAuth, default is `false`                                                  |
-| client_email                           | (Optional) The email address of the service account, only required when OAuth is not disabled            |
-| private_key                            | (Optional) The private key of the service account, only required when OAuth is not disabled              |
+| Name                                                        | Description                                                                                                                                                    |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
+| gcs_base_url      | Base URL of Google Cloud Store                                                                                                                                 |
+| disable_oauth                          | (Optional) Whether to disable OAuth, default is `false`                                                                                     |
+| client_email                           | (Optional) The email address of the service account, only required when OAuth is not disabled                                               |
+| private_key                            | (Optional) The private key of the service account, only required when OAuth is not disabled                                                 |
 
 #### Example
 
-##### 将 `Google Cloud Storage` 上的 `JSON` 数据导入
+##### Import data from `Google Cloud Storage` with `JSON` data
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -453,7 +453,7 @@ FILE_FORMAT = (
 );
 ```
 
-##### 将 `Google Cloud Storage` 上的 `CSV` 数据导入
+##### Import data from `Google Cloud Storage` with `CSV` data
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -496,15 +496,15 @@ COPY_OPTIONS = (
 
 #### Parameter Description
 
-| Name                              | Description                                                                                                                                           |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                           |
-| DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                     |
-| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)`                                                                         |
-| account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                  |
-| access_key   | Access key for storing accounts, used for authentication and authorization.                                                           |
-| bearer_token | The token required for authentication, which can be used in place of the access_key for authentication purposes. |
-| use_emulator | Defaults to `false`, when set to `true`, `url` uses environment variable `AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000`                       |
+| Name                              | Description                                                                                                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
+| access_key   | Access key for storing accounts, used for authentication and authorization.                                                                    |
+| bearer_token | The token required for authentication, which can be used in place of the access_key for authentication purposes.          |
+| use_emulator | Defaults to `false`, when set to `true`, `url` uses environment variable `AZURITE_BLOB_STORAGE_URL` or `http://127.0.0.1:10000`                                |
 
 #### Example
 
