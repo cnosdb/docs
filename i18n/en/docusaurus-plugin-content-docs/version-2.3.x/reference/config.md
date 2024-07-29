@@ -82,73 +82,73 @@ cnosdb --config ./cnosdb.conf
 
 ### `[storage]`
 
-| Parameters                      | Default                   | Description                                                                |
-| ------------------------------- | ------------------------- | -------------------------------------------------------------------------- |
-| `path`                          | `/etc/cnosdb/cnosdb.conf` | Data storage directory.                                    |
-| `max_summary_size`              | `128M`                    | Maximum size of a single Summary log.                      |
-| `base_file_size`                | `16M`                     | Single file data size.                                     |
-| `flush_req_channel_cap`         | `16`                      | 累积的 flush 任务上限。                                                            |
-| `max_cached_readers`            | `32`                      | 每个 vnode 中打开的文件句柄（用于查询）的最大计数。                                              |
-| `max_level`                     | `4`                       | The maximum number of layers of the LSM, in the range 0-4. |
-| `compact_trigger_file_num`      | `4`                       | 触发 compaction 所需的文件数量。                                                     |
-| `compact_trigger_cold_duration` | `1h`                      | 时间段内未操作，则触发 compaction。                                                    |
-| `max_compact_size`              | `2G`                      | compaction 最多选择的文件大小。                                                      |
-| `max_concurrent_compaction`     | `4`                       | 最多同时进行的 compaction 任务数量。                                                   |
-| `strict_write`                  | `false`                   | 是否开启严格写入。                                                                  |
-| `copyinto_trigger_flush_size`   | `128M`                    | `COPY INTO`导出时触发落盘的内存大小 。                                                  |
+| Parameters                      | Default                   | Description                                                                                               |
+| ------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `path`                          | `/etc/cnosdb/cnosdb.conf` | Data storage directory.                                                                   |
+| `max_summary_size`              | `128M`                    | Maximum size of a single Summary log.                                                     |
+| `base_file_size`                | `16M`                     | Single file data size.                                                                    |
+| `flush_req_channel_cap`         | `16`                      | 累积的 flush 任务上限。                                                                                           |
+| `max_cached_readers`            | `32`                      | The maximum count of file handles (for querying) opened in each vnode. |
+| `max_level`                     | `4`                       | The maximum number of layers of the LSM, in the range 0-4.                                |
+| `compact_trigger_file_num`      | `4`                       | Number of files to trigger compaction.                                                    |
+| `compact_trigger_cold_duration` | `1h`                      | Compaction is triggered when no action is taken during the time period.                   |
+| `max_compact_size`              | `2G`                      | Maximum selected file size for compaction.                                                |
+| `max_concurrent_compaction`     | `4`                       | Maximum number of compaction tasks to be performed simultaneously.                        |
+| `strict_write`                  | `false`                   | Whether to enable strict writing.                                                         |
+| `copyinto_trigger_flush_size`   | `128M`                    | `COPY INTO` Export triggers the memory size of the disk.                                  |
 
 ### `[wal]`
 
-| Parameters                      | Default               | Description                           |
-| ------------------------------- | --------------------- | ------------------------------------- |
-| `enabled`                       | `true`                | 是否启用 WAL。                             |
-| `path`                          | `/var/lib/cnosdb/wal` | WAL 存储目录。                             |
-| `wal_req_channel_cap`           | `64`                  | 累积的写 WAL 任务上限。                        |
-| `max_file_size`                 | `1G`                  | 单个 WAL 的最大大小。                         |
-| `flush_trigger_total_file_size` | `2G`                  | 所有 WAL 的大小达到该数值时，触发 flush。            |
-| `sync`                          | `false`               | 是否为每次写入进行同步。                          |
-| `sync_interval`                 | `0`                   | 同步 WAL 的时间间隔，即不主动同步，单位：h、m、s、ms、us、ns |
+| Parameters                      | Default               | Description                                                |
+| ------------------------------- | --------------------- | ---------------------------------------------------------- |
+| `enabled`                       | `true`                | Whether to enable WAL.                     |
+| `path`                          | `/var/lib/cnosdb/wal` | WAL storage directory.                     |
+| `wal_req_channel_cap`           | `64`                  | Cumulative write WAL task ceiling.         |
+| `max_file_size`                 | `1G`                  | Maximum size of a single WAL.              |
+| `flush_trigger_total_file_size` | `2G`                  | Flash when all WAL sizes reach this value. |
+| `sync`                          | `false`               | Whether to sync for each writing.          |
+| `sync_interval`                 | `0`                   | 同步 WAL 的时间间隔，即不主动同步，单位：h、m、s、ms、us、ns                      |
 
 ### `[cache]`
 
-| Parameters             | Default    | Description      |
-| ---------------------- | ---------- | ---------------- |
-| `max_buffer_size`      | `128M`     | 最大的活跃缓存大小。       |
-| `max_immutable_number` | `4`        | 最大的非活跃缓存数量。      |
-| `partition`            | 等于系统`CPU`数 | memcache 缓存的分区数量 |
+| Parameters             | Default    | Description                                |
+| ---------------------- | ---------- | ------------------------------------------ |
+| `max_buffer_size`      | `128M`     | Maximum active cache size. |
+| `max_immutable_number` | `4`        | 最大的非活跃缓存数量。                                |
+| `partition`            | 等于系统`CPU`数 | memcache 缓存的分区数量                           |
 
 ### `[log]`
 
-| Parameters    | Default                       | Description                  |
-| ------------- | ----------------------------- | ---------------------------- |
-| `level`       | `info`                        | 日志等级（debug、info、error、warn）。 |
-| `path`        | `/var/log/cnosdb`             | 日志存储目录。                      |
-| `tokio_trace` | `{ addr = "127.0.0.1:6669" }` | Tokio 跟踪，默认处于关闭状态。           |
+| Parameters    | Default                       | Description                                                              |
+| ------------- | ----------------------------- | ------------------------------------------------------------------------ |
+| `level`       | `info`                        | Log Level (debug, info, error, warn). |
+| `path`        | `/var/log/cnosdb`             | Log storage directory.                                   |
+| `tokio_trace` | `{ addr = "127.0.0.1:6669" }` | Tokio 跟踪，默认处于关闭状态。                                                       |
 
 ### `[security]`
 
 | Parameters   | Default | Description |
 | ------------ | ------- | ----------- |
-| `tls_config` | 无       | TLS 配置      |
+| `tls_config` | None    | TLS 配置      |
 
 ### `[security.tls_config]`（可选）
 
-| Parameters    | Default | Description |
-| ------------- | ------- | ----------- |
-| `certificate` | 无       | TLS 服务的证书   |
-| `private_key` | 无       | TLS 服务的私钥   |
+| Parameters    | Default | Description             |
+| ------------- | ------- | ----------------------- |
+| `certificate` | None    | TLS service certificate |
+| `private_key` | None    | TLS service private key |
 
 ### `[cluster]`
 
-| Parameters               | Default          | Description                               |
-| ------------------------ | ---------------- | ----------------------------------------- |
-| `name`                   | `cluster_xxx`    | 节点名称。                                     |
-| `meta_service_addr`      | `127.0.0.1:8901` | 远程 `meta` 服务地址。                           |
-| `http_listen_port`       | `8902`           | HTTP 服务监听端口。                              |
-| `grpc_listen_port`       | `8903`           | GRPC 服务监听端口。                              |
-| `flight_rpc_listen_port` | `8904`           | Flight RPC 服务监听端口。                        |
-| `tcp_listen_port`        | `8905`           | TCP 服务监听端口。                               |
-| `vector_listen_port`     | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。 |
+| Parameters               | Default          | Description                                  |
+| ------------------------ | ---------------- | -------------------------------------------- |
+| `name`                   | `cluster_xxx`    | 节点名称。                                        |
+| `meta_service_addr`      | `127.0.0.1:8901` | 远程 `meta` 服务地址。                              |
+| `http_listen_port`       | `8902`           | HTTP service listening port. |
+| `grpc_listen_port`       | `8903`           | GRPC service listening port. |
+| `flight_rpc_listen_port` | `8904`           | Flight RPC 服务监听端口。                           |
+| `tcp_listen_port`        | `8905`           | TCP 服务监听端口。                                  |
+| `vector_listen_port`     | `8906`           | 用于监听 [Vector](https://vector.dev/) 写入的数据。    |
 
 ### `[hintedoff]`
 
@@ -220,13 +220,13 @@ cnosdb --config ./cnosdb.conf
 
 | Parameters | Default | Description  |
 | ---------- | ------- | ------------ |
-| `path`     | 无       | trace 日志文件路径 |
+| `path`     | None    | trace 日志文件路径 |
 
 ### `[trace.jaeger]` (可选)
 
 | Parameters               | Default | Description                                                                                    |
 | ------------------------ | ------- | ---------------------------------------------------------------------------------------------- |
-| `jaeger_agent_endpoint`  | 无       | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
+| `jaeger_agent_endpoint`  | None    | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
 | `max_concurrent_exports` | 2       | trace 上报器的并行度。默认值为 2                                                                           |
 | `max_queue_size`         | 4096    | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。                                                               |
 
@@ -268,10 +268,10 @@ cnosdb --config ./cnosdb.conf
 
 ### `[log]`
 
-| Parameters | Default           | Description                  |
-| ---------- | ----------------- | ---------------------------- |
-| `level`    | `info`            | 日志等级（debug、info、error、warn）。 |
-| `path`     | `/var/log/cnosdb` | 日志存储目录。                      |
+| Parameters | Default           | Description                                                              |
+| ---------- | ----------------- | ------------------------------------------------------------------------ |
+| `level`    | `info`            | Log Level (debug, info, error, warn). |
+| `path`     | `/var/log/cnosdb` | Log storage directory.                                   |
 
 ### `[meta_init]`
 
