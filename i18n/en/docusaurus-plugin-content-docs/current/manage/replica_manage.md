@@ -2,21 +2,21 @@
 sidebar_position: 13
 ---
 
-# 分片副本管理
+# Shard Replica Management
 
 :::tip
 Only Enterprise Edition supports
 :::
 
-副本管理对于线上服务至关重要，CnosDB提供如下一些副本管理相关命令：
+Replica management is crucial for online services, CnosDB provides the following replica management related commands:
 
-- 副本分布查看
-- 增加副本
-- 删除副本
-- 提升节点为主
-- 销毁复制组
+- View Replica Distribution
+- Increase Replica
+- Delete Replica
+- Elevate Node to Master
+- Destroy Replica Group
 
-副本以及分片相关概念可以参见 [数据分片与复制](../reference/concept_design/replica.md)
+For concepts related to replicas and sharding, please refer to [Data Sharding and Replication](../reference/concept_design/replica.md)
 
 ## 查看副本分布
 
@@ -38,7 +38,7 @@ my_db ❯ show replicas;
 
 > `*` 标识复制组的主节点所位于的节点ID
 
-## 增加副本
+## Increase Replica
 
 ```sql
 replica add
@@ -61,7 +61,7 @@ my_db ❯ show replicas;
 
 > 复制组5在2001节点增加了一个副本；主节点是1001，从节点是2001
 
-## 提升节点为主
+## Elevate Node to Master
 
 ```sql
 replica promote
@@ -85,7 +85,7 @@ Query took 0.010 seconds.
 
 > 提升复制组5在2001节点为主节点；主节点变成2001，1001降为从节点
 
-## 删除副本
+## Delete Replica
 
 ```sql
 replica remove
@@ -111,7 +111,7 @@ Query took 0.011 seconds.
 
 **`【如果只有一个副本不允许删除，可以通过下面的销毁复制组达到删除目的】`**
 
-## 销毁复制组
+## Destroy Replica Group
 
 ```sql
 replica destory
