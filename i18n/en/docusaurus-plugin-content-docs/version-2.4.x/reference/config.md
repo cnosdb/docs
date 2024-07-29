@@ -40,12 +40,12 @@ cnosdb --config ./cnosdb.conf
 
 <TabItem value="Community" label="社区版">
 
-| Parameters               | Default     | Description                                                                                                                                                                                                                                                                          |
-| ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `reporting_disabled`     | `false`     | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.每24小时上报一次数据，每条包含的字段为： 实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。 |
-| `raft_logs_to_keep`      | `5000`      | Raft 日志保留条数，且每隔这些次数写入做一次 snapshot。                                                                                                                                                                                                                                                   |
-| `using_raft_replication` | `false`     | 是否启用 Raft 复制算法                                                                                                                                                                                                                                                                       |
-| `host`                   | `localhost` | Used to communicate with other nodes.                                                                                                                                                                                                                                |
+| Parameters               | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `reporting_disabled`     | `false`     | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
+| `raft_logs_to_keep`      | `5000`      | Raft log retention count, and take a snapshot every these times written.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `using_raft_replication` | `false`     | Whether to enable the Raft replication algorithm                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `host`                   | `localhost` | Used to communicate with other nodes.                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 </TabItem>
 
@@ -175,7 +175,7 @@ cnosdb --config ./cnosdb.conf
 | ------------- | ------- | -------------------------------------------------------------------------- |
 | `cache`       | `1024`  | Size of the write cache before sending forward, in bits                    |
 | `concurrency` | `8`     | Number of concurrent requests to process forward requests. |
-| `timeout`     | `300`   | 转发请求的超时时间，单位：`s`。                                                          |
+| `timeout`     | `300`   | Timeout for forward request, unit: `s`.    |
 
 </TabItem>
 
@@ -183,37 +183,37 @@ cnosdb --config ./cnosdb.conf
 
 ### `[heartbeat]`
 
-| Parameters                 | Default | Description                             |
-| -------------------------- | ------- | --------------------------------------- |
-| `report_time_interval_sec` | `30`    | 此节点上报心跳、磁盘余量等信息到 `meta` 服务的时间间隔，单位：`s`。 |
+| Parameters                 | Default | Description                                                                                                                                           |
+| -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report_time_interval_sec` | `30`    | Time interval between reporting heart, disk balance and other information on this node to `meta` service in: seconds. |
 
 ### `[node_basic]`
 
-| Parameters         | Default | Description                          |
-| ------------------ | ------- | ------------------------------------ |
-| `node_id`          | `1001`  | 节点 ID。                               |
-| `cold_data_server` | `false` | 是否停止在此节点上创建 Vnode。                   |
-| `store_metrics`    | `true`  | 是否统计此节点的使用情况并存储到 `usage_schema` 数据库。 |
+| Parameters         | Default | Description                                                                                          |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`          | `1001`  | Node ID.                                                                             |
+| `cold_data_server` | `false` | Whether to stop creating Vnode on this node.                                         |
+| `store_metrics`    | `true`  | Whether to track the usage of this node and store it in the `usage_schema` database. |
 
 ### `[trace]`
 
-| Parameters           | Default | Description                            |
-| -------------------- | ------- | -------------------------------------- |
-| `auto_generate_span` | `false` | 是否自动生成root span，当客户端未携带span context时有效 |
+| Parameters           | Default | Description                                                                                                                          |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `auto_generate_span` | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
-### `[trace.log]` (可选)
+### `[trace.log]` (optional)
 
-| Parameters | Default           | Description  |
-| ---------- | ----------------- | ------------ |
-| `path`     | `/var/log/cnosdb` | trace 日志文件路径 |
+| Parameters | Default           | Description         |
+| ---------- | ----------------- | ------------------- |
+| `path`     | `/var/log/cnosdb` | trace log file path |
 
-### `[trace.jaeger]` (可选)
+### `[trace.jaeger]` (optional)
 
-| Parameters               | Default                             | Description                                                                                    |
-| ------------------------ | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `jaeger_agent_endpoint`  | `http://localhost:14268/api/traces` | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
-| `max_concurrent_exports` | 2                                   | trace 上报器的并行度。默认值为 2                                                                           |
-| `max_queue_size`         | 4096                                | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。                                                               |
+| Parameters               | Default                             | Description                                                                                                                                                                   |
+| ------------------------ | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jaeger_agent_endpoint`  | `http://localhost:14268/api/traces` | the Jaeger agent endpoint。eg: http://localhost:14268/api/traces                                                               |
+| `max_concurrent_exports` | 2                                   | The parallelism of the reporter on trace.Default value is 2                                                                                                   |
+| `max_queue_size`         | 4096                                | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096If the queue is full, it will drop span. |
 
 ## `meta` file description
 
