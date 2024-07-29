@@ -684,7 +684,7 @@ SHOW QUERIES;
 +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 ```
 
-关于 SHOW QUERIES 语句的详细信息，可以在[系统表 QUERIES](../reference/sql/system_views#queries) 查看
+Detailed information on SHOW QUERIES statements can be found in [System Table QUERIES](../reference/sql/system_views#queries)
 
 ## **EXPLAIN**
 
