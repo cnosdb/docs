@@ -180,31 +180,31 @@ cnosdb --config ./cnosdb.conf
 
 ### `[heartbeat]`
 
-| Parameters                 | Default | Description                           |
-| -------------------------- | ------- | ------------------------------------- |
-| `report_time_interval_sec` | `30`    | 此节点上报心跳、磁盘余量等信息到 `meta` 服务的时间间隔，单位：秒。 |
+| Parameters                 | Default | Description                                                                                                                                           |
+| -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report_time_interval_sec` | `30`    | Time interval between reporting heart, disk balance and other information on this node to `meta` service in: seconds. |
 
 ### `[node_basic]`
 
 <Tabs groupId="editions">
 <TabItem value="Community" label="社区版">
 
-| Parameters         | Default | Description                          |
-| ------------------ | ------- | ------------------------------------ |
-| `node_id`          | `1001`  | 节点 ID。                               |
-| `cold_data_server` | `false` | 是否停止在此节点上创建 Vnode。                   |
-| `store_metrics`    | `true`  | 是否统计此节点的使用情况并存储到 `usage_schema` 数据库。 |
+| Parameters         | Default | Description                                                                                          |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`          | `1001`  | Node ID.                                                                             |
+| `cold_data_server` | `false` | Whether to stop creating Vnode on this node.                                         |
+| `store_metrics`    | `true`  | Whether to track the usage of this node and store it in the `usage_schema` database. |
 
 </TabItem>
 
 <TabItem value="Enterprise" label="企业版">
 
-| Parameters         | Default   | Description                          |
-| ------------------ | --------- | ------------------------------------ |
-| `node_id`          | `1001`    | 节点 ID。                               |
-| `cold_data_server` | `false`   | 是否停止在此节点上创建 Vnode。                   |
-| `store_metrics`    | `true`    | 是否统计此节点的使用情况并存储到 `usage_schema` 数据库。 |
-| `location`         | `default` | 定义实例部署位置。                            |
+| Parameters         | Default   | Description                                                                                          |
+| ------------------ | --------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`          | `1001`    | Node ID.                                                                             |
+| `cold_data_server` | `false`   | Whether to stop creating Vnode on this node.                                         |
+| `store_metrics`    | `true`    | Whether to track the usage of this node and store it in the `usage_schema` database. |
+| `location`         | `default` | Define the deployment location of the instance.                                      |
 
 </TabItem>
 
@@ -212,23 +212,23 @@ cnosdb --config ./cnosdb.conf
 
 ### `[trace]`
 
-| Parameters           | Default | Description                            |
-| -------------------- | ------- | -------------------------------------- |
-| `auto_generate_span` | `false` | 是否自动生成root span，当客户端未携带span context时有效 |
+| Parameters           | Default | Description                                                                                                                          |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `auto_generate_span` | `false` | Whether to automatically generate a root span. This parameter is valid when the client does not carry a span context |
 
-### `[trace.log]` (可选)
+### `[trace.log]` (optional)
 
-| Parameters | Default | Description  |
-| ---------- | ------- | ------------ |
-| `path`     | None    | trace 日志文件路径 |
+| Parameters | Default | Description         |
+| ---------- | ------- | ------------------- |
+| `path`     | None    | trace log file path |
 
-### `[trace.jaeger]` (可选)
+### `[trace.jaeger]` (optional)
 
-| Parameters               | Default | Description                                                                                    |
-| ------------------------ | ------- | ---------------------------------------------------------------------------------------------- |
-| `jaeger_agent_endpoint`  | None    | the Jaeger agent endpoint。例如：http://localhost:14268/api/traces |
-| `max_concurrent_exports` | 2       | trace 上报器的并行度。默认值为 2                                                                           |
-| `max_queue_size`         | 4096    | span 缓冲区最大队列大小。如果队列已满，它会丢弃 span。                                                               |
+| Parameters               | Default | Description                                                                                                                                                                   |
+| ------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jaeger_agent_endpoint`  | None    | the Jaeger agent endpoint。eg: http://localhost:14268/api/traces                                                               |
+| `max_concurrent_exports` | 2       | The parallelism of the reporter on trace.Default value is 2                                                                                                   |
+| `max_queue_size`         | 4096    | span Maximum queue size of the buffer. If the queue is full, it drops the span, default value is 4096If the queue is full, it will drop span. |
 
 ## `meta` file description
 
