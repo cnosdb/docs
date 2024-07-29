@@ -13,18 +13,18 @@ Replica management is crucial for online services, CnosDB provides the following
 - View Replica Distribution
 - Increase Replica
 - Delete Replica
-- Elevate Node to Master
+- Promote Node to Master
 - Destroy Replica Group
 
 For concepts related to replicas and sharding, please refer to [Data Sharding and Replication](../reference/concept_design/replica.md)
 
-## 查看副本分布
+## View Replica Distribution
 
 ```sql
 show replicas
 ```
 
-`show replicas` 返回复制组相关信息，包括分布在哪些节点、开始结束时间、所属的数据库名字等，如下所示：
+`show replicas` returns information related to replication groups, including which nodes they are distributed on, start and end times, the name of the associated database, etc., as shown below:
 
 ```SQL
 my_db ❯ show replicas;
@@ -36,7 +36,7 @@ my_db ❯ show replicas;
 +------------+----------+--------------+-------------------------+-------------------------+
 ```
 
-> `*` 标识复制组的主节点所位于的节点ID
+> The node ID where the main node of the replica group is located is identified by `*`.
 
 ## Increase Replica
 
@@ -44,7 +44,7 @@ my_db ❯ show replicas;
 replica add
 ```
 
-`replica add` 复制组在指定节点增加一个副本，如下所示：
+`replica add` Add a replica to the specified node in the replication group as shown below:
 
 ```SQL
 my_db ❯ replica add replica_id 5 node_id 2001;
@@ -59,15 +59,15 @@ my_db ❯ show replicas;
 +------------+------------+--------------+-------------------------+-------------------------+
 ```
 
-> 复制组5在2001节点增加了一个副本；主节点是1001，从节点是2001
+> A replica was added to Group 5 at node 2001; the primary node is 1001, and the secondary node is 2001
 
-## Elevate Node to Master
+## Promote Node to Master
 
 ```sql
 replica promote
 ```
 
-`replica promote` 提升一个从节点为主节点，这在更换机器等运维过程中可能会用到，如下所示：
+Promote a replica to be a master node with `replica promote` command, which may be useful during machine replacement or other operation and maintenance processes, as shown below:
 
 ```SQL
 my_db ❯ replica promote replica_id 5 node_id 2001;
@@ -83,7 +83,7 @@ my_db ❯ show replicas;
 Query took 0.010 seconds.
 ```
 
-> 提升复制组5在2001节点为主节点；主节点变成2001，1001降为从节点
+> Promote Replica group 5 to be the primary node in node 2001; the primary node becomes 2001, and 1001 becomes the secondary node
 
 ## Delete Replica
 
@@ -91,7 +91,7 @@ Query took 0.010 seconds.
 replica remove
 ```
 
-`replica remove` 删除一个副本，主从副本都支持删除；如果删除的是主节点则会从剩余节点随机挑选一个为新的主，如下所示：
+`replica remove` remove a replica, both master and slave replicas support deletion; if the deleted node is the master node, a new master will be randomly selected from the remaining nodes as shown below:
 
 ```SQL
 my_db ❯ replica remove replica_id 5 node_id 2001;
@@ -107,9 +107,9 @@ my_db ❯ show replicas;
 Query took 0.011 seconds.
 ```
 
-> 删除复制组5在2001副本，剩余的副本自动变为主节点
+> Delete replica group 5 in 2001 backup, remaining replica automatically become master nodes
 
-**`【如果只有一个副本不允许删除，可以通过下面的销毁复制组达到删除目的】`**
+**`[If only one copy is not allowed to be deleted, you can achieve the deletion purpose by destroying the replication group below]`**
 
 ## Destroy Replica Group
 
@@ -117,7 +117,7 @@ Query took 0.011 seconds.
 replica destory
 ```
 
-`replica destory` 销毁整个复制组，如下所示：
+`replica destory` destroys the entire replica set as follows:
 
 ```SQL
 my_db ❯ replica destory replica_id 5;
@@ -131,4 +131,4 @@ my_db ❯ show replicas;
 +------------+----------+--------------+-------------------------+-------------------------+
 ```
 
-> 销毁复制组5，如果是只有一个副本的复制可以通过销毁方式达到删除目的
+> Destroy Replica Group 5, if it is a replica with only one copy, deletion can be achieved by destruction
