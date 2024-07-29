@@ -1,5 +1,82 @@
 # 发行说明
 
+## 2.4.2 Ara
+
+发布日期：2024年07月04日
+
+### 新增特性
+
+- 新增 提升Follower节点为leader功能 [#2104](https://github.com/cnosdb/cnosdb/pull/2104)
+- 添加 value_fill()、value_repair() 和 timestamp_repair() 函数 [#2088](https://github.com/cnosdb/cnosdb/pull/2088)
+- 新增副本管理的 SQL 命令 [#2114](https://github.com/cnosdb/cnosdb/pull/2114)
+- 添加对 HTTP 的 Snappy 和 LZ4 压缩编码支持 [#2121](https://github.com/cnosdb/cnosdb/pull/2121)
+- 新增复制(raft)指标 [#2144](https://github.com/cnosdb/cnosdb/pull/2144)
+- 添加 http_flow 表和 http_response_time 表 [#2159](https://github.com/cnosdb/cnosdb/pull/2159)
+- 添加 sql_history 表 [#2164](https://github.com/cnosdb/cnosdb/pull/2164)
+- 添加关于 meta http api 的指标 [#2173](https://github.com/cnosdb/cnosdb/pull/2173)
+- 创建Bucket时探测服务状况，只在正常服务节点创建 [#2179](https://github.com/cnosdb/cnosdb/pull/2179)
+- 支持写入组件适配：promtail、logstash、filebeat [#2189](https://github.com/cnosdb/cnosdb/pull/2189)
+
+### 功能优化
+
+- 将 q_compress更新为 pco [#2019](https://github.com/cnosdb/cnosdb/pull/2019)
+- 将 http 的 body 大小修改为 100M [#2107](https://github.com/cnosdb/cnosdb/pull/2107)
+- 添加一些复制模型单元测试 [#2091](https://github.com/cnosdb/cnosdb/pull/2091)
+- 当识别到 gauge agg 时，应用 SortExec 计划 [#2124](https://github.com/cnosdb/cnosdb/pull/2124)
+- 改进缓存刷新时机 [#2122](https://github.com/cnosdb/cnosdb/pull/2122)
+- 删除 PhysicalDType 中未使用的 From 实现 [#2131](https://github.com/cnosdb/cnosdb/pull/2131)
+- 修复错误的单词拼写 [#2126](https://github.com/cnosdb/cnosdb/pull/2126)
+- 重构文件系统接口,支持扩展对象存储和异步写入模式 [#2135](https://github.com/cnosdb/cnosdb/pull/2135)
+- 重构了trace和log模块,优化了环境变量配置加载 [#1942](https://github.com/cnosdb/cnosdb/pull/1942)
+- 为 flush 操作加入锁保护以提高并发性能 [#2138](https://github.com/cnosdb/cnosdb/pull/2138)
+- 为 tsm 文件添加版本支持 [#2141](https://github.com/cnosdb/cnosdb/pull/2141)
+- 优化了错误码处理逻辑，增加详细信息并添加单元测试 [#2118](https://github.com/cnosdb/cnosdb/pull/2118)
+- 移除索引中 binlog 的功能 [#2140](https://github.com/cnosdb/cnosdb/pull/2140)
+- 为 CnosDB CLI 命令添加加载文件时的进度条显示 [#2128](https://github.com/cnosdb/cnosdb/pull/2128)
+- 为 sqllogicaltest 增加 shard 和 replication 作为参数 [#2137](https://github.com/cnosdb/cnosdb/pull/2137)
+- 使用新的 Timeranges算法对代码结构进行重构 [#2151](https://github.com/cnosdb/cnosdb/pull/2151)
+- 简化环境变量配置 [#2160](https://github.com/cnosdb/cnosdb/pull/2160)
+- 将 rustls 从 0.21.10 升级到 0.21.12 [#2170](https://github.com/cnosdb/cnosdb/pull/2170)
+- 移除 wal 中的枚举 Block; 修复拼写错误 [#2167](https://github.com/cnosdb/cnosdb/pull/2167)
+- 将持久化 SQL 从本地迁移到元数据,并将水印存储在系统表中 [#2149](https://github.com/cnosdb/cnosdb/pull/2149)
+- 添加 sqllogic 支持可替换参数, 修复 copyinto 路径匹配模式 [#2172](https://github.com/cnosdb/cnosdb/pull/2172)
+- 重构: 移除无用的指标代码 [#2177](https://github.com/cnosdb/cnosdb/pull/2177)
+- 移除 meta 配置中的一些配置项 [#2181](https://github.com/cnosdb/cnosdb/pull/2181)
+- 优化查询读取缓存的效率 [#2195](https://github.com/cnosdb/cnosdb/pull/2195)
+- 重构压缩监控指标 [#2193](https://github.com/cnosdb/cnosdb/pull/2193)
+- 重构配置，将一部分配置与数据库对象关联 [#2197](https://github.com/cnosdb/cnosdb/pull/2197)
+- 为缓存添加可选依赖 async-backtrace，可通过特性 backtrace 激活 [#2204](https://github.com/cnosdb/cnosdb/pull/2204)
+- 更改名称以更好地区分所有者和数据库 [#2202](https://github.com/cnosdb/cnosdb/pull/2202)
+- 为 queries表添加database_name字段 [#2208](https://github.com/cnosdb/cnosdb/pull/2208)
+- 删除无用的 tseries_family.rs 文件 [#2219](https://github.com/cnosdb/cnosdb/pull/2219)
+- 改善 data 和 meta 实例的可定制性 [#2211](https://github.com/cnosdb/cnosdb/pull/2211)
+- 修复错误和删除未使用的条目 [#2221](https://github.com/cnosdb/cnosdb/pull/2221)
+- 将tenant.database类型从string改为tuple [#2220](https://github.com/cnosdb/cnosdb/pull/2220)
+- 补充测试文件缺失的内容 [#2218](https://github.com/cnosdb/cnosdb/pull/2218)
+
+### 问题修复
+
+- 修复 meta 解码请求失败导致 openraft 崩溃 的问题 [#2112](https://github.com/cnosdb/cnosdb/pull/2112)
+- 修复了复制和分片不能设置为 0 的问题 [#2110](https://github.com/cnosdb/cnosdb/pull/2110)
+- 修复了拼写错误并优化了代码性能 [#2106](https://github.com/cnosdb/cnosdb/pull/2106)
+- 修复了 get_disk_info 不支持 WinXP 的问题 [#2116](https://github.com/cnosdb/cnosdb/pull/2116)
+- 修复了gauge_agg 函数的排序问题 [#2113](https://github.com/cnosdb/cnosdb/pull/2113)
+- 修复角色无继承时手动添加权限的问题，并优化\c 和 describe database/show tables 的权限判断 [#2115](https://github.com/cnosdb/cnosdb/pull/2115)
+- 修复了只读权限用户不可以读取resource_status表里drop database的问题 [#2100](https://github.com/cnosdb/cnosdb/pull/2100)
+- 修复数据无序导致的函数结果不一致问题 [#2130](https://github.com/cnosdb/cnosdb/pull/2130)
+- 修复频繁的冗余刷新请求 [#2136](https://github.com/cnosdb/cnosdb/pull/2136)
+- 修复了在使用 pread() 和 write_all()/read_all() 函数后释放内存导致的问题 [#2146](https://github.com/cnosdb/cnosdb/pull/2146)
+- 修复了删除数据时的不一致性问题 [#2162](https://github.com/cnosdb/cnosdb/pull/2162)
+- 修复WAL截断错误 [#2176](https://github.com/cnosdb/cnosdb/pull/2176)
+- 修复外部表关联的文件可是使用任何扩展名 [#2175](https://github.com/cnosdb/cnosdb/pull/2175)
+- 修复从空字符串创建minivec时的问题 [#2184](https://github.com/cnosdb/cnosdb/pull/2184)
+- 修复 sqllogic 在 Windows 上的新功能支持 [#2166](https://github.com/cnosdb/cnosdb/pull/2166)
+- 修复 wal 读取器中的一些错误,并删除最小/最大序 [#2188](https://github.com/cnosdb/cnosdb/pull/2188)
+- 修复更新复制组副本指标导致死锁的问题 [#2207](https://github.com/cnosdb/cnosdb/pull/2207)
+- 修复了只有 admin 权限用户可以读取 DropTenant 的错误 [#2196](https://github.com/cnosdb/cnosdb/pull/2196)
+- 定期更新vnode_cache_size以保持指标正确  [#2182](https://github.com/cnosdb/cnosdb/pull/2182)
+- 修复重启实例导致数据丢失的问题 [#2224](https://github.com/cnosdb/cnosdb/pull/2224)
+
 ## 2.3.5.3
 
 发布日期：2024年06月17日
