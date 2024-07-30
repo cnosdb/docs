@@ -183,7 +183,7 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 ... ...
 ```
 
-### `/api/v1/es/write`
+### `/api/v1/es/_bulk`
 
 #### Request Method
 
@@ -200,63 +200,109 @@ date: Sat, 08 Oct 2022 07:03:33 GMT
 - Method
 - `tenant`: Tenant name (optional, default is `cnosdb`).
 - `table`: Table Name (required)
-- `have_es_command`: Indicates whether there is index and create in the log (optional, default true)
+- `log_type`: Log type, including `bulk`, `loki`, and `ndjson` (optional, default `bulk`)
 - `time_column`: Specify the name of the time column in the log (optional, default is `time`). If there is no `time` column and `time_column`, the current time will be used)
 - `tag_columns`: Specifies multiple tag columns in the log (optional, if not specified, all will be stored in field columns)
 
 #### Request body
 
-- ES bulk format, currently only supports index and create, where create will create a table, if the table exists an error will be reported and subsequent instructions will not be executed; index is to write without a table, directly write if there is a table
-  reference:[bulk](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
+- [ES bulk format](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)
 
-#### Example
+- [Loki format](https://grafana.com/docs/loki/latest/api/#post-lokiapiv1push)
+
+- [ndjson format](https://jsonlines.org/)
+
+#### ES bulk request example
 
 ```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=t1&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
 {"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"index":{}}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
-#### Successful
-
-```
-HTTP/1.1 200 OK
-content-length: 0
-date: Sat, 08 Oct 2022 06:59:38 GMT
-```
+#### loki request example
 
 ```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&have_es_command=false&time_column=date&tag_columns=node_id,operator_system' -d '{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=t1&log_type=loki' -d '
+{"streams": [{ "stream": { "instance": "host123", "job": "app42" }, "values": [ [ "0", "foo fizzbuzz bar" ] ] }]}'
+```
+
+#### ndjson request example
+
+```bash
+curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/_bulk?table=t1&log_type=ndjson&time_column=date&tag_columns=node_id,operator_system' -d '{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
 {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
-#### Successful
+### `/api/v1/traces`
 
-```
-HTTP/1.1 200 OK
-content-length: 0
-date: Sat, 08 Oct 2022 06:59:38 GMT
-```
+#### Request Method
 
-```bash
-curl -i -u "username:password" -XPOST 'http://127.0.0.1:8902/api/v1/es/write?table=table2&time_column=date&tag_columns=node_id,operator_system' -d '{"create":{}}
-{"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
-{"create":{}}
-{"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
-```
+- `POST`
 
-The first instruction executed successfully when the second create instruction found the table already exists, so the first instruction succeeded and the second instruction failed
+#### Request header
 
-```
-HTTP/1.1 200 OK
-content-length: 0
-date: Sat, 08 Oct 2022 06:59:38 GMT
-The 2th command fails because the table tablename already exists and cannot be created repeatedly
-```
+- `Authorization: Basic`
 
-#### Failed
+  `basic64(user_name + ":" + password)`
 
-```
-{"error_code":"0100XX","error_message":"XXXXXXXXXXXXXXXXXXXXXXX"}
+- `tenant`: Tenant name (optional, default is `cnosdb`).
+
+- Method
+
+- `table`: Table Name (required)
+
+#### Usage
+
+Use this interface to write OpenTelemetry trace data, below is a Python example:
+
+```python
+import base64
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+# Service name is required for most backends
+resource = Resource(attributes={
+    SERVICE_NAME: "test_service"
+})
+traceProvider = TracerProvider(resource=resource)
+
+# 用户名和密码
+username = "root"
+password = ""
+
+# 编码用户名和密码
+credentials = f"{username}:{password}"
+encoded_credentials = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
+
+# 创建包含身份验证信息的头
+headers = {
+    "Authorization": f"Basic {encoded_credentials}",
+    "tenant": "cnosdb",
+    "db": "public",
+    "table": "t1",
+}
+
+processor = BatchSpanProcessor(OTLPSpanExporter(
+    endpoint="http://127.0.0.1:8902/api/v1/traces",
+    headers=headers
+))
+traceProvider.add_span_processor(processor)
+
+trace.set_tracer_provider(traceProvider)
+
+for trace_index in range(10):
+    tracer = trace.get_tracer(f"test_trace_{trace_index}")
+    with tracer.start_as_current_span(f"trace_{trace_index}_parent_span") as parent_span:        
+         with tracer.start_as_current_span("child_span_1") as child_span_1:
+               with tracer.start_as_current_span("child_span_2") as child_span_2:
+                    tracer.start_as_current_span("child_span_3")
+
+# 关闭TracerProvider以确保所有span都已经被导出
+trace.get_tracer_provider().shutdown()
 ```

@@ -684,7 +684,7 @@ SHOW QUERIES;
 +----------+------------------------------------------------------------------+-----------------------------------------+-----------+----------------------------------------+-------------+------------+--------------+
 ```
 
-Detailed information on SHOW QUERIES statements can be found in [System Table QUERIES](../reference/sql#queries-information-schema)
+Detailed information on SHOW QUERIES statements can be found in [System Table QUERIES](../reference/sql/system_views#queries)
 
 ## **EXPLAIN**
 

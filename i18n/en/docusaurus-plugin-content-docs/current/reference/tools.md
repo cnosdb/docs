@@ -15,30 +15,58 @@ The following command can be used to start the client command line program.
 ### Program Parameters
 
 ```txt
--h, --host <STRING>         The host of CnosDB, default is 'localhost'
--P, --port <NUMBER>         The port of CnosDB, default is 8902
--u, --user <STRING>         The username, default is 'root'
--p, --password <STRING>     The password, default is empty
--d, --database <STRING>     The database to connect, default is 'public'
--t, --tenant <STRING>       The tenant, default is 'cnosdb'
-    --precision <PRECISION> The precision of time to write data, all optional values are 'ns', 'us', 'ms', if empty CnosDB will replace it with 'ns'
-    --target-partitions <NUMBER>
-                            The number of partitions to execute the query, increasing the number of partitions can increase concurrency, if empty CnosDB will replace it with the number of CPU cores
--s, --stream-trigger-interval <INTERVAL>
-                            The interval of Micro-Batch transmission. Optional values are 'once', or time period, such as '1m', '10s', '1m10s', etc.
-    --data-path             Specify a directory as the data storage location of the cnosdb-cli program, default is the directory of the executable program
--f, --file [<PATH> ...]     Optional, specify a script file. After the program starts, execute the script and exit. Can be used multiple times to specify multiple script files, execute them in order
-    --rc [<PATH> ...]       Specify a script file, default is '~/.cnosdbrc'. After the program starts, execute the script first. Can be used multiple times to specify multiple script files, execute them in order
-    --format <FORMAT>       The format of the query result, optional values are 'csv', 'tsv', 'table', 'json', 'nd-json', default is 'table'
--q, --quiet                 Whether to run in quiet mode, only output the result, not the execution time, default is false
--w, --write-line-protocol <PATH>
-                            Optional, specify a path to store line-protocol format files, import files into CnosDB, if the path is a directory, all files in the directory will be imported.
-    --ssl                   Whether to use HTTPS to connect to CnosDB, default is false
-    --unsafe-ssl            Whether to allow insecure HTTPS connections, default is false
-    --cacert <PATH>         Optional, specify a PEM format certificate file to verify the HTTPS connection. Can be used multiple times to specify multiple certificate files
-    --chunked               Whether to use chunked transfer to download the query result, default is false
--h, --help                  View help
--V, --version               View version
+  -H, --host <HOST>
+          Host of CnosDB server [default: localhost]
+  -P, --port <PORT>
+          Port of CnosDB server HTTP API [default: 8902]
+  -u, --user <USER>
+          Username to connect to CnosDB server [default: root]
+  -p, --password
+          Use password to connect to CnosDB server
+      --private-key-path <PRIVATE_KEY_PATH>
+          Rsa private key path for key pair authentication used to connect to the CnosDB
+  -d, --database <DATABASE>
+          Default database to connect to the CnosDB [default: public]
+  -t, --tenant <TENANT>
+          Default tenant to connect to the CnosDB [default: cnosdb]
+      --precision <PRECISION>
+          The precision of the unix timestamps, will be used as the url param 'precision' [possible values: ns, us, ms]
+      --target-partitions <TARGET_PARTITIONS>
+          Number of partitions for query execution. Increasing partitions can increase concurrency
+  -s, --stream-trigger-interval <STREAM_TRIGGER_INTERVAL>
+          Optionally, specify the micro batch stream trigger interval. e.g. once, 1m, 10s
+      --data-path <DATA_PATH>
+          Path to your data, default to current directory
+      --receive-data-encoding <RECEIVE_DATA_ENCODING>
+          HTTP response encoding. Support deflate, gzip, br, zstd
+      --send-data-encoding <SEND_DATA_ENCODING>
+          HTTP request encoding. Support deflate, gzip, br, zstd
+  -f, --file [<FILE>...]
+          Execute commands from file(s), then exit
+      --rc [<RC>...]
+          Run the provided files on startup instead of ~/.cnosdbrc
+      --format <FORMAT>
+          [default: table] [possible values: csv, tsv, table, json, nd-json]
+  -q, --quiet
+          Reduce printing other than the results and work quietly
+  -W, --write-line-protocol <FILE>
+          Write line protocol from file
+      --ssl
+          Use HTTPS connection
+      --unsafe-ssl
+          Allow unsafe HTTPS connections
+      --cacert <FILE>
+          Use the specified certificate file to verify the connection peer. The certificate(s) must be in PEM format
+      --chunked
+          Enable chunk mode, and CnosDB server uses http streaming output
+      --error-stop
+          Stop when an error is encounter
+      --process-cli-command
+          Enable client command
+  -h, --help
+          Print help
+  -V, --version
+          Print version<NUMBER>
 ```
 
 ### Usage

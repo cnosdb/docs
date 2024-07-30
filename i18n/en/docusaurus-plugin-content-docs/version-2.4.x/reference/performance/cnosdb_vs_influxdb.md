@@ -28,7 +28,7 @@ Disk: SSD NVMe Protocol
 
 2. Install CnosDB:
 
-   Refer to the deployment document: [Install CnosDB](../../start/install.md)
+   Refer to the deployment document: [Install CnosDB](../start/install.md)
 
 3. Test InfluxDB writes
 

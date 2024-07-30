@@ -6,7 +6,7 @@ sidebar_position: 2
 
 CnosDB can export data to local or object storage using SQL `COPY INTO`, or import data from object storage and local file systems.
 
-Supported file formats include `CSV`, `JSON`, `PARQUET`, currently supported object storage includes `AWS S3`, `Google Cloud Storage`, `Azure Blob Storage`.
+Supported file formats include `PARQUET`, `CSV`, `JSON`, currently supported object storage includes `AWS S3`, `Google Cloud Storage`, `Azure Blob Storage`.
 
 ## Export data
 
@@ -18,7 +18,9 @@ Supported file formats include `CSV`, `JSON`, `PARQUET`, currently supported obj
 COPY INTO <path>
 FROM [<database>.]<table_name>
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -26,7 +28,7 @@ FILE_FORMAT = (
 
 | Name                             | Description                                                                                                                                                    |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                             | Set the file format to: `CSV`, `JSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| TYPE                             | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                        | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 
@@ -38,7 +40,7 @@ FILE_FORMAT = (
 COPY INTO 'file:///tmp/air/'
 FROM "air"
 FILE_FORMAT = (
-     TYPE = 'PARQUET'
+    TYPE = 'PARQUET'
 );
 ```
 
@@ -49,8 +51,8 @@ COPY INTO 'file:///tmp/air'
 FROM "air"
 FILE_FORMAT = (
     TYPE = 'CSV',
-  	DELIMITER=',',
-  	WITH_HEADER=false
+    DELIMITER = ',',
+    WITH_HEADER = false
 );
 ```
 
@@ -69,28 +71,31 @@ CONNECTION = (
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
 #### Parameter Description
 
-| Name                                                    | Description                                                                                                                                                      |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                    | Set the file format to: `CSV`, `JSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                      |
-| DELIMITER                                               | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                                |
-| WITH_HEADER                        | Only supports `CSV`, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| region                                                  | AWS Region Code                                                                                                                                                  |
-| access_key_id | Access key ID                                                                                                                                                    |
-| secret_key                         | Secret Key                                                                                                                                                       |
-| token                                                   | (Optional) Temporary Authorization Token                                                                                                      |
+| Name                                                           | Description                                                                                                                                                      |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                           | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                      |
+| DELIMITER                                                      | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                                |
+| WITH_HEADER                               | Only supports `CSV`, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| region                                                         | AWS Region Code                                                                                                                                                  |
+| access_key_id        | Access key ID                                                                                                                                                    |
+| secret_key                                | Secret Key                                                                                                                                                       |
+| token                                                          | (Optional) Temporary Authorization Token                                                                                                      |
+| virtual_hosted_style | Enable Virtual-Hosted Style access mode by default to `true`                                                                                                     |
 
 #### Example
 
 ##### Export data to `CSV` and store it in AWS S3, specify delimiter as `, `, and set table header
 
 ```sql
-COPY INTO 's3://tmp/air' 
+COPY INTO 's3://tmp/air'
 FROM "air"
 CONNECTION = (
     region = 'us‑east‑1',
@@ -98,9 +103,9 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-  TYPE = 'CSV',
-  DELIMITER = ',',
-  WITH_HEADER = true
+    TYPE = 'CSV',
+    DELIMITER = ',',
+    WITH_HEADER = true
 );
 ```
 
@@ -115,7 +120,7 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-  	TYPE = 'PARQUET'
+    TYPE = 'PARQUET'
 );
 ```
 
@@ -127,13 +132,15 @@ FILE_FORMAT = (
 COPY INTO 'gcs://<bucket>[/<path>]'
 FROM [<database>.]<table_name>
 CONNECTION = (
-    gcs_base_url = '<string>' 
-  	[, disable_oauth = true | false] 
-  	[, client_email = '<string>'] 
-  	[, private_key = '<string>']
+    gcs_base_url = '<string>'
+    [, disable_oauth = true | false]
+    [, client_email = '<string>']
+    [, private_key = '<string>']
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -141,7 +148,7 @@ FILE_FORMAT = (
 
 | Name                                                   | Description                                                                                                                                                    |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                   | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                                                   | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                              | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                       | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | gcs_base_url | Base URL of Google Cloud Store                                                                                                                                 |
@@ -151,7 +158,7 @@ FILE_FORMAT = (
 
 #### Example
 
-##### Export data as `NDJSON` to Google Cloud Storage
+##### Export data as `JSON` to Google Cloud Storage
 
 ```shell
 COPY INTO 'gcs://tmp/air'
@@ -163,7 +170,7 @@ CONNECTION = (
     private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
 )
 FILE_FORMAT = (
-    TYPE = 'NDJSON'
+    TYPE = 'JSON'
 );
 ```
 
@@ -193,12 +200,15 @@ FILE_FORMAT = (
 COPY INTO 'azblob://<container>[/<path>]'
 FROM [<database>.]<table_name>
 CONNECTION = (
-    account = '<string>' 
-  	[, access_key = '<string>'] 
-  	[, bearer_token = '<string>']
+    account = '<string>'
+    [, access_key = '<string>']
+    [, bearer_token = '<string>']
+    [, use_emulator = true | false]
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -208,7 +218,7 @@ FILE_FORMAT = (
 
 | Name                              | Description                                                                                                                                                    |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |
@@ -257,12 +267,14 @@ FILE_FORMAT = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM '<path>'
-FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+FILE_FORMAT = (
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
-COPY_OPTIONS (
+COPY_OPTIONS = (
     auto_infer_schema = true | false
 )
 ```
@@ -271,7 +283,7 @@ COPY_OPTIONS (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -301,11 +313,11 @@ COPY INTO "air"
 FROM "file:///tmp/air/"
 FILE_FORMAT = (
     TYPE = 'CSV',
-  	DELIMITER=',',
-  	WITH_HEADER = true
+    DELIMITER=',',
+    WITH_HEADER = true
 )
 COPY_OPTIONS = (
-  	auto_infer_schema = false
+    auto_infer_schema = false
 );
 ```
 
@@ -314,7 +326,7 @@ COPY_OPTIONS = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 's3://<bucket>[/<path>]'
 CONNECTION = (
     region = '<string>'
@@ -324,25 +336,28 @@ CONNECTION = (
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
-  auto_infer_schema = true | false
+    auto_infer_schema = true | false
 )
 ```
 
 #### Parameter Description
 
-| Name                                                        | Description                                                                                                                                                    |
-| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `CSV`, `JSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
-| DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
-| WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
-| auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
-| region                                                      | AWS Region Code                                                                                                                                                |
-| access_key_id     | Access key ID                                                                                                                                                  |
-| secret_key                             | Secret Key                                                                                                                                                     |
-| token                                                       | (Optional) Temporary Authorization Token                                                                                                    |
+| Name                                                           | Description                                                                                                                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TYPE                                                           | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
+| DELIMITER                                                      | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
+| WITH_HEADER                               | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| auto_infer_schema    | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
+| region                                                         | AWS Region Code                                                                                                                                                |
+| access_key_id        | Access key ID                                                                                                                                                  |
+| secret_key                                | Secret Key                                                                                                                                                     |
+| token                                                          | (Optional) Temporary Authorization Token                                                                                                    |
+| virtual_hosted_style | Enable Virtual-Hosted Style access mode by default to `true`                                                                                                   |
 
 #### Example
 
@@ -355,7 +370,7 @@ COPY_OPTIONS = (
 > `auto_infer_schema = true` indicates that the header will be automatically inferred
 
 ```sql
-COPY INTO "air" 
+COPY INTO "air"
 FROM 's3://temp/air'
 CONNECTION = (
     region = 'us‑east‑1',
@@ -363,9 +378,9 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-		TYPE = 'CSV',
-		DELIMITER = ',',
-		WITH_HEADER = true
+    TYPE = 'CSV',
+    DELIMITER = ',',
+    WITH_HEADER = true
 );
 ```
 
@@ -380,7 +395,7 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-		TYPE = 'PARQUET'
+    TYPE = 'PARQUET'
 );
 ```
 
@@ -389,19 +404,21 @@ FILE_FORMAT = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 'gcs://<bucket>[/<path>]'
 CONNECTION = (
-    gcs_base_url = '<string>' 
-  	[, disable_oauth = true | false] 
-  	[, client_email = '<string>'] 
-  	[, private_key = '<string>']
+    gcs_base_url = '<string>'
+    [, disable_oauth = true | false]
+    [, client_email = '<string>']
+    [, private_key = '<string>']
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
-  auto_infer_schema = true | false
+    auto_infer_schema = true | false
 )
 ```
 
@@ -409,7 +426,7 @@ COPY_OPTIONS = (
 
 | Name                                                        | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                                                        | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                                                        | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                                                   | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER                            | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | auto_infer_schema | Whether to automatically infer the `schema` of the file, if set to `false`, the `schema` of the target table will be used                                      |
@@ -420,7 +437,7 @@ COPY_OPTIONS = (
 
 #### Example
 
-##### Import `NDJSON` data from Google Cloud Storage\`
+##### Import data from `Google Cloud Storage` with `JSON` data
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -432,7 +449,7 @@ CONNECTION = (
     private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
 )
 FILE_FORMAT = (
-    TYPE = 'NDJSON'
+    TYPE = 'JSON'
 );
 ```
 
@@ -459,18 +476,21 @@ FILE_FORMAT = (
 #### Syntax
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 'azblob://<container>[/<path>]'
 CONNECTION = (
-    account = '<string>' 
-  	[, access_key = '<string>'] 
-  	[, bearer_token = '<string>']
+    account = '<string>'
+    [, access_key = '<string>']
+    [, bearer_token = '<string>']
+    [, use_emulator = true | false]
 )
-FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+FILE_FORMAT = (
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
-  auto_infer_schema = true | false
+    auto_infer_schema = true | false
 )
 ```
 
@@ -478,7 +498,7 @@ COPY_OPTIONS = (
 
 | Name                              | Description                                                                                                                                                    |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                              | Set the file format to: `CSV`, `NOJSON`, `PARQUET`, for example: `FILE_FORMAT = (TYPE='CSV')`                                  |
+| TYPE                              | Set the file format to: `PARQUET`, `CSV`, `JSON`, for example: `FILE_FORMAT = (TYPE='CSV')`                                    |
 | DELIMITER                         | Only support CSV, set file format, for example: `DELIMITER = ','`                                                                              |
 | WITH_HEADER  | Only supports CSV, whether it has a header, default is `true`, example: example: `FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
 | account                           | The name of the Azure storage account, specifying the storage account to connect to.                                                           |

@@ -419,7 +419,7 @@ cnosdb-tool inspect tsm [OPTIONS] <PATH>
 Examples:
 
 ```sh
-# Output all the data block information in a TSM file
+Output all the data block information in a TSM file
 cnosdb-tool inspect tsm --level block <PATH>
 ```
 
