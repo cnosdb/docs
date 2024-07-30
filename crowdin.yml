@@ -6,8 +6,6 @@ languages_mapping:
 preserve_hierarchy: 1
 files:
   - source: /docs/**/*
-    ignore:
-      - /docs/reference/concept_design/*
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%
   - source: /versioned_docs/**/*
     ignore:
