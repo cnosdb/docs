@@ -1,17 +1,17 @@
 ---
-title: 查询引擎
+title: Query engines
 order: 2
 ---
 
-## SQL 引擎
+## SQL Engine
 
-查询引擎我们使用了 [DataFusion](https://arrow.apache.org/datafusion/)，DataFusion 是一个可扩展的查询执行框架，用 Rust 编写，使用 [Apache Arrow](https://arrow.apache.org/) 作为其内存格式。DataFusion 支持用于构建逻辑查询计划的 SQL 和 DataFrame API 以及能够使用线程对分区数据源并行执行的查询优化器和执行引擎。具有如下优点：
+We use [DataFusion](https://arrow.apache.org/datafusion/), DataFusion is an expanded query implementation framework, written with Rust and using [Apache Arrow](https://arrow.apache.org/) as its memory format.DataFusion supports SQL and DataFrame API to build logical query plans, as well as query optimizers and execution engines that use threads in parallel to partition data sources.Has the following strengths:
 
-1. 高性能：利用 Rust 和 Arrow 的内存模型，具有较高的性能。
-2. 扩展性强：允许在其设计中的几乎任何点进行扩展，可以针特定用例进行定制。
-3. 高质量：DataFusion 和 Arrow 生态都经过广泛测试，可用作生产系统。
-4. 融合大数据生态：作为 Apache Arrow 生态系统（Arrow、Flight、Parquet）的一部分，与大数据生态系统融合的较好。
+1. High performance: Using the memory models of Rust and Arrow, it has high performance.
+2. Strong extensibility: Allows almost any point in its design to be extended and customized with a needle-specific use case.
+3. High quality: DataFusion and Arrow ecology are widely tested and can be used as production systems.
+4. Fusion of big data ecology: As part of the Apache Arrow ecosystem (Arrow, Flight, Parquet), it is better integrated with large data ecosystems.
 
-我们通过扩展 DataFusion 的数据源并且提供自定义 SQL 语句，在分布式场景下数据的查询流程如下：
+By extending DataFusion data sources and providing custom SQL statements, the query process for data under distributed scenarios is as follows:
 
 ![query](/img/query_data_path.jpg)
