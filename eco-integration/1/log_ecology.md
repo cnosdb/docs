@@ -1,8 +1,9 @@
 ---
-title: Vector
-slug: /vector
+title: Log ecology
+slug: /log_ecology
 ---
 
+## Vector
 
 > [Vector](https://github.com/vectordotdev/vector)是一个高性能的可观测数据管道，使组织能够控制其可观测数据。收集、转换并将所有log、metric路由到现在正在使用的任何供应商，或者未来可能想要使用的任何其他供应商。Vector可以在你最需要的地方（而不是供应商最方便的地方）大幅降低成本，使数据更加新颖丰富，并提供数据安全性。Vector是开源的，并且比任何替代方案快接近10倍。
 ![write](/img/vector_concept.png)
@@ -189,3 +190,114 @@ vector --config metric_vector.toml
 使用client连接CnosDB查询
 
 ![write](/img/vector_metric_output.png)
+
+## Grafana Loki
+
+### Promtail介绍
+
+Promtail是一个用于收集日志并将其发送到Loki的日志收集代理。它是Grafana Loki项目的一部分，Grafana Loki是一个水平可扩展、高度可用的多租户日志聚合系统，专门用于存储和查询日志数据。Promtail主要负责从各种来源收集日志，将其处理并发送到Grafana Loki。
+
+```json
+'{"streams": [{ "stream": { "instance": "host123", "job": "app42" }, "values": [ [ "0", "foo fizzbuzz bar" ] ] }]}'
+```
+
+### CnosDB存储
+
+CnosDB支持Promtail的写入接口是：`ip:port/api/v1/es/_bulk?table=t1&log_type=loki`，后两个参数不可省略。
+
+#### 启动流程
+
+1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+
+2. 启动Promtail：`promtail --config.file=promtail-local-config.yaml`
+
+```yaml
+clients:
+  - url: http://localhost:8902/api/v1/es/_bulk?table=t1&log_type=loki
+    basic_auth:
+      username: root
+      password: 
+```
+
+## Elasticsearch
+
+### CnosDB存储
+
+写入接口是：`ip:port/api/v1/es/_bulk?table=t1`，后一个参数不可省略，对于es格式数据，CnosDB目前支持index和create两种。
+
+### Logstash介绍
+
+Logstash是一个开源的数据收集引擎，能够动态地从各种来源收集数据，将其转换为期望的格式，并将其发送到指定的存储位置。它是Elastic Stack的一部分，与Elasticsearch和Kibana一起使用，用于集中化、分析和可视化数据。Logstash提供可自定义的存储端，在原来的数据流当中，Logstash会收集对应数据源的数据源，通过配置文件的filter以及处理流程之后，会输出到对应的存储端，通常会输出到Elasticsearch，通过正确的配置，可以输出到CnosDB当中，由CnosDB进行处理。
+
+![logstash](/img/log_ecology/logstash.png)
+
+#### 启动流程
+
+1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+
+2. 启动Promtail：`./bin/logstash -f logstash.conf`
+
+```conf
+output {
+  elasticsearch { 
+    hosts => ["http://localhost:8902/api/v1/es/"]
+    custom_headers => {
+        Authorization => "Basic cm9vdDo="
+    }
+    parameters => {
+      "table" => "t1"
+    }
+  }
+}
+```
+
+### Filebeat介绍
+
+Filebeat是一个轻量级的日志收集处理工具（Agent），它是Elasticsearch堆栈的一部分，基于Golang语言编写。Filebeat旨在安装在各个节点上，根据配置读取对应位置的日志，并将其上报到指定的地方，如Elasticsearch或Logstash。Filebeat的设计注重资源占用少，适合在服务器上搜集日志，并且具有很高的可靠性，保证日志至少上报一次，同时考虑了日志搜集中可能出现的问题，例如日志断点续读、文件名更改、日志截断等。
+
+#### 启动流程
+
+1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+
+2. 启动Promtail：`./filebeat -c filebeat.yml`
+
+```conf
+  output.elasticsearch:
+    hosts: ["http://localhost:8902/api/v1/es/"]
+    allow_older_versions: true
+    username: "root"
+    password: ""
+    parameters:
+      table: "t1"
+```
+
+## ndjson
+
+```json
+  {"date":"2024-03-27T02:51:11.687Z", "node_id":"1001", "operator_system":"linux", "msg":"test"}
+  {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
+```
+
+### fluent-bit介绍
+
+fluent-bit是一个轻量级的日志处理工具，专为资源受限的环境（如嵌入式系统、容器、边缘计算设备等）设计。它是Fluentd项目的子项目，提供了一套灵活的插件系统，用于收集、处理和传输日志数据。
+
+![fluent-bit](/img/log_ecology/fluent-bit.png)
+
+#### 启动流程
+
+1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+
+2. 启动Promtail：`fluent-bit -c fluent-bit.conf`
+
+```conf
+  [OUTPUT]
+    Name  http
+    Match *
+    Host  localhost
+    Port  8902
+    Format json_lines
+    URI   /api/v1/es/_bulk?table=fluent&log_type=ndjson&time_column=date
+    http_User root
+    json_date_format iso8601
+```

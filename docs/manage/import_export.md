@@ -6,7 +6,7 @@ sidebar_position: 2
 
 CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上，也可以把数据从对象存储和本地文件系统导入。
 
-支持的文件格式有`CSV`、`JSON`、`PARQUET`，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Azure Blob Storage` 。
+支持的文件格式有`PARQUET`、`CSV`、`JSON`，目前支持的对象存储有`AWS S3`, `Google Cloud Storage`, `Azure Blob Storage` 。
 
 ## 导出数据
 
@@ -18,7 +18,9 @@ CnosDB 可以使用 SQL `COPY INTO` 把数据导出到本地或对象存储上�
 COPY INTO <path>
 FROM [<database>.]<table_name>
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -26,9 +28,9 @@ FILE_FORMAT = (
 
 | 名称        | 描述                                                         |
 | ----------- | ------------------------------------------------------------ |
-| TYPE        | 设置文件格式，分别为：`CSV`、`JSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE        | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER   | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 
 #### 示例
 
@@ -38,7 +40,7 @@ FILE_FORMAT = (
 COPY INTO 'file:///tmp/air/'
 FROM "air"
 FILE_FORMAT = (
-     TYPE = 'PARQUET'
+    TYPE = 'PARQUET'
 );
 ```
 
@@ -49,8 +51,8 @@ COPY INTO 'file:///tmp/air'
 FROM "air"
 FILE_FORMAT = (
     TYPE = 'CSV',
-  	DELIMITER=',',
-  	WITH_HEADER=false
+    DELIMITER = ',',
+    WITH_HEADER = false
 );
 ```
 
@@ -69,7 +71,9 @@ CONNECTION = (
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -77,20 +81,21 @@ FILE_FORMAT = (
 
 | 名称          | 描述                                                         |
 | ------------- | ------------------------------------------------------------ |
-| TYPE          | 设置文件格式，分别为：`CSV`、`JSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE          | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER     | 仅支持`CSV`，设置文件格式，示例：`DELIMITER = ','`           |
-| WITH_HEADER   | 仅支持`CSV`，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER   | 仅支持`CSV`，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | region        | AWS 地区代码                                                 |
 | access_key_id | 访问密钥 ID                                                  |
 | secret_key    | 密钥                                                         |
 | token         | （可选）临时授权令牌                                         |
+| virtual_hosted_style | 是否启用 Virtual-Hosted Style 访问模式，默认为 `true` |
 
 #### 示例
 
 ##### 将数据导出成`CSV`存储到 AWS S3，指定分隔符为`,`，并设置表头
 
 ```sql
-COPY INTO 's3://tmp/air' 
+COPY INTO 's3://tmp/air'
 FROM "air"
 CONNECTION = (
     region = 'us‑east‑1',
@@ -98,9 +103,9 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-  TYPE = 'CSV',
-  DELIMITER = ',',
-  WITH_HEADER = true
+    TYPE = 'CSV',
+    DELIMITER = ',',
+    WITH_HEADER = true
 );
 ```
 
@@ -115,7 +120,7 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-  	TYPE = 'PARQUET'
+    TYPE = 'PARQUET'
 );
 ```
 
@@ -127,13 +132,15 @@ FILE_FORMAT = (
 COPY INTO 'gcs://<bucket>[/<path>]'
 FROM [<database>.]<table_name>
 CONNECTION = (
-    gcs_base_url = '<string>' 
-  	[, disable_oauth = true | false] 
-  	[, client_email = '<string>'] 
-  	[, private_key = '<string>']
+    gcs_base_url = '<string>'
+    [, disable_oauth = true | false]
+    [, client_email = '<string>']
+    [, private_key = '<string>']
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -141,9 +148,9 @@ FILE_FORMAT = (
 
 | 名称          | 描述                                                         |
 | ------------- | ------------------------------------------------------------ |
-| TYPE          | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE          | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER     | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER   | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER   | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | gcs_base_url  | Google Cloud Storage 的基础 URL                              |
 | disable_oauth | （可选）是否禁用 OAuth，默认为 `false`                         |
 | client_email  | （可选）服务账号的电子邮件地址，仅在不禁用 OAuth 时需要      |
@@ -151,7 +158,7 @@ FILE_FORMAT = (
 
 #### 示例
 
-##### 将数据导出成 `NDJSON` 存储到 Google Cloud Storage
+##### 将数据导出成 `JSON` 存储到 Google Cloud Storage
 
 ```shell
 COPY INTO 'gcs://tmp/air'
@@ -163,7 +170,7 @@ CONNECTION = (
     private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
 )
 FILE_FORMAT = (
-    TYPE = 'NDJSON'
+    TYPE = 'JSON'
 );
 ```
 
@@ -185,8 +192,6 @@ FILE_FORMAT = (
 );
 ```
 
-
-
 ### 导出到 Azure Blob Storage
 
 #### 语法
@@ -195,12 +200,15 @@ FILE_FORMAT = (
 COPY INTO 'azblob://<container>[/<path>]'
 FROM [<database>.]<table_name>
 CONNECTION = (
-    account = '<string>' 
-  	[, access_key = '<string>'] 
-  	[, bearer_token = '<string>']
+    account = '<string>'
+    [, access_key = '<string>']
+    [, bearer_token = '<string>']
+    [, use_emulator = true | false]
 )
 FILE_FORMAT = (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'}[,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 ```
 
@@ -210,9 +218,9 @@ FILE_FORMAT = (
 
 | 名称         | 描述                                                         |
 | ------------ | ------------------------------------------------------------ |
-| TYPE         | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE         | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER    | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | account      | Azure存储账户的名称，指定要连接的存储账户。                  |
 | access_key   | 存储账户的访问密钥，用于进行身份验证和授权。                 |
 | bearer_token | 身份验证所需的令牌，可以替代access_key进行身份验证。         |
@@ -250,8 +258,6 @@ FILE_FORMAT = (
 );
 ```
 
-
-
 ## 导入数据
 
 > 导入之前，请确定目标表已经存在，并且列名和列的类型对应。
@@ -261,12 +267,14 @@ FILE_FORMAT = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM '<path>'
-FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+FILE_FORMAT = (
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
-COPY_OPTIONS (
+COPY_OPTIONS = (
     auto_infer_schema = true | false
 )
 ```
@@ -275,9 +283,9 @@ COPY_OPTIONS (
 
 | 名称              | 说明                                                         |
 | ----------------- | ------------------------------------------------------------ |
-| TYPE              | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER         | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | auto_infer_schema | 是否自动推断文件的 `schema`，如果为`false`则使用目标表的`schema` |
 
 #### 示例
@@ -305,11 +313,11 @@ COPY INTO "air"
 FROM "file:///tmp/air/"
 FILE_FORMAT = (
     TYPE = 'CSV',
-  	DELIMITER=',',
-  	WITH_HEADER = true
+    DELIMITER=',',
+    WITH_HEADER = true
 )
 COPY_OPTIONS = (
-  	auto_infer_schema = false
+    auto_infer_schema = false
 );
 ```
 
@@ -318,7 +326,7 @@ COPY_OPTIONS = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 's3://<bucket>[/<path>]'
 CONNECTION = (
     region = '<string>'
@@ -328,10 +336,12 @@ CONNECTION = (
     [, virtual_hosted_style = true | false ]
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
-  auto_infer_schema = true | false
+    auto_infer_schema = true | false
 )
 ```
 
@@ -339,18 +349,19 @@ COPY_OPTIONS = (
 
 | 名称              | 描述                                                         |
 | ----------------- | ------------------------------------------------------------ |
-| TYPE              | 设置文件格式，分别为：`CSV`、`JSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER         | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | auto_infer_schema | 是否自动推断文件的 `schema`，如果为`false`则使用目标表的`schema` |
 | region            | AWS 地区代码                                                 |
 | access_key_id     | 访问密钥 ID                                                  |
 | secret_key        | 密钥                                                         |
 | token             | （可选）临时授权令牌                                         |
+| virtual_hosted_style | 是否启用 Virtual-Hosted Style 访问模式，默认为 `true` |
 
 #### 示例
 
-##### 将 `AWS S3` 上的`CSV`数据导入 
+##### 将 `AWS S3` 上的`CSV`数据导入
 
 > `DELIMITER=','` 表示文件以`,`分隔。
 >
@@ -359,7 +370,7 @@ COPY_OPTIONS = (
 > `auto_infer_schema = true` 表示会自动推断表头
 
 ```sql
-COPY INTO "air" 
+COPY INTO "air"
 FROM 's3://temp/air'
 CONNECTION = (
     region = 'us‑east‑1',
@@ -367,9 +378,9 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-		TYPE = 'CSV',
-		DELIMITER = ',',
-		WITH_HEADER = true
+    TYPE = 'CSV',
+    DELIMITER = ',',
+    WITH_HEADER = true
 );
 ```
 
@@ -384,7 +395,7 @@ CONNECTION = (
     secret_key = '****************'
 )
 FILE_FORMAT = (
-		TYPE = 'PARQUET'
+    TYPE = 'PARQUET'
 );
 ```
 
@@ -393,19 +404,21 @@ FILE_FORMAT = (
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 'gcs://<bucket>[/<path>]'
 CONNECTION = (
-    gcs_base_url = '<string>' 
-  	[, disable_oauth = true | false] 
-  	[, client_email = '<string>'] 
-  	[, private_key = '<string>']
+    gcs_base_url = '<string>'
+    [, disable_oauth = true | false]
+    [, client_email = '<string>']
+    [, private_key = '<string>']
 )
 FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
-  auto_infer_schema = true | false
+    auto_infer_schema = true | false
 )
 ```
 
@@ -413,9 +426,9 @@ COPY_OPTIONS = (
 
 | 名称              | 描述                                                         |
 | ----------------- | ------------------------------------------------------------ |
-| TYPE              | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE              | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER         | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER       | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | auto_infer_schema | 是否自动推断文件的 `schema`，如果为`false`则使用目标表的`schema` |
 | gcs_base_url      | Google Cloud Storage 的基础 URL                              |
 | disable_oauth     | （可选）是否禁用 OAuth，默认为 `false`                       |
@@ -424,7 +437,7 @@ COPY_OPTIONS = (
 
 #### 示例
 
-##### 将 ` Google Cloud Storage` 上的 `NDJSON` 数据导入
+##### 将 `Google Cloud Storage` 上的 `JSON` 数据导入
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -436,11 +449,11 @@ CONNECTION = (
     private_key = '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----'
 )
 FILE_FORMAT = (
-    TYPE = 'NDJSON'
+    TYPE = 'JSON'
 );
 ```
 
-##### 将 ` Google Cloud Storage` 上的 `CSV` 数据导入
+##### 将 `Google Cloud Storage` 上的 `CSV` 数据导入
 
 ```sql
 COPY INTO 'gcs://tmp/air'
@@ -458,25 +471,26 @@ FILE_FORMAT = (
 );
 ```
 
-
-
 ### 从 Azure Blob Storage 导入数据
 
 #### 语法
 
 ```sql
-COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...])]
+COPY INTO [database.]<table_name>[(<time_col>, <field_col> [,field_col] ...[,TAGS (<tag_col> [, tag_col] ...)])]
 FROM 'azblob://<container>[/<path>]'
 CONNECTION = (
-    account = '<string>' 
-  	[, access_key = '<string>'] 
-  	[, bearer_token = '<string>']
+    account = '<string>'
+    [, access_key = '<string>']
+    [, bearer_token = '<string>']
+    [, use_emulator = true | false]
 )
-FILE_FORMAT (
-    TYPE = {'CSV' | 'NDJSON' | 'PARQUET'} [,DELIMITER = '<character>'] [,WITH_HEADER = true | false]
+FILE_FORMAT = (
+    TYPE = {'PARQUET' | 'CSV' | 'JSON'}
+    [, DELIMITER = '<character>']
+    [, WITH_HEADER = true | false]
 )
 COPY_OPTIONS = (
-  auto_infer_schema = true | false
+    auto_infer_schema = true | false
 )
 ```
 
@@ -484,9 +498,9 @@ COPY_OPTIONS = (
 
 | 名称         | 描述                                                         |
 | ------------ | ------------------------------------------------------------ |
-| TYPE         | 设置文件格式，分别为：`CSV`、`NOJSON`、`PARQUET`，示例：`FILE_FORMAT = (TYPE='CSV')` |
+| TYPE         | 设置文件格式，分别为：`PARQUET`、`CSV`、`JSON`，示例：`FILE_FORMAT = (TYPE='CSV')` |
 | DELIMITER    | 仅支持CSV，设置文件格式，示例：`DELIMITER = ','`             |
-| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV' WITH_HEADER=true)` |
+| WITH_HEADER  | 仅支持CSV，是否带有表头，默认为 `true`，示例：示例：`FILE_FORMAT = (TYPE='CSV', WITH_HEADER=true)` |
 | account      | Azure存储账户的名称，指定要连接的存储账户。                  |
 | access_key   | 存储账户的访问密钥，用于进行身份验证和授权。                 |
 | bearer_token | 身份验证所需的令牌，可以替代access_key进行身份验证。         |

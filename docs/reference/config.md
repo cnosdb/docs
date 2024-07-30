@@ -118,6 +118,7 @@ CNOSDB_REPORTING_DISABLED=false
 | `write_timeout`       | `3000ms`      | `CNOSDB_QUERY_WRITE_TIMEOUT`       | 向 `tskv` 写入数据时的超时时间，单位：`ms`           |
 | `stream_trigger_cpu`     | `1`         | `CNOSDB_QUERY_STREAM_TRIGGER_CPU`     | 准备流计算任务的 CPU 数量                            |
 | `stream_executor_cpu`    | `2`         | `CNOSDB_QUERY_STREAM_EXECUTOR_CPU`    | 执行流计算任务的 CPU 数量                            |
+| `sql_record_timeout`    | `10s`         | `CNOSDB_QUERY_SQL_RECORD_TIMEOUT`    | sql被记录到cluster_schema.sql_history表的最低执行时间      |
 
 ```mdx-code-block
 </APITable>

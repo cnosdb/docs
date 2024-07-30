@@ -15,21 +15,49 @@ db_options:
     db_option ...
 
 db_option: {
-      TTL value
+      TTL duration
     | SHARD value
-    | VNODE_DURATION value
+    | VNODE_DURATION duration
     | REPLICA value
     | PRECISION {'ms' | 'us' | 'ns'}
+    | MAX_MEMCACHE_SIZE bytesnum
+    | MEMCACHE_PARTITIONS value
+    | WAL_MAX_FILE_SIZE bytesnum
+    | WAL_SYNC bool
+    | STRICT_WRITE bool 
+    | MAX_CACHE_READERS value
 }
 ```
 
-| 选项             | 描述                                                         |
-| ---------------- | ------------------------------------------------------------ |
-| `TTL`            | 数据过期时间，默认无限保存，支持的单位：`d`、`h`、`m`。示例：`TTL 10d`、`TTL 180m`。 |
-| `SHARD`          | 表示分片个数，默认：`1`。                                    |
-| `VNODE_DURATION` | 数据在 SHARD 中的时间窗口长度，默认 365 天，支持的单位：`d`、`h`、`m`。示例：`TTL 10d`、`TTL 180m`。 |
-| `REPLICA`        | 数据在集群中的复本数，默认为 `1`。（备注：副本数必须小于且等于集群中 `tskv` 节点的数据）。 |
-| `PRECISION`      | 数据库的时间戳精度，默认为 `ns`。支持的单位：`ms`、`us`、`ns` |
+| 选项             | 描述                                                     |
+| ---------------- |--------------------------------------------------------|
+| `TTL`            | Duration。数据过期时间，默认为无限 `INF`。                           |
+| `SHARD`          | 表示分片个数，默认：`1`。                                         |
+| `VNODE_DURATION` | Duration。数据在 SHARD 中的时间窗口长度，默认 `'1y'`。                 |
+| `REPLICA`        | 数据在集群中的复本数，默认为 `1`。（备注：副本数必须小于且等于集群中 `tskv` 节点的数据）。    |
+| `PRECISION`      | 数据库的时间戳精度，默认为 `ns`。支持的单位：`ms`、`us`、`ns`                |
+| `MAX_MEMCACHE_SIZE` | 数据库的最大缓存大小，默认为 `'512MiB'`,可使用配置文件指定每次创建时的默认值。          |
+| `MEMCACHE_PARTITIONS` | 数据库的缓存分区数，默认为 `1`,可使用配置文件指定每次创建时的默认值。                  |
+| `WAL_MAX_FILE_SIZE` | 单个 WAL 文件的最大大小，默认为 `'1GiB'`，可使用配置文件指定每次创建时的默认值。        |
+| `WAL_SYNC`       | WAL 是否每次写入同步，默认为 `'false'`，可使用配置文件指定每次创建时的默认值。         |
+| `STRICT_WRITE`   | 是否开启严格写，即写入是否需要提前创建表，默认为 `'false'`，可使用配置文件指定每次创建时的默认值。 |
+| `MAX_CACHE_READERS` | vnode的最大缓存的tsm reader，默认为 `32`，可使用配置文件指定每次创建时的默认值。     |
+
+### Duration 格式
+    'inf'为无限大的 Duration, 例如 create database oceanic_station with ttl 'inf'
+    'nanos' | 'nsec' | 'ns' 为纳秒, 例如 with ttl '10ns'
+    'usec' | 'us' 为微秒, 例如 with ttl '300us'
+    'millis' | 'msec' | 'ms' 为毫秒, 例如 with ttl '90ms'
+    'seconds' | 'second' | 'secs' | 'sec' | 's' 为秒, 例如 with ttl '30s'
+    'minutes' | 'minute' | 'min' | 'mins' | 'm' 为分钟, 例如 with ttl '7000m'
+    'hours' | 'hour' | 'hr' | 'hrs' | 'h' 为小时, 例如 with ttl '5h'
+    'days' | 'day' | 'd' 为天, 例如 with ttl '365d'
+    'weeks' | 'week' | 'w' 为周, 例如 with ttl '52w'
+    'months' | 'month' | 'M' 为月, 例如 with ttl '12M'
+    'years' | 'year' | 'y' 为年, 例如 with ttl '1y'
+### BytesNum
+    '512MiB'、'1GiB'、'1KiB'、'1TiB'、'1PiB'、'1EiB'、'1ZiB'、'1YiB', 为二进制单位, 1M = 1024K
+    '512MB'、'1GB'、'1KB'、'1TB'、'1PB'、'1EB'、'1ZB'、'1YB'，为十进制单位, 1M = 1000K
 
 <details>
   <summary>查看 <code>CREATE DATABASE</code> 示例</summary>
@@ -39,6 +67,11 @@ db_option: {
 
 ```sql
 CREATE DATABASE oceanic_station;
+```
+
+**创建一个数据库，指定参数。**
+```sql
+create database oceanic_station with ttl 'inf' shard 6 vnode_duration '2y1M' replica 1 precision 'us' max_memcache_size '128MiB' memcache_partitions 10 wal_max_file_size '300M' wal_sync 'true' strict_write 'true' max_cache_readers 100;
 ```
 
 **创建一个数据库，设置过期时间为 180 天，且每个时间窗口为 7 天。**
@@ -187,7 +220,7 @@ LOCATION 'tests/data/csv/cpu.csv';
 :::
 
 ```sql
-CREATE STREAM TABLE [IF NOT EXISTS] table_name(field_definition [, field_definition] ...)
+CREATE STREAM TABLE [IF NOT EXISTS] table_name[(field_definition [, field_definition] ...)]
     WITH (db = 'db_name', table = 'table_name', event_time_column = 'time_column')
     engine = tskv;
 
