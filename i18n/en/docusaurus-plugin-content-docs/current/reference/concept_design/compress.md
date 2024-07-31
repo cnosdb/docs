@@ -5,7 +5,7 @@ order: 4
 
 # Compression Algorithm
 
-时序数据规模很大，且可能存在大量冗余，因而在时序数据库中经常使用压缩方法来节约存储空间和查询执行时的I/O代价，下面将讨论一些时序数据库中常见的压缩技术。
+Time series data has a large scale and may contain a lot of redundancy, so compression methods are often used in time series databases to save storage space and reduce the I/O cost of query execution. Below, we will discuss the compression techniques used in CnosDB.
 
 ### DELTA
 
@@ -13,7 +13,7 @@ Mainly used for timestamp, integer and unsigned integer.
 
 #### Principle
 
-First, the difference is made, that is, the first data is unchanged, other data are transformed into delta with the previous data, and all numbers are processed byzigzag, i64 is mapped to u64, specifically to zero, negative numbers are mapped to odd numbers, such as [0, 1, 2] after zigzag processing to [0, 1,2] and maximum convention numbers are calculated. Then judge that if all deltas are the same, use the cruise path code directly, that is, only the first value, delta, and the number of data. Otherwise, all delta values are divided into maximum convention numbers (maximum convention numbers are encoded into data), and then encoded using Simple 8b.之后判断一下如果所有的delta都相同，就直接使用游程编码，即只需要记录第一个值，delta和数据的数量。之后判断一下如果所有的delta都相同，就直接使用游程编码，即只需要记录第一个值，delta和数据的数量。否则就将所有的delta值除以最大公约数（最大公约数也会编码进数据），然后使用simple8b进行编码。
+First, the difference is made, that is, the first data is unchanged, other data are transformed into delta with the previous data, and all numbers are processed byzigzag, i64 is mapped to u64, specifically to zero, negative numbers are mapped to odd numbers, such as [0, 1, 2] after zigzag processing to [0, 1,2] and maximum convention numbers are calculated. After that, check if all deltas are the same, then use run-length encoding directly, which only needs to record the first value, delta, and the number of data.Otherwise, divide all delta values by the greatest common divisor (which will also be encoded into the data), and then use simple8b for encoding.
 
 ![](/img/simple8b.png)
 
