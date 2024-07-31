@@ -1,6 +1,6 @@
 ---
 title: Storage Engine
-order: 2
+sidebar_position: 5
 ---
 
 ## TSKV Index and Data Storage
