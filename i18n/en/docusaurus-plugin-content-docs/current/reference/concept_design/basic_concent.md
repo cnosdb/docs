@@ -24,11 +24,11 @@ Query took 0.027 seconds.
 
 This data is obtained from the air table in the `oceanic_stations` open dataset as an example. It can be seen that the table consists of five columns: The `time`, `station`, `pressure`, `tempreture`, and `visibility` columns will be analyzed in detail.
 
-1. First, we can make it clear that in this example the library is `oceanic_stations` and the table is `air`.CnosDB is a time series database, so for CnosDB everything it starts is - time.
+1. First, we can make it clear that in this example the database is `oceanic_stations` and the table is `air`.CnosDB is a time series database, so for CnosDB everything it starts is - time.
 
 2. In the above data, the first column is named `time`. This column has a column in all the databases in CnosDB.The timestamp of `time` follows [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) standards.
 
-3. The next `station` is listed as a label that denotes an entity that represents the `id` source of data.This example shows that we collected data from `XiaoMaiDao` this `station`.Tags are stored as strings by `key` and `value` and are recorded in metadata.For example: `key` is `station`, `value` is `XiaoMaiDao` and `LianYunGang`.
+3. The next `station` is listed as a tag that denotes an entity that represents the `id` source of data.This example shows that we collected data from `XiaoMaiDao` this `station`.Tags are stored as strings by `key` and `value` and are recorded in metadata.For example: `key` is `station`, `value` is `XiaoMaiDao` and `LianYunGang`.
 
 In the example above, the tag group is a different set of keys and values for each group, and there are two tag groups in the sample data:
 
@@ -71,7 +71,7 @@ In the time series database, **Time series** refers to data point sequences in c
 
 ### Table
 
-**Table** organizes data lines with the same label, fields.This is very similar to the concept of the table in the relational database.Timestamp,Tag,Fields correspond to the list of tables in the relationship database.
+**Table** organizes data lines with the same tags, fields.This is very similar to the concept of the table in the relational database.Timestamp,Tag,Fields correspond to the list of tables in the relationship database.
 
 ### Timestamp
 
@@ -105,6 +105,6 @@ A field group usually consists of one or more fields, each of which stores a spe
 
 The **rows** in CnosDB are timestamps, tags, and data lines formed by fields.A timestamp, a set of tags, a set of fields form a data row that can also be called **point**.A data row must contain a timestamp, at least one tag and one field.
 
-### Retention policy
+### Time To Live
 
-CnosDB supports setting up different storage policies for a database, data retention time, number of data fragments, shard setting policies, time accuracy, etc.
+CnosDB supports setting up different storage policies for a database, data time to live, number of data fragments, shard setting policies, time accuracy, etc.
