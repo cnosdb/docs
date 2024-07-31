@@ -1,9 +1,8 @@
 ---
-title: Data Sharding and Replication
-order: 3
+sidebar_position: 6
 ---
 
-## Data Sharding and Replication
+# Data Sharding and Replication
 
 CnosDB stores data in two dimensions: time-based sharding and Hash sharding.
 
