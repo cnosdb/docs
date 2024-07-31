@@ -1,6 +1,5 @@
 ---
-title: Compression Algorithm
-order: 4
+sidebar_position: 7
 ---
 
 # Compression Algorithm
