@@ -1,6 +1,5 @@
 ---
-title: Metadata Cluster
-order: 2
+sidebar_position: 3
 ---
 
 # Metadata Cluster
