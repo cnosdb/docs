@@ -1,6 +1,5 @@
 ---
-title: 压缩算法
-order: 4
+sidebar_position: 7
 ---
 
 # 压缩算法

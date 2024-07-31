@@ -1,6 +1,6 @@
 ---
 title: 存储引擎
-order: 2
+sidebar_position: 5
 ---
 
 ## TSKV 索引与数据存储

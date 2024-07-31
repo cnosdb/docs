@@ -1,6 +1,5 @@
 ---
-title: 元数据集群
-order: 2
+sidebar_position: 3
 ---
 
 # 元数据集群
