@@ -88,7 +88,7 @@ cnosdb run -M query_tskv
 
 - #### query layer
 
-  In DataFusion, the isolation relationship of catalog is divided into `catalog/schema/table`.We use this isolation, which we use to split the segregation relationship between tenant/<namespace>/database/table\`.
+  In DataFusion, the isolation relationship of catalog is divided into `catalog/schema/table`.We use this isolation, which we use to split the segregation relationship between `tenant/<namespace>/database/table`.
 
   - **table** Corresponds to a table in a specific database that provides a schema definition and implements [TableProvider](https://datafusion.apache.org/library-user-guide/custom-table-provider.html).
 
