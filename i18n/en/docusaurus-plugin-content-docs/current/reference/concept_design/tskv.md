@@ -1,9 +1,9 @@
 ---
-title: 存储引擎
+title: Storage Engine
 order: 2
 ---
 
-## TSKV 索引与数据存储
+## TSKV Index and Data Storage
 
 tskv 主要承担数据和索引的存储，对 Node 节点上所有 Vnode 进行管理， 每个 Vnode 负责某个 Database 里的部分数据。在 Vnode 中主要有 3 个模块组成 WAL，IndexEngine 和 DataEngine。
 
