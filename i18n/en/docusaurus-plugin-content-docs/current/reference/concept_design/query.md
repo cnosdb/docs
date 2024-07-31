@@ -1,6 +1,6 @@
 ---
 title: Query engines
-order: 2
+sidebar_position: 4
 ---
 
 ## SQL Engine
