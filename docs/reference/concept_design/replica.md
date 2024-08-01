@@ -1,10 +1,8 @@
 ---
-title: 数据分片与复制
-order: 3
+sidebar_position: 6
 ---
 
-
-## 数据分片与复制
+# 数据分片与复制
 
 CnosDB 按照两个维度对数据进行分片存储：时间分片与Hash分片。
 
