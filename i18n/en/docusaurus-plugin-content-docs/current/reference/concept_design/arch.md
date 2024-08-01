@@ -1,45 +1,103 @@
 ---
-title: 整体架构
-order: 2
+sidebar_position: 2
 ---
 
-# 整体架构
+# Architecture
 
-ArchitectureThe CnosDB architecture mainly includes two types of processes: CnosDB and CnosDB meta, named cnosdb and cnosdb-meta respectively. CnosDB supports online horizontal expansion of nodes. Supports metadata and data backup to ensure cluster stability. Support for most SQL syntax, using the built-in cnosdb-cli client can quickly and easily connect to CnosDB for query and import.
+Developed in the [Rust](https://www.rust-lang.org/) language, CnosDB 2.0 provides users with an excellent time-series database that builds a complete DBaaS solution thanks to its excellent security, high performance, and strong community support.
 
-## 整体架构图
+**Main features below:**
+
+- Extensive: Theoretically supported time series has no limit, completely solves the problem of time series expansion, and supports cross-river expansion.
+
+- Calculate storage separation: Calculating nodes and storage nodes, can expand and shrink capacity independently and on a second scale.
+
+- Storage performance and cost: High performance storage stack, supporting hierarchical storage using cloud discs and object storage.
+
+- Query engine supports vectorized queries, providing a rich set of time series calculation functions.
+
+- Supports multiple time series protocols to write and query, providing external component import data.
+
+- Cloud side synergizes to provide the ability to fuse side ends with public clouds.
+
+- Native support for multi-tenancy, limiting tenant resource usage through quotas.
+
+- Support cloud native, support the full use of cloud infrastructure to integrate into cloud native ecology.
+
+## Introduction
+
+The CnosDB architecture consists of two types of processes comprising: cnosdb server (cnosdb) and cnosdb meta (cnosdb-meta).Support online horizontal expansion, allowing dynamic adding nodes and having metadata and data backups to ensure cluster stability.In addition, CnosDB supports most SQL syntax and users can easily access and import data via cnosdb-cli client connections.
 
 ![Arch](/img/arch.png)
 
-### CnosDB meta
+### CnosDB
 
-**CnosDB meta** ,the corresponding program named cnosdb-meta, the role is to maintain the consistency of the cluster. It stores metadata in the cluster, including information about the topology of the cluster, the distribution of replicas, and the distribution of data.它存储了集群中的元数据，其中包括集群的拓扑结构、副本的分布以及数据的分布等信息。
+**Vnode**: A Vnode is a logical computing unit distributed to a specific Node, and it is also the smallest unit for data replication.cnosdb is internally divided into two services: query and tskv services, which are at the core of cnosdb.
 
-**cnosdb-meta** ,there are two roles: the cnosdb-meta leader and the cnosdb-meta follower, in which one cnosdb-meta is elected to be the leader through raft consistency protocol. The leader election requires more than half of the follower nodes to survive. Therefore, in a distributed cluster service, it is recommended to deploy **2n+1** cnosdb-meta services to ensure the high availability of the cluster.leader 的选举需要半数以上的 follower 节点存活，所以通常在一个分布式集群服务中，建议部署 **2n+1** 个 cnosdb-meta 服务，这样可以保证集群的高可用性。
+**Query**: querying service, Stream Query Service, mainly responsible for sql parsing, query optimizations and physical plan execution.Users can flexibly configure whether the Query node starts in stream processing mode, and can flexibly configure the processing mode of the Query node according to their own business needs.
+
+**Tskv**: the storage service is mainly responsible for the storage of indexed and temporal data and data reading and filtering. tskv can be configured as a cold data node and a hot data node, and the data will be automatically migrated from the hot data node to the cold data node according to the cooling time to balance the storage performance and cost see [Tiered Storage](/docs/manage/tiered_ storage.md).
+
+### ConsDB Meta
+
+**cnosdb meta**, the corresponding program is named  cnosdb-meta, which is used to maintain the consistency of the cluster.It stores metadata in the cluster, including information on tenants, user role information, topology, replica distribution, and data distribution within the cluster.
+The cnosdb meta cluster is based on a Draft Cohesion Consensus agreement and is usually proposed to deploy **2n+1** cnosdb-meta service to ensure high cluster availability.
 
 CnosDB makes the following optimizations in the meta cluster:
 
-1. Cache and localize frequently accessed data.
-2. After the schema information is stored locally, subscribe to the schema version changes from the meta cluster to relieve the read pressure on the meta cluster.
-3. The meta cluster shares the leader pressure and provides a Follower/Read solution to optimize the read performance.
+- Cache and localize frequently accessed data.
 
-### CnosDB
+- After the schema information is stored locally, subscribe to the schema version changes from the meta cluster to relieve the read pressure on the meta cluster.
 
-The following figure shows the architecture of CnosDB.**CnosDB**, the corresponding program named cnosdb, is used to query and store data. cnosdb is internally divided into two services: query service and tskv storage service, which are the core of cnosdb.
+- The meta cluster shares the leader pressure and provides a Follower/Read solution to optimize the read performance.
 
-Architecture
+### Data management
 
-**Query** : Query service, mainly responsible for client connection, query planning, sql analysis and other work.
-**Tskv** : Storage service, mainly responsible for the storage of data and the execution of sql physical plans.
+- CnosDB Cli is a self-carried command line tool used to connect CnosDB for SQL queries and line protocol file imports.
 
-## Data management
+- CnosDB supports multiple writing protocols such as: SQL line protocol, opentsdb, Prometheus, eslog. Different interfaces will also be used for different protocols such as trace in the future. Each protocol can be enabled or disabled according to configuration to meet user needs.
 
-In Cnosdb, the data management adopts the **DB+Time_range** shard rule. The number of shards is set by specifying the number of buckets when [creating the database](../../reference/sql.md#create-database), and the time data is cut into Vnodes according to the set interval using the timeline property. Finally, each Vnode is dropped into a bucket for storage, as shown below.
+- Grafana is an open-source data visualization tool that supports multiple data sources, and CnosDB provides [Grafana Plugins](https://grafana.com/grafana/plugins/cnosdb-database) and users can use Grafana plugin for data visualization and warning via CnosDB connections.
 
-![Bucket](/img/buket.jpg)
+- CnosDB supports JDBC connections. Users can search data via JDBC connection to CnosDB.
 
-**Bucket** : A bucket is a logical unit, specified when the library is created. Each bucket contains the following main properties: < db, shardid, time_range, create_time, end_time, List< Vnode > >.
+- CnosDB provides a complete set of Restful API interfaces, users can query and write data through Restful API.
 
-**Vnode** : A Vnode is a logical computing unit distributed to a specific Node, and it is also the smallest unit for data replication.
+- CnosDB provides a python SDK that allows users to integrate with machine learning systems through the python connector.
 
-**Replicaset** : The high availability of data is maintained by the Data replicaset. Each db has multiple replication groups, which represent the number of replicas of data. A group of Vnodes in a bucket form a replicaset. All Vnodes in a replicaset have the same data and inverted index information. 同一个 bucket 内的一组 Vnode 组成一个 replicaset， 一个 replicaset 内的 Vnode 具有相同的数据和倒排索引信息。
+- CnosDB supports writing multiple agents such as telegraf, vector, filebeat, etc., users can write data into CnosDB through configuring agents.
+
+- CnosDB Admin is an enterprise version tool that provides visual monitoring and management of clusters, offering cluster monitoring, alerts, log viewing, cluster configuration, cluster scaling, and other functions, making it easier for enterprise users to manage and operate multiple clusters.
+
+The ecosystem tools of CnosDB are still being further enhanced. See [CnosDB Ecosystem Tools](/docs/reference/tools.md)
+
+![Ecology](/img/app_arch.png)
+
+### Deployment Mode
+
+CnosDB supports multiple deployment modes: standalone, distributed, storage-compute separation, storage-compute integration. These flexible deployment modes can meet the deployment needs of users in various complex scenarios.
+
+```
+cnosdb run -M singleton
+cnosdb run -M query
+cnosdb run -M tskv
+cnosdb run -M query_tskv
+```
+
+### Data separation
+
+- #### query layer
+
+  In DataFusion, the isolation relationship of catalog is divided into `catalog/schema/table`.We use this isolation, which we use to split the segregation relationship between `tenant/<namespace>/database/table`.
+
+  - **table** Corresponds to a table in a specific database that provides a schema definition and implements [TableProvider](https://datafusion.apache.org/library-user-guide/custom-table-provider.html).
+
+  - **database** manages multiple tables corresponding to one of the specific databases.
+
+  - **namespace** corresponds to this catalog.Each tenant holds a catalog only, different databases are seen by different tenants, and different tenants can use the same database name.When a user login, a session will get TenantID, so you see your default namespace, resulting in soft isolation.
+
+- #### tskv layer
+
+  Catalog split policy referred to in the above presentation for `/tenant/db/vnode_id`, data partition rules see [Data sharding and replication](./replica)
+
+  Each Node node has an instance called tskv, which keeps all Vnode information on the current Node.Each Vnode data is saved in a separate directory.Manage the life cycle of data based on TTL parameters in the database.In addition, such a strategy would facilitate statistical data cataloguing in order to account for renters.
