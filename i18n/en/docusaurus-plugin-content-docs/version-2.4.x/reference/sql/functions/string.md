@@ -697,7 +697,7 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 
 ## trim
 
-函数从指定字符串的开头、结尾或者两端删除由指定字符组成的字符串。
+The function removes the string consisting of the specified string from the beginning, end or both ends of the specified string.
 
 ```sql
 trim( [ BOTH | LEADING | TRAILING ] [trim_chars FROM ] str )
@@ -706,15 +706,15 @@ trim( [ BOTH | LEADING | TRAILING ] [trim_chars FROM ] str )
 | Parameters   | Description                                                                                                                                      |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `str`        | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
-| `trim_chars` | 指定要去除的字符。                                                                                                                                        |
-| `BOTH`       | 可选，表示去除字符串两端的指定字符。                                                                                                                               |
-| `LEADING`    | 可选，表示只去除字符串左侧的指定字符。                                                                                                                              |
-| `TRAILING`   | 可选，表示只去除字符串右侧的指定字符。                                                                                                                              |
+| `trim_chars` | Specify the characters to remove.                                                                                                |
+| `BOTH`       | Optional, means removing specified characters from both ends of the string.                                                      |
+| `LEADING`    | Optional, means removing only the specified characters on the left side of the string.                                           |
+| `TRAILING`   | Optional, means removing only the specified characters on the right side of the string.                                          |
 
 <details>
   <summary>View <code>trim</code> Example</summary>
 
-**去除两端的字符。**
+**Remove characters from both sides.**
 
 ```sql {1}
 SELECT trim(BOTH 'x' FROM 'xxxHello CnosDBxxx');
@@ -725,7 +725,7 @@ SELECT trim(BOTH 'x' FROM 'xxxHello CnosDBxxx');
 +---------------------------------------------+
 ```
 
-**去除左侧的字符。**
+**Remove characters from the left.**
 
 ```sql {1}
 SELECT trim(LEADING 'x' FROM 'xxxHello CnosDBxxx');
@@ -736,7 +736,7 @@ SELECT trim(LEADING 'x' FROM 'xxxHello CnosDBxxx');
 +---------------------------------------------+
 ```
 
-**去除右侧的字符。**
+**Remove characters from the right.**
 
 ```sql {1}
 SELECT trim(TRAILING 'x' FROM 'xxxHello CnosDBxxx');
@@ -747,7 +747,7 @@ SELECT trim(TRAILING 'x' FROM 'xxxHello CnosDBxxx');
 +---------------------------------------------+
 ```
 
-**直接去除空格。**
+**Remove spaces directly.**
 
 ```sql {1}
 SELECT trim('   Hello CnosDB   ');
