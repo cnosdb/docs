@@ -697,26 +697,65 @@ SELECT translate('aaabbb', 'bbb', 'ccc');
 
 ## trim
 
-Remove leading and trailing spaces from a string.
+The function removes the string consisting of the specified string from the beginning, end or both ends of the specified string.
 
 ```sql
-trim(str)
+trim( [ BOTH | LEADING | TRAILING ] [trim_chars FROM ] str )
 ```
 
-| Parameters | Description                                                                                                                                      |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `str`      | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `str`        | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
+| `trim_chars` | Specify the characters to remove.                                                                                                |
+| `BOTH`       | Optional, means removing specified characters from both ends of the string.                                                      |
+| `LEADING`    | Optional, means removing only the specified characters on the left side of the string.                                           |
+| `TRAILING`   | Optional, means removing only the specified characters on the right side of the string.                                          |
 
 <details>
   <summary>View <code>trim</code> Example</summary>
 
+**Remove characters from both sides.**
+
 ```sql {1}
-SELECT trim('    abc    ');
-+---------------------------+
-| trim(Utf8("    abc    ")) |
-+---------------------------+
-| abc                       |
-+---------------------------+
+SELECT trim(BOTH 'x' FROM 'xxxHello CnosDBxxx');
++---------------------------------------------+
+| btrim(Utf8("xxxHello CnosDBxxx"),Utf8("x")) |
++---------------------------------------------+
+| Hello CnosDB                                |
++---------------------------------------------+
+```
+
+**Remove characters from the left.**
+
+```sql {1}
+SELECT trim(LEADING 'x' FROM 'xxxHello CnosDBxxx');
++---------------------------------------------+
+| ltrim(Utf8("xxxHello CnosDBxxx"),Utf8("x")) |
++---------------------------------------------+
+| Hello CnosDBxxx                             |
++---------------------------------------------+
+```
+
+**Remove characters from the right.**
+
+```sql {1}
+SELECT trim(TRAILING 'x' FROM 'xxxHello CnosDBxxx');
++---------------------------------------------+
+| rtrim(Utf8("xxxHello CnosDBxxx"),Utf8("x")) |
++---------------------------------------------+
+| xxxHello CnosDB                             |
++---------------------------------------------+
+```
+
+**Remove spaces directly.**
+
+```sql {1}
+SELECT trim('   Hello CnosDB   ');
++----------------------------------+
+| trim(Utf8("   Hello CnosDB   ")) |
++----------------------------------+
+| Hello CnosDB                     |
++----------------------------------+
 ```
 
 </details>
