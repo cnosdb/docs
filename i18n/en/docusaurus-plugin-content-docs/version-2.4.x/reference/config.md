@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Configuration
+# Configuration.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
