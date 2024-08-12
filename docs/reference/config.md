@@ -62,6 +62,7 @@ CNOSDB_REPORTING_DISABLED=false
 | `host`      | `localhost`                     | `CNOSDB_HOST`  | 用来和其他节点通信。         |
 | `cluster_name` | `cluster_xxx`                    |  `CNOSDB_CLUSTER_NAME`| 集群名字                                       |
 | `store_metrics`                   | `true`                | `CNOSDB_STORE_METRICS` | 是否统计此节点的使用情况并存储到`usage_schema`数据库。                                         |
+| `pre_create_bucket`     | `false`                    | `CNOSDB_PRE_CREATE_BUCKET` | 预创建 `bucket` |
 
 ```mdx-code-block
 </APITable>
@@ -146,6 +147,7 @@ CNOSDB_REPORTING_DISABLED=false
 | `reserve_space`                 | `0`                       | `CNOSDB_STORAGE_RESERVE_SPACE` | 系统的保留空间大小。                   |
 | `copyinto_trigger_flush_size` | `128M` | `CNOSDB_STORAGE_COPYINTO_TRIGGER_FLUSH_SIZE` | `COPY INTO`导出时触发落盘的内存大小 。支持版本：>2.3.4.3 |
 | `max_datablock_size` | `100KB` | `CNOSDB_STORAGE_MAX_DATABLOCK_SIZE` | compaction时datablock的最大大小。 |
+| `index_cache_capacity` | `100000` | `CNOSDB_STORAGE_INDEX_CACHE_CAPACITY` | index缓存容量 |
 
 
 
