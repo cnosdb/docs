@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 11
 ---
 
 # 修复函数
@@ -10,7 +10,7 @@ sidebar_position: 10
 ## timestamp_repair
 
  负责修复时间戳序列
- 
+
 :::tip
 
 函数timestamp_repair首先通过Mode、Cluster、Median以及自定义数值方式确定时间戳间隔interval，然后使用Linear、Mode方法确定修复后时间戳的开始值start。通过动态规划算法对修复代价进行优化，过程中有插入、删除、不变三种操作，最终得到最优的修复序列。
@@ -63,7 +63,7 @@ SELECT timestamp_repair(time, value, 'method=mode&start_mode=linear') FROM wzz;
 ## value_fill
 
  负责填充值列缺失的数据
- 
+
 :::tip
 
 函数value_fill根据输入的参数Method来决定值填充的方法，方法有Mean、Previous、Linear、AR、MA五种。
@@ -118,7 +118,7 @@ SELECT value_fill(time, value, 'method=mean') FROM wzz;
 ## value_repair
 
  负责修复值列的数据
- 
+
 :::tip
 
 函数value_repair使用Screen算法和LsGreedy算法，对时间戳和值之间的不一致性或缺失进行修复。首先，Screen算法据时间戳间隔的中位数确定修复窗口的宽度，在保持修复后数据在一定范围内的情况下进行修复。LsGreedy算法则通过计算速度的变化，并使用贪心策略进行修复。此外，实现了一些辅助函数用于计算中位数、中位数绝对偏差以及值的变化。
