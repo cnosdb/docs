@@ -2,25 +2,25 @@
 sidebar_position: 4
 ---
 
-# 哈希函数
+# Hash Functions
 
-哈希函数是实现数据一致性和快速检索的重要工具。哈希函数通过将输入数据映射为固定长度的哈希值，帮助数据库高效地管理和查询数据。
+Hash function is an important tool for achieving data consistency and quick retrieval.Hash functions help the database to manage and query data efficiently by mapping the input data into a fixed length hash.
 
 ## digest
 
-使用指定算法计算表达式的二进制哈希值。
+Computes the binary hash of an expression using the specified algorithm.
 
 ```sql
 digest(expression, algorithm)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要进行操作的字符串表达式。Can be a constant, column, or function, and any combination of string operators. |
-| `algorithm`  | 字符串表达式，指定要使用的算法：`md5`,  `sha224` , `sha256`,  `sha384`,  `sha512` , `blake2s` , `blake2b`,  `blake3`          |
+| Parameters   | Description                                                                                                                                          |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expression` | String expression to operate on.Can be a constant, column, or function, and any combination of string operators.     |
+| `algorithm`  | String expression specifying algorithm to be used: `md5`,  `sha224`, `sha256`,  `sha384`,  `sha512`, `blake2s`, `blake2b`,  `blake3` |
 
 <details>
-  <summary>查看 <code>digest</code> 示例</summary>
+  <summary>View <code>digest</code> Example</summary>
 
 ```sql {1}
 SELECT digest('Hello CnosDB', 'md5');
@@ -31,7 +31,7 @@ SELECT digest('Hello CnosDB', 'md5');
 +------------------------------------------+
 ```
 
-这等价于：
+This is equal to:
 
 ```sql {1}
 SELECT md5('Hello CnosDB');
@@ -46,18 +46,18 @@ SELECT md5('Hello CnosDB');
 
 ## md5
 
-计算字符串表达式的 MD5 128 位校验和。
+Computes an MD5 128-bit checksum for a string expression.
 
 ```sql
 md5(expression)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要进行操作的字符串表达式。Can be a constant, column, or function, and any combination of string operators. |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>md5</code> 示例</summary>
+  <summary>View <code>md5</code> Example</summary>
 
 ```sql {1}
 SELECT md5('Hello CnosDB');
@@ -72,18 +72,18 @@ SELECT md5('Hello CnosDB');
 
 ## sha224
 
-计算二进制字符串的 SHA-224 哈希值。
+Computes the SHA-224 hash of a binary string.
 
 ```sql
 sha224(expression)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要进行操作的字符串表达式。Can be a constant, column, or function, and any combination of string operators. |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>sha224</code> 示例</summary>
+  <summary>View <code>sha224</code> Example</summary>
 
 ```sql {1}
 SELECT sha224('Hello CnosDB');
@@ -98,18 +98,18 @@ SELECT sha224('Hello CnosDB');
 
 ## sha256
 
-计算二进制字符串的 SHA-256 哈希值。
+Computes the SHA-256 hash of a binary string.
 
 ```sql
 sha256(expression)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要进行操作的字符串表达式。Can be a constant, column, or function, and any combination of string operators. |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>sha256</code> 示例</summary>
+  <summary>View <code>sha256</code> Example</summary>
 
 ```sql {1}
 SELECT sha256('Hello CnosDB');
@@ -124,18 +124,18 @@ SELECT sha256('Hello CnosDB');
 
 ## sha384
 
-计算二进制字符串的 SHA-384 哈希值。
+Computes the SHA-384 hash of a binary string.
 
 ```sql
 sha384(expression)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要进行操作的字符串表达式。Can be a constant, column, or function, and any combination of string operators. |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>sha384</code> 示例</summary>
+  <summary>View <code>sha384</code> Example</summary>
 
 ```sql {1}
 SELECT sha384('Hello CnosDB');
@@ -150,18 +150,18 @@ SELECT sha384('Hello CnosDB');
 
 ## sha512
 
-计算二进制字符串的 SHA-512 哈希值。
+Computes the SHA-512 hash of a binary string.
 
 ```sql
 sha512(expression)
 ```
 
-| Parameters   | Description                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------------- |
-| `expression` | 要进行操作的字符串表达式。Can be a constant, column, or function, and any combination of string operators. |
+| Parameters   | Description                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `expression` | String expression to operate on.Can be a constant, column, or function, and any combination of string operators. |
 
 <details>
-  <summary>查看 <code>sha512</code> 示例</summary>
+  <summary>View <code>sha512</code> Example</summary>
 
 ```sql {1}
 SELECT sha512('Hello CnosDB');
