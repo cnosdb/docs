@@ -56,12 +56,13 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters      | Default       | Environment Variables  | Description                                                                                          |
-| --------------- | ------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
-| `node_id`       | `1001`        | `CNOSDB_NODE_ID`       | Node ID                                                                                              |
-| `host`          | `localhost`   | `CNOSDB_HOST`          | Used to communicate with other nodes.                                                |
-| `cluster_name`  | `cluster_xxx` | `CNOSDB_CLUSTER_NAME`  | Cluster Name                                                                                         |
-| `store_metrics` | `true`        | `CNOSDB_STORE_METRICS` | Whether to track the usage of this node and store it in the `usage_schema` database. |
+| Parameters          | Default       | Environment Variables      | Description                                                                                          |
+| ------------------- | ------------- | -------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`           | `1001`        | `CNOSDB_NODE_ID`           | Node ID                                                                                              |
+| `host`              | `localhost`   | `CNOSDB_HOST`              | Used to communicate with other nodes.                                                |
+| `cluster_name`      | `cluster_xxx` | `CNOSDB_CLUSTER_NAME`      | Cluster Name                                                                                         |
+| `store_metrics`     | `true`        | `CNOSDB_STORE_METRICS`     | Whether to track the usage of this node and store it in the `usage_schema` database. |
+| `pre_create_bucket` | `false`       | `CNOSDB_PRE_CREATE_BUCKET` | Pre-create `bucket`                                                                                  |
 
 ```mdx-code-block
 </APITable>
@@ -142,6 +143,7 @@ This section introduces the configuration method and usage of each configuration
 | `reserve_space`                 | `0`                       | `CNOSDB_STORAGE_RESERVE_SPACE`                 | The size of the retained space of the system.                                                                                                       |
 | `copyinto_trigger_flush_size`   | `128M`                    | `CNOSDB_STORAGE_COPYINTO_TRIGGER_FLUSH_SIZE`   | `COPY INTO` Export triggers the memory size of the disk.Supported version: >2.3.4.3 |
 | `max_datablock_size`            | `100KB`                   | `CNOSDB_STORAGE_MAX_DATABLOCK_SIZE`            | Maximum size of data block at the time it is computed.                                                                                              |
+| `index_cache_capacity`          | `100000`                  | `CNOSDB_STORAGE_INDEX_CACHE_CAPACITY`          | Index cache capacity                                                                                                                                                |
 
 ```mdx-code-block
 </APITable>
