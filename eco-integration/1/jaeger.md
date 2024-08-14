@@ -90,4 +90,4 @@ trace.get_tracer_provider().shutdown()
 
 部署了一个demo，通过上述步骤向CnosDB写入otlp trace数据，通过Grafana展示（用户名/密码：user1/user1）
 
-[Grafana Jaeger plug-in](http://43.247.178.238:43000/d/QnKkERlSz/new-dashboard?orgId=1&from=now-5y&to=now)
+[Grafana Jaeger plug-in](http://43.247.178.238:43000/d/8ktbGwrSG/trace-ecolog-integration-example?orgId=1&from=now-5y&to=now)
