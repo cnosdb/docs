@@ -12,3 +12,5 @@ files:
       - version-2.3.2/
       - /versioned_docs/*/reference/concept_design/*
     translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs/**/%original_file_name%
+  - source: /eco-integration/**/*
+    translation: /i18n/%two_letters_code%/docusaurus-plugin-content-docs-eco-integration/current/**/%original_file_name%
