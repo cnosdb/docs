@@ -22,3 +22,5 @@ sidebar_position: 7
     - [candlestick_agg](../reference/sql/functions/two_step_aggregate#candlestick_agg)
     * [asap_smooth](../reference/sql/functions/aggregate#asap_smooth)
     * [stats_agg](../reference/sql/functions/two_step_aggregate#state_agg)
+
+- [点云功能](./point_cloud.md)
