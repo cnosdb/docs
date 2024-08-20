@@ -3,19 +3,19 @@ title: Jaeger
 slug: /jaeger
 ---
 
-## Trace介绍
+## Trace Introduction
 
-Trace，也被称为分布式链路追踪技术，是一种用于记录一个请求经过的所有系统的基本信息（如 IP、appkey、方法名）及系统间调用信息（如耗时、成功失败）的技术。在微服务架构盛行的当下，一次网络请求可能需要调用上百个微服务子系统。任何一个微服务子系统变慢，都会拖慢整个请求处理过程。有了 Trace 提供的这张有向图，我们就知道一个慢请求到底是在这张图的哪个节点上遭遇了失败或者慢响应。这对于我们分析性能问题个案有很大的帮助。
+Trace, also known as Distributed link Tracking, is a technology used to record basic information (such as IP, appkey, methodological name) for all systems that have been requested to pass and intersystem calls (such as time-consuming, successful failure).As the microservice architecture prevails, a single network request may require the deployment of hundreds of microservice subsystems.Any microservice subsystem slows down the entire request process.With Trace provided with a map that we know that a slow request is a failure or a slow response to which node.This has been very helpful in our case of analytical performance.
 
 ![trace\_span\_arch](/img/jaeger/trace_span_arch.png)
 
-## CnosDB适配
+## CnosDB Match
 
-CnosDB支持了opentelemetry-proto格式的写入和Jaeger的可视化查询，可以适配Grafana Jaeger插件
+CnosDB supports opentelemetry-proto writing and Jaeger visualization quiz, suitable for Grafana Jaeger plugin
 
-### opentelemetry-proto格式数据写入
+### opentelemetry-proto data writing
 
-opentelemetry提供了多种语言版本的export导出工具，可以使用这些工具很便捷的将trace数据写入到CnosDB中，以python版本的opentelemetry export工具举例：
+opentelemetry provides multiple language versions of export tools, you can use these tools to easily write trace data to CnosDB, to python version of the opentelemetry export tool as an example:
 
 ```python
 import base64
@@ -68,26 +68,26 @@ for trace_index in range(10):
 trace.get_tracer_provider().shutdown()
 ```
 
-导入成功后可以在CnosDB中查看到对应的数据表结构，表中的每一行都表示一个Span：
+After successful import you can view the corresponding table structure in CnosDB, each row of the table indicates a Span:
 
 ![trace\_table\_schema](/img/jaeger/trace_table_schema.png)
 
-### Grafana可视化查询
+### Grafana Visualization Query
 
-1. 添加Jaeger插件作为数据源，在配置Jaeger插件时，修改为CnosDB地址，填写用户名密码，填写要查询的tenant、db、table
+1. Add a Jaeger plugin as a data source. Change it to the CnosDB address when configuring the Jaeger plugin, fill in the username code, fill in the tenant, db and table to query
 
 ![jaeger\_data\_source](/img/jaeger/jaeger_data_source.png)
 
-2. 添加好数据源后，创建dashboard，指定cnosdb为数据源，指定好Service Name就可以查询出该service下的trace。保存dashboard
+2. After adding a data source, create the dashboard, specify the cnosdb as a data source and specify the service name to query traces under the service.Save dashboard
 
 ![trace\_dashboard](/img/jaeger/trace_dashboard.png)
 
-3. 点击traceid链接就可以跳转到trace的span关系图
+3. Tap the traceid link to jump to the span diagram
 
 ![span\_relation\_graph](/img/jaeger/span_relation_graph.png)
 
-### 示例展示
+### Example
 
-部署了一个demo，通过上述步骤向CnosDB写入otlp trace数据，通过Grafana展示（用户名/密码：user1/user1）
+Deployed a demo to write to CnosDB in the ootlp trace, displayed through Grafana (username/password: user1/user1)
 
 [Grafana Jaeger plug-in](http://43.247.178.238:43000/d/8ktbGwrSG/trace-ecolog-integration-example?orgId=1\&from=now-5y\&to=now)
