@@ -4,28 +4,28 @@ index: true
 slug: /kafka
 ---
 
-The number of applications and services is increasing on a daily basis as the structure of applications moves towards microservices or no server structures.Users can process time series data that are increasing in quantities by aggregating in real time or by output to measure or indicator.In the face of the resulting volume of data, users can capture and observe changes in the system in a number of ways, the most popular of which in cloud native environments is the use of events.
+随着越来越多的应用程序架构转向微服务或无服务器结构，应用程序和服务的数量每天都在增加。用户既可以通过实时聚合，也可以通过输出为测量或指标的计算，来处理数量不断增加的时间序列数据。面对产生的海量数据，用户可以通过多种方式来捕获和观察系统中数据的变化，在云原生环境中，最流行的一种是使用事件。
 
-Apache Kafka is a durable, high-performance message system and is also considered to be a distributed flow processing platform.It can be applied to many uses, including messenger transmission, data integration, log aggregation and indicators.In the case of indicators, it is not enough to have a backbone or proxy.While Apache Kafka is durable, it is not designed to run indicators and monitor queries.This is precisely the strength of CnosDB.
+Apache Kafka是一个耐用、高性能的消息系统，也被认为是分布式流处理平台。它可应用于许多用例，包括消息传递、数据集成、日志聚合和指标。而就指标而言，仅有消息主干或代理是不够的。虽然 Apache Kafka 很耐用，但它并不是为运行指标和监控查询而设计的。这恰恰正是 CnosDB 的长处。
 
-This page will focus on how to implement a real-time access to stream data and store for Kafka+Telegraf+CnosDB in Ubuntu 22.04.2 LTS environment.For this operation, CnosDB version is 2.3.0, Kafka version 2.5.1, Telegraf version 1.27.1.
+本篇我们将主要介绍如何在 Ubuntu 22.04.2 LTS 环境下，实现一个Kafka+Telegraf+CnosDB 同步实时获取流数据并存储的方案。在本次操作中，CnosDB 版本是2.3.0，Kafka 版本是2.5.1，Telegraf 版本是1.27.1。
 
-## Architecture
+## 架构方案
 
-By combining these Kafka, Telegraf and CnosDB, the complete process: of data can be achieved
+通过将这Kafka、Telegraf和CnosDB 三者结合起来，可以实现数据的完整流程：
 
-1. Data generated：uses sensors, devices or other data sources to generate data and send it to the Kafka theme.
-2. Kafka message queue: Kafka receives and stores data streams to ensure data security and reliability.
-3. Telegraf consumer: Telegraf as a consumer of Kafka, subsists on Kafka themes and gets data streams.
-4. CnosDB data storage: pre-processed data from Telegraf to CnosDB for time series data storage.
+1. 数据生成：使用传感器、设备或其他数据源产生数据，并将其发送到Kafka主题。
+2. Kafka 消息队列：Kafka 接收并存储数据流，确保数据安全和可靠性。
+3. Telegraf 消费者：Telegraf 作为 Kafka 的消费者，订阅 Kafka 主题并获取数据流。
+4. CnosDB 数据存储：经过预处理的数据由 Telegraf 发送到 CnosDB 中进行时序数据的存储。
 
-Overall application architecture like diagram:
+整体的应用程序架构如图所示：
 
 ![Kafka](/img/kafka_to_cnosdb.png)
 
 ## Kafka
 
-Apache Kafka is an open source distribution stream processing platform designed to handle real-time data flows, characterized by high reliability, high throughput and low delays, and is now used by most companies.它的使用方式非常多样化，包括：
+Apache Kafka 是一个开源分布式流处理平台，它被设计用于处理实时数据流，具有高可靠性、高吞吐量和低延迟的特点，目前已经被大多数公司使用。它的使用方式非常多样化，包括：
 
 - 流处理：它通过存储实时事件以进行聚合、丰富和处理来提供事件主干。
 - 指标： Apache Kafka 成为许多分布式组件或应用程序（例如微服务）的集中聚合点。这些应用程序可以发送实时指标以供其他平台使用，包括 CnosDB。
