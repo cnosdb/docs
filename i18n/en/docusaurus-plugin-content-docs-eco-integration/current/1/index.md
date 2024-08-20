@@ -2,7 +2,7 @@
 slug: /
 ---
 
-# 生态集成
+# Eco-Integration
 
 import DocCardList from '@theme/DocCardList';
 
