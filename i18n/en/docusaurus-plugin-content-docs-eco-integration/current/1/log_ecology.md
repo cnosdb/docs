@@ -5,40 +5,40 @@ slug: /log_ecology
 
 ## Vector
 
-> [Vector](https://github.com/vectordotdev/vector)是一个高性能的可观测数据管道，使组织能够控制其可观测数据。收集、转换并将所有log、metric路由到现在正在使用的任何供应商，或者未来可能想要使用的任何其他供应商。Vector可以在你最需要的地方（而不是供应商最方便的地方）大幅降低成本，使数据更加新颖丰富，并提供数据安全性。Vector是开源的，并且比任何替代方案快接近10倍。
+> [Vector](https://github.com/vectordotdev/vector) is a high-performance observability data pipeline that enables organizations to control their observability data.Collect, convert, and route all logs and metrics to any supplier currently in use, or any other supplier that may be desired in the future.Vector can significantly reduce costs where you need it most (rather than where the supplier finds it most convenient), make data more novel and rich, and provide data security.Vector is open source, and is almost 10 times faster than any alternative solution.
 > ![write](/img/vector_concept.png)
 
-#### 拓扑模型
+#### Topological model
 
 ![write](/img/vector_topology.png)
 
-Vector 主要有三大功能模块：Sources，Transforms，Sinks
+Vector has three main functional modules: Sources, Transforms, Sinks
 
-数据从 Source 进入到 Vector，经过一些 Transforms 逻辑进行数据加工，最后发往 Sink。Vector 通过 Source、 Transform 、Sink 三种不同类型的组件组成了一个完整的数据流水线。
+Data enters Vector from Source, undergoes some Transforms logic for data processing, and finally goes to Sink.A complete data pipeline is composed of three different types of components: Source, Transform, and Sink, in Vector.
 
-Source 就是一个可供采集的数据源，例如文件、Kafka、Syslog 等。而一个 Sink 则是接收、消费数据的终端，比如Clickhouse、Splank、Datadog Logs 这类的数据库，或者日志分析平台。
+Source is a data source that can be collected, such as files, Kafka, Syslog, etc.A Sink is a terminal that receives and consumes data, such as databases like Clickhouse, Splunk, Datadog Logs, or log analysis platforms.
 
-Transform 用于对数据流进行转换、修改和过滤，以满足特定的需求。它可以对输入数据进行多种转换和处理，例如重命名字段、过滤数据行、添加新字段、删除字段等。使用transform组件，可以将数据转换为所需的格式，并将其路由到正确的目标。支持多种转换方法，包括grok、JSON、CSV、regex、lua等。它还支持多种数据格式和协议，例如JSON、YAML、CSV、Syslog、HTTP、TCP等。
+Transform is used to transform, modify, and filter data streams to meet specific needs.It can perform various transformations and processing on input data, such as renaming fields, filtering data rows, adding new fields, deleting fields, etc.By using the transform component, data can be converted to the desired format and routed to the correct destination.Supports multiple conversion methods, including grok, JSON, CSV, regex, lua, etc.It also supports multiple data formats and protocols, such as JSON, YAML, CSV, Syslog, HTTP, TCP, etc.
 
-Sink 是经过处理和转换的数据流需要被发送到的目标存储或分析系统。Vector支持多种类型的sink，包括文件、标准输出、TCP/UDP、HTTP、Kafka、S3、Elasticsearch、Datadog、InfluxDB等
+Sink is the target storage or analysis system where the processed and transformed data stream needs to be sent.Vector supports multiple types of sinks, including file, standard output, TCP/UDP, HTTP, Kafka, S3, Elasticsearch, Datadog, InfluxDB, etc.
 
-简单归纳一下 Vector 具备的两种主要类型的功能：
+Simply summarize the two main types of functions that Vector possesses.
 
-● 数据采集与传输
+● Data collection and transmission
 
-它可以从数据采集端的 Source 获取数据，并最终传输到数据的消费端 Sink。
+It can obtain data from the source of data collection and ultimately transmit it to the data consumption end Sink.
 
-● 数据加工的能力
+● Ability of data processing
 
-可以通过内部的 Transform 的功能模块对收集到的数据进行解析、采样、聚合等不同类型的加工处理。
+You can use the internal Transform function module to parse, sample, aggregate, and process collected data in different ways.
 
-### Vector 用法介绍
+### Introduction to the use of Vector
 
-作为一个工具，vector的易用性很高。
+As a tool, the usability of vector is very high.
 
-它支持通过很多不同的方式安装，安装包下载、包管理器等等，安装完成以后，得到一个二进制的 Binary，它唯一的依赖就是一个配置文件。
+It supports installation in many different ways, such as downloading installation packages, package managers, etc. After installation, you get a binary Binary, with its only dependency being a configuration file.
 
-编辑配置文件 vector.toml
+Edit configuration file vector.toml
 
 ```toml
 [sources.generate_syslog]
@@ -85,23 +85,23 @@ inputs = ["json_transform"]
 address = "127.0.0.1:12006"
 ```
 
-配置文件中的配置大体上分三种类型：sources，transforms，sinks，概念与之前提到的相同。
+The configuration in the configuration file is roughly divided into three types: sources, transforms, sinks, the concept is the same as mentioned earlier.
 
-每个组件都有一个唯一的id，并以组件的类型作为前缀。
+Each component has a unique id, prefixed with the component's type.
 
-第一个组件为sources，id为generate_syslog，类型是demo_logs，以syslog为模板，100条数据。
+The first component is sources, with id generate_syslog, type is demo_logs, with syslog as the template, 100 pieces of data.
 
-第二个组件为transforms，id为remap_syslog，inputs告诉我们它接收的数据来源为generate_syslog，transform类型为remap，remap是vector在处理数据方面的一个强大的transform，提供了一种简单的语言，称为Vector Remap language，它允许你解析、操作和装饰经过Vector的事件数据。使用remap，可以将静态事件转换为信息数据，帮助询问和回答有关环境状态的问题。这里执行了一个parser_syslog函数，参数传入了message，将这个syslog解析成结构化事件。
+The second component is transforms, with the id of remap_syslog, inputs tell us it receives data from generate_syslog, the transform type is remap, remap is a powerful transform in handling data in Vector, providing a simple language called Vector Remap language, which allows you to parse, manipulate, and decorate event data passing through Vector.By using remap, static events can be converted into information data to assist in asking and answering questions about the environmental status.Here a parser_syslog function is executed, with the message as the parameter, parsing this syslog into a structured event.
 
-第三个组件为sinks，id为emit_syslog，接收的数据来自于remap_syslog，类型为终端，将数据以json形式输出。
+The third component is 'sinks', with the ID 'emit_syslog', which receives data from 'remap_syslog', with the type being terminal, and outputs the data in json format.
 
-运行这个命令
+Run this command
 
 ```bash
 vector --config vector.toml
 ```
 
-将会在终端看到一些json形式的events，类似这些：
+You will see some events in json format on the terminal, similar to these:
 
 ```bash
 {"appname":"benefritz","facility":"authpriv","hostname":"some.de","message":"We're gonna need a bigger boat","msgid":"ID191","procid":9473,"severity":"crit","timestamp":"2021-01-20T19:38:55.329Z"}
@@ -109,13 +109,13 @@ vector --config vector.toml
 {"appname":"shaneIxD","facility":"uucp","hostname":"random.com","message":"A bug was encountered but not in Vector, which doesn't have bugs","msgid":"ID428","procid":3093,"severity":"alert","timestamp":"2021-01-20T19:38:55.329Z"}
 ```
 
-### Vector 与 CnosDB 集成
+### Integration of Vector and CnosDB
 
-尽管目前Vector还没有支持CnosDB的Sink，但是由于CnosDB针对Vector做了数据导入的原生支持，用户可以通过类型为vector的Sink 直接把数据导入到CnosDB。
+Although Vector currently does not support Sink for CnosDB, due to the native support of data import from CnosDB for Vector, users can directly import data into CnosDB through a Sink type of vector.
 
-#### 写入Vector Log
+#### Write to Vector Log
 
-vector配置文件如下
+The vector configuration file is as follows
 
 ```toml
 data_dir = "/tmp/vector"
@@ -146,9 +146,9 @@ inputs = ["json_transform"]
 address = "127.0.0.1:8906"
 ```
 
-需要注意的是，需要将tenant，database等参数配置到source中，如果不设置，会使用默认配置。
+It is important to note that the parameters such as tenant, database, etc. need to be configured in the source. If not set, the default configuration will be used.
 
-执行命令
+Execute Command
 
 ```bash
 vector --config log_vector.toml
@@ -156,15 +156,15 @@ vector --config log_vector.toml
 
 ![write](/img/vector_log_output.png)
 
-也可以使用grafna查看CnosDB log数据
+You can also use Grafana to view CnosDB log data
 
 ![write](/img/vector_grafana_log_output.png)
 
-#### 写入Vector Metric
+#### Write to Vector Metric
 
-示例收集Vector本身产生的metric
+Example collection of metrics generated by Vector itself
 
-vector配置文件如下
+The vector configuration file is as follows
 
 ```toml
 [sources.example_metrics]
@@ -187,9 +187,9 @@ inputs = ["my_transform_id"]
 address = "127.0.0.1:8906"
 ```
 
-需要注意的是，与日志类型配置文件不同，需要将参数如tenant，database等配置到.tags中。
+It is important to note that, unlike the log type configuration file, parameters such as tenant, database, etc. need to be configured in .tags.
 
-执行命令
+Execute Command
 
 ```bash
 vector --config metric_vector.toml
@@ -197,29 +197,29 @@ vector --config metric_vector.toml
 
 ![write](/img/vector_metric.png)
 
-使用client连接CnosDB查询
+Use client to connect CnosDB for querying
 
 ![write](/img/vector_metric_output.png)
 
 ## Grafana Loki
 
-### Promtail介绍
+### Introduction to Promtail
 
-Promtail是一个用于收集日志并将其发送到Loki的日志收集代理。它是Grafana Loki项目的一部分，Grafana Loki是一个水平可扩展、高度可用的多租户日志聚合系统，专门用于存储和查询日志数据。Promtail主要负责从各种来源收集日志，将其处理并发送到Grafana Loki。
+Promtail is a log collection agent used to collect logs and send them to Loki.It is part of the Grafana Loki project. Grafana Loki is a horizontally scalable, highly available, multi-tenant log aggregation system designed specifically for storing and querying log data.Promtail is mainly responsible for collecting logs from various sources, processing them, and sending them to Grafana Loki.
 
 ```json
 '{"streams": [{ "stream": { "instance": "host123", "job": "app42" }, "values": [ [ "0", "foo fizzbuzz bar" ] ] }]}'
 ```
 
-### CnosDB存储
+### CnosDB Type Storage
 
-CnosDB支持Promtail的写入接口是：`ip:port/api/v1/es/_bulk?table=t1&log_type=loki`，后两个参数不可省略。
+The write interface of Promtail supported by CnosDB is: `ip:port/api/v1/es/_bulk?table=t1&log_type=loki`, the last two parameters cannot be omitted.
 
-#### 启动流程
+#### Start Process
 
-1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+1. Start CnosDB: `./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
 
-2. 启动Promtail：`promtail --config.file=promtail-local-config.yaml`
+2. Start Promtail: `promtail --config.file=promtail-local-config.yaml`
 
 ```yaml
 clients:
@@ -231,21 +231,21 @@ clients:
 
 ## Elasticsearch
 
-### CnosDB存储
+### CnosDB Type Storage
 
-写入接口是：`ip:port/api/v1/es/_bulk?table=t1`，后一个参数不可省略，对于es格式数据，CnosDB目前支持index和create两种。
+The write interface is: `ip:port/api/v1/es/_bulk?table=t1`, the latter parameter cannot be omitted. For data in es format, CnosDB currently supports two types: index and create.
 
-### Logstash介绍
+### Introduction to Logstash
 
-Logstash是一个开源的数据收集引擎，能够动态地从各种来源收集数据，将其转换为期望的格式，并将其发送到指定的存储位置。它是Elastic Stack的一部分，与Elasticsearch和Kibana一起使用，用于集中化、分析和可视化数据。Logstash提供可自定义的存储端，在原来的数据流当中，Logstash会收集对应数据源的数据源，通过配置文件的filter以及处理流程之后，会输出到对应的存储端，通常会输出到Elasticsearch，通过正确的配置，可以输出到CnosDB当中，由CnosDB进行处理。
+Logstash is an open-source data collection engine that can dynamically collect data from various sources, transform it into the desired format, and send it to the specified storage location.It is part of the Elastic Stack, used in conjunction with Elasticsearch and Kibana for centralizing, analyzing, and visualizing data.Logstash provides a customizable storage end. In the original data stream, Logstash will collect data from the corresponding data source, process it through the filter and processing flow in the configuration file, and output it to the corresponding storage end. Typically, it will output to Elasticsearch. With the correct configuration, it can also output to CnosDB for further processing.
 
 ![logstash](/img/log_ecology/logstash.png)
 
-#### 启动流程
+#### Start Process
 
-1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+1. Start CnosDB: `./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
 
-2. 启动Promtail：`./bin/logstash -f logstash.conf`
+2. Start Promtail: `./bin/logstash -f logstash.conf`
 
 ```conf
 output {
@@ -261,15 +261,15 @@ output {
 }
 ```
 
-### Filebeat介绍
+### Filebeat Introduction
 
-Filebeat是一个轻量级的日志收集处理工具（Agent），它是Elasticsearch堆栈的一部分，基于Golang语言编写。Filebeat旨在安装在各个节点上，根据配置读取对应位置的日志，并将其上报到指定的地方，如Elasticsearch或Logstash。Filebeat的设计注重资源占用少，适合在服务器上搜集日志，并且具有很高的可靠性，保证日志至少上报一次，同时考虑了日志搜集中可能出现的问题，例如日志断点续读、文件名更改、日志截断等。
+Filebeat is a lightweight log collection processing tool (Agent), which is part of the Elasticsearch stack, written in the Golang language.Filebeat is designed to be installed on various nodes, read logs from the corresponding locations according to the configuration, and report them to designated places, such as Elasticsearch or Logstash.Filebeat is designed to consume fewer resources, suitable for collecting logs on servers, and has high reliability, ensuring that logs are reported at least once. At the same time, it considers possible issues in log collection, such as log offset continuation, file name changes, log truncation, etc.
 
-#### 启动流程
+#### Start Process
 
-1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+1. Start CnosDB: `./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
 
-2. 启动Promtail：`./filebeat -c filebeat.yml`
+2. Start Promtail: `./filebeat -c filebeat.yml`
 
 ```conf
   output.elasticsearch:
@@ -288,17 +288,17 @@ Filebeat是一个轻量级的日志收集处理工具（Agent），它是Elastic
   {"date":"2024-03-28T02:51:11.688Z", "node_id":"2001", "operator_system":"linux", "msg":"test"}'
 ```
 
-### fluent-bit介绍
+### Introduction to fluent-bit
 
-fluent-bit是一个轻量级的日志处理工具，专为资源受限的环境（如嵌入式系统、容器、边缘计算设备等）设计。它是Fluentd项目的子项目，提供了一套灵活的插件系统，用于收集、处理和传输日志数据。
+Fluent-bit is a lightweight log processing tool designed for resource-constrained environments such as embedded systems, containers, edge computing devices, etc.It is a sub-project of the Fluentd project, providing a flexible plugin system for collecting, processing, and transmitting log data.
 
 ![fluent-bit](/img/log_ecology/fluent-bit.png)
 
-#### 启动流程
+#### Start Process
 
-1. 启动CnosDB：`./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
+1. Start CnosDB: `./target/debug/cnosdb run --config config/config_8902.toml -M singleton`
 
-2. 启动Promtail：`fluent-bit -c fluent-bit.conf`
+2. Start Promtail: `fluent-bit -c fluent-bit.conf`
 
 ```conf
   [OUTPUT]
