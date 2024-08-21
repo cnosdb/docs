@@ -4,9 +4,9 @@ index: true
 slug: /kafka
 ---
 
-随着越来越多的应用程序架构转向微服务或无服务器结构，应用程序和服务的数量每天都在增加。用户既可以通过实时聚合，也可以通过输出为测量或指标的计算，来处理数量不断增加的时间序列数据。面对产生的海量数据，用户可以通过多种方式来捕获和观察系统中数据的变化，在云原生环境中，最流行的一种是使用事件。
+As more and more application architectures shift towards microservices or serverless structures, the number of applications and services is increasing every day.Users can process the ever-increasing time series data either through real-time aggregation or through calculations that output measurements or indicators.In the face of massive data generated, users can capture and observe the changes in the data in the system in various ways. In a cloud-native environment, one of the most popular ways is to use events.
 
-Apache Kafka是一个耐用、高性能的消息系统，也被认为是分布式流处理平台。它可应用于许多用例，包括消息传递、数据集成、日志聚合和指标。而就指标而言，仅有消息主干或代理是不够的。虽然 Apache Kafka 很耐用，但它并不是为运行指标和监控查询而设计的。这恰恰正是 CnosDB 的长处。
+Apache Kafka is a durable, high-performance messaging system, also considered a distributed streaming platform.It can be applied to many use cases, including message delivery, data integration, log aggregation, and metrics.而就指标而言，仅有消息主干或代理是不够的。虽然 Apache Kafka 很耐用，但它并不是为运行指标和监控查询而设计的。这恰恰正是 CnosDB 的长处。
 
 本篇我们将主要介绍如何在 Ubuntu 22.04.2 LTS 环境下，实现一个Kafka+Telegraf+CnosDB 同步实时获取流数据并存储的方案。在本次操作中，CnosDB 版本是2.3.0，Kafka 版本是2.5.1，Telegraf 版本是1.27.1。
 
