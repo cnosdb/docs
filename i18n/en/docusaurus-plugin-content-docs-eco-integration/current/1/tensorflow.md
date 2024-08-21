@@ -3,42 +3,42 @@ title: TensorFlow
 slug: /tensorflow
 ---
 
-> 使用 CnosDB 与 TensorFlow 进行时间序列预测
+> Introduction
 
-### 使用 CnosDB 与 TensorFlow 进行时间序列预测
+### Use CnosDB and TensorFlow for time series prediction
 
-### 从三体运动到太阳黑子变化预测
+### From three-body motion to Sunspot Change prediction
 
-### 前言
+### Introduction
 
-太阳黑子是太阳光球层上发生的太阳活动现象，通常成群出现。 预测太阳黑子变化是空间气象研究中最活跃的领域之一。
+Sunspots are solar activities that occur on the solar photosphere layer, usually appearing in groups. Predicting sunspot changes is one of the most active areas of space weather research.
 
-太阳黑子观测持续时间很长。 长时间的数据积累有利于挖掘太阳黑子变化的规律。 长期观测显示,太阳黑子数及面积变化呈现出明显的周期 性，且周期呈现不规则性,大致范围在 9 ~ 13 a , 平均周期约为 11 a,太阳黑子数及面积变化的峰值不恒定。
+The duration of sunspot observation is very long. Accumulation of data over a long period of time is advantageous for exploring the regular patterns of sunspot changes. The long-term observation shows that the sunspot number and area change show obvious periodicity, and the period is irregular, roughly ranging from 9 to 13 years, the average period is about 11 years, and the peak value of the sunspot number and area change is not constant.
 
-最新数据显示,近些年来太阳黑子数和面积有明显的下降趋势。
+The latest data show that the number and area of sunspots have declined significantly in recent years.
 
 ![](/img/Hathaway_Cycle_24_Prediction.png)
 
-鉴于太阳黑子活动强烈程度对地球有着深刻的影响，因此探测太阳黑子活动就显得尤为重要。基于物理学模型(如动力模型)和统计学模型(如自回归滑动平均)已被广泛应用于探测太阳黑子活动。
-为了更高效地捕捉太阳黑子时间序列中存在的非线性关系,机器学习方法被引入。
+Given the profound impact of solar sunspot activity on Earth, detecting solar sunspot activity is particularly important.Based on physical models (such as dynamic models) and statistical models (such as autoregressive moving average), they have been widely used to detect sunspot activity.
+In order to capture the nonlinear relationships present in the time series of sunspot sequences more efficiently, machine learning methods have been introduced.
 
-值得一提的是,机器学习中的神经网络更擅长挖掘数据中的非线性关系。
+It is worth mentioning that neural networks in machine learning are better at mining nonlinear relationships in data.
 
-**因此，本文将介绍如何使用时序数据库`CnosDB`存储太阳黑子变化数据，并进一步使用TensorFlow实现`1DConv+LSTM` 网络来预测太阳黑子数量变化。**
+\*\* Therefore, this article will introduce how to use the time series database 'CnosDB' to store the sunspot change data and further use TensorFlow to implement the '1DConv+LSTM' network to predict the sunspot number change. \*\*\*\*
 
-#### 太阳黑子变化观测数据集简介
+#### Introduction to the Sunspot Change Observation dataset
 
-本文使用的太阳黑子数据集是由SILSO 网站发布2.0版本 (WDC-SILSO, Royal Observatory of Belgium, Brussels,http://sidc.be/silso/datafiles)
+The sunspot dataset used in this paper was released by the SILSO website version 2.0. (WDC-SILSO, Royal Observatory of Belgium, Brussels,http://sidc.be/silso/datafiles)
 
 ![](/img/sunspot_dataset.png)
 
-我们主要分析和探索：1749至2023年，月均太阳黑子数(monthly mean sunspot number，MSSN)变化情况。
+We mainly analyze and explore the changes of the monthly mean sunspot number (MSSN) from 1749 to 2023.
 
-### CnosDB 数据导入
+### Import Data to CnosDB
 
-将 MSSN 数据 csv 格式文件`SN_m_tot_V2.0.csv`（https://www.sidc.be/SILSO/INFO/snmtotcsv.php） 下载到本地。
+Download MSSN data `SN_m_tot_V2.0.csv`（https://www.sidc.be/SILSO/INFO/snmtotcsv.php）.
 
-以下是官方提供的CSV文件描述：
+Here is the official description of the CSV file:
 
 ```
 Filename: SN_m_tot_V2.0.csv
@@ -56,7 +56,7 @@ Column 6: Number of observations used to compute the monthly mean total sunspot 
 Column 7: Definitive/provisional marker. '1' indicates that the value is definitive. '0' indicates that the value is still provisional.
 ```
 
-我们使用 `pandas` 进行文件加载和预览。
+We use `pandas` for file loading and previewing.
 
 ```python
 import pandas as pd
@@ -89,16 +89,16 @@ plt.show()
 
 ![](/img/plt_show.png)
 
-### 使用时序数据库 CnosDB 存储 MSSN 数据
+### Use TSDB CnosDB to store MSSN data
 
 CnosDB（An Open Source Distributed Time Series Database with high performance, high compression ratio and high usability.）
 
 - Official Website: http://www.cnosdb.com
 - Github Repo: https://github.com/cnosdb/cnosdb
 
-（注：本文假设你已具备 CnosDB 安装部署和基本使用能力，相关文档详见 https://docs.cnosdb.com
+Notice: We suppose the you have the ability to deploy and use CnosDB. You can get more information through https://docs.cnosdb.com/）
 
-在命令行中使用 Docker 启动 CnosDB 数据库服务，并进入容器使用 [CnosDB CLI](/docs/reference/tools) 工具直接访问 CnosDB：
+Use Docker to start CnosDB service in command line, enter the container and use the [CnosDB CLI](/docs/reference/tools) to use CnosDB:
 
 ```SHELL
 (base) root@ecs-django-dev:~# docker run --restart=always --name cnosdb -d --env cpu=2 --env memory=4 -p 8902:8902 cnosdb/cnosdb:v2.0.2.1-beta
@@ -109,9 +109,10 @@ CnosDB CLI v2.3.0
 Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
 ```
 
-为了简化分析，我们只需存储数据集中观测时间和太阳黑子数。因此，我们将年（Col 0）和月（Col 1）拼接作为观测时间（date, 字符串类型），月均太阳黑子数（Col 3）可以不作处理直接存储。
+Since the intensity of sunspot activity has a profound impact on Earth, it is particularly important to detect sunspot activity. Physics-based models, such as dynamical models, and statistical models, such as autoregressive moving averages, have been widely used to detect sunspot activity.
+In order to capture the nonlinear relationship in sunspot time series more efficiently, machine learning methods are introduced.To simplify the analysis, we only need to store the observation time and the number of sunspots in the dataset. Therefore, we concatenate the year (Col 0) and month (Col 1) as the observation time (date, string type), and the monthly mean sunspot number (Col 3) can be stored directly without processing.
 
-我们可以在 CnosDB CLI 中使用 SQL 创建一张名为 `sunspot` 数据表，以用于存储 MSSN 数据集。
+We can create a 'sunspot' table in CnosDB CLI using SQL to store the MSSN dataset.
 
 ```SQL
 public ❯ CREATE TABLE sunspot (
@@ -136,12 +137,12 @@ public ❯ SELECT * FROM sunspot;
 Query took 0.002 seconds.
 ```
 
-#### 使用 CnosDB Python Connector 连接和读写 CnosDB 数据库
+#### Use CnosDB Python Connector to Connect and Use CnosDB Database
 
 Github Repo: https://github.com/cnosdb/cnosdb-client-python
 
 ```python
-# 安装 Python Connector
+# install Python Connector
 pip install -U cnos-connector
 ```
 
@@ -152,10 +153,11 @@ conn = connect(url="http://127.0.0.1:8902/", user="root", password="")
 cursor = conn.cursor()
 ```
 
-如果不习惯使用 [CnosDB CLI](/docs/reference/tools) ，我们也可以直接使用 Python Connector 创建数据表。
+If you are not familiar with [CnosDB CLI](/docs/reference/tools), We can use Python Connector to create a data table.
 
 ```python
-# 创建 tf_demo database
+
+# create tf_demo database
 conn.create_database("tf_demo")
 # 使用 tf_demo database
 conn.switch_database("tf_demo")
@@ -165,29 +167,29 @@ cursor.execute("CREATE TABLE sunspot (date STRING, mssn DOUBLE,);")
 print(conn.list_table())
 ```
 
-输出如下，其中包括 CnosDB 默认的 Database。
+Outputs are as follows, the default database of CnosDB included.
 
 ```python
 [{'Database': 'tf_demo'}, {'Database': 'usage_schema'}, {'Database': 'public'}]
 [{'Table': 'sunspot'}]
 ```
 
-将之前 pandas 的 dataframe 写入 CnosDB.
+Write the dataframe of pandas to CnosDB.
 
 ```python
-### df 为pandas的dataframe，"sunspot"为CnosDB中的表名，['date', 'mssn']为需要写入的列的名字
-### 如果写入的列不包含时间列，将会根据当前时间自动生成
+### df is the dataframe of pandas, "sunspot" is the table name of CnosDB, ['date', 'mssn'] are the name of columns to be written.
+### If you write a column that does not contain a time column, it will be automatically generated based on the current time
 conn.write_dataframe(df, "sunspot", ['date', 'mssn'])
 ```
 
-### CnoDB 读取数据，并使用 TensorFlow 复现 1DConv+LSTM 网络，预测太阳黑子变化
+### CnoDB reads the data and uses TensorFlow to reproduce the 1DConv+LSTM network to predict sunspot changes
 
-参考论文：程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
+References: 程术, 石耀霖, and 张怀. "基于神经网络预测太阳黑子变化." (2022).
 
 
 ![](/img/MSSN.png)
 
-#### 使用 CnosDB 读取数据
+#### Use CnosDB to Read Data
 
 ```python
 df = pd.read_sql("select * from sunspot;", conn)
@@ -197,7 +199,7 @@ print(df.head())
 
 ![](/img/cnosdb_dataframe.png)
 
-#### 将数据集划分为训练集和测试集
+#### Divide the data into training set and test set
 
 ```python
 import numpy as np
@@ -218,7 +220,7 @@ test_data = data[split_index:]
 test_time = time_index[split_index:]
 ```
 
-#### 使用滑动窗口法构造训练数据
+#### Use the Sliding Window Method to Construct the Training Data
 
 ![](/img/sliding_window_method.png)
 
@@ -252,7 +254,7 @@ tensor_train_dataset = ts_data_generator(tensor_train_data, WINDOW_SIZE, BATCH_S
 tensor_test_dataset = ts_data_generator(tensor_test_data, WINDOW_SIZE, BATCH_SIZE, SHUFFLE_BUFFER)
 ```
 
-#### 定义 1DConv+LSTM 神经网络模型
+#### Use the tf.keras module to Define the 1DConv+LSTM Neural Network Model
 
 ```python
 model = tf.keras.models.Sequential([
@@ -291,7 +293,7 @@ plt.show()
 
 ![](/img/model_resault.png)
 
-#### 使用训练好的模型预测 MSSN
+#### Predict the MSSN using the trained model
 
 ```python
 def model_forecast(model, data, window_size):
@@ -314,7 +316,7 @@ print(error)
 24.676455
 ```
 
-#### 与真实值对比的可视化结果
+#### Visualization of the results compared to the ground truth
 
 ```python
 plt.plot(test_data)
