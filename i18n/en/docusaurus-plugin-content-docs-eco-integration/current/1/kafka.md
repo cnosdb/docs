@@ -6,42 +6,42 @@ slug: /kafka
 
 As more and more application architectures shift towards microservices or serverless structures, the number of applications and services is increasing every day.Users can process the ever-increasing time series data either through real-time aggregation or through calculations that output measurements or indicators.In the face of massive data generated, users can capture and observe the changes in the data in the system in various ways. In a cloud-native environment, one of the most popular ways is to use events.
 
-Apache Kafka is a durable, high-performance messaging system, also considered a distributed streaming platform.It can be applied to many use cases, including message delivery, data integration, log aggregation, and metrics.而就指标而言，仅有消息主干或代理是不够的。虽然 Apache Kafka 很耐用，但它并不是为运行指标和监控查询而设计的。这恰恰正是 CnosDB 的长处。
+Apache Kafka is a durable, high-performance messaging system, also considered a distributed streaming platform.It can be applied to many use cases, including message delivery, data integration, log aggregation, and metrics.As for the indicators, simply having a message backbone or agent is not enough.Although Apache Kafka is very durable, it is not designed for running metrics and monitoring queries.This is exactly the strength of CnosDB.
 
-本篇我们将主要介绍如何在 Ubuntu 22.04.2 LTS 环境下，实现一个Kafka+Telegraf+CnosDB 同步实时获取流数据并存储的方案。在本次操作中，CnosDB 版本是2.3.0，Kafka 版本是2.5.1，Telegraf 版本是1.27.1。
+In this article, we will mainly introduce how to implement a solution for real-time acquisition and storage of streaming data using Kafka+Telegraf+CnosDB in the Ubuntu 22.04.2 LTS environment.In this operation, the CnosDB version is 2.3.0, Kafka version is 2.5.1, and Telegraf version is 1.27.1.
 
-## 架构方案
+## Architectural design
 
-通过将这Kafka、Telegraf和CnosDB 三者结合起来，可以实现数据的完整流程：
+By combining Kafka, Telegraf, and CnosDB, the complete data process can be achieved:
 
-1. 数据生成：使用传感器、设备或其他数据源产生数据，并将其发送到Kafka主题。
-2. Kafka 消息队列：Kafka 接收并存储数据流，确保数据安全和可靠性。
-3. Telegraf 消费者：Telegraf 作为 Kafka 的消费者，订阅 Kafka 主题并获取数据流。
-4. CnosDB 数据存储：经过预处理的数据由 Telegraf 发送到 CnosDB 中进行时序数据的存储。
+1. Data Generation: Using sensors, devices, or other data sources to generate data and send it to the Kafka topic.
+2. Kafka message queue: Kafka receives and stores data streams, ensuring data security and reliability.
+3. Telegraf Consumers: Telegraf acts as a consumer of Kafka, subscribes to Kafka topics, and retrieves data streams.
+4. CnosDB data storage: Preprocessed data is sent by Telegraf to CnosDB for time series data storage.
 
-整体的应用程序架构如图所示：
+The overall application architecture is as shown in the diagram:
 
 ![Kafka](/img/kafka_to_cnosdb.png)
 
 ## Kafka
 
-Apache Kafka 是一个开源分布式流处理平台，它被设计用于处理实时数据流，具有高可靠性、高吞吐量和低延迟的特点，目前已经被大多数公司使用。它的使用方式非常多样化，包括：
+Apache Kafka is an open-source distributed streaming platform designed for processing real-time data streams, characterized by high reliability, high throughput, and low latency, and is currently used by most companies.Its usage is very versatile, including:
 
-- 流处理：它通过存储实时事件以进行聚合、丰富和处理来提供事件主干。
-- 指标： Apache Kafka 成为许多分布式组件或应用程序（例如微服务）的集中聚合点。这些应用程序可以发送实时指标以供其他平台使用，包括 CnosDB。
-- 数据集成：可以捕获数据和事件更改并将其发送到 Apache Kafka，任何需要对这些更改采取行动的应用程序都可以使用它们。
-- 日志聚合： Apache Kafka 可以充当日志流平台的消息主干，将日志块转换为数据流。
+- Stream processing: It provides the event backbone by storing real-time events for aggregation, enrichment, and processing.
+- Indicator: Apache Kafka has become a central aggregation point for many distributed components or applications (such as microservices).These applications can send real-time metrics for use by other platforms, including CnosDB.
+- Data integration: Data and event changes can be captured and sent to Apache Kafka, and any application that needs to take action on these changes can use them.
+- Log aggregation: Apache Kafka can act as the backbone of a log stream platform, transforming log blocks into data streams.
 
 ### 几个核心概念
 
-1. 实例（Broker）：Kafka的Broker是Kafka集群中的服务器节点，负责存储和转发消息，提供高可用性、容错性和可靠性。
-2. 主题（Topic）：Apache Kafka 中的 topic ，是逻辑存储单元，就像关系数据库的表一样。主题通过分区通过代理进行分发，提供可扩展性和弹性。
-3. 生产者（Producer）：生产者将消息发布到Kafka的指定主题。生产者可以选择将消息发送到特定的分区，也可以让Kafka自动决定分配策略。
-4. 消费者（Consumer）：消费者从指定主题的一个或多个分区中读取消息。消费者可以以不同的方式进行组织，如单播、多播、消费者组等。
-5. 发布-订阅模式：是指生产者将消息发布到一个或多个主题，而消费者可以订阅一个或多个主题，从中接收并处理消息。
+1. Instance (Broker): The Broker of Kafka is a server node in the Kafka cluster, responsible for storing and forwarding messages, providing high availability, fault tolerance, and reliability.
+2. Topic: In Apache Kafka, a topic is a logical storage unit, similar to a table in a relational database.Topics are distributed through partitions via brokers, providing scalability and resilience.
+3. Producer: Producers publish messages to the specified topic in Kafka.Producers can choose to send messages to a specific partition or let Kafka automatically determine the assignment strategy.
+4. Consumer: A consumer reads messages from one or more partitions of a specified topic.Consumers can be organized in different ways, such as unicast, multicast, consumer groups, etc.
+5. Publish-Subscribe Pattern: Refers to producers publishing messages to one or more topics, while consumers can subscribe to one or more topics to receive and process messages from them.
 
-简单来说就是，当客户端将数据发送到 Apache Kafka 集群实例时，它必须将其发送到某个主题。
-此外，当客户端从 Apache Kafka 集群读取数据时，它必须从主题中读取。向 Apache Kafka 发送数据的客户端成为生产者，而从 Kafka 集群读取数据的客户端则成为消费者。数据流向示意图如下：
+Simply put, when a client sends data to Apache Kafka cluster instances, it must send it to a topic.
+In addition, when the client reads data from the Apache Kafka cluster, it must read from the topics.The client that sends data to Apache Kafka is called a producer, while the client that reads data from the Kafka cluster is called a consumer.The data flow diagram is as follows:
 
 ![topic](/img/kafka_topic.png)
 
