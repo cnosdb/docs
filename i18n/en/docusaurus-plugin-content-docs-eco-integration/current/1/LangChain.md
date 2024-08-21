@@ -4,54 +4,54 @@ slug: /langchain
 
 # LangChain
 
-本篇我们将主要介绍如何使用 LangChain 连接 CnosDB 数据库，实现使用自然语言和数据库的交流。
+In this article, we will mainly introduce how to use LangChain to connect to the CnosDB database, enabling communication between natural language and the database.
 
-### 简介
+### Introduction
 
-LangChain 是一个用于开发由语言模型驱动的应用程序的框架。它可以实现以下功能：
+LangChain is a framework for developing applications driven by language models.It can achieve the following functions:
 
-- 数据感知：将语言模型与其他数据源连接起来。
-- 主体性：允许语言模型与其环境进行交互。
+- Data Sensing: Connecting the language model with other data sources.
+- Subjectivity: allowing the language model to interact with its environment.
 
-LangChain 的主要价值在于：
+The main value of LangChain is:
 
-1. 组件化：为使用语言模型提供抽象化的工具，同时还提供了每个抽象化工具的一系列实现。这些组件是模块化且易于使用的，无论你是否使用LangChain框架的其他部分。
-2. 现成的链式结构：用于完成特定高级任务的一系列组件的结构化组合。
-   现成的链式结构使得入门变得容易。对于更复杂的应用程序和细致的使用情况，组件使得自定义现有链式结构或构建新的链式结构变得容易。
+1. Componentization: provides tools for abstracting the use of language models, while also providing a series of implementations for each abstract tool.These components are modular and easy to use, whether you are using other parts of the LangChain framework.
+2. Ready-made chain structure: A structured combination of components used to complete specific advanced tasks.
+   The ready-made chain structure makes it easy to get started.For more complex applications and nuanced use cases, components make it easy to customize existing chain structures or build new chain structures.
 
-### 实现架构
+### Realize Architecture
 
-![实现架构图](/img/Langchain.png)
+![Implementation Architecture Diagram](/img/Langchain.png)
 
-通过架构图可以看出：通过利用 LangChain 的组件与现成的链，使得用户不需要提前去学习如何使用 SQL 脚本与数据库交互，节省了大量的时间与精力。利用 LangChain 、SQLDatabase、SQL Agent 以及 OpenAI 大型语言模型的强大功能，我们已经可以做到创建应用程序，实现让用户使用自然语言与 CnosDB 交流。
+From the architecture diagram, we can see that by using the components of LangChain with existing chains, users do not need to learn how to interact with SQL scripts and databases in advance, saving a lot of time and effort.With the powerful features of LangChain, SQLDatabase, SQL Agent, and OpenAI's large language models, we can now create applications that allow users to communicate with CnosDB using natural language.
 
-### 安装部署 LangChain
+### Install and deploy LangChain
 
-执行下面命令：
+Execute the following command:
 
 ```shell
 pip install langchain
 ```
 
-### 安装 CnosDB 依赖
+### Install CnosDB Dependency
 
 ```shell
 pip install cnos-connector
-# cnosdb_connector版本需要大于0.1.8
+# The cnosdb_connector version needs to be greater than 0.1.8
 ```
 
-### 连接CnosDB
+### Connect CnosDB
 
-1. 使用 cnosdb_connector 以及 SQLDatabase 连接 CnosDB，需要创建 SQLDatabase 所需的 uri：
+1. When using cnosdb_connector and SQLDatabase to connect to CnosDB, you need to create the uri required by SQLDatabase:
 
 ```python
-# 使用 make_cnosdb_langchain_uri 来创建uri
+# Use make_cnosdb_langchain_uri to create a uri
 uri = cnosdb_connector.make_cnosdb_langchain_uri()
-# 通过 SQLDatabase.from_uri 来创建 DB
+# Create a DB using SQLDatabase.from_uri
 db = SQLDatabase.from_uri(uri)
 ```
 
-2. 或者使用 SQLDatabase 的 from_cnosdb 方法:
+2. Alternatively, use the from_cnosdb method of SQLDatabase:
 
 ```python
 def SQLDatabase.from_cnosdb(url: str = "127.0.0.1:8902",
@@ -61,33 +61,33 @@ def SQLDatabase.from_cnosdb(url: str = "127.0.0.1:8902",
                               database: str = "public")
 ```
 
-| Parameter name | Description                                                                                                                                                              |
-| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| url            | CnosDB服务的HTTP连接主机名和端口号，不包括 "http://" 或 "https://"，默认值为 "127.0.0.1:8902"。 |
-| user           | 用于连接到CnosDB服务的用户名，默认值为 "root"。                                                                                                                                           |
-| password       | 连接到CnosDB服务的用户密码，默认值为空字符串 ""。                                                                                                                                            |
-| tenant         | 用于连接到CnosDB服务的租户名称，默认值为 "cnosdb"。                                                                                                                                        |
-| database       | CnosDB租户中数据库的名称。                                                                                                                                                         |
+| Parameter name | Description                                                                                                                                                                                                                                                      |
+| :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| url            | Hostname and port number for the http connection of CnosDB service, excluding "http://" or "https://", with a default value of "127.0.0.1:8902". |
+| user           | The username used to connect to the CnosDB service, with a default value of "root".                                                                                                                                                              |
+| password       | The user password used to connect to the CnosDB service, with a default value of an empty string "".                                                                                                                                             |
+| tenant         | The tenant name used to connect to the CnosDB service, with a default value of "cnosdb".                                                                                                                                                         |
+| database       | Name of the database in the CnosDB tenant.                                                                                                                                                                                                       |
 
 ### Usage Examples
 
 ```python
-# 使用 SQLDatabase 连接 CnosDB
+# Connect to CnosDB using SQLDatabase
 from cnosdb_connector import make_cnosdb_langchain_uri
 from langchain import SQLDatabase
 
 uri = cnosdb_connector.make_cnosdb_langchain_uri()
 db = SQLDatabase.from_uri(uri)
 
-# 创建 OpenAI Chat LLM
+# Create OpenAI Chat LLM
 from langchain.chat_models import ChatOpenAI
 
 llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 ```
 
-### SQL Database Chain 示例
+### SQL Database Chain Example
 
-下面例子演示了如何利用 SQL Chain 通过数据库来回答一个问题：
+The following example demonstrates how to use SQL Chain to answer a question through a database:
 
 ```python
 from langchain import SQLDatabaseChain
@@ -108,7 +108,7 @@ Answer:The average temperature of air at station XiaoMaiDao between October 19, 
 > Finished chain.
 ```
 
-### SQL Database Agent 示例
+### SQL Database Agent Example
 
 ```python
 from langchain.agents import create_sql_agent
