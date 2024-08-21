@@ -32,7 +32,7 @@ Apache Kafka is an open-source distributed streaming platform designed for proce
 - Data integration: Data and event changes can be captured and sent to Apache Kafka, and any application that needs to take action on these changes can use them.
 - Log aggregation: Apache Kafka can act as the backbone of a log stream platform, transforming log blocks into data streams.
 
-### 几个核心概念
+### Several core concepts
 
 1. Instance (Broker): The Broker of Kafka is a server node in the Kafka cluster, responsible for storing and forwarding messages, providing high availability, fault tolerance, and reliability.
 2. Topic: In Apache Kafka, a topic is a logical storage unit, similar to a table in a relational database.Topics are distributed through partitions via brokers, providing scalability and resilience.
@@ -45,35 +45,35 @@ In addition, when the client reads data from the Apache Kafka cluster, it must r
 
 ![topic](/img/kafka_topic.png)
 
-## 部署 Kafka
+## Deploy Kafka
 
-### 下载并安装
+### Download and install
 
-1. 安装 JDK 和 Zookeeper 环境
+1. Install JDK and Zookeeper environment
 
 ```shell
 sudo apt install openjdk-8-jdk
 sudo apt install zookeeper
 ```
 
-2. 下载并解压 Kafka 程序包
+2. Download and extract the Kafka package
 
 ```shell
 wget https://archive.apache.org/dist/kafka/2.5.1/kafka_2.12-2.5.1.tgz
 tar -zxvf kafka_2.12-2.5.1.tgz
 ```
 
-3. 进入解压后的 Kafka 目录
+3. Enter the decompressed Kafka directory
 
 ```
 cd  kafka_2.12-2.5.1
 ```
 
-4. 修改 `$KAFKA_HOME/config/server.properties` 的配置文件（可按需修改端口、日志路径等配置信息）
+4. Modify the configuration file `$KAFKA_HOME/config/server.properties` (modify configuration information such as ports, log paths, etc., as needed)
 
-5. 保存并关闭编辑器。运行下面的命令来启动Kafka：
+5. Save and close the editor.Run the following command to start Kafka:
 
-> Kafka 将在后台运行，并通过默认的 9092 端口监听连接。
+> Kafka will run in the background and listen for connections through the default 9092 port.
 
 ```shell
 bin/kafka-server-start.sh config/server.properties
@@ -81,23 +81,23 @@ bin/kafka-server-start.sh config/server.properties
 
 ## Telegraf
 
-Telegraf 是一个开源的服务器代理程序，用于收集、处理和传输系统和应用程序的指标数据。Telegraf 支持多种输入插件和输出插件，并且能够与各种不同类型的系统和服务进行集成。它可以从系统统计、日志文件、API 接口、消息队列等多个来源采集指标数据，并将其发送到各种目标，如 CnosDB 、Elasticsearch、Kafka、Prometheus 等。这使得 Telegraf 非常灵活，可适应不同的监控和数据处理场景。
+Telegraf is an open-source server agent program used to collect, process, and transmit metric data from systems and applications.Telegraf supports multiple input plugins and output plugins, and can integrate with various types of systems and services.It can collect metric data from various sources such as system statistics, log files, API interfaces, message queues, etc., and send it to various targets such as CnosDB, Elasticsearch, Kafka, Prometheus, etc.This makes Telegraf very flexible and adaptable to different monitoring and data processing scenarios.
 
-- 轻量级：Telegraf被设计为一个轻量级的代理程序，对系统资源的占用相对较小，可以高效运行在各种环境中。
-- 插件驱动：Telegraf使用插件来支持各种输入和输出功能。它提供了丰富的插件生态系统，涵盖了众多的系统和服务。用户可以根据自己的需求选择合适的插件来进行指标数据的采集和传输。
-- 数据处理和转换：Telegraf具有灵活的数据处理和转换功能，可以通过插件链（Plugin Chain）来对采集到的指标数据进行过滤、处理、转换和聚合，从而提供更加精确和高级的数据分析。
+- Lightweight: Telegraf is designed as a lightweight agent, with relatively low consumption of system resources, and can run efficiently in various environments.
+- Plugin-driven: Telegraf uses plugins to support various input and output functionalities.It provides a rich plugin ecosystem that covers many systems and services.Users can select the appropriate plugin according to their needs to collect and transmit indicator data.
+- Data processing and transformation: Telegraf has flexible data processing and transformation capabilities, which can filter, process, transform, and aggregate collected metric data through plugin chains to provide more accurate and advanced data analysis.
 
-### 部署 Telegraf
+### Deploy Telegraf
 
-1. 安装 Telegraf
+1. Install Telegraf
 
 ```
 sudo apt-get update && sudo apt-get install telegraf
 ```
 
-2. 切换到 Telegraf 的默认配置文件所处目录 /etc/telegraf 下
+2. Switch to the default configuration file directory of Telegraf, which is located at /etc/telegraf
 
-3. 在配置文件 telegraf.config 中添加目标 OUTPUT PLUGIN
+3. Add the target OUTPUT PLUGIN to the configuration file telegraf.config
 
 ```toml
 [[outputs.http]]
@@ -112,17 +112,17 @@ sudo apt-get update && sudo apt-get install telegraf
   idle_conn_timeout = 10
 ```
 
-按需修改的参数：
+Parameters that need to be modified as needed:
 
-> 注意：其余参数可与上述配置示例中保持一致
+> Note: The remaining parameters can be consistent with the configuration example above.
 
 ```
-url：CnosDB 地址和端口
-username：连接 CnosDB 的用户名
-password：连接 CnosDB 的用户名对应的密码
+url: CnosDB address and port
+username: Username for connecting to CnosDB
+password: Password corresponding to the username for connecting to CnosDB
 ```
 
-4. 在配置文件中将下面的配置注释放开，可按需修改
+4. Uncomment the following configuration in the configuration file and modify it as needed
 
 ```
 [[inputs.kafka_consumer]]
@@ -131,17 +131,17 @@ topics = ["oceanic"]
 data_format = "json"
 ```
 
-参数：
+Arguments:
 
-> 注意：其余参数可与上述配置示例中保持一致
+> Note: The remaining parameters can be consistent with the configuration example above.
 
 ```shell
-brokers：Kafka 的 broker list 
-topics：指定写入 Kafka 目标的 topic
-data_format：写入数据的格式
+brokers: Kafka's broker list
+topics: Specifies the topic to write to in Kafka
+data_format: The format of the data to be written
 ```
 
-5. 启动 Telegraf
+5. Start Telegraf
 
 ```toml
 telegraf -config /etc/telegraf/telegraf.conf
@@ -149,24 +149,24 @@ telegraf -config /etc/telegraf/telegraf.conf
 
 ## CnosDB
 
-### 部署 CnosDB
+### Deploy CnosDB
 
-详细操作请参考：![CnosDB 安装](https://docs.cnosdb.com/zh/latest/start/install)
+For detailed operation, please refer to: ![CnosDB Installation](https://docs.cnosdb.com/en/latest/start/install)
 
-## 整合
+## Integration
 
-### Kafka 创建 Topic
+### Create Kafka Topic
 
-1. 进入 kafka 的 bin 文件夹下
-2. 执行命令，创建 topic
+1. Enter the bin folder of kafka
+2. Execute command to create topic
 
 ```shell
 ./kafka-topics.sh --create --topic oceanic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
-### Python 模拟写入数据到Kakfa
+### Python simulates writing data to Kafka
 
-1. 编写代码
+1. Write Code
 
 ```python
 import time
@@ -207,15 +207,15 @@ if __name__ == "__main__":
     main()
 ```
 
-2. 运行 Python 脚本
+2. Run Python script
 
 ```shell
 python3 test.py
 ```
 
-### 查看 Kafka topic 中的数据
+### View data in Kafka topic
 
-1. 执行下面查看指定 topic 数据的命令
+1. Execute the following command to view the specified topic data
 
 ```shell
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic oceanic --from-beginning
@@ -223,21 +223,21 @@ python3 test.py
 
 ![message](/img/userlmn_188a723d58873beddee3c15e9cdb48f1.png)
 
-### 查看同步到 CnosDB 中的数据
+### View data synchronized to CnosDB
 
-1. 使用工具连接到CnosDB
+1. Connect to CnosDB using tools
 
 ```shell
 cnosdb-cli
 ```
 
-2. 切换到指定库
+2. Switch to the specified database
 
 ```shell
 \c public
 ```
 
-3. 查看数据
+3. View Data
 
 ```shell
 select * from kafka_consumer;
