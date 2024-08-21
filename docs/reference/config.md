@@ -322,18 +322,22 @@ CNOSDB_REPORTING_DISABLED=false
 <APITable>
 ```
 
-| 参数             | 默认                   | 环境变量                  | 描述                                   |
-| ---------------- | ---------------------- | ------------------------- | -------------------------------------- |
-| id               | `1`                    | `CNOSDB_META_ID`               | `meta`节点的`id`，要求集群内唯一       |
-| host             | `127.0.0.1`            | `CNOSDB_META_HOST`             | 用于和其他节点通信的 `host`            |
-| port             | `8901`                 | `CNOSDB_META_PORT`             | 用于和其他节点通信的 `port`            |
-| data_path        | `/var/lib/cnosdb/meta` | `CNOSDB_META_DATA_PATH`        | `meta`数据的存储路径                   |
-| grpc_enable_gzip | `false`                | `CNOSDB_META_GRPC_ENABLE_GZIP` | `meta`服务的接口数据传输，是否启用压缩 |
-| `raft_logs_to_keep`       | `10000`           | `CNOSDB_META_RAFT_LOGS_TO_KEEP`       | Raft触发快照的日志数量。                               |
-| `lmdb_max_map_size`       | `1024000000B`           | `CNOSDB_META_LMDB_MAX_MAP_SIZE`       | 用于配置存储Raft状态数据大小。                               |
-| `heartbeat_interval` | `3000ms`           | `CNOSDB_META_HEARTBEAT_INTERVAL` | Raft复制算法心跳间隔。                         |
-| `send_append_entries_timeout`        | `5000ms`           | `CNOSDB_META_SEND_APPEND_ENTRIES_TIMEOUT`        | Raft节点间发送日志超时时间。                                |
-| `install_snapshot_timeout`     | `3600000ms`           | `CNOSDB_META_INSTALL_SNAPSHOT_TIMEOUT`     | Raft节点之间复制快照超时时间。 |
+| 参数                         | 默认                 | 环境变量                                  | 描述                                           |
+| --------------------------- | -------------------- | --------------------------------------- | ---------------------------------------------- |
+| id                          | 1                    | CNOSDB_META_ID                          | meta节点的id，要求集群内唯一                       |
+| host                        | 127.0.0.1            | CNOSDB_META_HOST                        | 用于和其他节点通信的host                           |
+| port                        | 8901                 | CNOSDB_META_PORT                        | 用于和其他节点通信的port                           |
+| data_path                   | /var/lib/cnosdb/meta | CNOSDB_META_DATA_PATH                   | meta数据的存储路径                                |
+| cluster_name                | cluster_xxx          | CNOSDB_META_META_INIT_CLUSTER_NAME      | 集群名字                                         |
+| grpc_enable_gzip            | false                | CNOSDB_META_GRPC_ENABLE_GZIP            | meta服务的接口数据传输，是否启用压缩                 |
+| lmdb_max_map_size           | false                | CNOSDB_META_LMDB_MAX_MAP_SIZE           | lmdb存储引擎使用空间最大值，存储meta数据和raft相关状态 |
+| heartbeat_interval          | 3000ms               | CNOSDB_META_HEARTBEAT_INTERVAL          | Raft复制算法心跳间隔。                             |
+| raft_logs_to_keep           | 10000                | CNOSDB_META_RAFT_LOGS_TO_KEEP           | Raft触发快照的日志数量。                           |
+| install_snapshot_timeout    | 3600000ms            | CNOSDB_META_INSTALL_SNAPSHOT_TIMEOUT    | Raft节点之间复制快照超时时间。                      |
+| send_append_entries_timeout | 5000ms               | CNOSDB_META_SEND_APPEND_ENTRIES_TIMEOUT | Raft节点间发送日志超时时间。                        |
+| usage_schema_cache_size     | 2097152              | CNOSDB_META_USAGE_SCHEMA_CACHE_SIZE     | usage_schema的最大内存缓存。                       |
+| cluster_schema_cache_size   | 2097152              | CNOSDB_META_CLUSTER_SCHAME_CACHE_SIZE   | cluster_schema的最大内存缓存。                     |
+| system_database_replica     | 1                    | CNOSDB_META_SYSTEM_DATABASE_REPLICA     | 系统数据库的replica。                              |
 
 ```mdx-code-block
 </APITable>
@@ -349,25 +353,6 @@ CNOSDB_REPORTING_DISABLED=false
 | ------- | ----------------- | -------------- | -------------------------------------- |
 | `level` | `info`            | `CNOSDB_META_LOG_LEVEL` | 日志等级（debug、info、error、warn）。 |
 | `path`  | `/var/log/cnosdb` | `CNOSDB_META_LOG_PATH`  | 日志存储目录。                         |
-| `max_file_count`  | 无限制 | `CNOSDB_META_LOG_MAX_FILE_COUNT`  | 最多保留日志文件数。                         |
-| `file_rotation`  | `daily` | `CNOSDB_META_LOG_FILE_ROTATION`  | 日志文件切分时间间隔（daily、hourly、minutely、never）。                         |
-
-```mdx-code-block
-</APITable>
-```
-
-### `[meta_init]`
-
-```mdx-code-block
-<APITable>
-```
-
-| 参数    | 默认 | 环境变量 | 描述                                |
-|-------|-------------------------------------|-------------------------------------|-------------------------------------|
-| `cluster_name` | `cluster_xxx` | `CNOSDB_META_META_INIT_CLUSTER_NAME` | 集群名字 |
-| `admin_user` | `root` | `CNOSDB_META_META_INIT_ADMIN_USER` | 系统管理员用户名               |
-| `system_tenant` | `cnosdb` | `CNOSDB_META_META_INIT_SYSTEM_TENANT` | 系统默认租户名字               |
-| `default_database` | `["public","usage_schema"]` | `CNOSDB_META_META_INIT_DEFAULT_DATABASE` | 默认创建的数据库              |
 
 ```mdx-code-block
 </APITable>
