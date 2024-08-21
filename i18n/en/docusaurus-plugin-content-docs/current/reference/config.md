@@ -310,18 +310,22 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters                                                 | Default                | Environment Variables                     | Description                                                                                  |
-| ---------------------------------------------------------- | ---------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------- |
-| id                                                         | `1`                    | `CNOSDB_META_ID`                          | `meta` node's `id`, requires unique cluster                                                  |
-| host                                                       | `127.0.0.1`            | `CNOSDB_META_HOST`                        | `host` for communication with other nodes                                                    |
-| port                                                       | `8901`                 | `CNOSDB_META_PORT`                        | `port` for communicating with other nodes                                                    |
-| data_path                             | `/var/lib/cnosdb/meta` | `CNOSDB_META_DATA_PATH`                   | Path to the `meta` data store                                                                |
-| grpc_enable_gzip | `false`                | `CNOSDB_META_GRPC_ENABLE_GZIP`            | Whether to enable GRPC GZIP  compression for data transmission of the meta service interface |
-| `raft_logs_to_keep`                                        | `10000`                | `CNOSDB_META_RAFT_LOGS_TO_KEEP`           | Number of logs to trigger snapshot in Raft.                                  |
-| `lmdb_max_map_size`                                        | `1024000000B`          | `CNOSDB_META_LMDB_MAX_MAP_SIZE`           | Used to configure store Raft status data size.                               |
-| `heartbeat_interval`                                       | `3000ms`               | `CNOSDB_META_HEARTBEAT_INTERVAL`          | Raft Replica algorithm heartbeat intervals.                                  |
-| `send_append_entries_timeout`                              | `5000ms`               | `CNOSDB_META_SEND_APPEND_ENTRIES_TIMEOUT` | Send log timeout between Raft nodes.                                         |
-| `install_snapshot_timeout`                                 | `3600000ms`            | `CNOSDB_META_INSTALL_SNAPSHOT_TIMEOUT`    | Time to replica snapshot between Raft nodes.                                 |
+| Parameters                                                                                 | Default                                                   | Environment Variables                                                                                                                            | Description                                                                       |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| id                                                                                         | 1                                                         | CNOSDB_META_ID                                                                                         | meta节点的id，要求集群内唯一                                                                 |
+| host                                                                                       | 127.0.0.1 | CNOSDB_META_HOST                                                                                       | 用于和其他节点通信的host                                                                    |
+| port                                                                                       | 8901                                                      | CNOSDB_META_PORT                                                                                       | 用于和其他节点通信的port                                                                    |
+| data_path                                                             | /var/lib/cnosdb/meta                                      | CNOSDB_META_DATA_PATH                                                             | meta数据的存储路径                                                                       |
+| cluster_name                                                          | cluster_xxx                          | CNOSDB_META_META_INIT_CLUSTER_NAME      | Cluster Name                                                                      |
+| grpc_enable_gzip                                 | false                                                     | CNOSDB_META_GRPC_ENABLE_GZIP                                 | Whether to enable compression for data transmission of the meta service interface |
+| lmdb_max_map_size           | false                                                     | CNOSDB_META_LMDB_MAX_MAP_SIZE           | lmdb存储引擎使用空间最大值，存储meta数据和raft相关状态                                                 |
+| heartbeat_interval                                                    | 3000ms                                                    | CNOSDB_META_HEARTBEAT_INTERVAL                                                    | Raft Replica algorithm heartbeat intervals.                       |
+| raft_logs_to_keep           | 10000                                                     | CNOSDB_META_RAFT_LOGS_TO_KEEP           | Number of logs to trigger snapshot in Raft.                       |
+| install_snapshot_timeout                         | 3600000ms                                                 | CNOSDB_META_INSTALL_SNAPSHOT_TIMEOUT                         | Time to replica snapshot between Raft nodes.                      |
+| send_append_entries_timeout | 5000ms                                                    | CNOSDB_META_SEND_APPEND_ENTRIES_TIMEOUT | Send log timeout between Raft nodes.                              |
+| usage_schema_cache_size     | 2097152                                                   | CNOSDB_META_USAGE_SCHEMA_CACHE_SIZE     | usage_schema的最大内存缓存。                                         |
+| cluster_schema_cache_size   | 2097152                                                   | CNOSDB_META_CLUSTER_SCHAME_CACHE_SIZE   | cluster_schema的最大内存缓存。                                       |
+| system_database_replica                          | 1                                                         | CNOSDB_META_SYSTEM_DATABASE_REPLICA                          | 系统数据库的replica。                                                                    |
 
 ```mdx-code-block
 </APITable>
@@ -333,29 +337,10 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters       | Default           | Environment Variables            | Description                                                                                                     |
-| ---------------- | ----------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `level`          | `info`            | `CNOSDB_META_LOG_LEVEL`          | Log Level (debug, info, error, warn).                                        |
-| `path`           | `/var/log/cnosdb` | `CNOSDB_META_LOG_PATH`           | Log storage directory.                                                                          |
-| `max_file_count` | Unlimited         | `CNOSDB_META_LOG_MAX_FILE_COUNT` | Maximum number of log files to keep.                                                            |
-| `file_rotation`  | `daily`           | `CNOSDB_META_LOG_FILE_ROTATION`  | Log files are split between time intervals (daily, hourly, minutely, never). |
-
-```mdx-code-block
-</APITable>
-```
-
-### `[meta_init]`
-
-```mdx-code-block
-<APITable>
-```
-
-| Parameters         | Default                     | Environment Variables                    | Description                           |
-| ------------------ | --------------------------- | ---------------------------------------- | ------------------------------------- |
-| `cluster_name`     | `cluster_xxx`               | `CNOSDB_META_META_INIT_CLUSTER_NAME`     | Cluster Name                          |
-| `admin_user`       | `root`                      | `CNOSDB_META_META_INIT_ADMIN_USER`       | User name of the system administrator |
-| `system_tenant`    | `cnosdb`                    | `CNOSDB_META_META_INIT_SYSTEM_TENANT`    | Name of the default tenant            |
-| `default_database` | `["public","usage_schema"]` | `CNOSDB_META_META_INIT_DEFAULT_DATABASE` | Default database created              |
+| Parameters | Default           | Environment Variables   | Description                                                              |
+| ---------- | ----------------- | ----------------------- | ------------------------------------------------------------------------ |
+| `level`    | `info`            | `CNOSDB_META_LOG_LEVEL` | Log Level (debug, info, error, warn). |
+| `path`     | `/var/log/cnosdb` | `CNOSDB_META_LOG_PATH`  | Log storage directory.                                   |
 
 ```mdx-code-block
 </APITable>
