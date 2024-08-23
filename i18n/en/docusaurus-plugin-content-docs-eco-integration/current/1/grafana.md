@@ -4,9 +4,9 @@ order: 2
 slug: /grafana
 ---
 
+![](/img/grafana_overview.webp)
 
-
-[Grafana](https://github.com/grafana/grafana) is an open source data visualization tool that easily converts any conforming data into visual charts and comes with an alerting feature that notifies you when metric data reaches a threshold. Grafana supports multiple data sources by default and can also be extended through a plugin system.
+[Grafana](https://github.com/grafana/grafana) is an open-source data visualization tool that can easily convert any data that meets the requirements into visualized graphs and also with warning functions that can inform you when indicator data reach thresholds.Grafana defaults to multiple data sources and can also be expanded through the plugin system.
 
 We will describe the process of getting CnosDB data through Grafana to present a dashboard.
 
@@ -19,8 +19,6 @@ tg1--metrics data-->CnosDB
 CnosDB--data frame-->Grafana
 ```
 
-![](/img/grafana_overview.webp)
-
 ### Grafana Deployment
 
 [Official Installation Tutorial](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
@@ -29,17 +27,17 @@ CnosDB--data frame-->Grafana
 
 ### Grafana Configuration
 
-- #### **Connect CnosDB**
+- **Connect CnosDB**
 
-Type `http://localhost:3000`, and the Grafana login screen will show up if running correctly. The original username and password are both admin.
+Enter `http://localhost:3000`, when Grafana works correctly, to see Grafana login interface.Initial username `admin`, initial password `admin`.
 
 ![](/img/grafana_login_page.png)
 
-You will be asked to set a new password when you first login. The main Grafana interface shows up after this.
+You will also be asked to enter a new password when first logged in.Then we entered the main screen of Grafana.
 
 ![](/img/grafana_main_page_1.png)
 
-Grafana provides a common data interface that allows us to read data from the CnosDB database via the CnosDB data source plugin. Firstly, we shall go to the data source configuration screen.
+Grafana provides a common data interface, and we can read the data from the CnosDB database via the CnosDB Data Source plugin.First we enter the data source configuration interface.
 
 ![](/img/grafana_main_page_2.png)
 
@@ -59,7 +57,7 @@ You shall see [`Data source is working`] under correct configuration, indicating
 
 ![](/img/grafana_setting_add_data_source_3.png)
 
-- #### **Configure Dashboard**
+- **Configure Dashboard**
 
 Grafana can configure dashboards via a graphical interface. The configured dashboards can be exported via JSON formatted data or imported as JSON formatted dashboard data.
 

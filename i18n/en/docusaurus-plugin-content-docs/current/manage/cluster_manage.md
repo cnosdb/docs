@@ -26,9 +26,12 @@ The `SHOW DATANODES` command will return a list of all nodes in the cluster as f
 
 ## Add node
 
-To add a new node, simply set the `meta_service_addr` in the [`cluster`](../reference/config#cluster) configuration to point to the `meta` endpoint in the target cluster, and ensure that the `name` matches the name of the target cluster.
+To add a new node, simply set the `meta_service_addr` in the [`cluster`](../reference/config#cluster) configuration to point to the `meta` endpoint in the target cluster, and ensure that the `name` matches the name of the target cluster.Each node_id in the cluster must be kept unique, and the host must ensure that any node in the cluster can be accessed.
 
 ```sql
+[global]
+node_id = 888888
+host = "localhost"
 ... ...
 [cluster]
 name = cluster_xxx

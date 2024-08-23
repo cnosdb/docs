@@ -9,9 +9,10 @@ Helm是一个开源的Kubernetes包管理工具，用于简化和管理Kubernete
 
 Helm Chart是Helm工具的核心组件，它是一个预定义的目录结构，包含了Kubernetes资源的描述文件和配置参数。Helm Chart可以包含Deployment、Service、Ingress、ConfigMap等Kubernetes对象的定义，以及与这些对象相关的配置文件。通过使用Helm Chart，可以将应用程序的部署和配置打包为一个可重用的单元，简化了应用程序的部署和管理过程。Helm Chart支持版本控制和依赖管理，可以方便地管理不同版本的应用程序，并确保正确的依赖被安装。
 
-## 使用方法
+## Usage
 
 以在`cnosdb`命名空间中安装一个叫`my-cnosdb`的实例:
+
 > 下载[cnosdb-0.1.0.tgz](https://dl.cnosdb.com/sample/cnosdb-0.1.0.tgz)
 
 ```shell
