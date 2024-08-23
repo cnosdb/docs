@@ -28,9 +28,12 @@ SHOW DATANODES
 
 ## 增加节点
 
-新增一个节点只需要将节点配置[`cluster`](../reference/config#cluster)中的`meta_service_addr`指向目标集群中的 `meta` 端点且 `name` 需要与目标集群的 `name`一致。
+新增一个节点只需要将节点配置[`cluster`](../reference/config#cluster)中的`meta_service_addr`指向目标集群中的 `meta` 端点且 `name` 需要与目标集群的 `name`一致。集群中每个节点node_id要保持唯一，host要保证集群中任何节点都可以访问。
 
 ```sql
+[global]
+node_id = 888888
+host = "localhost"
 ... ...
 [cluster]
 name = cluster_xxx
