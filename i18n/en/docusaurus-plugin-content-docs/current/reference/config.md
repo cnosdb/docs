@@ -164,6 +164,7 @@ This section introduces the configuration method and usage of each configuration
 | `flush_trigger_total_file_size` | `2G`                  | `CNOSDB_WAL_FLUSH_TRIGGER_TOTAL_FILE_SIZE` | Flash when all WAL sizes reach this value.                                                                                                                             |
 | `sync`                          | `false`               | `CNOSDB_WAL_SYNC`                          | Whether to sync for each writing.                                                                                                                                      |
 | `sync_interval`                 | `0`                   | `CNOSDB_WAL_SYNC_INTERVAL`                 | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing, Unit: `h`、`m`、`s`、`ms`、`us`、`ns` |
+| `compress`                      | `zstd`                | `CNOSDB_WAL_COMPRESS`                      | wal压缩算法，支持：`gzip`、`bzip`、`snappy`、`zlib`、`zstd`                                                                                                                                        |
 
 ```mdx-code-block
 </APITable>
