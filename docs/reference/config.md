@@ -170,6 +170,7 @@ CNOSDB_REPORTING_DISABLED=false
 | `flush_trigger_total_file_size` | `2G`                  | `CNOSDB_WAL_FLUSH_TRIGGER_TOTAL_FILE_SIZE` | 所有 WAL 的大小达到该数值时，触发 flush。 |
 | `sync`                          | `false`               | `CNOSDB_WAL_SYNC` | 是否为每次写入进行同步。                  |
 | `sync_interval`                 | `0`                   | `CNOSDB_WAL_SYNC_INTERVAL` | 同步 WAL 的时间间隔，即不主动同步，单位：`h`、`m`、`s`、`ms`、`us`、`ns` |
+| `compress`                 | `zstd`                   | `CNOSDB_WAL_COMPRESS` | wal压缩算法，支持：`gzip`、`bzip`、`snappy`、`zlib`、`zstd` |
 
 ```mdx-code-block
 </APITable>
