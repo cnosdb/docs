@@ -1,5 +1,77 @@
 # 发行说明
 
+## 2.4.2.1
+
+发布日期：2024年08月28日
+
+### 新增特性
+
+- 客户端适配 stream [#2217](https://github.com/cnosdb/cnosdb/pull/2217)
+- 添加 HTTP OTLP 写接口和 Jaeger 可视化接口 [#2214](https://github.com/cnosdb/cnosdb/pull/2214)
+- 优雅关闭 [#2229](https://github.com/cnosdb/cnosdb/pull/2229)
+- 为 http_metrics 案例添加请求类型：HTTP[#2231](https://github.com/cnosdb/cnosdb/pull/2231)
+- 为 cnosdb-cli 添加参数 --proxy-url [#2216](https://github.com/cnosdb/cnosdb/pull/2216)
+- 过程宏 ErrorCoder 生成额外的常量方法 [#2238](https://github.com/cnosdb/cnosdb/pull/2238)
+- 预创建桶 [#2244](https://github.com/cnosdb/cnosdb/pull/2244)
+
+### 功能优化
+
+- byte_num 和 duration [#2223](https://github.com/cnosdb/cnosdb/pull/2223)
+
+- 防止 IDE 代码检查更改 common/protos 的代码 [#2199](https://github.com/cnosdb/cnosdb/pull/2199)
+
+- 将 v1/traces 更改为 api/v1/traces，表参数更改为必需条目 [#2237](https://github.com/cnosdb/cnosdb/pull/2237)
+
+- 优化日志相关代码 [#2241](https://github.com/cnosdb/cnosdb/pull/2241)
+
+- 增强移除 leader 副本 [#2236](https://github.com/cnosdb/cnosdb/pull/2236)
+
+- 用 recordbatch 替换 datablock [#2234](https://github.com/cnosdb/cnosdb/pull/2234)
+
+- 添加配置项索引缓存容量和 WAL 压缩类型 [#2249](https://github.com/cnosdb/cnosdb/pull/2249)
+
+- 当节点失效时，持久化 SQL 迁移到其他节点 [#2245](https://github.com/cnosdb/cnosdb/pull/2245)
+
+- 添加系统数据库副本配置 [#2273](https://github.com/cnosdb/cnosdb/pull/2273)
+
+- 字符串函数和窗口函数 [#2269](https://github.com/cnosdb/cnosdb/pull/2269)
+
+- 将 ArrayBuilderPtr 移动到 array_builder.rs [#2262](https://github.com/cnosdb/cnosdb/pull/2262)
+
+- 撤销 "重构：用 (S...) 替换租户.database 的字符串类型" [#2276](https://github.com/cnosdb/cnosdb/pull/2276)
+
+- 测试数学、时间条件函数和 approx_agg [#2277](https://github.com/cnosdb/cnosdb/pull/2277)
+
+- 修改系统数据库副本的交付模式 [#2278](https://github.com/cnosdb/cnosdb/pull/2278)
+
+- 将 openssl 从 0.10.62 升级到 0.10.66 [#2282](https://github.com/cnosdb/cnosdb/pull/2282)
+
+### 问题修复
+
+- 提前构造 unwrap_or [#2233](https://github.com/cnosdb/cnosdb/pull/2233)
+
+- 合理化语句的 TSM 部分执行 [#2235](https://github.com/cnosdb/cnosdb/pull/2235)
+
+- 添加日志以恢复 && 修复写入结果不准确 [#2232](https://github.com/cnosdb/cnosdb/pull/2232)
+
+- 修复 ES 日志写入错误 [#2242](https://github.com/cnosdb/cnosdb/pull/2242)
+
+- 修复eslog 接口批量格式缺少返回值问题 [#2243](https://github.com/cnosdb/cnosdb/pull/2243)
+
+- 修复多次 memcache 刷新 [#2240](https://github.com/cnosdb/cnosdb/pull/2240)
+
+- 修复未创建内存配置文件 [#2246](https://github.com/cnosdb/cnosdb/pull/2246)
+
+- 修复编译错误 [#2260](https://github.com/cnosdb/cnosdb/pull/2260)
+
+- 修复选择器函数表达式深度嵌套问题 [#2252](https://github.com/cnosdb/cnosdb/pull/2252)
+
+- 修复节点失败时流计算任务无法迁移 [#2264](https://github.com/cnosdb/cnosdb/pull/2264)
+
+- 修复预创建桶拼写错误 [#2267](https://github.com/cnosdb/cnosdb/pull/2267)
+
+- 修复压缩时数据丢失 [#2272](https://github.com/cnosdb/cnosdb/pull/2272)
+
 ## 2.4.2 Ara
 
 发布日期：2024年07月04日
