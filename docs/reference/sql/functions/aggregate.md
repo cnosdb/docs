@@ -62,6 +62,32 @@ SELECT station, count(temperature) FROM air group by station;
 | LianYunGang | 28321                  |
 | XiaoMaiDao  | 28321                  |
 +-------------+------------------------+
+
+CREATE TABLE air(visibility DOUBLE, temperature DOUBLE, pressure DOUBLE, TAGS(station));
+
+// 写入有重复时间戳的数据
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
+                ('2022-10-19 01:40:00', 'XiaoMaiDao', 55, 68, 71), 
+                ('2022-10-19 01:40:00', 'XiaoMaiDao', 55, 68, 72),
+                ('2022-10-19 02:40:00', 'XiaoMaiDao', 55, 68, 73),
+                ('2022-10-19 03:40:00', 'XiaoMaiDao', 55, 68, 75),
+                ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 77),
+                ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 80);
+
+SELECT count(*) FROM air; // 会将count(*)下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。但是可能会有重复时间戳数据导致比实际行数多
++------------------------+
+| COUNT(COUNT(UInt8(1))) |
++------------------------+
+| 6                      |
++------------------------+
+
+SELECT exact_count_star(null) FROM air; // 精确count，不会下推count(*)
++------------------------+
+| COUNT(COUNT(UInt8(0))) |
++------------------------+
+| 5                      |
++------------------------+
+
 ```
 
 </details>
