@@ -81,7 +81,7 @@ SELECT count(*) FROM air1; // 会将count(*)下推到tskv层，通过读取底�
 | 6                      |
 +------------------------+
 
-SELECT exact_count_star(null) FROM air1; // 精确count，不会下推count(*)
+SELECT exact_count_star(null) FROM air1; // 精确count(*)，不会下推
 +------------------------+
 | COUNT(COUNT(UInt8(0))) |
 +------------------------+
