@@ -237,7 +237,6 @@ CNOSDB_REPORTING_DISABLED=false
 | `grpc_enable_gzip`       | `false`           | `CNOSDB_SERVICE_GRPC_ENABLE_GZIP`       | meta服务的接口数据传输，是否启用压缩                               |
 | `flight_rpc_listen_port` | `8904`           | `CNOSDB_SERVICE_FLIGHT_RPC_LISTEN_PORT` | Flight RPC 服务监听端口。                         |
 | `tcp_listen_port`        | `8905`           | `CNOSDB_SERVICE_TCP_LISTEN_PORT`        | TCP 服务监听端口。                                |
-| `vector_listen_port`     | `8906`           | `CNOSDB_SERVICE_VECTOR_LISTEN_PORT`     | 用于监听 [Vector](https://vector.dev/) 写入的数据 |
 | `enable_report`       | `true`           | `CNOSDB_SERVICE_ENABLE_REPORT`       | 是否开启 CnosDB 自动上报遥测数据，主要跟踪 CnosDB 不同版本的使用率，这些数据有利于 CnosDB 的持续开发。每24小时上报一次数据，每条包含的字段为：实例运行时间、操作系统类型、数据库版本、实例运行的地理位置（只到省级或洲级）。                               |
 
 ```mdx-code-block
