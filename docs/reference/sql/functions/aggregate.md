@@ -68,7 +68,7 @@ SELECT station, count(temperature) FROM air group by station;
 
 #### count下推
 
-仅当sql句式为 “SELECT count(*) FROM air; 或 SELECT count(field) FROM air;” 时，会将count下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。
+仅当sql句式为 “SELECT count(*) FROM table_name; 或 SELECT count(field) FROM table_name;” 时，会将count下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。
 
 但是可能会有重复时间戳数据导致比实际行数多，为此增加了不会下推的exact_count，注意：exact_count只能用于替换上述句式，在其他句式使用可能会报错。
 
