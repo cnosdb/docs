@@ -62,11 +62,25 @@ SELECT station, count(temperature) FROM air group by station;
 | LianYunGang | 28321                  |
 | XiaoMaiDao  | 28321                  |
 +-------------+------------------------+
+```
 
-CREATE TABLE air1(visibility DOUBLE, temperature DOUBLE, pressure DOUBLE, TAGS(station));
+</details>
+
+#### count下推
+
+仅当sql句式为 “SELECT count(*) FROM table_name; 或 SELECT count(field) FROM table_name;” 时，会将count下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。
+
+但是可能会有重复时间戳数据导致比实际行数多，为此增加了不会下推的exact_count，注意：exact_count只能用于替换上述句式，在其他句式使用可能会报错。
+
+<details>
+  <summary>查看 <code>count下推</code> 示例</summary>
+
+
+```sql {1}
+CREATE TABLE air(visibility DOUBLE, temperature DOUBLE, pressure DOUBLE, TAGS(station));
 
 // 写入有重复时间戳的数据
-INSERT INTO air1 (TIME, station, visibility, temperature, pressure) VALUES
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 01:40:00', 'XiaoMaiDao', 55, 68, 71), 
                 ('2022-10-19 01:40:00', 'XiaoMaiDao', 55, 68, 72),
                 ('2022-10-19 02:40:00', 'XiaoMaiDao', 55, 68, 73),
@@ -74,19 +88,33 @@ INSERT INTO air1 (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 77),
                 ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 80);
 
-SELECT count(*) FROM air1; // 会将count(*)下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。但是可能会有重复时间戳数据导致比实际行数多
-+------------------------+
-| COUNT(COUNT(UInt8(1))) |
-+------------------------+
-| 6                      |
-+------------------------+
+SELECT count(*) FROM air; // 直接读取底层文件统计信息，重复时间戳不会去重
++-----------------+
+| COUNT(UInt8(1)) |
++-----------------+
+| 6               |
++-----------------+
 
-SELECT exact_count_star(null) FROM air1; // 精确count(*)，不会下推
-+------------------------+
-| COUNT(COUNT(UInt8(0))) |
-+------------------------+
-| 5                      |
-+------------------------+
+SELECT count(pressure) FROM air; // 直接读取底层文件统计信息，重复时间戳不会去重
++---------------------+
+| COUNT(air.pressure) |
++---------------------+
+| 6                   |
++---------------------+
+
+SELECT exact_count(*) FROM air; // 精确count(*)，不会下推，重复时间戳会去重
++-----------------+
+| COUNT(UInt8(1)) |
++-----------------+
+| 5               |
++-----------------+
+
+SELECT exact_count(pressure) FROM air; // 精确count(field)，不会下推，重复时间戳会去重
++---------------------+
+| COUNT(air.pressure) |
++---------------------+
+| 5                   |
++---------------------+
 
 ```
 
