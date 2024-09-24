@@ -64,11 +64,17 @@ SELECT station, count(temperature) FROM air group by station;
 +-------------+------------------------+
 ```
 
+</details>
+
 #### count下推
 
 仅当sql句式为 “SELECT count(*) FROM air; 或 SELECT count(field) FROM air;” 时，会将count下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。
 
 但是可能会有重复时间戳数据导致比实际行数多，为此增加了不会下推的exact_count，注意：exact_count只能用于替换上述句式，在其他句式使用可能会报错。
+
+<details>
+  <summary>查看 <code>count下推</code> 示例</summary>
+
 
 ```sql {1}
 CREATE TABLE air(visibility DOUBLE, temperature DOUBLE, pressure DOUBLE, TAGS(station));
@@ -82,28 +88,28 @@ INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
                 ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 77),
                 ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 80);
 
-SELECT count(*) FROM air;
+SELECT count(*) FROM air; // 直接读取底层文件统计信息，重复时间戳不会去重
 +-----------------+
 | COUNT(UInt8(1)) |
 +-----------------+
 | 6               |
 +-----------------+
 
-SELECT count(pressure) FROM air;
+SELECT count(pressure) FROM air; // 直接读取底层文件统计信息，重复时间戳不会去重
 +---------------------+
 | COUNT(air.pressure) |
 +---------------------+
 | 6                   |
 +---------------------+
 
-SELECT exact_count(*) FROM air; // 精确count(*)，不会下推
+SELECT exact_count(*) FROM air; // 精确count(*)，不会下推，重复时间戳会去重
 +-----------------+
 | COUNT(UInt8(1)) |
 +-----------------+
 | 5               |
 +-----------------+
 
-SELECT exact_count(pressure) FROM air; // 精确count(field)，不会下推
+SELECT exact_count(pressure) FROM air; // 精确count(field)，不会下推，重复时间戳会去重
 +---------------------+
 | COUNT(air.pressure) |
 +---------------------+
