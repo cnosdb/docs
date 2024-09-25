@@ -17,7 +17,7 @@ The configuration adopts TOML syntax.
 Use the `cnosdb config` command to create default configuration files, For example:
 
 ```shell
-cnosdb run config > ./config.toml
+cnosdb config > ./config.toml
 ```
 
 Use the `cnosdb check server-config <path>` command to check if the configuration file is legal, for example:
@@ -31,7 +31,7 @@ Use the `cnosdb` command to specify the configuration file to start:
 > If not specified by the user, the program looks for the configuration first in `/etc/cnosdb/cnosdb.conf`, `$HOME/cnosdb/cnosdb.conf`, and if it does not find it, the default configuration is used.
 
 ```
-cnosdb --config ./cnosdb.conf
+cnosdb run --config ./cnosdb.conf
 ```
 
 Configuration in CnosDB is prioritized as follows: specified parameters > environment variables > specified configuration files > `/etc/cnosdb/cnosdb.conf` > `$HOME/cnosdb/cnosdb.conf` > default configuration
