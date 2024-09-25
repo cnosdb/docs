@@ -17,7 +17,7 @@ CnosDB 的配置文件为 TOML 格式。
 使用 `cnosdb config` 命令来创建默认的配置文件，如：
 
 ```shell
-cnosdb run config > ./config.toml
+cnosdb config > ./config.toml
 ```
 
 使用 `cnosdb check server-config <path>` 命令来检查配置文件是否合法，如：
@@ -31,7 +31,7 @@ cnosdb check server-config ./config.toml
 > 如果用户未指定，则程序在 `/etc/cnosdb/cnosdb.conf`，`$HOME/cnosdb/cnosdb.conf`位置先寻找配置，没有找到则使用默认配置
 
 ```
-cnosdb --config ./cnosdb.conf
+cnosdb run --config ./cnosdb.conf
 ```
 
 CnosDB 中的配置优先级为：指定参数 > 环境变量 > 指定配置文件 > `/etc/cnosdb/cnosdb.conf` > `$HOME/cnosdb/cnosdb.conf` > 默认配置
