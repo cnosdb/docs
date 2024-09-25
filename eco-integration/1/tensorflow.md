@@ -106,7 +106,7 @@ CnosDB（An Open Source Distributed Time Series Database with high performance, 
 
 (base) root@ecs-django-dev:~# docker exec -it cnosdb sh sh
 # cnosdb-cli
-CnosDB CLI v2.3.0
+CnosDB CLI v2.4.2
 Input arguments: Args { host: "localhost", port: 8902, user: "cnosdb", password: None, database: "public", target_partitions: None, data_path: None, file: [], rc: None, format: Table, quiet: false }
 ```
 
