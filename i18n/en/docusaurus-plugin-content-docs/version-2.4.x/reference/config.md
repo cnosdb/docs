@@ -17,7 +17,7 @@ The configuration adopts TOML syntax.
 Use the `cnosdb config` command to create default configuration files, For example:
 
 ```shell
-cnosdb run config > ./cnosdb.conf
+cnosdb config > ./cnosdb.conf
 ```
 
 Use the `cnosdb check server-config <path>` command to check if the configuration file is legal, for example:
@@ -29,7 +29,7 @@ cnosdb check server-config ./cnosdb.conf
 Use the `cnosdb` command to specify the configuration file to start:
 
 ```
-cnosdb --config ./cnosdb.conf
+cnosdb run --config ./cnosdb.conf
 ```
 
 ## Description
