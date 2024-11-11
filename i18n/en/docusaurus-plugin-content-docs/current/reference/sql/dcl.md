@@ -17,20 +17,104 @@ Only a user who holds the role of owner under a tenant or a user with system per
 ```sql
 CREATE TENANT [IF NOT EXISTS] tenant_name
 [WITH [comment = <comment>],
-       [drop_after = duration],
-       [_limiter = <limiter_config>]];
+       [drop_after = <duration>],
+       [object_config = <
+           max_users_number = <integer>,
+           max_databases = <integer>,
+           max_shard_number = <integer>,
+           max_replicate_number = <integer>,
+           max_retention_time = <integer>
+       >],
+       [coord_data_in = <
+           remote_max = <integer>,
+           remote_initial = <integer>,
+           remote_refill = <integer>,
+           remote_interval = <integer>,
+           local_max = <integer>,
+           local_initial = <integer>
+       >],
+       [coord_data_out = < ... >],
+       [coord_queries = < ... >],
+       [coord_writes = < ... >],
+       [http_data_in = < ... >],
+       [http_data_out = < ... >],
+       [http_queries = < ... >],
+       [http_writes = < ... >]
+];
 ```
 
-| Options      | Description                                                                                                                                |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `drop_after` | Delete tenant delay time, default is immediate deletion, supports: `d`, `h`, `m`, when no unit is provided, default is `d` |
-| `_limiter`   | Limit tenant resource usage, for more details please refer to [Tenant Resources](../../manage/resource_limit.md)                           |
+| Options          | Description                                                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `comment`        | 对租户的描述性备注，字符串格式。                                                                                                                           |
+| `drop_after`     | Delete tenant delay time, default is immediate deletion, supports: `d`, `h`, `m`, when no unit is provided, default is `d` |
+| `object_config`  | 租户的对象配置，包括最大用户数、最大数据库数等资源限制。                                                                                                               |
+| `coord_data_in`  | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
+| `coord_data_out` | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
+| `coord_queries`  | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
+| `coord_writes`   | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
+| `http_data_in`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
+| `http_data_out`  | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
+| `http_queries`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
+| `http_writes`    | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
 
 <details>
   <summary>View example</summary>
 
 ```sql
-CREATE TENANT test;
+create tenant t_create with comment 'create and alter tenant', drop_after ='1d',
+object_config   max_users_number = 1
+                max_databases = 3
+                max_shard_number = 2
+                max_replicate_number = 2
+                max_retention_time = 30,
+coord_data_in   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+coord_data_out  remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+coord_queries   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,    
+coord_writes    remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+http_data_in   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+http_data_out  remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+http_queries   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,    
+http_writes    remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0;
 ```
 
 </details>
