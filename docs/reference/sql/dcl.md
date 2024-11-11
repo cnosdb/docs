@@ -47,7 +47,7 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
 | ------------ | ------------------------------------------------------------ |
 | `comment` | 对租户的描述性备注，字符串格式。 |
 | `drop_after` | 删除租户延迟时间，默认立即删除，支持：`d` , `h`,  `m`，当不带单位时，默认为 `d` |
-| `object_config`   | 租户的对象配置，包括最大用户数、最大数据库数等资源限制。      |
+| `object_config`   | 租户的对象配置，包括最大用户数、最大数据库数等资源限制。       |
 | `coord_data_in`   | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。     |
 | `coord_data_out`   | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。     |
 | `coord_queries`   | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。     |
@@ -56,6 +56,8 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
 | `http_data_out`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。     |
 | `http_queries`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。     |
 | `http_writes`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。     |
+
+其他相关内容请参考 [租户资源](../../manage/resource_limit.md)
 
 <details>
   <summary>查看示例</summary>
