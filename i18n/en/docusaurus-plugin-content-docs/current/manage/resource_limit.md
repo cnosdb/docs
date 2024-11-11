@@ -9,13 +9,57 @@ Currently, the resource isolation of CnosDB is tenant-level. There are two types
 #### Syntax
 
 ```sql
-alter tenant <tenant_name> set _limiter '<limiter_json>';
+alter tenant <tenant_name> set
+    object_config 
+         max_users_number = <num>
+         max_databases = <num>
+         max_shard_number = <num>
+         max_replicate_number = <num>
+         max_retention_time = <num>,
+     coord_data_in
+         remote_max = <num>
+         remote_initial = <num>
+         remote_refill = <num>
+         remote_interval = <num>
+         local_max = <num>
+         local_initial = <num>,
+     coord_data_out
+         ...
+     coord_queries
+         ...
+     coord_writes
+         ...
+     http_data_in
+         ...
+     http_data_out
+         ...
+     http_queries
+         ...
+     http_writes
+         ...
+;
 ```
 
 #### Parameter Description
 
-- tenant_name: The name of the tenant to be set.
-- limiter_json: The content of tenant resource limit, specifically classified as: object limit `object_config` and read and write limit `request_config`, content format must be json format.
+- **tenant_name**：租户名称。
+- **comment**：对租户的描述。
+- **drop_after**：指定租户的有效时间，格式为 `'1d'` 表示1天等。
+- **其余参数**：属于 `_limiter` 租户资源限制的内容，具体分类为：
+
+  - **对象限制 `object_config`**：租户对象的数量及存储限制。
+
+  - **读写限制 `request_config`**：
+    - **协调层配置**：
+      - **coord_data_in**：租户的协调层数据输入配置，包括 `remote` 和 `local` 两种资源限制设置。
+      - **coord_data_out**：租户的协调层数据输出配置，包括 `remote` 和 `local` 两种资源限制设置。
+      - **coord_queries**：租户的协调层查询配置，包括 `remote` 和 `local` 两种资源限制设置。
+      - **coord_writes**：租户的协调层写入配置，包括 `remote` 和 `local` 两种资源限制设置。
+    - **HTTP 层配置**：
+      - **http_data_in**：租户的 HTTP 层数据输入配置，支持 `remote` 和 `local` 限制。
+      - **http_data_out**：租户的 HTTP 层数据输出配置，支持 `remote` 和 `local` 限制。
+      - **http_queries**：租户的 HTTP 层查询配置，支持 `remote` 和 `local` 限制。
+      - **http_writes**：租户的 HTTP 层写入配置，支持 `remote` 和 `local` 限制。
 
 #### object_config, object limit, the parameters included are as follows:
 
@@ -29,146 +73,119 @@ alter tenant <tenant_name> set _limiter '<limiter_json>';
 
 #### Example:
 
-```json
-"object_config": {
-  "max_users_number": 1,
-  "max_databases": 3,
-  "max_shard_number": 2,
-  "max_replicate_number": 2,
-  "max_retention_time": 30
-},
+```
+object_config
+  max_users_number= 1
+  max_databases= 3
+  max_shard_number= 2
+  max_replicate_number= 2
+  max_retention_time= 30
+,
 ```
 
-#### request_config, read and write limit, the parameters included are as follows:
+### request_config 读写请求限制，包含以下配置项：
 
-| Parameter name                | Description                                                                                                     | Required | Units |
-| :---------------------------- | :-------------------------------------------------------------------------------------------------------------- | :------- | :---- |
-| data_in  | Limit the size of write requests over a period of time; when set to null, it is unbounded.      | Yes      | Byte  |
-| data_out | Limit the size of read requests over a period of time; when set to null, it is unbounded.       | Yes      | Byte  |
-| queries                       | Limit the number of read requests in a time.Set to null indicates no limit.     | Yes      | Count |
-| writes                        | Limit the number of write requests in a time.When set to null, it is unlimited. | Yes      | Count |
+| Parameter name                                               | Description  | Required |
+| :----------------------------------------------------------- | :----------- | :------- |
+| **coord_data_in**  | 协调层数据输入限制    | Yes      |
+| **coord_data_out** | 协调层数据输出限制    | Yes      |
+| **coord_queries**                       | 协调层查询限制      | Yes      |
+| **coord_writes**                        | 协调层写入限制      | Yes      |
+| **http_data_in**   | HTTP 层数据输入限制 | Yes      |
+| **http_data_out**  | HTTP 层数据输出限制 | Yes      |
+| **http_queries**                        | HTTP 层查询限制   | Yes      |
+| **http_writes**                         | HTTP 层写入限制   | Yes      |
 
-The `data_in` and `data_out` limits are implemented by the token bucket algorithm and consist of two parts: One is a remote token bucket on meta, specified by `remote_bucket`, and the other is a local token bucket on data, specified by `local_bucket`, where tokens are measured in bytes.
+其中参数限制是通过令牌桶算法实现的，共由两部分组成：一个是 meta 上的远程令牌桶，由 `remote_max`  `remote_initial ` `remote_refill   ` `remote_initial ` 指定，另一个是 data 上的本地令牌桶，由 `local_max`  `local_initial` 指定，令牌的单位是字节。
 
-#### Parameters of remote_bucket are as follows:
+#### 令牌桶 包含以下参数：
 
-| Parameter name | Description                                      | Units |
-| :------------- | :----------------------------------------------- | :---- |
-| max            | Limit the maximum number of tokens in a bucket   | Count |
-| initial        | Limit the number of tokens in the initial bucket | Count |
-| refill         | Limit the number of tokens populated at a time   | Count |
-| interval       | Time interval to fill the token                  | ms    |
-
-#### Parameters of local_bucket are as follows:
-
-| Parameters | Description                                      | Units |
-| :--------- | :----------------------------------------------- | :---- |
-| max        | Limit the maximum number of tokens in a bucket   | Count |
-| initial    | Limit the number of tokens in the initial bucket | Count |
+| Parameter name                       | Description | Required | Units |
+| :----------------------------------- | :---------- | :------- | :---- |
+| remote_max      | 远程桶最大令牌数    | Yes      | Count |
+| remote_initial  | 远程桶初始令牌数    | Yes      | Count |
+| remote_refill   | 填充令牌数量      | Yes      | Count |
+| remote_interval | 填充间隔（毫秒）    | Yes      | ms    |
+| local_max       | 本地桶最大令牌数    | Yes      | Count |
+| local_initial   | 本地桶初始令牌数    | Yes      | Count |
 
 The following example bucket setup allows 10KB of data to be written every 100ms and 10KB of data to be cased every 100ms;
 
 #### Example data writing settings
 
-```json
-"data_in": {
-  "remote_bucket": {
-    "max": 10000,
-    "initial": 0,
-    "refill": 10000,
-    "interval": 100
-  },
-  "local_bucket": {
-    "max": 10000,
-    "initial": 0
-  }
-  },
-  "data_out": {
-  "remote_bucket": {
-    "max": 10000,
-    "initial": 0,
-    "refill": 10000,
-    "interval": 100
-  },
-  "local_bucket": {
-    "max": 100,
-    "initial": 0
-  }
-}
 ```
-
-#### An example of limiting the size and number of reads and writes to a tenant is as follows:
-
-```json
-"request_config": {
-  "data_in": {
-    "remote_bucket": {
-      "max": 10000,
-      "initial": 0,
-      "refill": 10000,
-      "interval": 100
-    },
-    "local_bucket": {
-      "max": 10000,
-      "initial": 0
-    }
-  },
-  "data_out": {
-    "remote_bucket": {
-      "max": 100,
-      "initial": 0,
-      "refill": 100,
-      "interval": 100
-     },
-    "local_bucket": {
-      "max": 100,
-      "initial": 0
-    }
-  },
-  "queries": null,
-  "writes": null
-}
+coord_data_in   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+coord_data_out  remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
 ```
 
 #### Overall Example
 
 ```json
 create tenant test;
-alter tenant test set _limiter = '{
-  "object_config": {
-    "max_users_number": 1,
-    "max_databases": 3,
-    "max_shard_number": 2,
-    "max_replicate_number": 2,
-    "max_retention_time": 30
-  },
-  "request_config": {
-    "data_in": {
-      "remote_bucket": {
-        "max": 10000,
-        "initial": 0,
-        "refill": 10000,
-        "interval": 100
-      },
-      "local_bucket": {
-        "max": 10000,
-        "initial": 0
-     }
-    },
-     "data_out": {
-       "remote_bucket": {
-       "max": 100,
-       "initial": 0,
-        "refill": 100,
-        "interval": 100
-  },
-  "local_bucket": {
-    "max": 100,
-    "initial": 0
-  }
-  },
-  "queries": null,
-  "writes": null
-  }
-}';
+alter tenant test set 
+object_config 
+                max_users_number = 1
+                max_databases = 3
+                max_shard_number = 2
+                max_replicate_number = 2
+                max_retention_time = 30,
+coord_data_in   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+coord_data_out  remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+coord_queries   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,    
+coord_writes    remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+http_data_in   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+http_data_out  remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,
+http_queries   remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0,    
+http_writes    remote_max = 10000
+                remote_initial = 0
+                remote_refill = 10000
+                remote_interval = 100
+                local_max = 10000
+                local_initial = 0
+;
 ```
