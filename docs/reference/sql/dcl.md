@@ -18,28 +18,28 @@ sidebar_position: 6
 CREATE TENANT [IF NOT EXISTS] tenant_name
 [WITH [comment = <comment>],
        [drop_after = <duration>],
-       [object_config = {
+       [object_config = <
            max_users_number = <integer>,
            max_databases = <integer>,
            max_shard_number = <integer>,
            max_replicate_number = <integer>,
            max_retention_time = <integer>
-       }],
-       [coord_data_in = {
+       >],
+       [coord_data_in = <
            remote_max = <integer>,
            remote_initial = <integer>,
            remote_refill = <integer>,
            remote_interval = <integer>,
            local_max = <integer>,
            local_initial = <integer>
-       }],
-       [coord_data_out = { ... }],
-       [coord_queries = { ... }],
-       [coord_writes = { ... }],
-       [http_data_in = { ... }],
-       [http_data_out = { ... }],
-       [http_queries = { ... }],
-       [http_writes = { ... }]
+       >],
+       [coord_data_out = < ... >],
+       [coord_queries = < ... >],
+       [coord_writes = < ... >],
+       [http_data_in = < ... >],
+       [http_data_out = < ... >],
+       [http_queries = < ... >],
+       [http_writes = < ... >]
 ];
 ```
 
