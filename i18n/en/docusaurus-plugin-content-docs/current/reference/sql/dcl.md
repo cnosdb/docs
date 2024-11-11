@@ -57,6 +57,8 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
 | `http_queries`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
 | `http_writes`    | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
 
+其他相关内容请参考 [租户资源](../../manage/resource_limit.md)
+
 <details>
   <summary>View example</summary>
 
