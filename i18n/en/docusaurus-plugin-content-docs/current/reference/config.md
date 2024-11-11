@@ -17,7 +17,7 @@ The configuration adopts TOML syntax.
 Use the `cnosdb config` command to create default configuration files, For example:
 
 ```shell
-cnosdb run config > ./config.toml
+cnosdb config > ./config.toml
 ```
 
 Use the `cnosdb check server-config <path>` command to check if the configuration file is legal, for example:
@@ -31,7 +31,7 @@ Use the `cnosdb` command to specify the configuration file to start:
 > If not specified by the user, the program looks for the configuration first in `/etc/cnosdb/cnosdb.conf`, `$HOME/cnosdb/cnosdb.conf`, and if it does not find it, the default configuration is used.
 
 ```
-cnosdb --config ./cnosdb.conf
+cnosdb run --config ./cnosdb.conf
 ```
 
 Configuration in CnosDB is prioritized as follows: specified parameters > environment variables > specified configuration files > `/etc/cnosdb/cnosdb.conf` > `$HOME/cnosdb/cnosdb.conf` > default configuration
@@ -164,6 +164,7 @@ This section introduces the configuration method and usage of each configuration
 | `flush_trigger_total_file_size` | `2G`                  | `CNOSDB_WAL_FLUSH_TRIGGER_TOTAL_FILE_SIZE` | Flash when all WAL sizes reach this value.                                                                                                                             |
 | `sync`                          | `false`               | `CNOSDB_WAL_SYNC`                          | Whether to sync for each writing.                                                                                                                                      |
 | `sync_interval`                 | `0`                   | `CNOSDB_WAL_SYNC_INTERVAL`                 | The time interval for synchronizing WAL, default: 0, i.e. not actively synchronizing, Unit: `h`、`m`、`s`、`ms`、`us`、`ns` |
+| `compress`                      | `zstd`                | `CNOSDB_WAL_COMPRESS`                      | wal压缩算法，支持：`gzip`、`bzip`、`snappy`、`zlib`、`zstd`                                                                                                                                        |
 
 ```mdx-code-block
 </APITable>
@@ -229,7 +230,6 @@ This section introduces the configuration method and usage of each configuration
 | `grpc_enable_gzip`       | `false` | `CNOSDB_SERVICE_GRPC_ENABLE_GZIP`       | Whether to enable compression for data transmission of the meta service interface                                                                                                                                                                                                                                                                                                                                                                                               |
 | `flight_rpc_listen_port` | `8904`  | `CNOSDB_SERVICE_FLIGHT_RPC_LISTEN_PORT` | Flight RPC service listening port.                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `tcp_listen_port`        | `8905`  | `CNOSDB_SERVICE_TCP_LISTEN_PORT`        | TCP service listening port.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `vector_listen_port`     | `8906`  | `CNOSDB_SERVICE_VECTOR_LISTEN_PORT`     | Use to listen for [Vector](https://vector.dev/) written data                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `enable_report`          | `true`  | `CNOSDB_SERVICE_ENABLE_REPORT`          | Whether to turn off the automatic reporting of telemetry data by CnosDB, mainly to track the usage rates of different versions of CnosDB, which is beneficial for the continuous development of CnosDB.Data is reported every 24 hours, each record includes: instance running time, operating system type, database version, geographical location of the instance (up to provincial or continental level). |
 
 ```mdx-code-block
