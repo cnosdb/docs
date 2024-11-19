@@ -56,13 +56,13 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters          | Default       | Environment Variables      | Description                                                                                          |
-| ------------------- | ------------- | -------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `node_id`           | `1001`        | `CNOSDB_NODE_ID`           | Node ID                                                                                              |
-| `host`              | `localhost`   | `CNOSDB_HOST`              | Used to communicate with other nodes.                                                |
-| `cluster_name`      | `cluster_xxx` | `CNOSDB_CLUSTER_NAME`      | Cluster Name                                                                                         |
-| `store_metrics`     | `true`        | `CNOSDB_STORE_METRICS`     | Whether to track the usage of this node and store it in the `usage_schema` database. |
-| `pre_create_bucket` | `false`       | `CNOSDB_PRE_CREATE_BUCKET` | Pre-create `bucket`                                                                                  |
+| Parameters          | Default       | Environment Variables             | Description                                                                                          |
+| ------------------- | ------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `node_id`           | `1001`        | `CNOSDB_GLOBAL_NODE_ID`           | Node ID                                                                                              |
+| `host`              | `localhost`   | `CNOSDB_GLOBAL_HOST`              | Used to communicate with other nodes.                                                |
+| `cluster_name`      | `cluster_xxx` | `CNOSDB_GLOBAL_CLUSTER_NAME`      | Cluster Name                                                                                         |
+| `store_metrics`     | `true`        | `CNOSDB_GLOBAL_STORE_METRICS`     | Whether to track the usage of this node and store it in the `usage_schema` database. |
+| `pre_create_bucket` | `false`       | `CNOSDB_GLOBAL_PRE_CREATE_BUCKET` | Pre-create `bucket`                                                                                  |
 
 ```mdx-code-block
 </APITable>
