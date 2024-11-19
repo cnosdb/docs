@@ -58,11 +58,11 @@ CNOSDB_REPORTING_DISABLED=false
 
 | 参数                     | 默认                       | 环境变量                    | 描述                                                         |
 | ------------------------ | -------------------------- | --------------------------- | ------------------------------------------------------------ |
-| `node_id`     | `1001`                    | `CNOSDB_NODE_ID` | 节点 ID |
-| `host`      | `localhost`                     | `CNOSDB_HOST`  | 用来和其他节点通信。         |
-| `cluster_name` | `cluster_xxx`                    |  `CNOSDB_CLUSTER_NAME`| 集群名字                                       |
-| `store_metrics`                   | `true`                | `CNOSDB_STORE_METRICS` | 是否统计此节点的使用情况并存储到`usage_schema`数据库。                                         |
-| `pre_create_bucket`     | `false`                    | `CNOSDB_PRE_CREATE_BUCKET` | 预创建 `bucket` |
+| `node_id`     | `1001`                    | `CNOSDB_GLOBAL_NODE_ID` | 节点 ID |
+| `host`      | `localhost`                     | `CNOSDB_GLOBAL_HOST`  | 用来和其他节点通信。         |
+| `cluster_name` | `cluster_xxx`                    |  `CNOSDB_GLOBAL_CLUSTER_NAME`| 集群名字                                       |
+| `store_metrics`                   | `true`                | `CNOSDB_GLOBAL_STORE_METRICS` | 是否统计此节点的使用情况并存储到`usage_schema`数据库。                                         |
+| `pre_create_bucket`     | `false`                    | `CNOSDB_GLOBAL_PRE_CREATE_BUCKET` | 预创建 `bucket` |
 
 ```mdx-code-block
 </APITable>
