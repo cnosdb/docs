@@ -181,16 +181,24 @@ The `ALTER TENANT` is used to modify the tenant properties or configuration.
 With the `ALTER TENANT` command, the tenant properties can be modified, such as changing the tenant's configuration, adjusting resource limits, etc.
 
 ```sql
-ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
+ALTER TENANT tenant_name 
+    { SET sql_option
+    | UNSET option_name
+    | ADD USER user_name AS {owner | member}
+    | REMOVE USER user_name 
+    | SET USER user_name AS {owner | member} };
     
 sql_option: option_name = value
 option: {COMMENT/DROP_AFTER/_LIMITER}
 ```
 
-| Options | Description                                                               |
-| ------- | ------------------------------------------------------------------------- |
-| `SET`   | Add or modify attributes for tenants.                     |
-| `UNSET` | Revoke the configuration or properties within the tenant. |
+| Options                                     | Description                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `SET sql_option`                            | Add or modify attributes for tenants.                     |
+| `UNSET option_name`                         | Revoke the configuration or properties within the tenant. |
+| `ADD USER user_name AS {owner \\| member}` | 向租户中添加指定角色的成员。                                                            |
+| `REMOVE USER user_name`                     | 从租户中移除指定成员。                                                               |
+| `SET USER user_name AS {owner \\| member}` | 重设租户中指定成员的角色。                                                             |
 
 <details>
   <summary>View example</summary>
