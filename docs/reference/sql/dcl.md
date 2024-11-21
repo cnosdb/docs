@@ -182,7 +182,12 @@ CREATE ROLE owner_role INHERIT owner;
 通过 `ALTER TENANT` 命令，可以对租户的属性进行修改，例如更改租户的配置、调整资源限制等。
 
 ```sql
-ALTER TENANT tenant_name {SET sql_option | UNSET option_name };
+ALTER TENANT tenant_name 
+    { SET sql_option
+    | UNSET option_name
+    | ADD USER user_name AS {owner | member}
+    | REMOVE USER user_name 
+    | SET USER user_name AS {owner | member} };
     
 sql_option: option_name = value
 option: {COMMENT/DROP_AFTER/_LIMITER}
@@ -190,8 +195,11 @@ option: {COMMENT/DROP_AFTER/_LIMITER}
 
 | 选项    | 描述                     |
 | ------- | ------------------------ |
-| `SET`   | 为租户添加或修改属性。   |
-| `UNSET` | 撤销租户内的配置或属性。 |
+| `SET sql_option`   | 为租户添加或修改属性。   |
+| `UNSET option_name` | 撤销租户内的配置或属性。 |
+| `ADD USER user_name AS {owner \| member}` | 向租户中添加指定角色的成员。 |
+| `REMOVE USER user_name` | 从租户中移除指定成员。 |
+| `SET USER user_name AS {owner \| member}` | 重设租户中指定成员的角色。 |
 
 <details>
   <summary>查看示例</summary>
