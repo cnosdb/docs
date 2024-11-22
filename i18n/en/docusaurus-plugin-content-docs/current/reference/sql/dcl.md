@@ -196,9 +196,9 @@ option: {COMMENT/DROP_AFTER/_LIMITER}
 | ------------------------------------------- | ------------------------------------------------------------------------- |
 | `SET sql_option`                            | Add or modify attributes for tenants.                     |
 | `UNSET option_name`                         | Revoke the configuration or properties within the tenant. |
-| `ADD USER user_name AS {owner \\| member}` | 向租户中添加指定角色的成员。                                                            |
+| `ADD USER user_name AS {owner` \| `member}` | 向租户中添加指定角色的成员。                                                            |
 | `REMOVE USER user_name`                     | 从租户中移除指定成员。                                                               |
-| `SET USER user_name AS {owner \\| member}` | 重设租户中指定成员的角色。                                                             |
+| `SET USER user_name AS {owner` \| `member}` | 重设租户中指定成员的角色。                                                             |
 
 <details>
   <summary>View example</summary>
@@ -222,9 +222,9 @@ sql_option: option_name = option_value
 option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
-| Options | Description                                           |
-| ------- | ----------------------------------------------------- |
-| `SET`   | Add or modify attributes for tenants. |
+| Options | Description |
+| ------- | ----------- |
+| `SET`   | 为用户添加或修改属性。 |
 
 <details>
   <summary>View example</summary>
