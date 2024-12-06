@@ -42,24 +42,24 @@ alter tenant <tenant_name> set
 
 #### Parameter Description
 
-- **tenant_name**：租户名称。
-- **comment**：对租户的描述。
+- **tenant_name**: Tenant name.
+- **comment**: description of tenants.
 - **drop_after**: specifies the useful time of the tenant, in the format \`'1d' for 1 day etc.
-- **其余参数**：属于 `_limiter` 租户资源限制的内容，具体分类为：
+- **Remaining parameters**: belongs to the `_limiter` tenant resource limit, classified as:
 
-  - **对象限制 `object_config`**：租户对象的数量及存储限制。
+  - **Object limits the number of `object_config`**: tenant objects and storage limits.
 
-  - **读写限制 `request_config`**：
-    - **协调层配置**：
-      - **coord_data_in**：租户的协调层数据输入配置，包括 `remote` 和 `local` 两种资源限制设置。
-      - **coord_data_out**：租户的协调层数据输出配置，包括 `remote` 和 `local` 两种资源限制设置。
-      - **coord_queries**：租户的协调层查询配置，包括 `remote` 和 `local` 两种资源限制设置。
-      - **coord_writes**：租户的协调层写入配置，包括 `remote` 和 `local` 两种资源限制设置。
-    - **HTTP 层配置**：
-      - **http_data_in**：租户的 HTTP 层数据输入配置，支持 `remote` 和 `local` 限制。
-      - **http_data_out**：租户的 HTTP 层数据输出配置，支持 `remote` 和 `local` 限制。
-      - **http_queries**：租户的 HTTP 层查询配置，支持 `remote` 和 `local` 限制。
-      - **http_writes**：租户的 HTTP 层写入配置，支持 `remote` 和 `local` 限制。
+  - **Read and write limit `request_config`**:
+    - **Coordination Layer Configuration**:
+      - **coord_data_in**: Rental data input configuration, including `remote` and `local` resource restrictions.
+      - **coord_data_out**: Tenant coordination level data output configuration, including `remote` and `local` resource restrictions.
+      - **coord_queries**: Tenant Lookup configuration, including `remote` and `local` resource restrictions.
+      - **coord_writes**: Tenant coordination layer writes into the configuration, including `remote` and `local` resource restrictions.
+    - **HTTP Layer Configuration**:
+      - **http_data_in**: Tenant HTTP layer data input configuration that supports `remote` and `local` limits.
+      - **http_data_out**: Tenant HTTP layer data output configuration that supports `remote` and `local` limits.
+      - **http_queries**: Tenant HTTP Layer Configuration supports `remote` and `local` limits.
+      - **http_writes**: Tenant write configuration to support `remote` and `local` limits.
 
 #### object_config, object limit, the parameters included are as follows:
 
@@ -83,22 +83,22 @@ object_config
 ,
 ```
 
-### request_config 读写请求限制，包含以下配置项：
+### request_config read and write Request limit, containing the following configuration entry:
 
-| Parameter name                                               | Description  | Required |
-| :----------------------------------------------------------- | :----------- | :------- |
-| **coord_data_in**  | 协调层数据输入限制    | Yes      |
-| **coord_data_out** | 协调层数据输出限制    | Yes      |
-| **coord_queries**                       | 协调层查询限制      | Yes      |
-| **coord_writes**                        | 协调层写入限制      | Yes      |
-| **http_data_in**   | HTTP 层数据输入限制 | Yes      |
-| **http_data_out**  | HTTP 层数据输出限制 | Yes      |
-| **http_queries**                        | HTTP 层查询限制   | Yes      |
-| **http_writes**                         | HTTP 层写入限制   | Yes      |
+| Parameter                                                    | Description                          | Required |
+| :----------------------------------------------------------- | :----------------------------------- | :------- |
+| **coord_data_in**  | Coordinate level data input limit    | Yes      |
+| **coord_data_out** | Coordinating Layer Data Output Limit | Yes      |
+| **coord_queries**                       | Coordinate Query Limit               | Yes      |
+| **coord_writes**                        | Coordination write limit             | Yes      |
+| **http_data_in**   | HTTP Layer Data Input Limit          | Yes      |
+| **http_data_out**  | HTTP Layer Data Output Limit         | Yes      |
+| **http_queries**                        | HTTP Layer Query Limit               | Yes      |
+| **http_writes**                         | HTTP Layer Write Limit               | Yes      |
 
 The parameter limitation is implemented through the token bucket algorithm, which consists of two parts: one is the remote token bucket on meta, specified by 'remote_max', 'remote_initial', 'remote_defill', and 'remote_initial'; the other is the local token bucket on data, specified by 'local_max', and the unit of the token is bytes.
 
-#### 令牌桶 包含以下参数：
+#### Token bucket contains the following parameter:
 
 | Parameter name                       | Description                                     | Required | Units |
 | :----------------------------------- | :---------------------------------------------- | :------- | :---- |
