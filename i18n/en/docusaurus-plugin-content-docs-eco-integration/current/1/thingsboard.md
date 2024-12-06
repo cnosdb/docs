@@ -38,19 +38,19 @@ usage_schema
 
 ## **Step 2: Start ThingsBoard (CnosDB)**
 
-以 ThingsBoard-v3.7 为基础开发，添加了使用 CnosDB 存储时序数据的功能，获取安装包请[联系我们](https://jsj.top/f/qrj9lq)。
+Developed on the basis of ThingsBoard-v3.7, add functionality to store time series data using CnosDB, get package requested[contact us](https://jsj.top/f/qrj9lq).
 
-通过设置配置文件中的 `database.ts.type=cnosdb` 或环境变量 `DATABASE_TS_TYPE=cnosdb` 来启动 ThingsBoard 的混合模式（实体数据存储至 PostgreSQL，时序数据存储至 CnosDB）。
+Start ThingsBoard blend mode by setting the `database.ts.type=cnosdb` or the environmental variable `DATABASE_TS_TYPE=cnosdb` in the configuration file (physical data stored to PostgreSQL, time series stored to CnosDB).
 
-在通过混合模式启动 ThingsBoard 时，需要额外配置时序数据库的部分，以下介绍时序数据库 CnosDB 的相关配置项：
+When starting ThingsBoard with mixed mode, additional time series database sections are required. The time series database CnosDB configuration item: below describes the time series database
 
-- `cnosdb.host` 或环境变量 `CNOSDB_HOST` - 数据库 JDBC 服务的 IP 和端口号，默认为 `127.0.0.1:8904`。
-- `cnosdb.tenant` 或环境变量 `CNOSDB_TENANT` - CnosDB 租户名称，默认为 `cnosdb`。
-- `cnosdb.database` 或环境变量 `CNOSDB_DATABASE` - CnosDB 数据库名称，默认为 `thingsboard`。
-- `cnosdb.user` 或环境变量 `CNOSDB_USER` - CnosDB 用户名。
-- `cnosdb.password` 或环境变量 `CNOSDB_PASSWORD` - CnosDB 密码。
+- `cnosdb.host` or an environmental variable `CNOSDB_HOST` - the IP and port numbers of the database JDBC service, defaults to `127.0.0.1:8904`.
+- `cnosdb.tenant` or an environmental variable `CNOSDB_TENANT` - CnosDB tenant name, defaults to `cnosdb`.
+- `cnosdb.database` or environmental variable `CNOSDB_DATABASE` - CnosDB database name, defaults to `thingsboard`.
+- `cnosdb.user` or environmental variable `CNOSDB_USER` - CnosDB username.
+- `cnosdb.password` or an environmental variable `CNOSSDB_PASSWORD` - CnosDB password.
 
-配置文件示例：
+Configuration file example:
 
 ```
 cnosdb:
@@ -61,15 +61,15 @@ cnosdb:
   password: 'root'
 ```
 
-以下是使用 Docker 安装 ThingsBoard 的基本步骤：
+Below is the basic step: to install ThingsBoard with Docker
 
-导入镜像
+Import Images
 
 ```
 docker load -i tb-postgres-cnosdb.tar
 ```
 
-启动 ThingsBoard（CnosDB），暴露 HTTP 接口 9090 和 MQTT 接口 1883
+Start ThingsBoard (CnosDB), exposing HTTP port 9090 and MQTT port 1883
 
 ```
 docker run -d --name thingsboard --network test \
@@ -81,36 +81,36 @@ docker run -d --name thingsboard --network test \
   cnosdb/tb-postgres-cnosdb:0.0.1
 ```
 
-访问 [http://127.0.0.1:9090](http://localhost:9090)，您将看到 ThingsBoard 的登录界面。
+Visit [http://127.0.0.1:90909] (http://localhost:9090), you will see the login interface of ThingsBoard.
 
 ![](/img/eco/thingsboard/5fc2f2c3-5ca1-433a-b136-f7f0872b6185.png)
 
-接下来，使用默认的租户登陆租户界面：
+Next, use the default tenant login interface:
 
-- 用户名：`tenant@thingsboard.org`
-- 密码：`tenant`
+- Username: `tenant@thingsboard.org`
+- Password: `tenant`
 
 ![](/img/eco/thingsboard/7c640c9d-1180-484b-8488-4f3d1d095628.png)
 
-## **步骤三：启动模拟设备**
+## **Step 3: Start Simulator Device**
 
-在 ThingsBoard 中，您需要创建一个新的设备，并配置数据源以将数据发送到 CnosDB。
+In ThingsBoard you need to create a new device and configure data sources to send data to CnosDB.
 
-1. 登录 ThingsBoard 控制台。
-2. 打开“实体/设备”界面，点击右上角“添加设备”，创建一个新设备，记录下设备的访问令牌（Access token）。
+1. Sign in to the ThingsBoard console.
+2. Open the 'entity/device' interface, click 'Add device' in the upper right corner and create a new device to record the access token (access token).
 
 ![](/img/eco/thingsboard/31626078-49fc-4048-ba00-3e2f15218ca1.png)
 
-1. 使用 Python 或其他语言编写脚本，将遥测数据发送到 ThingsBoard。以下是一个示例：
+1. Write a script using Python or other language to send telemetric data to ThingsBoard.For example:
 
-首先安装 ThingsBoard 的 MQTT 客户端 `tb-mqtt-client` 以及依赖的组件 `paho-mqtt`：
+First install the MQTT client `tb-mqtt-client` of ThingsBoard and the dependent `paho-mqtt` component:
 
 ```shell
 pip3 install paho-mqtt
 pip3 install tb-mqtt-client
 ```
 
-编写 Python 脚本：
+Writing Python script:
 
 ```python
 from tb_device_mqtt import TBDeviceMqttClient, TBPublishInfo
