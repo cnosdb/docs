@@ -3,31 +3,31 @@ title: Thingsboard
 slug: /thingsboard
 ---
 
-在物联网（IoT）应用中，遥测数据的收集和存储至关重要。ThingsBoard 是一个开源物联网平台，支持设备管理、数据可视化和分析。而 CnosDB 是一个高性能的时序数据库，专为处理大量时间序列数据而设计。本文将介绍如何将 ThingsBoard 与 CnosDB 集成，以存储和管理遥测数据。
+The collection and storage of telemetric data is critical in the IoT application.ThingsBoard is an open-source networking platform that supports equipment management, data visualization and analysis.CnosDB is a high-performance time-series database designed to handle large amounts of time series data.This paper will describe how ThingsBoard will be integrated with CnosDB to store and manage telemetric data.
 
-## **环境准备**
+## **Environment**
 
-在开始之前，请确保您已准备好以下环境：
+Before you start, make sure you are ready for:
 
-1. **Docker**：运行 ThingsBoard 以及 CnosDB 的容器。
-2. **开发环境**：Python、Java 或其他编程语言，用来运行程序模拟 IoT 设备。
+1. **Docker**: runs the containers of ThingsBoard and CnosDB.
+2. **Developer environment**: Python, Java, or other programming languages used to run programs simulating IoT devices.
 
-## **步骤一：启动 CnosDB**
+## **Step 1: Start CnosDB**
 
-CnosDB 的安装运行可以参考官方文档。运行如下命令，通过 Docker 启动 CnosDB：
+CnosDB installation works with official documents.Run the following command, start CnosDB: via Docker
 
 ```shell
 docker network create tb-cnosdb
 docker run -d --name cnosdb --network tb-cnosdb cnosdb/cnosdb:community-latest
 ```
 
-执行 `SHOW DATABASES` 命令，验证 CnosDB 是否成功启动：
+Execute the `SHOW DATABASS` command to verify that CnosDB successfully started:
 
 ```shell
 docker exec cnosdb curl -s -X POST -u 'root:' 'http://127.0.0.1:8902/api/v1/sql' -d 'SHOW DATABASES'
 ```
 
-若输出如下数据，则说明 CnosDB 启动并初始化成功：
+Indicate CnosDB to start and initialize successful:  if the following data is exported.
 
 ```shell
 database_name
@@ -36,7 +36,7 @@ public
 usage_schema
 ```
 
-## **步骤二：启动 ThingsBoard（CnosDB）**
+## **Step 2: Start ThingsBoard (CnosDB)**
 
 以 ThingsBoard-v3.7 为基础开发，添加了使用 CnosDB 存储时序数据的功能，获取安装包请[联系我们](https://jsj.top/f/qrj9lq)。
 
