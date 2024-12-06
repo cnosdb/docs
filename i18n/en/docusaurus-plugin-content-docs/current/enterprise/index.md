@@ -23,4 +23,4 @@ To try out the Enterprise Edition features, please [contact us](https://jinshuju
   * [asap_smooth](../reference/sql.md#asap-smooth)
   * [stats_agg](../reference/sql.md#stats-agg)
 
-- [点云功能](./point_cloud.md)
+- [Point Cloud](./point_cloud.md)
