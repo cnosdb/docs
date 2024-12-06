@@ -96,18 +96,18 @@ object_config
 | **http_queries**                        | HTTP 层查询限制   | Yes      |
 | **http_writes**                         | HTTP 层写入限制   | Yes      |
 
-其中参数限制是通过令牌桶算法实现的，共由两部分组成：一个是 meta 上的远程令牌桶，由 `remote_max`  `remote_initial ` `remote_refill   ` `remote_initial ` 指定，另一个是 data 上的本地令牌桶，由 `local_max`  `local_initial` 指定，令牌的单位是字节。
+The parameter limitation is implemented through the token bucket algorithm, which consists of two parts: one is the remote token bucket on meta, specified by 'remote_max', 'remote_initial', 'remote_defill', and 'remote_initial'; the other is the local token bucket on data, specified by 'local_max', and the unit of the token is bytes.
 
 #### 令牌桶 包含以下参数：
 
-| Parameter name                       | Description | Required | Units |
-| :----------------------------------- | :---------- | :------- | :---- |
-| remote_max      | 远程桶最大令牌数    | Yes      | Count |
-| remote_initial  | 远程桶初始令牌数    | Yes      | Count |
-| remote_refill   | 填充令牌数量      | Yes      | Count |
-| remote_interval | 填充间隔（毫秒）    | Yes      | ms    |
-| local_max       | 本地桶最大令牌数    | Yes      | Count |
-| local_initial   | 本地桶初始令牌数    | Yes      | Count |
+| Parameter name                       | Description                                     | Required | Units |
+| :----------------------------------- | :---------------------------------------------- | :------- | :---- |
+| remote_max      | Maximum number of tokens for remote bucket      | Yes      | Count |
+| remote_initial  | Initial tokens for remote bucket                | Yes      | Count |
+| remote_refill   | Number of tokens to fill                        | Yes      | Count |
+| remote_interval | Fill interval (milliseconds) | Yes      | ms    |
+| local_max       | Maximum number of tokens in local bucket        | Yes      | Count |
+| local_initial   | Number of initial tokens for local bucket       | Yes      | Count |
 
 The following example bucket setup allows 10KB of data to be written every 100ms and 10KB of data to be cased every 100ms;
 
