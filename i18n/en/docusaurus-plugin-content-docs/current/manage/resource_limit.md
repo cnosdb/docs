@@ -44,7 +44,7 @@ alter tenant <tenant_name> set
 
 - **tenant_name**：租户名称。
 - **comment**：对租户的描述。
-- **drop_after**：指定租户的有效时间，格式为 `'1d'` 表示1天等。
+- **drop_after**: specifies the useful time of the tenant, in the format \`'1d' for 1 day etc.
 - **其余参数**：属于 `_limiter` 租户资源限制的内容，具体分类为：
 
   - **对象限制 `object_config`**：租户对象的数量及存储限制。
