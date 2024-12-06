@@ -136,13 +136,13 @@ for _ in range(10):
 client.disconnect()
 ```
 
-1. 运行 Python 脚本：
+1. Run Python script
 
 ```shell
 python3 ./python/mqtt.py 
 ```
 
-预期输出如下：
+Expected output following:
 
 ```shell
 Waiting for connection to be established before sending data to ThingsBoard!
@@ -160,19 +160,19 @@ Telemetry was published: True
 MQTT client was disconnected with reason code 0 (The operation completed successfully.)
 ```
 
-## **步骤四：验证数据存储**
+## **Step 4: Verify Data Storage**
 
-1. 打开“实体/设备”界面，在列表中点击设备，在弹出页面中点击“复制设备 ID”。
+1. Open the 'entity/device' interface, click on the device in the list, and click 'Copy Device ID' on the popup page.
 
 ![](/img/eco/thingsboard/5eecdaf48460cde582b1e03bba8d2ebc1cdf.png)
 
-执行 SQL 验证数据存储。
+Execute SQL validation data storage.
 
 ```shell
 docker exec cnosdb curl -s -X POST -u 'root:' 'http://127.0.0.1:8902/api/v1/sql?db=thingsboard' -d "SELECT * FROM ts_kv WHERE entity_id = '设备ID' ORDER BY time ASC"
 ```
 
-正确运行的情况下，结果如下所示：
+When properly running, the results are shown below in:
 
 ```
 time,entity_type,entity_id,key,partition,bool_v,str_v,long_v,dbl_v,json_v
@@ -208,17 +208,17 @@ time,entity_type,entity_id,key,partition,bool_v,str_v,long_v,dbl_v,json_v
 2024-05-09T07:08:09.580000000,,4d91a170-797c-11ef-a9f4-41fb9b44b87d,39,,,,,13.731712874911237,
 ```
 
-## **步骤五：展示数据**
+## **Step 5: Show Data**
 
-关于仪表板的使用，详见官方文档。
+For more information on the use of dashboards, see official documents.
 
-创建仪表板展示数据
+Create dashboard display data
 
-1. 打开“仪表板”界面，点击右上角的“创建仪表板”按钮，设置仪表板名称，点击右下角的“添加”前往仪表板布局界面。
+1. Open the dashboard interface, click on the "Create dashboard" button in the top right, set the dashboard name, click "Add" in the bottom right corner to go to the dashboard layout interface.
 
 ![](/img/eco/thingsboard/d1a8fc20-351d-4c31-92ad-bdbbfab980a2.png)
 
-1. 点击“添加部件”，弹出“选择部件包”窗口，选择“Charts”，并选择“Time series chart”，进入图表设置界面。
+1. Click "Add Widget", eject "Select Widget" window, select "Charts", and select "Time series chart" to go to the chart settings.
 
 ![](/img/eco/thingsboard/78e58247-1975-4680-ad16-3f9c73020387.png)
 
