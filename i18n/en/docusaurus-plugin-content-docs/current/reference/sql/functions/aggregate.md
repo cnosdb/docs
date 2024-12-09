@@ -65,6 +65,59 @@ SELECT station, count(temperature) FROM air group by station;
 
 </details>
 
+#### Push down count function
+
+Count will only be pushed down to the TSKV layer when the SQL statement is 'SELECT count(\*) FROM table_name;' or 'SELECT count(field) FROM table_name;'. This allows for obtaining the row count by reading the statistical information from the underlying files, avoiding actual data reads and improving efficiency.
+
+However, there may be duplicate timestamp data that results in a count higher than the actual number of rows. To address this, an exact_count that will not be pushed down has been added. Note: exact_count can only be used to replace the above statements; using it in other statements may result in an error.
+
+<details>
+  <summary>View <code>Push down count function</code> Example</summary>
+
+```sql {1}
+CREATE TABLE air(visibility DOUBLE, temperature DOUBLE, pressure DOUBLE, TAGS(station));
+
+// 写入有重复时间戳的数据
+INSERT INTO air (TIME, station, visibility, temperature, pressure) VALUES
+                ('2022-10-19 01:40:00', 'XiaoMaiDao', 55, 68, 71), 
+                ('2022-10-19 01:40:00', 'XiaoMaiDao', 55, 68, 72),
+                ('2022-10-19 02:40:00', 'XiaoMaiDao', 55, 68, 73),
+                ('2022-10-19 03:40:00', 'XiaoMaiDao', 55, 68, 75),
+                ('2022-10-19 04:40:00', 'XiaoMaiDao', 55, 68, 77),
+                ('2022-10-19 05:40:00', 'XiaoMaiDao', 55, 68, 80);
+
+SELECT count(*) FROM air; // 直接读取底层文件统计信息，重复时间戳不会去重
++-----------------+
+| COUNT(UInt8(1)) |
++-----------------+
+| 6               |
++-----------------+
+
+SELECT count(pressure) FROM air; // 直接读取底层文件统计信息，重复时间戳不会去重
++---------------------+
+| COUNT(air.pressure) |
++---------------------+
+| 6                   |
++---------------------+
+
+SELECT exact_count(*) FROM air; // 精确count(*)，不会下推，重复时间戳会去重
++-----------------+
+| COUNT(UInt8(1)) |
++-----------------+
+| 5               |
++-----------------+
+
+SELECT exact_count(pressure) FROM air; // 精确count(field)，不会下推，重复时间戳会去重
++---------------------+
+| COUNT(air.pressure) |
++---------------------+
+| 5                   |
++---------------------+
+
+```
+
+</details>
+
 ### max
 
 Returns the number of rows in the specified column.

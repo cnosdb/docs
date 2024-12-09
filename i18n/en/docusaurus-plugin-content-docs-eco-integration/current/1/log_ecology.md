@@ -41,48 +41,32 @@ It supports installation in many different ways, such as downloading installatio
 Edit configuration file vector.toml
 
 ```toml
-[sources.generate_syslog]
-type = "demo_logs"
-format = "syslog"
-count = 100
+# Change this to use a non-default directory for Vector data storage:
+data_dir = "/tmp/cnosdb/lib/vector"
 
-[transforms.remap_syslog]
-inputs = [ "generate_syslog"]
+# Random Syslog-formatted logs
+[sources.logs]
+type = "file"
+include = [ "/tmp/cnosdb/1001/log/tsdb.log.*" ]
+
+# Parse Syslog logs
+# See the Vector Remap Language reference for more info: https://vrl.dev
+[transforms.parse_logs]
 type = "remap"
+inputs = ["logs"]
 source = '''
-  structured = parse_syslog!(.message)
+.message, err = parse_regex(.message, r'(?P<timestamp>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[\+\-]\d{2}:\d{2})\s+(?P<log_level>[A-Z]+)\s+(?P<module>[\w:]+):\s+(?P<message>.+)')
+    if err != null {
+      log("Error parsing log: " + err)
+    }
+
 '''
-
-[sinks.emit_syslog]
-inputs = ["remap_syslog"]
-type = "console"
-encoding.codec = "json"
-
-[sources.generate_syslog]
-type = "demo_logs"
-format = "syslog"
-count = 100
-
-[transforms.remap_syslog]
-inputs = [ "generate_syslog"]
-type = "remap"
-source = '''
-  structured = parse_syslog!(.message)
-  # 写入的租户名
-  ._tenant = "cnosdb"
-   # 写入的数据库名
-  ._database = "public"
-    # 写入的表名
-  ._table = "vector_log_test"
-    # 用户及密码
-  ._user = "root"
-  ._password = ""
-'''
-
 [sinks.cnosdb]
-type = "vector"
-inputs = ["json_transform"]
-address = "127.0.0.1:12006"
+type = "elasticsearch"
+inputs = ["parse_logs"]
+endpoints = [ "http://127.0.0.1:8902/api/v1/es/_bulk?table=t1&time_column=date&tag_columns=node_id,operator_system" ]
+auth = {strategy = 'basic', user = "root", password = ""}
+healthcheck = {enabled = false}
 ```
 
 The configuration in the configuration file is roughly divided into three types: sources, transforms, sinks, the concept is the same as mentioned earlier.
