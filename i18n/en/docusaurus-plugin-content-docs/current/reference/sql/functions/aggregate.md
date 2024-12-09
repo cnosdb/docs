@@ -65,14 +65,14 @@ SELECT station, count(temperature) FROM air group by station;
 
 </details>
 
-#### count下推
+#### Push down count function
 
-仅当sql句式为 “SELECT count(\*) FROM table_name; 或 SELECT count(field) FROM table_name;” 时，会将count下推到tskv层，通过读取底层文件统计信息获取行数，避免了实际数据读取，提升效率。
+Count will only be pushed down to the TSKV layer when the SQL statement is 'SELECT count(\*) FROM table_name;' or 'SELECT count(field) FROM table_name;'. This allows for obtaining the row count by reading the statistical information from the underlying files, avoiding actual data reads and improving efficiency.
 
-但是可能会有重复时间戳数据导致比实际行数多，为此增加了不会下推的exact_count，注意：exact_count只能用于替换上述句式，在其他句式使用可能会报错。
+However, there may be duplicate timestamp data that results in a count higher than the actual number of rows. To address this, an exact_count that will not be pushed down has been added. Note: exact_count can only be used to replace the above statements; using it in other statements may result in an error.
 
 <details>
-  <summary>查看 <code>count下推</code> 示例</summary>
+  <summary>View <code>Push down count function</code> Example</summary>
 
 ```sql {1}
 CREATE TABLE air(visibility DOUBLE, temperature DOUBLE, pressure DOUBLE, TAGS(station));
