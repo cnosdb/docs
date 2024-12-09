@@ -222,14 +222,14 @@ Create dashboard display data
 
 ![](/img/eco/thingsboard/78e58247-1975-4680-ad16-3f9c73020387.png)
 
-1. 点击“数据源”输入框，选择刚才创建的设备，点击右下角的“添加”，回到仪表板布局界面。
+1. Click on the "Datasource" input, select the device just created and click "Add" in the bottom right corner to return to the dashboard layout interface.
 
 ![](/img/eco/thingsboard/4cc26fe2-8eff-4180-9ae7-18b3ff23c8a2.png)
 
-1. 添加的图表应该会表现为一个折线图，展示模拟设备不断推送至 ThingsBoard 的遥测数据。
+1. The attached chart should be shown as a compromise diagram showing the simulation device to telemetric data from ThingsBoard.
 
 ![](/img/eco/thingsboard/930c5cc0-20ff-4c3a-9c5f-391e60a4c3be.png)
 
-## **结论**
+## **Conclusion**
 
-通过将 ThingsBoard 与 CnosDB 集成，您可以高效地存储和管理遥测数据。这种组合不仅提高了数据处理能力，还增强了数据的可视化和分析能力。希望本文能帮助您顺利完成集成。如果您有任何问题或建议，请随时联系。
+By integrating ThingsBoard with CnosDB, you can store and manage telemetric data efficiently.This combination not only enhances data processing capacity, but also enhances data visualization and analysis.I hope this will help you complete your integration successfully.Please contact you if you have any questions or suggestions.
