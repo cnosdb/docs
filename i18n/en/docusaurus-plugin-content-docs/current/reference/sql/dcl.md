@@ -45,19 +45,19 @@ CREATE TENANT [IF NOT EXISTS] tenant_name
 
 | Options          | Description                                                                                                                                |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `comment`        | 对租户的描述性备注，字符串格式。                                                                                                                           |
+| `comment`        | Descriptive notes for tenants, string format.                                                                              |
 | `drop_after`     | Delete tenant delay time, default is immediate deletion, supports: `d`, `h`, `m`, when no unit is provided, default is `d` |
-| `object_config`  | 租户的对象配置，包括最大用户数、最大数据库数等资源限制。                                                                                                               |
-| `coord_data_in`  | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
-| `coord_data_out` | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
-| `coord_queries`  | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
-| `coord_writes`   | 租户的协调层数据输入配置，包括 remote 和 local 两种资源限制设置。                                                                                                   |
-| `http_data_in`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
-| `http_data_out`  | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
-| `http_queries`   | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
-| `http_writes`    | 租户的 HTTP 层数据输入配置，支持 remote 和 local 限制。                                                                                                     |
+| `object_config`  | Tenant object configuration, including maximum user, maximum database number and resource limits.                          |
+| `coord_data_in`  | Tenant coordinated level data input configuration, including remote and local resource restriction settings.               |
+| `coord_data_out` | Tenant coordinated level data input configuration, including remote and local resource restriction settings.               |
+| `coord_queries`  | Tenant coordinated level data input configuration, including remote and local resource restriction settings.               |
+| `coord_writes`   | Tenant coordinated level data input configuration, including remote and local resource restriction settings.               |
+| `http_data_in`   | Tenant HTTP layer data input configuration, remote and local limitations are supported.                                    |
+| `http_data_out`  | Tenant HTTP layer data input configuration, remote and local limitations are supported.                                    |
+| `http_queries`   | Tenant HTTP layer data input configuration, remote and local limitations are supported.                                    |
+| `http_writes`    | Tenant HTTP layer data input configuration, remote and local limitations are supported.                                    |
 
-其他相关内容请参考 [租户资源](../../manage/resource_limit.md)
+Please refer to [租户资源](../../manage/resource_limit.md)
 
 <details>
   <summary>View example</summary>
@@ -196,9 +196,9 @@ option: {COMMENT/DROP_AFTER/_LIMITER}
 | ------------------------------------------- | ------------------------------------------------------------------------- |
 | `SET sql_option`                            | Add or modify attributes for tenants.                     |
 | `UNSET option_name`                         | Revoke the configuration or properties within the tenant. |
-| `ADD USER user_name AS {owner` \| `member}` | 向租户中添加指定角色的成员。                                                            |
-| `REMOVE USER user_name`                     | 从租户中移除指定成员。                                                               |
-| `SET USER user_name AS {owner` \| `member}` | 重设租户中指定成员的角色。                                                             |
+| `ADD USER user_name AS {owner` \| `member}` | Add a member of the specified role to the tenant.         |
+| `REMOVE USER user_name`                     | Remove the designated member from the tenant.             |
+| `SET USER user_name AS {owner` \| `member}` | Reset the role of the specified member of the tenant.     |
 
 <details>
   <summary>View example</summary>
@@ -222,9 +222,9 @@ sql_option: option_name = option_value
 option_name: {COMMENT | MUST_CHANGE_PASSWORD | PASSWORD | RSA_PUBLIC_KEY}
 ```
 
-| Options | Description |
-| ------- | ----------- |
-| `SET`   | 为用户添加或修改属性。 |
+| Options | Description                                         |
+| ------- | --------------------------------------------------- |
+| `SET`   | Add or modify properties for users. |
 
 <details>
   <summary>View example</summary>
