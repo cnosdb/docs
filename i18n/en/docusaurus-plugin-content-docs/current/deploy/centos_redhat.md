@@ -170,11 +170,19 @@ If the cluster installation is successful, the following content should be retur
 > `state` may also be `Follower`.
 
 ```
-Node ID  Address         State     Term  Last_Log_index  Last_Applied  Leader  Members
-1        127.0.0.1:8901  Leader    1      7                7            1       [1, 2, 3]
-2        127.0.0.1:8911  Follower  1      7                7            1       [1, 2, 3]
-3        127.0.0.1:8921  Follower  1      7                7            1       [1, 2, 3]
+Node ID  Address                 State    Term  Last_Log_index  Last_Applied  Leader    Members
+1        meta1.cnosdb.com:8901  Leader    1      7                7            1       [1, 2, 3]
+2        meta2.cnosdb.com:8901  Follower  1      7                7            1       [1, 2, 3]
+3        meta3.cnosdb.com:8901  Follower  1      7                7            1       [1, 2, 3]
 ```
+
+#### 删除集群中的节点
+
+```shell
+cnosdb-meta remove-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
+```
+
+> 若删除的是leader节点，之后集群的bind地址会变化，请参照系统提示进行输入
 
 ### Launch the `cnosdb` service
 
