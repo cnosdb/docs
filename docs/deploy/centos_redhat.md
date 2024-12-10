@@ -145,14 +145,14 @@ service cnosdb-meta start
 > 如果您的集群中有多个 `meta` 服务，只需要在其中一个 `meta` 服务上执行初始化命令即可。
 
 ```shell
-./target/debug/cnosdb-meta init --bind meta1.cnosdb.com:8901
+cnosdb-meta init --bind meta1.cnosdb.com:8901
 ```
 
 #### 添加其他 `meta` 服务实例
 
 ```shell
-./target/debug/cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
-./target/debug/cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta3.cnosdb.com:8901
+cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
+cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta3.cnosdb.com:8901
 ```
 
 #### 查看集群节点状态
@@ -160,7 +160,7 @@ service cnosdb-meta start
 分别指定不同的节点，执行以下命令，查看集群中各节点的状态。
 
 ```shell
-./target/debug/cnosdb-meta show-nodes --bind meta1.cnosdb.com:8901 
+cnosdb-meta show-nodes --bind meta1.cnosdb.com:8901 
 ```
 
 如果集群安装成功，则应该返回以下内容：
