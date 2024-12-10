@@ -173,6 +173,14 @@ Node ID  Address                 State    Term  Last_Log_index  Last_Applied  Le
 3        meta3.cnosdb.com:8901  Follower  1      7                7            1       [1, 2, 3]
 ```
 
+#### 删除集群中的节点
+
+```shell
+cnosdb-meta remove-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
+```
+>若删除的是leader节点，之后集群的bind地址会变化，请参照系统提示进行输入
+
+
 ### 启动 `cnosdb` 服务
 
 #### 修改配置文件
