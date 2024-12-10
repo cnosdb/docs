@@ -145,47 +145,32 @@ service cnosdb-meta start
 > 如果您的集群中有多个 `meta` 服务，只需要在其中一个 `meta` 服务上执行初始化命令即可。
 
 ```shell
-curl http://meta1.cnosdb.com:8901/init -d '{}'
+./target/debug/cnosdb-meta init --bind meta1.cnosdb.com:8901
 ```
 
 #### 添加其他 `meta` 服务实例
 
 ```shell
-curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[2, "meta2.cnosdb.com:8901"]' | jq
-curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[3, "meta3.cnosdb.com:8901"]' | jq
+./target/debug/cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
+./target/debug/cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta3.cnosdb.com:8901
 ```
 
-#### 重置集群成员以使集群生效
+#### 查看集群节点状态
 
-> 执行以下命令可以修改集群成员，如果您的集群中有多个 `meta` 服务，使用最初执行初始化的节点执行此命令。
-
-```shell
-curl http://meta1.cnosdb.com:8901/change-membership -H "Content-Type: application/json" -d '[1,2,3]' | jq
-```
-
-#### 查看集群状态
-
-分别指定不同的节点，执行以下命令，查看集群状态。
-> 替换命令中的 `<n>` 以指定不通的 `meta` 服务实例。
+分别指定不同的节点，执行以下命令，查看集群中各节点的状态。
 
 ```shell
-curl http://meta<n>.cnosdb.com:8901/metrics | jq
+./target/debug/cnosdb-meta show-nodes --bind meta1.cnosdb.com:8901 
 ```
 
 如果集群安装成功，则应该返回以下内容：
 > `state` 还有可能是 `Follower`。
 
-```json
-{
-  "Ok": {
-  "running_state": {
-    "Ok": null
-  },
-  "id": 1,
-  ... ...
-  "state": "Leader",
-  ... ...
-}
+```
+Node ID  Address         State     Term  Last_Log_index  Last_Applied  Leader  Members
+1        127.0.0.1:8901  Leader    1      7                7            1       [1, 2, 3]
+2        127.0.0.1:8911  Follower  1      7                7            1       [1, 2, 3]
+3        127.0.0.1:8921  Follower  1      7                7            1       [1, 2, 3]
 ```
 
 ### 启动 `cnosdb` 服务
