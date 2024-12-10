@@ -155,13 +155,13 @@ This section introduces the configuration method and usage of each configuration
 <APITable>
 ```
 
-| Parameters            | Default               | Environment Variables            | Description                                        |
-| --------------------- | --------------------- | -------------------------------- | -------------------------------------------------- |
-| `path`                | `/var/lib/cnosdb/wal` | `CNOSDB_WAL_PATH`                | WAL storage directory.             |
-| `wal_req_channel_cap` | `64`                  | `CNOSDB_WAL_WAL_REQ_CHANNEL_CAP` | Cumulative write WAL task ceiling. |
-| `max_file_size`       | `1G`                  | `CNOSDB_WAL_MAX_FILE_SIZE`       | Maximum size of a single WAL.      |
-| `sync`                | `false`               | `CNOSDB_WAL_SYNC`                | Whether to sync for each writing.  |
-| `compress`            | `zstd`                | `CNOSDB_WAL_COMPRESS`            | wal压缩算法，支持：`gzip`、`bzip`、`snappy`、`zlib`、`zstd`    |
+| Parameters            | Default               | Environment Variables            | Description                                                                                       |
+| --------------------- | --------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `path`                | `/var/lib/cnosdb/wal` | `CNOSDB_WAL_PATH`                | WAL storage directory.                                                            |
+| `wal_req_channel_cap` | `64`                  | `CNOSDB_WAL_WAL_REQ_CHANNEL_CAP` | Cumulative write WAL task ceiling.                                                |
+| `max_file_size`       | `1G`                  | `CNOSDB_WAL_MAX_FILE_SIZE`       | Maximum size of a single WAL.                                                     |
+| `sync`                | `false`               | `CNOSDB_WAL_SYNC`                | Whether to sync for each writing.                                                 |
+| `compress`            | `zstd`                | `CNOSDB_WAL_COMPRESS`            | wal compression algorithm that supports: `gzip`, `bzip`, `snappy`, `zlib`, `zstd` |
 
 ```mdx-code-block
 </APITable>
