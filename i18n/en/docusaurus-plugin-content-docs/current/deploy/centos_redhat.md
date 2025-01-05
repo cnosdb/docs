@@ -147,50 +147,42 @@ service cnosdb-meta start
 > If there are multiple `meta` services in your cluster, you only need to execute the initialization command on one of the `meta` services.
 
 ```shell
-curl http://meta1.cnosdb.com:8901/init -d '{}'
+cnosdb-meta init --bind meta1.cnosdb.com:8901
 ```
 
 #### Add other `meta` service instances
 
 ```shell
-curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[2, "meta2.cnosdb.com:8901"]' | jq
-curl http://meta1.cnosdb.com:8901/add-learner -H "Content-Type: application/json" -d '[3, "meta3.cnosdb.com:8901"]' | jq
+cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
+cnosdb-meta add-node --bind meta1.cnosdb.com:8901 --addr meta3.cnosdb.com:8901
 ```
 
-#### Reset cluster members to make the cluster take effect
+#### 查看集群节点状态
 
-> Executing the following command can modify the cluster members. If there are multiple `meta` services in your cluster, use the node that initially performed the initialization to execute this command.
-
-```shell
-curl http://meta1.cnosdb.com:8901/change-membership -H "Content-Type: application/json" -d '[1,2,3]' | jq
-```
-
-#### View Cluster Status
-
-Specify different nodes separately, perform the following commands to view cluster status.
-
-> Replace `<n>` in the command to specify a different `meta` service instance.
+分别指定不同的节点，执行以下命令，查看集群中各节点的状态。
 
 ```shell
-curl http://meta<n>.cnosdb.com:8901/metrics | jq
+cnosdb-meta show-nodes --bind meta1.cnosdb.com:8901 
 ```
 
 If the cluster installation is successful, the following content should be returned:
 
 > `state` may also be `Follower`.
 
-```json
-{
-  "Ok": {
-  "running_state": {
-    "Ok": null
-  },
-  "id": 1,
-  ... ...
-  "state": "Leader",
-  ... ...
-}
 ```
+Node ID  Address                 State    Term  Last_Log_index  Last_Applied  Leader    Members
+1        meta1.cnosdb.com:8901  Leader    1      7                7            1       [1, 2, 3]
+2        meta2.cnosdb.com:8901  Follower  1      7                7            1       [1, 2, 3]
+3        meta3.cnosdb.com:8901  Follower  1      7                7            1       [1, 2, 3]
+```
+
+#### 删除集群中的节点
+
+```shell
+cnosdb-meta remove-node --bind meta1.cnosdb.com:8901 --addr meta2.cnosdb.com:8901
+```
+
+> 若删除的是leader节点，之后集群的bind地址会变化，请参照系统提示进行输入
 
 ### Launch the `cnosdb` service
 
