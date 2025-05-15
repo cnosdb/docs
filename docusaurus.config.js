@@ -73,10 +73,6 @@ const config = {
               label: '2.4.x',
               banner: 'none',
             },
-            '2.3.x': {
-              label: '2.3.x',
-              banner: 'none',
-            },
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
