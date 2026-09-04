@@ -46,6 +46,24 @@ Compared with the delta type, it is also suitable for time series data scenarios
 
 In the absence of specifying compression algorithms, we specify this compression algorithm for floating point type by default.
 
+### ALP / fastalp
+
+Mainly used for single-precision (f32) and double-precision (f64) floating-point time-series data.
+
+#### Principle
+
+ALP (Adaptive Lossless floating-Point Compression) is a high-performance lossless compression algorithm designed for decimal floating-point data. In real-world time-series workloads (such as IoT sensors, industrial telemetry, system metrics, financial quotes, and GPS coordinates), most floating-point numbers originate from decimal representations. Traditional IEEE 754 XOR-based schemes (such as Gorilla) often suffer from mantissa bit randomness, yielding moderate compression ratios. On the other hand, general entropy codecs (such as Pco/tANS) offer high compression ratios but incur noticeable encoding and decoding throughput overhead.
+
+ALP adaptively samples blocks of floats to find the optimal decimal exponent and factor (10^e × factor), losslessly transforming floating-point values into integers. These integers are then compressed using Frame-of-Reference (FOR) or Delta-ALP, followed by vectorized SIMD bitpacking. For floating-point values that cannot be represented as exact decimals (such as infinite repeating decimals or non-decimal outliers), ALP stores them in an exception table using double-precision complements, ensuring 100% bit-exact lossless roundtrips.
+
+[fastalp](https://github.com/webc-site/wedb_embed/tree/main/fastalp) is an optimized pure Rust implementation of ALP available on [crates.io](https://crates.io/crates/fastalp), featuring auto-vectorized bit unpacking and zero heap allocations during hot encoding/decoding loops.
+
+#### Applicability
+
+ALP / fastalp is well suited for decimal-origin floating-point data across industrial IoT, system monitoring, telemetry, and financial time-series.
+
+Compared to Gorilla, fastalp typically achieves significantly higher compression ratios (often 1.5x to 3x or more on decimal datasets). Compared to Pco, fastalp delivers dramatically higher compression and decompression throughput (reaching 4.69 to 6.68 GB/s encoding throughput and over 30 GB/s decompression throughput on modern hardware). It provides an attractive balance for columnar time-series storage engines requiring both high compression ratios and high scan speeds.
+
 ### Pco
 
 Mainly used for timestamps, integers, unsigned integers and floating points.
